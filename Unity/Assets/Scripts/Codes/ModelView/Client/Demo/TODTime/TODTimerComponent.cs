@@ -41,7 +41,7 @@ namespace ET.Client
     }
     
     [ComponentOf]
-    public class TODTimerComponent: Entity, IAwake, IDestroy, ILoad
+    public class TODTimerComponent: Entity, IAwake, IDestroy, ILoad, IUpdate
     {
         public readonly MultiMap<long, long> TimerId = new();
 
@@ -54,7 +54,7 @@ namespace ET.Client
         public long idGenerator;
 
         // 记录最小事件，不用每次都去MultiMap取第一个值
-        public long minFrame = long.MaxValue;
+        public long minFrame = 0;
         public long curFrame = 0;
         public float deltaTimereminder = 0;
 

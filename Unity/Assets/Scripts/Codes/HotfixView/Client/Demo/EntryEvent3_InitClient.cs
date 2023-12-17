@@ -17,6 +17,7 @@ namespace ET.Client
             
             Scene clientScene = await SceneFactory.CreateClientScene(1, "Game");
             
+            
             await EventSystem.Instance.PublishAsync(clientScene, new EventType.AppStartInitFinish());
         }
     }
