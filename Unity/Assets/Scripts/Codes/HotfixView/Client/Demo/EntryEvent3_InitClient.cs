@@ -16,7 +16,8 @@ namespace ET.Client
             await ResourcesComponent.Instance.LoadBundleAsync("unit.unity3d");
             
             Scene clientScene = await SceneFactory.CreateClientScene(1, "Game");
-            
+            clientScene.AddComponent<TODTimerComponent>();
+            clientScene.AddComponent<OperaComponent>();
             
             await EventSystem.Instance.PublishAsync(clientScene, new EventType.AppStartInitFinish());
         }

@@ -280,7 +280,7 @@ public partial class UICodeSpawner
         strBuilder.AppendLine("{");
         strBuilder.AppendLine("\t [ComponentOf(typeof(UIBaseWindow))]");
        
-        strBuilder.AppendFormat("\tpublic  class {0} :Entity,IAwake,IUILogic\r\n", strDlgName);
+        strBuilder.AppendFormat("\tpublic  class {0} :Entity,IAwake,IUILogic,ILoad\r\n", strDlgName);
           strBuilder.AppendLine("\t{");
           strBuilder.AppendLine("");
           

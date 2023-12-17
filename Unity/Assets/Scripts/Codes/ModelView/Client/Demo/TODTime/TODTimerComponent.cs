@@ -54,10 +54,12 @@ namespace ET.Client
         public long idGenerator;
 
         // 记录最小事件，不用每次都去MultiMap取第一个值
-        public long minFrame = 0;
+        public long minFrame = long.MaxValue;
         public long curFrame = 0;
         public float deltaTimereminder = 0;
 
         public float timeScale = 1f;
+
+        public long timer;
     }
 }

@@ -14,11 +14,21 @@ namespace ET.Client
             }
         }
 
+        public class TODTimerComponentAwakeSystem: AwakeSystem<TODTimerComponent>
+        {
+            protected override void Awake(TODTimerComponent self)
+            {
+                self.timer = self.NewRepeatedTimer(60, TODTimerInvokeType.Test1, self);
+            }
+        }
+
         public class TODTimerComponentLoadSystem: LoadSystem<TODTimerComponent>
         {
             protected override void Load(TODTimerComponent self)
             {
+                Log.Warning("热重载");
                 self.Init();
+                self.timer = self.NewRepeatedTimer(60, TODTimerInvokeType.Test1, self);
             }
         }
 
@@ -43,11 +53,11 @@ namespace ET.Client
         private static void Init(this TODTimerComponent self)
         {
             //回收所有定时器
-            for (int i = 0; i < self.timerActions.Count; i++)
+            foreach (var action in self.timerActions.Values)
             {
-                self.timerActions[i]?.Recycle();
+                action?.Recycle();
             }
-
+            
             self.TimerId.Clear();
             self.timeOutTime.Clear();
             self.timeOutTimerIds.Clear();
@@ -57,6 +67,8 @@ namespace ET.Client
             self.minFrame = long.MaxValue;
             self.curFrame = 0;
             self.deltaTimereminder = 0f;
+
+            self.timer = 0;
         }
 
         /// <summary>
@@ -82,10 +94,12 @@ namespace ET.Client
             }
 
             self.deltaTimereminder += Time.deltaTime * 1000;
-            int num = (int)self.deltaTimereminder / self.GetFrameLength();
-            self.deltaTimereminder -= num;
+
+            int frameLength = self.GetFrameLength();
+            int num = (int)self.deltaTimereminder / frameLength;
+            self.deltaTimereminder -= num * frameLength;
             self.curFrame += num;
-            
+
             //当前帧没有可执行的定时器，就不进行遍历了
             if (self.curFrame < self.minFrame)
             {
@@ -137,7 +151,8 @@ namespace ET.Client
             switch (timerAction.TimerClass)
             {
                 case TimerClass.OnceTimer:
-                    EventSystem.Instance.Invoke(timerAction.Type, new TimerCallback() { Args = timerAction.Object });
+                    EventSystem.Instance.Invoke(timerAction.Type, new TODTimerCallback() { Args = timerAction.Object });
+                    timerAction.Recycle();
                     break;
                 case TimerClass.OnceWaitTimer:
                 {
@@ -148,9 +163,9 @@ namespace ET.Client
                 }
                 case TimerClass.RepeatedTimer:
                 {
-                    long timeNow = self.curFrame;
-                    timerAction.startFrame = timeNow;
-                    EventSystem.Instance.Invoke(timerAction.Type, new TimerCallback() { Args = timerAction.Object });
+                    timerAction.startFrame = self.curFrame;
+                    self.AddTimer(timerAction);
+                    EventSystem.Instance.Invoke(timerAction.Type, new TODTimerCallback() { Args = timerAction.Object });
                     break;
                 }
             }
@@ -201,6 +216,7 @@ namespace ET.Client
             }
 
             ETTask tcs = ETTask.Create(true);
+            //将回调传入ETTask,Upate中取出 并执行回调
             TODTimerAction timer = TODTimerAction.Create(self.GetId(),
                 TimerClass.OnceWaitTimer,
                 self.curFrame,

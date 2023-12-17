@@ -191,8 +191,13 @@ namespace ET
 			AssetImporter assetImporter = AssetImporter.GetAtPath("Assets/Bundles/Code");
 			assetImporter.assetBundleName = "Code.unity3d";
 			AssetDatabase.SaveAssets();
-			AssetDatabase.Refresh();
-            
+			
+			//游戏运行过程别刷新，否则可能编译不了
+			if (!EditorApplication.isPlaying)
+			{
+				AssetDatabase.Refresh();
+			}
+
 			Debug.Log("build success!");
 		}
 		
