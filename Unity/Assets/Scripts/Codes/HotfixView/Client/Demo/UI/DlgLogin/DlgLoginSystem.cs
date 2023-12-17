@@ -17,8 +17,7 @@ namespace ET.Client
 
         public static void ShowWindow(this DlgLogin self, Entity contextData = null)
         {
-
-			
+            Log.Warning("Hello world");
         }
 
         public static void OnLoginClickHandler(this DlgLogin self)
