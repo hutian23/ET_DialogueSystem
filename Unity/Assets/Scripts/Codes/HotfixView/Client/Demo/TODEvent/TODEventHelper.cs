@@ -43,7 +43,7 @@ namespace ET.Client
                 BehaviorHandler behaviorHandler = Activator.CreateInstance(type) as BehaviorHandler;
                 if (behaviorHandler == null)
                 {
-                    Log.Error($"this behavior is not a AControllerHandler!: {type.Name}");
+                    Log.Error($"this behavior is not a BehaviorHandler!: {type.Name}");
                     continue;
                 }
 
@@ -52,14 +52,14 @@ namespace ET.Client
 
             //2. 加载CheckerHandler
             self.checkers.Clear();
-            var checkerTypes = EventSystem.Instance.GetTypes(typeof (CheckerHandler));
-            Log.Debug($"一共有 {checkerTypes.Count} 个BehaviroHandler");
+            var checkerTypes = EventSystem.Instance.GetTypes(typeof (CheckerAttribute));
+            Log.Debug($"一共有 {checkerTypes.Count} 个checkerHandler");
             foreach (Type type in checkerTypes)
             {
                 CheckerHandler checkerHandler = Activator.CreateInstance(type) as CheckerHandler;
                 if (checkerHandler == null)
                 {
-                    Log.Error($"this behavior is not a AControllerHandler!: {type.Name}");
+                    Log.Error($"this behavior is not a behaviorHandler!: {type.Name}");
                     continue;
                 }
 

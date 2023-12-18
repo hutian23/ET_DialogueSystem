@@ -4,6 +4,7 @@
     {
     }
 
+    [Checker]
     public abstract class CheckerHandler
     {
         public abstract int Execute(Unit unit, CheckerConfig config);

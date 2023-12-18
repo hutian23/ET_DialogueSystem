@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4e0a762cb5bbe94f9d3daa88a6ed274, type: 3}
+  m_Name: PlayerMoveChecker
+  m_EditorClassIdentifier: 
+  data_int: []
+  data_float: []
+  data_rect: []
+  data_vector: []
+  data_Layer: []
+  checkerName: PlayerMoveChecker
+  Description: "\u63A5\u6536\u65B9\u5411\u8F93\u5165"

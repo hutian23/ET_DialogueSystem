@@ -543,6 +543,8 @@ MonoBehaviour:
   - key: Unit
     gameObject: {fileID: 1610378981859644, guid: cfaf4529ce2243c4c85126e9d008897b,
       type: 3}
+  - key: PlayerMoveChecker
+    gameObject: {fileID: 11400000, guid: 0bbf6f2afd8120344b7de0cb83707b95, type: 2}
 --- !u!1 &1114695592
 GameObject:
   m_ObjectHideFlags: 0

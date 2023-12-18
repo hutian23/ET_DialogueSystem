@@ -1,7 +1,8 @@
 ﻿namespace ET.Client
 {
-    [ComponentOf(typeof (Unit))]
-    public class TODAIComponent: Entity, IAwake, IDestroy
+    // [ComponentOf(typeof (Unit))]
+    [ComponentOf]
+    public class TODAIComponent: Entity, IAwake, IDestroy, ILoad, IUpdate
     {
         public ETCancellationToken Token;
         public AIBehaviorConfig config;

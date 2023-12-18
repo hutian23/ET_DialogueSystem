@@ -31,7 +31,7 @@ namespace ET.Client
                 //     }
                 // }
 
-                if (Input.GetKeyDown(KeyCode.R))
+                if (UnityEngine.Input.GetKeyDown(KeyCode.R))
                 {
                     CodeLoader.Instance.LoadHotfix();
                     EventSystem.Instance.Load();

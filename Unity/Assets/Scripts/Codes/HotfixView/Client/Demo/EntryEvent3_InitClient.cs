@@ -4,7 +4,7 @@ using System.IO;
 namespace ET.Client
 {
     [Event(SceneType.Process)]
-    public class EntryEvent3_InitClient: AEvent<ET.EventType.EntryEvent3>
+    public class EntryEvent3_InitClient: AEvent<EventType.EntryEvent3>
     {
         protected override async ETTask Run(Scene scene, ET.EventType.EntryEvent3 args)
         {
@@ -19,6 +19,8 @@ namespace ET.Client
             clientScene.AddComponent<TODTimerComponent>();
             clientScene.AddComponent<TODEventSystem>();
             clientScene.AddComponent<OperaComponent>();
+            clientScene.AddComponent<Input>();
+            clientScene.AddComponent<TODAIComponent>();
             
             await EventSystem.Instance.PublishAsync(clientScene, new EventType.AppStartInitFinish());
         }
