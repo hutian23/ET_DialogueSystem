@@ -543,8 +543,8 @@ MonoBehaviour:
   - key: Unit
     gameObject: {fileID: 1610378981859644, guid: cfaf4529ce2243c4c85126e9d008897b,
       type: 3}
-  - key: PlayerMoveChecker
-    gameObject: {fileID: 11400000, guid: 0bbf6f2afd8120344b7de0cb83707b95, type: 2}
+  - key: Test
+    gameObject: {fileID: 11400000, guid: ea0a0548ade893a47a229bd62eb728b4, type: 2}
 --- !u!1 &1114695592
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,7 +734,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1269863795}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

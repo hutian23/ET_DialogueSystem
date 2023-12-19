@@ -15,19 +15,14 @@ namespace ET.Client
             Scene clientScene = await SceneFactory.CreateClientScene(1, "Game");
             clientScene.AddComponent<Storage>();
             clientScene.AddComponent<Input>();
-
-            clientScene.AddComponent<TODTimerComponent>();
             clientScene.AddComponent<TODEventSystem>();
-            clientScene.AddComponent<OperaComponent>();
-            clientScene.AddComponent<TODAIComponent>();
-
+            clientScene.AddComponent<OperaComponent>();    
+            
             Unit player = TODUnitFactory.CreatePlayer(clientScene);
             await Storage.Instance.SaveStorage(0, player);
             //反序列化存档
             Unit loadUnit = await Storage.Instance.LoadStorage(0);
             TODUnitHelper.AddPlayer(clientScene, loadUnit);
-            Log.Warning(loadUnit.ToString());
-            
             
             await EventSystem.Instance.PublishAsync(clientScene, new EventType.AppStartInitFinish());
         }

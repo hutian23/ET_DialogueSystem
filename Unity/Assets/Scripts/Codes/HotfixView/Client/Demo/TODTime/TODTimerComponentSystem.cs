@@ -14,21 +14,11 @@ namespace ET.Client
             }
         }
 
-        public class TODTimerComponentAwakeSystem: AwakeSystem<TODTimerComponent>
-        {
-            protected override void Awake(TODTimerComponent self)
-            {
-                self.timer = self.NewRepeatedTimer(60, TODTimerInvokeType.Test1, self);
-            }
-        }
-
         public class TODTimerComponentLoadSystem: LoadSystem<TODTimerComponent>
         {
             protected override void Load(TODTimerComponent self)
             {
-                Log.Warning("热重载");
                 self.Init();
-                self.timer = self.NewRepeatedTimer(60, TODTimerInvokeType.Test1, self);
             }
         }
 
@@ -67,8 +57,6 @@ namespace ET.Client
             self.minFrame = long.MaxValue;
             self.curFrame = 0;
             self.deltaTimereminder = 0f;
-
-            self.timer = 0;
         }
 
         /// <summary>

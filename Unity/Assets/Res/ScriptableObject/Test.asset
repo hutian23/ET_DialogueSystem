@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e94945ea2e6ed60468daa053c82ff3ae, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: 
+  data_int: []
+  data_float: []
+  data_rect: []
+  data_vector: []
+  data_Layer: []
+  ConfigId: 0
+  CollideMask:
+    serializedVersion: 2
+    m_Bits: 0
+  checkers: []
+  AIBehaviors:
+  - behaviorName: Mai_LightPunch3
+    config: {fileID: 11400000, guid: 7caf5041f8705bb4e9ad2eccdeed44b0, type: 2}
+    Desc: "\u8F7B\u62F33"
+  - behaviorName: Mai_HeavySlash1
+    config: {fileID: 11400000, guid: 647ad84ec225fc1489f7f4ce80b6a847, type: 2}
+    Desc: "\u91CD\u65A9"
+  - behaviorName: Mai_LightPunch2
+    config: {fileID: 11400000, guid: ac1efb867ec8d0342bcfda9cf2046854, type: 2}
+    Desc: "\u8F7B\u62F32"
+  - behaviorName: Mai_LightPunch1
+    config: {fileID: 11400000, guid: 58d2a85032e9e204e944dbd161cf4839, type: 2}
+    Desc: "\u8F7B\u62F31"
+  - behaviorName: Mai_Idle
+    config: {fileID: 11400000, guid: 491ea2d0f218ae54d934ad0098c82966, type: 2}
+    Desc: "\u6D4B\u8BD5"

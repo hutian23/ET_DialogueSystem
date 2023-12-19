@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ET
@@ -7,6 +8,7 @@ namespace ET
     [Serializable]
     public struct SubBehavior
     {
+        public string name;
         public string ClipName;
 
         [Tooltip("当前行为的动画持续帧数")]
@@ -21,5 +23,10 @@ namespace ET
     {
         [Space(10)]
         public List<SubBehavior> subBehaviors = new();
+
+        public SubBehavior GetSubBehaviorByName(string subBehaviorName)
+        {
+            return this.subBehaviors.FirstOrDefault(s => s.name == subBehaviorName);
+        }
     }
 }

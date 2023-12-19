@@ -8,17 +8,21 @@
             self.View.E_LoginButton.AddListenerAsync(self.SceneChangeTo);
         }
 
+        public class DlgTestLoadSystem: LoadSystem<DlgTest>
+        {
+            protected override void Load(DlgTest self)
+            {
+                self.View.E_LoginButton.AddListenerAsync(self.SceneChangeTo);
+            }
+        }
+
         public static void ShowWindow(this DlgTest self, Entity contextData = null)
         {
         }
-        
-        
+
         private static async ETTask SceneChangeTo(this DlgTest self)
         {
-            // await TODSceneChangeHelper.SceneChangeTo(self.ClientScene(), self.View.E_SceneInputField.text.BundleNameToLower());
-            Log.Warning("Hello World");
-            Log.Warning("1111");
-            await ETTask.CompletedTask;
+            await TODSceneChangeHelper.SceneChangeTo(self.ClientScene(), self.View.E_SceneInputField.text);
         }
     }
 }

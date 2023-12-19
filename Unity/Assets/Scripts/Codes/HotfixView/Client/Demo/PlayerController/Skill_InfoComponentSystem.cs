@@ -1,9 +1,9 @@
 ﻿namespace ET.Client
 {
-    [FriendOf(typeof(Skill_InfoComponent))]
+    [FriendOf(typeof (Skill_InfoComponent))]
     public static class Skill_InfoComponentSystem
     {
-        public class Skill_InfoComponentDestroySystem : DestroySystem<Skill_InfoComponent>
+        public class Skill_InfoComponentDestroySystem: DestroySystem<Skill_InfoComponent>
         {
             protected override void Destroy(Skill_InfoComponent self)
             {
@@ -27,20 +27,37 @@
             return player.GetComponent<Skill_InfoComponent>().SkillType <= 0;
         }
 
-        public static void ReleaseSkill(this Unit player, int skillType)
+        public static Skill_InfoComponent ReleaseSkill(this Unit player, int skillType)
+        {
+            if (player == null || player.IsDisposed)
+            {
+                return null;
+            }
+
+            Skill_InfoComponent skillInfo = player.GetComponent<Skill_InfoComponent>();
+            if (skillInfo == null)
+            {
+                Log.Error($"Please add Skill_InfoComponent to Unit:{player.InstanceId}");
+                return null;
+            }
+
+            skillInfo.SkillType = skillType;
+            return skillInfo;
+        }
+
+        public static void DisposeSkill(this Unit player)
         {
             if (player == null || player.IsDisposed)
             {
                 return;
             }
 
-            if (player.GetComponent<Skill_InfoComponent>() == null)
-            {
-                Log.Error($"Please add Skill_InfoComponent to Unit:{player.InstanceId}");
-                return;
-            }
+            Skill_InfoComponent skillInfo = player.GetComponent<Skill_InfoComponent>();
+            if (skillInfo == null) return;
 
-            player.GetComponent<Skill_InfoComponent>().SkillType = skillType;
+            skillInfo.SkillType = 0;
+            skillInfo.AttackType = 0;
+            skillInfo.CanExit = true;
         }
 
         public static bool ReleasingSkill(this Unit unit, int skillType)
@@ -64,5 +81,47 @@
 
             return unit.GetComponent<Skill_InfoComponent>().SkillType == skillType;
         }
+
+        public static Skill_InfoComponent SetAttackType(this Unit unit, AttackType attackType)
+        {
+            if (unit == null || unit.IsDisposed)
+            {
+                return null;
+            }
+
+            Skill_InfoComponent skillInfo = unit.GetComponent<Skill_InfoComponent>();
+            if (skillInfo == null)
+            {
+                Log.Warning("please add skillinfocomponent to unit");
+                return null;
+            }
+
+            skillInfo.AttackType = attackType;
+            return skillInfo;
+        }
+
+        public static Skill_InfoComponent SetSkillCanExit(this Unit unit, bool CanExit)
+        {
+            if (unit == null || unit.IsDisposed)
+            {
+                return null;
+            }
+
+            Skill_InfoComponent skillInfo = unit.GetComponent<Skill_InfoComponent>();
+            if (skillInfo == null)
+            {
+                Log.Warning("please add skillInfoComponent to unit");
+                return null;
+            }
+
+            skillInfo.CanExit = CanExit;
+            return skillInfo;
+        }
+
+        public static bool CheckSkillCanExit(this Unit unit)
+        {
+            return unit?.GetComponent<Skill_InfoComponent>()?.CanExit == true;
+        }
+        
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ET.Client
 {
-    public class Hero_Idle : BehaviorHandler
+    public class Mai_Idle: BehaviorHandler
     {
         public override int Check(Unit unit, BehaviorConfig config)
         {
@@ -9,7 +9,11 @@
 
         public override async ETTask Handler(Unit unit, BehaviorConfig config, ETCancellationToken token)
         {
-            Log.Warning("Hello world");
+            SubBehavior idle = config.GetSubBehaviorByName("Idle");
+            
+            unit.ReleaseSkill(MaiSkillType.Idle);
+            unit.AnimPlay(idle.ClipName);
+            
             await ETTask.CompletedTask;
         }
     }

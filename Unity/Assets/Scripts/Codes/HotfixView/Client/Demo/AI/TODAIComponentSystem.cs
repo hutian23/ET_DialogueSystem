@@ -30,7 +30,25 @@ namespace ET.Client
                 self.AddComponent<Buffer>();
             }
         }
+        
+        public class TODAIComponentLoadSystem : LoadSystem<TODAIComponent>
+        {
+            protected override void Load(TODAIComponent self)
+            {
+                self.Cancel();
+                TimerComponent.Instance.Remove(ref self.AITimer);
+                self.AITimer = TimerComponent.Instance.NewFrameTimer(TimerInvokeType.TOD_AITimer, self);
+            }
+        }
 
+        public static void AILoad(this TODAIComponent self, AIBehaviorConfig config)
+        {
+            self.Cancel();
+            self.config = config;
+            TimerComponent.Instance.Remove(ref self.AITimer);
+            self.AITimer = TimerComponent.Instance.NewFrameTimer(TimerInvokeType.TOD_AITimer, self);
+        }
+        
         private static void Simulate(this TODAIComponent self)
         {
             for (int i = 0; i < self.config.checkers.Count; i++)
@@ -72,6 +90,7 @@ namespace ET.Client
                     return;
                 }
 
+                self.Cancel();
                 ETCancellationToken token = new();
                 self.Token = token;
                 self.order = i + 1;

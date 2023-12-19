@@ -10,6 +10,7 @@ namespace ET.Client
         {
             protected override void Awake(Input self)
             {
+                Input.Instance = self;
                 self.Operas.Clear();
             }
         }

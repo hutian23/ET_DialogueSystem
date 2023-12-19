@@ -80,12 +80,9 @@ namespace ET
 		/// <summary>名字</summary>
 		[ProtoMember(3)]
 		public string Name { get; set; }
-		/// <summary>位置</summary>
+		/// <summary>AB包名称</summary>
 		[ProtoMember(4)]
-		public int Position { get; set; }
-		/// <summary>身高</summary>
-		[ProtoMember(5)]
-		public int Height { get; set; }
+		public string ABName { get; set; }
 
 	}
 }

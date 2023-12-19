@@ -57,9 +57,7 @@ namespace ET.Client
         public long minFrame = long.MaxValue;
         public long curFrame = 0;
         public float deltaTimereminder = 0;
-
+        
         public float timeScale = 1f;
-
-        public long timer;
     }
 }
