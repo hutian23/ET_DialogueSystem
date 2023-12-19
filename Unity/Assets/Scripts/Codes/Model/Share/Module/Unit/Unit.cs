@@ -4,7 +4,7 @@ using Unity.Mathematics;
 
 namespace ET
 {
-    [ChildOf(typeof(UnitComponent))]
+    [ChildOf]
     [DebuggerDisplay("ViewName,nq")]
     public class Unit: Entity, IAwake<int>
     {

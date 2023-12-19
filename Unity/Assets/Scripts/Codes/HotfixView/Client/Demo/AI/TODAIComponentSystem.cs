@@ -31,16 +31,6 @@ namespace ET.Client
             }
         }
 
-        [FriendOfAttribute(typeof (ET.Client.GlobalComponent))]
-        public class TODAIComponentUpdateSystem: UpdateSystem<TODAIComponent>
-        {
-            protected override void Update(TODAIComponent self)
-            {
-                CheckerConfig checkerConfig = GlobalComponent.Instance.Global.GetComponent<ReferenceCollector>().Get<CheckerConfig>("PlayerMoveChecker") as CheckerConfig;
-                TODEventSystem.Instance.GetChecker(checkerConfig.checkerName).Execute(self.GetParent<Unit>(), checkerConfig);
-            }
-        }
-
         private static void Simulate(this TODAIComponent self)
         {
             for (int i = 0; i < self.config.checkers.Count; i++)
