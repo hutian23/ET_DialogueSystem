@@ -4,7 +4,7 @@
     {
         public override int Check(Unit player, BehaviorConfig config)
         {
-            if (Input.Instance.CheckInput(OperaType.LeftMoveWasPressed))
+            if (player.CheckSkillCanExit() && Input.Instance.CheckInput(OperaType.LeftMoveWasPressed))
             {
                 return 0;
             }
@@ -21,8 +21,7 @@
         {
             SubBehavior hs = config.GetSubBehaviorByName("HeavySlash1");
 
-            player.ReleaseSkill(MaiSkillType.HeavySlash1);
-            player.SetSkillCanExit(false);
+            player.Release_Skill(MaiSkillType.HeavySlash1);
         
             //Derived
             NextSkillCor(player, config, token).Coroutine();
@@ -35,6 +34,7 @@
 
         private async ETTask NextSkillCor(Unit player, BehaviorConfig config, ETCancellationToken token)
         {
+            player.SetSkillCanExit(false);
             await player.WaitAsync(config.GetInt("CanExitFrame"), token);
             if (token.IsCancel()) return;
             player.SetSkillCanExit(true);

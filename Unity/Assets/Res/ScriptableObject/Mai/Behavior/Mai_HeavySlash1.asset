@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data_int:
   - key: CanExitFrame
-    value: 20
+    value: 18
     desc: "\u53EF\u4EE5\u9000\u51FA\u8FD9\u4E2A\u884C\u4E3A"
   data_float: []
   data_rect: []
@@ -23,5 +23,5 @@ MonoBehaviour:
   subBehaviors:
   - name: HeavySlash1
     ClipName: Mai_HeavySlash
-    frame: 33
+    frame: 32
     Decsciption: "\u8F7B\u62F31 -->\u53EF\u63A5\u6D3E\u751F"

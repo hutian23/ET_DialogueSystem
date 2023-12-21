@@ -21,7 +21,7 @@
         {
             SubBehavior lp = config.GetSubBehaviorByName("LightPunch1");
 
-            player.ReleaseSkill(MaiSkillType.LightPunch1);
+            player.Release_Skill(MaiSkillType.LightPunch1);
             
             //Derive
             NextSkillCor(player,config,token).Coroutine();

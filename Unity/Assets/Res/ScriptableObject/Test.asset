@@ -23,6 +23,18 @@ MonoBehaviour:
     m_Bits: 0
   checkers: []
   AIBehaviors:
+  - behaviorName: Mai_Punch2ToSlash
+    config: {fileID: 11400000, guid: 170847822347a014295b9b8d35a3a2c9, type: 2}
+    Desc: "\u6D4B\u8BD5"
+  - behaviorName: Mai_Slash2ToPunch
+    config: {fileID: 11400000, guid: 14b54901440c22e4da6cf399fb1e015f, type: 2}
+    Desc: "slash2 --> punch\u6D3E\u751F"
+  - behaviorName: Mai_HeavySlash3
+    config: {fileID: 11400000, guid: b49c0406ff7fce5419c9264659609e63, type: 2}
+    Desc: slash2 ---> slash3
+  - behaviorName: Mai_HeavySlash2
+    config: {fileID: 11400000, guid: 3fa9f40f44c93ab4f8cf8279e96ce840, type: 2}
+    Desc: "\u8F7B\u62F31 ---> \u5288\u780D2"
   - behaviorName: Mai_LightPunch3
     config: {fileID: 11400000, guid: 7caf5041f8705bb4e9ad2eccdeed44b0, type: 2}
     Desc: "\u8F7B\u62F33"

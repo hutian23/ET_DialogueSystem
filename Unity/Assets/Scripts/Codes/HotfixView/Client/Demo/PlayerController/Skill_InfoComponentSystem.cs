@@ -27,7 +27,7 @@
             return player.GetComponent<Skill_InfoComponent>().SkillType <= 0;
         }
 
-        public static Skill_InfoComponent ReleaseSkill(this Unit player, int skillType)
+        public static Skill_InfoComponent Release_Skill(this Unit player, int skillType)
         {
             if (player == null || player.IsDisposed)
             {

@@ -9,5 +9,9 @@
         public const int LightPunch2 = 11;
         public const int LightPunch3 = 12;
         public const int HeavySlash1 = 13;
+        public const int HeavySlash2 = 14;
+        public const int HeavySlash3 = 15;
+        public const int Slash2ToPunch = 16;
+        public const int Punch2ToSlash = 17;
     }
 }

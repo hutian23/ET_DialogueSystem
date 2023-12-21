@@ -12,14 +12,6 @@
                     return 0;
                 }
             }
-
-            if (player.ReleasingSkill(MaiSkillType.HeavySlash1))
-            {
-                if (player.CheckSkillCanExit() && Input.Instance.CheckInput(OperaType.RightMoveWasPressed))
-                {
-                    return 0;
-                }
-            }
             
             if (player.ReleasingSkill(MaiSkillType.LightPunch3))
             {
@@ -31,7 +23,7 @@
         public override async ETTask Handler(Unit player, BehaviorConfig config, ETCancellationToken token)
         {
             SubBehavior lp = config.GetSubBehaviorByName("LightPunch3");
-            player.ReleaseSkill(MaiSkillType.LightPunch3);
+            player.Release_Skill(MaiSkillType.LightPunch3);
             
             NextSkillCor(player,config,token).Coroutine();
             await player.AnimPlayCor(lp, token);

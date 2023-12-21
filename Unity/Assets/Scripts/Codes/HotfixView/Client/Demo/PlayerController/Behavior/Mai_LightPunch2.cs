@@ -23,7 +23,7 @@
         public override async ETTask Handler(Unit player, BehaviorConfig config, ETCancellationToken token)
         {
             SubBehavior lp = config.GetSubBehaviorByName("LightPunch2");
-            player.ReleaseSkill(MaiSkillType.LightPunch2);
+            player.Release_Skill(MaiSkillType.LightPunch2);
             
             NextSkillCor(player,config,token).Coroutine();
             await player.AnimPlayCor(lp, token);
@@ -34,6 +34,7 @@
 
         private async ETTask NextSkillCor(Unit player, BehaviorConfig config, ETCancellationToken token)
         {
+            player.SetSkillCanExit(false);
             await player.WaitAsync(config.GetInt("CanExitFrame"), token);
             if (token.IsCancel()) return;
             player.SetSkillCanExit(true);

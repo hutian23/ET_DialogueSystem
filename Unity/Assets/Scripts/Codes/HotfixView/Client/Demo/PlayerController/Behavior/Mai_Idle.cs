@@ -11,7 +11,7 @@
         {
             SubBehavior idle = config.GetSubBehaviorByName("Idle");
             
-            unit.ReleaseSkill(MaiSkillType.Idle);
+            unit.Release_Skill(MaiSkillType.Idle);
             unit.AnimPlay(idle.ClipName);
             
             await ETTask.CompletedTask;
