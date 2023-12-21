@@ -20,5 +20,13 @@
         public const int UpWasPressed = 10;
         public const int UpPressing = 11;
         public const int UpReleased = 12;
+
+        public const int PunchWasPressed = 13;
+        public const int PunchPressing = 14;
+        public const int PunchReleased = 15;
+
+        public const int SlashWasPressed = 16;
+        public const int SlashPressing = 17;
+        public const int SlashReleased = 18;
     }
 }

@@ -43,6 +43,10 @@ namespace ET.Client
                     return OperaType.UpPressing;
                 case "S":
                     return OperaType.DownPressing;
+                case "J":
+                    return OperaType.PunchPressing;
+                case "U":
+                    return OperaType.SlashPressing;
                 default:
                     return OperaType.None;
             }
@@ -60,6 +64,10 @@ namespace ET.Client
                     return OperaType.UpReleased;
                 case "S":
                     return OperaType.DownReleased;
+                case "J":
+                    return OperaType.PunchReleased;
+                case "U":
+                    return OperaType.SlashReleased;
                 default:
                     return OperaType.None;
             }
@@ -77,6 +85,10 @@ namespace ET.Client
                     return OperaType.UpWasPressed;
                 case "S":
                     return OperaType.DownWasPressed;
+                case "J":
+                    return OperaType.PunchWasPressed;
+                case "U":
+                    return OperaType.SlashWasPressed;
                 default:
                     return OperaType.None;
             }

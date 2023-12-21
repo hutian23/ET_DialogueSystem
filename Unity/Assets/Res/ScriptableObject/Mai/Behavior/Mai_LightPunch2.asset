@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data_int:
   - key: CanExitFrame
-    value: 12
+    value: 13
     desc: "\u53EF\u4EE5\u9000\u51FA\u8FD9\u4E2A\u884C\u4E3A"
   data_float: []
   data_rect: []
@@ -23,5 +23,5 @@ MonoBehaviour:
   subBehaviors:
   - name: LightPunch2
     ClipName: Mai_LightPunch_2
-    frame: 22
+    frame: 25
     Decsciption: "\u8F7B\u62F31 -->\u53EF\u63A5\u6D3E\u751F"
