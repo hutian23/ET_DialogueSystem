@@ -544,7 +544,7 @@ MonoBehaviour:
     gameObject: {fileID: 1610378981859644, guid: cfaf4529ce2243c4c85126e9d008897b,
       type: 3}
   - key: Test
-    gameObject: {fileID: 11400000, guid: ea0a0548ade893a47a229bd62eb728b4, type: 2}
+    gameObject: {fileID: 11400000, guid: 30611a83bdc69cd4ebe6d69867f0f9a5, type: 2}
 --- !u!1 &1114695592
 GameObject:
   m_ObjectHideFlags: 0

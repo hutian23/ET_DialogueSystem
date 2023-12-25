@@ -42,6 +42,11 @@ namespace ET
 			Game.Update();
 		}
 
+		private void FixedUpdate()
+		{
+			EventSystem.Instance.FixedUpdate();
+		}
+
 		private void LateUpdate()
 		{
 			Game.LateUpdate();

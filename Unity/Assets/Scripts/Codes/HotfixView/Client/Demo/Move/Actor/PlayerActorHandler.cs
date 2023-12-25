@@ -19,7 +19,6 @@ namespace ET.Client
 
             moveComponent.Speed.x = 0;
             if (!hit || hit.collider == null) return;
-
         }
 
         public override void UpdateCollideY(TODMoveComponent moveComponent, float distY)

@@ -46,7 +46,7 @@ namespace ET
 		{
 			Game.Update();
 		}
-
+		
 		public static void LateUpdate()
 		{
 			Game.LateUpdate();

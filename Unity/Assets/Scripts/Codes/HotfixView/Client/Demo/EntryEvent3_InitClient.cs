@@ -16,7 +16,8 @@ namespace ET.Client
             clientScene.AddComponent<Storage>();
             clientScene.AddComponent<Input>();
             clientScene.AddComponent<TODEventSystem>();
-            clientScene.AddComponent<OperaComponent>();    
+            clientScene.AddComponent<OperaComponent>();
+            clientScene.AddComponent<Test>();
             
             Unit player = TODUnitFactory.CreatePlayer(clientScene);
             await Storage.Instance.SaveStorage(0, player);

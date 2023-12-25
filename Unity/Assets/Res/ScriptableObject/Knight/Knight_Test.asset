@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e94945ea2e6ed60468daa053c82ff3ae, type: 3}
+  m_Name: Knight_Test
+  m_EditorClassIdentifier: 
+  data_int: []
+  data_float: []
+  data_rect: []
+  data_vector: []
+  data_Layer: []
+  ConfigId: 0
+  CollideMask:
+    serializedVersion: 2
+    m_Bits: 0
+  checkers: []
+  AIBehaviors:
+  - behaviorName: Knight_Slash
+    config: {fileID: 11400000, guid: 1570990728214d247aced8ad2a7061b3, type: 2}
+    Desc: 
+  - behaviorName: Knight_Idle
+    config: {fileID: 11400000, guid: 107d50391fa444b4ba5b10441afa3ac4, type: 2}
+    Desc: 

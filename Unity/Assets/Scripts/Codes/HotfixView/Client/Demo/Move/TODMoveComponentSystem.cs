@@ -3,6 +3,7 @@
 namespace ET.Client
 {
     [FriendOf(typeof (TODMoveComponent))]
+    [FriendOf(typeof (CollisionManager))]
     public static class TODMoveComponentSystem
     {
         public static TODMoveComponent Load(this TODMoveComponent self)
@@ -23,6 +24,7 @@ namespace ET.Client
         {
             self.IsActor = true;
             self.actorHandler = handler;
+            CollisionManager.Instance.Actors.Enqueue(self.InstanceId);
             return self;
         }
 
@@ -30,9 +32,10 @@ namespace ET.Client
         {
             self.IsActor = false;
             self.solidHandler = handler;
+            CollisionManager.Instance.Solids.Enqueue(self.InstanceId);
             return self;
         }
-        
+
         public static TODMoveComponent SetPosition(this TODMoveComponent self, Vector2 position)
         {
             self.GetTransform().position = position;
@@ -49,7 +52,7 @@ namespace ET.Client
             return self;
         }
 
-        private static Transform GetTransform(this TODMoveComponent self)
+        public static Transform GetTransform(this TODMoveComponent self)
         {
             if (self == null || self.IsDisposed)
             {
@@ -91,6 +94,55 @@ namespace ET.Client
         {
             self.GetTransform().GetComponent<BoxCollider2D>().enabled = enable;
         }
+
+        public static void SetSpeed(this Unit unit, Vector2 speed)
+        {
+            if (unit == null || unit.IsDisposed)
+            {
+                return;
+            }
+
+            TODMoveComponent moveComponent = unit.GetComponent<TODMoveComponent>();
+            if (moveComponent == null)
+            {
+                Log.Warning("please add moveComponent to unit");
+            }
+
+            moveComponent.Speed = speed;
+        }
+
+        public static Vector2 GetSpeed(this Unit unit)
+        {
+            if (unit == null || unit.IsDisposed)
+            {
+                return Vector2.zero;
+            }
+
+            TODMoveComponent moveComponent = unit.GetComponent<TODMoveComponent>();
+            return moveComponent?.Speed ?? Vector2.zero;
+        }
+
+        public static void MoveX(this Unit unit, float speedX)
+        {
+            if (unit == null || unit.IsDisposed)
+            {
+                return;
+            }
+            TODMoveComponent moveComponent = unit.GetComponent<TODMoveComponent>();
+            if (moveComponent == null) return;
+            moveComponent.Speed.x = speedX;
+        }
+        
+        public static void MoveY(this Unit unit, float speedY)
+        {
+            if (unit == null || unit.IsDisposed)
+            {
+                return;
+            }
+            TODMoveComponent moveComponent = unit.GetComponent<TODMoveComponent>();
+            if (moveComponent == null) return;
+            moveComponent.Speed.y = speedY;
+        }
         
         // private static bool CheckGround(this TODMoveComponent self, Vector2 offset)
         // {
@@ -109,7 +161,7 @@ namespace ET.Client
         // {
         //     return self.CheckGround(Vector2.zero);
         // }
-        
+
         public static bool CollideCheck(this TODMoveComponent self, Vector2 position, Vector2 dir, LayerMask collideMask, float dist = 0)
         {
             Vector2 origion = position + self.Collider.position;
@@ -118,12 +170,12 @@ namespace ET.Client
                 0,
                 Constants.GroundMask);
         }
-        
+
         public static bool CollideCheck(this TODMoveComponent self, Vector2 dir, LayerMask collideMask, float dist = 0)
         {
             return self.CollideCheck(self.position, dir, collideMask, dist);
         }
-        
+
         public static (float, RaycastHit2D) MoveXStepWithCollide(this TODMoveComponent self, float distX)
         {
             Vector2 moved = Vector2.zero;
@@ -152,7 +204,7 @@ namespace ET.Client
 
             return (moved.x, hit);
         }
-        
+
         public static (float, RaycastHit2D) MoveYStepWithCollide(this TODMoveComponent self, float distY)
         {
             Vector2 moved = Vector2.zero;
@@ -177,7 +229,7 @@ namespace ET.Client
 
             return (moved.y, hit);
         }
-        
+
         public static bool CorrectX(this TODMoveComponent self, float distX)
         {
             Vector2 direct = Mathf.Sign(distX) > 0? Vector2.right : Vector2.left;
@@ -197,9 +249,10 @@ namespace ET.Client
                     }
                 }
             }
+
             return false;
         }
-        
+
         public static bool CorrectY(this TODMoveComponent self, float distY)
         {
             Vector2 direct = Mathf.Sign(distY) > 0? Vector2.up : Vector2.down;
