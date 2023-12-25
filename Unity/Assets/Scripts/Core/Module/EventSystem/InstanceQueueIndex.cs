@@ -6,6 +6,9 @@
         Update,
         LateUpdate,
         Load,
+#if !DOTNET
+        FixedUpdate,  
+#endif
         Max,
     }
 }

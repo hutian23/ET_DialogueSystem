@@ -14,8 +14,8 @@ namespace ET.Client
             // 切换到map场景
             Log.Warning(currentScene.Name);
             await SceneManager.LoadSceneAsync(currentScene.Name);
-			
 
+            currentScene.AddComponent<CollisionManager>();
             // currentScene.AddComponent<OperaComponent>();
         }
     }

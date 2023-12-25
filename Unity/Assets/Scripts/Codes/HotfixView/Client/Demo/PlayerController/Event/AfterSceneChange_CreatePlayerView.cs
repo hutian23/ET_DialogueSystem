@@ -23,6 +23,8 @@ namespace ET.Client
             player.AddComponent<Skill_InfoComponent>();
             player.GetComponent<Skill_InfoComponent>().AddComponent<ChainComponent>();
             
+            player.AddComponent<TODMoveComponent>().RegisterAsActor(new PlayerActorHandler());
+            
             player.AddComponent<TODAIComponent>().AILoad(ReferenceHelper.GetGlobalRC<AIBehaviorConfig>("Test"));
         }
     }

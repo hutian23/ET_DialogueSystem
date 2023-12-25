@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26074a32173fc39429bc106484fcb1ad, type: 3}
+  m_Name: UpSlashCollisionChecker
+  m_EditorClassIdentifier: 
+  data_int: []
+  data_float:
+  - key: Percent
+    value: 0.7
+    desc: "\u957F\u5EA6\u767E\u5206\u6BD4"
+  - key: recoilSpeed
+    value: 10
+    desc: "\u51FB\u9000\u901F\u5EA6"
+  data_rect: []
+  data_vector: []
+  data_Layer:
+  - key: Recoil
+    value:
+      serializedVersion: 2
+      m_Bits: 98304
+    desc: 
+  checkName: UpSlashCollisionChecker
+  Des: 

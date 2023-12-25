@@ -15,9 +15,7 @@ namespace ET.Client
 
             //3. 加载场景资源
             await EventSystem.Instance.PublishAsync(clientScene, new SceneChangeStart());
-
             await EventSystem.Instance.PublishAsync(clientScene, new CreatePlayerView());
-            
             //5. 切换场景完成
             await EventSystem.Instance.PublishAsync(clientScene, new SceneChangeFinish());
         }
