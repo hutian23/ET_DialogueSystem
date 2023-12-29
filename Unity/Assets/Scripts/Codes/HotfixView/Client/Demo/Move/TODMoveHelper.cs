@@ -1,4 +1,6 @@
-﻿namespace ET.Client
+﻿using UnityEngine;
+
+namespace ET.Client
 {
     public static class TODMoveHelper
     {
@@ -12,7 +14,11 @@
             while (true)
             {
                 if (token.IsCancel()) break;
-                
+                if (!unit.AI_ContainBuff<OnGround>())
+                {
+                    unit.MoveY(Mathf.MoveTowards(unit.GetSpeed().y, Constants.MaxFall, Constants.Gravity));
+                }
+                unit.MoveY(0f);
                 await TimerComponent.Instance.WaitFrameAsync(token);
             }
         }

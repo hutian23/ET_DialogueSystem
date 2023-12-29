@@ -11,7 +11,7 @@
         {
             unit.Release_Skill(KnightSkillType.Idle);
             unit.AnimPlay(config.GetSubBehaviorByName("Idle").ClipName);
-            await ETTask.CompletedTask;
+            await unit.FallCor(token);
         }
     }
 }

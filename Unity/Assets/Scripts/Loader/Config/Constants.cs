@@ -18,5 +18,8 @@ namespace ET
         public static int UpwardCornerCorrection = 4;
 
         public static int Enemy_InvincibleTime = 100;
+
+        public const float MaxFall = -40f;
+        public const float Gravity = 90f;
     }
 }

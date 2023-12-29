@@ -144,23 +144,23 @@ namespace ET.Client
             moveComponent.Speed.y = speedY;
         }
         
-        // private static bool CheckGround(this TODMoveComponent self, Vector2 offset)
-        // {
-        //     Vector2 origion = self.position + self.Collider.position + offset;
-        //     RaycastHit2D hit = Physics2D.BoxCast(origion, self.Collider.size, 0, Vector2.down, Constants.DEVIATION, Constants.GroundMask);
-        //     //斜坡不能判断为地面
-        //     if (hit && hit.normal == Vector2.up)
-        //     {
-        //         return true;
-        //     }
-        //
-        //     return false;
-        // }
-        //
-        // public static bool CheckGround(this TODMoveComponent self)
-        // {
-        //     return self.CheckGround(Vector2.zero);
-        // }
+        private static bool CheckGround(this TODMoveComponent self, Vector2 offset)
+        {
+            Vector2 origion = self.position + self.Collider.position + offset;
+            RaycastHit2D hit = Physics2D.BoxCast(origion, self.Collider.size, 0, Vector2.down, Constants.DEVIATION, Constants.GroundMask);
+            //斜坡不能判断为地面
+            if (hit && hit.normal == Vector2.up)
+            {
+                return true;
+            }
+        
+            return false;
+        }
+        
+        public static bool CheckGround(this TODMoveComponent self)
+        {
+            return self.CheckGround(Vector2.zero);
+        }
 
         public static bool CollideCheck(this TODMoveComponent self, Vector2 position, Vector2 dir, LayerMask collideMask, float dist = 0)
         {
