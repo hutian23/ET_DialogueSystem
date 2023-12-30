@@ -15,4 +15,16 @@ namespace ET
         [TextArea]
         public string text;
     }
+
+    public class NodeTypeAttribute : BaseAttribute
+    {
+        public string Level;
+        public string Description;
+        
+        public NodeTypeAttribute(string level,string Description="")
+        {
+            this.Level = level;
+            this.Description = Description;
+        }
+    }
 }

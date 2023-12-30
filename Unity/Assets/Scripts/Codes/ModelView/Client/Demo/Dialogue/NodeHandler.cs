@@ -5,7 +5,7 @@ namespace ET.Client
     public class DialogueAttribute: BaseAttribute
     {
     }
-
+    
     public interface NodeHandler
     {
         public ETTask<Status> Handle(Unit unit, object node, ETCancellationToken token);
