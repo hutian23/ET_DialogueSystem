@@ -33,15 +33,4 @@ namespace ET.Client
             return typeof (Node);
         }
     }
-
-    public class ChoiceNodeHandler: NodeHandler<ChoiceNode>
-    {
-        protected override async ETTask<Status> Run(Unit unit, ChoiceNode node, ETCancellationToken token)
-        {
-            await TimerComponent.Instance.WaitAsync(300, token);
-            if (token.IsCancel()) return Status.Failed;
-            Log.Warning("Hello world");
-            return Status.Success;
-        }
-    }
 }

@@ -4,18 +4,21 @@ using System.Linq;
 using System.Reflection;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace ET.Client
 {
     public class SearchMenuWindowProvider: ScriptableObject, ISearchWindowProvider
     {
         private DialogueTreeView treeView;
+        private DialogueEditor window;
 
-        public void Init(DialogueTreeView _treeView)
+        public void Init(DialogueEditor dialogueEditor, DialogueTreeView _treeView)
         {
+            this.window = dialogueEditor;
             this.treeView = _treeView;
         }
-        
+
         public List<SearchTreeEntry> CreateSearchTree(SearchWindowContext context)
         {
             var entries = new List<SearchTreeEntry>();
@@ -26,11 +29,14 @@ namespace ET.Client
 
         public bool OnSelectEntry(SearchTreeEntry SearchTreeEntry, SearchWindowContext context)
         {
-            //获得视图内鼠标位置
-            Vector2 localMousePosition = this.treeView.mousePosition;
+            // 鼠标在编辑器view内的位置
+            var mousePosition = this.window.rootVisualElement.ChangeCoordinatesTo(this.window.rootVisualElement.parent,
+                context.screenMousePosition - this.window.position.position);
+            var graphPosition = this.treeView.contentViewContainer.WorldToLocal(mousePosition);
+
             Type type = (Type)SearchTreeEntry.userData;
-            //TODO 调用视图API，创建节点
-            Debug.LogWarning(localMousePosition+" "+type);
+            
+            this.treeView.CreateNode(type,graphPosition);
             return true;
         }
 
@@ -47,7 +53,6 @@ namespace ET.Client
                 NodeTypeAttribute attr = type.GetCustomAttribute(typeof (NodeTypeAttribute)) as NodeTypeAttribute;
                 if (attr == null || string.IsNullOrEmpty(attr.Level))
                 {
-                    Debug.LogError("请检查节点的标签");
                     continue;
                 }
 
@@ -79,17 +84,12 @@ namespace ET.Client
                             item.ChildItems = new List<SearchWindowMenuItem>();
                         }
 
-                        if (item.IsNode)
-                        {
-                            item.NodeType = type;
-                            
-                            item.Description = attr.Description;
-                        }
+                        if (item.IsNode) item.NodeType = type;
                         currentFloor = item.ChildItems;
                     }
                 }
             }
-            
+
             //递归创建目录树
             GenerateSearchTree(mainMenu, 1, ref entries);
         }
@@ -109,8 +109,7 @@ namespace ET.Client
                 //当前是节点(到头了)
                 else
                 {
-                    var nodeDes = string.IsNullOrEmpty(item.Description)? $"  {item.Name}" : $"  {item.Description}";
-                    SearchTreeEntry entry = new(new GUIContent(nodeDes)) { level = floorIndex, userData = item.NodeType };
+                    SearchTreeEntry entry = new(new GUIContent(item.Name)) { level = floorIndex, userData = item.NodeType };
                     treeEntries.Add(entry);
                 }
             }
@@ -122,7 +121,6 @@ namespace ET.Client
             public string Name;
             public bool IsNode;
             public Type NodeType;
-            public string Description;
             public List<SearchWindowMenuItem> ChildItems;
         }
     }

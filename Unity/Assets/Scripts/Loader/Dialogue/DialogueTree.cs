@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace ET.Client
@@ -8,6 +10,26 @@ namespace ET.Client
     {
         public DialogueNode root;
 
+        [SerializeReference]
         public List<DialogueNode> nodes = new();
+
+        public DialogueNode CreateNode(Type type)
+        {
+            DialogueNode node = CreateInstance(type) as DialogueNode;
+            node.Guid = GUID.Generate().ToString();
+            node.name = node.Guid;
+            
+            if (node == null)
+            {
+                Debug.LogError($"{type} 不能转换成dialogueNode");
+                return null;
+            }
+            this.nodes.Add(node);
+            
+            AssetDatabase.AddObjectToAsset(node,this);
+            AssetDatabase.SaveAssets();
+            
+            return node;
+        }
     }
 }

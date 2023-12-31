@@ -1,0 +1,12 @@
+.input-port-label {
+    flex-wrap: nowrap;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    max-width: 128px;
+    white-space: normal;
+}
+
+.root-node {
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+}

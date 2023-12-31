@@ -1,30 +1,26 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ET
 {
     public abstract class DialogueNode : ScriptableObject
     {
         [HideInInspector]
-        public long Guid;
-        [HideInInspector]
-        public List<DialogueNode> children = new();
+        public string Guid;
         [HideInInspector]
         public Vector2 position;
         
+        public bool NeedCheck;
         [TextArea]
         public string text;
     }
-
+    
     public class NodeTypeAttribute : BaseAttribute
     {
         public string Level;
-        public string Description;
         
-        public NodeTypeAttribute(string level,string Description="")
+        public NodeTypeAttribute(string level)
         {
             this.Level = level;
-            this.Description = Description;
         }
     }
 }
