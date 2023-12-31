@@ -23,6 +23,11 @@ namespace ET.Client
         {
             var entries = new List<SearchTreeEntry>();
             entries.Add(new SearchTreeGroupEntry(new GUIContent("创建新节点")));
+            
+            //常用节点
+            entries.Add(new SearchTreeGroupEntry(new GUIContent("常用")){level = 1});
+            entries.Add(new SearchTreeEntry(new GUIContent("背景板")){level = 2, userData = new CommentBlockData()});
+            
             this.LoadDialogueNode(entries);
             return entries;
         }
@@ -34,10 +39,21 @@ namespace ET.Client
                 context.screenMousePosition - this.window.position.position);
             var graphPosition = this.treeView.contentViewContainer.WorldToLocal(mousePosition);
 
-            Type type = (Type)SearchTreeEntry.userData;
-            
-            this.treeView.CreateNode(type,graphPosition);
-            return true;
+            switch (SearchTreeEntry.userData)
+            {
+                case Type type:
+                {
+                    this.treeView.CreateNode(type, graphPosition);
+                    return true;
+                }
+                case CommentBlockData commentBlockData:
+                {
+                    this.treeView.CreateCommentBlock(graphPosition);
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void LoadDialogueNode(List<SearchTreeEntry> entries)
@@ -47,7 +63,7 @@ namespace ET.Client
             List<Type> res = assembly.GetTypes().Where(type => type.IsClass && type.IsSubclassOf(typeof (DialogueNode))).ToList();
             //节点目录树树状结构
             List<SearchWindowMenuItem> mainMenu = new();
-
+            
             foreach (var type in res)
             {
                 NodeTypeAttribute attr = type.GetCustomAttribute(typeof (NodeTypeAttribute)) as NodeTypeAttribute;
@@ -89,7 +105,7 @@ namespace ET.Client
                     }
                 }
             }
-
+            
             //递归创建目录树
             GenerateSearchTree(mainMenu, 1, ref entries);
         }

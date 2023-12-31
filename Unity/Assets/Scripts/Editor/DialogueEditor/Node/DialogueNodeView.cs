@@ -19,7 +19,7 @@ namespace ET.Client
     
     public class DialogueNodeView : Node
     {
-        protected DialogueNode node;
+        public DialogueNode node;
         protected Port inputPort;
         protected List<Port> outputPorts;
 
@@ -52,6 +52,11 @@ namespace ET.Client
         public virtual void GeneratePort()
         {
             
+        }
+
+        public string GetNodeGuid()
+        {
+            return this.node.Guid;
         }
         
         protected Label GenerateDescription()

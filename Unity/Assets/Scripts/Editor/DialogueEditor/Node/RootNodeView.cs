@@ -15,6 +15,7 @@ namespace ET.Client
             this.title = "根节点";
             
             this.outputPort = GenerateOutputPort("开始");
+            
             this.outputContainer.Add(this.outputPort);
         }
     }

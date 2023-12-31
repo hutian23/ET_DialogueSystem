@@ -12,14 +12,13 @@ namespace ET.Client
     public class DialogueTreeView: GraphView
     {
         private readonly Vector2 DefaultNodeSize = new(200, 150);
-        // private readonly Vector2 DefaultCommentSize = new(300, 200);
+        private readonly Vector2 DefaultCommentSize = new(300, 200);
 
         public new class UxmlFactory: UxmlFactory<DialogueTreeView, UxmlTraits>
         {
         }
 
         private DialogueTree tree;
-
         private DialogueEditor window;
         private SearchMenuWindowProvider searchWindow;
 
@@ -35,14 +34,32 @@ namespace ET.Client
             this.styleSheets.Add(styleSheet);
         }
 
+        private GraphViewChange OnGraphViewChanged(GraphViewChange graphViewChange)
+        {
+            if (graphViewChange.elementsToRemove != null)
+            {
+                graphViewChange.elementsToRemove.ForEach(elem =>
+                {
+                    if (elem is DialogueNodeView nodeView)
+                    {
+                        this.tree.DeleteNode(nodeView.node);
+                    }
+                });
+            }
+            return graphViewChange;
+        }
+
         public void PopulateView(DialogueTree _tree, DialogueEditor dialogueEditor)
         {
             this.tree = _tree;
             this.window = dialogueEditor;
+
+            this.graphViewChanged -= this.OnGraphViewChanged;
             DeleteElements(this.graphElements);
+            this.graphViewChanged += this.OnGraphViewChanged;
+            
             //1. 搜索框
             this.AddSearchWindow();
-
             //2. 生成视图节点
             //如果没有根节点，则创建
             if (this.tree.root == null)
@@ -51,10 +68,18 @@ namespace ET.Client
                 this.tree.root = rootNode;
                 rootNode.position = new Vector2(100, 200);
             }
-
             foreach (var node in this.tree.nodes)
             {
                 CreateNodeView(node);
+            }
+            //3. 生成边
+            // foreach (var node in this.tree.nodes)
+            // {
+            //     
+            // }
+            foreach (var block in this.tree.blockDatas)
+            {
+                CreateCommentBlockView(block);
             }
         }
 
@@ -78,12 +103,42 @@ namespace ET.Client
                     endPort.node != startPorts.node).ToList();
             return list;
         }
-
+        
+        /// <summary>
+        /// nodeview的viewDataKey = node.Guid
+        /// </summary>
+        private DialogueNodeView GetViewFromNode(DialogueNode node)
+        {
+            return GetNodeByGuid(node.Guid) as DialogueNodeView;
+        }
+        
         public void CreateNode(Type type, Vector2 position)
         {
             DialogueNode node = this.tree.CreateNode(type);
             node.position = position;
             CreateNodeView(node);
+        }
+
+        public void CreateCommentBlock(Vector2 position)
+        {
+            CommentBlockData blockData = new() { position = position, title = "Comment Block" };
+            this.tree.blockDatas.Add(blockData);
+            CreateCommentBlockView(blockData);
+        }
+
+        private void CreateCommentBlockView(CommentBlockData blockData)
+        {
+            var group = new CommentBlockGroup(blockData);
+            AddElement(group);
+            group.SetPosition(new Rect(blockData.position, this.DefaultCommentSize));
+
+            List<DialogueNodeView> nodeViews = this.nodes.Cast<DialogueNodeView>().ToList();
+            foreach (var guid in group.blockData.children)
+            {
+                DialogueNodeView nodeView = GetNodeByGuid(guid) as DialogueNodeView;
+                if(nodeView == null) continue;
+                group.AddElement(nodeView);
+            }
         }
 
         /// <summary>

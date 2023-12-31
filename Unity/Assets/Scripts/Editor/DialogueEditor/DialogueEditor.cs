@@ -1,15 +1,17 @@
 using ET.Client;
 using UnityEditor;
 using UnityEditor.Callbacks;
+using UnityEditor.Experimental.GraphView;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-
-public class DialogueEditor : EditorWindow
+public class DialogueEditor: EditorWindow
 {
     private DialogueTreeView treeView;
     private InspectorView inspectorView;
-    
+    private Toolbar toolbar;
+
     [MenuItem("Tools/DialogueEditor")]
     public static void OpenWindow()
     {
@@ -41,6 +43,8 @@ public class DialogueEditor : EditorWindow
 
         this.treeView = root.Q<DialogueTreeView>();
         this.inspectorView = root.Q<InspectorView>();
+        this.toolbar = root.Q<Toolbar>();
+        this.toolbar.Add(new Button(() => this.SaveDialogueTree(true)) { text = "Save Data" });
     }
 
     private void OnSelectionChange()
@@ -48,9 +52,14 @@ public class DialogueEditor : EditorWindow
         DialogueTree tree = Selection.activeObject as DialogueTree;
         if (tree && AssetDatabase.CanOpenAssetInEditor(tree.GetInstanceID()))
         {
-            this.treeView.PopulateView(tree,this);
+            this.treeView.PopulateView(tree, this);
             this.inspectorView.contentContainer.Clear();
             this.inspectorView.contentContainer.Add(new Label(tree.name));
         }
+    }
+
+    private void SaveDialogueTree(bool save)
+    {
+        
     }
 }

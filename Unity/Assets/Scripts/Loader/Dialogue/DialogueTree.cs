@@ -13,6 +13,8 @@ namespace ET.Client
         [SerializeReference]
         public List<DialogueNode> nodes = new();
 
+        public List<CommentBlockData> blockDatas = new();
+        
         public DialogueNode CreateNode(Type type)
         {
             DialogueNode node = CreateInstance(type) as DialogueNode;
@@ -30,6 +32,19 @@ namespace ET.Client
             AssetDatabase.SaveAssets();
             
             return node;
+        }
+
+        public bool DeleteNode(DialogueNode node)
+        {
+            if (node == this.root || node.Guid == this.root.Guid)
+            {
+                return false;
+            }
+
+            this.nodes.Remove(node);
+            AssetDatabase.RemoveObjectFromAsset(node);
+            AssetDatabase.SaveAssets();
+            return true;
         }
     }
 }

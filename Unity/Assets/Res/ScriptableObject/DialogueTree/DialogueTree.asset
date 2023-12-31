@@ -1,6 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8937789403840375053
+--- !u!114 &-7610618589609206142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89a3b2db34f55945ae19a960a1d9d94, type: 3}
+  m_Name: 0dbcab49c9c61984bb2c001fcba10109
+  m_EditorClassIdentifier: 
+  Guid: 0dbcab49c9c61984bb2c001fcba10109
+  position: {x: 0, y: 0}
+  NeedCheck: 0
+  text: 
+  Success: {fileID: 0}
+  Failed: {fileID: 0}
+--- !u!114 &-7138086345139678674
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,14 +28,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25c132b8f1d79844686486de814518fd, type: 3}
-  m_Name: 514c08222e84847478a4e0f197749861
+  m_Name: aec99a5ad29ef2346b075ef85bce6f20
   m_EditorClassIdentifier: 
-  Guid: 514c08222e84847478a4e0f197749861
+  Guid: aec99a5ad29ef2346b075ef85bce6f20
   position: {x: 100, y: 200}
   NeedCheck: 0
-  text: Hello world
+  text: 
   nextNode: {fileID: 0}
---- !u!114 &-8913626000392648444
+--- !u!114 &-1858132822298849446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -27,15 +45,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e89a3b2db34f55945ae19a960a1d9d94, type: 3}
-  m_Name: 3db2864bcc207984bbba21236613e3cd
+  m_Name: b0e23eacc7392784b88496faa209832e
   m_EditorClassIdentifier: 
-  Guid: 3db2864bcc207984bbba21236613e3cd
-  position: {x: 830.1001, y: 58.49999}
+  Guid: b0e23eacc7392784b88496faa209832e
+  position: {x: 430.00003, y: 226.50003}
   NeedCheck: 0
-  text: dsa
+  text: 
   Success: {fileID: 0}
   Failed: {fileID: 0}
---- !u!114 &-4590778110076661806
+--- !u!114 &-1708123187209180172
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,12 +63,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e89a3b2db34f55945ae19a960a1d9d94, type: 3}
-  m_Name: 82b905152b89b704bb6f3a9be3674479
+  m_Name: 3abbb719532c0da4abd7c5e2a7566945
   m_EditorClassIdentifier: 
-  Guid: 82b905152b89b704bb6f3a9be3674479
-  position: {x: 522.10004, y: 109.35}
+  Guid: 3abbb719532c0da4abd7c5e2a7566945
+  position: {x: 683.00006, y: 227.00002}
   NeedCheck: 0
-  text: "\u4F60\u5F53\u524D\u7684\u8840\u91CF\u4E3A: <model=\"HP\"> / <model=\"CheckHP\">"
+  text: 
   Success: {fileID: 0}
   Failed: {fileID: 0}
 --- !u!114 &11400000
@@ -65,45 +83,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e9dbc5c9f192b84e9fef0a764dfc94d, type: 3}
   m_Name: DialogueTree
   m_EditorClassIdentifier: 
-  root: {fileID: -8937789403840375053}
+  root: {fileID: -7138086345139678674}
   nodes:
-  - {fileID: -8937789403840375053}
-  - {fileID: 2394448861538860454}
-  - {fileID: -4590778110076661806}
-  - {fileID: 8569672165042112873}
-  - {fileID: -8913626000392648444}
---- !u!114 &2394448861538860454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2339cb0fe0e3ab47ad7aa14cefc2894, type: 3}
-  m_Name: 08e1851cb17fba546a05833a8a79ecf1
-  m_EditorClassIdentifier: 
-  Guid: 08e1851cb17fba546a05833a8a79ecf1
-  position: {x: 421, y: 159}
-  NeedCheck: 0
-  text: dsadasdsadasdadadad
-  choice1: 
---- !u!114 &8569672165042112873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e89a3b2db34f55945ae19a960a1d9d94, type: 3}
-  m_Name: cd7a31754e94a0a41aa37d2e9ded39f0
-  m_EditorClassIdentifier: 
-  Guid: cd7a31754e94a0a41aa37d2e9ded39f0
-  position: {x: 233.95006, y: 176.00006}
-  NeedCheck: 0
-  text: dsfdsfdsfdsfsfs
-  Success: {fileID: 0}
-  Failed: {fileID: 0}
+  - {fileID: -7138086345139678674}
+  - {fileID: -1858132822298849446}
+  - {fileID: -1708123187209180172}
+  - {fileID: -7610618589609206142}
+  blockDatas:
+  - position: {x: 404.99753, y: 55.292507}
+    title: "\u6D4B\u8BD51"
