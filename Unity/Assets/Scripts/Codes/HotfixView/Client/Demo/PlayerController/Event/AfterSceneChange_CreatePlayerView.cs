@@ -29,6 +29,7 @@ namespace ET.Client
                     .RegisterAsActor(new PlayerActorHandler());
             
             player.AddComponent<TODAIComponent>().AILoad(ReferenceHelper.GetGlobalRC<AIBehaviorConfig>("Test"));
+            player.AddComponent<DialogueComponent>().LoadTree(ReferenceHelper.GetGlobalRC<DialogueTree>("Dialogue"));
         }
     }
 }

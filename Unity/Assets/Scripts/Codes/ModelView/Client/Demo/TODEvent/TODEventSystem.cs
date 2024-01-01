@@ -10,5 +10,6 @@ namespace ET.Client
 
         public readonly Dictionary<string, BehaviorHandler> Behaviors = new();
         public readonly Dictionary<string, CheckerHandler> checkers = new();
+        public readonly Dictionary<string, NodeCheckerHandler> nodeCheckers = new();
     }
 }

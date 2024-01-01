@@ -5,7 +5,7 @@ namespace ET.Client
     [FriendOf(typeof (TODEventSystem))]
     public static class TODEventHelper
     {
-        public class TODEventAwakeSystem : AwakeSystem<TODEventSystem>
+        public class TODEventAwakeSystem: AwakeSystem<TODEventSystem>
         {
             protected override void Awake(TODEventSystem self)
             {
@@ -13,8 +13,8 @@ namespace ET.Client
                 self.Init();
             }
         }
-        
-        public class TODEventDestorySystem : DestroySystem<TODEventSystem>
+
+        public class TODEventDestorySystem: DestroySystem<TODEventSystem>
         {
             protected override void Destroy(TODEventSystem self)
             {
@@ -31,7 +31,7 @@ namespace ET.Client
                 self.Init();
             }
         }
-        
+
         private static void Init(this TODEventSystem self)
         {
             //1. 加载BehaviorHandler
@@ -59,11 +59,27 @@ namespace ET.Client
                 CheckerHandler checkerHandler = Activator.CreateInstance(type) as CheckerHandler;
                 if (checkerHandler == null)
                 {
-                    Log.Error($"this behavior is not a behaviorHandler!: {type.Name}");
+                    Log.Error($"this behavior is not a checkerHandler!: {type.Name}");
                     continue;
                 }
 
                 self.checkers.Add(type.Name, checkerHandler);
+            }
+
+            //3. 加载nodeCheckerHandler
+            self.nodeCheckers.Clear();
+            var nodeCheckerTypes = EventSystem.Instance.GetTypes(typeof (NodeCheckerAttribute));
+            Log.Debug($"一共有 {nodeCheckerTypes.Count} 个 nodeCheckerHandler");
+            foreach (Type type in nodeCheckerTypes)
+            {
+                NodeCheckerHandler checkerHandler = Activator.CreateInstance(type) as NodeCheckerHandler;
+                if (checkerHandler == null)
+                {
+                    Log.Error($"this behavior is not a nodeCheckerHandler!: {type.Name}");
+                    continue;
+                }
+
+                self.nodeCheckers.Add(type.Name, checkerHandler);
             }
         }
 
@@ -83,9 +99,19 @@ namespace ET.Client
             self.checkers.TryGetValue(name, out var handler);
             if (handler == null)
             {
-                Log.Error($"不存在behavior: {name}");
+                Log.Error($"不存在checker: {name}");
             }
 
+            return handler;
+        }
+
+        public static NodeCheckerHandler GetNodeChecker(this TODEventSystem self, string name)
+        {
+            self.nodeCheckers.TryGetValue(name, out var handler);
+            if (handler == null)
+            {
+                Log.Error($"不存在nodeChecker: {name}");
+            }
             return handler;
         }
     }

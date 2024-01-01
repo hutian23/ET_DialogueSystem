@@ -6,7 +6,7 @@ using UnityEngine;
 namespace ET
 {
     [Serializable]
-    public struct intParam
+    public struct IntParam
     {
         public string key;
         public int value;
@@ -55,9 +55,19 @@ namespace ET
         public string desc;
     }
 
+    [Serializable]
+    public struct AnimCurParam
+    {
+        public string key;
+        public AnimationCurve value;
+
+        [TextArea]
+        public string desc;
+    }
+    
     public class BaseScriptableObject: ScriptableObject
     {
-        public List<intParam> data_int = new();
+        public List<IntParam> data_int = new();
 
         public List<FloatParam> data_float = new();
 
@@ -69,7 +79,7 @@ namespace ET
 
         public int GetInt(string key)
         {
-            intParam param = this.data_int.FirstOrDefault(i => i.key == key);
+            IntParam param = this.data_int.FirstOrDefault(i => i.key == key);
             if (string.IsNullOrEmpty(param.key))
             {
                 Debug.LogWarning($"不存在int形参数:{key}");

@@ -8,7 +8,6 @@ using UnityEngine.UIElements;
 public class DialogueEditor: EditorWindow
 {
     private DialogueTreeView treeView;
-    private CheckerView checkerView;
     private InspectorView inspectorView;
     private Toolbar toolbar;
 
@@ -45,7 +44,6 @@ public class DialogueEditor: EditorWindow
         this.treeView.OnNodeSelected = this.OnNodeSelected;
         
         this.inspectorView = root.Q<InspectorView>();
-        this.checkerView = root.Q<CheckerView>();
         this.toolbar = root.Q<Toolbar>();
         this.toolbar.Add(new Button(this.SaveDialogueTree) { text = "Save Data" });
     }
@@ -72,6 +70,5 @@ public class DialogueEditor: EditorWindow
     private void OnNodeSelected(DialogueNodeView dialogueNodeView)
     {
         this.inspectorView.UpdateSelection(dialogueNodeView);
-        this.checkerView.UpdateSelection(dialogueNodeView);
     }
 }

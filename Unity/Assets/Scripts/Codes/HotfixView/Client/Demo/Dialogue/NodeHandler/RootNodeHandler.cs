@@ -5,9 +5,12 @@
         protected override async ETTask<Status> Run(Unit unit, RootNode node, ETCancellationToken token)
         {
             DialogueNode next = node.nextNode;
-            Log.Warning(next.ToString());
-            
-            await ETTask.CompletedTask;
+            while (true)
+            {
+                if(token.IsCancel()) break;
+                Log.Warning("Hello world222");
+                await TimerComponent.Instance.WaitFrameAsync(token);
+            }
             return Status.Success;
         }
     }

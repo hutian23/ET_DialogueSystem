@@ -13,15 +13,15 @@ namespace ET.Client
                 self.Init();
             }
         }
-        
-        public class DialogueDispatcherComponentLoadSystem : LoadSystem<DialogueDispatcherComponent>
+
+        public class DialogueDispatcherComponentLoadSystem: LoadSystem<DialogueDispatcherComponent>
         {
             protected override void Load(DialogueDispatcherComponent self)
             {
                 self.Init();
             }
         }
-        
+
         public class DialogueDispatcherComponentDestorySystem: DestroySystem<DialogueDispatcherComponent>
         {
             protected override void Destroy(DialogueDispatcherComponent self)
@@ -44,13 +44,13 @@ namespace ET.Client
                     continue;
                 }
 
-                self.dispatchHandler.Add(type, nodeHandler);
+                self.dispatchHandler.Add(nodeHandler.GetDialogueType(), nodeHandler);
             }
         }
 
         public static async ETTask<Status> Handle(this DialogueDispatcherComponent self, Unit unit, object node, ETCancellationToken token)
         {
-            if (self.dispatchHandler.TryGetValue(node.GetType(), out NodeHandler handler))
+            if (!self.dispatchHandler.TryGetValue(node.GetType(), out NodeHandler handler))
             {
                 throw new Exception($"not found handler: {node}");
             }

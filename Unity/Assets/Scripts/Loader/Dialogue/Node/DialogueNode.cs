@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ET.Client;
+using UnityEngine;
 
 namespace ET
 {
@@ -8,12 +9,11 @@ namespace ET
         public string Guid;
         [HideInInspector]
         public Vector2 position;
-  
-        public CheckerConfig Config;
-        
-        public bool NeedCheck;
         [TextArea]
         public string text;
+
+        public bool NeedCheck;
+        public NodeChecker NodeChecker;
     }
     
     public class NodeTypeAttribute : BaseAttribute

@@ -5,32 +5,32 @@ using UnityEngine;
 
 namespace ET.Client
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/DialogueTree",fileName = "DialogueTree")]
-    public class DialogueTree : ScriptableObject
+    [CreateAssetMenu(menuName = "ScriptableObject/DialogueTree", fileName = "DialogueTree")]
+    public class DialogueTree: ScriptableObject
     {
         public DialogueNode root;
 
         [SerializeReference]
         public List<DialogueNode> nodes = new();
         public List<CommentBlockData> blockDatas = new();
-        public List<CheckerConfig> checkers = new();
-        
+
         public DialogueNode CreateNode(Type type)
         {
             DialogueNode node = CreateInstance(type) as DialogueNode;
             node.Guid = GUID.Generate().ToString();
             node.name = node.Guid;
-            
+
             if (node == null)
             {
                 Debug.LogError($"{type} 不能转换成dialogueNode");
                 return null;
             }
+
             this.nodes.Add(node);
-            
-            AssetDatabase.AddObjectToAsset(node,this);
+
+            AssetDatabase.AddObjectToAsset(node, this);
             AssetDatabase.SaveAssets();
-            
+
             return node;
         }
 
@@ -40,7 +40,7 @@ namespace ET.Client
             {
                 return false;
             }
-
+            
             this.nodes.Remove(node);
             AssetDatabase.RemoveObjectFromAsset(node);
             AssetDatabase.SaveAssets();
@@ -54,7 +54,7 @@ namespace ET.Client
             EditorUtility.SetDirty(this);
             return blockData;
         }
-        
+
         public void DeleteBlock(CommentBlockData blockData)
         {
             this.blockDatas.Remove(blockData);
