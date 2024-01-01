@@ -21,7 +21,9 @@ namespace ET.Client
         private DialogueTree tree;
         private DialogueEditor window;
         private SearchMenuWindowProvider searchWindow;
-
+        
+        public Action<DialogueNodeView> OnNodeSelected;
+        
         public DialogueTreeView()
         {
             Insert(0, new GridBackground());
@@ -40,12 +42,18 @@ namespace ET.Client
             {
                 graphViewChange.elementsToRemove.ForEach(elem =>
                 {
-                    if (elem is DialogueNodeView nodeView)
+                    switch (elem)
                     {
-                        this.tree.DeleteNode(nodeView.node);
+                        case DialogueNodeView nodeView:
+                            this.tree.DeleteNode(nodeView.node);
+                            break;
+                        case CommentBlockGroup group:
+                            this.tree.DeleteBlock(group.blockData);
+                            break;
                     }
                 });
             }
+
             return graphViewChange;
         }
 
@@ -57,7 +65,7 @@ namespace ET.Client
             this.graphViewChanged -= this.OnGraphViewChanged;
             DeleteElements(this.graphElements);
             this.graphViewChanged += this.OnGraphViewChanged;
-            
+
             //1. 搜索框
             this.AddSearchWindow();
             //2. 生成视图节点
@@ -68,15 +76,20 @@ namespace ET.Client
                 this.tree.root = rootNode;
                 rootNode.position = new Vector2(100, 200);
             }
+
             foreach (var node in this.tree.nodes)
             {
                 CreateNodeView(node);
             }
+
             //3. 生成边
-            // foreach (var node in this.tree.nodes)
-            // {
-            //     
-            // }
+            foreach (var node in this.tree.nodes)
+            {
+                DialogueNodeView nodeView = GetViewFromNode(node);
+                nodeView.GenerateEdge(this);
+            }
+
+            //4. 生成背景板
             foreach (var block in this.tree.blockDatas)
             {
                 CreateCommentBlockView(block);
@@ -103,42 +116,23 @@ namespace ET.Client
                     endPort.node != startPorts.node).ToList();
             return list;
         }
-        
+
+        #region Node
+
         /// <summary>
         /// nodeview的viewDataKey = node.Guid
         /// </summary>
         private DialogueNodeView GetViewFromNode(DialogueNode node)
         {
-            return GetNodeByGuid(node.Guid) as DialogueNodeView;
+            if (node == null) return null;
+            return this.GetNodeByGuid(node.Guid) as DialogueNodeView;
         }
-        
+
         public void CreateNode(Type type, Vector2 position)
         {
             DialogueNode node = this.tree.CreateNode(type);
             node.position = position;
             CreateNodeView(node);
-        }
-
-        public void CreateCommentBlock(Vector2 position)
-        {
-            CommentBlockData blockData = new() { position = position, title = "Comment Block" };
-            this.tree.blockDatas.Add(blockData);
-            CreateCommentBlockView(blockData);
-        }
-
-        private void CreateCommentBlockView(CommentBlockData blockData)
-        {
-            var group = new CommentBlockGroup(blockData);
-            AddElement(group);
-            group.SetPosition(new Rect(blockData.position, this.DefaultCommentSize));
-
-            List<DialogueNodeView> nodeViews = this.nodes.Cast<DialogueNodeView>().ToList();
-            foreach (var guid in group.blockData.children)
-            {
-                DialogueNodeView nodeView = GetNodeByGuid(guid) as DialogueNodeView;
-                if(nodeView == null) continue;
-                group.AddElement(nodeView);
-            }
         }
 
         /// <summary>
@@ -157,10 +151,80 @@ namespace ET.Client
                 {
                     DialogueNodeView nodeView = Activator.CreateInstance(nodeViewType, args: new object[] { node }) as DialogueNodeView;
                     nodeView.SetPosition(new Rect(node.position, this.DefaultNodeSize));
-                    nodeView.GeneratePort();
+                    nodeView.OnNodeSelected += this.OnNodeSelected;
                     AddElement(nodeView);
                 }
             }
         }
+
+        public void SaveNodes()
+        {
+            List<DialogueNodeView> nodeViews = this.graphElements.Where(x => x is DialogueNodeView).Cast<DialogueNodeView>().ToList();
+            nodeViews.ForEach(view => view.Save(this));
+        }
+
+        #endregion
+
+        #region CommentBlock
+
+        public void CreateCommentBlock(Vector2 position)
+        {
+            CommentBlockData blockData = this.tree.CreateBlock(position);
+            CreateCommentBlockView(blockData);
+        }
+
+        private void CreateCommentBlockView(CommentBlockData blockData)
+        {
+            var group = new CommentBlockGroup(blockData);
+            AddElement(group);
+            group.SetPosition(new Rect(blockData.position, this.DefaultCommentSize));
+            foreach (var guid in group.blockData.children)
+            {
+                DialogueNodeView nodeView = GetNodeByGuid(guid) as DialogueNodeView;
+                if (nodeView == null) continue;
+                group.AddElement(nodeView);
+            }
+        }
+
+        public void SaveCommentBlock()
+        {
+            List<CommentBlockGroup> groups = this.graphElements.Where(x => x is CommentBlockGroup).Cast<CommentBlockGroup>().ToList();
+            groups.ForEach(block => block.Save());
+            EditorUtility.SetDirty(this.tree);
+        }
+
+        #endregion
+
+        #region Edge
+        /// <summary>
+        /// 只有父节点的output和子节点的input的连接逻辑需要重载
+        /// </summary>
+        /// <param name="output"></param>
+        /// <param name="childNode"></param>
+        /// <returns></returns>
+        public Edge CreateEdge(Port output, DialogueNode childNode)
+        {
+            if (output == null || output.direction == Direction.Input || childNode == null) return null;
+            DialogueNodeView nodeView = this.GetViewFromNode(childNode);
+            if (nodeView == null) return null;
+
+            Edge edge = output.ConnectTo(nodeView.input);
+            AddElement(edge);
+            return edge;
+        }
+
+        public void CreateEdges(Port output, List<DialogueNode> nodeList)
+        {
+            if (output == null || output.direction == Direction.Input || nodeList == null) return;
+            foreach (var node in nodeList)
+            {
+                DialogueNodeView nodeView = this.GetViewFromNode(node);
+                if(nodeView == null) continue;
+                Edge edge = output.ConnectTo(nodeView.input);
+                AddElement(edge);
+            }
+        }
+        #endregion
+        
     }
 }

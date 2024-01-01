@@ -1,30 +1,37 @@
 ﻿using UnityEditor.Experimental.GraphView;
-using UnityEngine.UIElements;
 
 namespace ET.Client
 {
     [NodeEditorOf(typeof (Disco_ChoiceNode))]
     public sealed class Disco_ChoiceNodeView: DialogueNodeView
     {
-        public Port SuccessPort;
-        public Port FailedPort;
-        public Label label;
+        private readonly Port SuccessPort;
+        private readonly Port FailedPort;
         
         public Disco_ChoiceNodeView(DialogueNode node): base(node)
         {
-            this.title = "检定节点";
-            this.inputPort = this.GenerateInputPort("", true);
-            this.label = this.GenerateDescription();
-            this.SuccessPort = this.GenerateOutputPort("检定成功", false);
-            this.FailedPort = this.GenerateOutputPort("检定失败", false);
+            this.title = "检定节点(Disco)";
+            
+            this.GenerateInputPort("", true);
+            this.GenerateDescription();
+            this.SuccessPort = this.GenerateOutputPort("检定成功");
+            this.FailedPort = this.GenerateOutputPort("检定失败");
+        }
+        
 
-            this.OnNodeSelected += this.Refresh_Desc;
-            this.OnNodeSelected?.Invoke(this);
+        public override void GenerateEdge(DialogueTreeView treeView)
+        {
+            if (!(this.node is Disco_ChoiceNode choiceNode)) return;
+            treeView.CreateEdge(this.SuccessPort, choiceNode.Success);
+            treeView.CreateEdge(this.FailedPort, choiceNode.Failed);
         }
 
-        private void Refresh_Desc(DialogueNodeView nodeView)
+        public override void Save(DialogueTreeView treeView)
         {
-            this.label.text = this.node.text;
+            base.Save(treeView);
+            if (!(this.node is Disco_ChoiceNode choiceNode)) return;
+            choiceNode.Success = this.GetFirstLinkNode(this.SuccessPort);
+            choiceNode.Failed = this.GetFirstLinkNode(this.FailedPort);
         }
     }
 }

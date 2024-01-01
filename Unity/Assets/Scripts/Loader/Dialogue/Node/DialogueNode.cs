@@ -8,6 +8,8 @@ namespace ET
         public string Guid;
         [HideInInspector]
         public Vector2 position;
+  
+        public CheckerConfig Config;
         
         public bool NeedCheck;
         [TextArea]

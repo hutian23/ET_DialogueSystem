@@ -3,13 +3,14 @@ using UnityEngine.UIElements;
 
 namespace ET.Client
 {
-    public class InspectorView : VisualElement
+    public class CheckerView : VisualElement
     {
-        public new class UxmlFactory: UxmlFactory<InspectorView, UxmlTraits>{}
+        public new class UxmlFactory : UxmlFactory<CheckerView,UxmlTraits>
+        { }
 
         private Editor editor;
-
-        public InspectorView()
+        
+        public CheckerView()
         {
         }
         
@@ -17,7 +18,8 @@ namespace ET.Client
         {
             this.Clear();
             UnityEngine.Object.DestroyImmediate(this.editor);
-            this.editor = Editor.CreateEditor(nodeView.node);
+            if(nodeView.node.Config == null) return;
+            this.editor = Editor.CreateEditor(nodeView.node.Config);
             IMGUIContainer container = new(() =>
             {
                 this.editor.OnInspectorGUI();

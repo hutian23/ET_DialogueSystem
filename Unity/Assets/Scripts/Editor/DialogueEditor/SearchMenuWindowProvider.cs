@@ -25,7 +25,7 @@ namespace ET.Client
             entries.Add(new SearchTreeGroupEntry(new GUIContent("创建新节点")));
             
             //常用节点
-            entries.Add(new SearchTreeGroupEntry(new GUIContent("常用")){level = 1});
+            entries.Add(new SearchTreeGroupEntry(new GUIContent("常用工具")){level = 1});
             entries.Add(new SearchTreeEntry(new GUIContent("背景板")){level = 2, userData = new CommentBlockData()});
             
             this.LoadDialogueNode(entries);
@@ -46,7 +46,7 @@ namespace ET.Client
                     this.treeView.CreateNode(type, graphPosition);
                     return true;
                 }
-                case CommentBlockData commentBlockData:
+                case CommentBlockData:
                 {
                     this.treeView.CreateCommentBlock(graphPosition);
                     return true;

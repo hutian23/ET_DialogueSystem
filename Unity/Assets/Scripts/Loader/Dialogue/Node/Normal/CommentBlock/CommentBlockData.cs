@@ -9,6 +9,6 @@ namespace ET.Client
     {
         public Vector2 position;
         public string title = "Comment Block";
-        public HashSet<string> children = new();
+        public List<string> children = new();
     }
 }

@@ -12,8 +12,8 @@ namespace ET.Client
 
         [SerializeReference]
         public List<DialogueNode> nodes = new();
-
         public List<CommentBlockData> blockDatas = new();
+        public List<CheckerConfig> checkers = new();
         
         public DialogueNode CreateNode(Type type)
         {
@@ -45,6 +45,20 @@ namespace ET.Client
             AssetDatabase.RemoveObjectFromAsset(node);
             AssetDatabase.SaveAssets();
             return true;
+        }
+
+        public CommentBlockData CreateBlock(Vector2 position)
+        {
+            CommentBlockData blockData = new() { position = position, title = "Comment Block" };
+            this.blockDatas.Add(blockData);
+            EditorUtility.SetDirty(this);
+            return blockData;
+        }
+        
+        public void DeleteBlock(CommentBlockData blockData)
+        {
+            this.blockDatas.Remove(blockData);
+            EditorUtility.SetDirty(this);
         }
     }
 }
