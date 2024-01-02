@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e9dbc5c9f192b84e9fef0a764dfc94d, type: 3}
-  m_Name: DialogueTree 1
+  m_Name: DialogueTree 2
   m_EditorClassIdentifier: 
   root: {fileID: -4296569804050504254}
   nodes:
@@ -94,7 +94,7 @@ MonoBehaviour:
   - {fileID: 4186964517721992978}
   blockDatas:
   - position: {x: 241, y: 155}
-    title: save
+    title: test
     children:
     - 61bb1cbef39eeb449b9d88edf4616fd5
     - 8d8aa6c5d1f0f644892a5a5c2082f8bf
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Name: e7494b51913717341bfdee19d317aa91
   m_EditorClassIdentifier: 
   Guid: e7494b51913717341bfdee19d317aa91
-  position: {x: 285, y: 605}
+  position: {x: 284.58746, y: 565}
   text: 
   NeedCheck: 0
   NodeChecker:

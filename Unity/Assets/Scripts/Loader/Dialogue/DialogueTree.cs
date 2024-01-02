@@ -51,14 +51,12 @@ namespace ET.Client
         {
             CommentBlockData blockData = new() { position = position, title = "Comment Block" };
             this.blockDatas.Add(blockData);
-            EditorUtility.SetDirty(this);
             return blockData;
         }
 
         public void DeleteBlock(CommentBlockData blockData)
         {
             this.blockDatas.Remove(blockData);
-            EditorUtility.SetDirty(this);
         }
     }
 }

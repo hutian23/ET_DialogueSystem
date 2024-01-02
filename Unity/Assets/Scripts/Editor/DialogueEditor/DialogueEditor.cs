@@ -1,7 +1,5 @@
-using System;
 using ET.Client;
 using UnityEditor;
-using UnityEditor.Callbacks;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -11,38 +9,24 @@ public class DialogueEditor: EditorWindow
     private DialogueTreeView treeView;
     private InspectorView inspectorView;
     private Toolbar toolbar;
-
-    #region autoSave
     private Toggle autoSaveToggle;
-    public float saveInterval = 2f;
-    public double lastSaveTimer;
-    #endregion
-    
     private Button SaveBtn;
     
-    [MenuItem("Tools/DialogueEditor")]
-    public static void OpenWindow()
+    public bool HasUnSave
     {
-        DialogueEditor wnd = GetWindow<DialogueEditor>();
-        wnd.titleContent = new GUIContent("DialogueEditor");
+        get => this.hasUnsavedChanges;
+        set => this.hasUnsavedChanges = value;
     }
 
-    [OnOpenAsset]
-    public static bool OnOpenAsset(int instanceId, int line)
-    {
-        if (Selection.activeObject is DialogueTree)
-        {
-            OpenWindow();
-            return true;
-        }
-
-        return false;
-    }
+    private DialogueTree tree;
 
     public void CreateGUI()
     {
+        Undo.undoRedoPerformed -= this.OnRedo;
+        Undo.undoRedoPerformed += this.OnRedo;
+        
         VisualElement root = this.rootVisualElement;
-
+        
         var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Scripts/Editor/DialogueEditor/DialogueEditor.uxml");
         visualTree.CloneTree(root);
 
@@ -59,25 +43,55 @@ public class DialogueEditor: EditorWindow
         this.SaveBtn.clicked += this.SaveDialogueTree;
     }
 
-    private void OnSelectionChange()
+    public void OnDisable()
     {
-        DialogueTree tree = Selection.activeObject as DialogueTree;
-        if (tree && AssetDatabase.CanOpenAssetInEditor(tree.GetInstanceID()))
+        Undo.undoRedoPerformed -= this.OnRedo;
+    }
+
+    private void OnRedo()
+    {
+        if (this.tree == null) return;
+        Debug.Log("redo");
+        this.HasUnSave = false;
+        Undo.PerformRedo();
+        this.treeView.PopulateView(this.tree,this);
+    }
+
+    public static void OpenWindow(DialogueTree dialogueTree)
+    {
+        DialogueEditor wnd = GetWindow<DialogueEditor>();
+        wnd.titleContent = new GUIContent("DialogueEditor");
+        wnd.tree = dialogueTree;
+        
+        wnd.treeView.PopulateView(wnd.tree,wnd);
+    }
+    
+    public void SaveDialogueTree()
+    {
+        this.treeView.SaveCommentBlock();
+        this.treeView.SaveNodes();
+        this.HasUnSave = false;
+        EditorUtility.SetDirty(this.tree);
+        Undo.RecordObject(this.tree,"dialoguetree");
+    }
+
+    public void OnInspectorUpdate()
+    {
+        if (this.autoSaveToggle.value && this.HasUnSave)
         {
-            this.treeView.PopulateView(tree, this);
-            this.inspectorView.contentContainer.Clear();
-            this.inspectorView.contentContainer.Add(new Label(tree.name));
+            this.SaveDialogueTree();
         }
     }
 
-    public void SaveDialogueTree()
+    /// <summary>
+    /// 关闭editor时窗口中save的回调
+    /// </summary>
+    public override void SaveChanges()
     {
-        Debug.Log("Save CommentBlock");
-        this.treeView.SaveCommentBlock();
-        Debug.Log("Save Node");
-        this.treeView.SaveNodes();
+        base.SaveChanges();
+        this.SaveDialogueTree();
     }
-
+    
     private void OnNodeSelected(DialogueNodeView dialogueNodeView)
     {
         this.inspectorView.UpdateSelection(dialogueNodeView);

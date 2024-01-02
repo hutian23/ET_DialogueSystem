@@ -54,6 +54,7 @@ namespace ET.Client
                 });
             }
             
+            this.SetDirty();
             return graphViewChange;
         }
 
@@ -86,7 +87,7 @@ namespace ET.Client
             foreach (var node in this.tree.nodes)
             {
                 DialogueNodeView nodeView = GetViewFromNode(node);
-                nodeView.GenerateEdge(this);
+                nodeView.GenerateEdge();
             }
 
             //4. 生成背景板
@@ -117,6 +118,12 @@ namespace ET.Client
             return list;
         }
 
+        //标记一下视图中有修改
+        public void SetDirty()
+        {
+            this.window.HasUnSave = true;
+        }
+
         #region Node
 
         /// <summary>
@@ -132,6 +139,7 @@ namespace ET.Client
         {
             DialogueNode node = this.tree.CreateNode(type);
             node.position = position;
+            Undo.RecordObject(this.tree,"treeSettings");
             CreateNodeView(node);
         }
 
@@ -149,7 +157,7 @@ namespace ET.Client
                 NodeEditorOfAttribute attr = nodeViewType.GetCustomAttribute(typeof (NodeEditorOfAttribute)) as NodeEditorOfAttribute;
                 if (attr.nodeType == node.GetType())
                 {
-                    DialogueNodeView nodeView = Activator.CreateInstance(nodeViewType, args: new object[] { node }) as DialogueNodeView;
+                    DialogueNodeView nodeView = Activator.CreateInstance(nodeViewType, args: new object[] { node, this }) as DialogueNodeView;
                     nodeView.SetPosition(new Rect(node.position, this.DefaultNodeSize));
                     nodeView.OnNodeSelected += this.OnNodeSelected;
                     AddElement(nodeView);
@@ -160,7 +168,7 @@ namespace ET.Client
         public void SaveNodes()
         {
             List<DialogueNodeView> nodeViews = this.graphElements.Where(x => x is DialogueNodeView).Cast<DialogueNodeView>().ToList();
-            nodeViews.ForEach(view => view.SaveCallback?.Invoke(this));
+            nodeViews.ForEach(view => view.SaveCallback?.Invoke());
         }
 
         #endregion
@@ -175,7 +183,7 @@ namespace ET.Client
 
         private void CreateCommentBlockView(CommentBlockData blockData)
         {
-            var group = new CommentBlockGroup(blockData);
+            var group = new CommentBlockGroup(blockData, this);
             AddElement(group);
             group.SetPosition(new Rect(blockData.position, this.DefaultCommentSize));
             foreach (var guid in group.blockData.children)

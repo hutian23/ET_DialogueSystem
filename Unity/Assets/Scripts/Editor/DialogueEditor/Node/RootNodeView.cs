@@ -7,27 +7,27 @@ namespace ET.Client
     {
         private readonly Port outputPort;
 
-        public RootNodeView(DialogueNode node): base(node)
-        {
-            this.capabilities &= ~ Capabilities.Movable;
-            this.capabilities &= ~ Capabilities.Deletable;
+        public RootNodeView(DialogueNode node,DialogueTreeView treeView): base(node,treeView)
+        { 
+            capabilities &= ~ Capabilities.Movable;
+            capabilities &= ~ Capabilities.Deletable;
 
-            this.title = "根节点";
-            this.outputPort = GenerateOutputPort("开始");
+            title = "根节点";
+            outputPort = GenerateOutputPort("start");
 
-            this.SaveCallback += this.Save;
+            SaveCallback += this.Save;
         }
 
-        public override void GenerateEdge(DialogueTreeView treeView)
+        public override void GenerateEdge()
         {
-            if (!(this.node is RootNode rootNode)) return;
-            treeView.CreateEdge(this.outputPort, rootNode.nextNode);
+            if (!(node is RootNode rootNode)) return;
+            treeView.CreateEdge(outputPort, rootNode.nextNode);
         }
 
-        private void Save(DialogueTreeView treeView)
+        private void Save()
         {
-            if (!(this.node is RootNode rootNode)) return;
-            rootNode.nextNode = this.GetFirstLinkNode(this.outputPort);
+            if (!(node is RootNode rootNode)) return;
+            rootNode.nextNode = GetFirstLinkNode(outputPort);
         }
     }
 }

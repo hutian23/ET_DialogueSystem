@@ -7,7 +7,7 @@ namespace ET.Client
     {
         private readonly Port bubbles;
         
-        public BubbleBaseNodeView(DialogueNode node): base(node)
+        public BubbleBaseNodeView(DialogueNode node,DialogueTreeView treeView): base(node,treeView)
         {
             this.title = "气泡基类节点";
             this.GenerateInputPort("",true);
@@ -15,13 +15,13 @@ namespace ET.Client
             this.SaveCallback += this.Save;
         }
 
-        public override void GenerateEdge(DialogueTreeView treeView)
+        public override void GenerateEdge()
         {
             if(!(this.node is BubbleBaseNode bubbleBaseNode)) return;
             treeView.CreateEdges(this.bubbles,bubbleBaseNode.bubbles);
         }
 
-        private void Save(DialogueTreeView treeView)
+        private void Save()
         {
             if(!(this.node is BubbleBaseNode bubbleBaseNode)) return;
             bubbleBaseNode.bubbles = this.GetLinkNodes(this.bubbles);

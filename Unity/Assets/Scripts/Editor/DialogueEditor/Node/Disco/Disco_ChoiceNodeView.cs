@@ -8,7 +8,7 @@ namespace ET.Client
         private readonly Port SuccessPort;
         private readonly Port FailedPort;
         
-        public Disco_ChoiceNodeView(DialogueNode node): base(node)
+        public Disco_ChoiceNodeView(DialogueNode node,DialogueTreeView treeView): base(node,treeView)
         {
             this.title = "检定节点(Disco)";
             
@@ -21,14 +21,14 @@ namespace ET.Client
         }
         
 
-        public override void GenerateEdge(DialogueTreeView treeView)
+        public override void GenerateEdge()
         {
             if (!(this.node is Disco_ChoiceNode choiceNode)) return;
             treeView.CreateEdge(this.SuccessPort, choiceNode.Success);
             treeView.CreateEdge(this.FailedPort, choiceNode.Failed);
         }
 
-        private void Save(DialogueTreeView treeView)
+        private void Save()
         {
             if (!(this.node is Disco_ChoiceNode choiceNode)) return;
             choiceNode.Success = this.GetFirstLinkNode(this.SuccessPort);

@@ -22,17 +22,19 @@ namespace ET.Client
     {
         public DialogueNode node;
 
-        public Action<DialogueNodeView> OnNodeSelected;
         public Port input;
-        public Dictionary<string, Port> outports = new();
-        public TextField TextField;
+        private readonly Dictionary<string, Port> outports = new();
+        private TextField TextField;
+        protected readonly DialogueTreeView treeView;
 
-        protected DialogueNodeView(DialogueNode node)
+        public Action<DialogueNodeView> OnNodeSelected;
+
+        protected DialogueNodeView(DialogueNode node, DialogueTreeView dialogueTreeView)
         {
             this.node = node;
-            this.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/Node/NodeView.uss"));
-            this.node = node;
             this.viewDataKey = this.node.Guid;
+            this.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/Node/NodeView.uss"));
+            this.treeView = dialogueTreeView;
             
         }
 
@@ -65,24 +67,14 @@ namespace ET.Client
             this.TextField.style.flexWrap = Wrap.Wrap;
             this.TextField.multiline = true;
             this.contentContainer.Add(this.TextField);
-            
-            this.SaveCallback += this.SaveText;
+
+            this.SaveCallback += () => { this.node.text = this.TextField.text; };
+            this.TextField.RegisterCallback<BlurEvent>(_ => this.treeView.SetDirty());
+
             this.TextField.value = this.node.text;
-            this.TextField.RegisterCallback<ChangeEvent<string>>(this.TextChanged);
             return this.TextField;
         }
 
-        private void TextChanged(ChangeEvent<string> evet)
-        {
-            Debug.Log("Text Changed");
-        }
-        
-        private void SaveText(DialogueTreeView treeView)
-        {
-            if (this.TextField == null) return;
-            this.node.text = this.TextField.text;
-        }
-        
         /// <summary>
         /// 任何nodeview都只有一个InputPort
         /// </summary>
@@ -135,8 +127,8 @@ namespace ET.Client
                     .ToList();
         }
 
-        public abstract void GenerateEdge(DialogueTreeView treeView);
+        public abstract void GenerateEdge();
 
-        public Action<DialogueTreeView> SaveCallback;
+        public Action SaveCallback;
     }
 }

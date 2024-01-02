@@ -3,7 +3,7 @@
     [NodeEditorOf(typeof(BubbleActionNode))]
     public sealed class BubbleActionNodeView : DialogueNodeView
     {
-        public BubbleActionNodeView(DialogueNode node): base(node)
+        public BubbleActionNodeView(DialogueNode node,DialogueTreeView treeView): base(node,treeView)
         {
             this.title = "气泡子节点";
 
@@ -11,7 +11,7 @@
             this.GenerateDescription();
         }
 
-        public override void GenerateEdge(DialogueTreeView treeView)
+        public override void GenerateEdge()
         {
         }
     }
