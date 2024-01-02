@@ -10,23 +10,24 @@ namespace ET.Client
 
         public Angry_ChoiceNodeView(DialogueNode node): base(node)
         {
-            this.title = "武士零愤怒节点";
+            this.title = "情绪分支节点(Katana zero)";
 
             this.GenerateInputPort("", true);
             this.GenerateDescription();
             this.Angry = this.GenerateOutputPort("in anger", true);
             this.Normal = this.GenerateOutputPort("normal", true);
+
+            this.SaveCallback += this.Save;
         }
         public override void GenerateEdge(DialogueTreeView treeView)
         {
             if (!(this.node is Angry_ChoiceNode angryChoiceNode)) return;
             treeView.CreateEdges(this.Angry, angryChoiceNode.Angrys);
-            treeView.CreateEdges(this.Angry, angryChoiceNode.Normal);
+            treeView.CreateEdges(this.Normal, angryChoiceNode.Normal);
         }
 
-        public override void Save(DialogueTreeView treeView)
+        private void Save(DialogueTreeView treeView)
         {
-            base.Save(treeView);
             if (!(this.node is Angry_ChoiceNode angryChoiceNode)) return;
             angryChoiceNode.Angrys = this.GetLinkNodes(this.Angry);
             angryChoiceNode.Normal = this.GetLinkNodes(this.Normal);

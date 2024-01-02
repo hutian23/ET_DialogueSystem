@@ -16,6 +16,8 @@ namespace ET.Client
             this.GenerateDescription();
             this.SuccessPort = this.GenerateOutputPort("检定成功");
             this.FailedPort = this.GenerateOutputPort("检定失败");
+
+            this.SaveCallback += this.Save;
         }
         
 
@@ -26,9 +28,8 @@ namespace ET.Client
             treeView.CreateEdge(this.FailedPort, choiceNode.Failed);
         }
 
-        public override void Save(DialogueTreeView treeView)
+        private void Save(DialogueTreeView treeView)
         {
-            base.Save(treeView);
             if (!(this.node is Disco_ChoiceNode choiceNode)) return;
             choiceNode.Success = this.GetFirstLinkNode(this.SuccessPort);
             choiceNode.Failed = this.GetFirstLinkNode(this.FailedPort);

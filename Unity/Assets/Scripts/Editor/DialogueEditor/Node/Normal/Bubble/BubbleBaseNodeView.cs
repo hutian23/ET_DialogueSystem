@@ -12,6 +12,7 @@ namespace ET.Client
             this.title = "气泡基类节点";
             this.GenerateInputPort("",true);
             this.bubbles = this.GenerateOutputPort("Bubbles", true);
+            this.SaveCallback += this.Save;
         }
 
         public override void GenerateEdge(DialogueTreeView treeView)
@@ -20,9 +21,8 @@ namespace ET.Client
             treeView.CreateEdges(this.bubbles,bubbleBaseNode.bubbles);
         }
 
-        public override void Save(DialogueTreeView treeView)
+        private void Save(DialogueTreeView treeView)
         {
-            base.Save(treeView);
             if(!(this.node is BubbleBaseNode bubbleBaseNode)) return;
             bubbleBaseNode.bubbles = this.GetLinkNodes(this.bubbles);
         }

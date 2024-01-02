@@ -25,7 +25,7 @@ namespace ET.Client
         public Action<DialogueNodeView> OnNodeSelected;
         public Port input;
         public Dictionary<string, Port> outports = new();
-        public Label desc;
+        public TextField TextField;
 
         protected DialogueNodeView(DialogueNode node)
         {
@@ -33,6 +33,7 @@ namespace ET.Client
             this.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/Node/NodeView.uss"));
             this.node = node;
             this.viewDataKey = this.node.Guid;
+            
         }
 
         public override void SetPosition(Rect newPos)
@@ -51,25 +52,37 @@ namespace ET.Client
             }
         }
 
-        protected Label GenerateDescription()
+        protected TextField GenerateDescription()
         {
-            this.desc = new();
-            this.desc.enableRichText = true;
-            this.desc.AddToClassList("input-port-label");
+            this.TextField = new TextField();
 
-            this.inputContainer.Add(desc);
-            this.inputContainer.style.flexDirection = FlexDirection.Row;
-
-            this.OnNodeSelected += this.RefreshDesc;
-            this.RefreshDesc(this);
-            return desc;
+            // 网上找的，看不懂，反正解决了自动换行的问题
+            this.TextField.style.maxWidth = 250;
+            this.TextField.style.minWidth = 100;
+            this.TextField.style.whiteSpace = WhiteSpace.Normal;
+            this.TextField.style.flexDirection = FlexDirection.Row;
+            this.TextField.style.flexGrow = 1;
+            this.TextField.style.flexWrap = Wrap.Wrap;
+            this.TextField.multiline = true;
+            this.contentContainer.Add(this.TextField);
+            
+            this.SaveCallback += this.SaveText;
+            this.TextField.value = this.node.text;
+            this.TextField.RegisterCallback<ChangeEvent<string>>(this.TextChanged);
+            return this.TextField;
         }
 
-        private void RefreshDesc(DialogueNodeView nodeView)
+        private void TextChanged(ChangeEvent<string> evet)
         {
-            nodeView.desc.text = this.node.text;
+            Debug.Log("Text Changed");
         }
-
+        
+        private void SaveText(DialogueTreeView treeView)
+        {
+            if (this.TextField == null) return;
+            this.node.text = this.TextField.text;
+        }
+        
         /// <summary>
         /// 任何nodeview都只有一个InputPort
         /// </summary>
@@ -124,8 +137,6 @@ namespace ET.Client
 
         public abstract void GenerateEdge(DialogueTreeView treeView);
 
-        public virtual void Save(DialogueTreeView treeView)
-        {
-        }
+        public Action<DialogueTreeView> SaveCallback;
     }
 }

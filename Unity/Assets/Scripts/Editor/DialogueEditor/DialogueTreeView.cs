@@ -21,9 +21,9 @@ namespace ET.Client
         private DialogueTree tree;
         private DialogueEditor window;
         private SearchMenuWindowProvider searchWindow;
-        
+
         public Action<DialogueNodeView> OnNodeSelected;
-        
+
         public DialogueTreeView()
         {
             Insert(0, new GridBackground());
@@ -53,7 +53,7 @@ namespace ET.Client
                     }
                 });
             }
-
+            
             return graphViewChange;
         }
 
@@ -160,7 +160,7 @@ namespace ET.Client
         public void SaveNodes()
         {
             List<DialogueNodeView> nodeViews = this.graphElements.Where(x => x is DialogueNodeView).Cast<DialogueNodeView>().ToList();
-            nodeViews.ForEach(view => view.Save(this));
+            nodeViews.ForEach(view => view.SaveCallback?.Invoke(this));
         }
 
         #endregion
@@ -196,6 +196,7 @@ namespace ET.Client
         #endregion
 
         #region Edge
+
         /// <summary>
         /// 只有父节点的output和子节点的input的连接逻辑需要重载
         /// </summary>
@@ -219,11 +220,12 @@ namespace ET.Client
             foreach (var node in nodeList)
             {
                 DialogueNodeView nodeView = this.GetViewFromNode(node);
-                if(nodeView == null) continue;
+                if (nodeView == null) continue;
                 Edge edge = output.ConnectTo(nodeView.input);
                 AddElement(edge);
             }
         }
+
         #endregion
     }
 }

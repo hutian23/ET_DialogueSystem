@@ -14,6 +14,8 @@ namespace ET.Client
 
             this.title = "根节点";
             this.outputPort = GenerateOutputPort("开始");
+
+            this.SaveCallback += this.Save;
         }
 
         public override void GenerateEdge(DialogueTreeView treeView)
@@ -22,9 +24,8 @@ namespace ET.Client
             treeView.CreateEdge(this.outputPort, rootNode.nextNode);
         }
 
-        public override void Save(DialogueTreeView treeView)
+        private void Save(DialogueTreeView treeView)
         {
-            base.Save(treeView);
             if (!(this.node is RootNode rootNode)) return;
             rootNode.nextNode = this.GetFirstLinkNode(this.outputPort);
         }

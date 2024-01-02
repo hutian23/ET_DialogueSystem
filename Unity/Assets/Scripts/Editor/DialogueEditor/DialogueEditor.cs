@@ -1,3 +1,4 @@
+using System;
 using ET.Client;
 using UnityEditor;
 using UnityEditor.Callbacks;
@@ -11,6 +12,14 @@ public class DialogueEditor: EditorWindow
     private InspectorView inspectorView;
     private Toolbar toolbar;
 
+    #region autoSave
+    private Toggle autoSaveToggle;
+    public float saveInterval = 2f;
+    public double lastSaveTimer;
+    #endregion
+    
+    private Button SaveBtn;
+    
     [MenuItem("Tools/DialogueEditor")]
     public static void OpenWindow()
     {
@@ -45,7 +54,9 @@ public class DialogueEditor: EditorWindow
         
         this.inspectorView = root.Q<InspectorView>();
         this.toolbar = root.Q<Toolbar>();
-        this.toolbar.Add(new Button(this.SaveDialogueTree) { text = "Save Data" });
+        this.autoSaveToggle = this.toolbar.Q<ToolbarToggle>();
+        this.SaveBtn = this.toolbar.Q<Button>();
+        this.SaveBtn.clicked += this.SaveDialogueTree;
     }
 
     private void OnSelectionChange()
@@ -59,7 +70,7 @@ public class DialogueEditor: EditorWindow
         }
     }
 
-    private void SaveDialogueTree()
+    public void SaveDialogueTree()
     {
         Debug.Log("Save CommentBlock");
         this.treeView.SaveCommentBlock();
