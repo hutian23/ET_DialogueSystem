@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9156489621790221815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25c132b8f1d79844686486de814518fd, type: 3}
+  m_Name: 894b5e4f05fac9f47bdebd61b8855045
+  m_EditorClassIdentifier: 
+  Guid: 894b5e4f05fac9f47bdebd61b8855045
+  position: {x: 100, y: 200}
+  text: 
+  TargetID: 0
+  NeedCheck: 0
+  NodeChecker:
+    intParams: []
+    floatParams: []
+    vectorParams: []
+    animCurParams: []
+    CheckerName: 
+  nextNode: {fileID: 0}
+--- !u!114 &-7688236792890831484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86cac704a7a572040b269c335edae962, type: 3}
+  m_Name: 8e285fd6d04249c49923b20a9a631b7d
+  m_EditorClassIdentifier: 
+  Guid: 8e285fd6d04249c49923b20a9a631b7d
+  position: {x: 480, y: 330}
+  text: 1111
+  TargetID: 3
+  NeedCheck: 0
+  NodeChecker:
+    intParams: []
+    floatParams: []
+    vectorParams: []
+    animCurParams: []
+    CheckerName: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e9dbc5c9f192b84e9fef0a764dfc94d, type: 3}
+  m_Name: DialogueTree1 1
+  m_EditorClassIdentifier: 
+  root: {fileID: -9156489621790221815}
+  treeName: "\u5BF9\u8BDD\u68112"
+  treeId: 1
+  nodes:
+  - {fileID: -9156489621790221815}
+  - {fileID: 4598902499033892341}
+  - {fileID: -7688236792890831484}
+  blockDatas:
+  - position: {x: 455, y: 68}
+    title: Hello world
+    children:
+    - 8e285fd6d04249c49923b20a9a631b7d
+    - a0c52582e829a8f4fbeae591d6a4ed8a
+--- !u!114 &4598902499033892341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86cac704a7a572040b269c335edae962, type: 3}
+  m_Name: a0c52582e829a8f4fbeae591d6a4ed8a
+  m_EditorClassIdentifier: 
+  Guid: a0c52582e829a8f4fbeae591d6a4ed8a
+  position: {x: 521, y: 127}
+  text: 122131313
+  TargetID: 2
+  NeedCheck: 0
+  NodeChecker:
+    intParams: []
+    floatParams: []
+    vectorParams: []
+    animCurParams: []
+    CheckerName: 

@@ -560,8 +560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb3c8057d029f046aa76e7812a7ede5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desc: "Hello world\uFF0Cit is just a test.Would you mind to give me an answer.\nMay
-    be 1 word is enough."
+  desc: <model type=Numeric name=Coin/>
 --- !u!1 &1114695592
 GameObject:
   m_ObjectHideFlags: 0

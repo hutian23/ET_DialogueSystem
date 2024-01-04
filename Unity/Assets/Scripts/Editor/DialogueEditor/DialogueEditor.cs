@@ -9,77 +9,62 @@ public class DialogueEditor: EditorWindow
     private DialogueTreeView treeView;
     private InspectorView inspectorView;
     private Toolbar toolbar;
-    private Toggle autoSaveToggle;
-    private Button SaveBtn;
+    public Toggle autoSaveToggle;
+    private DropdownField dropDown;
     
     public bool HasUnSave
     {
-        get => this.hasUnsavedChanges;
-        set => this.hasUnsavedChanges = value;
+        get => hasUnsavedChanges;
+        set => hasUnsavedChanges = value;
     }
 
     private DialogueTree tree;
 
     public void CreateGUI()
     {
-        Undo.undoRedoPerformed -= this.OnRedo;
-        Undo.undoRedoPerformed += this.OnRedo;
-        
-        VisualElement root = this.rootVisualElement;
-        
+        VisualElement root = rootVisualElement;
+
         var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Scripts/Editor/DialogueEditor/DialogueEditor.uxml");
         visualTree.CloneTree(root);
 
         var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/DialogueEditor.uss");
         root.styleSheets.Add(styleSheet);
 
-        this.treeView = root.Q<DialogueTreeView>();
-        this.treeView.OnNodeSelected = this.OnNodeSelected;
-        
-        this.inspectorView = root.Q<InspectorView>();
-        this.toolbar = root.Q<Toolbar>();
-        this.autoSaveToggle = this.toolbar.Q<ToolbarToggle>();
-        this.SaveBtn = this.toolbar.Q<Button>();
-        this.SaveBtn.clicked += this.SaveDialogueTree;
-    }
+        treeView = root.Q<DialogueTreeView>();
+        treeView.OnNodeSelected = OnNodeSelected;
 
-    public void OnDisable()
-    {
-        Undo.undoRedoPerformed -= this.OnRedo;
-    }
+        inspectorView = root.Q<InspectorView>();
 
-    private void OnRedo()
-    {
-        if (this.tree == null) return;
-        Debug.Log("redo");
-        this.HasUnSave = false;
-        Undo.PerformRedo();
-        this.treeView.PopulateView(this.tree,this);
-    }
+        toolbar = root.Q<Toolbar>();
+        autoSaveToggle = toolbar.Q<ToolbarToggle>();
 
+        dropDown = toolbar.Q<DropdownField>();
+    }
+    
     public static void OpenWindow(DialogueTree dialogueTree)
     {
         DialogueEditor wnd = GetWindow<DialogueEditor>();
         wnd.titleContent = new GUIContent("DialogueEditor");
         wnd.tree = dialogueTree;
-        
-        wnd.treeView.PopulateView(wnd.tree,wnd);
+        wnd.treeView.PopulateView(wnd.tree, wnd);
+        //初始化下拉框
+        wnd.LoadDropDownMenuIten();
+        wnd.dropDown.SetValueWithoutNotify(wnd.tree.treeName);
     }
-    
+
     public void SaveDialogueTree()
     {
-        this.treeView.SaveCommentBlock();
-        this.treeView.SaveNodes();
-        this.HasUnSave = false;
-        EditorUtility.SetDirty(this.tree);
-        Undo.RecordObject(this.tree,"dialoguetree");
+        treeView.SaveCommentBlock();
+        treeView.SaveNodes();
+        HasUnSave = false;
+        EditorUtility.SetDirty(tree);
     }
 
     public void OnInspectorUpdate()
     {
-        if (this.autoSaveToggle.value && this.HasUnSave)
+        if (autoSaveToggle.value && HasUnSave)
         {
-            this.SaveDialogueTree();
+            SaveDialogueTree();
         }
     }
 
@@ -89,11 +74,44 @@ public class DialogueEditor: EditorWindow
     public override void SaveChanges()
     {
         base.SaveChanges();
-        this.SaveDialogueTree();
+        SaveDialogueTree();
     }
-    
+
     private void OnNodeSelected(DialogueNodeView dialogueNodeView)
     {
-        this.inspectorView.UpdateSelection(dialogueNodeView);
+        inspectorView.UpdateSelection(dialogueNodeView);
+    }
+
+    private void LoadDropDownMenuIten()
+    {
+        dropDown.choices.Clear();
+        //选择下拉菜单后的回调
+        dropDown.RegisterValueChangedCallback(this.ChangeDropDown);
+        string folderPath = "Assets/Res/ScriptableObject/DialogueTree";
+        string[] assetGuids = AssetDatabase.FindAssets("t:ScriptableObject", new[] { folderPath });
+        foreach (var guid in assetGuids)
+        {
+            string assetPath = AssetDatabase.GUIDToAssetPath(guid);
+            Object asset = AssetDatabase.LoadAssetAtPath(assetPath, typeof (DialogueTree));
+            if (asset != null && asset is DialogueTree dialogueTree)
+            {
+                dropDown.choices.Add(dialogueTree.treeName);
+            }
+        }
+    }
+    
+    private void ChangeDropDown(ChangeEvent<string> evt)
+    {
+        string folderPath = "Assets/Res/ScriptableObject/DialogueTree";
+        string[] assetGuids = AssetDatabase.FindAssets("t:ScriptableObject", new[] { folderPath });
+        foreach (var guid in assetGuids)
+        {
+            string assetPath = AssetDatabase.GUIDToAssetPath(guid);
+            Object asset = AssetDatabase.LoadAssetAtPath(assetPath, typeof (DialogueTree));
+            if (asset != null && asset is DialogueTree dialogueTree && dialogueTree.treeName == evt.newValue)
+            {
+                OpenWindow(dialogueTree);
+            }
+        }
     }
 }

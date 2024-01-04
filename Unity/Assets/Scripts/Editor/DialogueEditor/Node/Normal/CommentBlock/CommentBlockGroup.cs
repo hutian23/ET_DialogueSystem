@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using UnityEditor.Experimental.GraphView;
-using UnityEngine;
+
 namespace ET.Client
 {
     public sealed class CommentBlockGroup: Group
@@ -18,17 +18,13 @@ namespace ET.Client
         {
             this.treeView.SetDirty();
         }
-
-        public override void SetPosition(Rect newPos)
-        {
-            base.SetPosition(newPos);
-            this.blockData.position.x = newPos.xMin;
-            this.blockData.position.y = newPos.yMin;
-        }
-
+        
         public void Save()
         {
             this.blockData.title = this.title;
+
+            this.blockData.position.x = this.GetPosition().xMin;
+            this.blockData.position.y = this.GetPosition().yMin;
             var nodes = this.containedElements.Where(x => x is DialogueNodeView).Cast<DialogueNodeView>().Select(x => x.viewDataKey).ToList();
             this.blockData.children.Clear();
             this.blockData.children = nodes;

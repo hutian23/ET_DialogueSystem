@@ -10,16 +10,28 @@ namespace ET.Client
     {
         public DialogueNode root;
 
+        public string treeName;
+        public int treeId;
+        
         [SerializeReference]
         public List<DialogueNode> nodes = new();
         public List<CommentBlockData> blockDatas = new();
-
+        
+        public Dictionary<int, DialogueNode> targets = new();
+        
+        private int IdGenerator;
+        private int GenerateId()
+        {
+            return IdGenerator++;
+        }
+        
         public DialogueNode CreateNode(Type type)
         {
             DialogueNode node = CreateInstance(type) as DialogueNode;
             node.Guid = GUID.Generate().ToString();
             node.name = node.Guid;
-
+            node.TargetID = GenerateId();
+            
             if (node == null)
             {
                 Debug.LogError($"{type} 不能转换成dialogueNode");
@@ -40,7 +52,7 @@ namespace ET.Client
             {
                 return false;
             }
-            
+
             this.nodes.Remove(node);
             AssetDatabase.RemoveObjectFromAsset(node);
             AssetDatabase.SaveAssets();
@@ -51,12 +63,14 @@ namespace ET.Client
         {
             CommentBlockData blockData = new() { position = position, title = "Comment Block" };
             this.blockDatas.Add(blockData);
+            EditorUtility.SetDirty(this);
             return blockData;
         }
 
         public void DeleteBlock(CommentBlockData blockData)
         {
             this.blockDatas.Remove(blockData);
+            EditorUtility.SetDirty(this);
         }
     }
 }

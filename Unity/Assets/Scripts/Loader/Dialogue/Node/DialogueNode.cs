@@ -13,7 +13,8 @@ namespace ET
         
         [HideInInspector]
         public string text;
-
+        
+        public int TargetID;
         public bool NeedCheck;
         public NodeChecker NodeChecker;
     }

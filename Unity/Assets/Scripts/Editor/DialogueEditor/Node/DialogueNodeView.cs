@@ -35,16 +35,16 @@ namespace ET.Client
             this.viewDataKey = this.node.Guid;
             this.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/Node/NodeView.uss"));
             this.treeView = dialogueTreeView;
-            
+
+            this.SaveCallback += this.SavePos;
         }
 
-        public override void SetPosition(Rect newPos)
+        private void SavePos()
         {
-            base.SetPosition(newPos);
-            this.node.position.x = newPos.xMin;
-            this.node.position.y = newPos.yMin;
+            this.node.position.x = this.GetPosition().xMin;
+            this.node.position.y = this.GetPosition().yMin;
         }
-
+        
         public override void OnSelected()
         {
             base.OnSelected();
