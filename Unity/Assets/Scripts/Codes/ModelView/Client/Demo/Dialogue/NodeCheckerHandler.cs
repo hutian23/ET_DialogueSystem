@@ -7,6 +7,6 @@
     [NodeChecker]
     public abstract class NodeCheckerHandler
     {
-        public abstract int Check(Unit unit, NodeChecker nodeChecker);
+        public abstract int Check(Unit unit, NodeCheckConfig nodeCheckConfig);
     }
 }

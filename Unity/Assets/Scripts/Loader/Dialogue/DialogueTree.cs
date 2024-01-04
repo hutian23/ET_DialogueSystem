@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,7 +18,8 @@ namespace ET.Client
         public List<DialogueNode> nodes = new();
         public List<CommentBlockData> blockDatas = new();
         
-        public Dictionary<int, DialogueNode> targets = new();
+        [DictionaryDrawerSettings(KeyLabel = "TargetID",ValueLabel = "DialogueNode")]
+        public Dictionary<int, string> targets = new();
         
         private int IdGenerator;
         private int GenerateId()
@@ -27,21 +29,21 @@ namespace ET.Client
         
         public DialogueNode CreateNode(Type type)
         {
-            DialogueNode node = CreateInstance(type) as DialogueNode;
+            DialogueNode node = Activator.CreateInstance(type) as DialogueNode;
             node.Guid = GUID.Generate().ToString();
-            node.name = node.Guid;
+            // node.name = node.Guid;
             node.TargetID = GenerateId();
             
-            if (node == null)
-            {
-                Debug.LogError($"{type} 不能转换成dialogueNode");
-                return null;
-            }
+            // if (node == null)
+            // {
+            //     Debug.LogError($"{type} 不能转换成dialogueNode");
+            //     return null;
+            // }
 
             this.nodes.Add(node);
 
-            AssetDatabase.AddObjectToAsset(node, this);
-            AssetDatabase.SaveAssets();
+            // AssetDatabase.AddObjectToAsset(node, this);
+            // AssetDatabase.SaveAssets();
 
             return node;
         }
@@ -54,8 +56,8 @@ namespace ET.Client
             }
 
             this.nodes.Remove(node);
-            AssetDatabase.RemoveObjectFromAsset(node);
-            AssetDatabase.SaveAssets();
+            // AssetDatabase.RemoveObjectFromAsset(node);
+            // AssetDatabase.SaveAssets();
             return true;
         }
 

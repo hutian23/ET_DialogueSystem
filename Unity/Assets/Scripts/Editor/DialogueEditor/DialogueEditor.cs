@@ -52,19 +52,11 @@ public class DialogueEditor: EditorWindow
         wnd.dropDown.SetValueWithoutNotify(wnd.tree.treeName);
     }
 
-    public void SaveDialogueTree()
-    {
-        treeView.SaveCommentBlock();
-        treeView.SaveNodes();
-        HasUnSave = false;
-        EditorUtility.SetDirty(tree);
-    }
-
     public void OnInspectorUpdate()
     {
         if (autoSaveToggle.value && HasUnSave)
         {
-            SaveDialogueTree();
+            treeView.SaveDialogueTree();
         }
     }
 
@@ -74,7 +66,7 @@ public class DialogueEditor: EditorWindow
     public override void SaveChanges()
     {
         base.SaveChanges();
-        SaveDialogueTree();
+        treeView.SaveDialogueTree();
     }
 
     private void OnNodeSelected(DialogueNodeView dialogueNodeView)

@@ -15,14 +15,14 @@ namespace ET.Client
         
         public void UpdateSelection(DialogueNodeView nodeView)
         {
-            this.Clear();
-            UnityEngine.Object.DestroyImmediate(this.editor);
-            this.editor = Editor.CreateEditor(nodeView.node);
-            IMGUIContainer container = new(() =>
-            {
-                this.editor.OnInspectorGUI();
-            });
-            Add(container);
+            // this.Clear();
+            // UnityEngine.Object.DestroyImmediate(this.editor);
+            // this.editor = Editor.CreateEditor(nodeView.node);
+            // IMGUIContainer container = new(() =>
+            // {
+            //     this.editor.OnInspectorGUI();
+            // });
+            // Add(container);
         }
     }
 }

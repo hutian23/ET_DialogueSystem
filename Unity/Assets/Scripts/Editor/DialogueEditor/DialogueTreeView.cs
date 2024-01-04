@@ -24,8 +24,8 @@ namespace ET.Client
 
         public Action<DialogueNodeView> OnNodeSelected;
 
-        // private List<DialogueNode> removeCaches = new();
-        // private List<CommentBlockData> blockDatasCaches = new();
+        private List<DialogueNode> removeCaches = new();
+        private List<CommentBlockData> removeBlockCaches = new();
 
         public DialogueTreeView()
         {
@@ -52,10 +52,12 @@ namespace ET.Client
                     switch (elem)
                     {
                         case DialogueNodeView nodeView:
-                            tree.DeleteNode(nodeView.node);
+                            this.removeCaches.Add(nodeView.node);
+                            // tree.DeleteNode(nodeView.node);
                             break;
                         case CommentBlockGroup group:
-                            tree.DeleteBlock(group.blockData);
+                            this.removeBlockCaches.Add(group.blockData);
+                            // tree.DeleteBlock(group.blockData);
                             break;
                     }
                 });
@@ -70,8 +72,8 @@ namespace ET.Client
             tree = _tree;
             window = dialogueEditor;
 
-            // removeCaches.Clear();
-            // blockDatasCaches.Clear();
+            removeCaches.Clear();
+            removeBlockCaches.Clear();
 
             graphViewChanged -= OnGraphViewChanged;
             DeleteElements(graphElements);
@@ -136,7 +138,8 @@ namespace ET.Client
                     //     break;
                 }
             }
-            evt.menu.AppendAction("Redo",_=> this.OnRedo());
+
+            evt.menu.AppendAction("Redo", _ => this.OnRedo());
         }
 
         private void RemoveNodeFromGroup(DialogueNodeView nodeView)
@@ -145,9 +148,10 @@ namespace ET.Client
             {
                 group.children.Remove(nodeView.viewDataKey);
             }
-            this.PopulateView(tree,window);
+
+            this.PopulateView(tree, window);
         }
-        
+
         public override List<Port> GetCompatiblePorts(Port startPorts, NodeAdapter nodeAdapter)
         {
             var list = ports.ToList().Where(endPort =>
@@ -169,12 +173,21 @@ namespace ET.Client
                     break;
                 //手动保存
                 case KeyCode.S:
-                    window.SaveDialogueTree();
+                    SaveDialogueTree();
                     evt.StopPropagation();
                     break;
                 //撤销
                 case KeyCode.Z:
                     OnRedo();
+                    evt.StopPropagation();
+                    break;
+                //复制
+                case KeyCode.C:
+                    Copy();
+                    evt.StopPropagation();
+                    break;
+                case KeyCode.V:
+                    Duplicate();
                     evt.StopPropagation();
                     break;
             }
@@ -183,13 +196,41 @@ namespace ET.Client
         private void OnRedo()
         {
             SetDirty(false);
-            PopulateView(tree,window);
+            PopulateView(tree, window);
         }
-        
+
         //标记一下视图中有修改
         public void SetDirty(bool HasUnSave = true)
         {
             window.HasUnSave = HasUnSave;
+        }
+
+        public void SaveDialogueTree()
+        {
+            for (int i = 0; i < removeCaches.Count; i++)
+            {
+                tree.DeleteNode(removeCaches[i]);
+            }
+
+            this.removeCaches.Clear();
+            for (int i = 0; i < removeBlockCaches.Count; i++)
+            {
+                tree.DeleteBlock(removeBlockCaches[i]);
+            }
+
+            this.removeBlockCaches.Clear();
+            SaveCommentBlock();
+            SaveNodes();
+            window.HasUnSave = false;
+            EditorUtility.SetDirty(tree);
+        }
+
+        private void Copy()
+        {
+        }
+
+        private void Duplicate()
+        {
         }
 
         #region Node

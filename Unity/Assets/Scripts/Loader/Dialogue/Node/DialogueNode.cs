@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ET
 {
-    public abstract class DialogueNode: ScriptableObject
+    public abstract class DialogueNode : ScriptableObject
     {
         [HideInInspector]
         public string Guid;
@@ -16,7 +16,7 @@ namespace ET
         
         public int TargetID;
         public bool NeedCheck;
-        public NodeChecker NodeChecker;
+        public NodeCheckConfig NodeCheckConfig;
     }
 
     public class NodeTypeAttribute: BaseAttribute
