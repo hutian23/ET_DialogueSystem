@@ -1,22 +1,27 @@
-﻿using ET.Client;
+﻿using System.Collections.Generic;
+using ET.Client;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace ET
 {
-    public abstract class DialogueNode : ScriptableObject
+    public abstract class DialogueNode
     {
         [HideInInspector]
         public string Guid;
 
         [HideInInspector]
         public Vector2 position;
-        
+
         [HideInInspector]
         public string text;
-        
+
         public int TargetID;
         public bool NeedCheck;
-        public NodeCheckConfig NodeCheckConfig;
+
+        [ShowInInspector]
+        [ShowIf("NeedCheck")]
+        public List<NodeCheckConfig> checkList = new();
     }
 
     public class NodeTypeAttribute: BaseAttribute

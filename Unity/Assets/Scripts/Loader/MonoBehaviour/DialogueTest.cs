@@ -26,6 +26,9 @@ namespace ET
     {
         // [TextArea]
         // public string desc;
+
+        [ShowInInspector]
+        public int test = 43;
         
         [ShowInInspector]
         public test3333 ins;

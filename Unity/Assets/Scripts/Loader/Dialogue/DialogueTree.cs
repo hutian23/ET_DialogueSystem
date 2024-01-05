@@ -7,33 +7,60 @@ using UnityEngine;
 namespace ET.Client
 {
     [CreateAssetMenu(menuName = "ScriptableObject/DialogueTree", fileName = "DialogueTree")]
-    public class DialogueTree: ScriptableObject
+    public class DialogueTree: SerializedScriptableObject
     {
-        public DialogueNode root;
-
         public string treeName;
         public int treeId;
-        
-        [SerializeReference]
+
+        [ReadOnly]
+        public DialogueNode root;
+
         public List<DialogueNode> nodes = new();
         public List<CommentBlockData> blockDatas = new();
-        
-        [DictionaryDrawerSettings(KeyLabel = "TargetID",ValueLabel = "DialogueNode")]
-        public Dictionary<int, string> targets = new();
-        
-        private int IdGenerator;
+
+        [ShowInInspector]
+        [ReadOnly]
+        [DictionaryDrawerSettings(KeyLabel = "TargetID", ValueLabel = "DialogueNode")]
+        public Dictionary<int, DialogueNode> targets = new();
+
+        [Space(10)]
+        [InfoBox("最好不要手动修改TargetID,如果修改了记得也要改IdGenerator")]
+        public int IdGenerator;
+
         private int GenerateId()
         {
             return IdGenerator++;
         }
         
+        private void CreateDialogueNode()
+        {
+            DialogueNode node = new RootNode() { TargetID = GenerateId(), Guid = GUID.Generate().ToString() };
+            this.nodes.Add(node);
+            EditorUtility.SetDirty(this);
+            OnNodeListChanged();
+        }
+
+        private void OnNodeListChanged()
+        {
+            this.targets.Clear();
+            this.nodes.ForEach(node => { this.targets.TryAdd(node.TargetID, node); });
+        }
+        
+        private void CreateCommentBlock()
+        {
+            CommentBlockData blockData = new();
+            this.blockDatas.Add(blockData);
+            EditorUtility.SetDirty(this);
+        }
+        #region old
+
         public DialogueNode CreateNode(Type type)
         {
             DialogueNode node = Activator.CreateInstance(type) as DialogueNode;
             node.Guid = GUID.Generate().ToString();
             // node.name = node.Guid;
             node.TargetID = GenerateId();
-            
+
             // if (node == null)
             // {
             //     Debug.LogError($"{type} 不能转换成dialogueNode");
@@ -74,5 +101,7 @@ namespace ET.Client
             this.blockDatas.Remove(blockData);
             EditorUtility.SetDirty(this);
         }
+
+        #endregion
     }
 }

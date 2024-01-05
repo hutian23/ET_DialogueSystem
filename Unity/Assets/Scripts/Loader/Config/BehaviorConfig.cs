@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace ET
@@ -22,6 +23,7 @@ namespace ET
     public class BehaviorConfig: BaseScriptableObject
     {
         [Space(10)]
+        [InfoBox("1111")]
         public List<SubBehavior> subBehaviors = new();
 
         public SubBehavior GetSubBehaviorByName(string subBehaviorName)

@@ -1,4 +1,5 @@
 using ET.Client;
+using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -39,6 +40,7 @@ public class DialogueEditor: EditorWindow
         autoSaveToggle = toolbar.Q<ToolbarToggle>();
 
         dropDown = toolbar.Q<DropdownField>();
+        SirenixEditorGUI.ToolbarSearchField("1232");
     }
     
     public static void OpenWindow(DialogueTree dialogueTree)
