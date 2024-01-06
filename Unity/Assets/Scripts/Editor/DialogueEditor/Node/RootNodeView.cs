@@ -12,7 +12,7 @@ namespace ET.Client
             capabilities &= ~ Capabilities.Movable;
             capabilities &= ~ Capabilities.Deletable;
 
-            title = "根节点";
+            this.title = "根节点";
             outputPort = GenerateOutputPort("start");
 
             SaveCallback += this.Save;
@@ -20,7 +20,7 @@ namespace ET.Client
 
         public override void GenerateEdge()
         {
-            if (!(node is RootNode rootNode)) return;
+            if (!(node is RootNode rootNode)) return; 
             treeView.CreateEdge(outputPort, rootNode.nextNode);
         }
 

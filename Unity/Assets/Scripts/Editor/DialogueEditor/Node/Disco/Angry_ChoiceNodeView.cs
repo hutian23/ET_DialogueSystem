@@ -8,10 +8,8 @@ namespace ET.Client
         private readonly Port Angry;
         private readonly Port Normal;
 
-        public Angry_ChoiceNodeView(DialogueNode node,DialogueTreeView treeView): base(node,treeView)
+        public Angry_ChoiceNodeView(DialogueNode node, DialogueTreeView treeView): base(node, treeView)
         {
-            title = "情绪分支节点(Katana zero)";
-
             GenerateInputPort("", true);
             GenerateDescription();
             Angry = this.GenerateOutputPort("in anger", true);
@@ -19,6 +17,7 @@ namespace ET.Client
 
             this.SaveCallback += this.Save;
         }
+
         public override void GenerateEdge()
         {
             if (!(node is Angry_ChoiceNode angryChoiceNode)) return;
@@ -31,6 +30,14 @@ namespace ET.Client
             if (!(node is Angry_ChoiceNode angryChoiceNode)) return;
             angryChoiceNode.Angrys = GetLinkNodes(Angry);
             angryChoiceNode.Normal = GetLinkNodes(Normal);
+        }
+
+        public override DialogueNode Clone()
+        {
+            Angry_ChoiceNode choiceNode = node as Angry_ChoiceNode;
+            choiceNode.Angrys.Clear();
+            choiceNode.Normal.Clear();
+            return base.Clone();
         }
     }
 }

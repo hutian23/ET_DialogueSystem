@@ -1,14 +1,14 @@
-﻿using Sirenix.OdinInspector;
+﻿using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 
 namespace ET.Client
 {
-    public class InspectorDataView : SerializedScriptableObject
+    public class InspectorDataView: SerializedScriptableObject
     {
-        public test222 select;
-
-        public InspectorDataView(test222 ins)
-        {
-            this.select = ins;
-        }
+        [ShowInInspector]
+        [OdinSerialize, LabelText("选择的点"), HideReferenceObjectPicker]
+        [ListDrawerSettings(IsReadOnly = true)]
+        public List<DialogueNode> datas=new List<DialogueNode>(){new RootNode(),new Angry_ChoiceNode(),new BubbleActionNode()};
     }
 }

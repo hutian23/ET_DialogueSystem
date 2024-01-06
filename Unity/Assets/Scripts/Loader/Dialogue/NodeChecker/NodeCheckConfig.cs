@@ -7,5 +7,4 @@ namespace ET.Client
     public abstract class NodeCheckConfig
     {
     }
-    
 }

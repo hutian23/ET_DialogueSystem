@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace ET.Client
 
         public NodeEditorOfAttribute(Type type)
         {
-            this.nodeType = type;
+            nodeType = type;
         }
     }
 
@@ -23,56 +24,53 @@ namespace ET.Client
         public DialogueNode node;
 
         public Port input;
-        private readonly Dictionary<string, Port> outports = new();
+        public readonly List<Port> outports = new();
         private TextField TextField;
         protected readonly DialogueTreeView treeView;
 
-        public Action<DialogueNodeView> OnNodeSelected;
-
-        protected DialogueNodeView(DialogueNode node, DialogueTreeView dialogueTreeView)
+        protected DialogueNodeView(DialogueNode dialogueNode, DialogueTreeView dialogueTreeView)
         {
-            this.node = node;
-            this.viewDataKey = this.node.Guid;
-            this.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/Node/NodeView.uss"));
-            this.treeView = dialogueTreeView;
+            node = dialogueNode;
+            viewDataKey = node.Guid;
+            styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/Node/NodeView.uss"));
+            treeView = dialogueTreeView;
+            title = GetNodeTitle();
+            SaveCallback += SavePos;
+        }
 
-            this.SaveCallback += this.SavePos;
+        private string GetNodeTitle()
+        {
+            NodeTypeAttribute attr = node.GetType().GetCustomAttribute<NodeTypeAttribute>();
+            if (attr == null) return "";
+            int lastIndex = attr.Level.LastIndexOf('/');
+            return $"[{node.TargetID}]  {attr.Level.Substring(lastIndex + 1)}";
         }
 
         private void SavePos()
         {
-            this.node.position.x = this.GetPosition().xMin;
-            this.node.position.y = this.GetPosition().yMin;
-        }
-        
-        public override void OnSelected()
-        {
-            base.OnSelected();
-            if (this.OnNodeSelected != null)
-            {
-                this.OnNodeSelected.Invoke(this);
-            }
+            node.position.x = GetPosition().xMin;
+            node.position.y = GetPosition().yMin;
         }
 
         protected TextField GenerateDescription()
         {
-            this.TextField = new TextField();
+            TextField = new TextField();
 
             // 网上找的，看不懂，反正解决了自动换行的问题
-            this.TextField.style.maxWidth = 250;
-            this.TextField.style.minWidth = 100;
-            this.TextField.style.whiteSpace = WhiteSpace.Normal;
-            this.TextField.style.flexDirection = FlexDirection.Row;
-            this.TextField.style.flexGrow = 1;
-            this.TextField.style.flexWrap = Wrap.Wrap;
-            this.TextField.multiline = true;
-            this.contentContainer.Add(this.TextField);
+            TextField.style.maxWidth = 250;
+            TextField.style.minWidth = 100;
+            TextField.style.whiteSpace = WhiteSpace.Normal;
+            TextField.style.flexDirection = FlexDirection.Row;
+            TextField.style.flexGrow = 1;
+            TextField.style.flexWrap = Wrap.Wrap;
+            TextField.multiline = true;
+            contentContainer.Add(TextField);
 
-            this.SaveCallback += () => { this.node.text = this.TextField.text; };
-            this.TextField.RegisterCallback<BlurEvent>(_ => this.treeView.SetDirty());
+            SaveCallback += () => { node.text = TextField.text; };
+            TextField.RegisterCallback<BlurEvent>(_ => treeView.SetDirty());
 
-            this.TextField.value = this.node.text;
-            return this.TextField;
+            TextField.value = node.text;
+            return TextField;
         }
 
         /// <summary>
@@ -89,8 +87,8 @@ namespace ET.Client
                 typeof (bool));
             port.portColor = Color.cyan;
             port.portName = portName;
-            this.inputContainer.Add(port);
-            this.input = port;
+            inputContainer.Add(port);
+            input = port;
             return port;
         }
 
@@ -102,33 +100,46 @@ namespace ET.Client
                 typeof (bool));
             port.portColor = Color.cyan;
             port.portName = portName;
-            this.outputContainer.Add(port);
-            this.outports.TryAdd(portName, port);
+            outputContainer.Add(port);
+            outports.Add(port);
             return port;
         }
 
-        protected DialogueNode GetFirstLinkNode(Port output)
+        protected int GetFirstLinkNode(Port output)
         {
             foreach (var edge in output.connections)
             {
                 DialogueNodeView nodeView = edge.input.node as DialogueNodeView;
-                return nodeView.node;
+                return nodeView.node.TargetID;
             }
 
-            return null;
+            return -1;
         }
 
-        protected List<DialogueNode> GetLinkNodes(Port output)
+        /// <summary>
+        /// 返回相连节点的TargetID
+        /// </summary>
+        /// <param name="output"></param>
+        /// <returns></returns>
+        protected List<int> GetLinkNodes(Port output)
         {
             return output.connections
                     .Select(edge => edge.input.node as DialogueNodeView)
                     .Where(nodeView => nodeView != null)
                     .Select(nodeView => nodeView.node)
+                    .Select(dialogueNode => dialogueNode.TargetID)
                     .ToList();
         }
 
         public abstract void GenerateEdge();
-
+        
         public Action SaveCallback;
+
+        public virtual DialogueNode Clone()
+        {
+            DialogueNode dialogueNode = EditorSerializeHelper.Clone(node);
+            dialogueNode.position = this.GetPosition().position + new Vector2(50, 50);
+            return dialogueNode;
+        }
     }
 }

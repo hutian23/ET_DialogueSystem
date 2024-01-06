@@ -8,7 +8,20 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Unity\Unity.Editor.csproj" />
       <ProjectReference Include="..\Unity\Unity.Model.csproj" />
+      <ProjectReference Include="..\Unity\Unity.ModelView.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Bson" Version="2.17.1" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="UnityEngine.CoreModule">
+        <HintPath>..\..\..\..\..\..\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

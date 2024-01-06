@@ -2,7 +2,6 @@
     <Style src="project://database/Assets/Scripts/Editor/DialogueEditor/DialogueEditor.uss?fileID=7433441132597879392&amp;guid=c7b05d32405cfec46a505dc7062db65b&amp;type=3#DialogueEditor" />
     <uie:Toolbar>
         <uie:ToolbarToggle focusable="false" label="Auto Save" name="AutoSave" style="width: 70px; -unity-text-align: upper-left; white-space: normal;" />
-        <ui:DropdownField index="-1" choices="System.Collections.Generic.List`1[System.String]" />
     </uie:Toolbar>
     <ET.Client.SplitView tabindex="2" fixed-pane-index="0" fixed-pane-initial-dimension="300">
         <ui:VisualElement name="LeftPanel">

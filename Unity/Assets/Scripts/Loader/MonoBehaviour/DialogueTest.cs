@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using ET.Client;
@@ -7,6 +8,10 @@ using UnityEngine;
 
 namespace ET
 {
+    public struct test33333
+    {
+        
+    }
     public class test222
     {
         public long id;

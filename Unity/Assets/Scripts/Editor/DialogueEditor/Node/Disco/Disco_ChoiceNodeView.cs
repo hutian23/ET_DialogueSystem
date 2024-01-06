@@ -10,29 +10,27 @@ namespace ET.Client
         
         public Disco_ChoiceNodeView(DialogueNode node,DialogueTreeView treeView): base(node,treeView)
         {
-            this.title = "检定节点(Disco)";
-            
-            this.GenerateInputPort("", true);
-            this.GenerateDescription();
-            this.SuccessPort = this.GenerateOutputPort("检定成功");
-            this.FailedPort = this.GenerateOutputPort("检定失败");
+            GenerateInputPort("", true);
+            GenerateDescription();
+            SuccessPort = GenerateOutputPort("检定成功");
+            FailedPort = GenerateOutputPort("检定失败");
 
-            this.SaveCallback += this.Save;
+            SaveCallback += Save;
         }
         
 
         public override void GenerateEdge()
         {
-            if (!(this.node is Disco_ChoiceNode choiceNode)) return;
-            treeView.CreateEdge(this.SuccessPort, choiceNode.Success);
-            treeView.CreateEdge(this.FailedPort, choiceNode.Failed);
+            if (!(node is Disco_ChoiceNode choiceNode)) return;
+            treeView.CreateEdge(SuccessPort, choiceNode.Success);
+            treeView.CreateEdge(FailedPort, choiceNode.Failed);
         }
 
         private void Save()
         {
-            if (!(this.node is Disco_ChoiceNode choiceNode)) return;
-            choiceNode.Success = this.GetFirstLinkNode(this.SuccessPort);
-            choiceNode.Failed = this.GetFirstLinkNode(this.FailedPort);
+            if (!(node is Disco_ChoiceNode choiceNode)) return;
+            choiceNode.Success = GetFirstLinkNode(SuccessPort);
+            choiceNode.Failed = GetFirstLinkNode(FailedPort);
         }
     }
 }

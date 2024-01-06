@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using ET.Client;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
@@ -179,7 +180,11 @@ namespace ET
 			{
 				ToolsEditor.Proto2CS();
 			}
-
+			
+			if (GUILayout.Button("刷新bson注册"))
+			{
+				EditorSerializeHelper.Init();
+			}
 			GUILayout.Space(5);
 		}
 		
@@ -199,6 +204,9 @@ namespace ET
 			}
 
 			Debug.Log("build success!");
+			
+			//刷新bson注册
+			EditorSerializeHelper.Init();
 		}
 		
 		public static void ShowNotification(string tips)

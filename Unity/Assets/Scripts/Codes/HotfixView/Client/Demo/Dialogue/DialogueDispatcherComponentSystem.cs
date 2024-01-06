@@ -26,14 +26,14 @@ namespace ET.Client
         {
             protected override void Destroy(DialogueDispatcherComponent self)
             {
-                self.dispatchHandler.Clear();
+                self.dispatchHandlers.Clear();
                 DialogueDispatcherComponent.Instance = null;
             }
         }
 
         private static void Init(this DialogueDispatcherComponent self)
         {
-            self.dispatchHandler.Clear();
+            self.dispatchHandlers.Clear();
             var nodeHandlers = EventSystem.Instance.GetTypes(typeof (DialogueAttribute));
             foreach (Type type in nodeHandlers)
             {
@@ -44,18 +44,41 @@ namespace ET.Client
                     continue;
                 }
 
-                self.dispatchHandler.Add(nodeHandler.GetDialogueType(), nodeHandler);
+                self.dispatchHandlers.Add(nodeHandler.GetDialogueType(), nodeHandler);
+            }
+
+            self.checker_dispatchHandlers.Clear();
+            var nodeCheckerHandlers = EventSystem.Instance.GetTypes(typeof (NodeCheckerAttribute));
+            foreach (Type type in nodeCheckerHandlers)
+            {
+                NodeCheckHandler nodeCheckHandler = Activator.CreateInstance(type) as NodeCheckHandler;
+                if (nodeCheckHandler == null)
+                {
+                    Log.Error($"this obj is not a nodeCheckerHandler:{type.Name}");
+                    continue;
+                }
+                self.checker_dispatchHandlers.Add(nodeCheckHandler.GetNodeCheckType(), nodeCheckHandler);
             }
         }
 
         public static async ETTask<Status> Handle(this DialogueDispatcherComponent self, Unit unit, object node, ETCancellationToken token)
         {
-            if (!self.dispatchHandler.TryGetValue(node.GetType(), out NodeHandler handler))
+            if (!self.dispatchHandlers.TryGetValue(node.GetType(), out NodeHandler handler))
             {
                 throw new Exception($"not found handler: {node}");
             }
 
             return await handler.Handle(unit, node, token);
+        }
+
+        public static int Check(this DialogueDispatcherComponent self, Unit unit, object nodeCheckConfig)
+        {
+            if (!self.checker_dispatchHandlers.TryGetValue(nodeCheckConfig.GetType(), out NodeCheckHandler nodeCheckerHandler))
+            {
+                throw new Exception($"not found nodeCheckerHandler: {nodeCheckConfig}");
+            }
+
+            return nodeCheckerHandler.Check(unit, nodeCheckConfig);
         }
     }
 }

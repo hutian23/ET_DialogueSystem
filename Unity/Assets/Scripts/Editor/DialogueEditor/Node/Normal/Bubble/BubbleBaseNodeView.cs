@@ -9,22 +9,28 @@ namespace ET.Client
         
         public BubbleBaseNodeView(DialogueNode node,DialogueTreeView treeView): base(node,treeView)
         {
-            this.title = "气泡基类节点";
-            this.GenerateInputPort("",true);
-            this.bubbles = this.GenerateOutputPort("Bubbles", true);
-            this.SaveCallback += this.Save;
+            GenerateInputPort("",true);
+            bubbles = GenerateOutputPort("Bubbles", true);
+            SaveCallback += Save;
         }
 
         public override void GenerateEdge()
         {
-            if(!(this.node is BubbleBaseNode bubbleBaseNode)) return;
-            treeView.CreateEdges(this.bubbles,bubbleBaseNode.bubbles);
+            if(!(node is BubbleBaseNode bubbleBaseNode)) return;
+            treeView.CreateEdges(bubbles,bubbleBaseNode.bubbles);
         }
 
         private void Save()
         {
-            if(!(this.node is BubbleBaseNode bubbleBaseNode)) return;
-            bubbleBaseNode.bubbles = this.GetLinkNodes(this.bubbles);
+            if(!(node is BubbleBaseNode bubbleBaseNode)) return;
+            bubbleBaseNode.bubbles = GetLinkNodes(bubbles);
+        }
+
+        public override DialogueNode Clone()
+        {
+            BubbleBaseNode baseNode = node as BubbleBaseNode;
+            baseNode.bubbles.Clear();
+            return base.Clone();
         }
     }
 }

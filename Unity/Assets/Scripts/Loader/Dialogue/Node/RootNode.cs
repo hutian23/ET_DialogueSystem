@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
 
 namespace ET.Client
 {
     public class RootNode : DialogueNode
     {
-        [HideInInspector]
-        public DialogueNode nextNode;
+        [FoldoutGroup("$nodeName")]
+        public int nextNode;
     }
 }

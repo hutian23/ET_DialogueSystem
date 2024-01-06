@@ -22,8 +22,6 @@ namespace ET.Client
         private DialogueEditor window;
         private SearchMenuWindowProvider searchWindow;
 
-        public Action<DialogueNodeView> OnNodeSelected;
-
         private List<DialogueNode> removeCaches = new();
         private List<CommentBlockData> removeBlockCaches = new();
 
@@ -38,9 +36,6 @@ namespace ET.Client
 
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/DialogueEditor.uss");
             styleSheets.Add(styleSheet);
-
-            // //当前选中的元素
-            // selection.OfType<DialogueNodeView>();
         }
 
         private GraphViewChange OnGraphViewChanged(GraphViewChange graphViewChange)
@@ -53,11 +48,9 @@ namespace ET.Client
                     {
                         case DialogueNodeView nodeView:
                             this.removeCaches.Add(nodeView.node);
-                            // tree.DeleteNode(nodeView.node);
                             break;
                         case CommentBlockGroup group:
                             this.removeBlockCaches.Add(group.blockData);
-                            // tree.DeleteBlock(group.blockData);
                             break;
                     }
                 });
@@ -85,7 +78,7 @@ namespace ET.Client
             //如果没有根节点，则创建
             if (tree.root == null)
             {
-                DialogueNode rootNode = tree.CreateNode(typeof (RootNode));
+                DialogueNode rootNode = tree.CreateDialogueNode(typeof (RootNode));
                 tree.root = rootNode;
                 rootNode.position = new Vector2(100, 200);
             }
@@ -109,6 +102,7 @@ namespace ET.Client
             }
 
             RegisterCallback<KeyDownEvent>(KeyDownEventCallback);
+            RegisterCallback<MouseEnterEvent>(MouseEnterControl);
         }
 
         private void AddSearchWindow()
@@ -132,10 +126,6 @@ namespace ET.Client
                     case DialogueNodeView nodeView:
                         evt.menu.AppendAction("Remove from commentBlock", _ => { RemoveNodeFromGroup(nodeView); });
                         break;
-                    //不能通过鼠标获取Group
-                    // case CommentBlockGroup blockGroup:
-                    //     evt.menu.AppendAction("Remove all child",_=>{Debug.Log("remove all child");});
-                    //     break;
                 }
             }
 
@@ -159,6 +149,12 @@ namespace ET.Client
                     endPort.direction != startPorts.direction &&
                     endPort.node != startPorts.node).ToList();
             return list;
+        }
+
+        private void MouseEnterControl(MouseEnterEvent evt)
+        {
+            var nodeList = this.selection.OfType<DialogueNodeView>().Select(nodeView => nodeView.node).ToList();
+            this.window.inspectorView.UpdateSelection(nodeList);
         }
 
         private void KeyDownEventCallback(KeyDownEvent evt)
@@ -223,14 +219,32 @@ namespace ET.Client
             SaveNodes();
             window.HasUnSave = false;
             EditorUtility.SetDirty(tree);
+            //刷新页面
+            PopulateView(tree, window);
         }
 
         private void Copy()
         {
+            switch (selection.FirstOrDefault())
+            {
+                case DialogueNodeView nodeView:
+                    if (nodeView.node is RootNode) break;
+                    DialogueSettings.GetSettings().copyNode = nodeView.Clone();
+                    break;
+            }
         }
 
         private void Duplicate()
         {
+            switch (DialogueSettings.GetSettings().copyNode)
+            {
+                case DialogueNode copyNode:
+                    DialogueNode dialogueNode = EditorSerializeHelper.Clone(copyNode);
+                    dialogueNode.Guid = GUID.Generate().ToString();
+                    dialogueNode.position = copyNode.position;
+                    CreateNode(dialogueNode);
+                    break;
+            }
         }
 
         #region Node
@@ -246,15 +260,17 @@ namespace ET.Client
 
         public void CreateNode(Type type, Vector2 position)
         {
-            DialogueNode node = tree.CreateNode(type);
+            DialogueNode node = tree.CreateDialogueNode(type);
             node.position = position;
             CreateNodeView(node);
         }
 
-        /// <summary>
-        /// 创建视图节点
-        /// </summary>
-        /// <param name="node"></param>
+        private void CreateNode(DialogueNode node)
+        {
+            tree.nodes.Add(node);
+            CreateNodeView(node);
+        }
+
         private void CreateNodeView(DialogueNode node)
         {
             Assembly assembly = typeof (DialogueNodeView).Assembly;
@@ -267,17 +283,47 @@ namespace ET.Client
                 {
                     DialogueNodeView nodeView = Activator.CreateInstance(nodeViewType, args: new object[] { node, this }) as DialogueNodeView;
                     nodeView.SetPosition(new Rect(node.position, DefaultNodeSize));
-                    nodeView.OnNodeSelected += OnNodeSelected;
                     AddElement(nodeView);
                 }
             }
         }
 
-        public void SaveNodes()
+        private void SaveNodes()
         {
+            //从根节点开始遍历，字典存储在树上的节点(不在树上的节点保存nodeList中)
+            HashSet<DialogueNodeView> nodeSet = new(); // 被遍历过的节点
+            int IdGenerator = 0;
+
+            Queue<DialogueNodeView> workQueue = new();
+            
+            DialogueNodeView rootView = GetViewFromNode(tree.root);
+            tree.targets.Clear();
+            workQueue.Enqueue(rootView);
+            nodeSet.Add(rootView);
+            while (workQueue.Count != 0)
+            {
+                DialogueNodeView nodeView = workQueue.Dequeue();
+
+                nodeView.node.TargetID = IdGenerator;
+                tree.targets.TryAdd(IdGenerator, nodeView.node);
+                IdGenerator++;
+                
+                foreach (var output in nodeView.outports)
+                {
+                    foreach (var edge in output.connections)
+                    {
+                        DialogueNodeView childView = edge.input.node as DialogueNodeView;
+                        if (nodeSet.Contains(childView)) continue;    
+                        workQueue.Enqueue(childView);
+                        nodeSet.Add(childView);
+                    }
+                }
+            }
+            
             List<DialogueNodeView> nodeViews = graphElements.Where(x => x is DialogueNodeView).Cast<DialogueNodeView>().ToList();
             nodeViews.ForEach(view => view.SaveCallback?.Invoke());
         }
+        
 
         #endregion
 
@@ -292,8 +338,8 @@ namespace ET.Client
         private void CreateCommentBlockView(CommentBlockData blockData)
         {
             var group = new CommentBlockGroup(blockData, this);
-            AddElement(group);
             group.SetPosition(new Rect(blockData.position, DefaultCommentSize));
+            AddElement(group);
             foreach (var guid in group.blockData.children)
             {
                 DialogueNodeView nodeView = GetNodeByGuid(guid) as DialogueNodeView;
@@ -302,7 +348,7 @@ namespace ET.Client
             }
         }
 
-        public void SaveCommentBlock()
+        private void SaveCommentBlock()
         {
             List<CommentBlockGroup> groups = graphElements.Where(x => x is CommentBlockGroup).Cast<CommentBlockGroup>().ToList();
             groups.ForEach(block => block.Save());
@@ -316,27 +362,27 @@ namespace ET.Client
         /// <summary>
         /// 只有父节点的output和子节点的input的连接逻辑需要重载
         /// </summary>
-        /// <param name="output"></param>
-        /// <param name="childNode"></param>
-        /// <returns></returns>
-        public Edge CreateEdge(Port output, DialogueNode childNode)
+        public Edge CreateEdge(Port output, int targetID)
         {
-            if (output == null || output.direction == Direction.Input || childNode == null) return null;
-            DialogueNodeView nodeView = GetViewFromNode(childNode);
-            if (nodeView == null) return null;
+            if (output == null || output.direction == Direction.Input) return null;
+            tree.targets.TryGetValue(targetID, out DialogueNode node);
+            DialogueNodeView nodeView = GetViewFromNode(node);
+            //RootNode没有input
+            if (nodeView == null || node is RootNode) return null;
 
             Edge edge = output.ConnectTo(nodeView.input);
             AddElement(edge);
             return edge;
         }
 
-        public void CreateEdges(Port output, List<DialogueNode> nodeList)
+        public void CreateEdges(Port output, List<int> targets)
         {
-            if (output == null || output.direction == Direction.Input || nodeList == null) return;
-            foreach (var node in nodeList)
+            if (output == null || output.direction == Direction.Input || targets == null) return;
+            foreach (var targetID in targets)
             {
+                tree.targets.TryGetValue(targetID, out DialogueNode node);
                 DialogueNodeView nodeView = GetViewFromNode(node);
-                if (nodeView == null) continue;
+                if (nodeView == null || node is RootNode) continue;
                 Edge edge = output.ConnectTo(nodeView.input);
                 AddElement(edge);
             }

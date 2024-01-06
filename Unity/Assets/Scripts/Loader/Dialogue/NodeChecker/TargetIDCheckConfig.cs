@@ -3,7 +3,8 @@ using Sirenix.OdinInspector;
 
 namespace ET.Client
 {
-    public struct TargetCheck
+    [HideReferenceObjectPicker]
+    public class TargetCheck
     {
         //是否是外部的对话树
         public bool IsGlobal;
@@ -15,6 +16,6 @@ namespace ET.Client
     public class TargetIDCheckConfig : NodeCheckConfig
     {
         [InfoBox("检查前置节点是否已经执行")]
-        public List<TargetCheck> checkList = new List<TargetCheck>();
+        public List<TargetCheck> checkList = new();
     }
 }

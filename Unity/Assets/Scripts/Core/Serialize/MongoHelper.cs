@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
@@ -13,7 +14,7 @@ namespace ET
 {
     public static class MongoHelper
     {
-        private class StructBsonSerialize<TValue>: StructSerializerBase<TValue> where TValue : struct
+        public class StructBsonSerialize<TValue>: StructSerializerBase<TValue> where TValue : struct
         {
             public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TValue value)
             {
@@ -83,16 +84,16 @@ namespace ET
         static MongoHelper()
         {
             // 自动注册IgnoreExtraElements
-
+        
             ConventionPack conventionPack = new ConventionPack { new IgnoreExtraElementsConvention(true) };
-
+            
             ConventionRegistry.Register("IgnoreExtraElements", conventionPack, type => true);
-
+            
             RegisterStruct<float2>();
             RegisterStruct<float3>();
             RegisterStruct<float4>();
             RegisterStruct<quaternion>();
-
+            
             Dictionary<string, Type> types = EventSystem.Instance.GetTypes();
             foreach (Type type in types.Values)
             {
@@ -100,14 +101,14 @@ namespace ET
                 {
                     continue;
                 }
-
+            
                 if (type.IsGenericType)
                 {
                     continue;
                 }
-
+            
                 BsonClassMap.LookupClassMap(type);
-            }
+            }     
         }
 
         public static void Init()

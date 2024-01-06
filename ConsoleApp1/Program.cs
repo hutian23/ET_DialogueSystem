@@ -1,110 +1,95 @@
-﻿using System;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using ET;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Options;
+using UnityEngine;
 
-class Program
+static class Program
 {
-    static void Main()
+    public class Student
     {
-        // string input = "这是一个示例 <model type=Numeric name=HP/> <model/> 这是另一个示例 <model type=UnitConfig name=Name/> 这是最后一个示例";
-        //
-        // // 匹配以<model开头以/>结尾的字符串
-        // string pattern = @"<model\b[^>]*\/>";
-        // Regex regex = new Regex(pattern);
-        //
-        // MatchCollection matches = regex.Matches(input);
-        //
-        // foreach (Match match in matches)
-        // {
-        //     Console.WriteLine("匹配到的字符串：" + match.Value);
-        // }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+        
+        public List<int> list = new(){2,3,6,2433,343};
+        public List<string> data = new() { "hello world", "test " };
+        public List<test> Test223423423s = new() { new test(){a=2},new test(){a=3} };
+        public List<test223423423> struct_list = new() { new test223423423() };
 
-        // string input = "<model type=hp name=HP/>";
-        //
-        // // 匹配 <model type= 后的内容
-        // // string pattern = @"<model\s+type=(\w+)";
-        // string pattern = @"<model\s+name=(\w+)";
-        // Regex regex = new Regex(pattern);
-        //
-        // Match match = regex.Match(input);
-        //
-        // if (match.Success)
-        // {
-        //     string matchedText = match.Groups[1].Value;
-        //     Console.WriteLine("匹配到的内容：" + matchedText);
-        // }
-
-        // string input = "<model type=Numeric name=HP/>";
-        //
-        // // 匹配 <model name= 后的内容
-        // // string pattern = @"name=([A-Za-z]+)";
-        // string pattern = @"type=([A-Za-z]+)";
-        // Regex regex = new Regex(pattern);
-        //
-        // Match match = regex.Match(input);
-        //
-        // if (match.Success)
-        // {
-        //     string matchedText = match.Groups[1].Value;
-        //     Console.WriteLine("匹配到的内容：" + matchedText);
-        // }
-        // Type type = typeof(NumericType);
-        //
-        // // 获取所有公共静态字段
-        // FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Static);
-        //
-        // // 遍历所有字段并输出它们的名称和值
-        // foreach (FieldInfo field in fields)
-        // {
-        //     Console.WriteLine((int)(field.GetValue(null) ?? throw new InvalidOperationException()));
-        // }
-
-        // string input = "<model type=UnitConfig id=1233 name=Name />";
-        // string pattern = @"id=(\d+)";
-
-        // Regex regex = new(pattern);
-        // Regex regex2 = new(pattern2);
-        //
-        // Match match = regex.Match(input);
-        // Match match2 = regex2.Match(input);
-        // Console.WriteLine(match.Groups[1].Value);
-        // Console.WriteLine(match2.Groups[1].Value);
-        // int intvalue = 2;
-        // object enumValue = Enum.ToObject(typeof (test), intvalue);
-        // Console.WriteLine(enumValue);
-
-        string input = "这是一个{{HP}}字符串，{{MP}}双花括号内容HP。";
-        // string replaced = ReplaceBracketsContent(input, "Hello world", "MP");
-        //
-        // Console.WriteLine("替换前: " + input);
-        // Console.WriteLine("替换后: " + replaced);
-        string replaced = Replace2(input, "HP", "你好啊");
-        Console.WriteLine("替换前: " + input); 
-        Console.WriteLine("替换后: " + replaced);
+        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
+        public Dictionary<test223423423, int> dict = new();
+        public myEnum _myEnum;
+        public test ins;
+        public test223423423 ins2;
+        public Vector2Int position;
+        public test223423423 ins3;
+    }
+    
+    public class Student2 : Student
+    {
+        public string test = "21321321啊哈哈啊哈哈哈哈啊哈哈";
+    }
+    
+    public class Student3 : Student
+    {
+        public string test2 = "213213324423423423421啊哈哈啊哈哈哈哈啊哈哈";
+    }
+    
+    public enum myEnum
+    {
+        None = 0
+    }
+    
+    public struct test223423423
+    {
+        public int b;
     }
 
-    static string ReplaceBracketsContent(string input, string replacementHP, string replacementMP)
+    public class test
     {
-        string patternHP = @"\{\{HP\}\}";
-        string patternMP = @"\{\{MP\}\}";
-
-        input = Regex.Replace(input, patternHP, replacementHP);
-        input = Regex.Replace(input, patternMP, replacementMP);
-
-        return input;
+        public int a = 10;
     }
 
-    static string Replace2(string input, string beReplace, string replace)
+    public class StudentSecond
     {
-        string pattern = @"\{\{" + beReplace + @"\}\}";
-        input = Regex.Replace(input, pattern, replace);
-        return input;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
     }
 
-    public enum test
+    public static void Main()
     {
-        test1 = 1,
-        test2 = 2
+        // EditorSerializeHelper.Init();
+        // Student stu = new Student()
+        // {
+        //     Age = 10,
+        //     Name = "123",
+        //     Id = 111,
+        //     list = new() { 1, 23, 4432, 24 },
+        //     ins = new test() { a = 20 },
+        //     ins2 = new test223423423() { b = 123 },
+        //     ins3 = new test223423423(){ b = 233},
+        //     position = new Vector2Int(1,2)
+        // };
+        // stu.dict.Add(new test223423423(){b = 2},100);
+        // stu.dict.Add(new test223423423(){b = 3},120);
+        // test223423423 ins2 = new() { b = 232 };
+        // EditorSerializeHelper.RegisterStruct<test223423423>();
+        // byte[] byte2 = EditorSerializeHelper.Serialize(ins2);
+        // test223423423 test223423423 = EditorSerializeHelper.Deserialize<test223423423>(byte2);
+        // Console.WriteLine(EditorSerializeHelper.ToJson(test223423423));
+        //
+        // byte[] bytes = EditorSerializeHelper.Serialize(stu);
+        // Student2 stu2 = EditorSerializeHelper.Deserialize<Student2>(bytes);
+        // stu2.ins.a = 30;
+        // Console.WriteLine(EditorSerializeHelper.ToJson(stu2));
+        //
+        // byte[] byte3 = EditorSerializeHelper.Serialize(stu2);
+        // Student3 stu3 = EditorSerializeHelper.Deserialize<Student3>(byte3);
+        // Console.WriteLine(EditorSerializeHelper.ToJson(stu3));
+        //
+        // foreach (var kv in stu2.dict)
+        // {
+        //     Console.WriteLine(kv);
+        // }
     }
 }

@@ -9,7 +9,9 @@ namespace ET.Client
         [StaticField]
         public static DialogueDispatcherComponent Instance; 
         
-        public Dictionary<Type, NodeHandler> dispatchHandler = new();
+        public Dictionary<Type, NodeHandler> dispatchHandlers = new();
+
+        public Dictionary<Type, NodeCheckHandler> checker_dispatchHandlers = new();
     }
 
     public enum Status

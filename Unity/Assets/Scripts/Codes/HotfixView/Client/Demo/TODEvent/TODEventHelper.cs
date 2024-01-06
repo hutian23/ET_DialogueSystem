@@ -65,22 +65,6 @@ namespace ET.Client
 
                 self.checkers.Add(type.Name, checkerHandler);
             }
-
-            //3. 加载nodeCheckerHandler
-            self.nodeCheckers.Clear();
-            var nodeCheckerTypes = EventSystem.Instance.GetTypes(typeof (NodeCheckerAttribute));
-            Log.Debug($"一共有 {nodeCheckerTypes.Count} 个 nodeCheckerHandler");
-            foreach (Type type in nodeCheckerTypes)
-            {
-                NodeCheckerHandler checkerHandler = Activator.CreateInstance(type) as NodeCheckerHandler;
-                if (checkerHandler == null)
-                {
-                    Log.Error($"this behavior is not a nodeCheckerHandler!: {type.Name}");
-                    continue;
-                }
-
-                self.nodeCheckers.Add(type.Name, checkerHandler);
-            }
         }
 
         public static BehaviorHandler GetBehavior(this TODEventSystem self, string name)
@@ -102,16 +86,6 @@ namespace ET.Client
                 Log.Error($"不存在checker: {name}");
             }
 
-            return handler;
-        }
-
-        public static NodeCheckerHandler GetNodeChecker(this TODEventSystem self, string name)
-        {
-            self.nodeCheckers.TryGetValue(name, out var handler);
-            if (handler == null)
-            {
-                Log.Error($"不存在nodeChecker: {name}");
-            }
             return handler;
         }
     }

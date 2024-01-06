@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using ET.Client;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Compilation;
