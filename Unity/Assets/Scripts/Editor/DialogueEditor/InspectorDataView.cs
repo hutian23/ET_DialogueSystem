@@ -9,6 +9,6 @@ namespace ET.Client
         [ShowInInspector]
         [OdinSerialize, LabelText("选择的点"), HideReferenceObjectPicker]
         [ListDrawerSettings(IsReadOnly = true)]
-        public List<DialogueNode> datas=new List<DialogueNode>(){new RootNode(),new Angry_ChoiceNode(),new BubbleActionNode()};
+        public HashSet<DialogueNode> datas=new HashSet<DialogueNode>(){new RootNode(),new Angry_ChoiceNode(),new BubbleActionNode()};
     }
 }

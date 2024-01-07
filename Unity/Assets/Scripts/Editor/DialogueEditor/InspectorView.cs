@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -18,7 +19,7 @@ namespace ET.Client
             this.Clear();
             UnityEngine.Object.DestroyImmediate(this.editor);
             InspectorDataView dataView = ScriptableObject.CreateInstance<InspectorDataView>();
-            dataView.datas = nodeList;
+            dataView.datas = nodeList.ToHashSet();
 
             this.editor = Editor.CreateEditor(dataView);
             IMGUIContainer container = new(() => { this.editor.OnInspectorGUI(); });

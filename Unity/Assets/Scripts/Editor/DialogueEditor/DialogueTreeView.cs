@@ -22,8 +22,8 @@ namespace ET.Client
         private DialogueEditor window;
         private SearchMenuWindowProvider searchWindow;
 
-        private List<DialogueNode> removeCaches = new();
-        private List<CommentBlockData> removeBlockCaches = new();
+        private readonly List<DialogueNode> removeCaches = new();
+        private readonly List<CommentBlockData> removeBlockCaches = new();
 
         public DialogueTreeView()
         {
@@ -34,7 +34,7 @@ namespace ET.Client
             this.AddManipulator(new RectangleSelector());
             this.AddManipulator(new ContextualMenuManipulator(this.OnContextMenuPopulate));
 
-            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/DialogueEditor.uss");
+            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/Resource/DialogueEditor.uss");
             styleSheets.Add(styleSheet);
         }
 
@@ -47,10 +47,10 @@ namespace ET.Client
                     switch (elem)
                     {
                         case DialogueNodeView nodeView:
-                            this.removeCaches.Add(nodeView.node);
+                            removeCaches.Add(nodeView.node);
                             break;
                         case CommentBlockGroup group:
-                            this.removeBlockCaches.Add(group.blockData);
+                            removeBlockCaches.Add(group.blockData);
                             break;
                     }
                 });
@@ -72,7 +72,7 @@ namespace ET.Client
             DeleteElements(graphElements);
             graphViewChanged += OnGraphViewChanged;
 
-            //1. 搜索框
+            //1. 生成搜索框
             AddSearchWindow();
             //2. 生成视图节点
             //如果没有根节点，则创建
@@ -82,26 +82,22 @@ namespace ET.Client
                 tree.root = rootNode;
                 rootNode.position = new Vector2(100, 200);
             }
-            //注意!!! 深拷贝之后，如果rootNode在nodes中，则会有两个rootNode
+
+            //注意!!! 深拷贝之后，如果rootNode在nodes中，则会有两个rootNode(tree.Root和nodes中的)
             //这里rootNode的视图和连线要额外处理
             DialogueNodeView rootView = CreateNodeView(tree.root);
-            foreach (var node in tree.nodes)
-            {
-                CreateNodeView(node);
-            }
+            tree.nodes.ForEach(node => CreateNodeView(node));
+
             //3. 生成边
             rootView.GenerateEdge();
-            foreach (var node in tree.nodes)
+            tree.nodes.ForEach(node =>
             {
                 DialogueNodeView nodeView = GetViewFromNode(node);
                 nodeView.GenerateEdge();
-            }
+            });
 
             //4. 生成背景板
-            foreach (var block in tree.blockDatas)
-            {
-                CreateCommentBlockView(block);
-            }
+            tree.blockDatas.ForEach(this.CreateCommentBlockView);
 
             RegisterCallback<KeyDownEvent>(KeyDownEventCallback);
             RegisterCallback<MouseEnterEvent>(MouseEnterControl);
@@ -132,16 +128,6 @@ namespace ET.Client
             }
 
             evt.menu.AppendAction("Redo", _ => this.OnRedo());
-        }
-
-        private void RemoveNodeFromGroup(DialogueNodeView nodeView)
-        {
-            foreach (var group in tree.blockDatas)
-            {
-                group.children.Remove(nodeView.viewDataKey);
-            }
-
-            this.PopulateView(tree, window);
         }
 
         public override List<Port> GetCompatiblePorts(Port startPorts, NodeAdapter nodeAdapter)
@@ -185,7 +171,7 @@ namespace ET.Client
                     evt.StopPropagation();
                     break;
                 case KeyCode.V:
-                    Duplicate();
+                    Paste();
                     evt.StopPropagation();
                     break;
             }
@@ -205,18 +191,11 @@ namespace ET.Client
 
         public void SaveDialogueTree()
         {
-            for (int i = 0; i < removeCaches.Count; i++)
-            {
-                tree.DeleteNode(removeCaches[i]);
-            }
+            removeCaches.ForEach(node => tree.DeleteNode(node));
+            removeCaches.Clear();
+            removeBlockCaches.ForEach(block => tree.DeleteBlock(block));
+            removeBlockCaches.Clear();
 
-            this.removeCaches.Clear();
-            for (int i = 0; i < removeBlockCaches.Count; i++)
-            {
-                tree.DeleteBlock(removeBlockCaches[i]);
-            }
-
-            this.removeBlockCaches.Clear();
             SaveCommentBlock();
             SaveNodes();
             window.HasUnSave = false;
@@ -236,7 +215,7 @@ namespace ET.Client
             }
         }
 
-        private void Duplicate()
+        private void Paste()
         {
             switch (DialogueSettings.GetSettings().copyNode)
             {
@@ -316,17 +295,20 @@ namespace ET.Client
                     return nodeView;
                 }
             }
+
             return null;
         }
 
         private void SaveNodes()
         {
+            List<DialogueNodeView> nodeViews = graphElements.Where(x => x is DialogueNodeView).Cast<DialogueNodeView>().ToList();
+            nodeViews.ForEach(nodeview => nodeview.node.TargetID = 0);
+
             //从根节点开始遍历，字典存储在树上的节点(不在树上的节点保存nodeList中)
             HashSet<DialogueNodeView> nodeSet = new(); // 被遍历过的节点
             int IdGenerator = 0;
 
             Queue<DialogueNodeView> workQueue = new();
-
             DialogueNodeView rootView = GetViewFromNode(tree.root);
             tree.targets.Clear();
             workQueue.Enqueue(rootView);
@@ -351,7 +333,6 @@ namespace ET.Client
                 }
             }
 
-            List<DialogueNodeView> nodeViews = graphElements.Where(x => x is DialogueNodeView).Cast<DialogueNodeView>().ToList();
             nodeViews.ForEach(view => view.SaveCallback?.Invoke());
         }
 
@@ -368,8 +349,8 @@ namespace ET.Client
         private void CreateCommentBlockView(CommentBlockData blockData)
         {
             var group = new CommentBlockGroup(blockData, this);
-            group.SetPosition(new Rect(blockData.position, DefaultCommentSize));
             AddElement(group);
+            group.SetPosition(new Rect(blockData.position, DefaultCommentSize));
             foreach (var guid in group.blockData.children)
             {
                 DialogueNodeView nodeView = GetNodeByGuid(guid) as DialogueNodeView;
@@ -383,6 +364,12 @@ namespace ET.Client
             List<CommentBlockGroup> groups = graphElements.Where(x => x is CommentBlockGroup).Cast<CommentBlockGroup>().ToList();
             groups.ForEach(block => block.Save());
             EditorUtility.SetDirty(tree);
+        }
+
+        private void RemoveNodeFromGroup(DialogueNodeView nodeView)
+        {
+            tree.blockDatas.ForEach(group => group.children.Remove(nodeView.viewDataKey));
+            this.PopulateView(tree, window);
         }
 
         #endregion

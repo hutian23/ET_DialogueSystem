@@ -32,7 +32,7 @@ namespace ET.Client
         {
             node = dialogueNode;
             viewDataKey = node.Guid;
-            styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/Node/NodeView.uss"));
+            styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/Resource/NodeView.uss"));
             treeView = dialogueTreeView;
             title = GetNodeTitle();
             SaveCallback += SavePos;
@@ -43,7 +43,9 @@ namespace ET.Client
             NodeTypeAttribute attr = node.GetType().GetCustomAttribute<NodeTypeAttribute>();
             if (attr == null) return "";
             int lastIndex = attr.Level.LastIndexOf('/');
-            return $"[{node.TargetID}]  {attr.Level.Substring(lastIndex + 1)}";
+
+            string id = node.TargetID <= 0? "_" : node.TargetID.ToString();
+            return $"[{id}]  {attr.Level.Substring(lastIndex + 1)}";
         }
 
         private void SavePos()
