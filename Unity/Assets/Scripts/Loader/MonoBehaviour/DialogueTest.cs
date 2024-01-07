@@ -52,6 +52,14 @@ namespace ET
         [ShowInInspector]
         [DictionaryDrawerSettings(KeyLabel = "TargetID",ValueLabel = "NodeData")]
         public Dictionary<int, test222> target2 = new();
+
+#if UNITY_EDITOR
+        [Button("ceshi1")]
+        public void Test()
+        {
+            Debug.Log("hello world");
+        }  
+#endif
         
         // [ProgressBar(1,2)]
         // public int test;

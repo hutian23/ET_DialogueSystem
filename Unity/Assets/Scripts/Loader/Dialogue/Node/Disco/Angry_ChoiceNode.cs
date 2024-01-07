@@ -8,11 +8,11 @@ namespace ET.Client
     public class Angry_ChoiceNode: DialogueNode
     {
         [FoldoutGroup("$nodeName")]
-        [OdinSerialize, LabelText("愤怒"), HideReferenceObjectPicker]
+        [OdinSerialize, LabelText("愤怒"), ReadOnly, HideReferenceObjectPicker]
         [ListDrawerSettings(IsReadOnly = true)]
         public List<int> Angrys = new();
         [FoldoutGroup("$nodeName")]
-        [OdinSerialize, LabelText("情绪正常"), HideReferenceObjectPicker]
+        [OdinSerialize, LabelText("情绪正常"), ReadOnly, HideReferenceObjectPicker]
         [ListDrawerSettings(IsReadOnly = true)]
         public List<int> Normal = new();
     }

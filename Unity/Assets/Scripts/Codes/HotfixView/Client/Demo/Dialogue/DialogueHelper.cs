@@ -2,6 +2,7 @@
 
 namespace ET.Client
 {
+    [FriendOf(typeof(DialogueComponent))]
     public static class DialogueHelper
     {
         /// <summary>
@@ -10,7 +11,7 @@ namespace ET.Client
         /// <param name="text"></param>
         /// <param name="modelName"></param>
         /// <param name="replaceText"></param>
-        public static string Replace(string text,string modelName,string replaceText)
+        public static string Replace(string text, string modelName, string replaceText)
         {
             string pattern = @"\{\{" + modelName + @"\}\}";
             text = Regex.Replace(text, pattern, replaceText);

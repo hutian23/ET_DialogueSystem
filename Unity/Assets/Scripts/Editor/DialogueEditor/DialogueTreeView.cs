@@ -78,17 +78,19 @@ namespace ET.Client
             //如果没有根节点，则创建
             if (tree.root == null)
             {
-                DialogueNode rootNode = tree.CreateDialogueNode(typeof (RootNode));
+                RootNode rootNode = tree.CreateRoot();
                 tree.root = rootNode;
                 rootNode.position = new Vector2(100, 200);
             }
-
+            //注意!!! 深拷贝之后，如果rootNode在nodes中，则会有两个rootNode
+            //这里rootNode的视图和连线要额外处理
+            DialogueNodeView rootView = CreateNodeView(tree.root);
             foreach (var node in tree.nodes)
             {
                 CreateNodeView(node);
             }
-
             //3. 生成边
+            rootView.GenerateEdge();
             foreach (var node in tree.nodes)
             {
                 DialogueNodeView nodeView = GetViewFromNode(node);
@@ -239,12 +241,39 @@ namespace ET.Client
             switch (DialogueSettings.GetSettings().copyNode)
             {
                 case DialogueNode copyNode:
-                    DialogueNode dialogueNode = EditorSerializeHelper.Clone(copyNode);
+                    DialogueNode dialogueNode = MongoHelper.Clone(copyNode);
                     dialogueNode.Guid = GUID.Generate().ToString();
                     dialogueNode.position = copyNode.position;
+                    dialogueNode.TargetID = 0;
                     CreateNode(dialogueNode);
                     break;
             }
+        }
+
+        public void RefreshNodeState()
+        {
+            graphElements.OfType<DialogueNodeView>().ToList().ForEach(view =>
+            {
+                Color color;
+                DialogueSettings settings = DialogueSettings.GetSettings();
+                switch (view.node.Status)
+                {
+                    case Status.Pending:
+                        color = settings.PendingColor;
+                        break;
+                    case Status.Failed:
+                        color = settings.FailedColor;
+                        break;
+                    case Status.Success:
+                        color = settings.SuccessColor;
+                        break;
+                    default:
+                        color = settings.DefaultColor;
+                        break;
+                }
+
+                view.titleContainer.style.backgroundColor = color;
+            });
         }
 
         #region Node
@@ -271,7 +300,7 @@ namespace ET.Client
             CreateNodeView(node);
         }
 
-        private void CreateNodeView(DialogueNode node)
+        private DialogueNodeView CreateNodeView(DialogueNode node)
         {
             Assembly assembly = typeof (DialogueNodeView).Assembly;
             //dialogueNodeView的子类
@@ -284,8 +313,10 @@ namespace ET.Client
                     DialogueNodeView nodeView = Activator.CreateInstance(nodeViewType, args: new object[] { node, this }) as DialogueNodeView;
                     nodeView.SetPosition(new Rect(node.position, DefaultNodeSize));
                     AddElement(nodeView);
+                    return nodeView;
                 }
             }
+            return null;
         }
 
         private void SaveNodes()
@@ -295,7 +326,7 @@ namespace ET.Client
             int IdGenerator = 0;
 
             Queue<DialogueNodeView> workQueue = new();
-            
+
             DialogueNodeView rootView = GetViewFromNode(tree.root);
             tree.targets.Clear();
             workQueue.Enqueue(rootView);
@@ -307,23 +338,22 @@ namespace ET.Client
                 nodeView.node.TargetID = IdGenerator;
                 tree.targets.TryAdd(IdGenerator, nodeView.node);
                 IdGenerator++;
-                
+
                 foreach (var output in nodeView.outports)
                 {
                     foreach (var edge in output.connections)
                     {
                         DialogueNodeView childView = edge.input.node as DialogueNodeView;
-                        if (nodeSet.Contains(childView)) continue;    
+                        if (nodeSet.Contains(childView)) continue;
                         workQueue.Enqueue(childView);
                         nodeSet.Add(childView);
                     }
                 }
             }
-            
+
             List<DialogueNodeView> nodeViews = graphElements.Where(x => x is DialogueNodeView).Cast<DialogueNodeView>().ToList();
             nodeViews.ForEach(view => view.SaveCallback?.Invoke());
         }
-        
 
         #endregion
 

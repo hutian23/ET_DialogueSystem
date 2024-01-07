@@ -137,7 +137,7 @@ namespace ET.Client
 
         public virtual DialogueNode Clone()
         {
-            DialogueNode dialogueNode = EditorSerializeHelper.Clone(node);
+            DialogueNode dialogueNode = MongoHelper.Clone(node);
             dialogueNode.position = this.GetPosition().position + new Vector2(50, 50);
             return dialogueNode;
         }

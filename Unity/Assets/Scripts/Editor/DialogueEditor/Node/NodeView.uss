@@ -10,3 +10,8 @@
     -unity-text-align: middle-center;
     -unity-font-style: bold;
 }
+
+#title {
+    font-size: 30px;
+    -unity-font-style: bold;
+}

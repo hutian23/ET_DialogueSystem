@@ -51,6 +51,7 @@ public class DialogueEditor: OdinEditorWindow
         {
             treeView.SaveDialogueTree();
         }
+        treeView.RefreshNodeState();
     }
 
     /// <summary>

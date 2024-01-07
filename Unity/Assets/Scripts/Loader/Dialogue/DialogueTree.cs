@@ -8,11 +8,6 @@ using UnityEngine;
 
 namespace ET.Client
 {
-    public struct test444
-    {
-        public int a;
-    }
-    
     [CreateAssetMenu(menuName = "ScriptableObject/DialogueTree/Tree", fileName = "DialogueTree")]
     public class DialogueTree: SerializedScriptableObject
     {
@@ -25,25 +20,32 @@ namespace ET.Client
         public DialogueNode root;
 
         [Space(10)]
-        [BsonIgnore]
         [FoldoutGroup("DialogueDatas")]
         [HideReferenceObjectPicker]
         [ListDrawerSettings(IsReadOnly = true)]
         public List<DialogueNode> nodes = new();
 
         [Space(10)]
-        [BsonIgnore]
         [FoldoutGroup("DialogueDatas")]
         [HideReferenceObjectPicker]
         [ListDrawerSettings(IsReadOnly = true)]
         public List<CommentBlockData> blockDatas = new();
-        
+
         [HideReferenceObjectPicker]
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
-        [DictionaryDrawerSettings(KeyLabel = "TargetID", ValueLabel = "DialogueNode",IsReadOnly = true)]
+        [DictionaryDrawerSettings(KeyLabel = "TargetID", ValueLabel = "DialogueNode", IsReadOnly = true)]
         public Dictionary<int, DialogueNode> targets = new();
-        
-        
+
+        public RootNode CreateRoot()
+        {
+            RootNode rootNode = Activator.CreateInstance<RootNode>();
+            rootNode.TargetID = 0;
+            rootNode.Guid = GUID.Generate().ToString();
+            rootNode.nextNode = 1;
+            EditorUtility.SetDirty(this);
+            return rootNode;
+        }
+
         public DialogueNode CreateDialogueNode(Type type)
         {
             DialogueNode node = Activator.CreateInstance(type) as DialogueNode;
@@ -61,21 +63,15 @@ namespace ET.Client
             this.nodes.ForEach(node => { this.targets.TryAdd(node.TargetID, node); });
         }
 
-        private void CreateCommentBlock()
-        {
-            CommentBlockData blockData = new();
-            this.blockDatas.Add(blockData);
-            EditorUtility.SetDirty(this);
-        }
-
         #region old
-        
+
         public bool DeleteNode(DialogueNode node)
         {
             if (node == this.root || node.Guid == this.root.Guid)
             {
                 return false;
             }
+
             this.nodes.Remove(node);
             return true;
         }

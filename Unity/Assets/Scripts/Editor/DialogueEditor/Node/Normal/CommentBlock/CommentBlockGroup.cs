@@ -14,7 +14,6 @@ namespace ET.Client
             this.blockData = block;
             this.title = this.blockData.title;
             this.treeView = dialogueTreeView;
-            this.RegisterCallback<FocusEvent>(_=>{Debug.Log("Hello world");});
         }
         
         protected override void OnGroupRenamed(string oldName, string newName)

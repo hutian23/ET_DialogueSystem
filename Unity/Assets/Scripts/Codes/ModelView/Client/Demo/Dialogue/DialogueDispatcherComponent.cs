@@ -13,10 +13,4 @@ namespace ET.Client
 
         public Dictionary<Type, NodeCheckHandler> checker_dispatchHandlers = new();
     }
-
-    public enum Status
-    {
-        Success,
-        Failed
-    }
 }

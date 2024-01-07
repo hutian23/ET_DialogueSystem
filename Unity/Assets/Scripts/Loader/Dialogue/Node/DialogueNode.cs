@@ -6,22 +6,34 @@ using UnityEngine;
 
 namespace ET
 {
+    public enum Status
+    {
+        None,
+        Success,
+        Pending,
+        Failed
+    }
+    
     [HideReferenceObjectPicker]
     public abstract class DialogueNode
     {
         [FoldoutGroup("$nodeName")]
-        [BsonIgnore]
+        [HideInInspector]
         public string Guid;
 
-        [HideInInspector]
-        [BsonIgnore]
+        [HideInInspector] 
         public Vector2 position;
+        
+        [FoldoutGroup("$nodeName")]
+        [BsonIgnore]
+        [ReadOnly]
+        [LabelText("执行状态")]
+        public Status Status;
 
         [HideInInspector]
         public string text;
         
         [ShowInInspector]
-        [BsonIgnore]
         [FoldoutGroup("$nodeName")]
         public int TargetID;
         

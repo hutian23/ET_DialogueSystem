@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
@@ -10,11 +8,15 @@ using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using Unity.Mathematics;
 
+#if UNITY
+using UnityEngine;
+#endif
+
 namespace ET
 {
     public static class MongoHelper
     {
-        public class StructBsonSerialize<TValue>: StructSerializerBase<TValue> where TValue : struct
+        private class StructBsonSerialize<TValue>: StructSerializerBase<TValue> where TValue : struct
         {
             public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TValue value)
             {
@@ -80,41 +82,72 @@ namespace ET
 
         [StaticField]
         private static readonly JsonWriterSettings defaultSettings = new() { OutputMode = JsonOutputMode.RelaxedExtendedJson };
-
-        static MongoHelper()
-        {
-            // 自动注册IgnoreExtraElements
         
-            ConventionPack conventionPack = new ConventionPack { new IgnoreExtraElementsConvention(true) };
+        public static void Init()
+        {
+            // 清理老的数据
+            MethodInfo createSerializerRegistry = typeof (BsonSerializer).GetMethod("CreateSerializerRegistry", BindingFlags.Static | BindingFlags.NonPublic);
+            createSerializerRegistry.Invoke(null, Array.Empty<object>());
+            MethodInfo registerIdGenerators = typeof (BsonSerializer).GetMethod("RegisterIdGenerators", BindingFlags.Static | BindingFlags.NonPublic);
+            registerIdGenerators.Invoke(null, Array.Empty<object>());
             
+            // 自动注册IgnoreExtraElements
+            ConventionPack conventionPack = new ConventionPack { new IgnoreExtraElementsConvention(true) };
             ConventionRegistry.Register("IgnoreExtraElements", conventionPack, type => true);
             
-            RegisterStruct<float2>();
-            RegisterStruct<float3>();
-            RegisterStruct<float4>();
-            RegisterStruct<quaternion>();
+            //结构体需要手动注册    
+            RegisterStructs();
+            // Dictionary<string, Type> types = EventSystem.Instance.GetTypes();
+            // foreach (Type type in types.Values)
+            // {
+            //     if (!type.IsSubclassOf(typeof (Object)))
+            //     {
+            //         continue;
+            //     }
+            //
+            //     if (type.IsGenericType)
+            //     {
+            //         continue;
+            //     }
+            //
+            //     BsonClassMap.LookupClassMap(type);
+            // }
             
-            Dictionary<string, Type> types = EventSystem.Instance.GetTypes();
-            foreach (Type type in types.Values)
+            //检查继承关系
+            var types = AssemblyHelper.GetAssemblyTypes(typeof (Game).Assembly);
+            foreach (var type in types.Values)
             {
                 if (!type.IsSubclassOf(typeof (Object)))
                 {
                     continue;
                 }
-            
+
                 if (type.IsGenericType)
                 {
                     continue;
                 }
-            
+
                 BsonClassMap.LookupClassMap(type);
-            }     
+            }
+#if UNITY
+            Debug.Log("初始化MongoHelper");   
+#endif
         }
-
-        public static void Init()
+        
+        // https://et-framework.cn/d/33-mongobson
+        private static void RegisterStructs()
         {
+            RegisterStruct<float2>();
+            RegisterStruct<float3>();
+            RegisterStruct<float4>();
+            RegisterStruct<quaternion>();
+#if UNITY
+            RegisterStruct<Vector2>();
+            RegisterStruct<Vector3>();
+            RegisterStruct<Vector2Int>();
+#endif
         }
-
+        
         public static void RegisterStruct<T>() where T : struct
         {
             BsonSerializer.RegisterSerializer(typeof (T), new StructBsonSerialize<T>());

@@ -11,7 +11,8 @@ namespace ET.Client
         [ShowInInspector, ReadOnly]
         public object copyNode;
 
-        public Color RunningColor;
+        public Color DefaultColor;
+        public Color PendingColor;
         public Color SuccessColor;
         public Color FailedColor;
 

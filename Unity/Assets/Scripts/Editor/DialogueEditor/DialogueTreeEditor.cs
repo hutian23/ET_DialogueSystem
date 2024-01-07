@@ -26,15 +26,11 @@ namespace ET.Client
                 tree.blockDatas.Clear();
                 tree.targets.Clear();
             }
+
             if (GUILayout.Button("测试序列化"))
             {
-                Debug.Log(EditorSerializeHelper.ToJson(this));
+                Debug.Log(MongoHelper.ToJson(this.target as DialogueTree));
             }
         }
-    }
-
-    public struct test55
-    {
-        public int a;
     }
 }

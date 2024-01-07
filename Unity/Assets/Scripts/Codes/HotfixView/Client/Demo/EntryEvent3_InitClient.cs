@@ -8,7 +8,7 @@ namespace ET.Client
             // 加载配置
             Root.Instance.Scene.AddComponent<ResourcesComponent>();
             Root.Instance.Scene.AddComponent<GlobalComponent>();
-            
+
             await ResourcesComponent.Instance.LoadBundleAsync("unit.unity3d");
 
             Scene clientScene = await SceneFactory.CreateClientScene(1, "Game");
@@ -17,13 +17,13 @@ namespace ET.Client
             clientScene.AddComponent<TODEventSystem>();
             clientScene.AddComponent<OperaComponent>();
             clientScene.AddComponent<DialogueDispatcherComponent>();
-            
+
             Unit player = TODUnitFactory.CreatePlayer(clientScene);
             await Storage.Instance.SaveStorage(0, player);
             //反序列化存档
             Unit loadUnit = await Storage.Instance.LoadStorage(0);
             TODUnitHelper.AddPlayer(clientScene, loadUnit);
-            
+
             await EventSystem.Instance.PublishAsync(clientScene, new EventType.AppStartInitFinish());
         }
     }
