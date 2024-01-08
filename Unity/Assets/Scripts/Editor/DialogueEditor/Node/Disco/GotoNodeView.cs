@@ -22,11 +22,7 @@ namespace ET.Client
 
             SaveCallback += Save;
         }
-
-        public override void GenerateEdge()
-        {
-        }
-
+        
         private void Save()
         {
             GotoNode gotoNode = node as GotoNode;

@@ -132,16 +132,12 @@ namespace ET.Client
                     .Select(dialogueNode => dialogueNode.TargetID)
                     .ToList();
         }
-
-        public abstract void GenerateEdge();
         
         public Action SaveCallback;
 
-        public virtual DialogueNode Clone()
+        public DialogueNode Clone()
         {
-            DialogueNode dialogueNode = MongoHelper.Clone(node);
-            dialogueNode.position = this.GetPosition().position + new Vector2(50, 50);
-            return dialogueNode;
+            return this.node.Clone();
         }
     }
 }

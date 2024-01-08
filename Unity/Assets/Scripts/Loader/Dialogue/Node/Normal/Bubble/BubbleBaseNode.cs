@@ -12,5 +12,11 @@ namespace ET.Client
         [ListDrawerSettings(IsReadOnly = true)]
         [ReadOnly]
         public List<int> bubbles = new();
+
+        public override DialogueNode Clone()
+        {
+            bubbles.Clear();
+            return base.Clone();
+        }
     }
 }

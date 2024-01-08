@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine.Device;
+﻿using UnityEngine.Device;
 
 namespace ET.Client
 {
@@ -63,7 +62,7 @@ namespace ET.Client
             self.workQueue.Clear();
 
             self.tree = tree;
-            self.cloneTree = MongoHelper.Clone(self.tree);
+            self.cloneTree = self.tree.DeepClone();
             if (Application.isEditor)
             {
                 DialogueViewComponent view = self.GetParent<Unit>()
@@ -118,17 +117,7 @@ namespace ET.Client
 
         public static DialogueNode GetNode(this DialogueComponent self, int targetID)
         {
-            //编辑器中深克隆so，targets中的实例和nodes中的不是同一个
-            DialogueNode node;
-            if (Application.isEditor)
-            {
-                self.cloneTree.targets.TryGetValue(targetID, out DialogueNode targetNode);
-                node = self.cloneTree.nodes.FirstOrDefault(dialogueNode => dialogueNode.Guid == targetNode.Guid);
-            }
-            else
-            {
-                self.cloneTree.targets.TryGetValue(targetID, out node);
-            }
+            self.cloneTree.targets.TryGetValue(targetID, out DialogueNode node);
             return node;
         }
 

@@ -9,7 +9,7 @@ namespace ET.Client
     {
         [HideReferenceObjectPicker]
         [ShowInInspector, ReadOnly]
-        public object copyNode;
+        public object copy;
 
         public Color DefaultColor;
         public Color PendingColor;

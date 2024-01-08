@@ -24,6 +24,7 @@ namespace ET.Client
                 tree.root = null;
                 tree.nodes.Clear();
                 tree.blockDatas.Clear();
+                tree.NodeLinkDatas.Clear();
                 tree.targets.Clear();
             }
 

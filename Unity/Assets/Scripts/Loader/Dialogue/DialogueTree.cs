@@ -31,6 +31,12 @@ namespace ET.Client
         [ListDrawerSettings(IsReadOnly = true)]
         public List<CommentBlockData> blockDatas = new();
 
+        [Space(10)]
+        [FoldoutGroup("DialogueDatas")]
+        [HideReferenceObjectPicker]
+        [ListDrawerSettings(IsReadOnly = true)]
+        public List<NodeLinkData> NodeLinkDatas = new();
+
         [HideReferenceObjectPicker]
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
         [DictionaryDrawerSettings(KeyLabel = "TargetID", ValueLabel = "DialogueNode", IsReadOnly = true)]
@@ -91,5 +97,14 @@ namespace ET.Client
         }
 
         #endregion
+        
+        public DialogueTree DeepClone()
+        {
+            DialogueTree cloneTree = MongoHelper.Clone(this);
+            cloneTree.targets.Clear();
+            cloneTree.targets.Add(0, cloneTree.root);
+            cloneTree.nodes.ForEach(node => { cloneTree.targets.TryAdd(node.TargetID, node);});
+            return cloneTree;
+        }
     }
 }

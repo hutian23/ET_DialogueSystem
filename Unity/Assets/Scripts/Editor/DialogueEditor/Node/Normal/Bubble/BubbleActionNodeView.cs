@@ -8,9 +8,5 @@
             this.GenerateInputPort("");
             this.GenerateDescription();
         }
-
-        public override void GenerateEdge()
-        {
-        }
     }
 }

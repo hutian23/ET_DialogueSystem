@@ -2,6 +2,7 @@
 using ET.Client;
 using MongoDB.Bson.Serialization.Attributes;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 namespace ET
@@ -46,6 +47,17 @@ namespace ET
         public List<NodeCheckConfig> checkList = new();
         
         public string nodeName => $"[{TargetID}]{GetType().Name}";
+
+#if UNITY_EDITOR
+        public virtual DialogueNode Clone()
+        {
+            DialogueNode cloneNode = MongoHelper.Clone(this);
+            cloneNode.position += new Vector2(50, 50);
+            cloneNode.TargetID = 0;
+            cloneNode.Guid = GUID.Generate().ToString();
+            return cloneNode;
+        }
+#endif
     }
 
     public class NodeTypeAttribute: BaseAttribute

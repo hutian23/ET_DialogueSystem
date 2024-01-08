@@ -15,11 +15,5 @@ namespace ET.Client
             this.title = "根节点";
             outputPort = GenerateOutputPort("start");
         }
-
-        public override void GenerateEdge()
-        {
-            if (!(node is RootNode rootNode)) return; 
-            treeView.CreateEdge(outputPort, rootNode.nextNode);
-        }
     }
 }

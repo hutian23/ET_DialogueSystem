@@ -15,5 +15,12 @@ namespace ET.Client
         [OdinSerialize, LabelText("情绪正常"), ReadOnly, HideReferenceObjectPicker]
         [ListDrawerSettings(IsReadOnly = true)]
         public List<int> Normal = new();
+
+        public override DialogueNode Clone()
+        {
+            Angrys.Clear();
+            Normal.Clear();
+            return base.Clone();
+        }
     }
 }

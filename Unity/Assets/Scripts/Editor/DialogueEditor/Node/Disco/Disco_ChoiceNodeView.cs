@@ -18,14 +18,6 @@ namespace ET.Client
             SaveCallback += Save;
         }
         
-
-        public override void GenerateEdge()
-        {
-            if (!(node is Disco_ChoiceNode choiceNode)) return;
-            treeView.CreateEdge(SuccessPort, choiceNode.Success);
-            treeView.CreateEdge(FailedPort, choiceNode.Failed);
-        }
-
         private void Save()
         {
             if (!(node is Disco_ChoiceNode choiceNode)) return;

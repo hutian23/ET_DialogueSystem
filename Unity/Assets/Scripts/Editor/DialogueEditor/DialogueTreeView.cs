@@ -22,9 +22,8 @@ namespace ET.Client
         private DialogueEditor window;
         private SearchMenuWindowProvider searchWindow;
 
-        private readonly List<DialogueNode> removeCaches = new();
-        private readonly List<CommentBlockData> removeBlockCaches = new();
-
+        private readonly List<object> RemoveCaches = new();
+        
         public DialogueTreeView()
         {
             Insert(0, new GridBackground());
@@ -47,10 +46,10 @@ namespace ET.Client
                     switch (elem)
                     {
                         case DialogueNodeView nodeView:
-                            removeCaches.Add(nodeView.node);
+                            RemoveCaches.Add(nodeView.node);
                             break;
                         case CommentBlockGroup group:
-                            removeBlockCaches.Add(group.blockData);
+                            RemoveCaches.Add(group.blockData);
                             break;
                     }
                 });
@@ -64,10 +63,8 @@ namespace ET.Client
         {
             tree = _tree;
             window = dialogueEditor;
-
-            removeCaches.Clear();
-            removeBlockCaches.Clear();
-
+            
+            RemoveCaches.Clear();
             graphViewChanged -= OnGraphViewChanged;
             DeleteElements(graphElements);
             graphViewChanged += OnGraphViewChanged;
@@ -85,16 +82,11 @@ namespace ET.Client
 
             //注意!!! 深拷贝之后，如果rootNode在nodes中，则会有两个rootNode(tree.Root和nodes中的)
             //这里rootNode的视图和连线要额外处理
-            DialogueNodeView rootView = CreateNodeView(tree.root);
-            tree.nodes.ForEach(node => CreateNodeView(node));
+            CreateNodeView(tree.root);
+            tree.nodes.ForEach(this.CreateNodeView);
 
             //3. 生成边
-            rootView.GenerateEdge();
-            tree.nodes.ForEach(node =>
-            {
-                DialogueNodeView nodeView = GetViewFromNode(node);
-                nodeView.GenerateEdge();
-            });
+            tree.NodeLinkDatas.ForEach(this.CreateEdge);
 
             //4. 生成背景板
             tree.blockDatas.ForEach(this.CreateCommentBlockView);
@@ -191,13 +183,23 @@ namespace ET.Client
 
         public void SaveDialogueTree()
         {
-            removeCaches.ForEach(node => tree.DeleteNode(node));
-            removeCaches.Clear();
-            removeBlockCaches.ForEach(block => tree.DeleteBlock(block));
-            removeBlockCaches.Clear();
+            RemoveCaches.ForEach(cache =>
+            {
+                switch (cache)
+                {
+                    case DialogueNode node:
+                        tree.DeleteNode(node);
+                        break;
+                    case CommentBlockData blockData:
+                        tree.DeleteBlock(blockData);
+                        break;
+                }
+            });
 
             SaveCommentBlock();
+            SaveLinkDatas();
             SaveNodes();
+
             window.HasUnSave = false;
             EditorUtility.SetDirty(tree);
             //刷新页面
@@ -210,21 +212,24 @@ namespace ET.Client
             {
                 case DialogueNodeView nodeView:
                     if (nodeView.node is RootNode) break;
-                    DialogueSettings.GetSettings().copyNode = nodeView.Clone();
+                    DialogueSettings.GetSettings().copy = nodeView.Clone();
+                    break;
+                case CommentBlockGroup group:
+                    DialogueSettings.GetSettings().copy = new CommentBlockClone(group);
                     break;
             }
         }
 
         private void Paste()
         {
-            switch (DialogueSettings.GetSettings().copyNode)
+            switch (DialogueSettings.GetSettings().copy)
             {
                 case DialogueNode copyNode:
                     DialogueNode dialogueNode = MongoHelper.Clone(copyNode);
-                    dialogueNode.Guid = GUID.Generate().ToString();
-                    dialogueNode.position = copyNode.position;
-                    dialogueNode.TargetID = 0;
                     CreateNode(dialogueNode);
+                    break;
+                case CommentBlockClone blockClone:
+                    blockClone.Clone(this);
                     break;
             }
         }
@@ -273,13 +278,13 @@ namespace ET.Client
             CreateNodeView(node);
         }
 
-        private void CreateNode(DialogueNode node)
+        public void CreateNode(DialogueNode node)
         {
             tree.nodes.Add(node);
             CreateNodeView(node);
         }
 
-        private DialogueNodeView CreateNodeView(DialogueNode node)
+        private void CreateNodeView(DialogueNode node)
         {
             Assembly assembly = typeof (DialogueNodeView).Assembly;
             //dialogueNodeView的子类
@@ -292,11 +297,8 @@ namespace ET.Client
                     DialogueNodeView nodeView = Activator.CreateInstance(nodeViewType, args: new object[] { node, this }) as DialogueNodeView;
                     nodeView.SetPosition(new Rect(node.position, DefaultNodeSize));
                     AddElement(nodeView);
-                    return nodeView;
                 }
             }
-
-            return null;
         }
 
         private void SaveNodes()
@@ -340,6 +342,12 @@ namespace ET.Client
 
         #region CommentBlock
 
+        public void CreateCommentBlock(CommentBlockData blockData)
+        {
+            tree.blockDatas.Add(blockData);
+            CreateCommentBlockView(blockData);
+        }
+
         public void CreateCommentBlock(Vector2 position)
         {
             CommentBlockData blockData = tree.CreateBlock(position);
@@ -376,32 +384,41 @@ namespace ET.Client
 
         #region Edge
 
-        /// <summary>
-        /// 只有父节点的output和子节点的input的连接逻辑需要重载
-        /// </summary>
-        public Edge CreateEdge(Port output, int targetID)
+        private void SaveLinkDatas()
         {
-            if (output == null || output.direction == Direction.Input) return null;
-            tree.targets.TryGetValue(targetID, out DialogueNode node);
-            DialogueNodeView nodeView = GetViewFromNode(node);
-            //RootNode没有input
-            if (nodeView == null || node is RootNode) return null;
-
-            Edge edge = output.ConnectTo(nodeView.input);
-            AddElement(edge);
-            return edge;
+            tree.NodeLinkDatas.Clear();
+            var nodeviews = graphElements.Where(x => x is DialogueNodeView).Cast<DialogueNodeView>().ToList();
+            nodeviews.ForEach(nodeView =>
+            {
+                for (int i = 0; i < nodeView.outports.Count; i++)
+                {
+                    Port output = nodeView.outports[i];
+                    foreach (var edge in output.connections)
+                    {
+                        DialogueNodeView childView = edge.input.node as DialogueNodeView;
+                        tree.NodeLinkDatas.Add(new NodeLinkData()
+                        {
+                            inputNodeGuid = childView.viewDataKey, outputNodeGuid = nodeView.viewDataKey, portID = i
+                        });
+                    }
+                }
+            });
         }
 
-        public void CreateEdges(Port output, List<int> targets)
+        public void CreateEdge(NodeLinkData linkData)
         {
-            if (output == null || output.direction == Direction.Input || targets == null) return;
-            foreach (var targetID in targets)
+            DialogueNodeView inputView = GetNodeByGuid(linkData.inputNodeGuid) as DialogueNodeView;
+            DialogueNodeView outputView = GetNodeByGuid(linkData.outputNodeGuid) as DialogueNodeView;
+            if (inputView == null || outputView == null) return;
+            try
             {
-                tree.targets.TryGetValue(targetID, out DialogueNode node);
-                DialogueNodeView nodeView = GetViewFromNode(node);
-                if (nodeView == null || node is RootNode) continue;
-                Edge edge = output.ConnectTo(nodeView.input);
+                Port outputPort = outputView.outports[linkData.portID];
+                Edge edge = outputPort.ConnectTo(inputView.input);
                 AddElement(edge);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("index out of range!!!" + e);
             }
         }
 

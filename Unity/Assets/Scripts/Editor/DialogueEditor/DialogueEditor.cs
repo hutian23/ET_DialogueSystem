@@ -62,37 +62,4 @@ public class DialogueEditor: OdinEditorWindow
         base.SaveChanges();
         treeView.SaveDialogueTree();
     }
-
-    // private void LoadDropDownMenuIten()
-    // {
-    //     dropDown.choices.Clear();
-    //     //选择下拉菜单后的回调
-    //     dropDown.RegisterValueChangedCallback(this.ChangeDropDown);
-    //     string folderPath = "Assets/Res/ScriptableObject/DialogueTree";
-    //     string[] assetGuids = AssetDatabase.FindAssets("t:ScriptableObject", new[] { folderPath });
-    //     foreach (var guid in assetGuids)
-    //     {
-    //         string assetPath = AssetDatabase.GUIDToAssetPath(guid);
-    //         Object asset = AssetDatabase.LoadAssetAtPath(assetPath, typeof (DialogueTree));
-    //         if (asset != null && asset is DialogueTree dialogueTree)
-    //         {
-    //             dropDown.choices.Add(dialogueTree.treeName);
-    //         }
-    //     }
-    // }
-    //
-    // private void ChangeDropDown(ChangeEvent<string> evt)
-    // {
-    //     string folderPath = "Assets/Res/ScriptableObject/DialogueTree";
-    //     string[] assetGuids = AssetDatabase.FindAssets("t:ScriptableObject", new[] { folderPath });
-    //     foreach (var guid in assetGuids)
-    //     {
-    //         string assetPath = AssetDatabase.GUIDToAssetPath(guid);
-    //         Object asset = AssetDatabase.LoadAssetAtPath(assetPath, typeof (DialogueTree));
-    //         if (asset != null && asset is DialogueTree dialogueTree && dialogueTree.treeName == evt.newValue)
-    //         {
-    //             OpenWindow(dialogueTree);
-    //         }
-    //     }
-    // }
 }
