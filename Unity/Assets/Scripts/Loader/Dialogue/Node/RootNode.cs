@@ -5,6 +5,6 @@ namespace ET.Client
     public class RootNode : DialogueNode
     {
         [FoldoutGroup("$nodeName")]
-        public int nextNode;
+        public uint nextNode;
     }
 }

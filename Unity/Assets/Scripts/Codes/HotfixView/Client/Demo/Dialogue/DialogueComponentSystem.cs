@@ -1,4 +1,6 @@
-﻿using UnityEngine.Device;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine.Device;
 
 namespace ET.Client
 {
@@ -24,22 +26,13 @@ namespace ET.Client
                 self.Init();
                 self.token = new ETCancellationToken();
 
-                // self.cloneTree = MongoHelper.Clone(self.tree);
-                // if (Application.isEditor)
-                // {
-                //     DialogueViewComponent view = self.GetParent<Unit>()
-                //             .GetComponent<GameObjectComponent>().GameObject
-                //             .GetComponent<DialogueViewComponent>();
-                //     view.cloneTree = self.cloneTree;
-                // }
-
                 if (Application.isEditor)
                 {
                     //热重载更新Status
                     self.cloneTree.root.Status = Status.None;
-                    self.cloneTree.nodes.ForEach(node => node.Status = Status.None);   
+                    self.cloneTree.nodes.ForEach(node => node.Status = Status.None);
                 }
-                
+
                 if (self.tree == null) return;
                 self.DialogueCor().Coroutine();
             }
@@ -62,14 +55,18 @@ namespace ET.Client
             self.workQueue.Clear();
 
             self.tree = tree;
-            self.cloneTree = self.tree.DeepClone();
             if (Application.isEditor)
             {
+                self.cloneTree = self.tree.DeepClone();
                 DialogueViewComponent view = self.GetParent<Unit>()
                         .GetComponent<GameObjectComponent>().GameObject
                         .GetComponent<DialogueViewComponent>();
                 view.cloneTree = self.cloneTree;
                 view.tree = self.tree;
+            }
+            else
+            {
+                self.targets = self.tree.CloneTargets();
             }
 
             self.DialogueCor().Coroutine();
@@ -89,35 +86,48 @@ namespace ET.Client
             Status status = Status.Success;
             Unit unit = self.GetParent<Unit>();
 
-            while (self.workQueue.Count != 0)
+            try
             {
-                if (self.token.IsCancel()) break;
-                //将下一个节点压入queue并执行
-                DialogueNode node = self.workQueue.Dequeue();
-
-                if (Application.isEditor) node.Status = Status.Pending;
-
-                Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, node, self.token);
-                //携程取消 or 执行失败
-                if (self.token.IsCancel() || ret == Status.Failed)
+                while (self.workQueue.Count != 0)
                 {
-                    status = Status.Failed;
-                    if (Application.isEditor) node.Status = Status.Failed;
-                    break;
+                    if (self.token.IsCancel()) break;
+                    //将下一个节点压入queue并执行
+                    DialogueNode node = self.workQueue.Dequeue();
+
+                    if (Application.isEditor) node.Status = Status.Pending;
+
+                    Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, node, self.token);
+                    //携程取消 or 执行失败
+                    if (self.token.IsCancel() || ret == Status.Failed)
+                    {
+                        status = Status.Failed;
+                        if (Application.isEditor) node.Status = Status.Failed;
+                        break;
+                    }
+
+                    if (Application.isEditor) node.Status = Status.Success;
+
+                    await TimerComponent.Instance.WaitFrameAsync(self.token);
                 }
 
-                if (Application.isEditor) node.Status = Status.Success;
-
-                await TimerComponent.Instance.WaitFrameAsync(self.token);
+                self.Init();
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
             }
 
-            self.Init();
             return status;
         }
 
-        public static DialogueNode GetNode(this DialogueComponent self, int targetID)
+        public static DialogueNode GetNode(this DialogueComponent self, uint targetID)
         {
-            self.cloneTree.targets.TryGetValue(targetID, out DialogueNode node);
+            DialogueNode node;
+            if (UnityEngine.Application.isEditor)
+                self.cloneTree.targets.TryGetValue(targetID, out node);
+            else
+                self.targets.targets.TryGetValue(targetID, out node);
+            if (node == null) Log.Error($"not found target node! :{targetID}");
             return node;
         }
 
@@ -127,10 +137,15 @@ namespace ET.Client
             self.workQueue.Enqueue(node);
         }
 
-        public static void PushNextNode(this DialogueComponent self, int targetID)
+        public static void PushNextNode(this DialogueComponent self, uint targetID)
         {
             DialogueNode node = self.GetNode(targetID);
             self.PushNextNode(node);
+        }
+
+        public static void PushNextNode(this DialogueComponent self, List<uint> targets)
+        {
+            targets.ForEach(self.PushNextNode);
         }
     }
 }

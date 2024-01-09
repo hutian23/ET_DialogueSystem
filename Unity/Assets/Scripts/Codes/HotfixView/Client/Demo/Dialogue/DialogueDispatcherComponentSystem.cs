@@ -65,7 +65,8 @@ namespace ET.Client
         {
             if (!self.dispatchHandlers.TryGetValue(node.GetType(), out NodeHandler handler))
             {
-                throw new Exception($"not found handler: {node}");
+                Log.Error($"not found handler: {node}");
+                return Status.Failed;
             }
 
             return await handler.Handle(unit, node, token);

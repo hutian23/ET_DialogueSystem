@@ -6,7 +6,6 @@ using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.InputSystem;
 
 namespace ET.Client
 {
@@ -25,11 +24,8 @@ namespace ET.Client
 
         private readonly List<object> RemoveCaches = new();
 
-        //将鼠标坐标从 以屏幕为坐标系 转为以编辑器为坐标系
-        private Vector2 ScreenMousePosition
-        {
-            get => Mouse.current.position.ReadValue() + window.position.position;
-        }
+        //鼠标在编辑器视图的坐标空间中的位置
+        private Vector2 ScreenMousePosition;
 
         //在视图中的鼠标位置
         public Vector2 LocalMousePosition
@@ -110,6 +106,7 @@ namespace ET.Client
             tree.blockDatas.ForEach(this.CreateCommentBlockView);
             RegisterCallback<KeyDownEvent>(KeyDownEventCallback);
             RegisterCallback<MouseEnterEvent>(MouseEnterControl);
+            RegisterCallback<MouseMoveEvent>(evt => { ScreenMousePosition = evt.mousePosition + window.position.position; });
         }
 
         private void AddSearchWindow()
@@ -308,6 +305,7 @@ namespace ET.Client
 
         public void CreateNode(DialogueNode node)
         {
+            node.TreeID = tree.treeID;
             tree.nodes.Add(node);
             CreateNodeView(node);
         }
@@ -336,7 +334,7 @@ namespace ET.Client
 
             //从根节点开始遍历，字典存储在树上的节点(不在树上的节点保存nodeList中)
             HashSet<DialogueNodeView> nodeSet = new(); // 被遍历过的节点
-            int IdGenerator = 0;
+            uint IdGenerator = 0;
 
             Queue<DialogueNodeView> workQueue = new();
             DialogueNodeView rootView = GetViewFromNode(tree.root);

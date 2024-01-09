@@ -10,11 +10,11 @@ namespace ET.Client
         [FoldoutGroup("$nodeName")]
         [OdinSerialize, LabelText("愤怒"), ReadOnly, HideReferenceObjectPicker]
         [ListDrawerSettings(IsReadOnly = true)]
-        public List<int> Angrys = new();
+        public List<uint> Angrys = new();
         [FoldoutGroup("$nodeName")]
         [OdinSerialize, LabelText("情绪正常"), ReadOnly, HideReferenceObjectPicker]
         [ListDrawerSettings(IsReadOnly = true)]
-        public List<int> Normal = new();
+        public List<uint> Normal = new();
 
         public override DialogueNode Clone()
         {

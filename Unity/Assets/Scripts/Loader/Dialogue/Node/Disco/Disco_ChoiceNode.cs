@@ -7,10 +7,10 @@ namespace ET.Client
     {
         //检定成功
         [HideInInspector]
-        public int Success;
+        public uint Success;
 
         //检定失败
         [HideInInspector]
-        public int Failed;
+        public uint Failed;
     }
 }

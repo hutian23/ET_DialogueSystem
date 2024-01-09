@@ -14,38 +14,35 @@ namespace ET
         Pending,
         Failed
     }
-    
+
     [HideReferenceObjectPicker]
     public abstract class DialogueNode
     {
-        [FoldoutGroup("$nodeName")]
         [HideInInspector]
         public string Guid;
 
-        [HideInInspector] 
+        [HideInInspector]
         public Vector2 position;
-        
-        [FoldoutGroup("$nodeName")]
+
         [BsonIgnore]
-        [ReadOnly]
-        [LabelText("执行状态")]
+        [LabelText("执行状态"),ReadOnly,FoldoutGroup("$nodeName")]
         public Status Status;
 
         [HideInInspector]
         public string text;
-        
-        [ShowInInspector]
-        [FoldoutGroup("$nodeName")]
-        public int TargetID;
-        
-        [FoldoutGroup("$nodeName")]
-        public bool NeedCheck;
 
-        [ShowInInspector]
-        [ShowIf("NeedCheck")]
-        [FoldoutGroup("$nodeName")]
-        public List<NodeCheckConfig> checkList = new();
+        [LabelText("对话树ID"), FoldoutGroup("$nodeName")]
+        public uint TreeID;
         
+        [FoldoutGroup("$nodeName"),ReadOnly]
+        public uint TargetID;
+
+        [FoldoutGroup("$nodeName"),ReadOnly]
+        public bool NeedCheck;
+        
+        [FoldoutGroup("$nodeName"),ShowIf("NeedCheck")]
+        public List<NodeCheckConfig> checkList = new();
+
         public string nodeName => $"[{TargetID}]{GetType().Name}";
 
 #if UNITY_EDITOR
@@ -53,6 +50,7 @@ namespace ET
         {
             DialogueNode cloneNode = MongoHelper.Clone(this);
             cloneNode.TargetID = 0;
+            cloneNode.TreeID = 0;
             cloneNode.Guid = GUID.Generate().ToString();
             return cloneNode;
         }

@@ -107,7 +107,7 @@ namespace ET.Client
             return port;
         }
 
-        protected int GetFirstLinkNode(Port output)
+        protected uint GetFirstLinkNode(Port output)
         {
             foreach (var edge in output.connections)
             {
@@ -115,7 +115,7 @@ namespace ET.Client
                 return nodeView.node.TargetID;
             }
 
-            return -1;
+            return 0;
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace ET.Client
         /// </summary>
         /// <param name="output"></param>
         /// <returns></returns>
-        protected List<int> GetLinkNodes(Port output)
+        protected List<uint> GetLinkNodes(Port output)
         {
             return output.connections
                     .Select(edge => edge.input.node as DialogueNodeView)

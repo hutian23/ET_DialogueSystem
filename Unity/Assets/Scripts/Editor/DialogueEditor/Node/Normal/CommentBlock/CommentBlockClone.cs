@@ -14,26 +14,15 @@ namespace ET.Client
 
     public class CommentBlockClone
     {
-        private readonly Vector2 OFFSET = new(100, 100);
-
-        //不能跨对话树进行复制
-        // private readonly CommentBlockGroup blockGroup;
-        //
-        // public CommentBlockClone(CommentBlockGroup group)
-        // {
-        //     this.blockGroup = group;
-        // }
-
-        public CommentBlockData blockData;
-        public List<GroupNodeData> nodes = new();
-        public List<NodeLinkData> linkDatas = new();
+        private readonly CommentBlockData blockData;
+        private readonly List<GroupNodeData> nodes = new();
+        private readonly List<NodeLinkData> linkDatas = new();
 
         public CommentBlockClone(CommentBlockGroup group)
         {
             //保存背景板
             blockData = MongoHelper.Clone(group.blockData);
             blockData.children.Clear();
-            blockData.position += OFFSET;
 
             var nodeCaches = group.containedElements.OfType<DialogueNodeView>().ToList();
             //保存连线
@@ -78,7 +67,7 @@ namespace ET.Client
                 cloneNode.TargetID = 0;
                 cloneNode.Guid = GUID.Generate().ToString();
                 cloneNode.position = cloneBlockData.position + groupNode.localPosition;
-                
+
                 nodeCacheDict.Add(groupNode.node.Guid, cloneNode.Guid);
                 cloneNodes.Add(cloneNode);
             });

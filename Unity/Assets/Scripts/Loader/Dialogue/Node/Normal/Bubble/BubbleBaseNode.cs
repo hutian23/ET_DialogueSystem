@@ -11,7 +11,7 @@ namespace ET.Client
         [OdinSerialize, LabelText("气泡列表"), HideReferenceObjectPicker]
         [ListDrawerSettings(IsReadOnly = true)]
         [ReadOnly]
-        public List<int> bubbles = new();
+        public List<uint> bubbles = new();
 
         public override DialogueNode Clone()
         {

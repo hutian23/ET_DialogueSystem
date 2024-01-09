@@ -12,7 +12,7 @@ namespace ET.Client
     public class DialogueTree: SerializedScriptableObject
     {
         public string treeName;
-        public int treeId;
+        public uint treeID;
 
         [FoldoutGroup("DialogueDatas")]
         [LabelText("根节点")]
@@ -40,12 +40,13 @@ namespace ET.Client
         [HideReferenceObjectPicker]
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
         [DictionaryDrawerSettings(KeyLabel = "TargetID", ValueLabel = "DialogueNode", IsReadOnly = true)]
-        public Dictionary<int, DialogueNode> targets = new();
+        public Dictionary<uint, DialogueNode> targets = new();
 
         public RootNode CreateRoot()
         {
             RootNode rootNode = Activator.CreateInstance<RootNode>();
             rootNode.TargetID = 0;
+            rootNode.TreeID = this.treeID;
             rootNode.Guid = GUID.Generate().ToString();
             rootNode.nextNode = 1;
             EditorUtility.SetDirty(this);
@@ -56,18 +57,19 @@ namespace ET.Client
         {
             DialogueNode node = Activator.CreateInstance(type) as DialogueNode;
             node.TargetID = 0;
+            node.TreeID = this.treeID;
             node.Guid = GUID.Generate().ToString();
             this.nodes.Add(node);
             EditorUtility.SetDirty(this);
-            OnNodeListChanged();
+            // OnNodeListChanged();
             return node;
         }
 
-        public void OnNodeListChanged()
-        {
-            this.targets.Clear();
-            this.nodes.ForEach(node => { this.targets.TryAdd(node.TargetID, node); });
-        }
+        // public void OnNodeListChanged()
+        // {
+        //     this.targets.Clear();
+        //     this.nodes.ForEach(node => { this.targets.TryAdd(node.TargetID, node); });
+        // }
 
         #region old
 
@@ -97,14 +99,27 @@ namespace ET.Client
         }
 
         #endregion
-        
+
         public DialogueTree DeepClone()
         {
             DialogueTree cloneTree = MongoHelper.Clone(this);
             cloneTree.targets.Clear();
             cloneTree.targets.Add(0, cloneTree.root);
-            cloneTree.nodes.ForEach(node => { cloneTree.targets.TryAdd(node.TargetID, node);});
+            cloneTree.nodes.ForEach(node => { cloneTree.targets.TryAdd(node.TargetID, node); });
             return cloneTree;
         }
+        
+        public DialogueTarget CloneTargets()
+        {
+            //TODO 想想怎么忽略guid，position这些字段
+            DialogueTarget targetsDict = new DialogueTarget() { targets = this.targets };
+            return  MongoHelper.Clone(targetsDict);
+        }
+    }
+
+    public class DialogueTarget
+    {
+        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
+        public Dictionary<uint, DialogueNode> targets = new();
     }
 }
