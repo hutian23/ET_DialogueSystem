@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 namespace ET.Client
 {
@@ -23,7 +24,24 @@ namespace ET.Client
         private SearchMenuWindowProvider searchWindow;
 
         private readonly List<object> RemoveCaches = new();
-        
+
+        //将鼠标坐标从 以屏幕为坐标系 转为以编辑器为坐标系
+        private Vector2 ScreenMousePosition
+        {
+            get => Mouse.current.position.ReadValue() + window.position.position;
+        }
+
+        //在视图中的鼠标位置
+        public Vector2 LocalMousePosition
+        {
+            get
+            {
+                var mousePosition = window.rootVisualElement.ChangeCoordinatesTo(window.rootVisualElement.parent,
+                    ScreenMousePosition - window.position.position);
+                return contentViewContainer.WorldToLocal(mousePosition);
+            }
+        }
+
         public DialogueTreeView()
         {
             Insert(0, new GridBackground());
@@ -63,7 +81,7 @@ namespace ET.Client
         {
             tree = _tree;
             window = dialogueEditor;
-            
+
             RemoveCaches.Clear();
             graphViewChanged -= OnGraphViewChanged;
             DeleteElements(graphElements);
@@ -90,13 +108,13 @@ namespace ET.Client
 
             //4. 生成背景板
             tree.blockDatas.ForEach(this.CreateCommentBlockView);
-
             RegisterCallback<KeyDownEvent>(KeyDownEventCallback);
             RegisterCallback<MouseEnterEvent>(MouseEnterControl);
         }
 
         private void AddSearchWindow()
         {
+            //搜索框
             searchWindow = ScriptableObject.CreateInstance<SearchMenuWindowProvider>();
             searchWindow.Init(window, this);
             //添加回调，按下空格调用
@@ -114,12 +132,11 @@ namespace ET.Client
                 switch (selection[0])
                 {
                     case DialogueNodeView nodeView:
-                        evt.menu.AppendAction("Remove from commentBlock", _ => { RemoveNodeFromGroup(nodeView); });
+
+                        evt.menu.AppendAction("移除组", _ => { RemoveNodeFromGroup(nodeView); });
                         break;
                 }
             }
-
-            evt.menu.AppendAction("Redo", _ => this.OnRedo());
         }
 
         public override List<Port> GetCompatiblePorts(Port startPorts, NodeAdapter nodeAdapter)
@@ -129,6 +146,16 @@ namespace ET.Client
                     endPort.direction != startPorts.direction &&
                     endPort.node != startPorts.node).ToList();
             return list;
+        }
+
+        public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
+        {
+            evt.menu.AppendAction("创建节点", _ => { SearchWindow.Open(new SearchWindowContext(this.ScreenMousePosition), this.searchWindow); });
+            evt.menu.AppendSeparator();
+            evt.menu.AppendAction("复制", _ => this.Copy());
+            evt.menu.AppendAction("黏贴", _ => this.Paste());
+            evt.menu.AppendSeparator();
+            evt.menu.AppendAction("撤销", _ => this.OnRedo());
         }
 
         private void MouseEnterControl(MouseEnterEvent evt)
@@ -225,7 +252,8 @@ namespace ET.Client
             switch (DialogueSettings.GetSettings().copy)
             {
                 case DialogueNode copyNode:
-                    DialogueNode dialogueNode = MongoHelper.Clone(copyNode);
+                    DialogueNode dialogueNode = copyNode.Clone();
+                    dialogueNode.position = this.LocalMousePosition - this.DefaultNodeSize / 2;
                     CreateNode(dialogueNode);
                     break;
                 case CommentBlockClone blockClone:

@@ -6,6 +6,12 @@ using UnityEngine;
 
 namespace ET.Client
 {
+    public class GroupNodeData
+    {
+        public DialogueNode node;
+        public Vector2 localPosition;
+    }
+
     public class CommentBlockClone
     {
         private readonly Vector2 OFFSET = new(100, 100);
@@ -19,7 +25,7 @@ namespace ET.Client
         // }
 
         public CommentBlockData blockData;
-        public List<DialogueNode> nodes = new();
+        public List<GroupNodeData> nodes = new();
         public List<NodeLinkData> linkDatas = new();
 
         public CommentBlockClone(CommentBlockGroup group)
@@ -35,8 +41,7 @@ namespace ET.Client
             {
                 //深拷贝节点
                 DialogueNode cloneNode = MongoHelper.Clone(nodeCache.node);
-                cloneNode.position += OFFSET;
-                nodes.Add(cloneNode);
+                nodes.Add(new GroupNodeData() { node = cloneNode, localPosition = cloneNode.position - blockData.position });
 
                 for (int i = 0; i < nodeCache.outports.Count; i++)
                 {
@@ -62,17 +67,19 @@ namespace ET.Client
         public void Clone(DialogueTreeView treeView)
         {
             CommentBlockData cloneBlockData = MongoHelper.Clone(this.blockData);
+            cloneBlockData.position = treeView.LocalMousePosition;
+
             //新旧节点guid映射
             var nodeCacheDict = new Dictionary<string, string>();
             var cloneNodes = new List<DialogueNode>();
-            this.nodes.ForEach(dialogueNode =>
+            this.nodes.ForEach(groupNode =>
             {
-                DialogueNode cloneNode = MongoHelper.Clone(dialogueNode);
-                cloneNode.position += OFFSET;
+                DialogueNode cloneNode = MongoHelper.Clone(groupNode.node);
                 cloneNode.TargetID = 0;
                 cloneNode.Guid = GUID.Generate().ToString();
-
-                nodeCacheDict.Add(dialogueNode.Guid, cloneNode.Guid);
+                cloneNode.position = cloneBlockData.position + groupNode.localPosition;
+                
+                nodeCacheDict.Add(groupNode.node.Guid, cloneNode.Guid);
                 cloneNodes.Add(cloneNode);
             });
 
@@ -86,10 +93,10 @@ namespace ET.Client
                 linkData.inputNodeGuid = newInputNodeGuid;
                 linkData.outputNodeGuid = newOutputNodeGuid;
             });
-            
+
             cloneBlockData.children.Clear();
             cloneBlockData.children = cloneNodes.Select(x => x.Guid).ToList();
-            
+
             //1. 克隆节点
             cloneNodes.ForEach(treeView.CreateNode);
             //2. 生成边

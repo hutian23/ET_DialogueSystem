@@ -52,7 +52,6 @@ namespace ET
         public virtual DialogueNode Clone()
         {
             DialogueNode cloneNode = MongoHelper.Clone(this);
-            cloneNode.position += new Vector2(50, 50);
             cloneNode.TargetID = 0;
             cloneNode.Guid = GUID.Generate().ToString();
             return cloneNode;

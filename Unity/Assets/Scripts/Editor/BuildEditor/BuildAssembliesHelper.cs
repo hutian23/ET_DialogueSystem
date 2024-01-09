@@ -202,6 +202,8 @@ namespace ET
                         }
                     }
                 }
+                
+                MongoHelper.Init();
             };
 
             //开始构建

@@ -34,11 +34,10 @@ namespace ET.Client
 
         public bool OnSelectEntry(SearchTreeEntry SearchTreeEntry, SearchWindowContext context)
         {
-            // 鼠标在编辑器view内的位置
             var mousePosition = this.window.rootVisualElement.ChangeCoordinatesTo(this.window.rootVisualElement.parent,
                 context.screenMousePosition - this.window.position.position);
             var graphPosition = this.treeView.contentViewContainer.WorldToLocal(mousePosition);
-
+            
             switch (SearchTreeEntry.userData)
             {
                 case Type type:
