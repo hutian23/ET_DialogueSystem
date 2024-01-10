@@ -17,5 +17,9 @@ namespace ET.Client
         [LabelText("要道具"), FoldoutGroup("$nodeName")]
         [ListDrawerSettings(IsReadOnly = true),ReadOnly]
         public List<uint> Item = new();
+
+        [LabelText("特殊"), FoldoutGroup("$nodeName")]
+        [ListDrawerSettings(IsReadOnly = true), ReadOnly]
+        public List<uint> extras = new();
     }
 }

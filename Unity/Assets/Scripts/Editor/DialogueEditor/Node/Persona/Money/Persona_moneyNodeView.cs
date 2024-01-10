@@ -7,12 +7,12 @@ namespace ET.Client
     {
         private readonly Port success;
         private readonly Port failed;
-
+        
         public Persona_moneyNodeView(DialogueNode dialogueNode, DialogueTreeView dialogueTreeView): base(dialogueNode, dialogueTreeView)
         {
             this.GenerateInputPort("",true);
-            success = this.GenerateOutputPort("检定成功");
-            failed = this.GenerateOutputPort("检定失败");
+            success = this.GenerateOutputPort("检定成功",true);
+            failed = this.GenerateOutputPort("检定失败",true);
             this.GenerateDescription();
             this.SaveCallback += this.Save;
         }
