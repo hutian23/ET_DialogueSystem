@@ -3,7 +3,7 @@
 namespace ET.Client
 {
     [ComponentOf(typeof (Unit))]
-    public class DialogueStorageManager: Entity, IAwake, IDestroy, ISerializeToEntity
+    public class DialogueStorageManager: Entity, IAwake, IDestroy, ISerializeToEntity,ILoad, IDeserialize
     {
         [BsonIgnore]
         [StaticField]

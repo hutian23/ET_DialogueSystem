@@ -106,7 +106,8 @@ namespace ET.Client
                     }
 
                     if (Application.isEditor) node.Status = Status.Success;
-
+                    //存档
+                    DialogueStorageManager.Instance.QuickSaveShot.AddToBuffer(self.tree.treeID, node.TargetID);
                     await TimerComponent.Instance.WaitFrameAsync(self.token);
                 }
 

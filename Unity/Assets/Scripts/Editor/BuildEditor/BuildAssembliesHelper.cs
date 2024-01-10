@@ -14,6 +14,18 @@ namespace ET
     {
         public const string CodeDir = "Assets/Bundles/Code/";
 
+        [UnityEditor.Callbacks.DidReloadScripts]
+        private static void CreateAssetWhenReady()
+        {
+            if(EditorApplication.isCompiling || EditorApplication.isUpdating)
+            {
+                EditorApplication.delayCall += CreateAssetWhenReady;
+                return;
+            }
+ 
+            EditorApplication.delayCall += MongoHelper.Init;
+        }
+        
         public static void BuildModel(CodeOptimization codeOptimization, GlobalConfig globalConfig)
         {
             List<string> codes;
@@ -202,10 +214,8 @@ namespace ET
                         }
                     }
                 }
-                
-                MongoHelper.Init();
             };
-
+            
             //开始构建
             if (!assemblyBuilder.Build())
             {

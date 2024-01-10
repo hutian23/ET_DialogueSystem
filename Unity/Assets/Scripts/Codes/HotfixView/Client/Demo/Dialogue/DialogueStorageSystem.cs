@@ -15,7 +15,7 @@ namespace ET.Client
                 self.nodeIDTemp.Clear();
             }
         }
-        
+
         #region 增
 
         public static bool Add(this DialogueStorage self, DialogueNode dialogueNode)
@@ -50,14 +50,24 @@ namespace ET.Client
         #endregion
 
         #region 改
+
         //没有
+
         #endregion
-        
+
         #region 查
 
         public static bool Check(this DialogueStorage self, DialogueNode node)
         {
             ulong ID = self.GetStorageID(node);
+            return self.storageSet.Contains(ID);
+        }
+
+        public static bool Check(this DialogueStorage self, uint treeID, uint targetID)
+        {
+            ulong ID = 0;
+            ID |= (ulong)treeID << 32;
+            ID |= targetID;
             return self.storageSet.Contains(ID);
         }
 
@@ -83,7 +93,7 @@ namespace ET.Client
         }
 
         #endregion
-        
+
         /// <summary>
         ///  StorageID = treeID + targetID
         /// </summary>
@@ -94,7 +104,7 @@ namespace ET.Client
             ID |= node.TargetID;
             return ID;
         }
-        
+
         #region 缓冲
 
         public static void AddToBuffer(this DialogueStorage self, uint treeID, uint targetID)
@@ -109,7 +119,7 @@ namespace ET.Client
         {
             self.nodeIDTemp.Clear();
         }
-        
+
         /// <summary>
         /// 清空缓冲区的id，全部保存
         /// </summary>
@@ -119,7 +129,7 @@ namespace ET.Client
             self.nodeIDTemp.ForEach(ID => { self.storageSet.Add(ID); });
             self.nodeIDTemp.Clear();
         }
-        
+
         #endregion
     }
 }

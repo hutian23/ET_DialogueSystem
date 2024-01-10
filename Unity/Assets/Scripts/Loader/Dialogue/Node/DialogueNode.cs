@@ -37,7 +37,7 @@ namespace ET
         [FoldoutGroup("$nodeName"),ReadOnly]
         public uint TargetID;
 
-        [FoldoutGroup("$nodeName"),ReadOnly]
+        [FoldoutGroup("$nodeName")]
         public bool NeedCheck;
         
         [FoldoutGroup("$nodeName"),ShowIf("NeedCheck")]

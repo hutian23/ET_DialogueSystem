@@ -318,6 +318,10 @@ namespace ET.Client
             foreach (var nodeViewType in ret)
             {
                 NodeEditorOfAttribute attr = nodeViewType.GetCustomAttribute(typeof (NodeEditorOfAttribute)) as NodeEditorOfAttribute;
+                if (attr == null)
+                {
+                    Debug.LogError($"请添加NodeEditor标签!!!: {nodeViewType}");
+                }
                 if (attr.nodeType == node.GetType())
                 {
                     DialogueNodeView nodeView = Activator.CreateInstance(nodeViewType, args: new object[] { node, this }) as DialogueNodeView;

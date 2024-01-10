@@ -6,12 +6,12 @@ namespace ET
 {
     public class DialogueViewComponent: MonoBehaviour
     {
-        [LabelText("引用")]
+        [LabelText("引用: ")]
         [ReadOnly]
         public DialogueTree tree;
 
         [ReadOnly]
-        [LabelText("dialogueComponent.tree: ")]
+        [LabelText("克隆树: ")]
         public DialogueTree cloneTree;
     }
 }

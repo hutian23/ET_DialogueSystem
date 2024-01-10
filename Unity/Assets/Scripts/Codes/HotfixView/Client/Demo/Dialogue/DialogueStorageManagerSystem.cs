@@ -1,4 +1,6 @@
-﻿namespace ET.Client
+﻿using MongoDB.Bson;
+
+namespace ET.Client
 {
     [FriendOf(typeof (DialogueStorageManager))]
     public static class DialogueStorageManagerSystem
@@ -15,7 +17,24 @@
                 }
             }
         }
-
+        
+        public class DialogueStorageManagerDeserializeSystem : DeserializeSystem<DialogueStorageManager>
+        {
+            protected override void Deserialize(DialogueStorageManager self)
+            {
+                DialogueStorageManager.Instance = self;
+            }
+        }
+        
+        public class DialogueStorageManagerLoadSystem : LoadSystem<DialogueStorageManager>
+        {
+            protected override void Load(DialogueStorageManager self)
+            {
+                self.QuickSaveShot.Save();
+                Log.Warning(self.QuickSaveShot.ToJson());
+            }
+        }
+        
         public static int GetShotIndex(this DialogueStorageManager self, DialogueStorage storage)
         {
             for (int i = 0; i < self.shots.Length; i++)

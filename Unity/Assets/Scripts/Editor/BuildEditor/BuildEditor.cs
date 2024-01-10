@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using ET.Client;
 using UnityEditor;
 using UnityEditor.Compilation;
@@ -156,8 +157,6 @@ namespace ET
                 AfterCompiling();
 
                 ShowNotification("Build Model Success!");
-
-                // MongoHelper.Init(); 为啥这里不执行
             }
 
             if (GUILayout.Button("BuildHotfix"))
