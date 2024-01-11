@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector.Editor;
+﻿using MongoDB.Bson;
+using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -30,7 +31,8 @@ namespace ET.Client
 
             if (GUILayout.Button("测试序列化"))
             {
-                Debug.Log(MongoHelper.ToJson(this.target as DialogueTree));
+                var tree= this.target as DialogueTree;
+                Debug.Log(tree.CloneTargets().ToJson());
             }
         }
     }
