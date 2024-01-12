@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof(DialogueComponent))]
+    [FriendOf(typeof (DialogueComponent))]
     public static class DialogueHelper
     {
         /// <summary>
@@ -16,6 +16,11 @@ namespace ET.Client
             string pattern = @"\{\{" + modelName + @"\}\}";
             text = Regex.Replace(text, pattern, replaceText);
             return text;
+        }
+        
+        public static void ScripMatchError(string text)
+        {
+            Log.Error($"{text}匹配失败！请检查格式");
         }
     }
 }

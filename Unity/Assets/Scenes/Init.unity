@@ -546,7 +546,7 @@ MonoBehaviour:
   - key: Test
     gameObject: {fileID: 11400000, guid: 30611a83bdc69cd4ebe6d69867f0f9a5, type: 2}
   - key: Dialogue
-    gameObject: {fileID: 11400000, guid: 02f52484e20469545b159bbad21f62ac, type: 2}
+    gameObject: {fileID: 11400000, guid: 9e249e177010cff458ead71d5795764c, type: 2}
 --- !u!1 &1114695592
 GameObject:
   m_ObjectHideFlags: 0

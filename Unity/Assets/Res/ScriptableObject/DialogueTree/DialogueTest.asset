@@ -1,0 +1,1184 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e9dbc5c9f192b84e9fef0a764dfc94d, type: 3}
+  m_Name: DialogueTest
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: root
+      Entry: 7
+      Data: 0|ET.Client.RootNode, Unity.Loader
+    - Name: Guid
+      Entry: 1
+      Data: 4d598dbece586564b96c2f1ed5c44c47
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 100
+    - Name: 
+      Entry: 4
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: TreeID
+      Entry: 3
+      Data: 1
+    - Name: TargetID
+      Entry: 3
+      Data: 0
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: nextNode
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: nodes
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[ET.DialogueNode, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 7
+    - Name: 
+      Entry: 7
+      Data: 3|ET.Client.Persona_ActionNode, Unity.Loader
+    - Name: Guid
+      Entry: 1
+      Data: 9196a220509e64041b4c297d638dcf73
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 267
+    - Name: 
+      Entry: 4
+      Data: 214
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: text
+      Entry: 1
+      Data: "\u54C8\u54C8\u54C8"
+    - Name: TreeID
+      Entry: 3
+      Data: 1
+    - Name: TargetID
+      Entry: 3
+      Data: 1
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 4|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Script
+      Entry: 1
+      Data: 'Numeric Hp + 2;
+
+        WaitTime 2000;'
+    - Name: children
+      Entry: 7
+      Data: 5|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|ET.Client.Persona_ChoiceNode, Unity.Loader
+    - Name: Guid
+      Entry: 1
+      Data: 78ed593214a39a94d923a69d41329fac
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1204
+    - Name: 
+      Entry: 4
+      Data: 201
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: TreeID
+      Entry: 3
+      Data: 1
+    - Name: TargetID
+      Entry: 3
+      Data: 0
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 7|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: choices
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|ET.Client.Persona_moneyNode, Unity.Loader
+    - Name: Guid
+      Entry: 1
+      Data: 233237119cd22814e93bb67b4eea3d5b
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1396
+    - Name: 
+      Entry: 4
+      Data: 71
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: text
+      Entry: 1
+      Data: "\u770B\u770B\u4F60\u7684\u8BDA\u610F"
+    - Name: TreeID
+      Entry: 3
+      Data: 1
+    - Name: TargetID
+      Entry: 3
+      Data: 0
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 10|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: MinValue
+      Entry: 3
+      Data: 0
+    - Name: MaxValue
+      Entry: 3
+      Data: 0
+    - Name: Success
+      Entry: 7
+      Data: 11|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Failed
+      Entry: 7
+      Data: 12|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: test
+      Entry: 3
+      Data: 123
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 13|ET.Client.Persona_moneyNode, Unity.Loader
+    - Name: Guid
+      Entry: 1
+      Data: 80856788bafc86b4ab305d1f9e94cb3a
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1396
+    - Name: 
+      Entry: 4
+      Data: 201
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: text
+      Entry: 1
+      Data: "\u90A3\u4E48\u4E0B\u6B21\u518D\u89C1\u5427"
+    - Name: TreeID
+      Entry: 3
+      Data: 1
+    - Name: TargetID
+      Entry: 3
+      Data: 0
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 14|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: MinValue
+      Entry: 3
+      Data: 0
+    - Name: MaxValue
+      Entry: 3
+      Data: 0
+    - Name: Success
+      Entry: 7
+      Data: 15|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Failed
+      Entry: 7
+      Data: 16|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: test
+      Entry: 3
+      Data: 123
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 17|ET.Client.Persona_moneyNode, Unity.Loader
+    - Name: Guid
+      Entry: 1
+      Data: 1c1e8be02bd70c54097f57c96bbbdb19
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1396
+    - Name: 
+      Entry: 4
+      Data: 322
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: text
+      Entry: 1
+      Data: "\u7ED9\u6211\u66F4\u591A"
+    - Name: TreeID
+      Entry: 3
+      Data: 1
+    - Name: TargetID
+      Entry: 3
+      Data: 0
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 18|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: MinValue
+      Entry: 3
+      Data: 0
+    - Name: MaxValue
+      Entry: 3
+      Data: 0
+    - Name: Success
+      Entry: 7
+      Data: 19|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Failed
+      Entry: 7
+      Data: 20|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: test
+      Entry: 3
+      Data: 123
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 21|ET.Client.Persona_ActionNode, Unity.Loader
+    - Name: Guid
+      Entry: 1
+      Data: 75395277346dcdd4a8be91e9791c045a
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 528
+    - Name: 
+      Entry: 4
+      Data: 150
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: text
+      Entry: 1
+      Data: "\u54C8\u54C8\u54C8"
+    - Name: TreeID
+      Entry: 3
+      Data: 1
+    - Name: TargetID
+      Entry: 3
+      Data: 2
+    - Name: NeedCheck
+      Entry: 5
+      Data: true
+    - Name: checkList
+      Entry: 7
+      Data: 22|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 23|ET.Client.TargetIDCheckConfig, Unity.Loader
+    - Name: checkList
+      Entry: 7
+      Data: 24|System.Collections.Generic.List`1[[ET.Client.TargetCheck, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 25|ET.Client.TargetCheck, Unity.Loader
+    - Name: CheckType
+      Entry: 3
+      Data: 0
+    - Name: IsGlobal
+      Entry: 5
+      Data: true
+    - Name: treeID
+      Entry: 3
+      Data: 1
+    - Name: targetID
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Script
+      Entry: 1
+      Data: 'Numeric Hp + 2;
+
+        Numeric Hp + 2;'
+    - Name: children
+      Entry: 7
+      Data: 26|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 27|ET.Client.Persona_ActionNode, Unity.Loader
+    - Name: Guid
+      Entry: 1
+      Data: f08028be7f7630b4cb53606856d23bd5
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 528
+    - Name: 
+      Entry: 4
+      Data: 262
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: text
+      Entry: 1
+      Data: "\u54C8\u54C8\u54C8"
+    - Name: TreeID
+      Entry: 3
+      Data: 1
+    - Name: TargetID
+      Entry: 3
+      Data: 3
+    - Name: NeedCheck
+      Entry: 5
+      Data: true
+    - Name: checkList
+      Entry: 7
+      Data: 28|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 29|ET.Client.TargetIDCheckConfig, Unity.Loader
+    - Name: checkList
+      Entry: 7
+      Data: 30|System.Collections.Generic.List`1[[ET.Client.TargetCheck, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 31|ET.Client.TargetCheck, Unity.Loader
+    - Name: CheckType
+      Entry: 3
+      Data: 1
+    - Name: IsGlobal
+      Entry: 5
+      Data: true
+    - Name: treeID
+      Entry: 3
+      Data: 1
+    - Name: targetID
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Script
+      Entry: 1
+      Data: 'Numeric Hp + 2;
+
+        Numeric Hp + 2;
+
+        WaitTime 5000;'
+    - Name: children
+      Entry: 7
+      Data: 32|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: NodeLinkDatas
+      Entry: 7
+      Data: 33|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 6
+    - Name: 
+      Entry: 7
+      Data: 34|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 4d598dbece586564b96c2f1ed5c44c47
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 9196a220509e64041b4c297d638dcf73
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 35|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 78ed593214a39a94d923a69d41329fac
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 233237119cd22814e93bb67b4eea3d5b
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 36|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 78ed593214a39a94d923a69d41329fac
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 80856788bafc86b4ab305d1f9e94cb3a
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 37|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 78ed593214a39a94d923a69d41329fac
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 1c1e8be02bd70c54097f57c96bbbdb19
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 38|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 9196a220509e64041b4c297d638dcf73
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 75395277346dcdd4a8be91e9791c045a
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 39|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 9196a220509e64041b4c297d638dcf73
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: f08028be7f7630b4cb53606856d23bd5
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: targets
+      Entry: 7
+      Data: 40|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
+        Unity.Loader]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 41|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 42|ET.Client.RootNode, Unity.Loader
+    - Name: Guid
+      Entry: 1
+      Data: 4d598dbece586564b96c2f1ed5c44c47
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 100
+    - Name: 
+      Entry: 4
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: TreeID
+      Entry: 3
+      Data: 1
+    - Name: TargetID
+      Entry: 3
+      Data: 0
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 43|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: nextNode
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: 44|ET.Client.Persona_ActionNode, Unity.Loader
+    - Name: Guid
+      Entry: 1
+      Data: 9196a220509e64041b4c297d638dcf73
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 267
+    - Name: 
+      Entry: 4
+      Data: 214
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: text
+      Entry: 1
+      Data: "\u54C8\u54C8\u54C8"
+    - Name: TreeID
+      Entry: 3
+      Data: 1
+    - Name: TargetID
+      Entry: 3
+      Data: 1
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 45|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Script
+      Entry: 1
+      Data: 'Numeric Hp + 2;
+
+        WaitTime 2000;'
+    - Name: children
+      Entry: 7
+      Data: 46|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: 47|ET.Client.Persona_ActionNode, Unity.Loader
+    - Name: Guid
+      Entry: 1
+      Data: 75395277346dcdd4a8be91e9791c045a
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 528
+    - Name: 
+      Entry: 4
+      Data: 150
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: text
+      Entry: 1
+      Data: "\u54C8\u54C8\u54C8"
+    - Name: TreeID
+      Entry: 3
+      Data: 1
+    - Name: TargetID
+      Entry: 3
+      Data: 2
+    - Name: NeedCheck
+      Entry: 5
+      Data: true
+    - Name: checkList
+      Entry: 7
+      Data: 48|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 49|ET.Client.TargetIDCheckConfig, Unity.Loader
+    - Name: checkList
+      Entry: 7
+      Data: 50|System.Collections.Generic.List`1[[ET.Client.TargetCheck, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 51|ET.Client.TargetCheck, Unity.Loader
+    - Name: CheckType
+      Entry: 3
+      Data: 0
+    - Name: IsGlobal
+      Entry: 5
+      Data: true
+    - Name: treeID
+      Entry: 3
+      Data: 1
+    - Name: targetID
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Script
+      Entry: 1
+      Data: 'Numeric Hp + 2;
+
+        Numeric Hp + 2;'
+    - Name: children
+      Entry: 7
+      Data: 52|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: 53|ET.Client.Persona_ActionNode, Unity.Loader
+    - Name: Guid
+      Entry: 1
+      Data: f08028be7f7630b4cb53606856d23bd5
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 528
+    - Name: 
+      Entry: 4
+      Data: 262
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: text
+      Entry: 1
+      Data: "\u54C8\u54C8\u54C8"
+    - Name: TreeID
+      Entry: 3
+      Data: 1
+    - Name: TargetID
+      Entry: 3
+      Data: 3
+    - Name: NeedCheck
+      Entry: 5
+      Data: true
+    - Name: checkList
+      Entry: 7
+      Data: 54|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 55|ET.Client.TargetIDCheckConfig, Unity.Loader
+    - Name: checkList
+      Entry: 7
+      Data: 56|System.Collections.Generic.List`1[[ET.Client.TargetCheck, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 57|ET.Client.TargetCheck, Unity.Loader
+    - Name: CheckType
+      Entry: 3
+      Data: 1
+    - Name: IsGlobal
+      Entry: 5
+      Data: true
+    - Name: treeID
+      Entry: 3
+      Data: 1
+    - Name: targetID
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Script
+      Entry: 1
+      Data: 'Numeric Hp + 2;
+
+        Numeric Hp + 2;
+
+        WaitTime 5000;'
+    - Name: children
+      Entry: 7
+      Data: 58|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  treeName: "\u6D4B\u8BD5"
+  treeID: 1
+  blockDatas:
+  - position: {x: 242, y: 91}
+    title: Action
+    children:
+    - 9196a220509e64041b4c297d638dcf73
+    - 75395277346dcdd4a8be91e9791c045a
+    - f08028be7f7630b4cb53606856d23bd5

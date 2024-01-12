@@ -88,7 +88,7 @@ namespace ET
             self.Insert(final, result, isPublicEvent);
         }
     }
-    
+
     namespace EventType
     {
         public struct NumbericChange
@@ -101,7 +101,7 @@ namespace ET
     }
 
     [ComponentOf(typeof (Unit))]
-    public class NumericComponent: Entity, IAwake, ITransfer
+    public class NumericComponent: Entity, IAwake, ITransfer, ISerializeToEntity
     {
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
         public Dictionary<int, long> NumericDic = new Dictionary<int, long>();

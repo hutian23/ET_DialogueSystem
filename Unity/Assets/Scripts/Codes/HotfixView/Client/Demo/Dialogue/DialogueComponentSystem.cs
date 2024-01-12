@@ -81,7 +81,8 @@ namespace ET.Client
 
         public static async ETTask<Status> DialogueCor(this DialogueComponent self)
         {
-            self.workQueue.Enqueue(self.cloneTree.root);
+            DialogueNode node = self.cloneTree.root;
+            self.workQueue.Enqueue(node);
 
             Status status = Status.Success;
             Unit unit = self.GetParent<Unit>();
@@ -92,7 +93,7 @@ namespace ET.Client
                 {
                     if (self.token.IsCancel()) break;
                     //将下一个节点压入queue并执行
-                    DialogueNode node = self.workQueue.Dequeue();
+                    node = self.workQueue.Dequeue();
 
                     if (Application.isEditor) node.Status = Status.Pending;
 
@@ -116,6 +117,7 @@ namespace ET.Client
             catch (Exception e)
             {
                 Log.Error(e);
+                node.Status = Status.Failed;
             }
 
             return status;

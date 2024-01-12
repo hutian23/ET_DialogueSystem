@@ -28,7 +28,6 @@ namespace ET.Client
             Unit loadUnit = await Storage.Instance.LoadStorage(0);
             
             TODUnitHelper.AddPlayer(clientScene, loadUnit);
-            Log.Warning(loadUnit.GetComponent<DialogueStorageManager>().ToJson());
             await EventSystem.Instance.PublishAsync(clientScene, new EventType.AppStartInitFinish());
         }
     }

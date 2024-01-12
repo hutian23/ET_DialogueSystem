@@ -25,7 +25,7 @@ namespace ET
         public Vector2 position;
 
         [BsonIgnore]
-        [LabelText("执行状态"),ReadOnly,FoldoutGroup("$nodeName")]
+        [HideInInspector,ReadOnly,FoldoutGroup("$nodeName")]
         public Status Status;
 
         [HideInInspector]
