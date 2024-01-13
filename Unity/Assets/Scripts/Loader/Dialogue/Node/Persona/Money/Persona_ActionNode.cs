@@ -8,11 +8,11 @@ namespace ET.Client
     public class Persona_ActionNode: DialogueNode
     {
         [FoldoutGroup("$nodeName")]
-        [Title(title: "脚本", bold: true), HideLabel, TextArea(10, 15)]
+        [Title(title: "脚本", bold: true), HideLabel, TextArea(10, 35)]
         public string Script = "";
 
         [FoldoutGroup("$nodeName")]
-        [ListDrawerSettings(IsReadOnly = true)]
+        [ListDrawerSettings(IsReadOnly = true), ReadOnly]
         public List<uint> children = new();
     }
 }

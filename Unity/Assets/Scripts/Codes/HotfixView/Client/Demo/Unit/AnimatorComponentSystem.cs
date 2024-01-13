@@ -234,5 +234,11 @@ namespace ET.Client
         {
             self.Animator.Play(clipName);
         }
+
+        public static async ETTask WaitAnimAsync(this Unit self, string clipName, int waitTime, ETCancellationToken token)
+        {
+            self.GetComponent<AnimatorComponent>().Play(clipName);
+            await TimerComponent.Instance.WaitAsync(waitTime, token);
+        }
     }
 }

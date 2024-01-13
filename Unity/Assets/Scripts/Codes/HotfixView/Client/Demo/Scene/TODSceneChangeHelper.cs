@@ -12,7 +12,8 @@ namespace ET.Client
 
             //2.切换场景 玩家的角色控制器 和视图相关组件要独立处理(因为都挂载clientScene上)
             Scene currentScene = SceneFactory.CreateCurrentScene(IdGenerater.Instance.GenerateId(), clientScene.Zone, sceneName, currentScenesComponent);
-
+            currentScene.AddComponent<UnitComponent>();
+            
             //3. 加载场景资源
             await EventSystem.Instance.PublishAsync(clientScene, new SceneChangeStart());
             await EventSystem.Instance.PublishAsync(clientScene, new CreatePlayerView());

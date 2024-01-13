@@ -89,7 +89,7 @@ namespace ET.Client
             return await handler.Handle(unit, node, token);
         }
 
-        public static int Check(this DialogueDispatcherComponent self, Unit unit, NodeCheckConfig nodeCheck)
+        private static int Check(this DialogueDispatcherComponent self, Unit unit, NodeCheckConfig nodeCheck)
         {
             if (!self.checker_dispatchHandlers.TryGetValue(nodeCheck.GetType(), out NodeCheckHandler nodeCheckerHandler))
             {
@@ -115,7 +115,7 @@ namespace ET.Client
         /// <summary>
         /// 一行指令 
         /// </summary>
-        public static async ETTask ScriptHandle(this DialogueDispatcherComponent self, Unit unit, string opType, string opCode,
+        private static async ETTask ScriptHandle(this DialogueDispatcherComponent self, Unit unit, string opType, string opCode,
         ETCancellationToken token)
         {
             if (!self.scriptHandlers.TryGetValue(opType, out ScriptHandler handler))
@@ -127,19 +127,77 @@ namespace ET.Client
             await handler.Handle(unit, opCode, token);
         }
 
-        public static async ETTask ScriptHandles(this DialogueDispatcherComponent self, Unit unit, string scriptText, ETCancellationToken token)
+        private static async ETTask CoroutineHandle(this DialogueDispatcherComponent self, Unit unit, List<string> corList, ETCancellationToken token)
         {
-            //一行一行执行
-            var opLines = scriptText.Split("\n");
-            foreach (var opLine in opLines)
+            int index = 0;
+            while (index < corList.Count)
             {
-                if (string.IsNullOrEmpty(opLine)) continue;
-                if (token.IsCancel()) break;
+                if (token.IsCancel())
+                {
+                    Log.Warning("canceld");
+                    return;
+                }
+                var corLine = corList[index];
+                if (string.IsNullOrEmpty(corLine) || corLine[0] == '#') // 空行 or 注释行 or 子命令
+                {
+                    index++;
+                    continue;
+                }
 
+                var opLine = Regex.Split(corLine, @"- ")[1]; //把- 去掉，后面才是指令
                 Match match = Regex.Match(opLine, @"^\w+");
+                if (!match.Success)
+                {
+                    DialogueHelper.ScripMatchError(opLine);
+                    return;
+                }
+
                 var opType = match.Value;
                 var opCode = Regex.Match(opLine, "^(.*?);").Value; // ;后的不读取
                 await self.ScriptHandle(unit, opType, opCode, token);
+                index++;
+            }
+        }
+
+        public static async ETTask ScriptHandles(this DialogueDispatcherComponent self, Unit unit, string scriptText, ETCancellationToken token)
+        {
+            var opLines = scriptText.Split("\n"); // 一行一行执行
+            int index = 0;
+            while (index < opLines.Length)
+            {
+                var opLine = opLines[index];
+                if (string.IsNullOrEmpty(opLine) || opLine[0] == '#' || opLine[0] == '-') // 空行 or 注释行 or 子命令
+                {
+                    index++;
+                    continue;
+                }
+
+                if (opLine == "Coroutine:") // 携程行
+                {
+                    var corList = new List<string>();
+                    while (++index < opLines.Length)
+                    {
+                        var coroutineLine = opLines[index];
+                        if (string.IsNullOrEmpty(coroutineLine) || coroutineLine[0] == '#') continue;
+                        if (coroutineLine[0] != '-') break;
+                        corList.Add(coroutineLine);
+                    }
+
+                    self.CoroutineHandle(unit, corList, token).Coroutine();
+                    continue;
+                }
+
+                Match match = Regex.Match(opLine, @"^\w+");
+                if (!match.Success)
+                {
+                    DialogueHelper.ScripMatchError(opLine);
+                    return;
+                }
+
+                var opType = match.Value;
+                var opCode = Regex.Match(opLine, "^(.*?);").Value; // ;后的不读取
+                await self.ScriptHandle(unit, opType, opCode, token);
+                index++;
             }
         }
     }

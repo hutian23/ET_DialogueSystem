@@ -2,25 +2,25 @@
 
 namespace ET.Client
 {
-    public class WaitTime_ScriptHandler: ScriptHandler
+    public class WaitAnimPlay_ScriptHandler: ScriptHandler
     {
         public override string GetOPType()
         {
-            return "WaitTime";
+            return "WaitAnimPlay";
         }
 
         public override async ETTask Handle(Unit unit, string line, ETCancellationToken token)
         {
-            Match match = Regex.Match(line, @"WaitTime\s+(\d+)");
+            Match match = Regex.Match(line, @"WaitAnimPlay ""(.*?)"" (\d+);");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(line);
                 return;
             }
 
-            int.TryParse(match.Groups[1].Value, out int waitTime);
-            await TimerComponent.Instance.WaitAsync(waitTime, token);
-            Log.Warning("Hello world");
+            string clipName = match.Groups[1].Value;
+            int.TryParse(match.Groups[2].Value, out int animTime);
+            await unit.WaitAnimAsync(clipName, animTime, token);
         }
     }
 }

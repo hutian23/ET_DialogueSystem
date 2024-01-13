@@ -91,10 +91,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 267
+      Data: 250
     - Name: 
       Entry: 4
-      Data: 214
+      Data: 200
     - Name: 
       Entry: 8
       Data: 
@@ -128,21 +128,20 @@ MonoBehaviour:
       Data: 
     - Name: Script
       Entry: 1
-      Data: 'Numeric Hp + 2;
-
-        WaitTime 2000;'
+      Data: "# \u6D4B\u8BD5\u6570\u503C\u76F8\u52A0\nNumeric Hp + 2;\n\nCoroutine:\n\nCoroutine:\n-
+        WaitTime 1000;\n- Numeric Hp + 3;\n- WaitTime 1000;\n- Numeric Hp + 3;\n-
+        WaitAnimPlay \"Knight_Run\" 3000;\n- AnimPlay \"Knight_Idle\";\n\n#\u6CE8\u610F\uFF01\u6267\u884C\u5B8C\u6240\u6709\u8282\u70B9\u540E\u4F1A\u81EA\u52A8\u8C03\u7528DialogueComponent.Init,\u5982\u679C\u643A\u7A0B\u91CC\u6709\u5F02\u6B65\u64CD\u4F5C\u4F1A\u88AB\u53D6\u6D88\uFF01\nWaitTime
+        3000; \n\nVN_RegisterCharacter name = Knight unitId = 1001;\nWaitTime 10000;\n#
+        VN_AnimPlay name = Knight clip = \"Knight_Idle\";\n# VN_WaitAnimPlay name
+        = Knight clip = \"Knight_Run\" time = 3000;\n# VN_AnimPlay name = Knight
+        clip = \"Knight_Idle\";\n# VN_SoundPlay name = \"Happy\";\n# VN_RemoveCharacter
+        name = Knight abName = \"Knight\";"
     - Name: children
       Entry: 7
       Data: 5|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 3
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -479,10 +478,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 528
+      Data: 487
     - Name: 
       Entry: 4
-      Data: 150
+      Data: 163
     - Name: 
       Entry: 8
       Data: 
@@ -497,7 +496,7 @@ MonoBehaviour:
       Data: 1
     - Name: TargetID
       Entry: 3
-      Data: 2
+      Data: 0
     - Name: NeedCheck
       Entry: 5
       Data: true
@@ -576,16 +575,16 @@ MonoBehaviour:
       Data: 27|ET.Client.Persona_ActionNode, Unity.Loader
     - Name: Guid
       Entry: 1
-      Data: f08028be7f7630b4cb53606856d23bd5
+      Data: 10391c03f9d92954e9b5b414eef85ab4
     - Name: position
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 528
+      Data: 311
     - Name: 
       Entry: 4
-      Data: 262
+      Data: 399
     - Name: 
       Entry: 8
       Data: 
@@ -600,54 +599,17 @@ MonoBehaviour:
       Data: 1
     - Name: TargetID
       Entry: 3
-      Data: 3
+      Data: 0
     - Name: NeedCheck
       Entry: 5
-      Data: true
+      Data: false
     - Name: checkList
       Entry: 7
       Data: 28|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 29|ET.Client.TargetIDCheckConfig, Unity.Loader
-    - Name: checkList
-      Entry: 7
-      Data: 30|System.Collections.Generic.List`1[[ET.Client.TargetCheck, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 31|ET.Client.TargetCheck, Unity.Loader
-    - Name: CheckType
-      Entry: 3
-      Data: 1
-    - Name: IsGlobal
-      Entry: 5
-      Data: true
-    - Name: treeID
-      Entry: 3
-      Data: 1
-    - Name: targetID
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -656,14 +618,14 @@ MonoBehaviour:
       Data: 
     - Name: Script
       Entry: 1
-      Data: 'Numeric Hp + 2;
-
-        Numeric Hp + 2;
-
-        WaitTime 5000;'
+      Data: "# \u6D4B\u8BD5\u6570\u503C\u76F8\u52A0\nNumeric Hp + 2;\n\n# \u6D4B\u8BD5\u5F02\u6B65\nWaitTime
+        2000;                                     \n# WaitAnimPlay \"Knight_Run\"
+        3000;   \nAnimPlay \"Knight_Idle\";\n\n# \u573A\u666F\u5185\u6CE8\u518C\u4E00\u4E2A\u89D2\u8272\n#RegisterCharacter
+        \"Knight\";\n#Move \"Knight\" to (100,200);\n#Move \"Knight\" to Screen.Center;\n#WaitTime
+        2000;\n#RemoveCharacter \"Knight\";\n\n\n\n"
     - Name: children
       Entry: 7
-      Data: 32|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+      Data: 29|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -684,14 +646,14 @@ MonoBehaviour:
       Data: 
     - Name: NodeLinkDatas
       Entry: 7
-      Data: 33|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
+      Data: 30|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 6
+      Data: 4
     - Name: 
       Entry: 7
-      Data: 34|ET.Client.NodeLinkData, Unity.Loader
+      Data: 31|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 4d598dbece586564b96c2f1ed5c44c47
@@ -706,7 +668,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 35|ET.Client.NodeLinkData, Unity.Loader
+      Data: 32|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 78ed593214a39a94d923a69d41329fac
@@ -721,7 +683,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 36|ET.Client.NodeLinkData, Unity.Loader
+      Data: 33|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 78ed593214a39a94d923a69d41329fac
@@ -736,43 +698,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 37|ET.Client.NodeLinkData, Unity.Loader
+      Data: 34|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 78ed593214a39a94d923a69d41329fac
     - Name: inputNodeGuid
       Entry: 1
       Data: 1c1e8be02bd70c54097f57c96bbbdb19
-    - Name: portID
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 38|ET.Client.NodeLinkData, Unity.Loader
-    - Name: outputNodeGuid
-      Entry: 1
-      Data: 9196a220509e64041b4c297d638dcf73
-    - Name: inputNodeGuid
-      Entry: 1
-      Data: 75395277346dcdd4a8be91e9791c045a
-    - Name: portID
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 39|ET.Client.NodeLinkData, Unity.Loader
-    - Name: outputNodeGuid
-      Entry: 1
-      Data: 9196a220509e64041b4c297d638dcf73
-    - Name: inputNodeGuid
-      Entry: 1
-      Data: f08028be7f7630b4cb53606856d23bd5
     - Name: portID
       Entry: 3
       Data: 0
@@ -787,18 +719,18 @@ MonoBehaviour:
       Data: 
     - Name: targets
       Entry: 7
-      Data: 40|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
+      Data: 35|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
         Unity.Loader]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 41|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
+      Data: 36|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 2
     - Name: 
       Entry: 7
       Data: 
@@ -807,7 +739,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: 42|ET.Client.RootNode, Unity.Loader
+      Data: 37|ET.Client.RootNode, Unity.Loader
     - Name: Guid
       Entry: 1
       Data: 4d598dbece586564b96c2f1ed5c44c47
@@ -840,7 +772,7 @@ MonoBehaviour:
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 43|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 38|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -868,7 +800,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 44|ET.Client.Persona_ActionNode, Unity.Loader
+      Data: 39|ET.Client.Persona_ActionNode, Unity.Loader
     - Name: Guid
       Entry: 1
       Data: 9196a220509e64041b4c297d638dcf73
@@ -877,10 +809,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 267
+      Data: 250
     - Name: 
       Entry: 4
-      Data: 214
+      Data: 200
     - Name: 
       Entry: 8
       Data: 
@@ -901,7 +833,7 @@ MonoBehaviour:
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 45|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 40|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -914,244 +846,17 @@ MonoBehaviour:
       Data: 
     - Name: Script
       Entry: 1
-      Data: 'Numeric Hp + 2;
-
-        WaitTime 2000;'
+      Data: "# \u6D4B\u8BD5\u6570\u503C\u76F8\u52A0\nNumeric Hp + 2;\n\nCoroutine:\n\nCoroutine:\n-
+        WaitTime 1000;\n- Numeric Hp + 3;\n- WaitTime 1000;\n- Numeric Hp + 3;\n-
+        WaitAnimPlay \"Knight_Run\" 3000;\n- AnimPlay \"Knight_Idle\";\n\n#\u6CE8\u610F\uFF01\u6267\u884C\u5B8C\u6240\u6709\u8282\u70B9\u540E\u4F1A\u81EA\u52A8\u8C03\u7528DialogueComponent.Init,\u5982\u679C\u643A\u7A0B\u91CC\u6709\u5F02\u6B65\u64CD\u4F5C\u4F1A\u88AB\u53D6\u6D88\uFF01\nWaitTime
+        3000; \n\nVN_RegisterCharacter name = Knight unitId = 1001;\nWaitTime 10000;\n#
+        VN_AnimPlay name = Knight clip = \"Knight_Idle\";\n# VN_WaitAnimPlay name
+        = Knight clip = \"Knight_Run\" time = 3000;\n# VN_AnimPlay name = Knight
+        clip = \"Knight_Idle\";\n# VN_SoundPlay name = \"Happy\";\n# VN_RemoveCharacter
+        name = Knight abName = \"Knight\";"
     - Name: children
       Entry: 7
-      Data: 46|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 7
-      Data: 47|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 75395277346dcdd4a8be91e9791c045a
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 528
-    - Name: 
-      Entry: 4
-      Data: 150
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u54C8\u54C8\u54C8"
-    - Name: TreeID
-      Entry: 3
-      Data: 1
-    - Name: TargetID
-      Entry: 3
-      Data: 2
-    - Name: NeedCheck
-      Entry: 5
-      Data: true
-    - Name: checkList
-      Entry: 7
-      Data: 48|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 49|ET.Client.TargetIDCheckConfig, Unity.Loader
-    - Name: checkList
-      Entry: 7
-      Data: 50|System.Collections.Generic.List`1[[ET.Client.TargetCheck, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 51|ET.Client.TargetCheck, Unity.Loader
-    - Name: CheckType
-      Entry: 3
-      Data: 0
-    - Name: IsGlobal
-      Entry: 5
-      Data: true
-    - Name: treeID
-      Entry: 3
-      Data: 1
-    - Name: targetID
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Script
-      Entry: 1
-      Data: 'Numeric Hp + 2;
-
-        Numeric Hp + 2;'
-    - Name: children
-      Entry: 7
-      Data: 52|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 3
-    - Name: $v
-      Entry: 7
-      Data: 53|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: f08028be7f7630b4cb53606856d23bd5
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 528
-    - Name: 
-      Entry: 4
-      Data: 262
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u54C8\u54C8\u54C8"
-    - Name: TreeID
-      Entry: 3
-      Data: 1
-    - Name: TargetID
-      Entry: 3
-      Data: 3
-    - Name: NeedCheck
-      Entry: 5
-      Data: true
-    - Name: checkList
-      Entry: 7
-      Data: 54|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 55|ET.Client.TargetIDCheckConfig, Unity.Loader
-    - Name: checkList
-      Entry: 7
-      Data: 56|System.Collections.Generic.List`1[[ET.Client.TargetCheck, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 57|ET.Client.TargetCheck, Unity.Loader
-    - Name: CheckType
-      Entry: 3
-      Data: 1
-    - Name: IsGlobal
-      Entry: 5
-      Data: true
-    - Name: treeID
-      Entry: 3
-      Data: 1
-    - Name: targetID
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Script
-      Entry: 1
-      Data: 'Numeric Hp + 2;
-
-        Numeric Hp + 2;
-
-        WaitTime 5000;'
-    - Name: children
-      Entry: 7
-      Data: 58|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+      Data: 41|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -1176,9 +881,8 @@ MonoBehaviour:
   treeName: "\u6D4B\u8BD5"
   treeID: 1
   blockDatas:
-  - position: {x: 242, y: 91}
+  - position: {x: 225, y: 104}
     title: Action
     children:
     - 9196a220509e64041b4c297d638dcf73
     - 75395277346dcdd4a8be91e9791c045a
-    - f08028be7f7630b4cb53606856d23bd5

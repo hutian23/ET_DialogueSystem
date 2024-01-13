@@ -1,10 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <Style src="project://database/Assets/Scripts/Editor/DialogueEditor/DialogueEditor.uss?fileID=7433441132597879392&amp;guid=c7b05d32405cfec46a505dc7062db65b&amp;type=3#DialogueEditor" />
     <uie:Toolbar>
         <uie:ToolbarToggle focusable="false" label="Auto Save" name="AutoSave" style="width: 70px; -unity-text-align: upper-left; white-space: normal;" />
     </uie:Toolbar>
-    <ET.Client.SplitView tabindex="2" fixed-pane-index="0" fixed-pane-initial-dimension="300">
-        <ui:VisualElement name="LeftPanel">
+    <ET.Client.SplitView tabindex="2" fixed-pane-index="0" fixed-pane-initial-dimension="350">
+        <ui:VisualElement name="LeftPanel" style="width: 427px;">
             <ui:Label text="Inspector" display-tooltip-when-elided="true" name="InspectorLabel" enable-rich-text="false" style="height: 20px; background-color: rgb(36, 36, 36); font-size: 15px; -unity-font-style: bold;" />
             <ET.Client.InspectorView style="width: 100%; height: 100%;" />
         </ui:VisualElement>

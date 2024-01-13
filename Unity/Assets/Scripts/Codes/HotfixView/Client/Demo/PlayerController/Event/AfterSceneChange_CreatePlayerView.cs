@@ -22,12 +22,12 @@ namespace ET.Client
             player.AddComponent<TODTimerComponent>();
             player.AddComponent<Skill_InfoComponent>();
             player.GetComponent<Skill_InfoComponent>().AddComponent<ChainComponent>();
-            
-            player.AddComponent<TODMoveComponent>()
-                    .Load()
-                    .SetPosition(new Vector2(3,3))
-                    .RegisterAsActor(new PlayerActorHandler());
-            
+            go.transform.position = new Vector2(1, 1);
+            // player.AddComponent<TODMoveComponent>()
+            //         .Load()
+            //         .SetPosition(new Vector2(3,3))
+            //         .RegisterAsActor(new PlayerActorHandler());
+
             player.AddComponent<TODAIComponent>().AILoad(ReferenceHelper.GetGlobalRC<AIBehaviorConfig>("Test"));
             player.AddComponent<DialogueComponent>().LoadTree(ReferenceHelper.GetGlobalRC<DialogueTree>("Dialogue"));
         }
