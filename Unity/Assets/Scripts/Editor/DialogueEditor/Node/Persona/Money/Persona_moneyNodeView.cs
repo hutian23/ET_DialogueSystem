@@ -13,7 +13,7 @@ namespace ET.Client
             this.GenerateInputPort("",true);
             success = this.GenerateOutputPort("检定成功",true);
             failed = this.GenerateOutputPort("检定失败",true);
-            this.GenerateDescription();
+            this.GenerateTextAera();
             this.SaveCallback += this.Save;
         }
 

@@ -11,15 +11,15 @@ namespace ET.Client
 
         public override async ETTask Handle(Unit unit, string line, ETCancellationToken token)
         {
-            Match match = Regex.Match(line, @"VN_AnimPlay\s+ch\s*=\s*(\w+)\s*clip\s*=\s*(\w+);");
+            Match match = Regex.Match(line, @"VN_AnimPlay ch = (?<ch>\w+) clip = (?<clip>\w+);");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(line);
                 return;
             }
 
-            string character = match.Groups[1].Value;
-            string clipName = match.Groups[2].Value;
+            string character = match.Groups["ch"].Value;
+            string clipName = match.Groups["clip"].Value;
 
             CharacterManager characterManager = unit.GetComponent<DialogueComponent>().GetComponent<CharacterManager>();
             if (characterManager == null)

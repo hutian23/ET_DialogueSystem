@@ -11,7 +11,7 @@ namespace ET.Client
         public Disco_ChoiceNodeView(DialogueNode node,DialogueTreeView treeView): base(node,treeView)
         {
             GenerateInputPort("", true);
-            GenerateDescription();
+            this.GenerateTextAera();
             SuccessPort = GenerateOutputPort("检定成功");
             FailedPort = GenerateOutputPort("检定失败");
 

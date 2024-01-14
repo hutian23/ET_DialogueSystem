@@ -60,24 +60,25 @@ static class Program
 
     public static void Main()
     {
-        string input = "VN_WaitAnimPlay ch = Knight clip = Knight_Idle time = 3000;";
-        string pattern = @"VN_WaitAnimPlay\s+ch\s*=\s*(\w+)\s*clip\s*=\s*(\w+)\s*time\s*=\s*(\d+);";
-
+        string input = "VN_Position ch = Celika2 position = (-4,-4);";
+        
+        // 匹配 ch、type 和 position 后的参数，要求 type 和/或 position 至少有一个存在
+        string pattern = @"VN_Position ch = (?<ch>\w+)(?: type = (?<type>\w+))?(?: position = \((?<x>-?\d+),(?<y>-?\d+)\))?;";
+        
         Match match = Regex.Match(input, pattern);
 
         if (match.Success)
         {
-            string ch = match.Groups[1].Value;
-            string clip = match.Groups[2].Value;
-            string time = match.Groups[3].Value;
+            string chValue = match.Groups["ch"].Value;
+            string typeValue = match.Groups["type"].Success ? match.Groups["type"].Value : "N/A";
+            string xValue = match.Groups["x"].Success ? match.Groups["x"].Value : "N/A";
+            string yValue = match.Groups["y"].Success ? match.Groups["y"].Value : "N/A";
 
-            Console.WriteLine("ch: " + ch);
-            Console.WriteLine("clip: " + clip);
-            Console.WriteLine("time: " + time);
+            Console.WriteLine($"匹配成功:\nch = {chValue}\ntype = {typeValue}\nposition = ({xValue},{yValue})");
         }
         else
         {
-            Console.WriteLine("No match found");
+            Console.WriteLine("匹配失败");
         }
     }
 }

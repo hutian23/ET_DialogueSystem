@@ -34,13 +34,17 @@ namespace ET.Client
 
         public static async ETTask RegisterCharacter(this CharacterManager self, string characterName, int unitId)
         {
+            if (self.characters.ContainsKey(characterName))
+            {
+                Log.Error($"存在同名角色{characterName}");
+                return;
+            }
             UnitConfig config = UnitConfigCategory.Instance.Get(unitId);
 
             await ResourcesComponent.Instance.LoadBundleAsync($"{config.ABName}.unity3d");
             GameObject prefab = ResourcesComponent.Instance.GetAsset($"{config.ABName}.unity3d", config.Name) as GameObject;
             GameObject go = UnityEngine.Object.Instantiate(prefab, GlobalComponent.Instance.Unit, true);
-            go.transform.position = new Vector2(0, -4);
-
+            go.name = $"{characterName}";
             //注意 角色都是在currentScene下的
             UnitComponent unitComponent = self.ClientScene().CurrentScene().GetComponent<UnitComponent>();
             Unit unit = unitComponent.AddChild<Unit, int>(config.Id);

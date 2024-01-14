@@ -18,7 +18,7 @@ namespace ET.Client
             intField.RegisterCallback<BlurEvent>(_ => treeView.SetDirty());
 
             contentContainer.Add(intField);
-            GenerateDescription();
+            this.GenerateTextAera();
 
             SaveCallback += Save;
         }

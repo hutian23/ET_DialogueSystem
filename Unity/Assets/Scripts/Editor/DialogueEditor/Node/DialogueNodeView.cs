@@ -54,7 +54,7 @@ namespace ET.Client
             node.position.y = GetPosition().yMin;
         }
 
-        protected TextField GenerateDescription()
+        protected TextField GenerateTextAera()
         {
             TextField = new TextField();
 

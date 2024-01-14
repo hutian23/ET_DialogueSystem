@@ -368,6 +368,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Celika
       objectReference: {fileID: 0}
+    - target: {fileID: 5799860490555301520, guid: 54e74f7325613da48a8d00f8f8ad2682,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5799860490555301526, guid: 54e74f7325613da48a8d00f8f8ad2682,
         type: 3}
       propertyPath: m_RootOrder

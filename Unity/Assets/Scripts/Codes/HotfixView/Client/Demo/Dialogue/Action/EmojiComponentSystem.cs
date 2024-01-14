@@ -39,13 +39,19 @@ namespace ET.Client
             switch (emojiType)
             {
                 case "Chaos":
-                    Transform chaosSpawnDefaultPoint = unit.GetRC<Transform>("ChaosSpawnDefaultPoint");
-                    self.emoji.transform.SetParent(chaosSpawnDefaultPoint);
+                    Transform spawnPoint = unit.GetRC<GameObject>("ChaosSpawnPoint").transform;
+                    self.emoji.transform.SetParent(spawnPoint);
                     self.emoji.transform.localPosition = Vector3.zero;
                     break;
             }
 
             await ETTask.CompletedTask;
+        }
+
+        public static void SetPosition(this EmojiComponent self, Vector2 position)
+        {
+            if(self.emoji == null) return;
+            self.emoji.transform.position = position;
         }
     }
 }

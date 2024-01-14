@@ -1,4 +1,6 @@
-﻿namespace ET.Client
+﻿using UnityEngine;
+
+namespace ET.Client
 {
     public static class TODUnitHelper
     {
@@ -32,7 +34,20 @@
             {
                 Log.Warning($"当前场景没有此unit,Id为{unitId}");
             }
+
             return unit;
+        }
+
+        public static void SetPosition(this Unit unit, Vector2 position)
+        {
+            unit.GetComponent<GameObjectComponent>().GameObject.transform.position = position;
+        }
+
+        public static void SetFac(this Unit unit, int fac)
+        {
+            Transform trans = unit.GetComponent<GameObjectComponent>().GameObject.transform;
+            int flip = fac >= 0? 1 : -1;
+            trans.eulerAngles = new Vector2(0, flip == 1? 0 : 180);
         }
     }
 }

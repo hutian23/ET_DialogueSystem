@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace ET.Client
 {
@@ -6,5 +7,6 @@ namespace ET.Client
     {
         [FoldoutGroup("$nodeName")]
         public uint nextNode;
+        
     }
 }

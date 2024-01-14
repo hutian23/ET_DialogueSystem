@@ -11,24 +11,18 @@ namespace ET.Client
 
         public override async ETTask Handle(Unit unit, string line, ETCancellationToken token)
         {
-            Match match = Regex.Match(line, @"VN_WaitAnimPlay\s+ch\s*=\s*(\w+)\s*clip\s*=\s*(\w+)\s*time\s*=\s*(\d+);");
+            Match match = Regex.Match(line, @"VN_WaitAnimPlay ch = (?<ch>\w+) clip = (?<clip>\w+) time = (?<time>\w+);");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(line);
                 return;
             }
 
-            string character = match.Groups[1].Value;
-            string clipName = match.Groups[2].Value;
-            int.TryParse(match.Groups[3].Value, out int time);
+            string character = match.Groups["ch"].Value;
+            string clipName = match.Groups["clip"].Value;
+            int.TryParse(match.Groups["time"].Value, out int time);
 
             CharacterManager characterManager = unit.GetComponent<DialogueComponent>().GetComponent<CharacterManager>();
-            if (characterManager == null)
-            {
-                Log.Error($"请添加characterManager");
-                return;
-            }
-
             Unit ch = characterManager.GetCharacter(character);
             await ch.WaitAnimAsync(clipName, time, token);
         }

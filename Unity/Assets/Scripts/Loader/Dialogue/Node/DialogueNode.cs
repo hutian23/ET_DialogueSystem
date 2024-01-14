@@ -31,7 +31,7 @@ namespace ET
         [HideInInspector]
         public string text;
 
-        [LabelText("对话树ID"), FoldoutGroup("$nodeName")]
+        [LabelText("对话树ID"), FoldoutGroup("$nodeName"),ReadOnly]
         public uint TreeID;
         
         [FoldoutGroup("$nodeName"),ReadOnly]

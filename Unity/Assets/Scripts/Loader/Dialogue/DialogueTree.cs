@@ -61,15 +61,8 @@ namespace ET.Client
             node.Guid = GUID.Generate().ToString();
             this.nodes.Add(node);
             EditorUtility.SetDirty(this);
-            // OnNodeListChanged();
             return node;
         }
-
-        // public void OnNodeListChanged()
-        // {
-        //     this.targets.Clear();
-        //     this.nodes.ForEach(node => { this.targets.TryAdd(node.TargetID, node); });
-        // }
 
         #region old
 
@@ -108,12 +101,12 @@ namespace ET.Client
             cloneTree.nodes.ForEach(node => { cloneTree.targets.TryAdd(node.TargetID, node); });
             return cloneTree;
         }
-        
+
         public DialogueTarget CloneTargets()
         {
             //TODO 想想怎么忽略guid，position这些字段
             DialogueTarget targetsDict = new DialogueTarget() { targets = this.targets };
-            return  MongoHelper.Clone(targetsDict);
+            return MongoHelper.Clone(targetsDict);
         }
     }
 

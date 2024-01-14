@@ -17,7 +17,7 @@ namespace ET.Client
             itemPort = this.GenerateOutputPort("要道具", true);
             extraPort = this.GenerateOutputPort("特殊", true);
             
-            this.GenerateDescription();
+            this.GenerateTextAera();
             this.SaveCallback += this.Save;
         }
 

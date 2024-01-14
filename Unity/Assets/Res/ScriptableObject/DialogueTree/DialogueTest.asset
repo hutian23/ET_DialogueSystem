@@ -79,7 +79,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 8
+      Data: 10
     - Name: 
       Entry: 7
       Data: 3|ET.Client.Persona_ActionNode, Unity.Loader
@@ -91,10 +91,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 250
+      Data: 874
     - Name: 
       Entry: 4
-      Data: 200
+      Data: 94
     - Name: 
       Entry: 8
       Data: 
@@ -478,10 +478,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 487
+      Data: 1062
     - Name: 
       Entry: 4
-      Data: 162
+      Data: 94
     - Name: 
       Entry: 8
       Data: 
@@ -581,10 +581,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 250
+      Data: 923
     - Name: 
       Entry: 4
-      Data: 393
+      Data: 311
     - Name: 
       Entry: 8
       Data: 
@@ -618,11 +618,10 @@ MonoBehaviour:
       Data: 
     - Name: Script
       Entry: 1
-      Data: "# \u6D4B\u8BD5\u6570\u503C\u76F8\u52A0\nNumeric Hp + 2;\n\n# \u6D4B\u8BD5\u5F02\u6B65\nWaitTime
-        2000;                                     \n# WaitAnimPlay \"Knight_Run\"
-        3000;   \nAnimPlay \"Knight_Idle\";\n\n# \u573A\u666F\u5185\u6CE8\u518C\u4E00\u4E2A\u89D2\u8272\n#RegisterCharacter
-        \"Knight\";\n#Move \"Knight\" to (100,200);\n#Move \"Knight\" to Screen.Center;\n#WaitTime
-        2000;\n#RemoveCharacter \"Knight\";\n\n\n\n"
+      Data: "# \u6D4B\u8BD5\u6570\u503C\u76F8\u52A0\nNumeric Hp + 2;\n\nVN_WaitAnimPlay
+        ch = Celika clip = Celika_nml_nml_nml time = 9000;\nVN_WaitAnimPlay ch =
+        Celika clip = Celika_nml_nml_1 time = 3000;\n# VN_WaitAnimPlay ch = Celika
+        clip = Celika_sad_open1_sht time = 220;\nVN_AnimPlay ch = Celika clip = Celika_nml_nml_nml;\n"
     - Name: children
       Entry: 7
       Data: 29|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
@@ -649,10 +648,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 250
+      Data: 595
     - Name: 
       Entry: 4
-      Data: 301
+      Data: 201
     - Name: 
       Entry: 8
       Data: 
@@ -667,7 +666,7 @@ MonoBehaviour:
       Data: 1
     - Name: TargetID
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -686,16 +685,135 @@ MonoBehaviour:
       Data: 
     - Name: Script
       Entry: 1
-      Data: "# \u6D4B\u8BD5\u6570\u503C\u76F8\u52A0\nNumeric Hp + 2;\n\nVN_RegisterCharacter
-        name = Celika unitId = 1002; # \u6CE8\u518C\u89D2\u8272\n\n# \u5C55\u793A\u5FC3\u60C5\nCoroutine:\n-
-        WaitTime 9000;\n- VN_ShowEmoji ch = Celika type = Chaos;\n- WaitTime 5000;\n-
-        VN_RemoveEmoji ch = Celika;\n\nVN_WaitAnimPlay ch = Celika clip = Celika_nml_nml_nml
-        time = 9000;\nVN_WaitAnimPlay ch = Celika clip = Celika_nml_nml_1 time =
-        3000;\n# VN_WaitAnimPlay ch = Celika clip = Celika_sad_open1_sht time = 220;\nVN_AnimPlay
-        ch = Celika clip = Celika_nml_nml_nml;\n\nWaitTime 10000;"
+      Data: 
     - Name: children
       Entry: 7
       Data: 32|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 33|ET.Client.VN_InitNode, Unity.Loader
+    - Name: Guid
+      Entry: 1
+      Data: f54badf0f08e97d4d8e76ab1df2e602c
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 290
+    - Name: 
+      Entry: 4
+      Data: 201
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: TreeID
+      Entry: 3
+      Data: 1
+    - Name: TargetID
+      Entry: 3
+      Data: 1
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 34|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Script
+      Entry: 1
+      Data: "VN_RegisterCharacter name = Celika unitId = 1002; # \u6CE8\u518C\u89D2\u8272"
+    - Name: nextNode
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 35|ET.Client.Persona_ActionNode, Unity.Loader
+    - Name: Guid
+      Entry: 1
+      Data: c4418a0fbd412d940be77fdd2ae316df
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 615
+    - Name: 
+      Entry: 4
+      Data: 350
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: text
+      Entry: 1
+      Data: "\u54C8\u54C8\u54C8"
+    - Name: TreeID
+      Entry: 3
+      Data: 1
+    - Name: TargetID
+      Entry: 3
+      Data: 0
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 36|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Script
+      Entry: 1
+      Data: "# \u6D4B\u8BD5\u6570\u503C\u76F8\u52A0\nNumeric Hp + 2;\n\nVN_RegisterCharacter
+        name = Celika unitId = 1002; # \u6CE8\u518C\u89D2\u8272\nVN_Position ch =
+        Celika type = Right;\nVN_Flip ch = Celika type = Left;\n# VN_Position ch
+        = Celika position = (0,-4);    \n\n\nVN_WaitAnimPlay ch = Celika clip = Celika_nml_nml_nml
+        time = 9000;\nVN_WaitAnimPlay ch = Celika clip = Celika_nml_nml_1 time =
+        3000;\n# VN_WaitAnimPlay ch = Celika clip = Celika_sad_open1_sht time = 220;\nVN_AnimPlay
+        ch = Celika clip = Celika_nml_nml_nml;\n"
+    - Name: children
+      Entry: 7
+      Data: 37|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -716,20 +834,20 @@ MonoBehaviour:
       Data: 
     - Name: NodeLinkDatas
       Entry: 7
-      Data: 33|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
+      Data: 38|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 7
-      Data: 34|ET.Client.NodeLinkData, Unity.Loader
+      Data: 39|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 4d598dbece586564b96c2f1ed5c44c47
     - Name: inputNodeGuid
       Entry: 1
-      Data: 7b7a2f97fa5cfae42aa9234a896a2e51
+      Data: f54badf0f08e97d4d8e76ab1df2e602c
     - Name: portID
       Entry: 3
       Data: 0
@@ -738,7 +856,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 35|ET.Client.NodeLinkData, Unity.Loader
+      Data: 40|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 78ed593214a39a94d923a69d41329fac
@@ -753,7 +871,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 36|ET.Client.NodeLinkData, Unity.Loader
+      Data: 41|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 78ed593214a39a94d923a69d41329fac
@@ -768,13 +886,28 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 37|ET.Client.NodeLinkData, Unity.Loader
+      Data: 42|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 78ed593214a39a94d923a69d41329fac
     - Name: inputNodeGuid
       Entry: 1
       Data: 1c1e8be02bd70c54097f57c96bbbdb19
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 43|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: f54badf0f08e97d4d8e76ab1df2e602c
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 7b7a2f97fa5cfae42aa9234a896a2e51
     - Name: portID
       Entry: 3
       Data: 0
@@ -789,18 +922,18 @@ MonoBehaviour:
       Data: 
     - Name: targets
       Entry: 7
-      Data: 38|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
+      Data: 44|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
         Unity.Loader]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 39|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
+      Data: 45|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
@@ -821,6 +954,18 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 9
+      Data: 33
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 9
       Data: 30
     - Name: 
       Entry: 8
@@ -834,7 +979,7 @@ MonoBehaviour:
   treeName: "\u6D4B\u8BD5"
   treeID: 1
   blockDatas:
-  - position: {x: 225, y: 103}
+  - position: {x: 849, y: 35}
     title: Action
     children:
     - 9196a220509e64041b4c297d638dcf73

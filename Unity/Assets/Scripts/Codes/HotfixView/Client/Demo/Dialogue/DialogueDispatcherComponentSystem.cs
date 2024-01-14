@@ -137,6 +137,7 @@ namespace ET.Client
                     Log.Warning("canceld");
                     return;
                 }
+
                 var corLine = corList[index];
                 if (string.IsNullOrEmpty(corLine) || corLine[0] == '#') // 空行 or 注释行 or 子命令
                 {
@@ -155,6 +156,8 @@ namespace ET.Client
                 var opType = match.Value;
                 var opCode = Regex.Match(opLine, "^(.*?);").Value; // ;后的不读取
                 await self.ScriptHandle(unit, opType, opCode, token);
+                if(token.IsCancel()) return;
+                
                 index++;
             }
         }
@@ -163,6 +166,7 @@ namespace ET.Client
         {
             var opLines = scriptText.Split("\n"); // 一行一行执行
             int index = 0;
+
             while (index < opLines.Length)
             {
                 var opLine = opLines[index];
@@ -171,7 +175,7 @@ namespace ET.Client
                     index++;
                     continue;
                 }
-
+                
                 if (opLine == "Coroutine:") // 携程行
                 {
                     var corList = new List<string>();
@@ -196,7 +200,10 @@ namespace ET.Client
 
                 var opType = match.Value;
                 var opCode = Regex.Match(opLine, "^(.*?);").Value; // ;后的不读取
+                
                 await self.ScriptHandle(unit, opType, opCode, token);
+                if(token.IsCancel()) return;
+                
                 index++;
             }
         }
