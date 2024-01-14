@@ -1,10 +1,10 @@
-﻿using System.Drawing;
+﻿using UnityEngine;
 
 namespace ET.Client
 {
-    [ComponentOf(typeof (DialogueComponent))]
-    public class EmojiComponent: Entity, IAwake, IDestroy
+    [ComponentOf(typeof (Unit))]
+    public class EmojiComponent: Entity, IAwake, IDestroy, ILoad
     {
-        public Icon icon;
+        public GameObject emoji;
     }
 }

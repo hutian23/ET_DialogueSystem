@@ -23,6 +23,7 @@ namespace ET.Client
             player.AddComponent<Skill_InfoComponent>();
             player.GetComponent<Skill_InfoComponent>().AddComponent<ChainComponent>();
             go.transform.position = new Vector2(1, 1);
+            go.SetActive(false);
             // player.AddComponent<TODMoveComponent>()
             //         .Load()
             //         .SetPosition(new Vector2(3,3))

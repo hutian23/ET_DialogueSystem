@@ -7,6 +7,11 @@ namespace ET.Client
     public static class GameObjectPoolHelper
     {
         private static Dictionary<string, GameObjectPool> poolDict = new Dictionary<string, GameObjectPool>();
+
+        public static bool ContainPool(string key)
+        {
+            return poolDict.ContainsKey(key);
+        }
         
         public static void InitPool( string poolName, int size, PoolInflationType type = PoolInflationType.DOUBLE)
         {

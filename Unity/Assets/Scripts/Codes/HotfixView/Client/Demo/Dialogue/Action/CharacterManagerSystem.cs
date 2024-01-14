@@ -39,11 +39,13 @@ namespace ET.Client
             await ResourcesComponent.Instance.LoadBundleAsync($"{config.ABName}.unity3d");
             GameObject prefab = ResourcesComponent.Instance.GetAsset($"{config.ABName}.unity3d", config.Name) as GameObject;
             GameObject go = UnityEngine.Object.Instantiate(prefab, GlobalComponent.Instance.Unit, true);
+            go.transform.position = new Vector2(0, -4);
 
             //注意 角色都是在currentScene下的
             UnitComponent unitComponent = self.ClientScene().CurrentScene().GetComponent<UnitComponent>();
             Unit unit = unitComponent.AddChild<Unit, int>(config.Id);
             unit.AddComponent<GameObjectComponent>().GameObject = go;
+
             unit.AddComponent<AnimatorComponent>();
             self.characters.Add(characterName, unit.Id);
         }
