@@ -8,6 +8,9 @@
             await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node.Script, token);
             if (token.IsCancel()) return Status.Failed;
 
+            string text2 = DialogueHelper.Replace(node.text, "HP", @"     222    ");
+            Log.Debug(text2);
+
             node.children.ForEach(childID =>
             {
                 DialogueNode childNode = dialogueComponent.GetNode(childID);
@@ -17,6 +20,7 @@
                     if (ret == 0) dialogueComponent.PushNextNode(childNode);
                     return;
                 }
+
                 dialogueComponent.PushNextNode(childNode);
             });
             return Status.Success;

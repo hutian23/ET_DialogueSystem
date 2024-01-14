@@ -12,11 +12,9 @@ namespace ET.Client
             // 加载场景资源
             await ResourcesComponent.Instance.LoadBundleAsync($"{currentScene.Name}.unity3d");
             // 切换到map场景
-            Log.Warning(currentScene.Name);
             await SceneManager.LoadSceneAsync(currentScene.Name);
 
             currentScene.AddComponent<CollisionManager>();
-            // currentScene.AddComponent<OperaComponent>();
         }
     }
 }

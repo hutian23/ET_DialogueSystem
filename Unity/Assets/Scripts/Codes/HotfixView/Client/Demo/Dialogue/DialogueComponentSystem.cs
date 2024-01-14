@@ -81,12 +81,14 @@ namespace ET.Client
 
         public static async ETTask<Status> DialogueCor(this DialogueComponent self)
         {
+            await TimerComponent.Instance.WaitFrameAsync();
+            
             DialogueNode node = self.cloneTree.root;
             self.workQueue.Enqueue(node);
-
+            
             Status status = Status.Success;
             Unit unit = self.GetParent<Unit>();
-
+            
             try
             {
                 while (self.workQueue.Count != 0)

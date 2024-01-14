@@ -76,6 +76,9 @@ namespace ET.Client
 
                 self.scriptHandlers.Add(handler.GetOPType(), handler);
             }
+            
+            self.modelHandlers.Clear();
+            // var modelHandler = Evet
         }
 
         public static async ETTask<Status> Handle(this DialogueDispatcherComponent self, Unit unit, object node, ETCancellationToken token)

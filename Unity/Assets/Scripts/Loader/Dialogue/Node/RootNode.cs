@@ -7,6 +7,8 @@ namespace ET.Client
     {
         [FoldoutGroup("$nodeName")]
         public uint nextNode;
-        
+
+        [FoldoutGroup("$nodeName"), Title(title: "脚本", bold: true), HideLabel, TextArea(10, 35)]
+        public string Script = "";
     }
 }
