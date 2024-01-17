@@ -17,10 +17,15 @@ namespace ET.Client
             text = Regex.Replace(text, pattern, replaceText);
             return text;
         }
-        
+
         public static void ScripMatchError(string text)
         {
             Log.Error($"{text}匹配失败！请检查格式");
+        }
+
+        public static void LogHappyNewYear()
+        {
+            Log.Warning("Happy new year");
         }
     }
 }
