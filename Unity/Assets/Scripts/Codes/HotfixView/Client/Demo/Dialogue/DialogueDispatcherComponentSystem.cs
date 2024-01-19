@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using ET.Client.V_Model;
 
 namespace ET.Client
 {
@@ -78,7 +79,17 @@ namespace ET.Client
             }
             
             self.modelHandlers.Clear();
-            // var modelHandler = Evet
+            var modelHandler = EventSystem.Instance.GetTypes(typeof (ModelHandler));
+            foreach (Type type in modelHandler)
+            {
+                ModelHandler handler = Activator.CreateInstance(type) as ModelHandler;
+                if (handler == null)
+                {
+                    Log.Error($"this obj is not a modelHandler: {type.Name}");
+                    continue;
+                }
+                self.modelHandlers.Add(handler.GetModelType(),handler);
+            }
         }
 
         public static async ETTask<Status> Handle(this DialogueDispatcherComponent self, Unit unit, object node, ETCancellationToken token)
@@ -115,6 +126,8 @@ namespace ET.Client
             return 0;
         }
 
+        
+        
         /// <summary>
         /// 一行指令 
         /// </summary>

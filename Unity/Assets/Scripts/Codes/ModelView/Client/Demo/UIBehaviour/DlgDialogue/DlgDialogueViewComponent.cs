@@ -143,6 +143,23 @@ namespace ET.Client
      		}
      	}
 
+		public UnityEngine.UI.Text E_TextText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_TextText == null )
+     			{
+		    		this.m_E_TextText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"Background/E_Text");
+     			}
+     			return this.m_E_TextText;
+     		}
+     	}
+
 		public void DestroyWidget()
 		{
 			this.m_E_ClearQSButton = null;
@@ -153,6 +170,7 @@ namespace ET.Client
 			this.m_E_CheckInput_TreeIDImage = null;
 			this.m_E_CheckInput_TargetIDInputField = null;
 			this.m_E_CheckInput_TargetIDImage = null;
+			this.m_E_TextText = null;
 			this.uiTransform = null;
 		}
 
@@ -164,6 +182,7 @@ namespace ET.Client
 		private UnityEngine.UI.Image m_E_CheckInput_TreeIDImage = null;
 		private UnityEngine.UI.InputField m_E_CheckInput_TargetIDInputField = null;
 		private UnityEngine.UI.Image m_E_CheckInput_TargetIDImage = null;
+		private UnityEngine.UI.Text m_E_TextText = null;
 		public Transform uiTransform = null;
 	}
 }

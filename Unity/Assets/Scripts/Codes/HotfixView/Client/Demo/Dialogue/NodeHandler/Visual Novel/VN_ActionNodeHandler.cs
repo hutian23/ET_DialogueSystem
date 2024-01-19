@@ -8,8 +8,9 @@
             await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node.Script, token);
             if (token.IsCancel()) return Status.Failed;
 
-            string text2 = DialogueHelper.Replace(node.text, "HP", @"     222    ");
-            Log.Debug(text2);
+            //经过后处理的文本
+            DlgDialogue dlgDialogue = unit.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgDialogue>();
+            await DialogueHelper.TypeCor(dlgDialogue.View.E_TextText, node.text, token);
 
             node.children.ForEach(childID =>
             {

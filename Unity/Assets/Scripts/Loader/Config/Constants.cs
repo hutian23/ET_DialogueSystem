@@ -21,5 +21,12 @@ namespace ET
 
         public const float MaxFall = -40f;
         public const float Gravity = 90f;
+
+        #region 打字
+        public static readonly string[] _uguiSymbols = { "b", "i" };
+        public static readonly string[] _uguiCloseSymbols = { "b", "i", "size", "color" };
+        //默认打字速度是间隔200ms打印一次
+        public const int TypeSpeed = 100;
+        #endregion
     }
 }
