@@ -77,18 +77,19 @@ namespace ET.Client
 
                 self.scriptHandlers.Add(handler.GetOPType(), handler);
             }
-            
-            self.modelHandlers.Clear();
-            var modelHandler = EventSystem.Instance.GetTypes(typeof (ModelHandler));
-            foreach (Type type in modelHandler)
+
+            self.replaceHandlers.Clear();
+            var replaceHandlers = EventSystem.Instance.GetTypes(typeof (ReplaceHandler));
+            foreach (var type in replaceHandlers)
             {
-                ModelHandler handler = Activator.CreateInstance(type) as ModelHandler;
+                ReplaceHandler handler = Activator.CreateInstance(type) as ReplaceHandler;
                 if (handler == null)
                 {
-                    Log.Error($"this obj is not a modelHandler: {type.Name}");
+                    Log.Error($"this obj is not a replaceHandler: {type.Name}");
                     continue;
                 }
-                self.modelHandlers.Add(handler.GetModelType(),handler);
+
+                self.replaceHandlers.Add(handler.GetReplaceType(), handler);
             }
         }
 
@@ -126,8 +127,6 @@ namespace ET.Client
             return 0;
         }
 
-        
-        
         /// <summary>
         /// 一行指令 
         /// </summary>
@@ -172,8 +171,8 @@ namespace ET.Client
                 var opType = match.Value;
                 var opCode = Regex.Match(opLine, "^(.*?);").Value; // ;后的不读取
                 await self.ScriptHandle(unit, opType, opCode, token);
-                if(token.IsCancel()) return;
-                
+                if (token.IsCancel()) return;
+
                 index++;
             }
         }
@@ -191,7 +190,7 @@ namespace ET.Client
                     index++;
                     continue;
                 }
-                
+
                 if (opLine == "Coroutine:") // 携程行
                 {
                     var corList = new List<string>();
@@ -216,12 +215,18 @@ namespace ET.Client
 
                 var opType = match.Value;
                 var opCode = Regex.Match(opLine, "^(.*?);").Value; // ;后的不读取
-                
+
                 await self.ScriptHandle(unit, opType, opCode, token);
-                if(token.IsCancel()) return;
-                
+                if (token.IsCancel()) return;
+
                 index++;
             }
+        }
+
+        public static string GetReplaceStr(this DialogueDispatcherComponent self, string str)
+        {
+            // if(self.replaceHandlers.TryGetValue(str))
+            return "";
         }
     }
 }

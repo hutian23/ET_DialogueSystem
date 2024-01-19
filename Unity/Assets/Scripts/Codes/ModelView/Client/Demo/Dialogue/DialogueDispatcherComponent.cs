@@ -16,6 +16,6 @@ namespace ET.Client
 
         public Dictionary<string, ScriptHandler> scriptHandlers = new();
 
-        public Dictionary<string, ModelHandler> modelHandlers = new();
+        public Dictionary<string, ReplaceHandler> replaceHandlers = new();
     }
 }

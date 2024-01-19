@@ -43,8 +43,8 @@ static class Program
 
     public struct test223423423
     {
-        public int b;
-    }
+        public int b; 
+    }               
 
     public class test
     {
@@ -60,25 +60,37 @@ static class Program
 
     public static void Main()
     {
-        string input = "VN_Position ch = Celika2 position = (-4,-4);";
-        
-        // 匹配 ch、type 和 position 后的参数，要求 type 和/或 position 至少有一个存在
-        string pattern = @"VN_Position ch = (?<ch>\w+)(?: type = (?<type>\w+))?(?: position = \((?<x>-?\d+),(?<y>-?\d+)\))?;";
-        
-        Match match = Regex.Match(input, pattern);
+        string input = "<Numeric id=100/> <UnitConfig type=helloworld id=10/> <replace dsa123/>";
 
-        if (match.Success)
-        {
-            string chValue = match.Groups["ch"].Value;
-            string typeValue = match.Groups["type"].Success ? match.Groups["type"].Value : "N/A";
-            string xValue = match.Groups["x"].Success ? match.Groups["x"].Value : "N/A";
-            string yValue = match.Groups["y"].Success ? match.Groups["y"].Value : "N/A";
+        string pattern = @"<\w+\s+[^>]*\/>";
 
-            Console.WriteLine($"匹配成功:\nch = {chValue}\ntype = {typeValue}\nposition = ({xValue},{yValue})");
-        }
-        else
+        Regex regex = new Regex(pattern);
+
+        MatchCollection matches = regex.Matches(input);
+
+        foreach (Match match in matches)
         {
-            Console.WriteLine("匹配失败");
+            Console.WriteLine(match.Value);
         }
+        // string input = "VN_Position ch = Celika2 position = (-4,-4);";
+        //
+        // // 匹配 ch、type 和 position 后的参数，要求 type 和/或 position 至少有一个存在
+        // string pattern = @"VN_Position ch = (?<ch>\w+)(?: type = (?<type>\w+))?(?: position = \((?<x>-?\d+),(?<y>-?\d+)\))?;";
+        //
+        // Match match = Regex.Match(input, pattern);
+        //
+        // if (match.Success)
+        // {
+        //     string chValue = match.Groups["ch"].Value;
+        //     string typeValue = match.Groups["type"].Success ? match.Groups["type"].Value : "N/A";
+        //     string xValue = match.Groups["x"].Success ? match.Groups["x"].Value : "N/A";
+        //     string yValue = match.Groups["y"].Success ? match.Groups["y"].Value : "N/A";
+        //
+        //     Console.WriteLine($"匹配成功:\nch = {chValue}\ntype = {typeValue}\nposition = ({xValue},{yValue})");
+        // }
+        // else
+        // {
+        //     Console.WriteLine("匹配失败");
+        // }
     }
 }

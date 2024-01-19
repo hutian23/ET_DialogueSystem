@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace ET.Client
@@ -24,8 +25,23 @@ namespace ET.Client
             Log.Error($"{text}匹配失败！请检查格式");
         }
 
-        public static async ETTask TypeCor(Text label, string content, ETCancellationToken token)
+        private static async ETTask SkipCheckCor(ETCancellationToken token, ETCancellationToken typeToken)
         {
+            await TimerComponent.Instance.WaitAsync(200, token);
+            if (token.IsCancel()) return;
+            while (true)
+            {
+                if (token.IsCancel()) break;
+                if (Keyboard.current.bKey.isPressed) typeToken.Cancel();
+                await TimerComponent.Instance.WaitFrameAsync(token);
+            }
+        }
+
+        public static async ETTask TypeCor(Text label, string content, ETCancellationToken token, bool CanSkip = true)
+        {
+            ETCancellationToken typeToken = new();
+            if (CanSkip) SkipCheckCor(token, typeToken).Coroutine();
+
             var currentText = "";
             var len = content.Length;
             var typeSpeed = Constants.TypeSpeed;
@@ -34,13 +50,17 @@ namespace ET.Client
 
             for (int i = 0; i < len; i++)
             {
-                // [speed=300] --- 11
-                if (content[i] == '[' && i + 6 < len && content.Substring(i, 7).Equals("[speed="))
+                // <speed=300>
+                if (content[i] == '<' && i + 6 < len && content.Substring(i, 7).Equals("<speed="))
                 {
                     var parseSpeed = "";
                     for (var j = i + 7; j < len; j++)
                     {
-                        if (content[j] == ']') break;
+                        if (content[j] == '>')
+                        {
+                            //不是 />则没有match
+                            break;
+                        }
                         parseSpeed += content[j];
                     }
 
@@ -49,7 +69,6 @@ namespace ET.Client
                         typeSpeed = Constants.TypeSpeed;
                     }
 
-                    Log.Warning(parseSpeed + "  " + typeSpeed);
                     i += 8 + parseSpeed.Length - 1;
                     continue;
                 }
@@ -126,10 +145,12 @@ namespace ET.Client
                 if (symbolDetected) continue;
                 currentText += content[i];
                 label.text = currentText + (tagOpened? $"</{tagType}>" : "");
-                await TimerComponent.Instance.WaitAsync(typeSpeed);
-            }
 
-            await ETTask.CompletedTask;
+                //这里这个token代表当前节点被取消执行了
+                if (token.IsCancel()) return;
+                if (typeToken.IsCancel()) continue;
+                await TimerComponent.Instance.WaitAsync(typeSpeed, token);
+            }
         }
     }
 }
