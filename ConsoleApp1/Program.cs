@@ -1,6 +1,9 @@
-﻿using MongoDB.Bson;
+﻿
+using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 
 static class Program
@@ -8,37 +11,125 @@ static class Program
     public class User
     {
         public int id = 100;
-        public int TreeID = 10;
-        public int targetID = 10;
+    }
+
+    public class test
+    {
+        [BsonIgnore]
+        public int a = 10;
     }
 
     public class User2: User
     {
-        public int test = 10;
     }
 
-    public class UserSerializer: SerializerBase<User>
+    static void AddRangeToBsonDocument(BsonDocument bsonDocument, Dictionary<int, User> dic)
     {
-        public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, User value)
+        foreach (var kvp in dic)
         {
-            context.Writer.WriteStartDocument();
-            context.Writer.WriteName("Id");
-            context.Writer.WriteInt32(300);
-            context.Writer.WriteName("treeId");
-            context.Writer.WriteInt32(100);
-            
-
-            context.Writer.WriteEndDocument();
+            bsonDocument.Add(new BsonElement(kvp.Key.ToString(), ToBsonValue(kvp.Value)));
         }
     }
 
+    static BsonValue ToBsonValue(User user)
+    {
+        BsonDocument subDoc = user.ToBsonDocument();
+        subDoc.Remove("a");
+        subDoc.Add("test", 123);
+        return subDoc;
+    }
+    
     public static void Main()
     {
-        BsonClassMap.LookupClassMap(typeof (User));
-        BsonSerializer.RegisterSerializer(typeof (User), new UserSerializer());
+        string input = "# 角色1\nVN_RegisterCharacter ch = Celika unitId = 1002; #Hello worldtewtew # 1231312313131123\nVN_Position ch = Celika type = Left;\n\n# 角色2\nVN_RegisterCharacter ch = Celika2 unitId = 1002;\nVN_Position ch = Celika2 type = Right;\nVN_Flip ch = Celika2 type = Left;";
+
+        // 按行分割字符串
+        string[] lines = input.Split('\n');
+
+        // 过滤掉以"#"开头且以"\n"结尾的行，保留注释部分
+        string result = string.Join("\n", lines
+                .Select(line =>
+                {
+                    int commentIndex = line.IndexOf('#');
+                    return commentIndex >= 0 ? line.Substring(0, commentIndex).Trim() : line.Trim();
+                })
+                .Where(filteredLine => !string.IsNullOrWhiteSpace(filteredLine)));
         
-        User user = new();
-        Console.WriteLine(user.ToJson());
+        // 打印结果
+        Console.WriteLine(input);
+        Console.WriteLine("\n");
+        Console.WriteLine(result);
+        
+        // ConventionPack conventionPack = new(){ new IgnoreExtraElementsConvention(true) };
+        // ConventionRegistry.Register("IgnoreExtraElements", conventionPack, _=> true);
+        // BsonClassMap.LookupClassMap(typeof (User));
+        // BsonClassMap.LookupClassMap(typeof (User2));
+        // var bsonDocument = new BsonDocument();
+        //
+        // Dictionary<int, User> dic = new();
+        // dic.Add(1,new User());
+        // dic.Add(2,new User());
+        // dic.Add(3,new User2());
+        // AddRangeToBsonDocument(bsonDocument,dic);
+        // foreach (BsonValue bsonDocumentValue in bsonDocument.Values)
+        // {
+        //     Console.WriteLine(BsonSerializer.Deserialize<User>(bsonDocumentValue.ToBsonDocument()));
+        // }
+        // Console.WriteLine(bsonDocument);
+     
+        // var newRestaurant = new BsonDocument
+        // {
+        //     { "address", new BsonDocument { { "street", "pizza st" }, { "zipCode", "1003" } } }, { "coord", new BsonArray { -33, 444 } }
+        // };
+        // newRestaurant.Add(new BsonElement("restaurant_id", "123"));
+        // newRestaurant.Remove("coord");
+        // newRestaurant.Set("coord", "Hello world");
+        // Console.WriteLine(newRestaurant);
+        //
+        // string outputFileName = "./myFile.bson";
+        // using (var stream = File.OpenWrite(outputFileName))
+        // using (var writer = new BsonBinaryWriter(stream))
+        // {
+        //     writer.WriteStartDocument();
+        //     writer.WriteName("id");
+        //     writer.WriteInt32(123);
+        //     
+        //     writer.WriteName("coord");
+        //     writer.WriteStartArray();
+        //     writer.WriteDouble(3.3);
+        //     writer.WriteDouble(3.5);
+        //     writer.WriteEndArray();
+        //     
+        //     writer.WriteName("address");
+        //     writer.WriteStartDocument();
+        //     writer.WriteName("hello wolrd");
+        //     writer.WriteInt32(123213);
+        //     writer.WriteEndDocument();
+        //     writer.WriteEndDocument();
+        // }
+        //
+        // using (var stream = File.OpenRead(outputFileName))
+        // using (var reader = new BsonBinaryReader(stream))
+        // {
+        //     reader.ReadStartDocument();
+        //     string addressFiledName = reader.ReadName();
+        //     int addressno = reader.ReadInt32();
+        //     Console.WriteLine(addressno);
+        // }
+        // ConventionPack conventionPack = new(){ new IgnoreExtraElementsConvention(true) };
+        // ConventionRegistry.Register("IgnoreExtraElements", conventionPack, _=> true);
+        // BsonClassMap.LookupClassMap(typeof (User));
+        // BsonClassMap.LookupClassMap(typeof (User2));
+        // User user = new User();
+        // BsonDocument doc = user.ToBsonDocument();
+        // doc.Remove("id");
+        // doc.Add("Jel", 12);
+        // Console.WriteLine(doc);
+        // byte[] bytes = doc.ToBson();
+        // User user2 = BsonSerializer.Deserialize<User>(bytes);
+        // Console.WriteLine(user2.ToJson());
+        // User user = new();
+        // Console.WriteLine(user.ToJson());
         // string input = "这是一些文本，包含 <Numeric id=10/> <Numeric id=1230/> 这样的标记。";
         //
         // // 定义正则表达式模式

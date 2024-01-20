@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using UnityEngine;
 
 namespace ET.Client
 {
@@ -11,9 +10,6 @@ namespace ET.Client
         public int MinValue;
         [FoldoutGroup("$nodeName"),Title("最大值")]
         public int MaxValue;
-        
-        [FoldoutGroup("$nodeName"), Title(title: "脚本", bold: true), HideLabel, TextArea(10, 35)]
-        public string Script = "";
         
         [FoldoutGroup("$nodeName"), ListDrawerSettings(IsReadOnly = true), ReadOnly]
         public List<uint> children = new();

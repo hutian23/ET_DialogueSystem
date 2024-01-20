@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using MongoDB.Bson;
+using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Options;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEditor;
 using UnityEngine;
 
@@ -102,12 +106,40 @@ namespace ET.Client
             return cloneTree;
         }
 
+#if UNITY_EDITOR
         public DialogueTarget CloneTargets()
         {
-            //TODO 想想怎么忽略guid，position这些字段
-            DialogueTarget targetsDict = new DialogueTarget() { targets = this.targets };
-            return MongoHelper.Clone(targetsDict);
+            BsonDocument bsonDocument = new();
+            Dictionary<string, BsonValue> tmpDic = new();
+            targets.ForEach(kv =>
+            {
+                //1. 移除编辑器相关的属性
+                var subDoc = kv.Value.ToBsonDocument();
+                subDoc.Remove("Guid");
+                subDoc.Remove("position");
+
+                //2. 节点的唯一全局唯一表示ID
+                subDoc.Remove("TreeID");
+                subDoc.Remove("TargetID");
+                subDoc.Add("ID", kv.Value.GetID());
+
+                //3. 去掉scripts中的注释
+                subDoc.Remove("Script");
+                string[] lines = kv.Value.Script.Split('\n');
+                string result = string.Join("\n", lines.Select(line =>
+                {
+                    int index = line.IndexOf('#');
+                    return index >= 0? line.Substring(0, index).Trim() : line.Trim();
+                }).Where(filteredLine => !string.IsNullOrWhiteSpace(filteredLine)));
+                subDoc.Add("Script", result);
+
+                tmpDic.Add(kv.Key.ToString(), subDoc);
+            });
+            tmpDic.ForEach(kv => { bsonDocument.Add(kv.Key, kv.Value); });
+            Debug.Log(@MongoHelper.ToJson(bsonDocument));
+            return null;
         }
+#endif
     }
 
     public class DialogueTarget

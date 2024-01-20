@@ -25,25 +25,36 @@ namespace ET
         public Vector2 position;
 
         [BsonIgnore]
-        [HideInInspector,ReadOnly,FoldoutGroup("$nodeName")]
+        [HideInInspector, ReadOnly, FoldoutGroup("$nodeName")]
         public Status Status;
 
         [HideInInspector]
         public string text;
 
-        [LabelText("对话树ID"), FoldoutGroup("$nodeName"),ReadOnly]
+        [LabelText("对话树ID"), FoldoutGroup("$nodeName"), ReadOnly]
         public uint TreeID;
-        
-        [FoldoutGroup("$nodeName"),ReadOnly]
+
+        [FoldoutGroup("$nodeName"), ReadOnly]
         public uint TargetID;
 
         [FoldoutGroup("$nodeName")]
-        public bool NeedCheck;
-        
-        [FoldoutGroup("$nodeName"),ShowIf("NeedCheck")]
+        public bool NeedCheck = false;
+
+        [FoldoutGroup("$nodeName"), ShowIf("NeedCheck")]
         public List<NodeCheckConfig> checkList = new();
 
+        [FoldoutGroup("$nodeName"), Title(title: "脚本", bold: true), HideLabel, TextArea(10, 35)]
+        public string Script = "";
+
         public string nodeName => $"[{TargetID}]{GetType().Name}";
+
+        public long GetID()
+        {
+            ulong result = 0;
+            result |= TargetID;
+            result |= (ulong)TreeID << 32;
+            return (long)result;
+        }
 
 #if UNITY_EDITOR
         public virtual DialogueNode Clone()

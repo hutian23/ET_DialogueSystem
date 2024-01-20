@@ -31,8 +31,8 @@ namespace ET.Client
 
             if (GUILayout.Button("测试序列化"))
             {
-                var tree= this.target as DialogueTree;
-                Debug.Log(tree.CloneTargets().ToJson());
+                var tree= target as DialogueTree;
+                tree.CloneTargets().ToJson();
             }
         }
     }
