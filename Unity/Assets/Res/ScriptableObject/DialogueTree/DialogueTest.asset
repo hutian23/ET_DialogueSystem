@@ -97,7 +97,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 258
+      Data: 209
     - Name: 
       Entry: 4
       Data: 200
@@ -109,7 +109,9 @@ MonoBehaviour:
       Data: 0
     - Name: text
       Entry: 1
-      Data: "[speed=300]\u4F60\u597D\u554A\u3002\n"
+      Data: '<color=#EA5B44FF><Numeric type=Hp/> / <Courage/></color>
+
+'
     - Name: TreeID
       Entry: 3
       Data: 1
@@ -134,7 +136,9 @@ MonoBehaviour:
       Data: 
     - Name: Script
       Entry: 1
-      Data: 
+      Data: 'Numeric Hp + 3;
+
+        WaitTime 30000;'
     - Name: children
       Entry: 7
       Data: 5|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
@@ -161,10 +165,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 448
+      Data: 527
     - Name: 
       Entry: 4
-      Data: -32
+      Data: -304
     - Name: 
       Entry: 8
       Data: 
@@ -235,10 +239,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 790
+      Data: 780
     - Name: 
       Entry: 4
-      Data: 160
+      Data: -304
     - Name: 
       Entry: 8
       Data: 
@@ -294,10 +298,10 @@ MonoBehaviour:
       Data: 12|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
-      Data: 3cf8e87d4949c4f49a40b808cc6a5155
+      Data: 3b1b170ddaa9d0344a4223b03316aa25
     - Name: inputNodeGuid
       Entry: 1
-      Data: c9cdd326f573e664199bbff4adf40886
+      Data: 2be012c033965fa4b978c8a8fd046ac8
     - Name: portID
       Entry: 3
       Data: 0
@@ -309,10 +313,10 @@ MonoBehaviour:
       Data: 13|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
-      Data: 3b1b170ddaa9d0344a4223b03316aa25
+      Data: 3cf8e87d4949c4f49a40b808cc6a5155
     - Name: inputNodeGuid
       Entry: 1
-      Data: 2be012c033965fa4b978c8a8fd046ac8
+      Data: c9cdd326f573e664199bbff4adf40886
     - Name: portID
       Entry: 3
       Data: 0
@@ -423,7 +427,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 258
+      Data: 209
     - Name: 
       Entry: 4
       Data: 200
@@ -435,7 +439,9 @@ MonoBehaviour:
       Data: 0
     - Name: text
       Entry: 1
-      Data: "[speed=300]\u4F60\u597D\u554A\u3002\n"
+      Data: '<color=#EA5B44FF><Numeric type=Hp/> / <Courage/></color>
+
+'
     - Name: TreeID
       Entry: 3
       Data: 1
@@ -460,7 +466,9 @@ MonoBehaviour:
       Data: 
     - Name: Script
       Entry: 1
-      Data: 
+      Data: 'Numeric Hp + 3;
+
+        WaitTime 30000;'
     - Name: children
       Entry: 7
       Data: 20|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib

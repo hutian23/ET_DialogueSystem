@@ -7,22 +7,34 @@ namespace ET.Client
     [FriendOf(typeof (DialogueComponent))]
     public static class DialogueHelper
     {
-        /// <summary>
-        /// 替换{{model}}  (类似vue的插值表达式)
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="modelName"></param>
-        /// <param name="replaceText"></param>
-        public static string Replace(string text, string modelName, string replaceText)
-        {
-            string pattern = @"\{\{" + modelName + @"\}\}";
-            text = Regex.Replace(text, pattern, replaceText);
-            return text;
-        }
-
         public static void ScripMatchError(string text)
         {
             Log.Error($"{text}匹配失败！请检查格式");
+        }
+
+        public static void ReplaceCustomModel(ref string text, string oldText, string newText)
+        {
+            string replaceStr = $"<{oldText}/>";
+            text = text.Replace(replaceStr, newText);
+        }
+
+        public static string ReplaceModel(Unit unit, string text)
+        {
+            string replaceText = text;
+            MatchCollection matches = Regex.Matches(replaceText, @"<\w+\s+[^>]*\/>");
+
+            foreach (Match match in matches)
+            {
+                string replaceType = match.Value.Split(' ')[0]; //<Numeric <UnitConfig
+                replaceType = replaceType.Substring(1, replaceType.Length - 1);
+
+                string replaceStr = DialogueDispatcherComponent.Instance.GetReplaceStr(unit, replaceType, match.Value);
+                if (string.IsNullOrEmpty(replaceStr)) continue; //没找到对应的handler，不替换
+
+                replaceText = replaceText.Replace(match.Value, replaceStr);
+            }
+
+            return replaceText;
         }
 
         private static async ETTask SkipCheckCor(ETCancellationToken token, ETCancellationToken typeToken)
@@ -61,6 +73,7 @@ namespace ET.Client
                             //不是 />则没有match
                             break;
                         }
+
                         parseSpeed += content[j];
                     }
 

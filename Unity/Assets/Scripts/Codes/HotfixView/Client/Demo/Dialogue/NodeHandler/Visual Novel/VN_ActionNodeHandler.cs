@@ -8,9 +8,13 @@
             await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node.Script, token);
             if (token.IsCancel()) return Status.Failed;
 
-            //经过后处理的文本
+            //文本处理，替换标签
+            string replaceText = node.text;
+            DialogueHelper.ReplaceCustomModel(ref replaceText, "Courage", "10");
+            replaceText = DialogueHelper.ReplaceModel(unit, replaceText);
+
             DlgDialogue dlgDialogue = unit.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgDialogue>();
-            await DialogueHelper.TypeCor(dlgDialogue.View.E_TextText, node.text, token);
+            await DialogueHelper.TypeCor(dlgDialogue.View.E_TextText, replaceText, token);
 
             node.children.ForEach(childID =>
             {

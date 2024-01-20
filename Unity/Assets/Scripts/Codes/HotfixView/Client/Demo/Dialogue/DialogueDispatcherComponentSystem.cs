@@ -79,7 +79,7 @@ namespace ET.Client
             }
 
             self.replaceHandlers.Clear();
-            var replaceHandlers = EventSystem.Instance.GetTypes(typeof (ReplaceHandler));
+            var replaceHandlers = EventSystem.Instance.GetTypes(typeof (DialogueReplaceAttribute));
             foreach (var type in replaceHandlers)
             {
                 ReplaceHandler handler = Activator.CreateInstance(type) as ReplaceHandler;
@@ -223,10 +223,14 @@ namespace ET.Client
             }
         }
 
-        public static string GetReplaceStr(this DialogueDispatcherComponent self, string str)
+        public static string GetReplaceStr(this DialogueDispatcherComponent self, Unit unit, string replaceType, string replaceText)
         {
-            // if(self.replaceHandlers.TryGetValue(str))
-            return "";
+            if (self.replaceHandlers.TryGetValue(replaceType, out ReplaceHandler handler))
+            {
+                return handler.GetReplaceStr(unit, replaceText);
+            }
+
+            return string.Empty;
         }
     }
 }
