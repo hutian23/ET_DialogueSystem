@@ -20,6 +20,7 @@ namespace ET.Client
 
         private DialogueTree tree;
         private DialogueEditor window;
+
         private SearchMenuWindowProvider searchWindow;
 
         private readonly List<object> RemoveCaches = new();

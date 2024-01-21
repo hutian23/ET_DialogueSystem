@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ET.Client;
 using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson.Serialization.Options;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -16,13 +16,13 @@ namespace ET
         Pending,
         Failed
     }
-    
+
     public enum Language
     {
-        CN,
-        EN,
-        JPN,
-        ALL
+        Chinese,
+        English,
+        Japanese,
+        Max
     }
 
     [HideReferenceObjectPicker]
@@ -54,11 +54,20 @@ namespace ET
         [HideInInspector, ReadOnly, FoldoutGroup("$nodeName")]
         public Status Status;
 
-        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
-        [LabelText("文本"), FoldoutGroup("$nodeName")]
-        public Dictionary<Language, string> contents = new();
+        [Searchable]
+        [FoldoutGroup("$nodeName"), HideReferenceObjectPicker, LabelText("本地化"), Space(10),
+         ListDrawerSettings(ShowFoldout = true, ShowIndexLabels = true, ListElementLabelName = "eleName")]
+        public List<LocalizationGroup> LocalizationGroups = new();
 
         public string nodeName => $"[{TargetID}]{GetType().Name}";
+
+        public string GetContent(Language language)
+        {
+            //所以我明明new了，为什么odin还会显示null呢?
+            if (LocalizationGroups == null) return String.Empty;
+            var targetGroup = LocalizationGroups.FirstOrDefault(group => group.Language == language);
+            return targetGroup == null? String.Empty : targetGroup.content;
+        }
 
         public virtual DialogueNode Clone()
         {
@@ -78,6 +87,21 @@ namespace ET
             return (long)result;
         }
     }
+
+#if UNITY_EDITOR
+    [Serializable]
+    public class LocalizationGroup
+    {
+        [LabelText("语言: "), Space(10)]
+        public Language Language = Language.Chinese;
+
+        public string eleName => Language.ToString();
+
+        [TextArea(3, 4), Space(10)]
+        [HideLabel]
+        public string content = "";
+    }
+#endif
 
     public class NodeTypeAttribute: BaseAttribute
     {

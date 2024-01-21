@@ -9,7 +9,6 @@ namespace ET.Client
 
         public VN_ActionNodeView(DialogueNode dialogueNode, DialogueTreeView dialogueTreeView): base(dialogueNode, dialogueTreeView)
         {
-            this.GenerateTextAera();
             this.GenerateInputPort("", true);
             port = this.GenerateOutputPort("", true);
             this.SaveCallback += this.Save;

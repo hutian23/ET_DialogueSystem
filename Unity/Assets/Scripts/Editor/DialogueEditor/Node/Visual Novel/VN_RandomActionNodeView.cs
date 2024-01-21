@@ -11,7 +11,6 @@ namespace ET.Client
         {
             this.GenerateInputPort("", true);
             port = this.GenerateOutputPort("");
-            this.GenerateTextAera();
             this.SaveCallback += this.Save;
         }
 

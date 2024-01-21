@@ -53,34 +53,7 @@ namespace ET.Client
             node.position.x = GetPosition().xMin;
             node.position.y = GetPosition().yMin;
         }
-
-        protected TextField GenerateTextAera()
-        {
-            TextField = new TextField();
-
-            // 网上找的，看不懂，反正解决了自动换行的问题
-            TextField.style.maxWidth = 250;
-            TextField.style.minWidth = 100;
-            TextField.style.whiteSpace = WhiteSpace.Normal;
-            TextField.style.flexDirection = FlexDirection.Row;
-            TextField.style.flexGrow = 1;
-            TextField.style.flexWrap = Wrap.Wrap;
-            TextField.multiline = true;
-            contentContainer.Add(TextField);
-
-            SaveCallback += () =>
-            {
-                for (int i = 0; i < (int)Language.ALL; i++)
-                {
-                    node.contents.TryAdd((Language)i, "");
-                }
-            };
-            TextField.RegisterCallback<BlurEvent>(_ => treeView.SetDirty());
-
-            // TextField.value = node.text;
-            return TextField;
-        }
-
+        
         /// <summary>
         /// 任何nodeview都只有一个InputPort
         /// </summary>

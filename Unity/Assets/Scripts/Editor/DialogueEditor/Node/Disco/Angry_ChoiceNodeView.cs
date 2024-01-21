@@ -11,7 +11,6 @@ namespace ET.Client
         public Angry_ChoiceNodeView(DialogueNode node, DialogueTreeView treeView): base(node, treeView)
         {
             GenerateInputPort("", true);
-            this.GenerateTextAera();
             Angry = GenerateOutputPort("in anger", true);
             Normal = GenerateOutputPort("normal", true);
 

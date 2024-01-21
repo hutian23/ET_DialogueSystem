@@ -6,7 +6,6 @@
         public BubbleActionNodeView(DialogueNode node,DialogueTreeView treeView): base(node,treeView)
         {
             this.GenerateInputPort("");
-            this.GenerateTextAera();
         }
     }
 }

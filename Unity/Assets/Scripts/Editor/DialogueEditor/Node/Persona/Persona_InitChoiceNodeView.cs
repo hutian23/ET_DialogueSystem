@@ -16,8 +16,6 @@ namespace ET.Client
             moneyPort = this.GenerateOutputPort("要钱", true);
             itemPort = this.GenerateOutputPort("要道具", true);
             extraPort = this.GenerateOutputPort("特殊", true);
-            
-            this.GenerateTextAera();
             this.SaveCallback += this.Save;
         }
 
