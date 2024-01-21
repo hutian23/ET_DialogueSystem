@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Bson;
-using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Options;
 using Sirenix.OdinInspector;
@@ -133,10 +132,15 @@ namespace ET.Client
                 }).Where(filteredLine => !string.IsNullOrWhiteSpace(filteredLine)));
                 subDoc.Add("Script", result);
 
+                //4. 本地化
+                subDoc.Remove("contents");
+                subDoc.Remove("text");
+                subDoc.Add("content", kv.Value.contents[Language.CN]);
+
                 tmpDic.Add(kv.Key.ToString(), subDoc);
             });
             tmpDic.ForEach(kv => { bsonDocument.Add(kv.Key, kv.Value); });
-            Debug.Log(@MongoHelper.ToJson(bsonDocument));
+            Debug.Log(MongoHelper.ToJson(bsonDocument));
             return null;
         }
 #endif

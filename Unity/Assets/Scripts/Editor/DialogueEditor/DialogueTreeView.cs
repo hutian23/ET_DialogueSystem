@@ -322,6 +322,7 @@ namespace ET.Client
                 {
                     Debug.LogError($"请添加NodeEditor标签!!!: {nodeViewType}");
                 }
+
                 if (attr.nodeType == node.GetType())
                 {
                     DialogueNodeView nodeView = Activator.CreateInstance(nodeViewType, args: new object[] { node, this }) as DialogueNodeView;
@@ -334,7 +335,11 @@ namespace ET.Client
         private void SaveNodes()
         {
             List<DialogueNodeView> nodeViews = graphElements.Where(x => x is DialogueNodeView).Cast<DialogueNodeView>().ToList();
-            nodeViews.ForEach(nodeview => nodeview.node.TargetID = 0);
+            nodeViews.ForEach(nodeview =>
+            {
+                nodeview.node.TargetID = 0;
+                nodeview.node.TreeID = tree.treeID;
+            });
 
             //从根节点开始遍历，字典存储在树上的节点(不在树上的节点保存nodeList中)
             HashSet<DialogueNodeView> nodeSet = new(); // 被遍历过的节点

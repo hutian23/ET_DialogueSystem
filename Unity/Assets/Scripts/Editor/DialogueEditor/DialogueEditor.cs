@@ -1,3 +1,4 @@
+using ET;
 using ET.Client;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
@@ -10,8 +11,10 @@ public class DialogueEditor: OdinEditorWindow
     private DialogueTreeView treeView;
     public InspectorView inspectorView;
     private Toolbar toolbar;
+    private EnumField enumField;
+    private Language curLanguage;
     public Toggle autoSaveToggle;
-    
+
     public bool HasUnSave
     {
         get => hasUnsavedChanges;
@@ -34,9 +37,19 @@ public class DialogueEditor: OdinEditorWindow
         inspectorView = root.Q<InspectorView>();
 
         toolbar = root.Q<Toolbar>();
+        enumField = this.toolbar.Q<EnumField>();
+        enumField.Init(Language.CN);
+        enumField.RegisterValueChangedCallback(evt =>
+        {
+            this.HasUnSave = true;
+            this.SaveChanges();
+            this.curLanguage = (Language)evt.newValue;
+            Debug.Log(this.curLanguage);
+        });
+
         autoSaveToggle = toolbar.Q<ToolbarToggle>();
     }
-    
+
     public static void OpenWindow(DialogueTree dialogueTree)
     {
         DialogueEditor wnd = GetWindow<DialogueEditor>();
@@ -51,6 +64,7 @@ public class DialogueEditor: OdinEditorWindow
         {
             treeView.SaveDialogueTree();
         }
+
         treeView.RefreshNodeState();
     }
 

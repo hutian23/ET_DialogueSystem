@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ET.Client;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Options;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -14,27 +16,22 @@ namespace ET
         Pending,
         Failed
     }
+    
+    public enum Language
+    {
+        CN,
+        EN,
+        JPN,
+        ALL
+    }
 
     [HideReferenceObjectPicker]
     public abstract class DialogueNode
     {
-        [HideInInspector]
-        public string Guid;
-
-        [HideInInspector]
-        public Vector2 position;
-
-        [BsonIgnore]
-        [HideInInspector, ReadOnly, FoldoutGroup("$nodeName")]
-        public Status Status;
-
-        [HideInInspector]
-        public string text;
-
-        [LabelText("对话树ID"), FoldoutGroup("$nodeName"), ReadOnly]
+        [HideInInspector, ReadOnly]
         public uint TreeID;
 
-        [FoldoutGroup("$nodeName"), ReadOnly]
+        [HideInInspector, ReadOnly]
         public uint TargetID;
 
         [FoldoutGroup("$nodeName")]
@@ -46,17 +43,23 @@ namespace ET
         [FoldoutGroup("$nodeName"), Title(title: "脚本", bold: true), HideLabel, TextArea(10, 35)]
         public string Script = "";
 
+#if UNITY_EDITOR
+        [HideInInspector]
+        public string Guid;
+
+        [HideInInspector]
+        public Vector2 position;
+
+        [BsonIgnore]
+        [HideInInspector, ReadOnly, FoldoutGroup("$nodeName")]
+        public Status Status;
+
+        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
+        [LabelText("文本"), FoldoutGroup("$nodeName")]
+        public Dictionary<Language, string> contents = new();
+
         public string nodeName => $"[{TargetID}]{GetType().Name}";
 
-        public long GetID()
-        {
-            ulong result = 0;
-            result |= TargetID;
-            result |= (ulong)TreeID << 32;
-            return (long)result;
-        }
-
-#if UNITY_EDITOR
         public virtual DialogueNode Clone()
         {
             DialogueNode cloneNode = MongoHelper.Clone(this);
@@ -66,6 +69,14 @@ namespace ET
             return cloneNode;
         }
 #endif
+
+        public long GetID()
+        {
+            ulong result = 0;
+            result |= TargetID;
+            result |= (ulong)TreeID << 32;
+            return (long)result;
+        }
     }
 
     public class NodeTypeAttribute: BaseAttribute

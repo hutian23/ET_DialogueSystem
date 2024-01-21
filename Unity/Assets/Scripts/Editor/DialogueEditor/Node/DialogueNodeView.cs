@@ -68,10 +68,16 @@ namespace ET.Client
             TextField.multiline = true;
             contentContainer.Add(TextField);
 
-            SaveCallback += () => { node.text = TextField.text; };
+            SaveCallback += () =>
+            {
+                for (int i = 0; i < (int)Language.ALL; i++)
+                {
+                    node.contents.TryAdd((Language)i, "");
+                }
+            };
             TextField.RegisterCallback<BlurEvent>(_ => treeView.SetDirty());
 
-            TextField.value = node.text;
+            // TextField.value = node.text;
             return TextField;
         }
 
@@ -132,7 +138,7 @@ namespace ET.Client
                     .Select(dialogueNode => dialogueNode.TargetID)
                     .ToList();
         }
-        
+
         public Action SaveCallback;
 
         public DialogueNode Clone()

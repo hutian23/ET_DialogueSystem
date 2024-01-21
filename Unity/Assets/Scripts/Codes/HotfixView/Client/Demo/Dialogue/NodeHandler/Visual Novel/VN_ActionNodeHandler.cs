@@ -9,7 +9,8 @@
             if (token.IsCancel()) return Status.Failed;
 
             //文本处理，替换标签
-            string replaceText = node.text;
+            // string replaceText = node.text;
+            string replaceText = "";
             DialogueHelper.ReplaceCustomModel(ref replaceText, "Courage", "10");
             replaceText = DialogueHelper.ReplaceModel(unit, replaceText);
 

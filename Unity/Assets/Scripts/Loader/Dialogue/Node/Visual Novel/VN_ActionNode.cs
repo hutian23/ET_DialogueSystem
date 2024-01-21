@@ -7,7 +7,7 @@ namespace ET.Client
     [NodeType("Visual Novel/Action节点(Visual Novel)")]
     public class VN_ActionNode: DialogueNode
     {
-        [FoldoutGroup("$nodeName"), ListDrawerSettings(IsReadOnly = true), ReadOnly]
+        [HideInInspector, FoldoutGroup("$nodeName"), ListDrawerSettings(IsReadOnly = true), ReadOnly]
         public List<uint> children = new();
     }
 }
