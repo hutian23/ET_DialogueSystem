@@ -4,6 +4,7 @@ using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Conventions;
+using MongoDB.Bson.Serialization.Options;
 using MongoDB.Bson.Serialization.Serializers;
 
 static class Program
@@ -17,6 +18,9 @@ static class Program
     {
         [BsonIgnore]
         public int a = 10;
+
+        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
+        public Dictionary<int, string> dic = new() { { 1, "2323" } };
     }
 
     public class User2: User
@@ -39,27 +43,44 @@ static class Program
         return subDoc;
     }
     
+    public enum Test
+    {
+        test1,
+        test2
+    }
+    
+    
     public static void Main()
     {
-        string input = "# 角色1\nVN_RegisterCharacter ch = Celika unitId = 1002; #Hello worldtewtew # 1231312313131123\nVN_Position ch = Celika type = Left;\n\n# 角色2\nVN_RegisterCharacter ch = Celika2 unitId = 1002;\nVN_Position ch = Celika2 type = Right;\nVN_Flip ch = Celika2 type = Left;";
+        BsonDocument doc = new BsonDocument();
+        Dictionary<Test, string> dic = new();
+        dic.Add(Test.test1,"2323");
+        dic.Add(Test.test2,"22323");
+        foreach ((Test key, string value) in dic)
+        {
+            doc.Add(new BsonElement(key.ToString(), value));
+        }
+        Console.WriteLine(doc);
+        Console.WriteLine(new test().ToJson());
+        // string input = "# 角色1\nVN_RegisterCharacter ch = Celika unitId = 1002; #Hello worldtewtew # 1231312313131123\nVN_Position ch = Celika type = Left;\n\n# 角色2\nVN_RegisterCharacter ch = Celika2 unitId = 1002;\nVN_Position ch = Celika2 type = Right;\nVN_Flip ch = Celika2 type = Left;";
+        //
+        // // 按行分割字符串
+        // string[] lines = input.Split('\n');
+        //
+        // // 过滤掉以"#"开头且以"\n"结尾的行，保留注释部分
+        // string result = string.Join("\n", lines
+        //         .Select(line =>
+        //         {
+        //             int commentIndex = line.IndexOf('#');
+        //             return commentIndex >= 0 ? line.Substring(0, commentIndex).Trim() : line.Trim();
+        //         })
+        //         .Where(filteredLine => !string.IsNullOrWhiteSpace(filteredLine)));
+        //
+        // // 打印结果
+        // Console.WriteLine(input);
+        // Console.WriteLine("\n");
+        // Console.WriteLine(result);
 
-        // 按行分割字符串
-        string[] lines = input.Split('\n');
-
-        // 过滤掉以"#"开头且以"\n"结尾的行，保留注释部分
-        string result = string.Join("\n", lines
-                .Select(line =>
-                {
-                    int commentIndex = line.IndexOf('#');
-                    return commentIndex >= 0 ? line.Substring(0, commentIndex).Trim() : line.Trim();
-                })
-                .Where(filteredLine => !string.IsNullOrWhiteSpace(filteredLine)));
-        
-        // 打印结果
-        Console.WriteLine(input);
-        Console.WriteLine("\n");
-        Console.WriteLine(result);
-        
         // ConventionPack conventionPack = new(){ new IgnoreExtraElementsConvention(true) };
         // ConventionRegistry.Register("IgnoreExtraElements", conventionPack, _=> true);
         // BsonClassMap.LookupClassMap(typeof (User));
@@ -76,7 +97,7 @@ static class Program
         //     Console.WriteLine(BsonSerializer.Deserialize<User>(bsonDocumentValue.ToBsonDocument()));
         // }
         // Console.WriteLine(bsonDocument);
-     
+
         // var newRestaurant = new BsonDocument
         // {
         //     { "address", new BsonDocument { { "street", "pizza st" }, { "zipCode", "1003" } } }, { "coord", new BsonArray { -33, 444 } }

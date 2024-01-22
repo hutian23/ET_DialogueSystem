@@ -21,8 +21,7 @@ namespace ET
     {
         Chinese,
         English,
-        Japanese,
-        Max
+        Japanese
     }
 
     [HideReferenceObjectPicker]
@@ -42,6 +41,9 @@ namespace ET
 
         [FoldoutGroup("$nodeName"), Title(title: "脚本", bold: true), HideLabel, TextArea(10, 35)]
         public string Script = "";
+
+        [HideInInspector, BsonIgnore]
+        public string text;
 
 #if UNITY_EDITOR
         [HideInInspector]
@@ -85,6 +87,15 @@ namespace ET
             result |= TargetID;
             result |= (ulong)TreeID << 32;
             return (long)result;
+        }
+
+        //ID转成treeID和TargetID
+        public void FromID(long ID)
+        {
+            ulong result = (ulong)ID;
+            TargetID = (uint)(result & uint.MaxValue);
+            result >>= 32;
+            TreeID = (uint)(result & uint.MaxValue);
         }
     }
 

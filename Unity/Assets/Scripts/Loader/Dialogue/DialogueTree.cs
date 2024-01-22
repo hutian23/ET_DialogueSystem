@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -106,54 +107,59 @@ namespace ET.Client
         }
 
 #if UNITY_EDITOR
-        public DialogueTarget CloneTargets()
+        public void Export()
         {
-            for (int i = 0; i < (int)Language.Max; i++)
+            var folderPath = DialogueSettings.GetSettings().ExportPath;
+            if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
+            var fileName = $"{folderPath}/{treeName}.json";
+            using FileStream json = new(fileName, FileMode.Create);
+            using StreamWriter sw = new(json);
+            sw.WriteLine(MongoHelper.ToJson(TranformToBsonDocument()));
+            Debug.Log(MongoHelper.ToJson(TranformToBsonDocument()));
+        }
+
+        private BsonDocument TranformToBsonDocument()
+        {
+            BsonDocument bsonDocument = new();
+            Dictionary<string, BsonValue> tmpDic = new();
+
+            targets.ForEach(kv =>
             {
-                int tmp = i; // 闭包
-                BsonDocument bsonDocument = new();
-                Dictionary<string, BsonValue> tmpDic = new();
-                targets.ForEach(kv =>
+                DialogueNode node = kv.Value;
+                //1. 移除编辑器相关的属性
+                var subDoc = node.ToBsonDocument();
+                subDoc.Remove("Guid");
+                subDoc.Remove("position");
+
+                //2. 节点的唯一全局唯一表示ID
+                subDoc.Remove("TreeID");
+                subDoc.Remove("TargetID");
+                subDoc.Add("ID", node.GetID());
+
+                //3. 去掉scripts中的注释
+                subDoc.Remove("Script");
+                string[] lines = node.Script.Split('\n');
+                string result = string.Join("\n", lines.Select(line =>
                 {
-                    DialogueNode node = kv.Value;
-                    //1. 移除编辑器相关的属性
-                    var subDoc = node.ToBsonDocument();
-                    subDoc.Remove("Guid");
-                    subDoc.Remove("position");
+                    int index = line.IndexOf('#');
+                    return index >= 0? line.Substring(0, index).Trim() : line.Trim();
+                }).Where(filteredLine => !string.IsNullOrWhiteSpace(filteredLine)));
+                subDoc.Add("Script", result);
 
-                    //2. 节点的唯一全局唯一表示ID
-                    subDoc.Remove("TreeID");
-                    subDoc.Remove("TargetID");
-                    subDoc.Add("ID", node.GetID());
+                //4. 本地化
+                subDoc.Remove("LocalizationGroups");
+                BsonDocument contentDoc = new();
+                Language[] languages = (Language[])Enum.GetValues(typeof (Language));
+                languages.ForEach(lan => { contentDoc.Add(new BsonElement(lan.ToString(), node.GetContent(lan))); });
 
-                    //3. 去掉scripts中的注释
-                    subDoc.Remove("Script");
-                    string[] lines = node.Script.Split('\n');
-                    string result = string.Join("\n", lines.Select(line =>
-                    {
-                        int index = line.IndexOf('#');
-                        return index >= 0? line.Substring(0, index).Trim() : line.Trim();
-                    }).Where(filteredLine => !string.IsNullOrWhiteSpace(filteredLine)));
-                    subDoc.Add("Script", result);
-
-                    //4. 本地化
-                    subDoc.Remove("LocalizationGroups");
-                    subDoc.Remove("text");
-                    subDoc.Add("content", node.GetContent((Language)tmp));
-                    tmpDic.Add(kv.Key.ToString(), subDoc);
-                });
-                tmpDic.ForEach(kv => { bsonDocument.Add(kv.Key, kv.Value); });
-                Debug.Log(MongoHelper.ToJson(bsonDocument));
-            }
-
-            return null;
+                subDoc.Add("content", contentDoc);
+                tmpDic.Add(kv.Key.ToString(), subDoc);
+            });
+            tmpDic.ForEach(kv => { bsonDocument.Add(kv.Key, kv.Value); });
+            //反序列化时需要知道节点个数 (Document索引0 --- length-1 为节点 第length个位置才是长度)
+            bsonDocument.Add(new BsonElement("Length", targets.Count));
+            return bsonDocument;
         }
 #endif
-    }
-
-    public class DialogueTarget
-    {
-        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
-        public Dictionary<uint, DialogueNode> targets = new();
     }
 }

@@ -1,4 +1,7 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Text.RegularExpressions;
+using MongoDB.Bson;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -7,6 +10,29 @@ namespace ET.Client
     [FriendOf(typeof (DialogueComponent))]
     public static class DialogueHelper
     {
+        public static Dictionary<int, DialogueNode> LoadDialogueTree(string treeName, Language language)
+        {
+            Dictionary<int, DialogueNode> targets = new();
+
+            var file = Path.Combine(DialogueSettings.GetSettings().ExportPath, $"{treeName}.json");
+            string jsonContent = File.ReadAllText(file);
+            BsonDocument doc = MongoHelper.FromJson<BsonDocument>(jsonContent);
+            var _v = doc["_v"];
+            int length = (int)_v["Length"];
+            for (int i = 0; i < length; i++)
+            {
+                var nodeDoc = _v[i].ToBsonDocument();
+                DialogueNode node = MongoHelper.Deserialize<DialogueNode>(nodeDoc.ToBson());
+                node.FromID((long)nodeDoc.GetValue("ID"));
+
+                var contentDoc = nodeDoc.GetValue("content").ToBsonDocument();
+                node.text = (string)contentDoc[(int)Language.Chinese];
+                targets.Add(i, node);
+            }
+
+            return targets;
+        }
+
         public static void ScripMatchError(string text)
         {
             Log.Error($"{text}匹配失败！请检查格式");

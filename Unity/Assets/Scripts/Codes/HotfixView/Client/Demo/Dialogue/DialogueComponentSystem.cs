@@ -66,7 +66,7 @@ namespace ET.Client
             }
             else
             {
-                self.targets = self.tree.CloneTargets();
+                // self.targets = self.tree.CloneTargets();
             }
 
             self.DialogueCor().Coroutine();
@@ -127,13 +127,14 @@ namespace ET.Client
 
         public static DialogueNode GetNode(this DialogueComponent self, uint targetID)
         {
-            DialogueNode node;
-            if (UnityEngine.Application.isEditor)
-                self.cloneTree.targets.TryGetValue(targetID, out node);
-            else
-                self.targets.targets.TryGetValue(targetID, out node);
-            if (node == null) Log.Error($"not found target node! :{targetID}");
-            return node;
+            // DialogueNode node;
+            // if (UnityEngine.Application.isEditor)
+            //     self.cloneTree.targets.TryGetValue(targetID, out node);
+            // else
+            //     self.targets.targets.TryGetValue(targetID, out node);
+            // if (node == null) Log.Error($"not found target node! :{targetID}");
+            // return node;
+            return null;
         }
 
         public static void PushNextNode(this DialogueComponent self, DialogueNode node)

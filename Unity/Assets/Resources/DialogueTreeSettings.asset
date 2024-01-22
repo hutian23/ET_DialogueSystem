@@ -16,3 +16,5 @@ MonoBehaviour:
   PendingColor: {r: 0.21568628, g: 0.5294118, b: 0.7647059, a: 0.62352943}
   SuccessColor: {r: 0.20683517, g: 0.5283019, b: 0.2575931, a: 0.627451}
   FailedColor: {r: 0.8666667, g: 0.23137255, b: 0.15294118, a: 1}
+  exportTrees:
+  - {fileID: 11400000, guid: 9e249e177010cff458ead71d5795764c, type: 2}
