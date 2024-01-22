@@ -87,7 +87,8 @@ namespace ET
         public static void Init()
         {
             // 清理老的数据
-            MethodInfo createSerializerRegistry = typeof (BsonSerializer).GetMethod("CreateSerializerRegistry", BindingFlags.Static | BindingFlags.NonPublic);
+            MethodInfo createSerializerRegistry =
+                    typeof (BsonSerializer).GetMethod("CreateSerializerRegistry", BindingFlags.Static | BindingFlags.NonPublic);
             createSerializerRegistry.Invoke(null, Array.Empty<object>());
             MethodInfo registerIdGenerators = typeof (BsonSerializer).GetMethod("RegisterIdGenerators", BindingFlags.Static | BindingFlags.NonPublic);
             registerIdGenerators.Invoke(null, Array.Empty<object>());
@@ -100,53 +101,27 @@ namespace ET
             RegisterStructs();
 
             //检查继承关系
-            bool IsEditor = false;
-#if UNITY
-            IsEditor = !Application.isPlaying;
-#endif
-            if (IsEditor)
+            Dictionary<string, Type> types = EventSystem.Instance.GetTypes();
+            foreach (Type type in types.Values)
             {
-                var types = AssemblyHelper.GetAssemblyTypes(typeof (Game).Assembly);
-                foreach (var type in types.Values)
+                if (!type.IsSubclassOf(typeof (Object)))
                 {
-                    if (!type.IsSubclassOf(typeof (Object)))
-                    {
-                        continue;
-                    }
-
-                    if (type.IsGenericType)
-                    {
-                        continue;
-                    }
-                    BsonClassMap.LookupClassMap(type);
-                }
-#if UNITY
-                Debug.Log("(editor)MongoHelper初始化完成");
-#endif
-            }
-            else
-            {
-                Dictionary<string, Type> types = EventSystem.Instance.GetTypes();
-                foreach (Type type in types.Values)
-                {
-                    if (!type.IsSubclassOf(typeof (Object)))
-                    {
-                        continue;
-                    }
-
-                    if (type.IsGenericType)
-                    {
-                        continue;
-                    }
-                    BsonClassMap.LookupClassMap(type);
+                    continue;
                 }
 
-                Log.Debug("(runtime)MongoHelper初始化完成");
+                if (type.IsGenericType)
+                {
+                    continue;
+                }
+
+                BsonClassMap.LookupClassMap(type);
             }
+
+            Log.Debug("(runtime)MongoHelper初始化完成");
         }
-
+        
         // https://et-framework.cn/d/33-mongobson
-        private static void RegisterStructs()
+        public static void RegisterStructs()
         {
             RegisterStruct<float2>();
             RegisterStruct<float3>();

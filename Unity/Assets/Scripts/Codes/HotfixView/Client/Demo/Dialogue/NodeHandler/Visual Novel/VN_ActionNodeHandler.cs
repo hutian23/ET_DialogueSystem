@@ -10,12 +10,14 @@
 
             //文本处理，替换标签
             // string replaceText = node.text;
-            string replaceText = "";
-            DialogueHelper.ReplaceCustomModel(ref replaceText, "Courage", "10");
-            replaceText = DialogueHelper.ReplaceModel(unit, replaceText);
+            // string replaceText = "";
+            // DialogueHelper.ReplaceCustomModel(ref replaceText, "Courage", "10");
+            // replaceText = DialogueHelper.ReplaceModel(unit, replaceText);
 
-            DlgDialogue dlgDialogue = unit.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgDialogue>();
-            await DialogueHelper.TypeCor(dlgDialogue.View.E_TextText, replaceText, token);
+            // DlgDialogue dlgDialogue = unit.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgDialogue>();
+            // await DialogueHelper.TypeCor(dlgDialogue.View.E_TextText, replaceText, token);
+
+            Log.Warning(node.text);
 
             node.children.ForEach(childID =>
             {

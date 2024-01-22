@@ -8,10 +8,6 @@ namespace ET.Client
         public ETCancellationToken token;
 
         public Dictionary<uint, DialogueNode> targets = new();
-
-        public DialogueTree tree;
-        public DialogueTree cloneTree;
-
         public Queue<DialogueNode> workQueue = new();
     }
 }

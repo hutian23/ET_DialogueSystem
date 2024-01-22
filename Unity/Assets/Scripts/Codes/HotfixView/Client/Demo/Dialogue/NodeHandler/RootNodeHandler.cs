@@ -6,7 +6,7 @@
         {
             await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node.Script, token);
             if (token.IsCancel()) return Status.Failed;
-
+            
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
             dialogueComponent.PushNextNode(node.nextNode);
             await ETTask.CompletedTask;

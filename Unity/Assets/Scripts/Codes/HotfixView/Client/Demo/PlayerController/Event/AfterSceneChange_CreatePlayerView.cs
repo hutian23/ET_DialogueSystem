@@ -29,9 +29,9 @@ namespace ET.Client
             //         .SetPosition(new Vector2(3,3))
             //         .RegisterAsActor(new PlayerActorHandler());
 
-            player.AddComponent<TODAIComponent>().AILoad(ReferenceHelper.GetGlobalRC<AIBehaviorConfig>("Test"));
-            // player.AddComponent<DialogueComponent>().LoadTree(ReferenceHelper.GetGlobalRC<DialogueTree>("Dialogue"));
-            player.AddComponent<DialogueComponent>().LoadTree("DialogueTest");
+            // player.AddComponent<TODAIComponent>().AILoad(ReferenceHelper.GetGlobalRC<AIBehaviorConfig>("Test"));
+
+            player.AddComponent<DialogueComponent>();
         }
     }
 }

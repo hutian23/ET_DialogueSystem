@@ -7,14 +7,28 @@ namespace ET.Client
     [FriendOf(typeof (DialogueComponent))]
     public static class DialogueComponentSystem
     {
+        [Invoke]
+        [FriendOf(typeof (DialogueComponent))]
+        public class ReloadCallback: AInvokeHandler<ViewComponentReloadCallback>
+        {
+            public override void Handle(ViewComponentReloadCallback args)
+            {
+                DialogueComponent dialogueComponent = Root.Instance.Get(args.instanceId) as DialogueComponent;
+                dialogueComponent.Init();
+                dialogueComponent.token = new ETCancellationToken();
+                dialogueComponent.DialogueCor().Coroutine();
+            }
+        }
+
         public class DialogueComponentAwakeSystem: AwakeSystem<DialogueComponent>
         {
             protected override void Awake(DialogueComponent self)
             {
-                //这里不知道为什么不能使用UNITY_EDITOR
                 if (Application.isEditor)
                 {
-                    self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject.AddComponent<DialogueViewComponent>();
+                    DialogueViewComponent viewComponent = self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject
+                            .AddComponent<DialogueViewComponent>();
+                    viewComponent.instanceId = self.InstanceId;
                 }
             }
         }
@@ -25,15 +39,14 @@ namespace ET.Client
             {
                 self.Init();
                 self.token = new ETCancellationToken();
+                if (Application.isEditor)
+                {
+                    DialogueViewComponent viewComponent = self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject
+                            .GetComponent<DialogueViewComponent>();
+                    viewComponent.cloneTree.root.Status = Status.None;
+                    viewComponent.cloneTree.nodes.ForEach(node => { node.Status = Status.None; });
+                }
 
-                // if (Application.isEditor)
-                // {
-                //     //热重载更新Status
-                //     self.cloneTree.root.Status = Status.None;
-                //     self.cloneTree.nodes.ForEach(node => node.Status = Status.None);
-                // }
-                //
-                // if (self.tree == null) return;
                 self.DialogueCor().Coroutine();
             }
         }
@@ -43,43 +56,7 @@ namespace ET.Client
             protected override void Destroy(DialogueComponent self)
             {
                 self.Init();
-                self.cloneTree = null;
-                self.tree = null;
             }
-        }
-
-        public static void LoadTree(this DialogueComponent self, DialogueTree tree)
-        {
-            self.token?.Cancel();
-            self.token = new ETCancellationToken();
-            self.workQueue.Clear();
-
-            self.tree = tree;
-            if (Application.isEditor)
-            {
-                self.cloneTree = self.tree.DeepClone();
-                DialogueViewComponent view = self.GetParent<Unit>()
-                        .GetComponent<GameObjectComponent>().GameObject
-                        .GetComponent<DialogueViewComponent>();
-                view.cloneTree = self.cloneTree;
-                view.tree = self.tree;
-            }
-            else
-            {
-                // self.targets = self.tree.CloneTargets();
-            }
-
-            self.DialogueCor().Coroutine();
-        }
-
-        public static void LoadTree(this DialogueComponent self, string treeName)
-        {
-            self.token?.Cancel();
-            self.token = new ETCancellationToken();
-            self.workQueue.Clear();
-
-            self.targets = DialogueHelper.LoadDialogueTree(treeName, Language.Chinese);
-            self.DialogueCor().Coroutine();
         }
 
         private static void Init(this DialogueComponent self)
@@ -89,15 +66,22 @@ namespace ET.Client
             self.workQueue.Clear();
         }
 
-        public static async ETTask<Status> DialogueCor(this DialogueComponent self)
+        //运行时使用
+        public static void LoadTree(this DialogueComponent self, string treeName, Language language)
+        {
+            self.Init();
+            self.token = new ETCancellationToken();
+
+            self.targets = DialogueHelper.LoadDialogueTree(treeName, language);
+            self.DialogueCor().Coroutine();
+        }
+
+        public static async ETTask DialogueCor(this DialogueComponent self)
         {
             await TimerComponent.Instance.WaitFrameAsync();
-            
-            //压入根节点
-            DialogueNode node = self.targets[0];
+
+            DialogueNode node = self.GetNode(0); //压入根节点
             self.workQueue.Enqueue(node);
-            
-            Status status = Status.Success;
             Unit unit = self.GetParent<Unit>();
 
             try
@@ -105,39 +89,26 @@ namespace ET.Client
                 while (self.workQueue.Count != 0)
                 {
                     if (self.token.IsCancel()) break;
-                    //将下一个节点压入queue并执行
-                    node = self.workQueue.Dequeue();
+                    node = self.workQueue.Dequeue(); //将下一个节点压入queue执行
 
                     if (Application.isEditor) node.Status = Status.Pending;
-
                     Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, node, self.token);
-                    //携程取消 or 执行失败
-                    if (self.token.IsCancel() || ret == Status.Failed)
-                    {
-                        status = Status.Failed;
-                        if (Application.isEditor) node.Status = Status.Failed;
-                        break;
-                    }
+                    node.Status = ret;
 
-                    if (Application.isEditor) node.Status = Status.Success;
-                    //存档
-                    // DialogueStorageManager.Instance.QuickSaveShot.AddToBuffer(self.tree.treeID, node.TargetID);
+                    if (self.token.IsCancel() || ret == Status.Failed) break; //携程取消 or 执行失败
                     await TimerComponent.Instance.WaitFrameAsync(self.token);
                 }
-
-                self.Init();
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                node.Status = Status.Failed;
             }
-
-            return status;
         }
 
         public static DialogueNode GetNode(this DialogueComponent self, uint targetID)
         {
+            if (Application.isEditor)
+                return self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject.GetComponent<DialogueViewComponent>().GetNode(targetID);
             return self.targets[targetID];
         }
 

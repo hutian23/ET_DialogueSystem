@@ -192,7 +192,7 @@ namespace ET
 
             if (GUILayout.Button("刷新bson注册"))
             {
-                MongoHelper.Init();
+                BuildAssembliesHelper.MongoHelper_EditorInit();
             }
 
             GUILayout.Space(5);

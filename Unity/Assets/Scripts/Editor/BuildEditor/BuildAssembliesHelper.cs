@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
-using ET.Client;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Conventions;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Compilation;
@@ -17,15 +19,48 @@ namespace ET
         [UnityEditor.Callbacks.DidReloadScripts]
         private static void CreateAssetWhenReady()
         {
-            if(EditorApplication.isCompiling || EditorApplication.isUpdating)
+            if (EditorApplication.isCompiling || EditorApplication.isUpdating)
             {
                 EditorApplication.delayCall += CreateAssetWhenReady;
                 return;
             }
- 
-            EditorApplication.delayCall += MongoHelper.Init;
+
+            EditorApplication.delayCall += MongoHelper_EditorInit;
         }
-        
+
+        public static void MongoHelper_EditorInit()
+        {
+            if(Application.isPlaying) return;
+            // 清理老的数据
+            MethodInfo createSerializerRegistry = typeof (BsonSerializer).GetMethod("CreateSerializerRegistry", BindingFlags.Static | BindingFlags.NonPublic);
+            createSerializerRegistry.Invoke(null, Array.Empty<object>());
+            MethodInfo registerIdGenerators = typeof (BsonSerializer).GetMethod("RegisterIdGenerators", BindingFlags.Static | BindingFlags.NonPublic);
+            registerIdGenerators.Invoke(null, Array.Empty<object>());
+
+            // 自动注册IgnoreExtraElements
+            ConventionPack conventionPack = new() { new IgnoreExtraElementsConvention(true) };
+            ConventionRegistry.Register("IgnoreExtraElements", conventionPack, _ => true);
+
+            MongoHelper.RegisterStructs();
+
+            var types = AssemblyHelper.GetAssemblyTypes(typeof (Init).Assembly);
+            foreach (var type in types.Values)
+            {
+                if (!type.IsSubclassOf(typeof (Object)))
+                {
+                    continue;
+                }
+
+                if (type.IsGenericType)
+                {
+                    continue;
+                }
+
+                BsonClassMap.LookupClassMap(type);
+            }
+            Debug.Log("(editor)MongoHelper初始化完成");
+        }
+
         public static void BuildModel(CodeOptimization codeOptimization, GlobalConfig globalConfig)
         {
             List<string> codes;
@@ -123,8 +158,8 @@ namespace ET
         }
 
         private static void BuildMuteAssembly(
-            string assemblyName, List<string> CodeDirectorys,
-            string[] additionalReferences, CodeOptimization codeOptimization, CodeMode codeMode = CodeMode.Client)
+        string assemblyName, List<string> CodeDirectorys,
+        string[] additionalReferences, CodeOptimization codeOptimization, CodeMode codeMode = CodeMode.Client)
         {
             if (!Directory.Exists(Define.BuildOutputDir))
             {
@@ -134,8 +169,8 @@ namespace ET
             List<string> scripts = new List<string>();
             for (int i = 0; i < CodeDirectorys.Count; i++)
             {
-                DirectoryInfo dti = new DirectoryInfo(CodeDirectorys[i]);
-                FileInfo[] fileInfos = dti.GetFiles("*.cs", System.IO.SearchOption.AllDirectories);
+                DirectoryInfo dti = new(CodeDirectorys[i]);
+                FileInfo[] fileInfos = dti.GetFiles("*.cs", SearchOption.AllDirectories);
                 for (int j = 0; j < fileInfos.Length; j++)
                 {
                     scripts.Add(fileInfos[j].FullName);
@@ -153,16 +188,10 @@ namespace ET
 
             if (codeMode == CodeMode.Client)
             {
-                assemblyBuilder.excludeReferences = new string[]
+                assemblyBuilder.excludeReferences = new[]
                 {
-                    "DnsClient.dll", 
-                    "MongoDB.Driver.Core.dll", 
-                    "MongoDB.Driver.dll", 
-                    "MongoDB.Driver.Legacy.dll",
-                    "MongoDB.Libmongocrypt.dll", 
-                    "SharpCompress.dll", 
-                    "System.Buffers.dll", 
-                    "System.Runtime.CompilerServices.Unsafe.dll",
+                    "DnsClient.dll", "MongoDB.Driver.Core.dll", "MongoDB.Driver.dll", "MongoDB.Driver.Legacy.dll",
+                    "MongoDB.Libmongocrypt.dll", "SharpCompress.dll", "System.Buffers.dll", "System.Runtime.CompilerServices.Unsafe.dll",
                     "System.Text.Encoding.CodePages.dll"
                 };
             }
@@ -190,7 +219,7 @@ namespace ET
 
             assemblyBuilder.buildStarted += assemblyPath => Debug.LogFormat("build start：" + assemblyPath);
 
-            assemblyBuilder.buildFinished += (assemblyPath, compilerMessages) =>
+            assemblyBuilder.buildFinished += (_, compilerMessages) =>
             {
                 int errorCount = compilerMessages.Count(m => m.type == CompilerMessageType.Error);
                 int warningCount = compilerMessages.Count(m => m.type == CompilerMessageType.Warning);
@@ -215,7 +244,7 @@ namespace ET
                     }
                 }
             };
-            
+
             //开始构建
             if (!assemblyBuilder.Build())
             {
