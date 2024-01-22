@@ -83,7 +83,7 @@ namespace ET
 
         [StaticField]
         private static readonly JsonWriterSettings defaultSettings = new() { OutputMode = JsonOutputMode.RelaxedExtendedJson };
-        
+
         public static void Init()
         {
             // 清理老的数据
@@ -91,18 +91,18 @@ namespace ET
             createSerializerRegistry.Invoke(null, Array.Empty<object>());
             MethodInfo registerIdGenerators = typeof (BsonSerializer).GetMethod("RegisterIdGenerators", BindingFlags.Static | BindingFlags.NonPublic);
             registerIdGenerators.Invoke(null, Array.Empty<object>());
-            
+
             // 自动注册IgnoreExtraElements
-            ConventionPack conventionPack = new(){ new IgnoreExtraElementsConvention(true) };
-            ConventionRegistry.Register("IgnoreExtraElements", conventionPack, _=> true);
-            
+            ConventionPack conventionPack = new() { new IgnoreExtraElementsConvention(true) };
+            ConventionRegistry.Register("IgnoreExtraElements", conventionPack, _ => true);
+
             //结构体需要手动注册    
             RegisterStructs();
-            
+
             //检查继承关系
             bool IsEditor = false;
 #if UNITY
-            IsEditor = Application.isEditor;      
+            IsEditor = !Application.isPlaying;
 #endif
             if (IsEditor)
             {
@@ -118,11 +118,10 @@ namespace ET
                     {
                         continue;
                     }
-
                     BsonClassMap.LookupClassMap(type);
                 }
 #if UNITY
-                Debug.Log("(editor)MongoHelper初始化完成");       
+                Debug.Log("(editor)MongoHelper初始化完成");
 #endif
             }
             else
@@ -134,18 +133,18 @@ namespace ET
                     {
                         continue;
                     }
-                
+
                     if (type.IsGenericType)
                     {
                         continue;
                     }
-                
                     BsonClassMap.LookupClassMap(type);
                 }
+
                 Log.Debug("(runtime)MongoHelper初始化完成");
             }
         }
-        
+
         // https://et-framework.cn/d/33-mongobson
         private static void RegisterStructs()
         {
@@ -159,7 +158,7 @@ namespace ET
             RegisterStruct<Vector2Int>();
 #endif
         }
-        
+
         private static void RegisterStruct<T>() where T : struct
         {
             BsonSerializer.RegisterSerializer(typeof (T), new StructBsonSerialize<T>());

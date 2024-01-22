@@ -160,6 +160,12 @@ namespace ET.Client
             bsonDocument.Add(new BsonElement("Length", targets.Count));
             return bsonDocument;
         }
+
+        public void LoadModel()
+        {
+            Dictionary<string, UnityEngine.Object> dic = AssetsBundleHelper.LoadBundle("code.unity3d");
+            var assBytes = 
+        }
 #endif
     }
 }

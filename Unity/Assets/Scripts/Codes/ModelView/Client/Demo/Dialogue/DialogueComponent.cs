@@ -2,13 +2,16 @@
 
 namespace ET.Client
 {
-    [ComponentOf(typeof(Unit))]
-    public class DialogueComponent : Entity,IAwake,IDestroy,ILoad
+    [ComponentOf(typeof (Unit))]
+    public class DialogueComponent: Entity, IAwake, IDestroy, ILoad
     {
         public ETCancellationToken token;
+
+        public Dictionary<uint, DialogueNode> targets = new();
+
         public DialogueTree tree;
         public DialogueTree cloneTree;
-        // public DialogueTarget targets;
+
         public Queue<DialogueNode> workQueue = new();
     }
 }

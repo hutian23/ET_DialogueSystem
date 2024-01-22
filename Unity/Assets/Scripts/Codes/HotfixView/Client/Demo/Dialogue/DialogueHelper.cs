@@ -10,9 +10,9 @@ namespace ET.Client
     [FriendOf(typeof (DialogueComponent))]
     public static class DialogueHelper
     {
-        public static Dictionary<int, DialogueNode> LoadDialogueTree(string treeName, Language language)
+        public static Dictionary<uint, DialogueNode> LoadDialogueTree(string treeName, Language language)
         {
-            Dictionary<int, DialogueNode> targets = new();
+            Dictionary<uint, DialogueNode> targets = new();
 
             var file = Path.Combine(DialogueSettings.GetSettings().ExportPath, $"{treeName}.json");
             string jsonContent = File.ReadAllText(file);
@@ -26,8 +26,8 @@ namespace ET.Client
                 node.FromID((long)nodeDoc.GetValue("ID"));
 
                 var contentDoc = nodeDoc.GetValue("content").ToBsonDocument();
-                node.text = (string)contentDoc[(int)Language.Chinese];
-                targets.Add(i, node);
+                node.text = (string)contentDoc[(int)language];
+                targets.Add((uint)i, node);
             }
 
             return targets;

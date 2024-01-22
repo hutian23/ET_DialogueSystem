@@ -26,14 +26,14 @@ namespace ET.Client
                 self.Init();
                 self.token = new ETCancellationToken();
 
-                if (Application.isEditor)
-                {
-                    //热重载更新Status
-                    self.cloneTree.root.Status = Status.None;
-                    self.cloneTree.nodes.ForEach(node => node.Status = Status.None);
-                }
-
-                if (self.tree == null) return;
+                // if (Application.isEditor)
+                // {
+                //     //热重载更新Status
+                //     self.cloneTree.root.Status = Status.None;
+                //     self.cloneTree.nodes.ForEach(node => node.Status = Status.None);
+                // }
+                //
+                // if (self.tree == null) return;
                 self.DialogueCor().Coroutine();
             }
         }
@@ -72,6 +72,16 @@ namespace ET.Client
             self.DialogueCor().Coroutine();
         }
 
+        public static void LoadTree(this DialogueComponent self, string treeName)
+        {
+            self.token?.Cancel();
+            self.token = new ETCancellationToken();
+            self.workQueue.Clear();
+
+            self.targets = DialogueHelper.LoadDialogueTree(treeName, Language.Chinese);
+            self.DialogueCor().Coroutine();
+        }
+
         private static void Init(this DialogueComponent self)
         {
             self.token?.Cancel();
@@ -83,12 +93,13 @@ namespace ET.Client
         {
             await TimerComponent.Instance.WaitFrameAsync();
             
-            DialogueNode node = self.cloneTree.root;
+            //压入根节点
+            DialogueNode node = self.targets[0];
             self.workQueue.Enqueue(node);
             
             Status status = Status.Success;
             Unit unit = self.GetParent<Unit>();
-            
+
             try
             {
                 while (self.workQueue.Count != 0)
@@ -110,7 +121,7 @@ namespace ET.Client
 
                     if (Application.isEditor) node.Status = Status.Success;
                     //存档
-                    DialogueStorageManager.Instance.QuickSaveShot.AddToBuffer(self.tree.treeID, node.TargetID);
+                    // DialogueStorageManager.Instance.QuickSaveShot.AddToBuffer(self.tree.treeID, node.TargetID);
                     await TimerComponent.Instance.WaitFrameAsync(self.token);
                 }
 
@@ -127,14 +138,7 @@ namespace ET.Client
 
         public static DialogueNode GetNode(this DialogueComponent self, uint targetID)
         {
-            // DialogueNode node;
-            // if (UnityEngine.Application.isEditor)
-            //     self.cloneTree.targets.TryGetValue(targetID, out node);
-            // else
-            //     self.targets.targets.TryGetValue(targetID, out node);
-            // if (node == null) Log.Error($"not found target node! :{targetID}");
-            // return node;
-            return null;
+            return self.targets[targetID];
         }
 
         public static void PushNextNode(this DialogueComponent self, DialogueNode node)

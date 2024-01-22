@@ -1,6 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using Sirenix.OdinInspector.Editor;
+using Sirenix.Utilities;
 using UnityEditor;
 using UnityEngine;
 using File = System.IO.File;
@@ -43,7 +48,9 @@ namespace ET.Client
                 var file = Path.Combine(DialogueSettings.GetSettings().ExportPath, $"{tree.treeName}.json");
 
                 string jsonContent = File.ReadAllText(file);
-
+                BsonClassMap.LookupClassMap(typeof (DialogueNode));
+                
+                
                 BsonDocument doc = MongoHelper.FromJson<BsonDocument>(jsonContent);
                 var _v = doc["_v"];
                 int length = (int)_v["Length"];
@@ -55,7 +62,27 @@ namespace ET.Client
 
                     var contentDoc = nodeDoc.GetValue("content").ToBsonDocument();
                     node.text = (string)contentDoc[(int)Language.Chinese];
-                    Debug.Log(node.ToJson() + "  " + node.text);
+                    Debug.Log(MongoHelper.ToJson(node));
+                }
+            }
+
+            if (GUILayout.Button("程序集"))
+            {
+                if (!Application.isPlaying)
+                {
+                }
+                else
+                {
+                    // var types = EventSystem.Instance.GetTypes();
+                    // types.ForEach(type =>
+                    // {
+                    //     Debug.Log(type);
+                    // });
+                    var types = AssemblyHelper.GetAssemblyTypes(typeof (Game).Assembly);
+                    types.ForEach(type =>
+                    {
+                        Debug.Log(type);
+                    });
                 }
             }
         }

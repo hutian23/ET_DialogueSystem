@@ -25,7 +25,7 @@ namespace ET
     }
 
     [HideReferenceObjectPicker]
-    public abstract class DialogueNode
+    public abstract class DialogueNode : Object
     {
         [HideInInspector, ReadOnly]
         public uint TreeID;
