@@ -26,8 +26,7 @@ namespace ET.Client
             {
                 if (Application.isEditor)
                 {
-                    DialogueViewComponent viewComponent = self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject
-                            .AddComponent<DialogueViewComponent>();
+                    DialogueViewComponent viewComponent = self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject.AddComponent<DialogueViewComponent>();
                     viewComponent.instanceId = self.InstanceId;
                 }
             }
