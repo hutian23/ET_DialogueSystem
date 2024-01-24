@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
@@ -6,12 +7,14 @@ using UnityEngine;
 
 namespace ET.Client
 {
+    [Serializable]
     public class GroupNodeData
     {
         public DialogueNode node;
         public Vector2 localPosition;
     }
 
+    [Serializable]
     public class CommentBlockClone
     {
         private readonly CommentBlockData blockData;
@@ -30,6 +33,7 @@ namespace ET.Client
             {
                 //深拷贝节点
                 DialogueNode cloneNode = MongoHelper.Clone(nodeCache.node);
+                //记录节点在group中的相对位置
                 nodes.Add(new GroupNodeData() { node = cloneNode, localPosition = cloneNode.position - blockData.position });
 
                 for (int i = 0; i < nodeCache.outports.Count; i++)

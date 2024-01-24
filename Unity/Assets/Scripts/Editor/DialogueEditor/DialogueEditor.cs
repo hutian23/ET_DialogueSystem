@@ -12,14 +12,6 @@ public class DialogueEditor: OdinEditorWindow
     public InspectorView inspectorView;
     private Toolbar toolbar;
 
-    private EnumField enumField;
-    private Language _curLanguage;
-
-    public Language curLanguage
-    {
-        get => _curLanguage;
-    }
-
     public Toggle autoSaveToggle;
 
     public bool HasUnSave
@@ -44,8 +36,6 @@ public class DialogueEditor: OdinEditorWindow
         inspectorView = root.Q<InspectorView>();
 
         toolbar = root.Q<Toolbar>();
-        enumField = toolbar.Q<EnumField>();
-        enumField.Init(Language.Chinese);
         autoSaveToggle = toolbar.Q<ToolbarToggle>();
     }
 

@@ -69,7 +69,6 @@ namespace ET.Client
                     }
                 });
             }
-
             SetDirty();
             return graphViewChange;
         }
@@ -153,6 +152,7 @@ namespace ET.Client
             evt.menu.AppendAction("复制", _ => this.Copy());
             evt.menu.AppendAction("黏贴", _ => this.Paste());
             evt.menu.AppendSeparator();
+            evt.menu.AppendAction("保存",_ => this.SaveDialogueTree());
             evt.menu.AppendAction("撤销", _ => this.OnRedo());
         }
 
