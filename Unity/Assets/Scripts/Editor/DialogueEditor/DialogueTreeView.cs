@@ -69,6 +69,7 @@ namespace ET.Client
                     }
                 });
             }
+
             SetDirty();
             return graphViewChange;
         }
@@ -93,7 +94,7 @@ namespace ET.Client
                 tree.root = rootNode;
                 rootNode.position = new Vector2(100, 200);
             }
-            
+
             //注意!!! 深拷贝之后，如果rootNode在nodes中，则会有两个rootNode(tree.Root和nodes中的)
             //这里rootNode的视图和连线要额外处理
             CreateNodeView(tree.root);
@@ -152,7 +153,7 @@ namespace ET.Client
             evt.menu.AppendAction("复制", _ => this.Copy());
             evt.menu.AppendAction("黏贴", _ => this.Paste());
             evt.menu.AppendSeparator();
-            evt.menu.AppendAction("保存",_ => this.SaveDialogueTree());
+            evt.menu.AppendAction("保存", _ => this.SaveDialogueTree());
             evt.menu.AppendAction("撤销", _ => this.OnRedo());
         }
 
@@ -314,7 +315,9 @@ namespace ET.Client
         private void CreateNodeView(DialogueNode node)
         {
             var nodeEditorType = NodeEditorRegistry.LookUpNodeEditor(node.GetType());
-            var nodeEditor = Activator.CreateInstance(nodeEditorType, args: new object[] { node, this }) as NodeEditorBase<DialogueNode>;
+            var nodeEditor = Activator.CreateInstance(nodeEditorType, args: new object[] { node, this }) as Node;
+            nodeEditor.SetPosition(new Rect(node.position, DefaultNodeSize));
+            AddElement(nodeEditor);
             // Assembly assembly = typeof (DialogueNodeView).Assembly;
             // //dialogueNodeView的子类
             // List<Type> ret = assembly.GetTypes().Where(type => type.IsClass && type.IsSubclassOf(typeof (DialogueNodeView))).ToList();

@@ -12,17 +12,18 @@ namespace ET.Client
     public static class NodeEditorRegistry
     {
         private static readonly Dictionary<Type, Type> NodeClassMap = new();
-        
+
         public static Type LookUpNodeEditor(Type type)
         {
             if (NodeClassMap.TryGetValue(type, out Type editorType))
             {
                 return editorType;
             }
+
             Debug.LogError($"not found editorType of{type}");
             return null;
         }
-        
+
         [UnityEditor.Callbacks.DidReloadScripts]
         private static void CreateAssetWhenReady()
         {
@@ -31,7 +32,7 @@ namespace ET.Client
                 EditorApplication.delayCall += CreateAssetWhenReady;
                 return;
             }
-            
+
             EditorApplication.delayCall += RegisterNodeEditor;
         }
 
@@ -57,33 +58,28 @@ namespace ET.Client
     }
 
     [NodeView]
-    public abstract class NodeEditorBase<T> : Node where T : DialogueNode
+    public abstract class NodeEditorBase<T>: Node where T : DialogueNode
     {
-        public Type NominalType
+        private Type NominalType
         {
             get => typeof (T);
         }
 
-        public void SetTarget(DialogueNode dialogueNode)
-        {
-            if (node.GetType() == NominalType) node = dialogueNode as T;
-        }
-
         protected T node;
 
-        public Port input;
-        public readonly List<Port> outports = new();
-        private TextField TextField;
+        private readonly List<Port> ports = new();
         protected DialogueTreeView treeView;
 
-        public NodeEditorBase(DialogueNode dialogueNode, DialogueTreeView dialogueTreeView)
+        protected NodeEditorBase(DialogueNode dialogueNode, DialogueTreeView dialogueTreeView)
         {
-            if(node.GetType() != this.NominalType) Debug.LogError($"{node} is cannot convert to {NominalType}");
+            if (dialogueNode.GetType() != this.NominalType) Debug.LogError($"{dialogueNode} is cannot convert to {NominalType}");
             node = dialogueNode as T;
             viewDataKey = node.Guid;
             styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/Resource/NodeView.uss"));
             treeView = dialogueTreeView;
             title = GetNodeTitle();
+
+            SaveCallback += SavePos;
         }
 
         private string GetNodeTitle()
@@ -95,13 +91,13 @@ namespace ET.Client
             string id = node.TargetID <= 0? "_" : node.TargetID.ToString();
             return $"[{id}]  {attr.Level.Substring(lastIndex + 1)}";
         }
-        
+
         private void SavePos()
         {
             node.position.x = GetPosition().xMin;
             node.position.y = GetPosition().yMin;
         }
-        
+
         /// <summary>
         /// 任何nodeview都只有一个InputPort
         /// </summary>
@@ -117,10 +113,10 @@ namespace ET.Client
             port.portColor = Color.cyan;
             port.portName = portName;
             inputContainer.Add(port);
-            input = port;
+            ports.Add(port);
             return port;
         }
-        
+
         protected Port GenerateOutputPort(string portName, bool allowMulti = false)
         {
             Port port = InstantiatePort(Orientation.Horizontal,
@@ -130,10 +126,10 @@ namespace ET.Client
             port.portColor = Color.cyan;
             port.portName = portName;
             outputContainer.Add(port);
-            outports.Add(port);
+            ports.Add(port);
             return port;
         }
-        
+
         protected uint GetFirstLinkNode(Port output)
         {
             foreach (var edge in output.connections)
@@ -144,8 +140,7 @@ namespace ET.Client
 
             return 0;
         }
-        
-        
+
         /// <summary>
         /// 返回相连节点的TargetID
         /// </summary>
@@ -160,7 +155,7 @@ namespace ET.Client
                     .Select(dialogueNode => dialogueNode.TargetID)
                     .ToList();
         }
-        
+
         public Action SaveCallback;
 
         public DialogueNode Clone()

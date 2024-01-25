@@ -71,8 +71,13 @@ static class Program
         
     }
     
+    public abstract class Base
+    {
+        
+    }
+    
     [Test]
-    public abstract class NodeEditorBase<T> : NodeEditorInter where T : test
+    public abstract class NodeEditorBase<T> : Base where T : test
     {
         public Type NodeType
         {
@@ -90,7 +95,8 @@ static class Program
         Console.WriteLine(typeof(RootNodeEditor).GetCustomAttribute(typeof(TestAttribute)));
         Console.WriteLine(typeof(RootNodeEditor).IsGenericTypeParameter);
         Console.WriteLine(typeof(NodeEditorBase<>).GetGenericArguments());
-        var obj= Activator.CreateInstance(typeof (RootNodeEditor)) as NodeEditorInter;
+        var obj= Activator.CreateInstance(typeof (RootNodeEditor)) as Base;
+        Console.WriteLine((obj==null));
         // var types = typeof (RootNodeEditor).BaseType.GetGenericArguments();
         // foreach (var type in types)
         // {
