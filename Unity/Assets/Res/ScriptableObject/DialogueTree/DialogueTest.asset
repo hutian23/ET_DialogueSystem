@@ -581,10 +581,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 868
+      Data: 871
     - Name: 
       Entry: 4
-      Data: 388
+      Data: 390
     - Name: 
       Entry: 8
       Data: 
@@ -694,10 +694,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 346
+      Data: 278
     - Name: 
       Entry: 4
-      Data: 211
+      Data: 200
     - Name: 
       Entry: 8
       Data: 
@@ -798,7 +798,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 608
+      Data: 532
     - Name: 
       Entry: 4
       Data: 162
@@ -902,10 +902,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 1183
+      Data: 1206
     - Name: 
       Entry: 4
-      Data: 163
+      Data: 162
     - Name: 
       Entry: 8
       Data: 
@@ -1107,10 +1107,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 589
+      Data: 532
     - Name: 
       Entry: 4
-      Data: 337
+      Data: 325
     - Name: 
       Entry: 8
       Data: 
@@ -2680,20 +2680,20 @@ MonoBehaviour:
   treeName: DialogueTest
   treeID: 1
   blockDatas:
-  - position: {x: 321, y: 101}
+  - position: {x: 253.00002, y: 101.00001}
     title: "\u6D4B\u8BD5"
     children:
-    - 5fa5eff8c2be0e8408fe3b8901b7678a
     - 51df05a50ce8c924e8d4490c13e97150
     - 37c7f8ce1516aa74da5d988afa80c313
     - 5d1c069e53c207a4992e29ee23f44579
     - 442fd14a275ad0a408f5b3679fa3f61c
-  - position: {x: 1158, y: -30}
+    - 5fa5eff8c2be0e8408fe3b8901b7678a
+  - position: {x: 1181.0001, y: -30.000004}
     title: "\u6D4B\u8BD5"
     children:
     - decbbd02111575b41aff403b08171bf9
     - 28282470c562aa24d88c104f87fffada
-  - position: {x: 287, y: 936}
+  - position: {x: 286.99997, y: 936.00006}
     title: "\u6D4B\u8BD52"
     children:
     - e7fda0e149ad45d4b8e3d65db446a882
@@ -2701,7 +2701,7 @@ MonoBehaviour:
     - 7acfce432bb037a46bd8bfa1cf34d251
     - 21477759a3407e34eabb6f506514f8a4
     - 6000ac9065118bc42812c571b8adb732
-  - position: {x: 1192, y: 470}
+  - position: {x: 1192.0001, y: 470}
     title: "\u6D4B\u8BD5"
     children:
     - 12dabad7d7cd27141ae185305e03b7ee

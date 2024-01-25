@@ -2,11 +2,12 @@
 
 namespace ET.Client
 {
-    [NodeEditorOf(typeof (RootNode))]
-    public sealed class RootNodeView: DialogueNodeView
+    public sealed class RootNodeEditor : NodeEditorBase<RootNode>
     {
-        public RootNodeView(DialogueNode node,DialogueTreeView treeView): base(node,treeView)
-        { 
+        public Port test;
+
+        public RootNodeEditor(DialogueNode dialogueNode, DialogueTreeView dialogueTreeView): base(dialogueNode, dialogueTreeView)
+        {
             capabilities &= ~ Capabilities.Movable;
             capabilities &= ~ Capabilities.Deletable;
 

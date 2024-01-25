@@ -313,24 +313,26 @@ namespace ET.Client
 
         private void CreateNodeView(DialogueNode node)
         {
-            Assembly assembly = typeof (DialogueNodeView).Assembly;
-            //dialogueNodeView的子类
-            List<Type> ret = assembly.GetTypes().Where(type => type.IsClass && type.IsSubclassOf(typeof (DialogueNodeView))).ToList();
-            foreach (var nodeViewType in ret)
-            {
-                NodeEditorOfAttribute attr = nodeViewType.GetCustomAttribute(typeof (NodeEditorOfAttribute)) as NodeEditorOfAttribute;
-                if (attr == null)
-                {
-                    Debug.LogError($"请添加NodeEditor标签!!!: {nodeViewType}");
-                }
-
-                if (attr.nodeType == node.GetType())
-                {
-                    DialogueNodeView nodeView = Activator.CreateInstance(nodeViewType, args: new object[] { node, this }) as DialogueNodeView;
-                    nodeView.SetPosition(new Rect(node.position, DefaultNodeSize));
-                    AddElement(nodeView);
-                }
-            }
+            var nodeEditorType = NodeEditorRegistry.LookUpNodeEditor(node.GetType());
+            var nodeEditor = Activator.CreateInstance(nodeEditorType, args: new object[] { node, this }) as NodeEditorBase<DialogueNode>;
+            // Assembly assembly = typeof (DialogueNodeView).Assembly;
+            // //dialogueNodeView的子类
+            // List<Type> ret = assembly.GetTypes().Where(type => type.IsClass && type.IsSubclassOf(typeof (DialogueNodeView))).ToList();
+            // foreach (var nodeViewType in ret)
+            // {
+            //     NodeEditorOfAttribute attr = nodeViewType.GetCustomAttribute(typeof (NodeEditorOfAttribute)) as NodeEditorOfAttribute;
+            //     if (attr == null)
+            //     {
+            //         Debug.LogError($"请添加NodeEditor标签!!!: {nodeViewType}");
+            //     }
+            //
+            //     if (attr.nodeType == node.GetType())
+            //     {
+            //         DialogueNodeView nodeView = Activator.CreateInstance(nodeViewType, args: new object[] { node, this }) as DialogueNodeView;
+            //         nodeView.SetPosition(new Rect(node.position, DefaultNodeSize));
+            //         AddElement(nodeView);
+            //     }
+            // }
         }
 
         private void SaveNodes()

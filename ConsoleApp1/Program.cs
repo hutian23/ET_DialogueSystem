@@ -1,4 +1,5 @@
 ﻿
+using System.Reflection;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
@@ -6,6 +7,7 @@ using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Options;
 using MongoDB.Bson.Serialization.Serializers;
+using UnityEngine;
 
 static class Program
 {
@@ -21,6 +23,11 @@ static class Program
 
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
         public Dictionary<int, string> dic = new() { { 1, "2323" } };
+    }
+    
+    public class test2:test
+    {
+        
     }
 
     public class User2: User
@@ -49,19 +56,57 @@ static class Program
         test2
     }
     
+    public class TestAttribute : Attribute
+    {
+        
+    }
+    
+    public class NodeTest<T> where T : test
+    {
+        
+    }
+    
+    public interface NodeEditorInter
+    {
+        
+    }
+    
+    [Test]
+    public abstract class NodeEditorBase<T> : NodeEditorInter where T : test
+    {
+        public Type NodeType
+        {
+            get => typeof(RootNodeEditor);
+        }
+    }
+    
+    
+    public class RootNodeEditor : NodeEditorBase<test2>
+    {
+    }
     
     public static void Main()
     {
-        BsonDocument doc = new BsonDocument();
-        Dictionary<Test, string> dic = new();
-        dic.Add(Test.test1,"2323");
-        dic.Add(Test.test2,"22323");
-        foreach ((Test key, string value) in dic)
-        {
-            doc.Add(new BsonElement(key.ToString(), value));
-        }
-        Console.WriteLine(doc);
-        Console.WriteLine(new test().ToJson());
+        Console.WriteLine(typeof(RootNodeEditor).GetCustomAttribute(typeof(TestAttribute)));
+        Console.WriteLine(typeof(RootNodeEditor).IsGenericTypeParameter);
+        Console.WriteLine(typeof(NodeEditorBase<>).GetGenericArguments());
+        var obj= Activator.CreateInstance(typeof (RootNodeEditor)) as NodeEditorInter;
+        // var types = typeof (RootNodeEditor).BaseType.GetGenericArguments();
+        // foreach (var type in types)
+        // {
+        //     Console.WriteLine(type);
+        // }
+        // Console.WriteLine(typeof(RootNodeEditor).IsSubclassOf(typeof(NodeEditorBase<test>)));
+        // BsonDocument doc = new BsonDocument();
+        // Dictionary<Test, string> dic = new();
+        // dic.Add(Test.test1,"2323");
+        // dic.Add(Test.test2,"22323");
+        // foreach ((Test key, string value) in dic)
+        // {
+        //     doc.Add(new BsonElement(key.ToString(), value));
+        // }
+        // Console.WriteLine(doc);
+        // Console.WriteLine(new test().ToJson());
         // string input = "# 角色1\nVN_RegisterCharacter ch = Celika unitId = 1002; #Hello worldtewtew # 1231312313131123\nVN_Position ch = Celika type = Left;\n\n# 角色2\nVN_RegisterCharacter ch = Celika2 unitId = 1002;\nVN_Position ch = Celika2 type = Right;\nVN_Flip ch = Celika2 type = Left;";
         //
         // // 按行分割字符串
