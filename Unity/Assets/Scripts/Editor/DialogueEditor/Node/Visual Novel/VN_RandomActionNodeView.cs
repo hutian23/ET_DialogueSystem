@@ -2,22 +2,13 @@
 
 namespace ET.Client
 {
-    [NodeEditorOf(typeof (VN_RandomActionNode))]
-    public class VN_RandomActionNodeView: DialogueNodeView
+    public sealed class VN_RandomActionNodeView: DialogueNodeView<VN_RandomActionNode>
     {
-        private readonly Port port;
-
-        public VN_RandomActionNodeView(DialogueNode dialogueNode, DialogueTreeView dialogueTreeView): base(dialogueNode, dialogueTreeView)
+        public VN_RandomActionNodeView(VN_RandomActionNode dialogueNode, DialogueTreeView dialogueTreeView): base(dialogueNode, dialogueTreeView)
         {
-            this.GenerateInputPort("", true);
-            port = this.GenerateOutputPort("");
-            this.SaveCallback += this.Save;
-        }
-
-        private void Save()
-        {
-            if (node is not VN_RandomActionNode randomActionNode) return;
-            randomActionNode.children = this.GetLinkNodes(port);
+            GenerateInputPort("", true);
+            Port port = GenerateOutputPort("");
+            SaveCallback += () => { dialogueNode.children = GetLinkNodes(port); };
         }
     }
 }

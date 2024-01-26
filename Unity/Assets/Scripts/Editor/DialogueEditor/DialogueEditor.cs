@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 public class DialogueEditor: OdinEditorWindow
 {
     private DialogueTreeView treeView;
+    public DialogueViewComponent ViewComponent;
     public InspectorView inspectorView;
     private Toolbar toolbar;
 
@@ -44,6 +45,16 @@ public class DialogueEditor: OdinEditorWindow
         DialogueEditor wnd = GetWindow<DialogueEditor>();
         wnd.titleContent = new GUIContent("DialogueEditor");
         wnd.tree = dialogueTree;
+        wnd.ViewComponent = null;
+        wnd.treeView.PopulateView(wnd.tree, wnd);
+    }
+
+    public static void OpenWindow(DialogueTree dialogueTree, DialogueViewComponent viewComponent)
+    {
+        DialogueEditor wnd = GetWindow<DialogueEditor>();
+        wnd.titleContent = new GUIContent("DialogueEditor");
+        wnd.tree = dialogueTree;
+        wnd.ViewComponent = viewComponent;
         wnd.treeView.PopulateView(wnd.tree, wnd);
     }
 

@@ -7,6 +7,15 @@ namespace ET
     public struct ViewComponentReloadCallback
     {
         public long instanceId;
+        public int ReloadType;
+        public DialogueNode preViewNode;
+    }
+
+    public static class ViewReloadType
+    {
+        public const int None = 0;
+        public const int Reload = 1; //重新加载对话树，从头开始
+        public const int Preview = 2; // 预览单个节点，需要执行rootNode的初始化
     }
     
     public class DialogueViewComponent: MonoBehaviour

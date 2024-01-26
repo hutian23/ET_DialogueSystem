@@ -1,12 +1,11 @@
 ﻿using UnityEditor.Experimental.GraphView;
 namespace ET.Client
 {
-    [NodeEditorOf(typeof (InterrogateNode))]
-    public class InterrogateNodeView: DialogueNodeView
+    public sealed class InterrogateNodeView: DialogueNodeView<InterrogateNode>
     {
         private readonly Port holditPort, successPort, failedPort, nextsPort;
 
-        public InterrogateNodeView(DialogueNode dialogueNode, DialogueTreeView dialogueTreeView): base(dialogueNode, dialogueTreeView)
+        public InterrogateNodeView(InterrogateNode dialogueNode, DialogueTreeView dialogueTreeView): base(dialogueNode, dialogueTreeView)
         {
             GenerateInputPort("", true);
             nextsPort = GenerateOutputPort("下一个: ", true);
@@ -14,7 +13,7 @@ namespace ET.Client
             successPort = GenerateOutputPort("出示(检定成功): ");
             failedPort = GenerateOutputPort("出示(检定失败): ");
             
-            this.SaveCallback += Save;
+            SaveCallback += Save;
         }
 
         private void Save()

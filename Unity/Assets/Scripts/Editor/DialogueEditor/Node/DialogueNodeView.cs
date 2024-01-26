@@ -9,16 +9,6 @@ using UnityEngine.UIElements;
 
 namespace ET.Client
 {
-    public class NodeEditorOfAttribute: Attribute
-    {
-        public Type nodeType;
-
-        public NodeEditorOfAttribute(Type type)
-        {
-            nodeType = type;
-        }
-    }
-
     public abstract class DialogueNodeView: Node
     {
         public DialogueNode node;
@@ -35,6 +25,7 @@ namespace ET.Client
             styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/Resource/NodeView.uss"));
             treeView = dialogueTreeView;
             title = GetNodeTitle();
+
             SaveCallback += SavePos;
         }
 
@@ -53,7 +44,7 @@ namespace ET.Client
             node.position.x = GetPosition().xMin;
             node.position.y = GetPosition().yMin;
         }
-        
+
         /// <summary>
         /// 任何nodeview都只有一个InputPort
         /// </summary>
@@ -117,6 +108,15 @@ namespace ET.Client
         public DialogueNode Clone()
         {
             return this.node.Clone();
+        }
+    }
+
+    public abstract class DialogueNodeView<T>: DialogueNodeView where T : DialogueNode
+    {
+        public Type NominalType => typeof (T);
+        
+        protected DialogueNodeView(T dialogueNode, DialogueTreeView dialogueTreeView): base(dialogueNode, dialogueTreeView)
+        {
         }
     }
 }

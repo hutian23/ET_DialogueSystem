@@ -487,6 +487,7 @@ GameObject:
   - component: {fileID: 575235020}
   - component: {fileID: 575235022}
   - component: {fileID: 575235019}
+  - component: {fileID: 575235023}
   m_Layer: 0
   m_Name: Global
   m_TagString: Untagged
@@ -547,6 +548,22 @@ MonoBehaviour:
     gameObject: {fileID: 11400000, guid: 30611a83bdc69cd4ebe6d69867f0f9a5, type: 2}
   - key: Dialogue
     gameObject: {fileID: 11400000, guid: 9e249e177010cff458ead71d5795764c, type: 2}
+--- !u!114 &575235023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575235018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1616f5631c419ab4c974510dc2f1edab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instanceId: 0
+  Language: 0
+  tree: {fileID: 0}
+  cloneTree: {fileID: 0}
 --- !u!1 &1114695592
 GameObject:
   m_ObjectHideFlags: 0

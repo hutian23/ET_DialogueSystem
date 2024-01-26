@@ -2,26 +2,19 @@
 
 namespace ET.Client
 {
-    [NodeEditorOf(typeof (Angry_ChoiceNode))]
-    public sealed class Angry_ChoiceNodeView: DialogueNodeView
+    public sealed class Angry_ChoiceNodeView: DialogueNodeView<Angry_ChoiceNode>
     {
-        private readonly Port Angry;
-        private readonly Port Normal;
-
-        public Angry_ChoiceNodeView(DialogueNode node, DialogueTreeView treeView): base(node, treeView)
+        public Angry_ChoiceNodeView(Angry_ChoiceNode node, DialogueTreeView treeView): base(node, treeView)
         {
             GenerateInputPort("", true);
-            Angry = GenerateOutputPort("in anger", true);
-            Normal = GenerateOutputPort("normal", true);
+            Port Angry = GenerateOutputPort("in anger", true);
+            Port Normal = GenerateOutputPort("normal", true);
 
-            SaveCallback += Save;
-        }
-
-        private void Save()
-        {
-            if (!(node is Angry_ChoiceNode angryChoiceNode)) return;
-            angryChoiceNode.Angrys = GetLinkNodes(Angry);
-            angryChoiceNode.Normal = GetLinkNodes(Normal);
+            SaveCallback += () =>
+            {
+                node.Angrys = GetLinkNodes(Angry);
+                node.Normal = GetLinkNodes(Normal);
+            };
         }
     }
 }

@@ -97,6 +97,7 @@ static class Program
         Console.WriteLine(typeof(NodeEditorBase<>).GetGenericArguments());
         var obj= Activator.CreateInstance(typeof (RootNodeEditor)) as Base;
         Console.WriteLine((obj==null));
+        Console.WriteLine(obj.GetType().BaseType);
         // var types = typeof (RootNodeEditor).BaseType.GetGenericArguments();
         // foreach (var type in types)
         // {

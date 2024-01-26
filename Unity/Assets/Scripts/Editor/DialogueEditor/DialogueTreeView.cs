@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -132,6 +131,20 @@ namespace ET.Client
                     case DialogueNodeView nodeView:
 
                         evt.menu.AppendAction("移除组", _ => { RemoveNodeFromGroup(nodeView); });
+                        if (Application.isPlaying)
+                        {
+                            evt.menu.AppendAction("预览", _ =>
+                            {
+                                if (window.ViewComponent == null) return;
+                                EventSystem.Instance.Invoke(new ViewComponentReloadCallback()
+                                {
+                                    instanceId = window.ViewComponent.instanceId,
+                                    ReloadType = ViewReloadType.Preview,
+                                    preViewNode = nodeView.node
+                                });
+                            });
+                        }
+
                         break;
                 }
             }
@@ -314,28 +327,10 @@ namespace ET.Client
 
         private void CreateNodeView(DialogueNode node)
         {
-            var nodeEditorType = NodeEditorRegistry.LookUpNodeEditor(node.GetType());
+            var nodeEditorType = NodeViewRegistry.LookUpNodeEditor(node.GetType());
             var nodeEditor = Activator.CreateInstance(nodeEditorType, args: new object[] { node, this }) as Node;
             nodeEditor.SetPosition(new Rect(node.position, DefaultNodeSize));
             AddElement(nodeEditor);
-            // Assembly assembly = typeof (DialogueNodeView).Assembly;
-            // //dialogueNodeView的子类
-            // List<Type> ret = assembly.GetTypes().Where(type => type.IsClass && type.IsSubclassOf(typeof (DialogueNodeView))).ToList();
-            // foreach (var nodeViewType in ret)
-            // {
-            //     NodeEditorOfAttribute attr = nodeViewType.GetCustomAttribute(typeof (NodeEditorOfAttribute)) as NodeEditorOfAttribute;
-            //     if (attr == null)
-            //     {
-            //         Debug.LogError($"请添加NodeEditor标签!!!: {nodeViewType}");
-            //     }
-            //
-            //     if (attr.nodeType == node.GetType())
-            //     {
-            //         DialogueNodeView nodeView = Activator.CreateInstance(nodeViewType, args: new object[] { node, this }) as DialogueNodeView;
-            //         nodeView.SetPosition(new Rect(node.position, DefaultNodeSize));
-            //         AddElement(nodeView);
-            //     }
-            // }
         }
 
         private void SaveNodes()

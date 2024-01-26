@@ -1,11 +1,10 @@
 ﻿namespace ET.Client
 {
-    [NodeEditorOf(typeof(BubbleActionNode))]
-    public sealed class BubbleActionNodeView : DialogueNodeView
+    public sealed class BubbleActionNodeView : DialogueNodeView<BubbleActionNode>
     {
-        public BubbleActionNodeView(DialogueNode node,DialogueTreeView treeView): base(node,treeView)
+        public BubbleActionNodeView(BubbleActionNode node,DialogueTreeView treeView): base(node,treeView)
         {
-            this.GenerateInputPort("");
+            GenerateInputPort("");
         }
     }
 }

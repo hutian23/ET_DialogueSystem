@@ -3,28 +3,18 @@ using UnityEngine.UIElements;
 
 namespace ET.Client
 {
-    [NodeEditorOf(typeof (GotoNode))]
-    public sealed class GotoNodeView: DialogueNodeView
+    public sealed class GotoNodeView: DialogueNodeView<GotoNode>
     {
-        private readonly IntegerField intField;
-
-        public GotoNodeView(DialogueNode dialogueNode, DialogueTreeView dialogueTreeView): base(dialogueNode, dialogueTreeView)
+        public GotoNodeView(GotoNode dialogueNode, DialogueTreeView dialogueTreeView): base(dialogueNode, dialogueTreeView)
         {
             GenerateInputPort("", true);
 
-            intField = new IntegerField("选择跳转的节点: ");
-            GotoNode gotoNode = dialogueNode as GotoNode;
-            intField.SetValueWithoutNotify(gotoNode.Goto_targetID);
+            IntegerField intField = new("选择跳转的节点: ");
+            intField.SetValueWithoutNotify(dialogueNode.Goto_targetID);
             intField.RegisterCallback<BlurEvent>(_ => treeView.SetDirty());
 
             contentContainer.Add(intField);
-            SaveCallback += Save;
-        }
-        
-        private void Save()
-        {
-            GotoNode gotoNode = node as GotoNode;
-            gotoNode.Goto_targetID = intField.value;
+            SaveCallback += () => { dialogueNode.Goto_targetID = intField.value; };
         }
     }
 }

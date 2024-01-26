@@ -2,22 +2,14 @@
 
 namespace ET.Client
 {
-    [NodeEditorOf(typeof(BubbleBaseNode))]
-    public sealed class BubbleBaseNodeView : DialogueNodeView
+    public sealed class BubbleBaseNodeView : DialogueNodeView<BubbleBaseNode>
     {
-        private readonly Port bubbles;
         
-        public BubbleBaseNodeView(DialogueNode node,DialogueTreeView treeView): base(node,treeView)
+        public BubbleBaseNodeView(BubbleBaseNode node,DialogueTreeView treeView): base(node,treeView)
         {
             GenerateInputPort("",true);
-            bubbles = GenerateOutputPort("Bubbles", true);
-            SaveCallback += Save;
-        }
-        
-        private void Save()
-        {
-            if(!(node is BubbleBaseNode bubbleBaseNode)) return;
-            bubbleBaseNode.bubbles = GetLinkNodes(bubbles);
+            Port bubbles = GenerateOutputPort("Bubbles", true);
+            SaveCallback += () => { node.bubbles = GetLinkNodes(bubbles);};
         }
     }
 }

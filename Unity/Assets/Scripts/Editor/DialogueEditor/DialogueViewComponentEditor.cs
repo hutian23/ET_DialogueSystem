@@ -14,7 +14,11 @@ namespace ET.Client
             {
                 if (this.target is not DialogueViewComponent component || component.tree == null) return;
                 component.cloneTree = component.tree.DeepClone();
-                if (Application.isPlaying) EventSystem.Instance.Invoke(new ViewComponentReloadCallback() { instanceId = component.instanceId });
+                if (Application.isPlaying)
+                    EventSystem.Instance.Invoke(new ViewComponentReloadCallback()
+                    {
+                        instanceId = component.instanceId, ReloadType = ViewReloadType.Reload
+                    });
             }
 
             if (GUILayout.Button("对话树视图"))

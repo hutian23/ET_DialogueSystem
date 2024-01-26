@@ -13,10 +13,19 @@ namespace ET.Client
         {
             public override void Handle(ViewComponentReloadCallback args)
             {
+                if (!Application.isEditor) return;
+
                 DialogueComponent dialogueComponent = Root.Instance.Get(args.instanceId) as DialogueComponent;
                 dialogueComponent.Init();
                 dialogueComponent.token = new ETCancellationToken();
-                dialogueComponent.DialogueCor().Coroutine();
+                switch (args.ReloadType)
+                {
+                    case ViewReloadType.Preview:
+                        break;
+                    default:
+                        dialogueComponent.DialogueCor().Coroutine();
+                        break;
+                }
             }
         }
 
@@ -26,7 +35,8 @@ namespace ET.Client
             {
                 if (Application.isEditor)
                 {
-                    DialogueViewComponent viewComponent = self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject.AddComponent<DialogueViewComponent>();
+                    DialogueViewComponent viewComponent = self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject
+                            .AddComponent<DialogueViewComponent>();
                     viewComponent.instanceId = self.InstanceId;
                 }
             }
@@ -75,6 +85,11 @@ namespace ET.Client
             self.DialogueCor().Coroutine();
         }
 
+        private static async ETTask PreviewCor(this DialogueComponent self, DialogueNode preViewNode)
+        {
+            
+        }
+        
         public static async ETTask DialogueCor(this DialogueComponent self)
         {
             await TimerComponent.Instance.WaitFrameAsync();

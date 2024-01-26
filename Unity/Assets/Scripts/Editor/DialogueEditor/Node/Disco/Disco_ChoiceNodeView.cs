@@ -2,13 +2,12 @@
 
 namespace ET.Client
 {
-    [NodeEditorOf(typeof (Disco_ChoiceNode))]
-    public sealed class Disco_ChoiceNodeView: DialogueNodeView
+    public sealed class Disco_ChoiceNodeView: DialogueNodeView<Disco_ChoiceNode>
     {
         private readonly Port SuccessPort;
         private readonly Port FailedPort;
         
-        public Disco_ChoiceNodeView(DialogueNode node,DialogueTreeView treeView): base(node,treeView)
+        public Disco_ChoiceNodeView(Disco_ChoiceNode node,DialogueTreeView treeView): base(node,treeView)
         {
             GenerateInputPort("", true);
             SuccessPort = GenerateOutputPort("检定成功");

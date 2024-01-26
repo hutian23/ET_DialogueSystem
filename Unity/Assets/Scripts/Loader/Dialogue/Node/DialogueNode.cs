@@ -36,10 +36,14 @@ namespace ET
         [FoldoutGroup("$nodeName")]
         public bool NeedCheck = false;
 
-        [FoldoutGroup("$nodeName"), ShowIf("NeedCheck")]
+        [FoldoutGroup("$nodeName"), ShowIf("NeedCheck"),LabelText("前置条件: ")]
         public List<NodeCheckConfig> checkList = new();
 
-        [FoldoutGroup("$nodeName"), Title(title: "脚本", bold: true), HideLabel, TextArea(10, 35)]
+        [FoldoutGroup("$nodeName"), LabelText("显示脚本: ")]
+        [BsonIgnore]
+        public bool ShowScript;
+        
+        [FoldoutGroup("$nodeName"), HideLabel, TextArea(10, 35),ShowIf("ShowScript")]
         public string Script = "";
 
         [HideInInspector, BsonIgnore]

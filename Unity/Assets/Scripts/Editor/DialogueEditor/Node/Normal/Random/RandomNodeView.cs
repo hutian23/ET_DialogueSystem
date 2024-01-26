@@ -2,21 +2,13 @@
 
 namespace ET.Client
 {
-    [NodeEditorOf(typeof(RandomNode))]
-    public class RandomNodeView : DialogueNodeView
+    public sealed class RandomNodeView : DialogueNodeView<RandomNode>
     {
-        private readonly Port randomPort;
-        public RandomNodeView(DialogueNode dialogueNode, DialogueTreeView dialogueTreeView): base(dialogueNode, dialogueTreeView)
+        public RandomNodeView(RandomNode dialogueNode, DialogueTreeView dialogueTreeView): base(dialogueNode, dialogueTreeView)
         {
-            this.GenerateInputPort("", true);
-            randomPort = this.GenerateOutputPort("随机", true);
-            this.SaveCallback += this.Save;
-        }
-
-        private void Save()
-        {
-            if(node is not RandomNode randomNode) return;
-            randomNode.random = this.GetLinkNodes(randomPort);
+            GenerateInputPort("", true);
+            Port randomPort = GenerateOutputPort("随机", true);
+            SaveCallback += () => { dialogueNode.random = GetLinkNodes(randomPort);};
         }
     }
 }
