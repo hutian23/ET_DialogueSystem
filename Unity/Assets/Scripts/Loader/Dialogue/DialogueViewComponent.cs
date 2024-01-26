@@ -8,7 +8,7 @@ namespace ET
     {
         public long instanceId;
         public int ReloadType;
-        public DialogueNode preViewNode;
+        public uint preView_TargetID;
     }
 
     public static class ViewReloadType

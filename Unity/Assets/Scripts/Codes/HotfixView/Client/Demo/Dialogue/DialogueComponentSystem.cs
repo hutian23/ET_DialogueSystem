@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine.Device;
+using Application = UnityEngine.Device.Application;
 
 namespace ET.Client
 {
@@ -18,15 +18,28 @@ namespace ET.Client
                 DialogueComponent dialogueComponent = Root.Instance.Get(args.instanceId) as DialogueComponent;
                 dialogueComponent.Init();
                 dialogueComponent.token = new ETCancellationToken();
+
                 switch (args.ReloadType)
                 {
                     case ViewReloadType.Preview:
+                        //刷新status
+                        dialogueComponent.ViewStatusReset();
+                        dialogueComponent.PreviewCor(dialogueComponent.GetNode(args.preView_TargetID)).Coroutine();
                         break;
                     default:
                         dialogueComponent.DialogueCor().Coroutine();
                         break;
                 }
             }
+        }
+
+        private static void ViewStatusReset(this DialogueComponent self)
+        {
+            DialogueViewComponent viewComponent = self.GetParent<Unit>()
+                    .GetComponent<GameObjectComponent>().GameObject
+                    .GetComponent<DialogueViewComponent>();
+            viewComponent.cloneTree.root.Status = Status.None;
+            viewComponent.cloneTree.nodes.ForEach(node => { node.Status = Status.None; });
         }
 
         public class DialogueComponentAwakeSystem: AwakeSystem<DialogueComponent>
@@ -48,14 +61,8 @@ namespace ET.Client
             {
                 self.Init();
                 self.token = new ETCancellationToken();
-                if (Application.isEditor)
-                {
-                    DialogueViewComponent viewComponent = self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject
-                            .GetComponent<DialogueViewComponent>();
-                    viewComponent.cloneTree.root.Status = Status.None;
-                    viewComponent.cloneTree.nodes.ForEach(node => { node.Status = Status.None; });
-                }
 
+                if (Application.isEditor) self.ViewStatusReset();
                 self.DialogueCor().Coroutine();
             }
         }
@@ -87,12 +94,36 @@ namespace ET.Client
 
         private static async ETTask PreviewCor(this DialogueComponent self, DialogueNode preViewNode)
         {
-            
+            await TimerComponent.Instance.WaitFrameAsync();
+
+            DialogueNode node = self.GetNode(0);
+            Unit unit = self.GetParent<Unit>();
+            await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node.Script, self.token);
+            self.workQueue.Enqueue(preViewNode);
+            try
+            {
+                while (self.workQueue.Count != 0)
+                {
+                    if (self.token.IsCancel()) break;
+                    node = self.workQueue.Dequeue(); //将下一个节点压入queue执行
+
+                    if (Application.isEditor) node.Status = Status.Pending;
+                    Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, node, self.token);
+                    node.Status = ret;
+
+                    if (self.token.IsCancel() || ret == Status.Failed) break; //携程取消 or 执行失败
+                    await TimerComponent.Instance.WaitFrameAsync(self.token);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
         }
-        
+
         public static async ETTask DialogueCor(this DialogueComponent self)
         {
-            await TimerComponent.Instance.WaitFrameAsync();
+            await TimerComponent.Instance.WaitFrameAsync(); // 意义?: 等待所有reload生命周期事件执行完毕
 
             DialogueNode node = self.GetNode(0); //压入根节点
             self.workQueue.Enqueue(node);

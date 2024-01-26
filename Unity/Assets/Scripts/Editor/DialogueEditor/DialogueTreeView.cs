@@ -131,7 +131,7 @@ namespace ET.Client
                     case DialogueNodeView nodeView:
 
                         evt.menu.AppendAction("移除组", _ => { RemoveNodeFromGroup(nodeView); });
-                        if (Application.isPlaying)
+                        if (Application.isPlaying && nodeView.node != null && nodeView.node.TargetID !=0)
                         {
                             evt.menu.AppendAction("预览", _ =>
                             {
@@ -140,7 +140,7 @@ namespace ET.Client
                                 {
                                     instanceId = window.ViewComponent.instanceId,
                                     ReloadType = ViewReloadType.Preview,
-                                    preViewNode = nodeView.node
+                                    preView_TargetID = nodeView.node.TargetID
                                 });
                             });
                         }

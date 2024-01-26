@@ -24,7 +24,7 @@ namespace ET.Client
             if (GUILayout.Button("对话树视图"))
             {
                 if (target is not DialogueViewComponent component || component.cloneTree == null) return;
-                DialogueEditor.OpenWindow(component.cloneTree);
+                DialogueEditor.OpenWindow(component.cloneTree, component);
             }
 
             if (GUILayout.Button("保存对话树"))
