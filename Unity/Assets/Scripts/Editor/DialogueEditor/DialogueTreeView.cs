@@ -49,6 +49,8 @@ namespace ET.Client
 
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/Resource/DialogueEditor.uss");
             styleSheets.Add(styleSheet);
+            
+            this.Add(new ET_Blackboard(this));
         }
 
         private GraphViewChange OnGraphViewChanged(GraphViewChange graphViewChange)
@@ -131,7 +133,7 @@ namespace ET.Client
                     case DialogueNodeView nodeView:
 
                         evt.menu.AppendAction("移除组", _ => { RemoveNodeFromGroup(nodeView); });
-                        if (Application.isPlaying && nodeView.node != null && nodeView.node.TargetID !=0)
+                        if (Application.isPlaying && nodeView.node != null && nodeView.node.TargetID != 0)
                         {
                             evt.menu.AppendAction("预览", _ =>
                             {

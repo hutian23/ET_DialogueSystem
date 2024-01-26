@@ -2,6 +2,7 @@ using ET;
 using ET.Client;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -34,6 +35,7 @@ public class DialogueEditor: OdinEditorWindow
         root.styleSheets.Add(styleSheet);
 
         treeView = root.Q<DialogueTreeView>();
+        
         inspectorView = root.Q<InspectorView>();
 
         toolbar = root.Q<Toolbar>();
