@@ -3,16 +3,16 @@ using System.Text.RegularExpressions;
 
 namespace ET.Client
 {
-    public class ShowWindow_ScriptHandler: ScriptHandler
+    public class HideWindow_ScriptHandler: ScriptHandler
     {
         public override string GetOPType()
         {
-            return "ShowWindow";
+            return "HideWindow";
         }
 
         public override async ETTask Handle(Unit unit, string line, ETCancellationToken token)
         {
-            Match match = Regex.Match(line, @"ShowWindow type = (?<WindowType>\w+);");
+            Match match = Regex.Match(line, @"HideWindow type = (?<WindowType>\w+);");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(line);
@@ -24,9 +24,9 @@ namespace ET.Client
                 Log.Error($"not found windowID: {match.Groups["WindowType"]}");
                 return;
             }
-            
-            token.Add(() => unit.ClientScene().GetComponent<UIComponent>().HideWindow(windowID));
-            await unit.ClientScene().GetComponent<UIComponent>().ShowWindowAsync(windowID);
+
+            unit.ClientScene().GetComponent<UIComponent>().HideWindow(windowID);
+            await ETTask.CompletedTask;
         }
     }
 }

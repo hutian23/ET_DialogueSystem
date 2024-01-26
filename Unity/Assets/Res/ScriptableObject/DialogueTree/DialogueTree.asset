@@ -51,7 +51,7 @@ MonoBehaviour:
       Data: false
     - Name: Script
       Entry: 1
-      Data: 
+      Data: ShowWindow type = WindowID_Dialogue;
     - Name: text
       Entry: 6
       Data: 
@@ -98,7 +98,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 7
       Data: 4|ET.Client.VN_ActionNode, Unity.Loader
@@ -145,7 +145,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 289
+      Data: 219
     - Name: 
       Entry: 4
       Data: 200
@@ -170,7 +170,7 @@ MonoBehaviour:
       Data: 0
     - Name: content
       Entry: 1
-      Data: Hello ?
+      Data: <Numeric type=Hp/> / <Courage/> hello world
     - Name: 
       Entry: 8
       Data: 
@@ -185,13 +185,10 @@ MonoBehaviour:
       Data: 8|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 3
       Data: 2
-    - Name: 
-      Entry: 3
-      Data: 3
     - Name: 
       Entry: 13
       Data: 
@@ -209,7 +206,7 @@ MonoBehaviour:
       Data: 0
     - Name: TargetID
       Entry: 3
-      Data: 2
+      Data: 3
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -245,10 +242,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 560
+      Data: 773
     - Name: 
       Entry: 4
-      Data: 123
+      Data: 100
     - Name: 
       Entry: 8
       Data: 
@@ -303,7 +300,7 @@ MonoBehaviour:
       Data: 0
     - Name: TargetID
       Entry: 3
-      Data: 3
+      Data: 4
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -337,10 +334,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 560
+      Data: 775
     - Name: 
       Entry: 4
-      Data: 277
+      Data: 200
     - Name: 
       Entry: 8
       Data: 
@@ -401,7 +398,7 @@ MonoBehaviour:
       Data: 0
     - Name: TargetID
       Entry: 3
-      Data: 0
+      Data: 5
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -435,10 +432,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 560
+      Data: 775
     - Name: 
       Entry: 4
-      Data: 469
+      Data: 299
     - Name: 
       Entry: 8
       Data: 
@@ -451,7 +448,19 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 22|ET.LocalizationGroup, Unity.Loader
+    - Name: Language
+      Entry: 3
       Data: 0
+    - Name: content
+      Entry: 1
+      Data: "\u539F\u795E\u542F\u52A8!"
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -460,7 +469,7 @@ MonoBehaviour:
       Data: 
     - Name: children
       Entry: 7
-      Data: 22|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+      Data: 23|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -470,6 +479,98 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 24|ET.Client.VN_ChoicePanel, Unity.Loader
+    - Name: TreeID
+      Entry: 3
+      Data: 0
+    - Name: TargetID
+      Entry: 3
+      Data: 2
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 25|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: 1e9bddc7cb5122641840f03f8481e7e5
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 476
+    - Name: 
+      Entry: 4
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 7
+      Data: 26|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: children
+      Entry: 7
+      Data: 27|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 3
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 5
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: checkChildren
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 8
       Data: 
@@ -481,14 +582,14 @@ MonoBehaviour:
       Data: 
     - Name: NodeLinkDatas
       Entry: 7
-      Data: 23|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
+      Data: 28|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 5
     - Name: 
       Entry: 7
-      Data: 24|ET.Client.NodeLinkData, Unity.Loader
+      Data: 29|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 22a72998b1332cc49ab708256325c4b8
@@ -503,10 +604,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 25|ET.Client.NodeLinkData, Unity.Loader
+      Data: 30|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
-      Data: 7618f857c70188e4d81b6a5a5c9557a4
+      Data: 1e9bddc7cb5122641840f03f8481e7e5
     - Name: inputNodeGuid
       Entry: 1
       Data: 17f9cfe739474044e87f312dd808d20b
@@ -518,13 +619,43 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 26|ET.Client.NodeLinkData, Unity.Loader
+      Data: 31|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 1e9bddc7cb5122641840f03f8481e7e5
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 3dd64c746a9daba42b57facbaf0d26e7
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 32|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 1e9bddc7cb5122641840f03f8481e7e5
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: dd9f610ba1dc9414683a67dba2a0e273
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 33|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 7618f857c70188e4d81b6a5a5c9557a4
     - Name: inputNodeGuid
       Entry: 1
-      Data: 3dd64c746a9daba42b57facbaf0d26e7
+      Data: 1e9bddc7cb5122641840f03f8481e7e5
     - Name: portID
       Entry: 3
       Data: 0
@@ -539,207 +670,40 @@ MonoBehaviour:
       Data: 
     - Name: targets
       Entry: 7
-      Data: 27|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
+      Data: 34|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
         Unity.Loader]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 28|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
+      Data: 35|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 12
+      Data: 6
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 9
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 9
       Data: 4
     - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 7
-      Data: 29|ET.Client.RootNode, Unity.Loader
-    - Name: TreeID
-      Entry: 3
-      Data: 0
-    - Name: TargetID
-      Entry: 3
-      Data: 0
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 30|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ShowScript
-      Entry: 5
-      Data: false
-    - Name: Script
-      Entry: 1
-      Data: 
-    - Name: text
-      Entry: 6
-      Data: 
-    - Name: Guid
-      Entry: 1
-      Data: 22a72998b1332cc49ab708256325c4b8
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 100
-    - Name: 
-      Entry: 4
-      Data: 200
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: LocalizationGroups
-      Entry: 7
-      Data: 31|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: nextNode
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 7
-      Data: 32|ET.Client.VN_ActionNode, Unity.Loader
-    - Name: TreeID
-      Entry: 3
-      Data: 0
-    - Name: TargetID
-      Entry: 3
-      Data: 1
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 33|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ShowScript
-      Entry: 5
-      Data: false
-    - Name: Script
-      Entry: 1
-      Data: 'WaitTime 300;
-
-        Numeric Hp + 3;
-
-'
-    - Name: text
-      Entry: 6
-      Data: 
-    - Name: Guid
-      Entry: 1
-      Data: 7618f857c70188e4d81b6a5a5c9557a4
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 289
-    - Name: 
-      Entry: 4
-      Data: 200
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: LocalizationGroups
-      Entry: 7
-      Data: 34|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 35|ET.LocalizationGroup, Unity.Loader
-    - Name: Language
-      Entry: 3
-      Data: 0
-    - Name: content
-      Entry: 1
-      Data: Hello ?
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: children
-      Entry: 7
-      Data: 36|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 8
       Data: 
     - Name: 
@@ -749,99 +713,8 @@ MonoBehaviour:
       Entry: 3
       Data: 2
     - Name: $v
-      Entry: 7
-      Data: 37|ET.Client.VN_ActionNode, Unity.Loader
-    - Name: TreeID
-      Entry: 3
-      Data: 0
-    - Name: TargetID
-      Entry: 3
-      Data: 2
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 38|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ShowScript
-      Entry: 5
-      Data: false
-    - Name: Script
-      Entry: 1
-      Data: 'WaitTime 400;
-
-'
-    - Name: text
-      Entry: 6
-      Data: 
-    - Name: Guid
-      Entry: 1
-      Data: 17f9cfe739474044e87f312dd808d20b
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 560
-    - Name: 
-      Entry: 4
-      Data: 123
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: LocalizationGroups
-      Entry: 7
-      Data: 39|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 40|ET.LocalizationGroup, Unity.Loader
-    - Name: Language
-      Entry: 3
-      Data: 0
-    - Name: content
-      Entry: 1
-      Data: "\u4F60\u597D\uFF0C\u8FD9\u662F\u4E00\u4E2A\u6D4B\u8BD5\u300223232323"
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: children
-      Entry: 7
-      Data: 41|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+      Entry: 9
+      Data: 24
     - Name: 
       Entry: 8
       Data: 
@@ -852,103 +725,32 @@ MonoBehaviour:
       Entry: 3
       Data: 3
     - Name: $v
-      Entry: 7
-      Data: 42|ET.Client.VN_RandomActionNode, Unity.Loader
-    - Name: TreeID
-      Entry: 3
-      Data: 0
-    - Name: TargetID
-      Entry: 3
-      Data: 3
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 43|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ShowScript
-      Entry: 5
-      Data: false
-    - Name: Script
-      Entry: 1
-      Data: 
-    - Name: text
-      Entry: 6
-      Data: 
-    - Name: Guid
-      Entry: 1
-      Data: 3dd64c746a9daba42b57facbaf0d26e7
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 560
-    - Name: 
-      Entry: 4
-      Data: 277
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: LocalizationGroups
-      Entry: 7
-      Data: 44|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 45|ET.LocalizationGroup, Unity.Loader
-    - Name: Language
-      Entry: 3
-      Data: 0
-    - Name: content
-      Entry: 1
-      Data: "\u65E0\u8BDD\u53EF\u8BF4....."
+      Entry: 9
+      Data: 9
     - Name: 
       Entry: 8
       Data: 
     - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: children
       Entry: 7
-      Data: 46|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
       Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 9
+      Data: 14
     - Name: 
       Entry: 8
       Data: 
     - Name: 
-      Entry: 8
+      Entry: 7
       Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 9
+      Data: 19
     - Name: 
       Entry: 8
       Data: 
@@ -961,9 +763,11 @@ MonoBehaviour:
   treeName: 
   treeID: 0
   blockDatas:
-  - position: {x: 264, y: 62}
+  - position: {x: 194, y: 39}
     title: "\u6D4B\u8BD5"
     children:
     - 7618f857c70188e4d81b6a5a5c9557a4
     - 17f9cfe739474044e87f312dd808d20b
     - 3dd64c746a9daba42b57facbaf0d26e7
+    - 1e9bddc7cb5122641840f03f8481e7e5
+    - dd9f610ba1dc9414683a67dba2a0e273

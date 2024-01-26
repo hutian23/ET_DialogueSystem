@@ -32,10 +32,16 @@ namespace ET.Client
                 tree.targets.Clear();
             }
 
-            if (GUILayout.Button("测试序列化"))
+            if (GUILayout.Button("测试导出"))
             {
                 var tree = target as DialogueTree;
                 tree.Export();
+            }
+
+            if (GUILayout.Button("测试序列化"))
+            {
+                var tree = this.target as DialogueTree;
+                Debug.Log(MongoHelper.ToJson(tree));
             }
 
             if (GUILayout.Button("测试反序列化"))

@@ -46,6 +46,8 @@ namespace ET.Client
         [DictionaryDrawerSettings(KeyLabel = "TargetID", ValueLabel = "DialogueNode", IsReadOnly = true)]
         public Dictionary<uint, DialogueNode> targets = new();
 
+        public List<object> blackboardProperties = new List<object>() { 0, 0.2323, "342342", new Vector2(1, 23) };
+        
         public RootNode CreateRoot()
         {
             RootNode rootNode = Activator.CreateInstance<RootNode>();

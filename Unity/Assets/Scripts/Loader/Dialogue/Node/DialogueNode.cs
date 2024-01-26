@@ -33,10 +33,10 @@ namespace ET
         [HideInInspector, ReadOnly]
         public uint TargetID;
 
-        [FoldoutGroup("$nodeName")]
+        [FoldoutGroup("$nodeName"),LabelText("前置条件: ")]
         public bool NeedCheck = false;
 
-        [FoldoutGroup("$nodeName"), ShowIf("NeedCheck"),LabelText("前置条件: ")]
+        [FoldoutGroup("$nodeName"), ShowIf("NeedCheck"),HideLabel]
         public List<NodeCheckConfig> checkList = new();
 
         [FoldoutGroup("$nodeName"), LabelText("显示脚本: ")]
