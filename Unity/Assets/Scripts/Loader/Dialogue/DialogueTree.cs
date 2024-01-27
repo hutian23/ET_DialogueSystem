@@ -120,6 +120,18 @@ namespace ET.Client
         }
 
 #if UNITY_EDITOR
+        public void Init()
+        {
+            treeID = 0; 
+            treeName = "";
+            root = null;
+            nodes.Clear();
+            blockDatas.Clear();
+            NodeLinkDatas.Clear();
+            targets.Clear();
+            Variables.Clear();
+        }
+        
         public void Export()
         {
             var folderPath = DialogueSettings.GetSettings().ExportPath;

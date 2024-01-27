@@ -23,13 +23,7 @@ namespace ET.Client
             if (GUILayout.Button("重置对话树"))
             {
                 if (this.target is not DialogueTree tree) return;
-                tree.treeID = 0;
-                tree.treeName = "";
-                tree.root = null;
-                tree.nodes.Clear();
-                tree.blockDatas.Clear();
-                tree.NodeLinkDatas.Clear();
-                tree.targets.Clear();
+                tree.Init();
             }
 
             if (GUILayout.Button("测试导出"))

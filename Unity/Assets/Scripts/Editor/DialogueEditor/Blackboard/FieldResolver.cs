@@ -59,6 +59,7 @@ namespace ET.Client
                 var resolver = ele.Q<RefernceElement>().reference as FieldResolver;
                 treeView.RemoveCaches.Add(resolver.Variable);
                 treeView.GetBlackboard().RawContainer.Remove(ele);
+                treeView.SetDirty();
             });
         }
 

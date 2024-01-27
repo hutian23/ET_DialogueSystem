@@ -16,8 +16,8 @@ namespace ET.Client
         public DialogueBlackboard(DialogueTreeView _graphView): base(_graphView)
         {
             var header = this.Q("header");
-            header.style.height = new StyleLength(80);
-            Add(RawContainer = new());
+            header.style.minHeight = new StyleLength(60);
+            Add(RawContainer = new ScrollView());
         }
 
         public void PopulateView(DialogueTreeView _graphView)
@@ -73,7 +73,7 @@ namespace ET.Client
         
         public void Save()
         {
-            var variables = this.treeView.GetTree().Variables;
+            var variables = treeView.GetTree().Variables;
             variables.Clear();
             
             RawContainer.Children().Cast<BlackboardRow>().ForEach(row =>
