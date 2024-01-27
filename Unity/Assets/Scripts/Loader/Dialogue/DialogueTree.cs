@@ -46,8 +46,8 @@ namespace ET.Client
         [DictionaryDrawerSettings(KeyLabel = "TargetID", ValueLabel = "DialogueNode", IsReadOnly = true)]
         public Dictionary<uint, DialogueNode> targets = new();
 
-        public List<object> blackboardProperties = new List<object>() { 0, 0.2323, "342342", new Vector2(1, 23) };
-        
+        public List<SharedVariable> Variables = new();
+
         public RootNode CreateRoot()
         {
             RootNode rootNode = Activator.CreateInstance<RootNode>();
@@ -106,6 +106,17 @@ namespace ET.Client
             cloneTree.targets.Add(0, cloneTree.root);
             cloneTree.nodes.ForEach(node => { cloneTree.targets.TryAdd(node.TargetID, node); });
             return cloneTree;
+        }
+
+        public T GetVariable<T>(String variableName)
+        {
+            SharedVariable variable = Variables.FirstOrDefault(v => v.name == variableName && v.value.GetType() == typeof (T));
+            if (variable == null)
+            {
+                Debug.LogError($"not found variable: {variableName}");
+                return default;
+            }
+            return (T)variable.value;
         }
 
 #if UNITY_EDITOR

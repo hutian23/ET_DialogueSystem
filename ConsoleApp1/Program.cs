@@ -90,14 +90,33 @@ static class Program
     {
     }
     
+    public class test_test<T,K>
+    {
+        public void Test()
+        {
+            Console.WriteLine(this.GetType().BaseType.GetGenericArguments()[0]);
+        }
+    }
+    
+    public class Test_2 : test_test<int,int>
+    {
+        
+    }
+    
     public static void Main()
     {
-        Console.WriteLine(typeof(RootNodeEditor).GetCustomAttribute(typeof(TestAttribute)));
-        Console.WriteLine(typeof(RootNodeEditor).IsGenericTypeParameter);
-        Console.WriteLine(typeof(NodeEditorBase<>).GetGenericArguments());
-        var obj= Activator.CreateInstance(typeof (RootNodeEditor)) as Base;
-        Console.WriteLine((obj==null));
-        Console.WriteLine(obj.GetType().BaseType);
+        Console.WriteLine(default(string));
+        Console.WriteLine(default(int));
+        // string s = Activator.CreateInstance<String>();
+        
+        // new Test_2().Test();
+        // Console.WriteLine(typeof(Test_2).GetGenericArguments()[0]);
+        // Console.WriteLine(typeof(RootNodeEditor).GetCustomAttribute(typeof(TestAttribute)));
+        // Console.WriteLine(typeof(RootNodeEditor).IsGenericTypeParameter);
+        // Console.WriteLine(typeof(NodeEditorBase<>).GetGenericArguments());
+        // var obj= Activator.CreateInstance(typeof (RootNodeEditor)) as Base;
+        // Console.WriteLine((obj==null));
+        // Console.WriteLine(obj.GetType().BaseType);
         // var types = typeof (RootNodeEditor).BaseType.GetGenericArguments();
         // foreach (var type in types)
         // {

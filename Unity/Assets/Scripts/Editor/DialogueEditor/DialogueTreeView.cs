@@ -19,10 +19,10 @@ namespace ET.Client
 
         private DialogueTree tree;
         private DialogueEditor window;
-
+        private readonly DialogueBlackboard blackboard;
         private SearchMenuWindowProvider searchWindow;
 
-        private readonly List<object> RemoveCaches = new();
+        public readonly List<object> RemoveCaches = new();
 
         //鼠标在编辑器视图的坐标空间中的位置
         private Vector2 ScreenMousePosition;
@@ -49,8 +49,8 @@ namespace ET.Client
 
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/Resource/DialogueEditor.uss");
             styleSheets.Add(styleSheet);
-            
-            this.Add(new ET_Blackboard(this));
+
+            Add(blackboard = new(this));
         }
 
         private GraphViewChange OnGraphViewChanged(GraphViewChange graphViewChange)
@@ -109,6 +109,9 @@ namespace ET.Client
             RegisterCallback<KeyDownEvent>(KeyDownEventCallback);
             RegisterCallback<MouseEnterEvent>(MouseEnterControl);
             RegisterCallback<MouseMoveEvent>(evt => { ScreenMousePosition = evt.mousePosition + window.position.position; });
+
+            //5. 黑板
+            blackboard.PopulateView(this);
         }
 
         private void AddSearchWindow()
@@ -240,7 +243,8 @@ namespace ET.Client
             SaveCommentBlock();
             SaveLinkDatas();
             SaveNodes();
-
+            blackboard.Save();
+            
             window.HasUnSave = false;
             EditorUtility.SetDirty(tree);
             //刷新页面
@@ -329,7 +333,7 @@ namespace ET.Client
 
         private void CreateNodeView(DialogueNode node)
         {
-            var nodeEditorType = NodeViewRegistry.LookUpNodeEditor(node.GetType());
+            var nodeEditorType = EditorRegistry.LookUpNodeEditor(node.GetType());
             var nodeEditor = Activator.CreateInstance(nodeEditorType, args: new object[] { node, this }) as Node;
             nodeEditor.SetPosition(new Rect(node.position, DefaultNodeSize));
             AddElement(nodeEditor);
@@ -461,5 +465,38 @@ namespace ET.Client
         }
 
         #endregion
+
+        #region Variable
+
+        public bool ContainVariable(string variableName)
+        {
+            return tree.Variables.Any(v => v.name == variableName);
+        }
+
+        public void AddVariable(SharedVariable variable)
+        {
+            tree.Variables.Add(variable);
+        }
+
+        public T GetVariable<T>(string variableName)
+        {
+            return tree.GetVariable<T>(variableName);
+        }
+
+        public void SaveBlackboard()
+        {
+        }
+
+        #endregion
+
+        public DialogueTree GetTree()
+        {
+            return this.tree;
+        }
+        
+        public new DialogueBlackboard GetBlackboard()
+        {
+            return this.blackboard;
+        }
     }
 }

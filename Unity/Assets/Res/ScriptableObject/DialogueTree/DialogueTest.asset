@@ -46,6 +46,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -133,6 +136,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -252,6 +258,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -353,6 +362,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -454,6 +466,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -468,7 +483,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 868
+      Data: 865
     - Name: 
       Entry: 4
       Data: 286
@@ -567,6 +582,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -581,7 +599,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 871
+      Data: 868
     - Name: 
       Entry: 4
       Data: 390
@@ -680,6 +698,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -694,7 +715,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 278
+      Data: 275
     - Name: 
       Entry: 4
       Data: 200
@@ -784,6 +805,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -798,10 +822,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 532
+      Data: 529
     - Name: 
       Entry: 4
-      Data: 162
+      Data: 161
     - Name: 
       Entry: 8
       Data: 
@@ -888,6 +912,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -992,6 +1019,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -1093,6 +1123,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -1107,7 +1140,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 532
+      Data: 529
     - Name: 
       Entry: 4
       Data: 325
@@ -1212,6 +1245,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -1316,6 +1352,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -1417,6 +1456,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -1530,6 +1572,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -1643,6 +1688,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -1762,6 +1810,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -1866,6 +1917,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -1967,6 +2021,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -2080,6 +2137,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -2193,6 +2253,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
       Data: 
@@ -2677,10 +2740,422 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: Variables
+      Entry: 7
+      Data: 147|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 22
+    - Name: 
+      Entry: 7
+      Data: 148|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: hello 12323
+    - Name: value
+      Entry: 7
+      Data: 149|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 150|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: "\u4F60\u597D1"
+    - Name: value
+      Entry: 7
+      Data: 151|UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 152|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable
+    - Name: value
+      Entry: 7
+      Data: 153|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 154|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(1)
+    - Name: value
+      Entry: 7
+      Data: 155|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 156|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(2)
+    - Name: value
+      Entry: 7
+      Data: 157|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 158|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(3)
+    - Name: value
+      Entry: 7
+      Data: 159|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 160|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(4)
+    - Name: value
+      Entry: 7
+      Data: 161|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 162|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(5)
+    - Name: value
+      Entry: 7
+      Data: 163|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 164|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(6)
+    - Name: value
+      Entry: 7
+      Data: 165|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 166|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(7)
+    - Name: value
+      Entry: 7
+      Data: 167|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 168|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(8)
+    - Name: value
+      Entry: 7
+      Data: 169|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 170|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(9)
+    - Name: value
+      Entry: 7
+      Data: 171|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 172|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(10)
+    - Name: value
+      Entry: 7
+      Data: 173|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 174|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(11)
+    - Name: value
+      Entry: 7
+      Data: 175|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 176|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(12)
+    - Name: value
+      Entry: 7
+      Data: 177|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 178|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(13)
+    - Name: value
+      Entry: 7
+      Data: 179|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 180|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(14)
+    - Name: value
+      Entry: 7
+      Data: 181|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 182|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(15)
+    - Name: value
+      Entry: 7
+      Data: 183|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 184|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(16)
+    - Name: value
+      Entry: 7
+      Data: 185|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 186|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(17)
+    - Name: value
+      Entry: 7
+      Data: 187|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 188|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(18)
+    - Name: value
+      Entry: 7
+      Data: 189|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 190|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(19)
+    - Name: value
+      Entry: 7
+      Data: 191|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   treeName: DialogueTest
   treeID: 1
   blockDatas:
-  - position: {x: 253.00002, y: 101.00001}
+  - position: {x: 250, y: 100}
     title: "\u6D4B\u8BD5"
     children:
     - 51df05a50ce8c924e8d4490c13e97150
@@ -2688,12 +3163,12 @@ MonoBehaviour:
     - 5d1c069e53c207a4992e29ee23f44579
     - 442fd14a275ad0a408f5b3679fa3f61c
     - 5fa5eff8c2be0e8408fe3b8901b7678a
-  - position: {x: 1181.0001, y: -30.000004}
+  - position: {x: 1181, y: -30}
     title: "\u6D4B\u8BD5"
     children:
     - decbbd02111575b41aff403b08171bf9
     - 28282470c562aa24d88c104f87fffada
-  - position: {x: 286.99997, y: 936.00006}
+  - position: {x: 287, y: 936}
     title: "\u6D4B\u8BD52"
     children:
     - e7fda0e149ad45d4b8e3d65db446a882
@@ -2701,7 +3176,7 @@ MonoBehaviour:
     - 7acfce432bb037a46bd8bfa1cf34d251
     - 21477759a3407e34eabb6f506514f8a4
     - 6000ac9065118bc42812c571b8adb732
-  - position: {x: 1192.0001, y: 470}
+  - position: {x: 1192, y: 470}
     title: "\u6D4B\u8BD5"
     children:
     - 12dabad7d7cd27141ae185305e03b7ee
