@@ -1,13 +1,12 @@
 ﻿using System;
 using UnityEditor.Experimental.GraphView;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace ET.Client
 {
     public abstract class FieldResolver
     {
-        protected SharedVariable Variable;
+        public SharedVariable Variable;
         protected DialogueTreeView treeView;
 
         protected FieldResolver(SharedVariable variable, DialogueTreeView _treeView)
@@ -16,16 +15,16 @@ namespace ET.Client
             treeView = _treeView;
         }
 
-        public abstract BlackboardRow Create();
+        public abstract BlackboardRow CreateRow();
         public abstract void Save();
     }
 
-    public class TagElement: VisualElement
+    public class RefernceElement: VisualElement
     {
-        public int index;
+        public object reference;
     }
 
-    public class FieldResolver<T, K>: FieldResolver where T : BaseField<K>
+    public sealed class FieldResolver<T, K>: FieldResolver where T : BaseField<K>
     {
         private T editorField;
         private BlackboardRow row;
@@ -34,7 +33,7 @@ namespace ET.Client
         {
         }
 
-        public override BlackboardRow Create()
+        public override BlackboardRow CreateRow()
         {
             var blackboardField = new BlackboardField() { text = this.Variable.name, typeText = Variable.value.GetType().Name };
             blackboardField.capabilities &= ~ Capabilities.Deletable;
@@ -45,7 +44,7 @@ namespace ET.Client
             editorField.RegisterValueChangedCallback(_ => { treeView.SetDirty(); });
 
             row = new BlackboardRow(blackboardField, editorField);
-            this.row.Add(new TagElement() { index = 1 });
+            row.Add(new RefernceElement() { reference = this });
             row.AddManipulator(new ContextualMenuManipulator(evt => BuildBlackboardMenu(evt, row)));
             return row;
         }
@@ -57,8 +56,9 @@ namespace ET.Client
             evt.menu.AppendAction("编辑", _ => { ele.Q<BlackboardField>().OpenTextEditor(); });
             evt.menu.AppendAction("移除", _ =>
             {
+                var resolver = ele.Q<RefernceElement>().reference as FieldResolver;
+                treeView.RemoveCaches.Add(resolver.Variable);
                 treeView.GetBlackboard().RawContainer.Remove(ele);
-                Debug.Log(ele.Q<TagElement>().index);
             });
         }
 

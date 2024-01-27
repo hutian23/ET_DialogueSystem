@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using Sirenix.Utilities;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
@@ -12,7 +12,6 @@ namespace ET.Client
     {
         private DialogueTreeView treeView;
         public readonly ScrollView RawContainer;
-        private readonly List<FieldResolver> fieldResolvers = new();
 
         public DialogueBlackboard(DialogueTreeView _graphView): base(_graphView)
         {
@@ -24,7 +23,6 @@ namespace ET.Client
         public void PopulateView(DialogueTreeView _graphView)
         {
             RawContainer.Clear();
-            fieldResolvers.Clear();
             treeView = _graphView;
 
             addItemRequested = _ =>
@@ -52,8 +50,7 @@ namespace ET.Client
             treeView.GetTree().Variables.ForEach(v =>
             {
                 var resolver = Activator.CreateInstance(EditorRegistry.resolverMap[v.value.GetType()], args: new object[] { v, treeView }) as FieldResolver;
-                RawContainer.Add(resolver.Create());
-                fieldResolvers.Add(resolver);
+                RawContainer.Add(resolver.CreateRow());
             });
         }
 
@@ -71,15 +68,20 @@ namespace ET.Client
             treeView.AddVariable(variable);
 
             var resolver = Activator.CreateInstance(EditorRegistry.resolverMap[obj.GetType()], args: new object[] { variable, treeView }) as FieldResolver;
-            fieldResolvers.Add(resolver);
-            var row = resolver.Create();
-            
-            RawContainer.Add(row);
+            RawContainer.Add(resolver.CreateRow());
         }
         
         public void Save()
         {
-            fieldResolvers.ForEach(resolver => { resolver.Save(); });
+            var variables = this.treeView.GetTree().Variables;
+            variables.Clear();
+            
+            RawContainer.Children().Cast<BlackboardRow>().ForEach(row =>
+            {
+                FieldResolver resolver = row.Q<RefernceElement>().reference as FieldResolver;
+                resolver.Save();
+                variables.Add(resolver.Variable);
+            });
         }
     }
 }

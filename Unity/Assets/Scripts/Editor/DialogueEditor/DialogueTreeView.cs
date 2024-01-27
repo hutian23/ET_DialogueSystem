@@ -237,6 +237,9 @@ namespace ET.Client
                     case CommentBlockData blockData:
                         tree.DeleteBlock(blockData);
                         break;
+                    case SharedVariable variable:
+                        tree.Variables.Remove(variable);
+                        break;
                 }
             });
 
