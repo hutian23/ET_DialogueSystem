@@ -17,7 +17,7 @@ namespace ET
 {
     public static class MongoHelper
     {
-        private class StructBsonSerialize<TValue>: StructSerializerBase<TValue> where TValue : struct
+        public class StructBsonSerialize<TValue>: StructSerializerBase<TValue> where TValue : struct
         {
             public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TValue value)
             {
@@ -131,8 +131,8 @@ namespace ET
             RegisterStruct<Vector2>();
             RegisterStruct<Vector3>();
             RegisterStruct<Vector2Int>();
-            RegisterStruct<Keyframe>(); // AnimationCurve
-            RegisterStruct<GradientColorKey>(); //Gradient
+            BsonSerializer.RegisterSerializer(typeof(Keyframe),new KeyframeBsonSerializer()); // AnimationCurve
+            RegisterStruct<GradientColorKey>(); // Gradient
             RegisterStruct<Color>();
             RegisterStruct<GradientAlphaKey>();
 #endif

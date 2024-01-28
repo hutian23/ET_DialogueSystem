@@ -106,10 +106,19 @@ static class Program
     public class test222
     {
         public int a = 10;
+        private int a2 = 20;
+        protected int a24 = 10;
     }
     
     public static void Main()
     {
+        Type type = typeof (test222);
+        FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        foreach (var field in fields)
+        {
+            Console.WriteLine(field.Name);   
+        }
+        Console.WriteLine(type.GetField("a2",BindingFlags.Instance | BindingFlags.NonPublic).GetValue(new test222()));
         Console.WriteLine(new test222().ToJson());
         // Console.WriteLine(default(string));
         // Console.WriteLine(default(int));
