@@ -38,28 +38,28 @@ namespace ET.Client
                 Debug.Log(MongoHelper.ToJson(tree));
             }
 
-            if (GUILayout.Button("测试反序列化"))
-            {
-                var tree = target as DialogueTree;
-                var file = Path.Combine(DialogueSettings.GetSettings().ExportPath, $"{tree.treeName}.json");
-
-                string jsonContent = File.ReadAllText(file);
-                BsonClassMap.LookupClassMap(typeof (DialogueNode));
-
-                BsonDocument doc = MongoHelper.FromJson<BsonDocument>(jsonContent);
-                var _v = doc["_v"];
-                int length = (int)_v["Length"];
-                for (int i = 0; i < length; i++)
-                {
-                    var nodeDoc = _v[i].ToBsonDocument();
-                    DialogueNode node = MongoHelper.Deserialize<DialogueNode>(nodeDoc.ToBson());
-                    node.FromID((long)nodeDoc.GetValue("ID"));
-
-                    var contentDoc = nodeDoc.GetValue("content").ToBsonDocument();
-                    node.text = (string)contentDoc[(int)Language.Chinese];
-                    Debug.Log(MongoHelper.ToJson(node));
-                }
-            }
+            // if (GUILayout.Button("测试反序列化"))
+            // {
+            //     var tree = target as DialogueTree;
+            //     var file = Path.Combine(DialogueSettings.GetSettings().ExportPath, $"{tree.treeName}.json");
+            //
+            //     string jsonContent = File.ReadAllText(file);
+            //     BsonClassMap.LookupClassMap(typeof (DialogueNode));
+            //
+            //     BsonDocument doc = MongoHelper.FromJson<BsonDocument>(jsonContent);
+            //     var _v = doc["_v"];
+            //     int length = (int)_v["Length"];
+            //     for (int i = 0; i < length; i++)
+            //     {
+            //         var nodeDoc = _v[i].ToBsonDocument();
+            //         DialogueNode node = MongoHelper.Deserialize<DialogueNode>(nodeDoc.ToBson());
+            //         node.FromID((long)nodeDoc.GetValue("ID"));
+            //
+            //         var contentDoc = nodeDoc.GetValue("content").ToBsonDocument();
+            //         node.text = (string)contentDoc[(int)Language.Chinese];
+            //         Debug.Log(MongoHelper.ToJson(node));
+            //     }
+            // }
         }
     }
 }

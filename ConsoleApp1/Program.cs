@@ -103,10 +103,16 @@ static class Program
         
     }
     
+    public class test222
+    {
+        public int a = 10;
+    }
+    
     public static void Main()
     {
-        Console.WriteLine(default(string));
-        Console.WriteLine(default(int));
+        Console.WriteLine(new test222().ToJson());
+        // Console.WriteLine(default(string));
+        // Console.WriteLine(default(int));
         // string s = Activator.CreateInstance<String>();
         
         // new Test_2().Test();

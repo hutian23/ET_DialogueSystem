@@ -33,7 +33,7 @@ namespace ET
                     bsonWriter.WriteName(field.Name);
                     BsonSerializer.Serialize(bsonWriter, field.FieldType, field.GetValue(value));
                 }
-    
+
                 bsonWriter.WriteEndDocument();
             }
 
@@ -87,7 +87,8 @@ namespace ET
         public static void Init()
         {
             // 清理老的数据
-            MethodInfo createSerializerRegistry = typeof (BsonSerializer).GetMethod("CreateSerializerRegistry", BindingFlags.Static | BindingFlags.NonPublic);
+            MethodInfo createSerializerRegistry =
+                    typeof (BsonSerializer).GetMethod("CreateSerializerRegistry", BindingFlags.Static | BindingFlags.NonPublic);
             createSerializerRegistry.Invoke(null, Array.Empty<object>());
             MethodInfo registerIdGenerators = typeof (BsonSerializer).GetMethod("RegisterIdGenerators", BindingFlags.Static | BindingFlags.NonPublic);
             registerIdGenerators.Invoke(null, Array.Empty<object>());
@@ -118,7 +119,7 @@ namespace ET
 
             Log.Debug("(runtime)MongoHelper初始化完成");
         }
-        
+
         // https://et-framework.cn/d/33-mongobson
         public static void RegisterStructs()
         {
@@ -130,6 +131,10 @@ namespace ET
             RegisterStruct<Vector2>();
             RegisterStruct<Vector3>();
             RegisterStruct<Vector2Int>();
+            RegisterStruct<Keyframe>(); // AnimationCurve
+            RegisterStruct<GradientColorKey>(); //Gradient
+            RegisterStruct<Color>();
+            RegisterStruct<GradientAlphaKey>();
 #endif
         }
 

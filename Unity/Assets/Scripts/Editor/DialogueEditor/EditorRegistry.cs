@@ -69,6 +69,7 @@ namespace ET.Client
             RegisterResolver(typeof (Vector2), typeof (FieldResolver<Vector2Field, Vector2>));
             RegisterResolver(typeof (Vector3), typeof (FieldResolver<Vector3Field, Vector3>));
             RegisterResolver(typeof (AnimationCurve), typeof (FieldResolver<CurveField, AnimationCurve>));
+            RegisterResolver(typeof (Gradient), typeof (FieldResolver<GradientField, Gradient>));
         }
     }
 }

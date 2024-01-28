@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector.Editor;
+﻿using MongoDB.Bson;
+using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -50,6 +51,21 @@ namespace ET.Client
                 AssetDatabase.Refresh();
             }
 
+            if (GUILayout.Button("测试变量"))
+            {
+                if (this.target is not DialogueViewComponent component) return;
+                component.cloneTree.Variables.ForEach(v =>
+                {
+                    Debug.Log(MongoHelper.ToJson(v));
+                    Debug.Log(MongoHelper.Clone(v).ToJson());
+                });
+            }
+
+            if (GUILayout.Button("测试keyframe"))
+            {
+                Keyframe keyframe = new();
+                
+            }
             // if (GUILayout.Button("序列化克隆树(测试)"))
             // {
             //     if (target is not DialogueViewComponent component) return;
