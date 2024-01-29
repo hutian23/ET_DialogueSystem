@@ -16,6 +16,8 @@ namespace ET.Client
     public class DialogueTree: SerializedScriptableObject
     {
         public string treeName;
+
+        [Range(1, 10000)]
         public uint treeID;
 
         [FoldoutGroup("DialogueDatas")]
@@ -52,7 +54,7 @@ namespace ET.Client
         {
             RootNode rootNode = Activator.CreateInstance<RootNode>();
             rootNode.TargetID = 0;
-            rootNode.TreeID = this.treeID;
+            rootNode.TreeID = treeID;
             rootNode.Guid = GUID.Generate().ToString();
             rootNode.nextNode = 1;
             EditorUtility.SetDirty(this);
@@ -63,7 +65,7 @@ namespace ET.Client
         {
             DialogueNode node = Activator.CreateInstance(type) as DialogueNode;
             node.TargetID = 0;
-            node.TreeID = this.treeID;
+            node.TreeID = treeID;
             node.Guid = GUID.Generate().ToString();
             this.nodes.Add(node);
             EditorUtility.SetDirty(this);
@@ -116,13 +118,25 @@ namespace ET.Client
                 Debug.LogError($"not found variable: {variableName}");
                 return default;
             }
+
             return (T)variable.value;
+        }
+
+        public object GetVariable(String variableName)
+        {
+            SharedVariable v = this.Variables.FirstOrDefault(v => v.name == variableName);
+            if (v == null)
+            {
+                Debug.LogError($"not found variable: {variableName}");
+                return default;
+            }
+
+            return v.value;
         }
 
 #if UNITY_EDITOR
         public void Init()
         {
-            treeID = 0; 
             treeName = "";
             root = null;
             nodes.Clear();
@@ -131,7 +145,7 @@ namespace ET.Client
             targets.Clear();
             Variables.Clear();
         }
-        
+
         public void Export()
         {
             var folderPath = DialogueSettings.GetSettings().ExportPath;
@@ -140,7 +154,6 @@ namespace ET.Client
             using FileStream json = new(fileName, FileMode.Create);
             using StreamWriter sw = new(json);
             sw.WriteLine(MongoHelper.ToJson(TranformToBsonDocument()));
-            Debug.Log(MongoHelper.ToJson(TranformToBsonDocument()));
         }
 
         private BsonDocument TranformToBsonDocument()
@@ -148,6 +161,9 @@ namespace ET.Client
             BsonDocument bsonDocument = new();
             Dictionary<string, BsonValue> tmpDic = new();
 
+            //1. 节点数据
+            var nodeDoc = new BsonDocument();
+            bsonDocument.Add("targets", nodeDoc);
             targets.ForEach(kv =>
             {
                 DialogueNode node = kv.Value;
@@ -159,7 +175,7 @@ namespace ET.Client
                 //2. 节点的唯一全局唯一表示ID
                 subDoc.Remove("TreeID");
                 subDoc.Remove("TargetID");
-                subDoc.Add("ID", node.GetID());
+                subDoc.Add("ID", new BsonInt64(node.GetID()));
 
                 //3. 去掉scripts中的注释
                 subDoc.Remove("Script");
@@ -180,9 +196,20 @@ namespace ET.Client
                 subDoc.Add("content", contentDoc);
                 tmpDic.Add(kv.Key.ToString(), subDoc);
             });
-            tmpDic.ForEach(kv => { bsonDocument.Add(kv.Key, kv.Value); });
+            tmpDic.ForEach(kv => { nodeDoc.Add(kv.Key, kv.Value); });
             //反序列化时需要知道节点个数 (Document索引0 --- length-1 为节点 第length个位置才是长度)
-            bsonDocument.Add(new BsonElement("Length", targets.Count));
+            nodeDoc.Add(new BsonElement("Length", targets.Count));
+
+            //2. 变量
+            var variableDoc = new BsonDocument();
+            bsonDocument.Add("variables", variableDoc);
+            for (int i = 0; i < Variables.Count; i++)
+            {
+                var subDoc = Variables[i].ToBsonDocument();
+                variableDoc.Add(i.ToString(), subDoc);
+            }
+
+            variableDoc.Add("Length", Variables.Count);
             return bsonDocument;
         }
 #endif

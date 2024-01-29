@@ -5,7 +5,7 @@ namespace ET.Client
 {
     public class RootNode : DialogueNode
     {
-        [FoldoutGroup("$nodeName"),HideInInspector]
+        [HideInInspector]
         public uint nextNode;
     }
 }

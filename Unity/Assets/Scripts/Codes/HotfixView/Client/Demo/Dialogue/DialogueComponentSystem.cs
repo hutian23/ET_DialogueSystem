@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using MongoDB.Bson;
+using UnityEngine;
 using Application = UnityEngine.Device.Application;
 
 namespace ET.Client
@@ -18,13 +20,15 @@ namespace ET.Client
                 DialogueComponent dialogueComponent = Root.Instance.Get(args.instanceId) as DialogueComponent;
                 dialogueComponent.Init();
                 dialogueComponent.token = new ETCancellationToken();
+                dialogueComponent.ReloadType = args.ReloadType;
 
                 switch (args.ReloadType)
                 {
                     case ViewReloadType.Preview:
-                        //刷新status
-                        dialogueComponent.ViewStatusReset();
                         dialogueComponent.PreviewCor(dialogueComponent.GetNode(args.preView_TargetID)).Coroutine();
+                        break;
+                    case ViewReloadType.RuntimeReload:
+                        dialogueComponent.LoadTree(args.treeName, args.language);
                         break;
                     default:
                         dialogueComponent.DialogueCor().Coroutine();
@@ -38,6 +42,7 @@ namespace ET.Client
             DialogueViewComponent viewComponent = self.GetParent<Unit>()
                     .GetComponent<GameObjectComponent>().GameObject
                     .GetComponent<DialogueViewComponent>();
+            if (viewComponent.cloneTree == null) return;
             viewComponent.cloneTree.root.Status = Status.None;
             viewComponent.cloneTree.nodes.ForEach(node => { node.Status = Status.None; });
         }
@@ -48,7 +53,8 @@ namespace ET.Client
             {
                 if (Application.isEditor)
                 {
-                    DialogueViewComponent viewComponent = self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject
+                    DialogueViewComponent viewComponent = self.GetParent<Unit>()
+                            .GetComponent<GameObjectComponent>().GameObject
                             .AddComponent<DialogueViewComponent>();
                     viewComponent.instanceId = self.InstanceId;
                 }
@@ -61,8 +67,6 @@ namespace ET.Client
             {
                 self.Init();
                 self.token = new ETCancellationToken();
-
-                if (Application.isEditor) self.ViewStatusReset();
                 self.DialogueCor().Coroutine();
             }
         }
@@ -72,6 +76,7 @@ namespace ET.Client
             protected override void Destroy(DialogueComponent self)
             {
                 self.Init();
+                self.treeData = null;
             }
         }
 
@@ -87,14 +92,14 @@ namespace ET.Client
         {
             self.Init();
             self.token = new ETCancellationToken();
-
-            self.targets = DialogueHelper.LoadDialogueTree(treeName, language);
+            self.treeData = DialogueHelper.LoadDialogueTree(treeName, language);
             self.DialogueCor().Coroutine();
         }
 
         private static async ETTask PreviewCor(this DialogueComponent self, DialogueNode preViewNode)
         {
             await TimerComponent.Instance.WaitFrameAsync();
+            if (Application.isEditor) self.ViewStatusReset();
 
             DialogueNode node = self.GetNode(0);
             Unit unit = self.GetParent<Unit>();
@@ -121,9 +126,10 @@ namespace ET.Client
             }
         }
 
-        public static async ETTask DialogueCor(this DialogueComponent self)
+        private static async ETTask DialogueCor(this DialogueComponent self)
         {
             await TimerComponent.Instance.WaitFrameAsync(); // 意义?: 等待所有reload生命周期事件执行完毕
+            if (Application.isEditor) self.ViewStatusReset();
 
             DialogueNode node = self.GetNode(0); //压入根节点
             self.workQueue.Enqueue(node);
@@ -153,8 +159,19 @@ namespace ET.Client
         public static DialogueNode GetNode(this DialogueComponent self, uint targetID)
         {
             if (Application.isEditor)
-                return self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject.GetComponent<DialogueViewComponent>().GetNode(targetID);
-            return self.targets[targetID];
+            {
+                switch (self.ReloadType)
+                {
+                    case ViewReloadType.RuntimeReload:
+                        return self.treeData.GetNode(targetID);
+                    default:
+                        return self.GetParent<Unit>()
+                                .GetComponent<GameObjectComponent>().GameObject
+                                .GetComponent<DialogueViewComponent>().GetNode(targetID);
+                }
+            }
+
+            return self.treeData.GetNode(targetID);
         }
 
         public static void PushNextNode(this DialogueComponent self, DialogueNode node)

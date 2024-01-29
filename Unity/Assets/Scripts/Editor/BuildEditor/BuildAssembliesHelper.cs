@@ -9,6 +9,7 @@ using MongoDB.Bson.Serialization.Conventions;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Compilation;
+using Assembly = System.Reflection.Assembly;
 
 namespace ET
 {
@@ -30,9 +31,10 @@ namespace ET
 
         public static void MongoHelper_EditorInit()
         {
-            if(Application.isPlaying) return;
+            if (Application.isPlaying) return;
             // 清理老的数据
-            MethodInfo createSerializerRegistry = typeof (BsonSerializer).GetMethod("CreateSerializerRegistry", BindingFlags.Static | BindingFlags.NonPublic);
+            MethodInfo createSerializerRegistry =
+                    typeof (BsonSerializer).GetMethod("CreateSerializerRegistry", BindingFlags.Static | BindingFlags.NonPublic);
             createSerializerRegistry.Invoke(null, Array.Empty<object>());
             MethodInfo registerIdGenerators = typeof (BsonSerializer).GetMethod("RegisterIdGenerators", BindingFlags.Static | BindingFlags.NonPublic);
             registerIdGenerators.Invoke(null, Array.Empty<object>());
@@ -58,6 +60,23 @@ namespace ET
 
                 BsonClassMap.LookupClassMap(type);
             }
+
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            List<Assembly> models = new();
+            foreach (Assembly assembly in assemblies)
+            {
+                var asmName = assembly.GetName().Name;
+                if (asmName is "Unity.Model" or "Unity.ModelView" or "Unity.Loader" or "Unity.Core")
+                {
+                    models.Add(assembly);
+                }
+            }
+            
+            foreach (Assembly assembly in models)
+            {
+                var modelTypes = AssemblyHelper.GetAssemblyTypes(assembly);
+            }
+            
             Debug.Log("(editor)MongoHelper初始化完成");
         }
 
