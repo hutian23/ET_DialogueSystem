@@ -131,14 +131,14 @@ namespace ET
             RegisterStruct<Vector2>();
             RegisterStruct<Vector3>();
             RegisterStruct<Vector2Int>();
-            BsonSerializer.RegisterSerializer(typeof(Keyframe),new KeyframeBsonSerializer()); // AnimationCurve
+            BsonSerializer.RegisterSerializer(typeof(Keyframe),new KeyframeSerializer()); // AnimationCurve
             RegisterStruct<GradientColorKey>(); // Gradient
             RegisterStruct<Color>();
             RegisterStruct<GradientAlphaKey>();
 #endif
         }
 
-        private static void RegisterStruct<T>() where T : struct
+        public static void RegisterStruct<T>() where T : struct
         {
             BsonSerializer.RegisterSerializer(typeof (T), new StructBsonSerialize<T>());
         }

@@ -32,6 +32,9 @@
         <Compile Include="..\..\Unity\Assets\Scripts\Core\**\*.cs">
             <Link>Core\%(RecursiveDir)%(FileName)%(Extension)</Link>
         </Compile>
+        <Compile Include="..\..\Unity\Assets\Scripts\Core\Serialize\Serializer\KeyframeSerializer.cs">
+          <Link>Core\Serialize\Serializer\KeyframeSerializer.cs</Link>
+        </Compile>
     </ItemGroup>
     
     <ItemGroup>

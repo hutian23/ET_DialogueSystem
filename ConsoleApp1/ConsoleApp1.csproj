@@ -18,4 +18,8 @@
       </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Unity\Unity.Core.csproj" />
+    </ItemGroup>
+
 </Project>

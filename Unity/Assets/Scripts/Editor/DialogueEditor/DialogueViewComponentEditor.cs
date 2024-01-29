@@ -63,13 +63,14 @@ namespace ET.Client
 
             if (GUILayout.Button("测试keyframe"))
             {
-                Keyframe keyframe = new(4, 3);
+                Keyframe keyframe = new();
                 Debug.Log(keyframe.ToJson());
                 Keyframe cloneFrame = MongoHelper.Clone(keyframe);
                 Debug.Log(cloneFrame.ToJson());
                 Debug.Log(keyframe.ToBsonDocument());
                 Debug.Log(keyframe.ToBson());
             }
+            
             // if (GUILayout.Button("序列化克隆树(测试)"))
             // {
             //     if (target is not DialogueViewComponent component) return;

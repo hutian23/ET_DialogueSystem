@@ -1,5 +1,5 @@
-﻿
-using System.Reflection;
+﻿using System.Reflection;
+using ET;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
@@ -24,10 +24,9 @@ static class Program
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
         public Dictionary<int, string> dic = new() { { 1, "2323" } };
     }
-    
-    public class test2:test
+
+    public class test2: test
     {
-        
     }
 
     public class User2: User
@@ -49,81 +48,82 @@ static class Program
         subDoc.Add("test", 123);
         return subDoc;
     }
-    
+
     public enum Test
     {
         test1,
         test2
     }
-    
-    public class TestAttribute : Attribute
+
+    public class TestAttribute: Attribute
     {
-        
     }
-    
+
     public class NodeTest<T> where T : test
     {
-        
     }
-    
+
     public interface NodeEditorInter
     {
-        
     }
-    
+
     public abstract class Base
     {
-        
     }
-    
+
     [Test]
-    public abstract class NodeEditorBase<T> : Base where T : test
+    public abstract class NodeEditorBase<T>: Base where T : test
     {
         public Type NodeType
         {
-            get => typeof(RootNodeEditor);
+            get => typeof (RootNodeEditor);
         }
     }
-    
-    
-    public class RootNodeEditor : NodeEditorBase<test2>
+
+    public class RootNodeEditor: NodeEditorBase<test2>
     {
     }
-    
-    public class test_test<T,K>
+
+    public class test_test<T, K>
     {
         public void Test()
         {
             Console.WriteLine(this.GetType().BaseType.GetGenericArguments()[0]);
         }
     }
-    
-    public class Test_2 : test_test<int,int>
+
+    public class Test_2: test_test<int, int>
     {
-        
     }
-    
-    public class test222
+
+    public struct test222
+    {
+        public int a;
+    }
+
+    public class test3333 : test2
     {
         public int a = 10;
-        private int a2 = 20;
-        protected int a24 = 10;
     }
     
     public static void Main()
     {
-        Type type = typeof (test222);
-        FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-        foreach (var field in fields)
-        {
-            Console.WriteLine(field.Name);   
-        }
-        Console.WriteLine(type.GetField("a2",BindingFlags.Instance | BindingFlags.NonPublic).GetValue(new test222()));
-        Console.WriteLine(new test222().ToJson());
+        MongoHelper.RegisterStruct<test222>();
+        var bytes = new test222().ToBson();
+        var ins2 = MongoHelper.Deserialize<test222>(bytes);
+        Console.WriteLine(ins2.ToJson());
+        // Type type = typeof (test222);
+        // FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        // foreach (var field in fields)
+        // {
+        //     Console.WriteLine(field.Name);   
+        // }
+        // Console.WriteLine(type.GetField("a2",BindingFlags.Instance | BindingFlags.NonPublic).GetValue(new test222()));
+        // Console.WriteLine(new test222().ToJson());
         // Console.WriteLine(default(string));
         // Console.WriteLine(default(int));
         // string s = Activator.CreateInstance<String>();
-        
+
         // new Test_2().Test();
         // Console.WriteLine(typeof(Test_2).GetGenericArguments()[0]);
         // Console.WriteLine(typeof(RootNodeEditor).GetCustomAttribute(typeof(TestAttribute)));
