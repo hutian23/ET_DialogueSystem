@@ -1,5 +1,7 @@
+using System;
 using ET.Client;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 namespace ET
@@ -11,26 +13,42 @@ namespace ET
         public uint preView_TargetID;
     }
 
+    public enum ViewRunMode
+    {
+        编辑器,
+        运行时,
+    }
+
     public static class ViewReloadType
     {
         public const int None = 0;
         public const int Reload = 1; //重新加载对话树，从头开始
         public const int Preview = 2; // 预览单个节点，需要执行rootNode的初始化
     }
-    
+
     public class DialogueViewComponent: MonoBehaviour
     {
         [HideInInspector]
         public long instanceId;
 
+        [LabelText("运行模式: ")]
+        public ViewRunMode runMode;
+
+        public bool EditorMode => runMode == ViewRunMode.编辑器;
+
         [LabelText("语言: ")]
         public Language Language;
 
-        [LabelText("引用: ")]
+        [LabelText("引用: "), ShowIf("EditorMode")]
         public DialogueTree tree;
 
-        [LabelText("克隆树: ")]
+        [LabelText("克隆树: "), ShowIf("EditorMode")]
         public DialogueTree cloneTree;
+
+        public bool RuntimeMode => runMode == ViewRunMode.运行时;
+
+        [LabelText("路径"), ShowIf("RuntimeMode"), FolderPath]
+        public string path;
         
         public DialogueNode GetNode(uint targetID)
         {
@@ -44,5 +62,50 @@ namespace ET
             node.text = node.GetContent(Language);
             return node;
         }
+
+        #region Editor
+
+        [Button("对话树重载"), ShowIf("EditorMode")]
+        public void ReloadTree()
+        {
+            cloneTree = tree.DeepClone();
+            if (Application.isPlaying)
+            {
+                EventSystem.Instance.Invoke(new ViewComponentReloadCallback() { instanceId = instanceId, ReloadType = ViewReloadType.Reload });
+            }
+        }
+
+        public Action OpenWindow = null;
+
+        [Button("对话树视图"), ShowIf("EditorMode")]
+        public void OpenTreeView()
+        {
+            this.OpenWindow?.Invoke();
+        }
+
+        [Button("保存对话树"), ShowIf("EditorMode")]
+        public void SaveCloneTree()
+        {
+            if (tree == null)
+            {
+                Debug.LogError("引用为空!");
+                return;
+            }
+
+            if (cloneTree == null)
+            {
+                Debug.LogError("克隆树为空!");
+                return;
+            }
+
+            //有一些属性 eg. Status 不希望被保存 需要添加 BsonIgnore
+            var cloneTree2 = MongoHelper.Clone(cloneTree);
+            EditorUtility.CopySerialized(cloneTree2, tree);
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+
+        #endregion
     }
 }

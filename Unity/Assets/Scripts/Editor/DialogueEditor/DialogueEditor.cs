@@ -2,80 +2,82 @@ using ET;
 using ET.Client;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class DialogueEditor: OdinEditorWindow
+namespace ET
 {
-    private DialogueTreeView treeView;
-    public DialogueViewComponent ViewComponent;
-    public InspectorView inspectorView;
-    private Toolbar toolbar;
-
-    public Toggle autoSaveToggle;
-
-    public bool HasUnSave
+    public class DialogueEditor: OdinEditorWindow
     {
-        get => hasUnsavedChanges;
-        set => hasUnsavedChanges = value;
-    }
+        private DialogueTreeView treeView;
+        public DialogueViewComponent ViewComponent;
+        public InspectorView inspectorView;
+        private Toolbar toolbar;
 
-    private DialogueTree tree;
+        public Toggle autoSaveToggle;
 
-    public void CreateGUI()
-    {
-        VisualElement root = rootVisualElement;
-
-        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Scripts/Editor/DialogueEditor/Resource/DialogueEditor.uxml");
-        visualTree.CloneTree(root);
-
-        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/Resource/DialogueEditor.uss");
-        root.styleSheets.Add(styleSheet);
-
-        treeView = root.Q<DialogueTreeView>();
-        
-        inspectorView = root.Q<InspectorView>();
-
-        toolbar = root.Q<Toolbar>();
-        autoSaveToggle = toolbar.Q<ToolbarToggle>();
-    }
-
-    public static void OpenWindow(DialogueTree dialogueTree)
-    {
-        DialogueEditor wnd = GetWindow<DialogueEditor>();
-        wnd.titleContent = new GUIContent("DialogueEditor");
-        wnd.tree = dialogueTree;
-        wnd.ViewComponent = null;
-        wnd.treeView.PopulateView(wnd.tree, wnd);
-    }
-
-    public static void OpenWindow(DialogueTree dialogueTree, DialogueViewComponent viewComponent)
-    {
-        DialogueEditor wnd = GetWindow<DialogueEditor>();
-        wnd.titleContent = new GUIContent("DialogueEditor");
-        wnd.tree = dialogueTree;
-        wnd.ViewComponent = viewComponent;
-        wnd.treeView.PopulateView(wnd.tree, wnd);
-    }
-
-    public void OnInspectorUpdate()
-    {
-        if (autoSaveToggle.value && HasUnSave)
+        public bool HasUnSave
         {
-            treeView.SaveDialogueTree();
+            get => hasUnsavedChanges;
+            set => hasUnsavedChanges = value;
         }
 
-        treeView.RefreshNodeState();
-    }
+        private DialogueTree tree;
 
-    /// <summary>
-    /// 关闭editor时窗口中save的回调
-    /// </summary>
-    public override void SaveChanges()
-    {
-        base.SaveChanges();
-        treeView.SaveDialogueTree();
+        public void CreateGUI()
+        {
+            VisualElement root = rootVisualElement;
+
+            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Scripts/Editor/DialogueEditor/Resource/DialogueEditor.uxml");
+            visualTree.CloneTree(root);
+
+            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/DialogueEditor/Resource/DialogueEditor.uss");
+            root.styleSheets.Add(styleSheet);
+
+            treeView = root.Q<DialogueTreeView>();
+
+            inspectorView = root.Q<InspectorView>();
+
+            toolbar = root.Q<Toolbar>();
+            autoSaveToggle = toolbar.Q<ToolbarToggle>();
+        }
+
+        public static void OpenWindow(DialogueTree dialogueTree)
+        {
+            DialogueEditor wnd = GetWindow<DialogueEditor>();
+            wnd.titleContent = new GUIContent("DialogueEditor");
+            wnd.tree = dialogueTree;
+            wnd.ViewComponent = null;
+            wnd.treeView.PopulateView(wnd.tree, wnd);
+        }
+
+        public static void OpenWindow(DialogueTree dialogueTree, DialogueViewComponent viewComponent)
+        {
+            DialogueEditor wnd = GetWindow<DialogueEditor>();
+            wnd.titleContent = new GUIContent("DialogueEditor");
+            wnd.tree = dialogueTree;
+            wnd.ViewComponent = viewComponent;
+            wnd.treeView.PopulateView(wnd.tree, wnd);
+        }
+
+        public void OnInspectorUpdate()
+        {
+            if (autoSaveToggle.value && HasUnSave)
+            {
+                treeView.SaveDialogueTree();
+            }
+
+            treeView.RefreshNodeState();
+        }
+
+        /// <summary>
+        /// 关闭editor时窗口中save的回调
+        /// </summary>
+        public override void SaveChanges()
+        {
+            base.SaveChanges();
+            treeView.SaveDialogueTree();
+        }
     }
 }
