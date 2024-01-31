@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using ET.Client.V_Model;
 
 namespace ET.Client
 {

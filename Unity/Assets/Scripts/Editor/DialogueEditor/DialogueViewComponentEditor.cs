@@ -1,5 +1,7 @@
-﻿using Sirenix.OdinInspector.Editor;
+﻿using MongoDB.Bson;
+using Sirenix.OdinInspector.Editor;
 using UnityEditor;
+using UnityEngine;
 
 namespace ET.Client
 {
@@ -13,6 +15,14 @@ namespace ET.Client
             if (component == null) return;
             component.OpenWindow ??= () => { DialogueEditor.OpenWindow(component.cloneTree); };
 
+            // if (GUILayout.Button("测试keyframe"))
+            // {
+            //     var keyFrame = new Keyframe(){tangentMode = 233};
+            //     var cloneFrame = MongoHelper.Clone(keyFrame);
+            //     Debug.Log(keyFrame.ToJson());
+            //     Debug.Log(cloneFrame.ToJson());
+            // }
+            
             // if (GUILayout.Button("测试变量"))
             // {
             //     component.cloneTree.Variables.ForEach(v =>

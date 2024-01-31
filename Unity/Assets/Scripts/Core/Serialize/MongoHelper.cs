@@ -115,7 +115,17 @@ namespace ET
 
                 BsonClassMap.LookupClassMap(type);
             }
-
+            
+            //加载自定义序列化器
+            foreach (Type type in types.Values)
+            {
+                if (type.IsAbstract || type.IsGenericType || type.GetCustomAttribute<CustomSerializerAttribute>()==null) continue;
+                
+                var ISerializer = Activator.CreateInstance(type) as IBsonSerializer;
+                Type serializeType = ISerializer.GetType().GetProperty("ValueType",BindingFlags.NonPublic| BindingFlags.Instance | BindingFlags.Public).GetValue(ISerializer) as Type;
+                BsonSerializer.RegisterSerializer(serializeType,ISerializer);
+            }
+            
             Log.Debug("(runtime)MongoHelper初始化完成");
         }
 
@@ -130,7 +140,6 @@ namespace ET
             RegisterStruct<Vector2>();
             RegisterStruct<Vector3>();
             RegisterStruct<Vector2Int>();
-            BsonSerializer.RegisterSerializer(typeof(Keyframe),new KeyframeSerializer()); // AnimationCurve
             RegisterStruct<GradientColorKey>(); // Gradient
             RegisterStruct<Color>();
             RegisterStruct<GradientAlphaKey>();

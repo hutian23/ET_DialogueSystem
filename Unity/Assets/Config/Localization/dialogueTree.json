@@ -1,1 +1,224 @@
-{ "_t" : "MongoDB.Bson.BsonDocument, MongoDB.Bson", "_v" : { "targets" : { "0" : { "_t" : "RootNode", "NeedCheck" : false, "checkList" : [], "nextNode" : 1, "ID" : 4294967296, "Script" : "ShowWindow type = WindowID_Dialogue;\nNumeric Hp + 3;\nWaitTime 1000;\nNumeric Hp + 3;\nWaitTime 1000;\nNumeric Hp + 300;", "content" : { "Chinese" : "", "English" : "", "Japanese" : "" } }, "1" : { "_t" : "VN_ActionNode", "NeedCheck" : false, "checkList" : [], "children" : [2], "ID" : 4294967297, "Script" : "", "content" : { "Chinese" : "", "English" : "", "Japanese" : "" } }, "2" : { "_t" : "VN_ChoicePanel", "NeedCheck" : false, "checkList" : [], "children" : [3, 4, 5], "checkChildren" : false, "ID" : 4294967298, "Script" : "", "content" : { "Chinese" : "", "English" : "", "Japanese" : "" } }, "3" : { "_t" : "Persona_ChoiceNode", "NeedCheck" : false, "checkList" : [], "choices" : [], "ID" : 4294967299, "Script" : "", "content" : { "Chinese" : "", "English" : "", "Japanese" : "" } }, "4" : { "_t" : "Persona_ChoiceNode", "NeedCheck" : false, "checkList" : [], "choices" : [], "ID" : 4294967300, "Script" : "", "content" : { "Chinese" : "", "English" : "", "Japanese" : "" } }, "5" : { "_t" : "Persona_ChoiceNode", "NeedCheck" : false, "checkList" : [], "choices" : [], "ID" : 4294967301, "Script" : "", "content" : { "Chinese" : "", "English" : "", "Japanese" : "" } }, "Length" : 6 }, "variables" : { "0" : { "name" : "Variable", "value" : { "_t" : "AnimationCurve", "keys" : [{ "m_Time" : -0.04083251953125, "m_Value" : -0.032073974609375, "m_InTangent" : 0.0, "m_OutTangent" : 0.0, "m_TangentMode" : 0, "m_WeightedMode" : 0, "m_InWeight" : 0.0, "m_OutWeight" : 0.0 }, { "m_Time" : 0.33571633696556091, "m_Value" : 0.90277445316314697, "m_InTangent" : 1.0271861553192139, "m_OutTangent" : 1.0271861553192139, "m_TangentMode" : 0, "m_WeightedMode" : 0, "m_InWeight" : 0.3333333432674408, "m_OutWeight" : 0.3333333432674408 }, { "m_Time" : 0.93791580200195313, "m_Value" : 0.9436187744140625, "m_InTangent" : 0.0, "m_OutTangent" : 0.0, "m_TangentMode" : 0, "m_WeightedMode" : 0, "m_InWeight" : 0.0, "m_OutWeight" : 0.0 }], "preWrapMode" : 8, "postWrapMode" : 8 } }, "1" : { "name" : "Variable(1)", "value" : { "_t" : "Gradient", "colorKeys" : [{ "color" : { "r" : 0.075471699237823486, "g" : 0.013171947561204433, "b" : 0.013171947561204433, "a" : 1.0 }, "time" : 0.86471349000930786 }, { "color" : { "r" : 1.0, "g" : 1.0, "b" : 1.0, "a" : 1.0 }, "time" : 1.0 }], "alphaKeys" : [{ "alpha" : 1.0, "time" : 0.32059204578399658 }, { "alpha" : 1.0, "time" : 1.0 }], "mode" : 0 } }, "2" : { "name" : "Variable(2)", "value" : { "_t" : "UnityEngine.Vector3, UnityEngine.CoreModule", "_v" : { "x" : 0.0, "y" : 0.0, "z" : 0.0 } } }, "3" : { "name" : "Variable(3)", "value" : { "_t" : "UnityEngine.Vector3, UnityEngine.CoreModule", "_v" : { "x" : 0.0, "y" : 0.0, "z" : 0.0 } } }, "4" : { "name" : "Variable(4)", "value" : { "_t" : "UnityEngine.Vector2, UnityEngine.CoreModule", "_v" : { "x" : 0.0, "y" : 0.0 } } }, "5" : { "name" : "Variable(5)", "value" : { "_t" : "System.Single", "_v" : 0.0 } }, "6" : { "name" : "Variable(6)", "value" : 0 }, "7" : { "name" : "Variable(7)", "value" : "" }, "8" : { "name" : "Variable(8)", "value" : true }, "Length" : 9 } } }
+{
+    "_t": "MongoDB.Bson.BsonDocument, MongoDB.Bson",
+    "_v": {
+        "targets": {
+            "0": {
+                "_t": "RootNode",
+                "NeedCheck": false,
+                "checkList": [],
+                "nextNode": 1,
+                "ID": 4294967296,
+                "Script": "ShowWindow type = WindowID_Dialogue;\nNumeric Hp + 3;\nWaitTime 1000;\nNumeric Hp + 3;\nWaitTime 1000;\nNumeric Hp + 300;",
+                "content": {
+                    "Chinese": "",
+                    "English": "",
+                    "Japanese": ""
+                }
+            },
+            "1": {
+                "_t": "VN_ActionNode",
+                "NeedCheck": false,
+                "checkList": [],
+                "children": [
+                    2
+                ],
+                "ID": 4294967297,
+                "Script": "",
+                "content": {
+                    "Chinese": "你好啊。",
+                    "English": "hello world.",
+                    "Japanese": ""
+                }
+            },
+            "2": {
+                "_t": "VN_ChoicePanel",
+                "NeedCheck": false,
+                "checkList": [],
+                "children": [
+                    3,
+                    4,
+                    5
+                ],
+                "checkChildren": false,
+                "ID": 4294967298,
+                "Script": "",
+                "content": {
+                    "Chinese": "",
+                    "English": "",
+                    "Japanese": ""
+                }
+            },
+            "3": {
+                "_t": "Persona_ChoiceNode",
+                "NeedCheck": false,
+                "checkList": [],
+                "choices": [],
+                "ID": 4294967299,
+                "Script": "",
+                "content": {
+                    "Chinese": "",
+                    "English": "",
+                    "Japanese": ""
+                }
+            },
+            "4": {
+                "_t": "Persona_ChoiceNode",
+                "NeedCheck": false,
+                "checkList": [],
+                "choices": [],
+                "ID": 4294967300,
+                "Script": "",
+                "content": {
+                    "Chinese": "",
+                    "English": "",
+                    "Japanese": ""
+                }
+            },
+            "5": {
+                "_t": "Persona_ChoiceNode",
+                "NeedCheck": false,
+                "checkList": [],
+                "choices": [],
+                "ID": 4294967301,
+                "Script": "",
+                "content": {
+                    "Chinese": "",
+                    "English": "",
+                    "Japanese": ""
+                }
+            },
+            "Length": 6
+        },
+        "variables": {
+            "0": {
+                "name": "Variable",
+                "value": {
+                    "_t": "AnimationCurve",
+                    "keys": [
+                        {
+                            "m_Time": -0.04083251953125,
+                            "m_Value": -0.032073974609375,
+                            "m_InTangent": 0.0,
+                            "m_OutTangent": 0.0,
+                            "m_TangentMode": 0,
+                            "m_WeightedMode": 0,
+                            "m_InWeight": 0.0,
+                            "m_OutWeight": 0.0
+                        },
+                        {
+                            "m_Time": 0.22542190551757813,
+                            "m_Value": 0.17946624755859375,
+                            "m_InTangent": 0.0,
+                            "m_OutTangent": 0.0,
+                            "m_TangentMode": 0,
+                            "m_WeightedMode": 0,
+                            "m_InWeight": 0.0,
+                            "m_OutWeight": 0.0
+                        },
+                        {
+                            "m_Time": 0.4190446138381958,
+                            "m_Value": -0.0052531957626342773,
+                            "m_InTangent": 1.0271861553192139,
+                            "m_OutTangent": 1.0271861553192139,
+                            "m_TangentMode": 0,
+                            "m_WeightedMode": 0,
+                            "m_InWeight": 0.3333333432674408,
+                            "m_OutWeight": 0.3333333432674408
+                        }
+                    ],
+                    "preWrapMode": 8,
+                    "postWrapMode": 8
+                }
+            },
+            "1": {
+                "name": "Variable(1)",
+                "value": {
+                    "_t": "Gradient",
+                    "colorKeys": [
+                        {
+                            "color": {
+                                "r": 0.075471699237823486,
+                                "g": 0.013171947561204433,
+                                "b": 0.013171947561204433,
+                                "a": 1.0
+                            },
+                            "time": 0.86471349000930786
+                        },
+                        {
+                            "color": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            },
+                            "time": 1.0
+                        }
+                    ],
+                    "alphaKeys": [
+                        {
+                            "alpha": 1.0,
+                            "time": 0.32059204578399658
+                        },
+                        {
+                            "alpha": 1.0,
+                            "time": 1.0
+                        }
+                    ],
+                    "mode": 0
+                }
+            },
+            "2": {
+                "name": "Variable(2)",
+                "value": {
+                    "_t": "UnityEngine.Vector3, UnityEngine.CoreModule",
+                    "_v": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                }
+            },
+            "3": {
+                "name": "Variable(3)",
+                "value": {
+                    "_t": "UnityEngine.Vector3, UnityEngine.CoreModule",
+                    "_v": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                }
+            },
+            "4": {
+                "name": "Variable(4)",
+                "value": {
+                    "_t": "UnityEngine.Vector2, UnityEngine.CoreModule",
+                    "_v": {
+                        "x": 0.0,
+                        "y": 0.0
+                    }
+                }
+            },
+            "5": {
+                "name": "Variable(5)",
+                "value": {
+                    "_t": "System.Single",
+                    "_v": 0.0
+                }
+            },
+            "6": {
+                "name": "Variable(6)",
+                "value": 0
+            },
+            "7": {
+                "name": "Variable(7)",
+                "value": ""
+            },
+            "8": {
+                "name": "Variable(8)",
+                "value": true
+            },
+            "Length": 9
+        }
+    }
+}

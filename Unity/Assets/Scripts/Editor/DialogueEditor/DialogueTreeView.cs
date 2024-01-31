@@ -469,29 +469,6 @@ namespace ET.Client
 
         #endregion
 
-        #region Variable
-
-        public bool ContainVariable(string variableName)
-        {
-            return tree.Variables.Any(v => v.name == variableName);
-        }
-
-        public void AddVariable(SharedVariable variable)
-        {
-            tree.Variables.Add(variable);
-        }
-
-        public T GetVariable<T>(string variableName)
-        {
-            return tree.GetVariable<T>(variableName);
-        }
-
-        public void SaveBlackboard()
-        {
-        }
-
-        #endregion
-
         public DialogueTree GetTree()
         {
             return this.tree;

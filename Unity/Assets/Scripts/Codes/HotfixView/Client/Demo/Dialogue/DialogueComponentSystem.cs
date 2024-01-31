@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using MongoDB.Bson;
-using UnityEngine;
 using Application = UnityEngine.Device.Application;
 
 namespace ET.Client
@@ -173,7 +171,7 @@ namespace ET.Client
 
             return self.treeData.GetNode(targetID);
         }
-
+        
         public static void PushNextNode(this DialogueComponent self, DialogueNode node)
         {
             if (node == null) return;
@@ -189,6 +187,23 @@ namespace ET.Client
         public static void PushNextNode(this DialogueComponent self, List<uint> targets)
         {
             targets.ForEach(self.PushNextNode);
+        }
+
+        public static T GetVariable<T>(this DialogueComponent self, string variableName)
+        {
+            if (Application.isEditor)
+            {
+                switch (self.ReloadType)
+                {
+                    case ViewReloadType.RuntimeReload:
+                        return self.treeData.GetVariable<T>(variableName);
+                    default:
+                        return self.GetParent<Unit>()
+                                .GetComponent<GameObjectComponent>().GameObject
+                                .GetComponent<DialogueViewComponent>().cloneTree.GetVariable<T>(variableName);
+                }
+            }   
+            return self.treeData.GetVariable<T>(variableName);
         }
     }
 }

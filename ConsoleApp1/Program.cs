@@ -108,10 +108,10 @@ static class Program
     
     public static void Main()
     {
-        MongoHelper.RegisterStruct<test222>();
-        var bytes = new test222().ToBson();
-        var ins2 = MongoHelper.Deserialize<test222>(bytes);
-        Console.WriteLine(ins2.ToJson());
+        // MongoHelper.RegisterStruct<test222>();
+        // var bytes = new test222().ToBson();
+        // var ins2 = MongoHelper.Deserialize<test222>(bytes);
+        // Console.WriteLine(ins2.ToJson());
         // Type type = typeof (test222);
         // FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
         // foreach (var field in fields)

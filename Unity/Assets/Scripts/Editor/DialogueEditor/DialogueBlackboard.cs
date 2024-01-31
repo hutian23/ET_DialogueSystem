@@ -13,10 +13,10 @@ namespace ET.Client
         private DialogueTreeView treeView;
         public readonly ScrollView RawContainer;
 
-        public DialogueBlackboard(DialogueTreeView _graphView): base(_graphView)
+        public DialogueBlackboard(GraphView _graphView): base(_graphView)
         {
             var header = this.Q("header");
-            header.style.minHeight = new StyleLength(60);
+            header.style.minHeight = new StyleLength(40);
             Add(RawContainer = new ScrollView());
         }
 
@@ -27,12 +27,12 @@ namespace ET.Client
 
             addItemRequested = _ =>
             {
-                var menu = new GenericMenu();
+                GenericMenu menu = new();
                 EditorRegistry.resolverMap.ForEach(kv =>
                 {
                     menu.AddItem(new GUIContent(kv.Key.Name), false, () =>
                     {
-                        object obj = kv.Key == typeof (String)? "" : Activator.CreateInstance(kv.Key);
+                        object obj = kv.Key == typeof (string)? "" : Activator.CreateInstance(kv.Key);
                         AddVariable(obj);
                     });
                 });
@@ -42,14 +42,14 @@ namespace ET.Client
             editTextRequested += (_, element, newValue) =>
             {
                 //检查同名属性
-                if (treeView.ContainVariable(newValue)) return;
+                if (ContainVariable(newValue)) return;
                 ((BlackboardField)element).text = newValue;
                 treeView.SetDirty();
             };
 
             treeView.GetTree().Variables.ForEach(v =>
             {
-                var resolver = Activator.CreateInstance(EditorRegistry.resolverMap[v.value.GetType()], args: new object[] { v, treeView }) as FieldResolver;
+                FieldResolver resolver = Activator.CreateInstance(EditorRegistry.resolverMap[v.value.GetType()], args: new object[] { v, treeView }) as FieldResolver;
                 RawContainer.Add(resolver.CreateRow());
             });
         }
@@ -59,23 +59,28 @@ namespace ET.Client
             string variableName = "Variable";
             //检查重名
             int id = 0;
-            while (treeView.ContainVariable(variableName))
+            while (ContainVariable(variableName))
             {
                 variableName = $"Variable({++id})";
             }
 
-            var variable = new SharedVariable() { name = variableName, value = obj };
-            treeView.AddVariable(variable);
+            SharedVariable variable = new() { name = variableName, value = obj };
+            treeView.GetTree().Variables.Add(variable);
 
-            var resolver = Activator.CreateInstance(EditorRegistry.resolverMap[obj.GetType()], args: new object[] { variable, treeView }) as FieldResolver;
+            FieldResolver resolver = Activator.CreateInstance(EditorRegistry.resolverMap[obj.GetType()], args: new object[] { variable, treeView }) as FieldResolver;
             RawContainer.Add(resolver.CreateRow());
         }
-        
+
+        private bool ContainVariable(string variableName)
+        {
+            return treeView.GetTree().Variables.Any(v => v.name == variableName);
+        }
+
         public void Save()
         {
             var variables = treeView.GetTree().Variables;
             variables.Clear();
-            
+
             RawContainer.Children().Cast<BlackboardRow>().ForEach(row =>
             {
                 FieldResolver resolver = row.Q<RefernceElement>().reference as FieldResolver;

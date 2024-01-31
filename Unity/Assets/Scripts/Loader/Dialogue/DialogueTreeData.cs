@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson.Serialization.Options;
 
 namespace ET.Client
 {
     public class DialogueTreeData
     {
-        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
-        public Dictionary<uint, DialogueNode> targets = new();
-        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
-        public Dictionary<string, object> variables = new();
+        private readonly Dictionary<uint, DialogueNode> targets = new();
+        private readonly Dictionary<string, object> variables = new();
 
-        public DialogueTreeData(BsonDocument document,Language language)
+        public DialogueTreeData(BsonDocument document, Language language)
         {
             try
             {
@@ -27,7 +23,7 @@ namespace ET.Client
 
                     var contentDoc = nodeDoc.GetValue("content").ToBsonDocument();
                     node.text = contentDoc[(int)language].AsString;
-                    targets.Add((uint)i,node);
+                    targets.Add((uint)i, node);
                 }
 
                 var variablesDoc = document["variables"].ToBsonDocument();
@@ -47,22 +43,15 @@ namespace ET.Client
 
         public DialogueNode GetNode(uint targetID)
         {
-            if (targets.TryGetValue(targetID, out DialogueNode node))
-            {
-                return node;
-            }
-
-            return null;
+            if (!targets.TryGetValue(targetID, out DialogueNode node)) return null;
+            return node;
         }
 
         public T GetVariable<T>(string variableName)
         {
-            if (variables.TryGetValue(variableName, out var value))
-            {
-                return (T)value;
-            }
-
-            return default;
+            if (!this.variables.TryGetValue(variableName, out var value)) return default;
+            object cloneValue = MongoHelper.Clone(value);
+            return (T)cloneValue;
         }
     }
 }

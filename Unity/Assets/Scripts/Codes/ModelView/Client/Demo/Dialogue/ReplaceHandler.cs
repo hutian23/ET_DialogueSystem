@@ -1,4 +1,4 @@
-﻿namespace ET.Client.V_Model
+﻿namespace ET.Client
 {
     public class DialogueReplaceAttribute: BaseAttribute
     {

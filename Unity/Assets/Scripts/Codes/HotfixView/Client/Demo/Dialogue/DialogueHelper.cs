@@ -25,13 +25,18 @@ namespace ET.Client
         {
             Log.Error($"{text}匹配失败！请检查格式");
         }
-
         public static void ReplaceCustomModel(ref string text, string oldText, string newText)
         {
             string replaceStr = $"<{oldText}/>";
             text = text.Replace(replaceStr, newText);
         }
 
+        public static string ReplaceModel(Unit unit, ref string text)
+        {
+            text = null;
+            return "";
+        }
+        
         public static string ReplaceModel(Unit unit, string text)
         {
             string replaceText = text;

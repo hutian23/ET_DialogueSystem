@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ET.Client.V_Model;
 
 namespace ET.Client
 {

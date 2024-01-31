@@ -127,7 +127,7 @@ namespace ET
         }
 
         public static void Close()
-        {
+        { 
             // 顺序反过来清理
             while (singletons.Count > 0)
             {

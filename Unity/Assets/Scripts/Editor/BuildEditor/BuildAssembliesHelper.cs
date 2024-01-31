@@ -9,7 +9,6 @@ using MongoDB.Bson.Serialization.Conventions;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Compilation;
-using Assembly = System.Reflection.Assembly;
 
 namespace ET
 {
@@ -33,8 +32,7 @@ namespace ET
         {
             if (Application.isPlaying) return;
             // 清理老的数据
-            MethodInfo createSerializerRegistry =
-                    typeof (BsonSerializer).GetMethod("CreateSerializerRegistry", BindingFlags.Static | BindingFlags.NonPublic);
+            MethodInfo createSerializerRegistry = typeof (BsonSerializer).GetMethod("CreateSerializerRegistry", BindingFlags.Static | BindingFlags.NonPublic);
             createSerializerRegistry.Invoke(null, Array.Empty<object>());
             MethodInfo registerIdGenerators = typeof (BsonSerializer).GetMethod("RegisterIdGenerators", BindingFlags.Static | BindingFlags.NonPublic);
             registerIdGenerators.Invoke(null, Array.Empty<object>());
@@ -61,22 +59,29 @@ namespace ET
                 BsonClassMap.LookupClassMap(type);
             }
 
-            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            List<Assembly> models = new();
-            foreach (Assembly assembly in assemblies)
+            //加载自定义序列化器(目前只支持Loader)
+            foreach (Type type in types.Values)
             {
-                var asmName = assembly.GetName().Name;
-                if (asmName is "Unity.Model" or "Unity.ModelView" or "Unity.Loader" or "Unity.Core")
-                {
-                    models.Add(assembly);
-                }
+                if (type.IsAbstract || type.IsGenericType || type.GetCustomAttribute<CustomSerializerAttribute>()==null) continue;
+                
+                var ISerializer = Activator.CreateInstance(type) as IBsonSerializer;
+                Type serializeType = ISerializer.GetType().GetProperty("ValueType",BindingFlags.NonPublic| BindingFlags.Instance | BindingFlags.Public).GetValue(ISerializer) as Type;
+                BsonSerializer.RegisterSerializer(serializeType,ISerializer);
             }
             
-            foreach (Assembly assembly in models)
-            {
-                var modelTypes = AssemblyHelper.GetAssemblyTypes(assembly);
-            }
-            
+            // byte[] dllBytes = File.ReadAllBytes(Path.Combine(CodeDir, $"Model.dll.bytes"));
+            // byte[] pdbBytes = File.ReadAllBytes(Path.Combine(CodeDir, $"Model.pdb.bytes"));
+            // Assembly model = Assembly.Load(dllBytes, pdbBytes);
+            // var model_types = AssemblyHelper.GetAssemblyTypes(model);
+            // foreach (var type in model_types.Values)
+            // {
+            //     Debug.LogWarning(type);
+            //     if (type.GetCustomAttribute<CustomSerializerAttribute>() != null)
+            //     {
+            //         Debug.Log(type);
+            //     }
+            // }
+
             Debug.Log("(editor)MongoHelper初始化完成");
         }
 

@@ -47,7 +47,7 @@ namespace ET.Client
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
         [DictionaryDrawerSettings(KeyLabel = "TargetID", ValueLabel = "DialogueNode", IsReadOnly = true)]
         public Dictionary<uint, DialogueNode> targets = new();
-
+        
         public List<SharedVariable> Variables = new();
 
         public RootNode CreateRoot()
@@ -119,7 +119,8 @@ namespace ET.Client
                 return default;
             }
 
-            return (T)variable.value;
+            object value = MongoHelper.Clone(variable.value);
+            return (T)value;
         }
 
         public object GetVariable(String variableName)
@@ -131,7 +132,8 @@ namespace ET.Client
                 return default;
             }
 
-            return v.value;
+            object value = MongoHelper.Clone(v.value);
+            return value;
         }
 
 #if UNITY_EDITOR
