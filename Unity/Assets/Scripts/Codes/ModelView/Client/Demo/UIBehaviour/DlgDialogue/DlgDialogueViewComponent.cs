@@ -160,6 +160,40 @@ namespace ET.Client
      		}
      	}
 
+		public UnityEngine.UI.Button E_QuickSaveButton
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_QuickSaveButton == null )
+     			{
+		    		this.m_E_QuickSaveButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"E_QuickSave");
+     			}
+     			return this.m_E_QuickSaveButton;
+     		}
+     	}
+
+		public UnityEngine.UI.Image E_QuickSaveImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_QuickSaveImage == null )
+     			{
+		    		this.m_E_QuickSaveImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_QuickSave");
+     			}
+     			return this.m_E_QuickSaveImage;
+     		}
+     	}
+
 		public void DestroyWidget()
 		{
 			this.m_E_ClearQSButton = null;
@@ -171,6 +205,8 @@ namespace ET.Client
 			this.m_E_CheckInput_TargetIDInputField = null;
 			this.m_E_CheckInput_TargetIDImage = null;
 			this.m_E_TextText = null;
+			this.m_E_QuickSaveButton = null;
+			this.m_E_QuickSaveImage = null;
 			this.uiTransform = null;
 		}
 
@@ -183,6 +219,8 @@ namespace ET.Client
 		private UnityEngine.UI.InputField m_E_CheckInput_TargetIDInputField = null;
 		private UnityEngine.UI.Image m_E_CheckInput_TargetIDImage = null;
 		private UnityEngine.UI.Text m_E_TextText = null;
+		private UnityEngine.UI.Button m_E_QuickSaveButton = null;
+		private UnityEngine.UI.Image m_E_QuickSaveImage = null;
 		public Transform uiTransform = null;
 	}
 }

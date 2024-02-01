@@ -110,8 +110,8 @@ namespace ET.Client
                 {
                     if (self.token.IsCancel()) break;
                     node = self.workQueue.Dequeue(); //将下一个节点压入queue执行
-                    self.currentNode = node;    
-                    
+                    self.currentNode = node;
+
                     if (Application.isEditor) node.Status = Status.Pending;
                     Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, node, self.token);
                     node.Status = ret;
@@ -177,7 +177,7 @@ namespace ET.Client
 
         public static void PushNextNode(this DialogueComponent self, DialogueNode node)
         {
-            if (node == null) return;
+            if (node == null || node.TargetID == 0) return; //注意不能压入根节点
             self.workQueue.Enqueue(node);
         }
 

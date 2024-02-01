@@ -1,17 +1,17 @@
 ﻿namespace ET.Client
 {
-    [FriendOf(typeof(DlgDialogue))]
-    [FriendOf(typeof(DialogueStorage))]
+    [FriendOf(typeof (DlgDialogue))]
+    [FriendOf(typeof (DialogueStorage))]
     public static class DlgDialogueSystem
     {
-
         public static void RegisterUIEvent(this DlgDialogue self)
         {
             self.View.E_ClearQSButton.AddListener(self.ClearQuickSave);
             self.View.E_CheckQuickSaveButton.AddListener(self.CheckQS);
+            self.View.E_QuickSaveButton.AddListener(self.Save);
         }
-        
-        public class DlgDialogueLoadSystem : LoadSystem<DlgDialogue>
+
+        public class DlgDialogueLoadSystem: LoadSystem<DlgDialogue>
         {
             protected override void Load(DlgDialogue self)
             {
@@ -19,7 +19,7 @@
                 self.View.E_CheckQuickSaveButton.AddListener(self.CheckQS);
             }
         }
-        
+
         public static void ShowWindow(this DlgDialogue self, Entity contextData = null)
         {
         }
@@ -28,6 +28,11 @@
         {
             DialogueStorageManager.Instance.QuickSaveShot.ClearBuffer();
             DialogueStorageManager.Instance.QuickSaveShot.storageSet.Clear();
+        }
+
+        private static void Save(this DlgDialogue self)
+        {
+            DialogueStorageManager.Instance.QuickSaveShot.Save();
         }
 
         private static void CheckQS(this DlgDialogue self)

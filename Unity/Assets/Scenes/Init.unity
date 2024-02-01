@@ -635,7 +635,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 5
     - Name: 
       Entry: 7
       Data: 17|ET.Client.SharedVariable, Unity.Loader
@@ -798,6 +798,42 @@ MonoBehaviour:
     - Name: 
       Entry: 3
       Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 24|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(3)
+    - Name: value
+      Entry: 7
+      Data: 25|System.Single, mscorlib
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 26|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Variable(4)
+    - Name: value
+      Entry: 7
+      Data: 27|System.String, mscorlib
+    - Name: 
+      Entry: 1
+      Data: 
     - Name: 
       Entry: 8
       Data: 
