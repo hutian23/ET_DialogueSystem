@@ -11,7 +11,7 @@ namespace ET.Client
             return "Numeric";
         }
 
-        // <Nuemric type=HP/> ---> HP
+        // <Nuemric type=Hp/> ---> Hp
         public override string GetReplaceStr(Unit unit, string model)
         {
             Match match = Regex.Match(model, @"<Numeric type=(\w+)/>");

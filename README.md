@@ -175,3 +175,9 @@
     取消组和节点的父子关系。(不支持撤销)
 
     ![](./images/RemoveGroup.png)
+
+
+三种访问数据的方式
+1. 查数据树上的其他组件的数据(或者一些全局的配置)。 <Numeric type=Hp/> <--- NumericComponent <UnitConfig id=1001 name/> <--- configLoader
+2. 访问对话树上的共享变量。<Variable name=variable/>
+3. 节点内的数据 {{Courage}} {{Random}}

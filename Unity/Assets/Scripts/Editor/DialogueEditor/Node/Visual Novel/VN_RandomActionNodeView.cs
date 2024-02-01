@@ -7,7 +7,7 @@ namespace ET.Client
         {
             GenerateInputPort("", true);
             Port port = GenerateOutputPort("");
-            SaveCallback += () => { dialogueNode.children = GetLinkNodes(port); };
+            SaveCallback += () => { dialogueNode.next = GetFirstLinkNode(port); };
         }
     }
 }

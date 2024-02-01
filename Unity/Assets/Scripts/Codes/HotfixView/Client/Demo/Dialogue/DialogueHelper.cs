@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Text.RegularExpressions;
 using MongoDB.Bson;
-using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -27,19 +25,13 @@ namespace ET.Client
         }
         public static void ReplaceCustomModel(ref string text, string oldText, string newText)
         {
-            string replaceStr = $"<{oldText}/>";
+            string replaceStr = "{{"+ oldText + "}}";
             text = text.Replace(replaceStr, newText);
         }
-
-        public static string ReplaceModel(Unit unit, ref string text)
-        {
-            text = null;
-            return "";
-        }
         
-        public static string ReplaceModel(Unit unit, string text)
+        public static string ReplaceModel(Unit unit, ref string replaceText)
         {
-            string replaceText = text;
+            if (string.IsNullOrEmpty(replaceText)) return string.Empty;
             MatchCollection matches = Regex.Matches(replaceText, @"<\w+\s+[^>]*\/>");
 
             foreach (Match match in matches)
@@ -52,7 +44,6 @@ namespace ET.Client
 
                 replaceText = replaceText.Replace(match.Value, replaceStr);
             }
-
             return replaceText;
         }
 

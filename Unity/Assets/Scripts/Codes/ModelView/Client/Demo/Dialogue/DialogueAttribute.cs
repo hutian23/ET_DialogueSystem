@@ -5,13 +5,13 @@ namespace ET.Client
     public class DialogueAttribute: BaseAttribute
     {
     }
-    
+
     public interface NodeHandler
     {
         public ETTask<Status> Handle(Unit unit, object node, ETCancellationToken token);
         public Type GetDialogueType();
     }
-
+    
     [Dialogue]
     public abstract class NodeHandler<Node>: NodeHandler where Node : DialogueNode
     {
@@ -24,8 +24,7 @@ namespace ET.Client
                 Log.Error($"节点类型转换错误: {node.GetType().FullName} to {typeof (Node).Name}");
                 return Status.Failed;
             }
-
-            return await Run(unit, dialogueNode, token);
+            return await Run(unit,dialogueNode , token);
         }
 
         public Type GetDialogueType()

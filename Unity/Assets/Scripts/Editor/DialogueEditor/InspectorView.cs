@@ -22,8 +22,10 @@ namespace ET.Client
             dataView.datas = nodeList.ToHashSet();
 
             this.editor = Editor.CreateEditor(dataView);
+            ScrollView scrollView = new();
             IMGUIContainer container = new(() => { this.editor.OnInspectorGUI(); });
-            Add(container);
+            scrollView.Add(container);
+            Add(scrollView);
         }
     }
 }

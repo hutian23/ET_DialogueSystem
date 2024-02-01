@@ -21,8 +21,8 @@ namespace ET.Client
         public string minVariable;
         [FoldoutGroup("$nodeName/data"),LabelText("最大变量: "),ShowIf("innerMode")]
         public string maxVariable;
-        
+
         [HideInInspector]
-        public List<uint> children = new();
+        public uint next;
     }
 }

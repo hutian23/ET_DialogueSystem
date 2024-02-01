@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text.RegularExpressions;
 using ET;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
@@ -101,13 +102,35 @@ static class Program
         public int a;
     }
 
-    public class test3333 : test2
+    public class test3333: test2
     {
         public int a = 10;
+    }
+
+    public static void ConvertTest<T>(object value)
+    {
+        try
+        {
+            var t = (T)value;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("格式转换错误");
+        }
     }
     
     public static void Main()
     {
+        // string text = $"<Variable name=2323/>";
+        // Match match = Regex.Match(text, @"<Variable name=(\w+)");
+        // Console.WriteLine(match.Groups[1].Value);
+        string text = $"<Numeric type=<Numeric type=Hp/>/>";
+        MatchCollection matches = Regex.Matches(text, @"<\w+\s+[^>]*\/>");
+        foreach (Match match in matches)
+        {
+            Console.WriteLine(match);
+        }
+        // Console.WriteLine(text);
         // MongoHelper.RegisterStruct<test222>();
         // var bytes = new test222().ToBson();
         // var ins2 = MongoHelper.Deserialize<test222>(bytes);

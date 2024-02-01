@@ -44,14 +44,26 @@ namespace ET.Client
         public DialogueNode GetNode(uint targetID)
         {
             if (!targets.TryGetValue(targetID, out DialogueNode node)) return null;
+            var cloneNode = MongoHelper.Clone(node);
+            cloneNode.text = node.text;
             return node;
         }
 
         public T GetVariable<T>(string variableName)
         {
-            if (!this.variables.TryGetValue(variableName, out var value)) return default;
-            object cloneValue = MongoHelper.Clone(value);
-            return (T)cloneValue;
+            if (!this.variables.TryGetValue(variableName, out var value) || value == null) return default;
+
+            try
+            {
+                T convertValue = (T)value;
+                T cloneValue = MongoHelper.Clone(convertValue);
+                return cloneValue;
+            }
+            catch (Exception)
+            {
+                Log.Error($"变量{variableName}转换失败!不能将{value.GetType()}转换成{typeof (T)}");
+                return default;
+            }
         }
     }
 }

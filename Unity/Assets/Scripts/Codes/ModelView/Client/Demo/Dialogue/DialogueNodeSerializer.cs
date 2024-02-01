@@ -1,3 +1,0 @@
-﻿namespace ET.Client
-{
-}

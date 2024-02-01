@@ -8,10 +8,8 @@
             if (token.IsCancel()) return Status.Failed;
 
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
-
-            Log.Warning(dialogueComponent.GetVariable<int>("Variable").ToString());
             dialogueComponent.PushNextNode(node.nextNode);
-            await ETTask.CompletedTask;
+            
             return Status.Success;
         }
     }

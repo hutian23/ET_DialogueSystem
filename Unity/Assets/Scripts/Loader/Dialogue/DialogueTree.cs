@@ -47,7 +47,7 @@ namespace ET.Client
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
         [DictionaryDrawerSettings(KeyLabel = "TargetID", ValueLabel = "DialogueNode", IsReadOnly = true)]
         public Dictionary<uint, DialogueNode> targets = new();
-        
+
         public List<SharedVariable> Variables = new();
 
         public RootNode CreateRoot()
@@ -110,30 +110,21 @@ namespace ET.Client
             return cloneTree;
         }
 
-        public T GetVariable<T>(String variableName)
+        public T GetVariable<T>(string variableName)
         {
-            SharedVariable variable = Variables.FirstOrDefault(v => v.name == variableName && v.value.GetType() == typeof (T));
-            if (variable == null)
+            SharedVariable sharedVariable = this.Variables.FirstOrDefault(x => x.name == variableName);
+            if (sharedVariable == null || sharedVariable.value == null) return default;
+            try
             {
-                Debug.LogError($"not found variable: {variableName}");
+                T convertValue = (T)sharedVariable.value;
+                T cloneValue = MongoHelper.Clone(convertValue);
+                return cloneValue;
+            }
+            catch (Exception)
+            {
+                Log.Error($"变量{variableName}转换失败!不能将{sharedVariable.value.GetType()}转换成{typeof (T)}");
                 return default;
             }
-
-            object value = MongoHelper.Clone(variable.value);
-            return (T)value;
-        }
-
-        public object GetVariable(String variableName)
-        {
-            SharedVariable v = this.Variables.FirstOrDefault(v => v.name == variableName);
-            if (v == null)
-            {
-                Debug.LogError($"not found variable: {variableName}");
-                return default;
-            }
-
-            object value = MongoHelper.Clone(v.value);
-            return value;
         }
 
 #if UNITY_EDITOR

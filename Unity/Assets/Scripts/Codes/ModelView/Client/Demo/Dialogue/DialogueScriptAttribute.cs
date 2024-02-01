@@ -4,7 +4,6 @@
     {
     }
     
-    // Action节点 一定要写很多继承，
     [DialogueScript]
     public abstract class ScriptHandler
     {

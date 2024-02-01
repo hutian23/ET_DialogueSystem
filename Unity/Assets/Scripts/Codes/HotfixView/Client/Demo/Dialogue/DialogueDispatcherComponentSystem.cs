@@ -138,6 +138,7 @@ namespace ET.Client
                 return;
             }
 
+            DialogueHelper.ReplaceModel(unit, ref opCode);
             await handler.Handle(unit, opCode, token);
         }
 
