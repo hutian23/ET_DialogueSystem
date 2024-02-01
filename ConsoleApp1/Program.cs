@@ -119,17 +119,36 @@ static class Program
         }
     }
     
+    public class test2132131
+    {
+        public ulong a = 10;
+    }
+    
     public static void Main()
     {
+        var bytes = MongoHelper.Serialize(new test2132131() { a = 12323212 });
+        Console.WriteLine(MongoHelper.Deserialize<test2132131>(bytes).a);
+        
+        // Console.WriteLine(new test2132131().ToJson());
         // string text = $"<Variable name=2323/>";
         // Match match = Regex.Match(text, @"<Variable name=(\w+)");
         // Console.WriteLine(match.Groups[1].Value);
-        string text = $"<Numeric type=<Numeric type=Hp/>/>";
-        MatchCollection matches = Regex.Matches(text, @"<\w+\s+[^>]*\/>");
-        foreach (Match match in matches)
-        {
-            Console.WriteLine(match);
-        }
+        // try
+        // {
+        //     object a = 10.3f;
+        //     Console.WriteLine((int)(float)a);
+        // }
+        // catch (Exception e)
+        // {
+        //     Console.WriteLine(e);
+        // }
+        //
+        // string text = $"<Numeric type=<Numeric type=Hp/>/>";
+        // MatchCollection matches = Regex.Matches(text, @"<\w+\s+[^>]*\/>");
+        // foreach (Match match in matches)
+        // {
+        //     Console.WriteLine(match);
+        // }
         // Console.WriteLine(text);
         // MongoHelper.RegisterStruct<test222>();
         // var bytes = new test222().ToBson();

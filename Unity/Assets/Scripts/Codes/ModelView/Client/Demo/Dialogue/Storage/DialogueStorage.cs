@@ -7,10 +7,12 @@ namespace ET.Client
     public class DialogueStorage: Entity, IAwake, IDestroy, IDeserialize, ISerializeToEntity
     {
         // key treeID 32bit + targetID 32bits
-        public HashSet<ulong> storageSet = new();
+        public HashSet<long> storageSet = new();
 
         //缓存的对话
         [BsonIgnore]
-        public List<ulong> nodeIDTemp = new();
+        public List<long> nodeIDTemp = new();
     }
+    
+    
 }

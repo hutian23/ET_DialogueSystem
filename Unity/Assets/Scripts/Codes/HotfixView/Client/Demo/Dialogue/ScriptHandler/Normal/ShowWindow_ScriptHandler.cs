@@ -18,8 +18,8 @@ namespace ET.Client
                 DialogueHelper.ScripMatchError(line);
                 return;
             }
-
-            if (!Enum.TryParse(match.Groups["WindowType"].Value, out WindowID windowID))
+            
+            if (!Enum.TryParse($"WindowID_{match.Groups["WindowType"].Value}", out WindowID windowID))
             {
                 Log.Error($"not found windowID: {match.Groups["WindowType"]}");
                 return;

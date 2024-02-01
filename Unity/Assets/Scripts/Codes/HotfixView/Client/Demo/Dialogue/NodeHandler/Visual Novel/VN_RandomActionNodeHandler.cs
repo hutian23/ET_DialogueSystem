@@ -6,6 +6,8 @@ namespace ET.Client
     {
         protected override async ETTask<Status> Run(Unit unit, VN_RandomActionNode node, ETCancellationToken token)
         {
+            DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
+            
             int randomValue;
             if (!node.UseSharedVariable)
             {
@@ -13,7 +15,6 @@ namespace ET.Client
             }
             else
             {
-                DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
                 int min = dialogueComponent.GetVariable<int>(node.minVariable);
                 int max = dialogueComponent.GetVariable<int>(node.maxVariable);
                 randomValue = new Random().Next(min, max + 1);
@@ -26,7 +27,9 @@ namespace ET.Client
             if (token.IsCancel()) return Status.Failed;
 
             Log.Warning(node.text);
-
+                
+            dialogueComponent.PushNextNode(node.next);
+            
             return Status.Success;
         }
     }

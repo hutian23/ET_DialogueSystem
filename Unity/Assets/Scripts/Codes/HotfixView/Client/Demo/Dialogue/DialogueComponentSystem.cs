@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Application = UnityEngine.Device.Application;
+using UnityEngine;
 
 namespace ET.Client
 {
@@ -83,6 +83,7 @@ namespace ET.Client
             self.token?.Cancel();
             self.token = null;
             self.workQueue.Clear();
+            self.currentNode = null;
         }
 
         //运行时使用
@@ -109,7 +110,8 @@ namespace ET.Client
                 {
                     if (self.token.IsCancel()) break;
                     node = self.workQueue.Dequeue(); //将下一个节点压入queue执行
-
+                    self.currentNode = node;    
+                    
                     if (Application.isEditor) node.Status = Status.Pending;
                     Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, node, self.token);
                     node.Status = ret;
@@ -139,6 +141,7 @@ namespace ET.Client
                 {
                     if (self.token.IsCancel()) break;
                     node = self.workQueue.Dequeue(); //将下一个节点压入queue执行
+                    self.currentNode = node; //当前执行的节点
 
                     if (Application.isEditor) node.Status = Status.Pending;
                     Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, node, self.token);
@@ -171,7 +174,7 @@ namespace ET.Client
 
             return self.treeData.GetNode(targetID);
         }
-        
+
         public static void PushNextNode(this DialogueComponent self, DialogueNode node)
         {
             if (node == null) return;
@@ -202,7 +205,8 @@ namespace ET.Client
                                 .GetComponent<GameObjectComponent>().GameObject
                                 .GetComponent<DialogueViewComponent>().cloneTree.GetVariable<T>(variableName);
                 }
-            }   
+            }
+
             return self.treeData.GetVariable<T>(variableName);
         }
     }

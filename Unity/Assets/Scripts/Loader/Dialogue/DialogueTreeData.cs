@@ -46,7 +46,7 @@ namespace ET.Client
             if (!targets.TryGetValue(targetID, out DialogueNode node)) return null;
             var cloneNode = MongoHelper.Clone(node);
             cloneNode.text = node.text;
-            return node;
+            return cloneNode;
         }
 
         public T GetVariable<T>(string variableName)

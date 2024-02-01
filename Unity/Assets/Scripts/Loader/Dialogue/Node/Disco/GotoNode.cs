@@ -5,7 +5,7 @@ namespace ET.Client
     [NodeType("Disco/分支/跳转节点")]
     public class GotoNode : DialogueNode
     {
-        [FoldoutGroup("$nodeName")]
+        [FoldoutGroup("$nodeName/data")]
         [LabelText("跳转到节点: ")]
         public int Goto_targetID;
     }

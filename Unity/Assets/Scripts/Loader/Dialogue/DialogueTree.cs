@@ -109,20 +109,24 @@ namespace ET.Client
             cloneTree.nodes.ForEach(node => { cloneTree.targets.TryAdd(node.TargetID, node); });
             return cloneTree;
         }
-
+        
+        //TODO 类型转换支持
         public T GetVariable<T>(string variableName)
         {
             SharedVariable sharedVariable = this.Variables.FirstOrDefault(x => x.name == variableName);
             if (sharedVariable == null || sharedVariable.value == null) return default;
             try
             {
+                
                 T convertValue = (T)sharedVariable.value;
+                if (typeof (T).IsValueType) return convertValue;
+                
                 T cloneValue = MongoHelper.Clone(convertValue);
                 return cloneValue;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Log.Error($"变量{variableName}转换失败!不能将{sharedVariable.value.GetType()}转换成{typeof (T)}");
+                Debug.LogError($"变量{variableName}转换失败!不能将{sharedVariable.value.GetType()}转换成{typeof (T)}\n"+e);
                 return default;
             }
         }

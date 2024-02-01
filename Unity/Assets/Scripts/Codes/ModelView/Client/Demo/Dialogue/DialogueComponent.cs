@@ -10,5 +10,7 @@ namespace ET.Client
 
         public DialogueTreeData treeData;
         public int ReloadType;
+
+        public DialogueNode currentNode;
     }
 }

@@ -58,9 +58,8 @@ namespace ET.Client
 
             if (cloneTree.targets.TryGetValue(targetID, out DialogueNode node))
             {
-                var cloneNode = MongoHelper.Clone(node);
-                cloneNode.text = node.GetContent(Language);
-                return cloneNode;
+                node.text = node.GetContent(Language);
+                return node;
             }
 
             Debug.LogError($"cannot found node,targetID:{targetID}");

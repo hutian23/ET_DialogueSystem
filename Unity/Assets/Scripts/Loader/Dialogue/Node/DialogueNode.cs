@@ -84,7 +84,7 @@ namespace ET
             return cloneNode;
         }
 #endif
-
+        //注意MongoBson只支持signed int64
         public long GetID()
         {
             ulong result = 0;
