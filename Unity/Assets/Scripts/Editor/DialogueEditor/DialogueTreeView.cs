@@ -99,8 +99,17 @@ namespace ET.Client
             //注意!!! 深拷贝之后，如果rootNode在nodes中，则会有两个rootNode(tree.Root和nodes中的)
             //这里rootNode的视图和连线要额外处理
             CreateNodeView(tree.root);
-            tree.nodes.ForEach(this.CreateNodeView);
+            for (int i = 0; i < tree.nodes.Count; i++)
+            {
+                DialogueNode node = tree.nodes[i];
+                if (node == null) continue;
+                CreateNodeView(node);
+            }
 
+            // //删除某些节点的数据结构，可能会空引用
+            tree.nodes = tree.nodes.Where(node => node != null).ToList();
+            
+            
             //3. 生成边
             tree.NodeLinkDatas.ForEach(this.CreateEdge);
 
@@ -247,7 +256,7 @@ namespace ET.Client
             SaveLinkDatas();
             SaveNodes();
             blackboard.Save();
-            
+
             window.HasUnSave = false;
             EditorUtility.SetDirty(tree);
             //刷新页面
@@ -473,7 +482,7 @@ namespace ET.Client
         {
             return this.tree;
         }
-        
+
         public new DialogueBlackboard GetBlackboard()
         {
             return this.blackboard;

@@ -164,18 +164,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: children
-      Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
+    - Name: next
+      Entry: 3
       Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -187,14 +178,14 @@ MonoBehaviour:
       Data: 
     - Name: NodeLinkDatas
       Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
+      Data: 7|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 9|ET.Client.NodeLinkData, Unity.Loader
+      Data: 8|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 793cbfc525b44614a9d58096c734d4cb
@@ -215,11 +206,11 @@ MonoBehaviour:
       Data: 
     - Name: targets
       Entry: 7
-      Data: 10|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
+      Data: 9|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
         Unity.Loader]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 11|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
+      Data: 10|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -259,20 +250,20 @@ MonoBehaviour:
       Data: 
     - Name: Variables
       Entry: 7
-      Data: 12|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
+      Data: 11|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 19
     - Name: 
       Entry: 7
-      Data: 13|ET.Client.SharedVariable, Unity.Loader
+      Data: 12|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable
     - Name: value
       Entry: 7
-      Data: 14|System.Int32, mscorlib
+      Data: 13|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -284,13 +275,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 15|ET.Client.SharedVariable, Unity.Loader
+      Data: 14|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(1)
     - Name: value
       Entry: 7
-      Data: 16|System.Int32, mscorlib
+      Data: 15|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -302,13 +293,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 17|ET.Client.SharedVariable, Unity.Loader
+      Data: 16|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(2)
     - Name: value
       Entry: 7
-      Data: 18|System.Int32, mscorlib
+      Data: 17|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -320,13 +311,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 19|ET.Client.SharedVariable, Unity.Loader
+      Data: 18|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(3)
     - Name: value
       Entry: 7
-      Data: 20|System.Int32, mscorlib
+      Data: 19|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -338,13 +329,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 21|ET.Client.SharedVariable, Unity.Loader
+      Data: 20|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(4)
     - Name: value
       Entry: 7
-      Data: 22|System.Int32, mscorlib
+      Data: 21|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -356,13 +347,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 23|ET.Client.SharedVariable, Unity.Loader
+      Data: 22|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(5)
     - Name: value
       Entry: 7
-      Data: 24|System.Int32, mscorlib
+      Data: 23|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -374,13 +365,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 25|ET.Client.SharedVariable, Unity.Loader
+      Data: 24|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(6)
     - Name: value
       Entry: 7
-      Data: 26|System.Int32, mscorlib
+      Data: 25|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -392,13 +383,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 27|ET.Client.SharedVariable, Unity.Loader
+      Data: 26|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(7)
     - Name: value
       Entry: 7
-      Data: 28|System.Int32, mscorlib
+      Data: 27|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -410,13 +401,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 29|ET.Client.SharedVariable, Unity.Loader
+      Data: 28|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(8)
     - Name: value
       Entry: 7
-      Data: 30|System.Int32, mscorlib
+      Data: 29|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -428,13 +419,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 31|ET.Client.SharedVariable, Unity.Loader
+      Data: 30|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(9)
     - Name: value
       Entry: 7
-      Data: 32|System.Int32, mscorlib
+      Data: 31|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -446,13 +437,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 33|ET.Client.SharedVariable, Unity.Loader
+      Data: 32|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(10)
     - Name: value
       Entry: 7
-      Data: 34|System.Int32, mscorlib
+      Data: 33|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -464,13 +455,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 35|ET.Client.SharedVariable, Unity.Loader
+      Data: 34|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(11)
     - Name: value
       Entry: 7
-      Data: 36|System.Int32, mscorlib
+      Data: 35|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -482,13 +473,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 37|ET.Client.SharedVariable, Unity.Loader
+      Data: 36|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(12)
     - Name: value
       Entry: 7
-      Data: 38|System.Int32, mscorlib
+      Data: 37|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -500,13 +491,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 39|ET.Client.SharedVariable, Unity.Loader
+      Data: 38|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(13)
     - Name: value
       Entry: 7
-      Data: 40|System.Int32, mscorlib
+      Data: 39|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -518,13 +509,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 41|ET.Client.SharedVariable, Unity.Loader
+      Data: 40|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(14)
     - Name: value
       Entry: 7
-      Data: 42|System.Int32, mscorlib
+      Data: 41|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -536,13 +527,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 43|ET.Client.SharedVariable, Unity.Loader
+      Data: 42|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(15)
     - Name: value
       Entry: 7
-      Data: 44|System.Int32, mscorlib
+      Data: 43|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -554,13 +545,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 45|ET.Client.SharedVariable, Unity.Loader
+      Data: 44|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(16)
     - Name: value
       Entry: 7
-      Data: 46|System.Int32, mscorlib
+      Data: 45|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -572,13 +563,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 47|ET.Client.SharedVariable, Unity.Loader
+      Data: 46|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(17)
     - Name: value
       Entry: 7
-      Data: 48|System.Int32, mscorlib
+      Data: 47|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -590,13 +581,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 49|ET.Client.SharedVariable, Unity.Loader
+      Data: 48|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Variable(18)
     - Name: value
       Entry: 7
-      Data: 50|System.Int32, mscorlib
+      Data: 49|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 0
@@ -613,5 +604,5 @@ MonoBehaviour:
       Entry: 8
       Data: 
   treeName: 
-  treeID: 0
+  treeID: 851
   blockDatas: []

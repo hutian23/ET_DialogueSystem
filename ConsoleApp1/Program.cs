@@ -118,17 +118,40 @@ static class Program
             Console.WriteLine("格式转换错误");
         }
     }
-    
+
     public class test2132131
     {
         public ulong a = 10;
     }
-    
+
     public static void Main()
     {
-        var bytes = MongoHelper.Serialize(new test2132131() { a = 12323212 });
-        Console.WriteLine(MongoHelper.Deserialize<test2132131>(bytes).a);
-        
+        // List<int> list = new()
+        // {
+        //     1,
+        //     2,
+        //     2,
+        //     2,
+        //     3423,
+        //     23423
+        // };
+        //
+        // list.RemoveAll(i => i == 2);
+        // foreach (int i in list)
+        // {
+        //     Console.WriteLine(i);
+        // }
+
+        List<object> s = new() { null, null, 2, 23 };
+        s.RemoveAll(_ => false);
+        foreach (var o in s)
+        {
+            Console.WriteLine(o);
+        }
+
+        // var bytes = MongoHelper.Serialize(new test2132131() { a = 12323212 });
+        // Console.WriteLine(MongoHelper.Deserialize<test2132131>(bytes).a);
+
         // Console.WriteLine(new test2132131().ToJson());
         // string text = $"<Variable name=2323/>";
         // Match match = Regex.Match(text, @"<Variable name=(\w+)");
