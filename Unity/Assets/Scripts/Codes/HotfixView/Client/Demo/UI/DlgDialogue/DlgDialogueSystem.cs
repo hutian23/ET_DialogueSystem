@@ -1,4 +1,7 @@
-﻿namespace ET.Client
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+namespace ET.Client
 {
     [FriendOf(typeof (DlgDialogue))]
     [FriendOf(typeof (DialogueStorage))]
@@ -9,6 +12,7 @@
             self.View.E_ClearQSButton.AddListener(self.ClearQuickSave);
             self.View.E_CheckQuickSaveButton.AddListener(self.CheckQS);
             self.View.E_QuickSaveButton.AddListener(self.Save);
+            self.View.E_ChoicePanelLoopVerticalScrollRect.AddItemRefreshListener(self.OnLoopChoiceRefreshHandler);
         }
 
         public class DlgDialogueLoadSystem: LoadSystem<DlgDialogue>
@@ -40,6 +44,20 @@
             uint treeID = uint.Parse(self.View.E_CheckInput_TreeIDInputField.text);
             uint targetID = uint.Parse(self.View.E_CheckInput_TargetIDInputField.text);
             Log.Warning($"该节点是否已经执行?: " + DialogueStorageManager.Instance.QuickSaveShot.Check(treeID, targetID));
+        }
+
+        public static void RefreshChoices(this DlgDialogue self, List<VN_ChoiceNode> nodes)
+        {
+            self.choiceNodes = nodes;
+            self.AddUIScrollItems(ref self.ScrollItemChoices, nodes.Count);
+            self.View.E_ChoicePanelLoopVerticalScrollRect.SetVisible(true, nodes.Count);
+        }
+
+        private static void OnLoopChoiceRefreshHandler(this DlgDialogue self, Transform transform, int index)
+        {
+            VN_ChoiceNode node = self.choiceNodes[index];
+            Scroll_Item_Choice scrollItemChoice = self.ScrollItemChoices[index].BindTrans(transform);
+            scrollItemChoice.Refresh(node);
         }
     }
 }

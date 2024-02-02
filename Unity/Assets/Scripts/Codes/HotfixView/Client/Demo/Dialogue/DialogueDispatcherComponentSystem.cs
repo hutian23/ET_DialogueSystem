@@ -94,13 +94,12 @@ namespace ET.Client
 
         public static async ETTask<Status> Handle(this DialogueDispatcherComponent self, Unit unit, object node, ETCancellationToken token)
         {
-            if (!self.dispatchHandlers.TryGetValue(node.GetType(), out NodeHandler handler))
+            if (self.dispatchHandlers.TryGetValue(node.GetType(), out NodeHandler handler))
             {
-                Log.Error($"not found handler: {node}");
-                return Status.Failed;
+                return await handler.Handle(unit, node, token);
             }
-
-            return await handler.Handle(unit, node, token);
+            Log.Error($"not found handler: {node}");
+            return Status.Failed;
         }
 
         private static int Check(this DialogueDispatcherComponent self, Unit unit, NodeCheckConfig nodeCheck)

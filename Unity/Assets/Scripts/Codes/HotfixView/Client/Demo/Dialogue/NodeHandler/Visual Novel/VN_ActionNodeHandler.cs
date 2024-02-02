@@ -6,8 +6,13 @@
         {
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
             await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node.Script, token);
+
             if (token.IsCancel()) return Status.Failed;
-            
+
+            string replaceText = node.text;
+            DialogueHelper.ReplaceModel(unit, ref replaceText);
+            Log.Warning(replaceText);
+
             return Status.Success;
         }
     }

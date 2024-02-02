@@ -56,6 +56,8 @@ namespace ET.Client
                             .AddComponent<DialogueViewComponent>();
                     viewComponent.instanceId = self.InstanceId;
                 }
+
+                self.AddComponent<ObjectWait>();
             }
         }
 

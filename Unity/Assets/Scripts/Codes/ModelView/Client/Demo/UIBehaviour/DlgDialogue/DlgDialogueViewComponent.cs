@@ -194,6 +194,23 @@ namespace ET.Client
      		}
      	}
 
+		public UnityEngine.UI.LoopVerticalScrollRect E_ChoicePanelLoopVerticalScrollRect
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_ChoicePanelLoopVerticalScrollRect == null )
+     			{
+		    		this.m_E_ChoicePanelLoopVerticalScrollRect = UIFindHelper.FindDeepChild<UnityEngine.UI.LoopVerticalScrollRect>(this.uiTransform.gameObject,"E_ChoicePanel");
+     			}
+     			return this.m_E_ChoicePanelLoopVerticalScrollRect;
+     		}
+     	}
+
 		public void DestroyWidget()
 		{
 			this.m_E_ClearQSButton = null;
@@ -207,6 +224,7 @@ namespace ET.Client
 			this.m_E_TextText = null;
 			this.m_E_QuickSaveButton = null;
 			this.m_E_QuickSaveImage = null;
+			this.m_E_ChoicePanelLoopVerticalScrollRect = null;
 			this.uiTransform = null;
 		}
 
@@ -221,6 +239,7 @@ namespace ET.Client
 		private UnityEngine.UI.Text m_E_TextText = null;
 		private UnityEngine.UI.Button m_E_QuickSaveButton = null;
 		private UnityEngine.UI.Image m_E_QuickSaveImage = null;
+		private UnityEngine.UI.LoopVerticalScrollRect m_E_ChoicePanelLoopVerticalScrollRect = null;
 		public Transform uiTransform = null;
 	}
 }
