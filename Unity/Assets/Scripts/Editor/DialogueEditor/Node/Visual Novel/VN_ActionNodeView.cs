@@ -7,8 +7,8 @@ namespace ET.Client
         public VN_ActionNodeView(VN_ActionNode dialogueNode, DialogueTreeView dialogueTreeView): base(dialogueNode, dialogueTreeView)
         {
             GenerateInputPort("", true);
-            Port port = GenerateOutputPort("");
-            SaveCallback += () => { dialogueNode.next = GetFirstLinkNode(port); };
+            Port port = GenerateOutputPort("",true);
+            SaveCallback += () => { dialogueNode.children = GetLinkNodes(port); };
         }
     }
 }

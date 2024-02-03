@@ -66,18 +66,18 @@ namespace ET.Client
 
         public static bool Check(this DialogueStorage self, long ID)
         {
-            return self.storageSet.Contains(ID);
+            return self.storageSet.Contains(ID) || self.nodeIDTemp.Contains(ID);
         }
         
         public static bool Check(this DialogueStorage self, DialogueNode node)
         {
             long ID = node.GetID();
-            return self.storageSet.Contains(ID);
+            return self.Check(ID);
         }
 
         public static bool Check(this DialogueStorage self, uint treeID, uint targetID)
         {
-            return self.storageSet.Contains(ToID(treeID, targetID));
+            return self.Check(ToID(treeID, targetID));
         }
         
         /// <summary>

@@ -159,6 +159,8 @@ namespace ET.Client
             Dictionary<string, BsonValue> tmpDic = new();
 
             //1. 节点数据
+            bsonDocument.Add("treeID", treeID);
+            
             var nodeDoc = new BsonDocument();
             bsonDocument.Add("targets", nodeDoc);
             targets.ForEach(kv =>

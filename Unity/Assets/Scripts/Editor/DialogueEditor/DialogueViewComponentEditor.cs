@@ -13,7 +13,7 @@ namespace ET.Client
             base.OnInspectorGUI();
             DialogueViewComponent component = target as DialogueViewComponent;
             if (component == null) return;
-            component.OpenWindow ??= () => { DialogueEditor.OpenWindow(component.cloneTree); };
+            component.OpenWindow ??= () => { DialogueEditor.OpenWindow(component); };
 
             // if (GUILayout.Button("测试keyframe"))
             // {

@@ -11,6 +11,10 @@ namespace ET.Client
             node.children.ForEach(targetID =>
             {
                 if (dialogueComponent.GetNode(targetID) is not VN_ChoiceNode choiceNode) return;
+                int ret = DialogueDispatcherComponent.Instance.Checks(unit, choiceNode.checkList);
+                if (ret != 0) return;
+                
+                dialogueComponent.SetNodeStatus(choiceNode,Status.Choice);
                 nodelist.Add(choiceNode);
             });
             //刷新UI
@@ -19,10 +23,12 @@ namespace ET.Client
 
             //这里这个阻塞的意义是什么? 如果workQueue为空，就判定为整个携程执行完毕。
             WaitChoiceNode wait = await dialogueComponent.GetComponent<ObjectWait>().Wait<WaitChoiceNode>(token);
+           
+            dlgDialogue.HideChoicePanel(); //关闭选项版
+            nodelist.ForEach(choice => dialogueComponent.SetNodeStatus(choice, Status.None)); //刷新视图状态
+            
             if (token.IsCancel()) return Status.Failed;
             dialogueComponent.PushNextNode(wait.next);
-            //关闭选项版
-            dlgDialogue.HideChoicePanel();
             
             return Status.Success;
         }

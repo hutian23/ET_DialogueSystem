@@ -16,6 +16,7 @@ namespace ET.Client
         public Color PendingColor;
         public Color SuccessColor;
         public Color FailedColor;
+        public Color ChoiceColor;
 
         public static DialogueSettings GetSettings()
         {

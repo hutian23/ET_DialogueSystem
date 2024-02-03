@@ -14,7 +14,8 @@ namespace ET
         None,
         Success,
         Pending,
-        Failed
+        Failed,
+        Choice //显示在选项中时
     }
 
     public enum Language
@@ -33,7 +34,7 @@ namespace ET
         [HideInInspector, ReadOnly]
         public uint TargetID;
 
-        [FoldoutGroup("$nodeName"), LabelText("检查前置条件?: ")]
+        [FoldoutGroup("$nodeName"), LabelText("检查前置条件: ")]
         public bool NeedCheck;
         
         [FoldoutGroup("$nodeName"),Space(5),ShowIf("$NeedCheck")]

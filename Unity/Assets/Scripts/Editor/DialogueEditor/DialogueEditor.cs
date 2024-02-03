@@ -52,11 +52,11 @@ namespace ET
             wnd.treeView.PopulateView(wnd.tree, wnd);
         }
 
-        public static void OpenWindow(DialogueTree dialogueTree, DialogueViewComponent viewComponent)
+        public static void OpenWindow(DialogueViewComponent viewComponent)
         {
             DialogueEditor wnd = GetWindow<DialogueEditor>();
             wnd.titleContent = new GUIContent("DialogueEditor");
-            wnd.tree = dialogueTree;
+            wnd.tree = viewComponent.cloneTree;
             wnd.ViewComponent = viewComponent;
             wnd.treeView.PopulateView(wnd.tree, wnd);
         }

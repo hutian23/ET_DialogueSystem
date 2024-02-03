@@ -8,6 +8,6 @@ namespace ET.Client
     public class VN_ActionNode: DialogueNode
     {
         [HideInInspector]
-        public uint next;
+        public List<uint> children = new();
     }
 }

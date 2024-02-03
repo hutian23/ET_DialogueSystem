@@ -47,6 +47,18 @@ namespace ET.Client
             return replaceText;
         }
 
+        public static async ETTask WaitNextCor(ETCancellationToken token)
+        {
+            await TimerComponent.Instance.WaitAsync(200, token);
+            if(token.IsCancel()) return;
+            while (true)
+            {
+                if(token.IsCancel())break;
+                if(Keyboard.current.bKey.isPressed) return;
+                await TimerComponent.Instance.WaitFrameAsync(token);
+            }
+        }
+        
         private static async ETTask SkipCheckCor(ETCancellationToken token, ETCancellationToken typeToken)
         {
             await TimerComponent.Instance.WaitAsync(200, token);

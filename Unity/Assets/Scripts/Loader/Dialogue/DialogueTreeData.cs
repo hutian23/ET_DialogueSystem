@@ -9,10 +9,13 @@ namespace ET.Client
         private readonly Dictionary<uint, DialogueNode> targets = new();
         private readonly Dictionary<string, object> variables = new();
 
+        public uint treeID;
+
         public DialogueTreeData(BsonDocument document, Language language)
         {
             try
             {
+                treeID = (uint)document["treeID"].ToInt32();
                 var targetDoc = document["targets"].ToBsonDocument();
                 int length = targetDoc["Length"].AsInt32;
                 for (int i = 0; i < length; i++)
@@ -48,7 +51,7 @@ namespace ET.Client
             cloneNode.text = node.text;
             return cloneNode;
         }
-        
+
         public T GetVariable<T>(string variableName)
         {
             if (!this.variables.TryGetValue(variableName, out var value) || value == null) return default;

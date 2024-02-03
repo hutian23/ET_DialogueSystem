@@ -1,6 +1,7 @@
 {
     "_t": "MongoDB.Bson.BsonDocument, MongoDB.Bson",
     "_v": {
+        "treeID": 1,
         "targets": {
             "0": {
                 "_t": "RootNode",
@@ -8,7 +9,7 @@
                 "checkList": [],
                 "nextNode": 1,
                 "ID": 4294967296,
-                "Script": "ShowWindow type = WindowID_Dialogue;\nNumeric Hp + 3;\nWaitTime 1000;\nNumeric Hp + 3;\nWaitTime 1000;\nNumeric Hp + 300;",
+                "Script": "ShowWindow type = Dialogue;\nStorageCurrentNode;",
                 "content": {
                     "Chinese": "",
                     "English": "",
@@ -20,24 +21,37 @@
                 "NeedCheck": false,
                 "checkList": [],
                 "children": [
-                    2
+                    2,
+                    3
                 ],
                 "ID": 4294967297,
-                "Script": "",
+                "Script": "Numeric Hp + 3;\nStorageCurrentNode;\nCoroutine:\n- Numeric Hp + 3;\n- WaitTime 3000;",
                 "content": {
-                    "Chinese": "你好啊。",
-                    "English": "hello world.",
+                    "Chinese": "<Numeric type=Hp/> / <Variable name=Variable/>",
+                    "English": "",
                     "Japanese": ""
                 }
             },
             "2": {
                 "_t": "VN_ChoicePanel",
-                "NeedCheck": false,
-                "checkList": [],
+                "NeedCheck": true,
+                "checkList": [
+                    {
+                        "_t": "TargetIDCheckConfig",
+                        "checkList": [
+                            {
+                                "CheckType": 1,
+                                "treeID": 0,
+                                "targetID": 1
+                            }
+                        ]
+                    }
+                ],
                 "children": [
-                    3,
                     4,
-                    5
+                    5,
+                    6,
+                    7
                 ],
                 "checkChildren": false,
                 "ID": 4294967298,
@@ -49,37 +63,143 @@
                 }
             },
             "3": {
-                "_t": "Persona_ChoiceNode",
+                "_t": "VN_ActionNode",
                 "NeedCheck": false,
                 "checkList": [],
-                "choices": [],
+                "children": [],
                 "ID": 4294967299,
-                "Script": "",
+                "Script": "Numeric Hp + 3;\nCoroutine:\n- Numeric Hp + 3;\n- WaitTime 3000;",
                 "content": {
-                    "Chinese": "",
+                    "Chinese": "<Numeric type=Hp/> / <Variable name=Variable/> 你好啊!",
                     "English": "",
                     "Japanese": ""
                 }
             },
             "4": {
-                "_t": "Persona_ChoiceNode",
-                "NeedCheck": false,
-                "checkList": [],
-                "choices": [],
+                "_t": "VN_ChoiceNode",
+                "NeedCheck": true,
+                "checkList": [
+                    {
+                        "_t": "NumericCheckConfig",
+                        "NumericType": "Hp",
+                        "CheckType": 1,
+                        "minValue": 0,
+                        "maxValue": 0,
+                        "EqualValue": 0,
+                        "CompareValue": 100
+                    }
+                ],
+                "next": 8,
+                "choiceType": 1,
+                "handle_Configs": {
+                    "_t": "ListComponent`1",
+                    "_v": [
+                        {
+                            "_t": "NumericCheckConfig",
+                            "NumericType": "Hp",
+                            "CheckType": 2,
+                            "minValue": 10,
+                            "maxValue": 1000,
+                            "EqualValue": 0,
+                            "CompareValue": 0
+                        }
+                    ]
+                },
                 "ID": 4294967300,
                 "Script": "",
                 "content": {
-                    "Chinese": "",
+                    "Chinese": "凶手就是<Color=red>hutian</Color> !    [生命值] <Numeric type=Hp/> / 10",
                     "English": "",
                     "Japanese": ""
                 }
             },
             "5": {
-                "_t": "Persona_ChoiceNode",
+                "_t": "VN_ChoiceNode",
+                "NeedCheck": true,
+                "checkList": [
+                    {
+                        "_t": "NumericCheckConfig",
+                        "NumericType": "Hp",
+                        "CheckType": 1,
+                        "minValue": 0,
+                        "maxValue": 0,
+                        "EqualValue": 0,
+                        "CompareValue": 0
+                    }
+                ],
+                "next": 8,
+                "choiceType": 1,
+                "handle_Configs": null,
+                "ID": 4294967301,
+                "Script": "",
+                "content": {
+                    "Chinese": "凶手就是<Color=red>hutian</Color> !    [生命值] <Numeric type=Hp/> / 10",
+                    "English": "",
+                    "Japanese": ""
+                }
+            },
+            "6": {
+                "_t": "VN_ChoiceNode",
+                "NeedCheck": true,
+                "checkList": [
+                    {
+                        "_t": "TargetIDCheckConfig",
+                        "checkList": [
+                            {
+                                "CheckType": 0,
+                                "treeID": 0,
+                                "targetID": 1
+                            }
+                        ]
+                    }
+                ],
+                "next": 8,
+                "choiceType": 1,
+                "handle_Configs": null,
+                "ID": 4294967302,
+                "Script": "",
+                "content": {
+                    "Chinese": "凶手就是<Color=red>hutian</Color> !    [生命值] <Numeric type=Hp/> / 10",
+                    "English": "",
+                    "Japanese": ""
+                }
+            },
+            "7": {
+                "_t": "VN_ChoiceNode",
                 "NeedCheck": false,
                 "checkList": [],
-                "choices": [],
-                "ID": 4294967301,
+                "next": 9,
+                "choiceType": 1,
+                "handle_Configs": {
+                    "_t": "ListComponent`1",
+                    "_v": [
+                        {
+                            "_t": "NumericCheckConfig",
+                            "NumericType": "Hp",
+                            "CheckType": 2,
+                            "minValue": 1,
+                            "maxValue": 100,
+                            "EqualValue": 0,
+                            "CompareValue": 0
+                        }
+                    ]
+                },
+                "ID": 4294967303,
+                "Script": "",
+                "content": {
+                    "Chinese": "凶手就是<Color=red>hutian</Color> !    [生命值] <Numeric type=Hp/> / 10",
+                    "English": "",
+                    "Japanese": ""
+                }
+            },
+            "8": {
+                "_t": "VN_ActionNode",
+                "NeedCheck": false,
+                "checkList": [],
+                "children": [
+                    10
+                ],
+                "ID": 4294967304,
                 "Script": "",
                 "content": {
                     "Chinese": "",
@@ -87,62 +207,92 @@
                     "Japanese": ""
                 }
             },
-            "Length": 6
+            "9": {
+                "_t": "VN_ActionNode",
+                "NeedCheck": false,
+                "checkList": [],
+                "children": [],
+                "ID": 4294967305,
+                "Script": "",
+                "content": {
+                    "Chinese": "",
+                    "English": "",
+                    "Japanese": ""
+                }
+            },
+            "10": {
+                "_t": "GotoNode",
+                "NeedCheck": false,
+                "checkList": [],
+                "Goto_targetID": 1,
+                "ID": 4294967306,
+                "Script": "",
+                "content": {
+                    "Chinese": "",
+                    "English": "",
+                    "Japanese": ""
+                }
+            },
+            "Length": 11
         },
         "variables": {
             "0": {
                 "name": "Variable",
+                "value": 123
+            },
+            "1": {
+                "name": "Variable(1)",
                 "value": {
                     "_t": "AnimationCurve",
                     "keys": [
                         {
-                            "m_Time": -0.04083251953125,
-                            "m_Value": -0.032073974609375,
-                            "m_InTangent": 0.0,
-                            "m_OutTangent": 0.0,
-                            "m_TangentMode": 0,
+                            "m_Time": 0.0,
+                            "m_Value": 0.0,
+                            "m_InTangent": 0.53600960969924927,
+                            "m_OutTangent": 0.53600960969924927,
+                            "m_TangentMode": 34,
                             "m_WeightedMode": 0,
                             "m_InWeight": 0.0,
-                            "m_OutWeight": 0.0
+                            "m_OutWeight": 0.3333333432674408
                         },
                         {
-                            "m_Time": 0.22542190551757813,
-                            "m_Value": 0.17946624755859375,
-                            "m_InTangent": 0.0,
-                            "m_OutTangent": 0.0,
-                            "m_TangentMode": 0,
-                            "m_WeightedMode": 0,
-                            "m_InWeight": 0.0,
-                            "m_OutWeight": 0.0
-                        },
-                        {
-                            "m_Time": 0.4190446138381958,
-                            "m_Value": -0.0052531957626342773,
-                            "m_InTangent": 1.0271861553192139,
-                            "m_OutTangent": 1.0271861553192139,
-                            "m_TangentMode": 0,
+                            "m_Time": 0.69315963983535767,
+                            "m_Value": 0.37154021859169006,
+                            "m_InTangent": 1.2920874357223511,
+                            "m_OutTangent": 1.2920874357223511,
+                            "m_TangentMode": 34,
                             "m_WeightedMode": 0,
                             "m_InWeight": 0.3333333432674408,
                             "m_OutWeight": 0.3333333432674408
+                        },
+                        {
+                            "m_Time": 1.0,
+                            "m_Value": 1.0,
+                            "m_InTangent": 2.0481653213500977,
+                            "m_OutTangent": 2.0481653213500977,
+                            "m_TangentMode": 34,
+                            "m_WeightedMode": 0,
+                            "m_InWeight": 0.3333333432674408,
+                            "m_OutWeight": 0.0
                         }
                     ],
                     "preWrapMode": 8,
                     "postWrapMode": 8
                 }
             },
-            "1": {
-                "name": "Variable(1)",
+            "2": {
+                "name": "Variable(2)",
                 "value": {
                     "_t": "Gradient",
                     "colorKeys": [
                         {
                             "color": {
-                                "r": 0.075471699237823486,
-                                "g": 0.013171947561204433,
-                                "b": 0.013171947561204433,
+                                "r": 0.68867921829223633,
+                                "g": 0.18516373634338379,
+                                "b": 0.18516373634338379,
                                 "a": 1.0
                             },
-                            "time": 0.86471349000930786
+                            "time": 0.57059586048126221
                         },
                         {
                             "color": {
@@ -157,7 +307,7 @@
                     "alphaKeys": [
                         {
                             "alpha": 1.0,
-                            "time": 0.32059204578399658
+                            "time": 0.0
                         },
                         {
                             "alpha": 1.0,
@@ -167,58 +317,7 @@
                     "mode": 0
                 }
             },
-            "2": {
-                "name": "Variable(2)",
-                "value": {
-                    "_t": "UnityEngine.Vector3, UnityEngine.CoreModule",
-                    "_v": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    }
-                }
-            },
-            "3": {
-                "name": "Variable(3)",
-                "value": {
-                    "_t": "UnityEngine.Vector3, UnityEngine.CoreModule",
-                    "_v": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    }
-                }
-            },
-            "4": {
-                "name": "Variable(4)",
-                "value": {
-                    "_t": "UnityEngine.Vector2, UnityEngine.CoreModule",
-                    "_v": {
-                        "x": 0.0,
-                        "y": 0.0
-                    }
-                }
-            },
-            "5": {
-                "name": "Variable(5)",
-                "value": {
-                    "_t": "System.Single",
-                    "_v": 0.0
-                }
-            },
-            "6": {
-                "name": "Variable(6)",
-                "value": 0
-            },
-            "7": {
-                "name": "Variable(7)",
-                "value": ""
-            },
-            "8": {
-                "name": "Variable(8)",
-                "value": true
-            },
-            "Length": 9
+            "Length": 3
         }
     }
 }

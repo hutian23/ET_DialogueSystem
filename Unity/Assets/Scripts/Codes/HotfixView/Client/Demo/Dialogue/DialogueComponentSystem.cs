@@ -46,9 +46,9 @@ namespace ET.Client
             viewComponent.cloneTree.nodes.ForEach(node => { node.Status = Status.None; });
         }
 
-        private static void SetNodeStatus(this DialogueComponent self, DialogueNode node, Status status)
+        public static void SetNodeStatus(this DialogueComponent self, DialogueNode node, Status status)
         {
-            if (!Application.isEditor) return;
+            if (!Application.isEditor || self.ReloadType == ViewReloadType.RuntimeReload) return;
             DialogueViewComponent viewComponent = self.GetParent<Unit>()
                     .GetComponent<GameObjectComponent>().GameObject
                     .GetComponent<DialogueViewComponent>();

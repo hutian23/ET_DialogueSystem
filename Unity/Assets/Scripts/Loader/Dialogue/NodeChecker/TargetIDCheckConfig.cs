@@ -12,14 +12,13 @@ namespace ET.Client
     [HideReferenceObjectPicker]
     public class TargetCheck
     {
+        [LabelText("要求目标节点: ")]
         public TargetCheckType CheckType = TargetCheckType.已执行;
-
-        //是否是外部的对话树
-        public bool IsGlobal;
-
-        [ShowIf("IsGlobal")]
+        
+        [LabelText("对话树ID: ")]
         public uint treeID = 0;
 
+        [LabelText("目标节点ID: ")]
         public uint targetID = 0;
     }
 

@@ -309,6 +309,9 @@ namespace ET.Client
                     case Status.Success:
                         color = settings.SuccessColor;
                         break;
+                    case Status.Choice:
+                        color = settings.ChoiceColor;
+                        break;
                     default:
                         color = settings.DefaultColor;
                         break;

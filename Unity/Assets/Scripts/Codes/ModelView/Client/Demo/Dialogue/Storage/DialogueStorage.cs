@@ -13,6 +13,4 @@ namespace ET.Client
         [BsonIgnore]
         public List<long> nodeIDTemp = new();
     }
-    
-    
 }

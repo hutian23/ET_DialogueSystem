@@ -6,16 +6,26 @@
         {
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
             await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node.Script, token);
-
             if (token.IsCancel()) return Status.Failed;
-            
-            string replaceText = node.text;
-            DialogueHelper.ReplaceModel(unit, ref replaceText);
-            DlgDialogue dlgDialogue = unit.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgDialogue>();
-            dlgDialogue.RefreshText(replaceText);
 
-            dialogueComponent.PushNextNode(node.next);
-            
+            DialogueHelper.ReplaceModel(unit, ref node.text);
+            DlgDialogue dlgDialogue = unit.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgDialogue>();
+            dlgDialogue.RefreshText(node.text);
+
+            await DialogueHelper.WaitNextCor(token);
+            if (token.IsCancel()) return Status.Failed;
+
+            foreach (var targetID in node.children)
+            {
+                DialogueNode child = dialogueComponent.GetNode(targetID);
+                // 找到子节点中第一个符合条件的执行
+                if (!child.NeedCheck || DialogueDispatcherComponent.Instance.Checks(unit, child.checkList) == 0)
+                {
+                    dialogueComponent.PushNextNode(targetID);
+                    break;
+                }
+            }
+
             return Status.Success;
         }
     }
