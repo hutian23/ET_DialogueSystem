@@ -21,6 +21,7 @@ namespace ET.Client
             {
                 self.View.E_ClearQSButton.AddListener(self.ClearQuickSave);
                 self.View.E_CheckQuickSaveButton.AddListener(self.CheckQS);
+                self.View.E_ChoicePanelLoopVerticalScrollRect.AddItemRefreshListener(self.OnLoopChoiceRefreshHandler);
             }
         }
 
@@ -46,18 +47,58 @@ namespace ET.Client
             Log.Warning($"该节点是否已经执行?: " + DialogueStorageManager.Instance.QuickSaveShot.Check(treeID, targetID));
         }
 
-        public static void RefreshChoices(this DlgDialogue self, List<VN_ChoiceNode> nodes)
+        public static void ShowChoicePanel(this DlgDialogue self, List<VN_ChoiceNode> nodes)
         {
             self.choiceNodes = nodes;
             self.AddUIScrollItems(ref self.ScrollItemChoices, nodes.Count);
             self.View.E_ChoicePanelLoopVerticalScrollRect.SetVisible(true, nodes.Count);
         }
 
+        public static void HideChoicePanel(this DlgDialogue self)
+        {
+            self.choiceNodes = null;
+            self.RemoveUIScrollItems(ref self.ScrollItemChoices);
+            self.View.E_ChoicePanelLoopVerticalScrollRect.SetVisible(false);
+        }
+
         private static void OnLoopChoiceRefreshHandler(this DlgDialogue self, Transform transform, int index)
         {
             VN_ChoiceNode node = self.choiceNodes[index];
             Scroll_Item_Choice scrollItemChoice = self.ScrollItemChoices[index].BindTrans(transform);
-            scrollItemChoice.Refresh(node);
+
+            Unit player = TODUnitHelper.GetPlayer(self.ClientScene());
+            DialogueComponent dialogueComponent = player.GetComponent<DialogueComponent>();
+
+            //替换特殊字符
+            var replaceText = node.text;
+            DialogueHelper.ReplaceModel(player, ref replaceText);
+            scrollItemChoice.E_ContentText.SetText(replaceText);
+
+            switch (node.choiceType)
+            {
+                case VN_ChoiceType.Vertification_Normal:
+                    int ret = DialogueDispatcherComponent.Instance.Checks(player, node.handle_Configs);
+                    //选项是否被锁定
+                    scrollItemChoice.E_SelectImage.color = (ret == 0)? Color.white : Color.gray;
+                    //选项是否可执行
+                    if (ret == 0)
+                    {
+                        scrollItemChoice.E_SelectButton.AddListener(() =>
+                        {
+                            dialogueComponent.GetComponent<ObjectWait>().Notify(new WaitChoiceNode() { next = node.TargetID });
+                        });
+                    }
+                    else
+                    {
+                        scrollItemChoice.E_SelectButton.onClick.RemoveAllListeners();
+                    }
+                    break;
+            }
+        }
+
+        public static void RefreshText(this DlgDialogue self, string text)
+        {
+            self.View.E_TextText.SetText(text);
         }
     }
 }

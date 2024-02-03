@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class VN_ChoiceNodeView: DialogueNodeView<VN_ChoiceNode>
+    public sealed class VN_ChoiceNodeView: DialogueNodeView<VN_ChoiceNode>
     {
         public VN_ChoiceNodeView(VN_ChoiceNode dialogueNode, DialogueTreeView dialogueTreeView): base(dialogueNode, dialogueTreeView)
         {

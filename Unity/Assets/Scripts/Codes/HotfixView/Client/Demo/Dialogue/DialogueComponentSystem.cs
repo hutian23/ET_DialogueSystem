@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ET.Client
@@ -37,12 +38,22 @@ namespace ET.Client
 
         private static void ViewStatusReset(this DialogueComponent self)
         {
+            if (!Application.isEditor) return;
             DialogueViewComponent viewComponent = self.GetParent<Unit>()
                     .GetComponent<GameObjectComponent>().GameObject
                     .GetComponent<DialogueViewComponent>();
-            if (viewComponent.cloneTree == null) return;
             viewComponent.cloneTree.root.Status = Status.None;
             viewComponent.cloneTree.nodes.ForEach(node => { node.Status = Status.None; });
+        }
+
+        private static void SetNodeStatus(this DialogueComponent self, DialogueNode node, Status status)
+        {
+            if (!Application.isEditor) return;
+            DialogueViewComponent viewComponent = self.GetParent<Unit>()
+                    .GetComponent<GameObjectComponent>().GameObject
+                    .GetComponent<DialogueViewComponent>();
+            DialogueNode sourceNode = viewComponent.cloneTree.targets.Values.FirstOrDefault(n => n.Guid == node.Guid);
+            sourceNode.Status = status;
         }
 
         public class DialogueComponentAwakeSystem: AwakeSystem<DialogueComponent>
@@ -114,9 +125,9 @@ namespace ET.Client
                     node = self.workQueue.Dequeue(); //将下一个节点压入queue执行
                     self.currentNode = node;
 
-                    if (Application.isEditor) node.Status = Status.Pending;
+                    self.SetNodeStatus(node, Status.Pending);
                     Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, node, self.token);
-                    node.Status = ret;
+                    self.SetNodeStatus(node, ret);
 
                     if (self.token.IsCancel() || ret == Status.Failed) break; //携程取消 or 执行失败
                     await TimerComponent.Instance.WaitFrameAsync(self.token);
@@ -145,9 +156,9 @@ namespace ET.Client
                     node = self.workQueue.Dequeue(); //将下一个节点压入queue执行
                     self.currentNode = node; //当前执行的节点
 
-                    if (Application.isEditor) node.Status = Status.Pending;
+                    self.SetNodeStatus(node, Status.Pending);
                     Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, node, self.token);
-                    node.Status = ret;
+                    self.SetNodeStatus(node, ret);
 
                     if (self.token.IsCancel() || ret == Status.Failed) break; //携程取消 or 执行失败
                     await TimerComponent.Instance.WaitFrameAsync(self.token);

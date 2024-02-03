@@ -11,12 +11,12 @@
             node.children.ForEach(childID =>
             {
                 DialogueNode childNode = dialogueComponent.GetNode(childID);
-                if (childNode.NeedCheck)
-                {
-                    int ret = DialogueDispatcherComponent.Instance.Checks(unit, childNode.checkList);
-                    if (ret == 0) dialogueComponent.PushNextNode(childNode);
-                    return;
-                }
+                // if (childNode.NeedCheck)
+                // {
+                //     int ret = DialogueDispatcherComponent.Instance.Checks(unit, childNode.checkList);
+                //     if (ret == 0) dialogueComponent.PushNextNode(childNode);
+                //     return;
+                // }
 
                 dialogueComponent.PushNextNode(childNode);
             });

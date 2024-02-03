@@ -1,5 +1,4 @@
-﻿using System;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace ET.Client
@@ -15,16 +14,15 @@ namespace ET.Client
     public class NumericCheckConfig: NodeCheckConfig
     {
         [Space(5)]
-        [InfoBox("对应NumericType")]
         [LabelText("数值类型")]
-        public int NumericType;
+        public string NumericType;
 
         [Space(5)]
         [LabelText("检查类型")]
         public NumericCheckerType CheckType;
 
         private bool LessOrMore => CheckType is NumericCheckerType.MoreThan or NumericCheckerType.LessThan;
-        
+
         [Space(5)]
         [ShowIf("CheckType", NumericCheckerType.InRange)]
         public int minValue;
@@ -37,7 +35,7 @@ namespace ET.Client
         public int EqualValue;
 
         [Space(5)]
-        [ShowIf("LessOrMore",true)]
+        [ShowIf("LessOrMore", true)]
         public int CompareValue;
     }
 }

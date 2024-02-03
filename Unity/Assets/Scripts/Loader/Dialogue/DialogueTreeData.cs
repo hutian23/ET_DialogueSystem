@@ -48,7 +48,7 @@ namespace ET.Client
             cloneNode.text = node.text;
             return cloneNode;
         }
-
+        
         public T GetVariable<T>(string variableName)
         {
             if (!this.variables.TryGetValue(variableName, out var value) || value == null) return default;

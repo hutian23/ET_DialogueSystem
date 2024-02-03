@@ -114,6 +114,7 @@ namespace ET.Client
 
         public static int Checks(this DialogueDispatcherComponent self, Unit unit, List<NodeCheckConfig> nodeCheckList)
         {
+            if (nodeCheckList == null) return 0;
             foreach (var nodeCheck in nodeCheckList)
             {
                 if (self.Check(unit, nodeCheck) != 0)

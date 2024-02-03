@@ -8,11 +8,14 @@
             await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node.Script, token);
 
             if (token.IsCancel()) return Status.Failed;
-
+            
             string replaceText = node.text;
             DialogueHelper.ReplaceModel(unit, ref replaceText);
-            Log.Warning(replaceText);
+            DlgDialogue dlgDialogue = unit.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgDialogue>();
+            dlgDialogue.RefreshText(replaceText);
 
+            dialogueComponent.PushNextNode(node.next);
+            
             return Status.Success;
         }
     }

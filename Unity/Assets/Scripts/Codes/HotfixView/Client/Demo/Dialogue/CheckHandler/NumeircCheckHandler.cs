@@ -1,25 +1,27 @@
-﻿namespace ET.Client
+﻿using System.Reflection;
+
+namespace ET.Client
 {
     public class NumeircCheckHandler: NodeCheckHandler<NumericCheckConfig>
     {
         protected override int Run(Unit unit, NumericCheckConfig nodeCheck)
         {
             Unit player = TODUnitHelper.GetPlayer(unit.ClientScene());
-            int numeric = player.GetComponent<NumericComponent>().GetAsInt(nodeCheck.NumericType);
-            Log.Warning(numeric.ToString());
-            switch (nodeCheck.CheckType)
+
+            if (string.IsNullOrEmpty(nodeCheck.NumericType)) return 1;
+            
+            FieldInfo fieldInfo = typeof (NumericType).GetField(nodeCheck.NumericType, BindingFlags.Public | BindingFlags.Static);
+            int numericType = (int)fieldInfo.GetValue(null);
+            int numeric = player.GetComponent<NumericComponent>().GetAsInt(numericType);
+
+            return nodeCheck.CheckType switch
             {
-                case NumericCheckerType.Equal:
-                    return (numeric == nodeCheck.EqualValue)? 0 : 1;
-                case NumericCheckerType.InRange:
-                    return (numeric >= nodeCheck.minValue && numeric <= nodeCheck.maxValue)? 0 : 1;
-                case NumericCheckerType.LessThan:
-                    return (numeric < nodeCheck.CompareValue)? 0 : 1;
-                case NumericCheckerType.MoreThan:
-                    return (numeric > nodeCheck.CompareValue)? 0 : 1;
-                default:
-                    return 1;
-            }
+                NumericCheckerType.Equal => (numeric == nodeCheck.EqualValue)? 0 : 1,
+                NumericCheckerType.InRange => (numeric >= nodeCheck.minValue && numeric <= nodeCheck.maxValue)? 0 : 1,
+                NumericCheckerType.LessThan => (numeric < nodeCheck.CompareValue)? 0 : 1,
+                NumericCheckerType.MoreThan => (numeric > nodeCheck.CompareValue)? 0 : 1,
+                _ => 1
+            };
         }
     }
 }

@@ -47,7 +47,7 @@ namespace ET.Client
 
         [LabelText("克隆树: "), ShowIf("EditorMode")]
         public DialogueTree cloneTree;
-
+        
         public DialogueNode GetNode(uint targetID)
         {
             if (cloneTree == null)
@@ -58,8 +58,9 @@ namespace ET.Client
 
             if (cloneTree.targets.TryGetValue(targetID, out DialogueNode node))
             {
-                node.text = node.GetContent(Language);
-                return node;
+                DialogueNode cloneNode = MongoHelper.Clone(node);
+                cloneNode.text = node.GetContent(Language);
+                return cloneNode;
             }
 
             Debug.LogError($"cannot found node,targetID:{targetID}");

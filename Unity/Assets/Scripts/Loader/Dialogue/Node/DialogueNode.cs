@@ -33,17 +33,17 @@ namespace ET
         [HideInInspector, ReadOnly]
         public uint TargetID;
 
-        [FoldoutGroup("$nodeName"),LabelText("前置条件: ")]
-        public bool NeedCheck = false;
-
-        [FoldoutGroup("$nodeName"), ShowIf("NeedCheck"),HideLabel]
+        [FoldoutGroup("$nodeName"), LabelText("检查前置条件?: ")]
+        public bool NeedCheck;
+        
+        [FoldoutGroup("$nodeName"),Space(5),ShowIf("$NeedCheck")]
         public List<NodeCheckConfig> checkList = new();
 
-        [FoldoutGroup("$nodeName"), LabelText("显示脚本: ")]
+        [FoldoutGroup("$nodeName"), LabelText("显示脚本: "),Space(5)]
         [BsonIgnore]
         public bool ShowScript;
-        
-        [FoldoutGroup("$nodeName"), HideLabel, TextArea(10, 35),ShowIf("ShowScript")]
+
+        [FoldoutGroup("$nodeName"), HideLabel, TextArea(10, 35), ShowIf("ShowScript")]
         public string Script = "";
 
         [HideInInspector, BsonIgnore]
@@ -59,9 +59,9 @@ namespace ET
         [BsonIgnore]
         [HideInInspector, ReadOnly, FoldoutGroup("$nodeName")]
         public Status Status;
-
+        
         [Searchable]
-        [FoldoutGroup("$nodeName"), HideReferenceObjectPicker, LabelText("本地化"), Space(10),
+        [FoldoutGroup("$nodeName"), HideReferenceObjectPicker, LabelText("本地化组"), Space(10),
          ListDrawerSettings(ShowFoldout = true, ShowIndexLabels = true, ListElementLabelName = "eleName")]
         public List<LocalizationGroup> LocalizationGroups = new();
 

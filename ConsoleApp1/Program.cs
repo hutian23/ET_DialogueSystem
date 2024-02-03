@@ -142,12 +142,16 @@ static class Program
         //     Console.WriteLine(i);
         // }
 
-        List<object> s = new() { null, null, 2, 23 };
-        s.RemoveAll(_ => false);
-        foreach (var o in s)
-        {
-            Console.WriteLine(o);
-        }
+        // List<object> s = new() { null, null, 2, 23 };
+        // s.RemoveAll(_ => false);
+        // foreach (var o in s)
+        // {
+        //     Console.WriteLine(o);
+        // }
+        string s = "23213";
+        string b = s;
+        b = "1232";
+        Console.WriteLine(s+"  "+b);
 
         // var bytes = MongoHelper.Serialize(new test2132131() { a = 12323212 });
         // Console.WriteLine(MongoHelper.Deserialize<test2132131>(bytes).a);
