@@ -10,5 +10,13 @@ namespace ET.Client
 
         public DialogueTreeData treeData;
         public int ReloadType;
+
+        public HashSet<int> tags = new();
+    }
+
+    public static class DialogueTag
+    {
+        public const int None = 0;
+        public const int Typing = 1;
     }
 }

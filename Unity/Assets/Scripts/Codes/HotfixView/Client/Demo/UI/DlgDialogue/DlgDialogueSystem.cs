@@ -95,10 +95,5 @@ namespace ET.Client
                     break;
             }
         }
-
-        public static void RefreshText(this DlgDialogue self, string text)
-        {
-            self.View.E_TextText.SetText(text);
-        }
     }
 }

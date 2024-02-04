@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 using MongoDB.Bson;
 using UnityEngine.InputSystem;
@@ -7,6 +8,7 @@ using UnityEngine.UI;
 namespace ET.Client
 {
     [FriendOf(typeof (DialogueComponent))]
+    [FriendOf(typeof (DialogueDispatcherComponent))]
     public static class DialogueHelper
     {
         public static DialogueTreeData LoadDialogueTree(string treeName, Language language)
@@ -15,20 +17,21 @@ namespace ET.Client
             string jsonContent = File.ReadAllText(file);
             BsonDocument doc = MongoHelper.FromJson<BsonDocument>(jsonContent);
             var subDoc = doc["_v"].ToBsonDocument();
-            
-            return new DialogueTreeData(subDoc,language);
+
+            return new DialogueTreeData(subDoc, language);
         }
 
         public static void ScripMatchError(string text)
         {
             Log.Error($"{text}匹配失败！请检查格式");
         }
+
         public static void ReplaceCustomModel(ref string text, string oldText, string newText)
         {
-            string replaceStr = "{{"+ oldText + "}}";
+            string replaceStr = "{{" + oldText + "}}";
             text = text.Replace(replaceStr, newText);
         }
-        
+
         public static string ReplaceModel(Unit unit, ref string replaceText)
         {
             if (string.IsNullOrEmpty(replaceText)) return string.Empty;
@@ -44,21 +47,126 @@ namespace ET.Client
 
                 replaceText = replaceText.Replace(match.Value, replaceStr);
             }
+
             return replaceText;
         }
 
-        public static async ETTask WaitNextCor(ETCancellationToken token)
+        #region DialogueDispatchComponent,避免和DialogueHelper产生环形依赖
+
+        private static async ETTask CoroutineHandle(this DialogueDispatcherComponent self, Unit unit, DialogueNode node, List<string> corList,
+        ETCancellationToken token)
         {
-            await TimerComponent.Instance.WaitAsync(200, token);
-            if(token.IsCancel()) return;
-            while (true)
+            int index = 0;
+            while (index < corList.Count)
             {
-                if(token.IsCancel())break;
-                if(Keyboard.current.bKey.isPressed) return;
-                await TimerComponent.Instance.WaitFrameAsync(token);
+                if (token.IsCancel())
+                {
+                    Log.Warning("canceld");
+                    return;
+                }
+
+                var corLine = corList[index];
+                if (string.IsNullOrEmpty(corLine) || corLine[0] == '#') // 空行 or 注释行 or 子命令
+                {
+                    index++;
+                    continue;
+                }
+
+                var opLine = Regex.Split(corLine, @"- ")[1]; //把- 去掉，后面才是指令
+                Match match = Regex.Match(opLine, @"^\w+");
+                if (!match.Success)
+                {
+                    ScripMatchError(opLine);
+                    return;
+                }
+
+                var opType = match.Value;
+                var opCode = Regex.Match(opLine, "^(.*?);").Value; // ;后的不读取
+                await self.ScriptHandle(unit, node, opType, opCode, token);
+                if (token.IsCancel()) return;
+
+                index++;
             }
         }
-        
+
+        /// <summary>
+        /// 执行一行指令
+        /// </summary>
+        private static async ETTask ScriptHandle(this DialogueDispatcherComponent self, Unit unit, DialogueNode node, string opType, string opCode,
+        ETCancellationToken token)
+        {
+            if (!self.scriptHandlers.TryGetValue(opType, out ScriptHandler handler))
+            {
+                Log.Error($"not found script handler: {opType}");
+                return;
+            }
+
+            ReplaceModel(unit, ref opCode);
+            await handler.Handle(unit, node, opCode, token);
+        }
+
+        public static async ETTask ScriptHandles(this DialogueDispatcherComponent self, Unit unit, DialogueNode node, ETCancellationToken token)
+        {
+            var opLines = node.Script.Split("\n"); // 一行一行执行
+            int index = 0;
+
+            while (index < opLines.Length)
+            {
+                var opLine = opLines[index];
+                if (string.IsNullOrEmpty(opLine) || opLine[0] == '#' || opLine[0] == '-') // 空行 or 注释行 or 子命令
+                {
+                    index++;
+                    continue;
+                }
+
+                if (opLine == "Coroutine:") // 携程行
+                {
+                    var corList = new List<string>();
+                    while (++index < opLines.Length)
+                    {
+                        var coroutineLine = opLines[index];
+                        if (string.IsNullOrEmpty(coroutineLine) || coroutineLine[0] == '#') continue;
+                        if (coroutineLine[0] != '-') break;
+                        corList.Add(coroutineLine);
+                    }
+
+                    self.CoroutineHandle(unit, node, corList, token).Coroutine();
+                    continue;
+                }
+
+                Match match = Regex.Match(opLine, @"^\w+");
+                if (!match.Success)
+                {
+                    ScripMatchError(opLine);
+                    return;
+                }
+
+                var opType = match.Value;
+                var opCode = Regex.Match(opLine, "^(.*?);").Value; // ;后的不读取
+
+                await self.ScriptHandle(unit, node, opType, opCode, token);
+                if (token.IsCancel()) return;
+
+                index++;
+            }
+        }
+
+        #endregion
+
+        // public static async ETTask WaitNextCor(ETCancellationToken token)
+        // {
+        //     await TimerComponent.Instance.WaitAsync(200, token);
+        //     if (token.IsCancel()) return;
+        //     while (true)
+        //     {
+        //         if (token.IsCancel()) break;
+        //         if (Keyboard.current.bKey.isPressed) return;
+        //         await TimerComponent.Instance.WaitFrameAsync(token);
+        //     }
+        // }
+
+        #region DialogueComponent
+
         private static async ETTask SkipCheckCor(ETCancellationToken token, ETCancellationToken typeToken)
         {
             await TimerComponent.Instance.WaitAsync(200, token);
@@ -71,7 +179,8 @@ namespace ET.Client
             }
         }
 
-        public static async ETTask TypeCor(Text label, string content, ETCancellationToken token, bool CanSkip = true)
+        public static async ETTask TypeCor(this DialogueComponent self, Text label, string content, ETCancellationToken token,
+        bool CanSkip = true)
         {
             ETCancellationToken typeToken = new();
             if (CanSkip) SkipCheckCor(token, typeToken).Coroutine();
@@ -84,13 +193,13 @@ namespace ET.Client
 
             for (int i = 0; i < len; i++)
             {
-                // <speed=300>
-                if (content[i] == '<' && i + 6 < len && content.Substring(i, 7).Equals("<speed="))
+                // [#ts=300]
+                if (content[i] == '[' && i + 4 < len && content.Substring(i, 5).Equals("[#ts="))
                 {
-                    var parseSpeed = "";
-                    for (var j = i + 7; j < len; j++)
+                    string parseSpeed = "";
+                    for (int j = i + 5; j < len; j++)
                     {
-                        if (content[j] == '>')
+                        if (content[j] == ']')
                         {
                             //不是 />则没有match
                             break;
@@ -116,7 +225,7 @@ namespace ET.Client
                     continue;
                 }
 
-                var symbolDetected = false;
+                bool symbolDetected = false;
                 for (int j = 0; j < Constants._uguiSymbols.Length; j++)
                 {
                     var symbol = $"<{Constants._uguiSymbols[j]}>";
@@ -184,8 +293,13 @@ namespace ET.Client
                 //这里这个token代表当前节点被取消执行了
                 if (token.IsCancel()) return;
                 if (typeToken.IsCancel()) continue;
+
+                self.AddTag(DialogueTag.Typing); // 标注当前正在打印
                 await TimerComponent.Instance.WaitAsync(typeSpeed, token);
+                self.RemoveTag(DialogueTag.Typing);
             }
         }
+
+        #endregion
     }
 }

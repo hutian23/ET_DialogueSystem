@@ -96,6 +96,7 @@ namespace ET.Client
             self.token?.Cancel();
             self.token = null;
             self.workQueue.Clear();
+            self.tags.Clear();
         }
 
         //运行时使用
@@ -218,6 +219,21 @@ namespace ET.Client
             }
 
             return self.treeData.GetVariable<T>(variableName);
+        }
+
+        public static void AddTag(this DialogueComponent self, int tagType)
+        {
+            self.tags.Add(tagType);
+        }
+
+        public static bool ContainTag(this DialogueComponent self, int tagType)
+        {
+            return self.tags.Contains(tagType);
+        }
+
+        public static void RemoveTag(this DialogueComponent self, int tagType)
+        {
+            self.tags.Remove(tagType);
         }
     }
 }

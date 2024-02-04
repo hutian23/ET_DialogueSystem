@@ -20,6 +20,7 @@
 
                 dialogueComponent.PushNextNode(childNode);
             });
+            await ETTask.CompletedTask;
             return Status.Success;
         }
     }
