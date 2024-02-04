@@ -96,7 +96,6 @@ namespace ET.Client
             self.token?.Cancel();
             self.token = null;
             self.workQueue.Clear();
-            self.currentNode = null;
         }
 
         //运行时使用
@@ -115,7 +114,7 @@ namespace ET.Client
 
             DialogueNode node = self.GetNode(0);
             Unit unit = self.GetParent<Unit>();
-            await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node.Script, self.token);
+            await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node, self.token);
             self.workQueue.Enqueue(preViewNode);
             try
             {
@@ -123,7 +122,6 @@ namespace ET.Client
                 {
                     if (self.token.IsCancel()) break;
                     node = self.workQueue.Dequeue(); //将下一个节点压入queue执行
-                    self.currentNode = node;
 
                     self.SetNodeStatus(node, Status.Pending);
                     Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, node, self.token);
@@ -154,7 +152,6 @@ namespace ET.Client
                 {
                     if (self.token.IsCancel()) break;
                     node = self.workQueue.Dequeue(); //将下一个节点压入queue执行
-                    self.currentNode = node; //当前执行的节点
 
                     self.SetNodeStatus(node, Status.Pending);
                     Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, node, self.token);

@@ -126,6 +126,9 @@ static class Program
 
     public static void Main()
     {
+        string text = "Log info = 2323;";
+        Match match = Regex.Match(text, @"Log info = (?<info>\w+);");
+        Console.WriteLine(match.Groups["info"].Value);
         // List<int> list = new()
         // {
         //     1,
@@ -148,10 +151,10 @@ static class Program
         // {
         //     Console.WriteLine(o);
         // }
-        string s = "23213";
-        string b = s;
-        b = "1232";
-        Console.WriteLine(s+"  "+b);
+        // string s = "23213";
+        // string b = s;
+        // b = "1232";
+        // Console.WriteLine(s+"  "+b);
 
         // var bytes = MongoHelper.Serialize(new test2132131() { a = 12323212 });
         // Console.WriteLine(MongoHelper.Deserialize<test2132131>(bytes).a);

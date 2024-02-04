@@ -9,7 +9,7 @@ namespace ET.Client
             return "VN_RegisterCharacter";
         }
 
-        public override async ETTask Handle(Unit unit, string line, ETCancellationToken token)
+        public override async ETTask Handle(Unit unit, DialogueNode node, string line, ETCancellationToken token)
         {
             Match match = Regex.Match(line, @"VN_RegisterCharacter ch = (?<ch>\w+) unitId = (?<unitId>\d+);");
             if (!match.Success)

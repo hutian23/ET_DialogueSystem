@@ -98,6 +98,7 @@ namespace ET.Client
             {
                 return await handler.Handle(unit, node, token);
             }
+
             Log.Error($"not found handler: {node}");
             return Status.Failed;
         }
@@ -129,7 +130,7 @@ namespace ET.Client
         /// <summary>
         /// 一行指令 
         /// </summary>
-        private static async ETTask ScriptHandle(this DialogueDispatcherComponent self, Unit unit, string opType, string opCode,
+        private static async ETTask ScriptHandle(this DialogueDispatcherComponent self, Unit unit, DialogueNode node, string opType, string opCode,
         ETCancellationToken token)
         {
             if (!self.scriptHandlers.TryGetValue(opType, out ScriptHandler handler))
@@ -139,10 +140,11 @@ namespace ET.Client
             }
 
             DialogueHelper.ReplaceModel(unit, ref opCode);
-            await handler.Handle(unit, opCode, token);
+            await handler.Handle(unit, node, opCode, token);
         }
 
-        private static async ETTask CoroutineHandle(this DialogueDispatcherComponent self, Unit unit, List<string> corList, ETCancellationToken token)
+        private static async ETTask CoroutineHandle(this DialogueDispatcherComponent self, Unit unit, DialogueNode node, List<string> corList,
+        ETCancellationToken token)
         {
             int index = 0;
             while (index < corList.Count)
@@ -170,16 +172,16 @@ namespace ET.Client
 
                 var opType = match.Value;
                 var opCode = Regex.Match(opLine, "^(.*?);").Value; // ;后的不读取
-                await self.ScriptHandle(unit, opType, opCode, token);
+                await self.ScriptHandle(unit, node, opType, opCode, token);
                 if (token.IsCancel()) return;
 
                 index++;
             }
         }
 
-        public static async ETTask ScriptHandles(this DialogueDispatcherComponent self, Unit unit, string scriptText, ETCancellationToken token)
+        public static async ETTask ScriptHandles(this DialogueDispatcherComponent self, Unit unit, DialogueNode node, ETCancellationToken token)
         {
-            var opLines = scriptText.Split("\n"); // 一行一行执行
+            var opLines = node.Script.Split("\n"); // 一行一行执行
             int index = 0;
 
             while (index < opLines.Length)
@@ -202,7 +204,7 @@ namespace ET.Client
                         corList.Add(coroutineLine);
                     }
 
-                    self.CoroutineHandle(unit, corList, token).Coroutine();
+                    self.CoroutineHandle(unit, node, corList, token).Coroutine();
                     continue;
                 }
 
@@ -216,7 +218,7 @@ namespace ET.Client
                 var opType = match.Value;
                 var opCode = Regex.Match(opLine, "^(.*?);").Value; // ;后的不读取
 
-                await self.ScriptHandle(unit, opType, opCode, token);
+                await self.ScriptHandle(unit, node, opType, opCode, token);
                 if (token.IsCancel()) return;
 
                 index++;

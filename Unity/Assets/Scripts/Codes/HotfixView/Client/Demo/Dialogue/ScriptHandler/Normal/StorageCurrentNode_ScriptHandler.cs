@@ -1,19 +1,16 @@
 ﻿namespace ET.Client
 {
-    [FriendOf(typeof(DialogueComponent))]
-    public class StorageCurrentNode : ScriptHandler
+    [FriendOf(typeof (DialogueComponent))]
+    public class StorageCurrentNode: ScriptHandler
     {
         public override string GetOPType()
         {
             return "StorageCurrentNode";
         }
 
-        public override async ETTask Handle(Unit unit, string line, ETCancellationToken token)
+        public override async ETTask Handle(Unit unit, DialogueNode node, string line, ETCancellationToken token)
         {
-            DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
-
-            DialogueStorageManager.Instance.QuickSaveShot.AddToBuffer(dialogueComponent.currentNode);
-            
+            DialogueStorageManager.Instance.QuickSaveShot.AddToBuffer(node);
             await ETTask.CompletedTask;
         }
     }

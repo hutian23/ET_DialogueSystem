@@ -9,7 +9,7 @@ namespace ET.Client
             return "VN_WaitAnimPlay";
         }
 
-        public override async ETTask Handle(Unit unit, string line, ETCancellationToken token)
+        public override async ETTask Handle(Unit unit, DialogueNode node, string line, ETCancellationToken token)
         {
             Match match = Regex.Match(line, @"VN_WaitAnimPlay ch = (?<ch>\w+) clip = (?<clip>\w+) time = (?<time>\w+);");
             if (!match.Success)

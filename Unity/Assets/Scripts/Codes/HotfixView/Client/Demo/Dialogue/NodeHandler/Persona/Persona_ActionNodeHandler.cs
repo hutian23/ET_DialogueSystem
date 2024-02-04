@@ -4,7 +4,7 @@
     {
         protected override async ETTask<Status> Run(Unit unit, Persona_ActionNode node, ETCancellationToken token)
         {
-            await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node.Script, token);
+            // await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node.Script, token);
             if (token.IsCancel()) return Status.Failed;
 
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();

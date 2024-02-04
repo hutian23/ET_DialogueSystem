@@ -5,9 +5,9 @@
         protected override async ETTask<Status> Run(Unit unit, VN_ActionNode node, ETCancellationToken token)
         {
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
-            await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node.Script, token);
+            await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node, token);
             if (token.IsCancel()) return Status.Failed;
-
+            
             DialogueHelper.ReplaceModel(unit, ref node.text);
             DlgDialogue dlgDialogue = unit.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgDialogue>();
             dlgDialogue.RefreshText(node.text);

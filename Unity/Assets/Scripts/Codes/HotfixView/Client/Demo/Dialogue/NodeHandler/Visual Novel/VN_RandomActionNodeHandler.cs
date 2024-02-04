@@ -23,7 +23,7 @@ namespace ET.Client
             DialogueHelper.ReplaceCustomModel(ref node.text, "Random", randomValue.ToString());
             DialogueHelper.ReplaceCustomModel(ref node.Script, "Random", randomValue.ToString());
 
-            await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node.Script, token);
+            await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node,token);
             if (token.IsCancel()) return Status.Failed;
 
             Log.Warning(node.text);

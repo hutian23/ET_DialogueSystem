@@ -9,7 +9,7 @@ namespace ET.Client
             return "WaitTime";
         }
 
-        public override async ETTask Handle(Unit unit, string line, ETCancellationToken token)
+        public override async ETTask Handle(Unit unit, DialogueNode node, string line, ETCancellationToken token)
         {
             Match match = Regex.Match(line, @"WaitTime\s+(\d+)");
             if (!match.Success)

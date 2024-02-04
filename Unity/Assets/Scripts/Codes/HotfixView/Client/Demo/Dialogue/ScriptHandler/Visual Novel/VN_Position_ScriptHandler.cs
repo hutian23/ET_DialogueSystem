@@ -10,7 +10,7 @@ namespace ET.Client
             return "VN_Position";
         }
 
-        public override async ETTask Handle(Unit unit, string line, ETCancellationToken token)
+        public override async ETTask Handle(Unit unit, DialogueNode node, string line, ETCancellationToken token)
         {
             Match match = Regex.Match(line, @"VN_Position ch = (?<ch>\w+)(?: type = (?<type>\w+))?(?: position = \((?<x>-?\d+),(?<y>-?\d+)\))?;");
             if (!match.Success)

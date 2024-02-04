@@ -10,7 +10,7 @@ namespace ET.Client
             return "ShowWindow";
         }
 
-        public override async ETTask Handle(Unit unit, string line, ETCancellationToken token)
+        public override async ETTask Handle(Unit unit, DialogueNode node, string line, ETCancellationToken token)
         {
             Match match = Regex.Match(line, @"ShowWindow type = (?<WindowType>\w+);");
             if (!match.Success)
@@ -18,14 +18,14 @@ namespace ET.Client
                 DialogueHelper.ScripMatchError(line);
                 return;
             }
-            
+
             if (!Enum.TryParse($"WindowID_{match.Groups["WindowType"].Value}", out WindowID windowID))
             {
                 Log.Error($"not found windowID: {match.Groups["WindowType"]}");
                 return;
             }
-            
-            token.Add(() => unit.ClientScene().GetComponent<UIComponent>().HideWindow(windowID));
+            //卸载窗口
+            token.Add(() => { unit.ClientScene().GetComponent<UIComponent>().CloseWindow(windowID); });
             await unit.ClientScene().GetComponent<UIComponent>().ShowWindowAsync(windowID);
         }
     }

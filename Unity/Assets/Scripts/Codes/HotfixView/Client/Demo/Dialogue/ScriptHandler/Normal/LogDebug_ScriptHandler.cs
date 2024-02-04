@@ -2,24 +2,23 @@
 
 namespace ET.Client
 {
-    public class AnimPlay_ScriptHandler: ScriptHandler
+    public class Log_ScriptHandler : ScriptHandler
     {
         public override string GetOPType()
         {
-            return "AnimPlay";
+            return "Log";
         }
 
+        //Log.Debug("22323");
         public override async ETTask Handle(Unit unit, DialogueNode node, string line, ETCancellationToken token)
         {
-            Match match = Regex.Match(line, @"AnimPlay ""(.*?)"";");
+            Match match = Regex.Match(line, @"Log\.Debug\(""(.*?)""\);");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(line);
                 return;
             }
-            var clipName = match.Groups[1].Value;
-            
-            unit.GetComponent<AnimatorComponent>().Play(clipName);
+            Log.Debug(match.Groups[1].Value);
             await ETTask.CompletedTask;
         }
     }

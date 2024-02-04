@@ -10,7 +10,7 @@ namespace ET.Client
         }
 
         // VN_Flip ch = Celika type = Middle;
-        public override async ETTask Handle(Unit unit, string line, ETCancellationToken token)
+        public override async ETTask Handle(Unit unit, DialogueNode node, string line, ETCancellationToken token)
         {
             Match match = Regex.Match(line, @"VN_Flip ch = (?<ch>\w+) type = (?<type>\w+);");
             if (!match.Success)

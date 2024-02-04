@@ -10,7 +10,7 @@ namespace ET.Client
             return "Numeric";
         }
 
-        public override async ETTask Handle(Unit unit, string line, ETCancellationToken token)
+        public override async ETTask Handle(Unit unit, DialogueNode node, string line, ETCancellationToken token)
         {
             //数值类型
             Match match = Regex.Match(line, @"Numeric\s+(\w+)\s*(\+|\-|\*|\/)\s*(\d+);");
