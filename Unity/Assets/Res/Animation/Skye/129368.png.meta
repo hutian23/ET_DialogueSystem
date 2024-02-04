@@ -1,0 +1,696 @@
+fileFormatVersion: 2
+guid: de1f4e895f983f640b6706b61abd5459
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Idle_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16036
+        width: 730
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.50547945, y: 0.5294118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a4255f7d1b1a274c839353c688003ce
+      internalID: -1147865216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_2
+      rect:
+        serializedVersion: 2
+        x: 730
+        y: 16036
+        width: 689
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.49201742, y: 0.5294118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c92a73ef755fb4c42a5496d2848230e8
+      internalID: -2044566927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_
+      rect:
+        serializedVersion: 2
+        x: 1419
+        y: 16036
+        width: 705
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.49503544, y: 0.5294118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a5c5a10e1df4ca49af67c60f8235644
+      internalID: 1146596940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_talk_1
+      rect:
+        serializedVersion: 2
+        x: 2213
+        y: 16036
+        width: 713
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.49929875, y: 0.5294118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa2e099402468cc45aea68c33b773b8b
+      internalID: 1711102953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_talk_2
+      rect:
+        serializedVersion: 2
+        x: 2929
+        y: 16036
+        width: 680
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5294118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 431805671080eaf4db24399245e5db26
+      internalID: 176334584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Concern_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 14837
+        width: 713
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.5189341, y: 0.5294118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9568986dceae1544991c80f3bbdfa874
+      internalID: 1492696039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Concern_2
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 14837
+        width: 702
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.508547, y: 0.5294118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1d929821c0f1ab4eab203ea02c29c28
+      internalID: 395861780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Concern_3
+      rect:
+        serializedVersion: 2
+        x: 1419
+        y: 14837
+        width: 700
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.50142854, y: 0.5294118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 947b34d8e15db5640b0893da8d1b0e47
+      internalID: 1543203531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Concern_talk_1
+      rect:
+        serializedVersion: 2
+        x: 2212
+        y: 14837
+        width: 702
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.5099715, y: 0.5294118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44818b761e7ecc048b20fb5f63645a32
+      internalID: 338679587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Concern_talk_2
+      rect:
+        serializedVersion: 2
+        x: 2913
+        y: 14837
+        width: 701
+        height: 1191
+      alignment: 9
+      pivot: {x: 0.50927246, y: 0.52896726}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b8cbad77c5ce08458fc17e44fd4b99f
+      internalID: 1316540270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Concern_talk_3
+      rect:
+        serializedVersion: 2
+        x: 3614
+        y: 14837
+        width: 732
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.4863388, y: 0.5294118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 516abc3f7fa287b45996670dff9f7194
+      internalID: -835290880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Confident_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 13634
+        width: 782
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.45577332, y: 0.5294118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eef983b7748cc0746ad24193c6295383
+      internalID: 1005792531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Confident_2
+      rect:
+        serializedVersion: 2
+        x: 794
+        y: 13634
+        width: 793
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.45709297, y: 0.5294118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85d7fbc8f746fea4ab694fae3d3b184f
+      internalID: 1146649790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Confident_3
+      rect:
+        serializedVersion: 2
+        x: 1603
+        y: 13634
+        width: 780
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.4532566, y: 0.5294118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 407fb7762d773914da7a785d111d82ea
+      internalID: -178395978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Write_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5032
+        width: 750
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.53333336, y: 0.52941185}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dce534df5c00f144cb8d5b35620828d6
+      internalID: 580738470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Write_2
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 5032
+        width: 700
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5294118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b314cc06ec353f44a16fa7c94d9ee03
+      internalID: -834712052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Write_talk
+      rect:
+        serializedVersion: 2
+        x: 1450
+        y: 5032
+        width: 700
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.49834317, y: 0.52919346}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c11cf5481476a4048910f45798c52d5a
+      internalID: 2084298260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Write_3
+      rect:
+        serializedVersion: 2
+        x: 2150
+        y: 5032
+        width: 700
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5294118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf7def83c5725ee4185fd41ab5db6d58
+      internalID: 448101141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Write_5
+      rect:
+        serializedVersion: 2
+        x: 2850
+        y: 5032
+        width: 700
+        height: 1191
+      alignment: 9
+      pivot: {x: 0.5, y: 0.52896726}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f692302dd859cc41a73002e49cb9f6a
+      internalID: 1430991004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129368_5
+      rect:
+        serializedVersion: 2
+        x: 3614
+        y: 5032
+        width: 733
+        height: 1202
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c43561f8780a3bc4a891f9bdaef96e17
+      internalID: -1779087109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Write_talk_2
+      rect:
+        serializedVersion: 2
+        x: 4348
+        y: 5032
+        width: 700
+        height: 1185
+      alignment: 9
+      pivot: {x: 0.5020006, y: 0.53140944}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48245ddfb7d002644bf3f6b071cdd0b5
+      internalID: -1697922340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Happy_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 8837
+        width: 750
+        height: 1150
+      alignment: 9
+      pivot: {x: 0.478, y: 0.5478261}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c8acf69d22344646b7fc91bab035067
+      internalID: 1315372553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Happy_2
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 8837
+        width: 750
+        height: 1150
+      alignment: 9
+      pivot: {x: 0.4116434, y: 0.5478261}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8029832bb5015b4ebafa23d73b64ef3
+      internalID: 2113463141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Happy_3
+      rect:
+        serializedVersion: 2
+        x: 1468
+        y: 8837
+        width: 648
+        height: 1150
+      alignment: 9
+      pivot: {x: 0.44888908, y: 0.5478261}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 389437a2bc906a448ac0cb8280085d61
+      internalID: -1238067124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Happy_talk_1
+      rect:
+        serializedVersion: 2
+        x: 2230
+        y: 8837
+        width: 681
+        height: 1150
+      alignment: 9
+      pivot: {x: 0.48294386, y: 0.5478261}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e282cdf43d19644abcf998ae96ef365
+      internalID: -1848512446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Happy_talk_2
+      rect:
+        serializedVersion: 2
+        x: 2918
+        y: 8837
+        width: 698
+        height: 1150
+      alignment: 9
+      pivot: {x: 0.48869398, y: 0.5478261}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee89473a63f19b845a3363e6415ab41f
+      internalID: 450205397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 0aaa3e0f7b70c1944bf6832db9adc64f
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Happy_talk_2: 450205397
+      129368_5: -1779087109
+      Concern_talk_1: 338679587
+      Confident_3: -178395978
+      Write_5: 1430991004
+      Happy_3: -1238067124
+      Idle_1: -1147865216
+      129368_7: -513752676
+      Idle_: 1146596940
+      Idle_talk_2: 176334584
+      Confident_2: 1146649790
+      Write_2: -834712052
+      Happy_1: 1315372553
+      Concern_talk_3: -835290880
+      Concern_2: 395861780
+      Write_talk_2: -1697922340
+      Confident_1: 1005792531
+      Write_1: 580738470
+      Write_talk: 2084298260
+      Concern_3: 1543203531
+      Concern_talk_2: 1316540270
+      Write_3: 448101141
+      Idle_2: -2044566927
+      Idle_talk_1: 1711102953
+      Concern_1: 1492696039
+      Happy_2: 2113463141
+      Happy_talk_1: -1848512446
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
