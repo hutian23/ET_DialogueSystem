@@ -20,7 +20,8 @@ namespace ET.Client
                 dialogueComponent.Init();
                 dialogueComponent.token = new ETCancellationToken();
                 dialogueComponent.ReloadType = args.ReloadType;
-
+                DialogueHelper.Reload(); // 重载
+                
                 switch (args.ReloadType)
                 {
                     case ViewReloadType.Preview:
@@ -71,17 +72,7 @@ namespace ET.Client
                 self.AddComponent<ObjectWait>();
             }
         }
-
-        public class DialogueComponentLoadSystem: LoadSystem<DialogueComponent>
-        {
-            protected override void Load(DialogueComponent self)
-            {
-                self.Init();
-                self.token = new ETCancellationToken();
-                self.DialogueCor().Coroutine();
-            }
-        }
-
+        
         public class DialogueComponentDestroySystem: DestroySystem<DialogueComponent>
         {
             protected override void Destroy(DialogueComponent self)

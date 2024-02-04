@@ -113,7 +113,7 @@ TextureImporter:
         width: 730
         height: 1190
       alignment: 9
-      pivot: {x: 0.50547945, y: 0.5294118}
+      pivot: {x: 0.5069316, y: 0.5294118}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,7 +134,7 @@ TextureImporter:
         width: 689
         height: 1190
       alignment: 9
-      pivot: {x: 0.49201742, y: 0.5294118}
+      pivot: {x: 0.4938754, y: 0.5294118}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -155,7 +155,7 @@ TextureImporter:
         width: 705
         height: 1190
       alignment: 9
-      pivot: {x: 0.49503544, y: 0.5294118}
+      pivot: {x: 0.49848026, y: 0.5294118}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -171,12 +171,12 @@ TextureImporter:
       name: Idle_talk_1
       rect:
         serializedVersion: 2
-        x: 2213
+        x: 2215
         y: 16036
         width: 713
         height: 1190
       alignment: 9
-      pivot: {x: 0.49929875, y: 0.5294118}
+      pivot: {x: 0.49865398, y: 0.5294118}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -192,12 +192,12 @@ TextureImporter:
       name: Idle_talk_2
       rect:
         serializedVersion: 2
-        x: 2929
-        y: 16036
+        x: 2928
+        y: 16038
         width: 680
-        height: 1190
+        height: 1170
       alignment: 9
-      pivot: {x: 0.5, y: 0.5294118}
+      pivot: {x: 0.5039687, y: 0.53846157}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

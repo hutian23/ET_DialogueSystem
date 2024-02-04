@@ -10,9 +10,12 @@
 
             DialogueHelper.ReplaceModel(unit, ref node.text);
             DlgDialogue dlgDialogue = unit.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgDialogue>();
-            await DialogueHelper.TypeCor(dialogueComponent, dlgDialogue.View.E_TextText, node.text, token); //打印
+            await dialogueComponent.TypeCor(dlgDialogue.View.E_TextText, node.text, token); //打印
             if (token.IsCancel()) return Status.Failed;
 
+            await DialogueHelper.WaitNextCor(token);
+            if (token.IsCancel()) return Status.Failed;
+            
             foreach (var targetID in node.children)
             {
                 DialogueNode child = dialogueComponent.GetNode(targetID);

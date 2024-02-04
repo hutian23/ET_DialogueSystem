@@ -26,6 +26,13 @@ namespace ET.Client
             Log.Error($"{text}匹配失败！请检查格式");
         }
 
+        public static void Reload()
+        {
+            CodeLoader.Instance.LoadHotfix();
+            EventSystem.Instance.Load();
+            Log.Debug("hot reload success");
+        }
+        
         public static void ReplaceCustomModel(ref string text, string oldText, string newText)
         {
             string replaceStr = "{{" + oldText + "}}";
@@ -153,17 +160,17 @@ namespace ET.Client
 
         #endregion
 
-        // public static async ETTask WaitNextCor(ETCancellationToken token)
-        // {
-        //     await TimerComponent.Instance.WaitAsync(200, token);
-        //     if (token.IsCancel()) return;
-        //     while (true)
-        //     {
-        //         if (token.IsCancel()) break;
-        //         if (Keyboard.current.bKey.isPressed) return;
-        //         await TimerComponent.Instance.WaitFrameAsync(token);
-        //     }
-        // }
+        public static async ETTask WaitNextCor(ETCancellationToken token)
+        {
+            await TimerComponent.Instance.WaitAsync(200, token);
+            if (token.IsCancel()) return;
+            while (true)
+            {
+                if (token.IsCancel()) break;
+                if (Keyboard.current.bKey.isPressed) return;
+                await TimerComponent.Instance.WaitFrameAsync(token);
+            }
+        }
 
         #region DialogueComponent
 

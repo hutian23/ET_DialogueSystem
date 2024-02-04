@@ -1,4 +1,5 @@
 {"list":[
 {"_t":"UnitConfig","_id":1001,"Type":1,"Name":"Knight","ABName":"knight"},
 {"_t":"UnitConfig","_id":1002,"Type":1,"Name":"Celika","ABName":"celika"},
+{"_t":"UnitConfig","_id":1003,"Type":1,"Name":"Skye","ABName":"skye"},
 ]}

@@ -108,8 +108,7 @@ namespace ET.Client
 
             // //删除某些节点的数据结构，可能会空引用
             tree.nodes = tree.nodes.Where(node => node != null).ToList();
-            
-            
+
             //3. 生成边
             tree.NodeLinkDatas.ForEach(this.CreateEdge);
 
@@ -182,6 +181,8 @@ namespace ET.Client
             evt.menu.AppendSeparator();
             evt.menu.AppendAction("保存", _ => this.SaveDialogueTree());
             evt.menu.AppendAction("撤销", _ => this.OnRedo());
+            evt.menu.AppendSeparator();
+            evt.menu.AppendAction("重载",_=>this.Reload());
         }
 
         private void MouseEnterControl(MouseEnterEvent evt)
@@ -217,6 +218,11 @@ namespace ET.Client
                     break;
                 case KeyCode.V:
                     Paste();
+                    evt.StopPropagation();
+                    break;
+                //重载
+                case KeyCode.R:
+                    Reload();
                     evt.StopPropagation();
                     break;
             }
@@ -290,6 +296,15 @@ namespace ET.Client
                     blockClone.Clone(this);
                     break;
             }
+        }
+
+        public void Reload()
+        {
+            if (!Application.isPlaying || window.ViewComponent == null) return;
+            EventSystem.Instance.Invoke(new ViewComponentReloadCallback()
+            {
+                instanceId = window.ViewComponent.instanceId, ReloadType = ViewReloadType.Reload
+            });
         }
 
         public void RefreshNodeState()
