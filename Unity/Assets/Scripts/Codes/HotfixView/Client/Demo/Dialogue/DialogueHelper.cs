@@ -32,7 +32,7 @@ namespace ET.Client
             EventSystem.Instance.Load();
             Log.Debug("hot reload success");
         }
-        
+
         public static void ReplaceCustomModel(ref string text, string oldText, string newText)
         {
             string replaceStr = "{{" + oldText + "}}";
@@ -174,28 +174,45 @@ namespace ET.Client
 
         #region DialogueComponent
 
-        private static async ETTask SkipCheckCor(ETCancellationToken token, ETCancellationToken typeToken)
+        private static async ETTask SkipCheckCor(ETCancellationToken typeToken)
         {
-            await TimerComponent.Instance.WaitAsync(200, token);
-            if (token.IsCancel()) return;
+            await TimerComponent.Instance.WaitAsync(200, typeToken);
             while (true)
             {
-                if (token.IsCancel()) break;
-                if (Keyboard.current.bKey.isPressed) typeToken.Cancel();
-                await TimerComponent.Instance.WaitFrameAsync(token);
+                if (typeToken.IsCancel()) break;
+                if (Keyboard.current.bKey.isPressed)
+                {
+                    typeToken.Cancel();
+                    return;
+                }
+                await TimerComponent.Instance.WaitFrameAsync(typeToken);
+            }
+        }
+
+        [Invoke(TimerInvokeType.TypeingTimer)]
+        public class TypeTimer: ATimer<DialogueComponent>
+        {
+            protected override void Run(DialogueComponent self)
+            {
+                self.RemoveTag(DialogueTag.Typing);
             }
         }
 
         public static async ETTask TypeCor(this DialogueComponent self, Text label, string content, ETCancellationToken token,
         bool CanSkip = true)
         {
-            ETCancellationToken typeToken = new();
-            if (CanSkip) SkipCheckCor(token, typeToken).Coroutine();
+            self.AddTag(DialogueTag.TypeCor); //标注一下当前在打字携程中
+
+            ETCancellationToken typeToken = new(); //取消打印携程
+            long timer = 0; //定时器，打字间隔时间过大，动画从talk-->idle
+            token.Add(typeToken.Cancel);
+
+            if (CanSkip) SkipCheckCor(typeToken).Coroutine();
 
             var currentText = "";
             var len = content.Length;
             var typeSpeed = Constants.TypeSpeed;
-            var tagOpened = false; //标签内?
+            var tagOpened = false;
             var tagType = ""; //标签属性
 
             for (int i = 0; i < len; i++)
@@ -208,7 +225,6 @@ namespace ET.Client
                     {
                         if (content[j] == ']')
                         {
-                            //不是 />则没有match
                             break;
                         }
 
@@ -220,10 +236,37 @@ namespace ET.Client
                         typeSpeed = Constants.TypeSpeed;
                     }
 
-                    i += 8 + parseSpeed.Length - 1;
+                    i += 6 + parseSpeed.Length - 1;
                     continue;
                 }
 
+                //[#wt=1000]
+                if (content[i] == '[' && i + 4 < len && content.Substring(i, 5).Equals("[#wt="))
+                {
+                    string waitTimeStr = "";
+                    int waitTime = 0;
+                    for (int j = i + 5; j < len; j++)
+                    {
+                        if (content[j] == ']')
+                        {
+                            break;
+                        }
+
+                        waitTimeStr += content[j];
+                    }
+
+                    if (!int.TryParse(waitTimeStr, out waitTime))
+                    {
+                        Log.Error($"停顿时间转换失败:{waitTimeStr}");
+                        return;
+                    }
+                    i += 6 + waitTimeStr.Length - 1;
+                    
+                    //快进了
+                    if(!typeToken.IsCancel()) await TimerComponent.Instance.WaitAsync(waitTime, typeToken);
+                    continue;
+                }
+                
                 //ngui color tag(不知道是啥)
                 if (content[i] == '[' && i + 7 < len && content[i + 7] == ']')
                 {
@@ -300,11 +343,15 @@ namespace ET.Client
                 //这里这个token代表当前节点被取消执行了
                 if (token.IsCancel()) return;
                 if (typeToken.IsCancel()) continue;
-
-                self.AddTag(DialogueTag.Typing); // 标注当前正在打印
-                await TimerComponent.Instance.WaitAsync(typeSpeed, token);
-                self.RemoveTag(DialogueTag.Typing);
+                
+                self.AddTag(DialogueTag.Typing);
+                TimerComponent.Instance.Remove(ref timer);
+                timer = TimerComponent.Instance.NewOnceTimer(TimeInfo.Instance.ClientNow() + 200, TimerInvokeType.TypeingTimer, self);
+                await TimerComponent.Instance.WaitAsync(typeSpeed, typeToken);
             }
+
+            TimerComponent.Instance.Remove(ref timer);
+            self.RemoveTag(DialogueTag.TypeCor);
         }
 
         #endregion

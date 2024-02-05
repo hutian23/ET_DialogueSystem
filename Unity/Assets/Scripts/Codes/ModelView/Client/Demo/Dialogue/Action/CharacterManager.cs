@@ -7,6 +7,7 @@ namespace ET.Client
     public class CharacterManager: Entity, IAwake, IDestroy, ILoad
     {
         public Dictionary<string, long> characters = new();
+        public Dictionary<string, long> talkers = new();
     }
 
     public static class VN_Position

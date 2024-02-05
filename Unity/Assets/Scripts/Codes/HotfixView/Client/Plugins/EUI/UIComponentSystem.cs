@@ -509,9 +509,11 @@ namespace ET.Client
                 return;
             }
             await ResourcesComponent.Instance.LoadBundleAsync(value.StringToAB());
-            GameObject go                      = ResourcesComponent.Instance.GetAsset(value.StringToAB(), value ) as GameObject;
-            baseWindow.UIPrefabGameObject      = UnityEngine.Object.Instantiate(go);
-            baseWindow.UIPrefabGameObject.name = go.name;
+            GameObject prefab                  = ResourcesComponent.Instance.GetAsset(value.StringToAB(), value ) as GameObject;
+            GameObject go                      = UnityEngine.Object.Instantiate(prefab);
+            go.name                            = prefab.name;
+            baseWindow.UIPrefabGameObject      = go;
+            // baseWindow.UIPrefabGameObject.name = prefab.name;
             
             UIEventComponent.Instance.GetUIEventHandler(baseWindow.WindowID).OnInitWindowCoreData(baseWindow);
             

@@ -2,16 +2,16 @@
 
 namespace ET.Client
 {
-    public class VN_RegisterCharacter_ScriptHandler: ScriptHandler
+    public class VN_RegistCharacter_ScriptHandler: ScriptHandler
     {
         public override string GetOPType()
         {
-            return "VN_RegisterCharacter";
+            return "VN_RegistCharacter";
         }
 
         public override async ETTask Handle(Unit unit, DialogueNode node, string line, ETCancellationToken token)
         {
-            Match match = Regex.Match(line, @"VN_RegisterCharacter ch = (?<ch>\w+) unitId = (?<unitId>\d+);");
+            Match match = Regex.Match(line, @"VN_RegistCharacter ch = (?<ch>\w+) unitId = (?<unitId>\d+);");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(line);
@@ -23,7 +23,7 @@ namespace ET.Client
 
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
             CharacterManager characterManager = dialogueComponent.GetComponent<CharacterManager>() ?? dialogueComponent.AddComponent<CharacterManager>();
-            await characterManager.RegisterCharacter(characterName, unitId);
+            await characterManager.RegistCharacter(characterName, unitId);
         }
     }
 }

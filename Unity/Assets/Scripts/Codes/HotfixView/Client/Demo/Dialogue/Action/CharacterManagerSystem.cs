@@ -4,6 +4,7 @@ using UnityEngine;
 namespace ET.Client
 {
     [FriendOf(typeof (CharacterManager))]
+    [FriendOf(typeof (Talker))]
     public static class CharacterManagerSystem
     {
         public class CharacterManagerLoadSystem: LoadSystem<CharacterManager>
@@ -30,15 +31,19 @@ namespace ET.Client
                 unitComponent.RemoveChild(id);
             });
             self.characters.Clear();
+
+            self.talkers.Values.ForEach(self.RemoveChild);
+            self.talkers.Clear();
         }
 
-        public static async ETTask RegisterCharacter(this CharacterManager self, string characterName, int unitId)
+        public static async ETTask RegistCharacter(this CharacterManager self, string characterName, int unitId)
         {
             if (self.characters.ContainsKey(characterName))
             {
                 Log.Error($"存在同名角色{characterName}");
                 return;
             }
+
             UnitConfig config = UnitConfigCategory.Instance.Get(unitId);
 
             await ResourcesComponent.Instance.LoadBundleAsync($"{config.ABName}.unity3d");
@@ -73,6 +78,24 @@ namespace ET.Client
 
             Log.Error($"不存在角色{characterName}");
             return null;
+        }
+
+        public static Talker RegistTalker(this CharacterManager self, string characterName, string clip)
+        {
+            self.RemoveTalker(characterName);
+            Talker talker = self.AddChild<Talker>();
+            self.talkers.Add(characterName, talker.Id);
+            talker.Init(characterName,clip);
+            return talker;
+        }
+
+        public static void RemoveTalker(this CharacterManager self, string characterName)
+        {
+            if (self.talkers.TryGetValue(characterName, out long id))
+            {
+                self.RemoveChild(id);
+                self.talkers.Remove(characterName);
+            }
         }
     }
 }

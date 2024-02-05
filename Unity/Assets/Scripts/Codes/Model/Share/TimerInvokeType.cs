@@ -14,7 +14,8 @@
         public const int AITimer = 202;
         public const int SessionAcceptTimeout = 203;
         public const int TOD_AITimer = 204;
-        //
+        
         public const int RemoveBufferTimer = 301;
+        public const int TypeingTimer = 302;
     }
 }
