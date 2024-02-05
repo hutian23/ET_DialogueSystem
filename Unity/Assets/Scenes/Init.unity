@@ -1141,8 +1141,6 @@ MonoBehaviour:
       type: 3}
   - key: Test
     gameObject: {fileID: 11400000, guid: 30611a83bdc69cd4ebe6d69867f0f9a5, type: 2}
-  - key: Dialogue
-    gameObject: {fileID: 11400000, guid: 9e249e177010cff458ead71d5795764c, type: 2}
 --- !u!114 &575235023
 MonoBehaviour:
   m_ObjectHideFlags: 0

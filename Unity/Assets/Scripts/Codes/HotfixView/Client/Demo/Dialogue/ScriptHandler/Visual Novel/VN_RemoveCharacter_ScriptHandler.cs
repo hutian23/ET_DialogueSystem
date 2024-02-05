@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using UnityEngine;
 
 namespace ET.Client
 {
@@ -18,6 +19,8 @@ namespace ET.Client
                 return;
             }
 
+            GameObject go = new GameObject();
+            
             string characterName = match.Groups["ch"].Value;
             CharacterManager manager = unit.GetComponent<DialogueComponent>().GetComponent<CharacterManager>();
             manager?.RemoveCharacter(characterName);
