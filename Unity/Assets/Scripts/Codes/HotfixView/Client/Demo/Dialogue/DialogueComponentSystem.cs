@@ -21,7 +21,7 @@ namespace ET.Client
                 dialogueComponent.token = new ETCancellationToken();
                 dialogueComponent.ReloadType = args.ReloadType;
                 DialogueHelper.Reload(); // 重载
-                
+
                 switch (args.ReloadType)
                 {
                     case ViewReloadType.Preview:
@@ -72,7 +72,7 @@ namespace ET.Client
                 self.AddComponent<ObjectWait>();
             }
         }
-        
+
         public class DialogueComponentDestroySystem: DestroySystem<DialogueComponent>
         {
             protected override void Destroy(DialogueComponent self)
@@ -103,10 +103,14 @@ namespace ET.Client
         {
             await TimerComponent.Instance.WaitFrameAsync();
             if (Application.isEditor) self.ViewStatusReset();
-
+        
+            //根节点初始化
             DialogueNode node = self.GetNode(0);
             Unit unit = self.GetParent<Unit>();
+            self.SetNodeStatus(node,Status.Pending);
             await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node, self.token);
+            self.SetNodeStatus(node, self.token.IsCancel()? Status.Failed : Status.Success);
+
             self.workQueue.Enqueue(preViewNode);
             try
             {

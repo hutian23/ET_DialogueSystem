@@ -15,7 +15,23 @@ namespace ET.Client
                 self.background.SetActive(false);
             }
         }
-
+            
+        public class BackgroundDestroySystem : DestroySystem<Background>
+        {
+            protected override void Destroy(Background self)
+            {
+                UnityEngine.Object.Destroy(self.background);
+            }
+        }
+        
+        public class BackgroundLoadSystem : LoadSystem<Background>
+        {
+            protected override void Load(Background self)
+            {
+                self.Dispose();
+            }
+        }
+        
         public static void ShowBackground(this Background self, Sprite sprite)
         {
             self.background.GetComponent<SpriteRenderer>().sprite = sprite;

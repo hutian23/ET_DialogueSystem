@@ -146,7 +146,7 @@ namespace ET
 #endif
         }
 
-        public static void RegisterStruct<T>() where T : struct
+        private static void RegisterStruct<T>() where T : struct
         {
             BsonSerializer.RegisterSerializer(typeof (T), new StructBsonSerialize<T>());
         }

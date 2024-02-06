@@ -23,11 +23,8 @@ namespace ET.Client
         {
             var entries = new List<SearchTreeEntry>();
             entries.Add(new SearchTreeGroupEntry(new GUIContent("创建新节点")));
-            
-            //除了节点之外的页面元素
             entries.Add(new SearchTreeGroupEntry(new GUIContent("常用工具")){level = 1});
             entries.Add(new SearchTreeEntry(new GUIContent("背景板")){level = 2, userData = new CommentBlockData()});
-            // entries.Add(new SearchTreeEntry(new GUIContent("背景板2")){level = 2,userData = new CommentBlockData()});
             
             this.LoadDialogueNode(entries);
             return entries;

@@ -193,6 +193,14 @@ namespace ET.Client
 
         private void KeyDownEventCallback(KeyDownEvent evt)
         {
+            //重载
+            if (evt.keyCode == KeyCode.R)
+            {
+                Reload();
+                evt.StopPropagation();
+                return;
+            }
+            
             if (!evt.ctrlKey) return;
             switch (evt.keyCode)
             {
@@ -218,11 +226,6 @@ namespace ET.Client
                     break;
                 case KeyCode.V:
                     Paste();
-                    evt.StopPropagation();
-                    break;
-                //重载
-                case KeyCode.R:
-                    Reload();
                     evt.StopPropagation();
                     break;
             }
@@ -298,7 +301,7 @@ namespace ET.Client
             }
         }
 
-        public void Reload()
+        private void Reload()
         {
             if (!Application.isPlaying || window.ViewComponent == null) return;
             EventSystem.Instance.Invoke(new ViewComponentReloadCallback()

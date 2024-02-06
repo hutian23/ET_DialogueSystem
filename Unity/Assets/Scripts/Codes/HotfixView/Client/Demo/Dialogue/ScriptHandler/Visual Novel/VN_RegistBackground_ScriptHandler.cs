@@ -19,9 +19,9 @@ namespace ET.Client
                 DialogueHelper.ScripMatchError(line);
                 return;
             }
-
+            //加载背景
             Sprite sprite = await IconHelper.LoadIconSpriteAsync("Sprites", match.Groups["spriteName"].Value);
-
+        
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
             Background background = dialogueComponent.GetComponent<Background>() != null? dialogueComponent.GetComponent<Background>() : dialogueComponent.AddComponent<Background>();
             background.ShowBackground(sprite);
