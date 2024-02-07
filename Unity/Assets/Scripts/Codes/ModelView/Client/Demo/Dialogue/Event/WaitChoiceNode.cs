@@ -5,4 +5,9 @@
         public uint next;
         public int Error { get; set; }
     }
+
+    public struct WaitNextNode: IWaitType
+    {
+        public int Error { get; set; }
+    }
 }

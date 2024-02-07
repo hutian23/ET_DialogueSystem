@@ -19,7 +19,10 @@ namespace ET.Client
         [HideInInspector]
         public List<uint> nexts = new();
 
-        [FoldoutGroup("$nodeName"), LabelText("回退到: "), Space(10)]
-        public uint preNode;
+        [FoldoutGroup("$nodeName/data"), LabelText("可以回退: ")]
+        public bool CanGoBack;
+        
+        [FoldoutGroup("$nodeName/data"), LabelText("回退到: "), ShowIf("CanGoBack"),Space(5)]
+        public uint Goto = 0;
     }
 }

@@ -160,14 +160,24 @@ namespace ET.Client
 
         #endregion
 
-        public static async ETTask WaitNextCor(ETCancellationToken token)
+        public static async ETTask WaitNextCor(this DialogueComponent self, ETCancellationToken token)
         {
             await TimerComponent.Instance.WaitAsync(200, token);
             if (token.IsCancel()) return;
+            //刷新UI
+            DlgDialogue dlgDialogue = self.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgDialogue>();
+            dlgDialogue.RefreshArrow();
+            dlgDialogue.ShowRightArrow(() => { self.GetComponent<ObjectWait>().Notify(new WaitNextNode()); });
+            
+            //按键触发
             while (true)
             {
                 if (token.IsCancel()) break;
-                if (Keyboard.current.bKey.isPressed) return;
+                if (Keyboard.current.spaceKey.isPressed)
+                {
+                    self.GetComponent<ObjectWait>().Notify(new WaitNextNode());
+                    return;
+                }
                 await TimerComponent.Instance.WaitFrameAsync(token);
             }
         }
@@ -180,11 +190,12 @@ namespace ET.Client
             while (true)
             {
                 if (typeToken.IsCancel()) break;
-                if (Keyboard.current.bKey.isPressed)
+                if (Keyboard.current.spaceKey.isPressed)
                 {
                     typeToken.Cancel();
                     return;
                 }
+
                 await TimerComponent.Instance.WaitFrameAsync(typeToken);
             }
         }
@@ -260,13 +271,14 @@ namespace ET.Client
                         Log.Error($"停顿时间转换失败:{waitTimeStr}");
                         return;
                     }
+
                     i += 6 + waitTimeStr.Length - 1;
-                    
+
                     //快进了
-                    if(!typeToken.IsCancel()) await TimerComponent.Instance.WaitAsync(waitTime, typeToken);
+                    if (!typeToken.IsCancel()) await TimerComponent.Instance.WaitAsync(waitTime, typeToken);
                     continue;
                 }
-                
+
                 //ngui color tag(不知道是啥)
                 if (content[i] == '[' && i + 7 < len && content[i + 7] == ']')
                 {
@@ -343,7 +355,7 @@ namespace ET.Client
                 //这里这个token代表当前节点被取消执行了
                 if (token.IsCancel()) return;
                 if (typeToken.IsCancel()) continue;
-                
+
                 self.AddTag(DialogueTag.Typing);
                 TimerComponent.Instance.Remove(ref timer);
                 timer = TimerComponent.Instance.NewOnceTimer(TimeInfo.Instance.ClientNow() + 200, TimerInvokeType.TypeingTimer, self);

@@ -23,7 +23,8 @@ namespace ET.Client
 
             //这里这个阻塞的意义是什么? 如果workQueue为空，就判定为整个携程执行完毕。
             WaitChoiceNode wait = await dialogueComponent.GetComponent<ObjectWait>().Wait<WaitChoiceNode>(token);
-           
+            if (token.IsCancel()) return Status.Failed;
+            
             dlgDialogue.HideChoicePanel(); //关闭选项版
             nodelist.ForEach(choice => dialogueComponent.SetNodeStatus(choice, Status.None)); //刷新视图状态
             

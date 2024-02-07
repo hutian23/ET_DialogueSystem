@@ -31,7 +31,7 @@ namespace ET.Client
                 if (token.IsCancel()) break;
                 if (Keyboard.current.qKey.wasPressedThisFrame)
                 {
-                    dialogueComponent.PushNextNode(node.preNode);
+                    dialogueComponent.PushNextNode(node.Goto);
                     token.Cancel();
                     break;
                 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ET.Client
@@ -22,15 +23,18 @@ namespace ET.Client
                 self.View.E_ClearQSButton.AddListener(self.ClearQuickSave);
                 self.View.E_CheckQuickSaveButton.AddListener(self.CheckQS);
                 self.View.E_ChoicePanelLoopVerticalScrollRect.AddItemRefreshListener(self.OnLoopChoiceRefreshHandler);
+                self.RefreshArrow();
             }
         }
 
         public static void ShowWindow(this DlgDialogue self, Entity contextData = null)
         {
+            self.RefreshArrow();
         }
 
         private static void ClearQuickSave(this DlgDialogue self)
         {
+            Log.Warning("清空缓存!!!");
             DialogueStorageManager.Instance.QuickSaveShot.ClearBuffer();
             DialogueStorageManager.Instance.QuickSaveShot.storageSet.Clear();
         }
@@ -47,9 +51,12 @@ namespace ET.Client
             Log.Warning($"该节点是否已经执行?: " + DialogueStorageManager.Instance.QuickSaveShot.Check(treeID, targetID));
         }
 
+        #region 选项
+
         public static void ShowChoicePanel(this DlgDialogue self, List<VN_ChoiceNode> nodes)
         {
             self.choiceNodes = nodes;
+            self.View.E_ChoicePanelLoopVerticalScrollRect.RefreshCells();
             self.AddUIScrollItems(ref self.ScrollItemChoices, nodes.Count);
             self.View.E_ChoicePanelLoopVerticalScrollRect.SetVisible(true, nodes.Count);
         }
@@ -65,15 +72,15 @@ namespace ET.Client
         {
             VN_ChoiceNode node = self.choiceNodes[index];
             Scroll_Item_Choice scrollItemChoice = self.ScrollItemChoices[index].BindTrans(transform);
-
             Unit player = TODUnitHelper.GetPlayer(self.ClientScene());
             DialogueComponent dialogueComponent = player.GetComponent<DialogueComponent>();
-
-            //替换特殊字符
+            
             var replaceText = node.text;
             DialogueHelper.ReplaceModel(player, ref replaceText);
+            
+            scrollItemChoice.E_SelectButton.onClick.RemoveAllListeners();
             scrollItemChoice.E_ContentText.SetText(replaceText);
-
+            
             switch (node.choiceType)
             {
                 case VN_ChoiceType.Vertification_Normal:
@@ -85,15 +92,43 @@ namespace ET.Client
                     {
                         scrollItemChoice.E_SelectButton.AddListener(() =>
                         {
-                            dialogueComponent.GetComponent<ObjectWait>().Notify(new WaitChoiceNode() { next = node.TargetID });
+                              dialogueComponent.GetComponent<ObjectWait>().Notify(new WaitChoiceNode() { next = node.TargetID });
                         });
                     }
                     else
                     {
                         scrollItemChoice.E_SelectButton.onClick.RemoveAllListeners();
                     }
+
                     break;
             }
         }
+
+        #endregion
+
+        #region 箭头
+
+        //初始化
+        public static void RefreshArrow(this DlgDialogue self)
+        {
+            self.View.E_RightArrowButton.onClick.RemoveAllListeners();
+            self.View.E_RightArrowButton.gameObject.SetActive(false);
+            self.View.E_LeftArrowButton.onClick.RemoveAllListeners();
+            self.View.E_LeftArrowButton.gameObject.SetActive(false);
+        }
+
+        public static void ShowRightArrow(this DlgDialogue self, Action action)
+        {
+            self.View.E_RightArrowButton.gameObject.SetActive(true);
+            self.View.E_RightArrowButton.AddListener(action.Invoke);
+        }
+
+        public static void ShowLeftArrow(this DlgDialogue self, Action action)
+        {
+            self.View.E_LeftArrowButton.gameObject.SetActive(true);
+            self.View.E_LeftArrowButton.AddListener(action.Invoke);
+        }
+
+        #endregion
     }
 }
