@@ -13,6 +13,15 @@ namespace ET.Client
     }
     
     [ObjectSystem]
+    public class UIEventComponentLoadSystem : LoadSystem<UIEventComponent>
+    {
+        protected override void Load(UIEventComponent self)
+        {
+            self.Awake();
+        }
+    }
+
+    [ObjectSystem]
     public class UIEventComponentDestroySystem : DestroySystem<UIEventComponent>
     {
         protected override void Destroy(UIEventComponent self)

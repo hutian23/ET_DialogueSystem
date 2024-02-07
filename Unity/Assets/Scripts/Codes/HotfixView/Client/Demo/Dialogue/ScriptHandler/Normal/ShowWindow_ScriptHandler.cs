@@ -24,7 +24,6 @@ namespace ET.Client
                 Log.Error($"not found windowID: {match.Groups["WindowType"]}");
                 return;
             }
-            //卸载窗口
             token.Add(() => { unit.ClientScene().GetComponent<UIComponent>().CloseWindow(windowID); });
             await unit.ClientScene().GetComponent<UIComponent>().ShowWindowAsync(windowID);
         }

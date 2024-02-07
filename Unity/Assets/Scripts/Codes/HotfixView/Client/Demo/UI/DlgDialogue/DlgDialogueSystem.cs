@@ -14,27 +14,16 @@ namespace ET.Client
             self.View.E_CheckQuickSaveButton.AddListener(self.CheckQS);
             self.View.E_QuickSaveButton.AddListener(self.Save);
             self.View.E_ChoicePanelLoopVerticalScrollRect.AddItemRefreshListener(self.OnLoopChoiceRefreshHandler);
+            self.RefreshArrow();
         }
-
-        public class DlgDialogueLoadSystem: LoadSystem<DlgDialogue>
-        {
-            protected override void Load(DlgDialogue self)
-            {
-                self.View.E_ClearQSButton.AddListener(self.ClearQuickSave);
-                self.View.E_CheckQuickSaveButton.AddListener(self.CheckQS);
-                self.View.E_ChoicePanelLoopVerticalScrollRect.AddItemRefreshListener(self.OnLoopChoiceRefreshHandler);
-                self.RefreshArrow();
-            }
-        }
-
+        
         public static void ShowWindow(this DlgDialogue self, Entity contextData = null)
         {
-            self.RefreshArrow();
         }
 
         private static void ClearQuickSave(this DlgDialogue self)
         {
-            Log.Warning("清空缓存!!!");
+            Log.Warning("Clear Save");
             DialogueStorageManager.Instance.QuickSaveShot.ClearBuffer();
             DialogueStorageManager.Instance.QuickSaveShot.storageSet.Clear();
         }

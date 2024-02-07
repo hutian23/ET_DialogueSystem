@@ -23,7 +23,6 @@
 		public void OnShowWindow(UIBaseWindow uiBaseWindow, Entity contextData = null)
 		{
 		  uiBaseWindow.GetComponent<DlgDialogue>().ShowWindow(contextData); 
-		  Log.Warning("12321321");
 		}
 
 		public void OnHideWindow(UIBaseWindow uiBaseWindow)
