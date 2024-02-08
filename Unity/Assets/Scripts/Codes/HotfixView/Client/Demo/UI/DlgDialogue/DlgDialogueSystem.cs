@@ -16,14 +16,13 @@ namespace ET.Client
             self.View.E_ChoicePanelLoopVerticalScrollRect.AddItemRefreshListener(self.OnLoopChoiceRefreshHandler);
             self.RefreshArrow();
         }
-        
+
         public static void ShowWindow(this DlgDialogue self, Entity contextData = null)
         {
         }
 
         private static void ClearQuickSave(this DlgDialogue self)
         {
-            Log.Warning("Clear Save");
             DialogueStorageManager.Instance.QuickSaveShot.ClearBuffer();
             DialogueStorageManager.Instance.QuickSaveShot.storageSet.Clear();
         }
@@ -63,13 +62,13 @@ namespace ET.Client
             Scroll_Item_Choice scrollItemChoice = self.ScrollItemChoices[index].BindTrans(transform);
             Unit player = TODUnitHelper.GetPlayer(self.ClientScene());
             DialogueComponent dialogueComponent = player.GetComponent<DialogueComponent>();
-            
+
             var replaceText = node.text;
             DialogueHelper.ReplaceModel(player, ref replaceText);
-            
+
             scrollItemChoice.E_SelectButton.onClick.RemoveAllListeners();
             scrollItemChoice.E_ContentText.SetText(replaceText);
-            
+
             switch (node.choiceType)
             {
                 case VN_ChoiceType.Vertification_Normal:
@@ -81,7 +80,7 @@ namespace ET.Client
                     {
                         scrollItemChoice.E_SelectButton.AddListener(() =>
                         {
-                              dialogueComponent.GetComponent<ObjectWait>().Notify(new WaitChoiceNode() { next = node.TargetID });
+                            dialogueComponent.GetComponent<ObjectWait>().Notify(new WaitChoiceNode() { next = node.TargetID });
                         });
                     }
                     else
@@ -116,6 +115,15 @@ namespace ET.Client
         {
             self.View.E_LeftArrowButton.gameObject.SetActive(true);
             self.View.E_LeftArrowButton.AddListener(action.Invoke);
+        }
+
+        #endregion
+
+        #region CharacterName
+
+        public static void RefreshCharacterName(this DlgDialogue self, string text)
+        {
+            self.View.E_characterNameText.text = text;
         }
 
         #endregion

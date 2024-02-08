@@ -245,6 +245,23 @@ namespace ET.Client
      		}
      	}
 
+		public UnityEngine.UI.Text E_characterNameText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_characterNameText == null )
+     			{
+		    		this.m_E_characterNameText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"E_Content/Character/E_characterName");
+     			}
+     			return this.m_E_characterNameText;
+     		}
+     	}
+
 		public UnityEngine.UI.Button E_QuickSaveButton
      	{
      		get
@@ -312,6 +329,7 @@ namespace ET.Client
 			this.m_E_LeftArrowImage = null;
 			this.m_E_RightArrowButton = null;
 			this.m_E_RightArrowImage = null;
+			this.m_E_characterNameText = null;
 			this.m_E_QuickSaveButton = null;
 			this.m_E_QuickSaveImage = null;
 			this.m_E_ChoicePanelLoopVerticalScrollRect = null;
@@ -332,6 +350,7 @@ namespace ET.Client
 		private UnityEngine.UI.Image m_E_LeftArrowImage = null;
 		private UnityEngine.UI.Button m_E_RightArrowButton = null;
 		private UnityEngine.UI.Image m_E_RightArrowImage = null;
+		private UnityEngine.UI.Text m_E_characterNameText = null;
 		private UnityEngine.UI.Button m_E_QuickSaveButton = null;
 		private UnityEngine.UI.Image m_E_QuickSaveImage = null;
 		private UnityEngine.UI.LoopVerticalScrollRect m_E_ChoicePanelLoopVerticalScrollRect = null;

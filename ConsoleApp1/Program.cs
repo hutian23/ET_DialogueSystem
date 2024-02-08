@@ -126,9 +126,11 @@ static class Program
 
     public static void Main()
     {
-        string text = "Log info = 2323;";
-        Match match = Regex.Match(text, @"Log info = (?<info>\w+);");
-        Console.WriteLine(match.Groups["info"].Value);
+        Match match = Regex.Match("VN_Position ch = test position = (3,3);", @"VN_Position ch = (?<ch>\w+)(?: type = (?<type>\w+))?(?: position = \((?<x>-?\d+),(?<y>-?\d+)\))?;");
+        Console.WriteLine(match.Groups["x"].Value);
+        // string text = "Log info = 2323;";
+        // Match match = Regex.Match(text, @"Log info = (?<info>\w+);");
+        // Console.WriteLine(match.Groups["info"].Value);
         // List<int> list = new()
         // {
         //     1,

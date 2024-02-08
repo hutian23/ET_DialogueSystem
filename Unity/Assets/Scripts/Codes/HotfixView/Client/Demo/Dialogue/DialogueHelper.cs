@@ -164,25 +164,56 @@ namespace ET.Client
         {
             await TimerComponent.Instance.WaitAsync(200, token);
             if (token.IsCancel()) return;
+            
+            //取消等待按键触发的携程
+            ETCancellationToken WaitKeyPressedToken = new();
+            token.Add(WaitKeyPressedToken.Cancel);
+            
             //刷新UI
             DlgDialogue dlgDialogue = self.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgDialogue>();
             dlgDialogue.RefreshArrow();
-            dlgDialogue.ShowRightArrow(() => { self.GetComponent<ObjectWait>().Notify(new WaitNextNode()); });
+            dlgDialogue.ShowRightArrow(() =>
+            {
+                self.GetComponent<ObjectWait>().Notify(new WaitNextNode());
+                WaitKeyPressedToken.Cancel();
+            });
             
-            //按键触发
             while (true)
             {
-                if (token.IsCancel()) break;
+                if (WaitKeyPressedToken.IsCancel()) return;
                 if (Keyboard.current.spaceKey.isPressed)
                 {
                     self.GetComponent<ObjectWait>().Notify(new WaitNextNode());
+                    token.Remove(WaitKeyPressedToken.Cancel);
                     return;
                 }
-                await TimerComponent.Instance.WaitFrameAsync(token);
+
+                await TimerComponent.Instance.WaitFrameAsync(WaitKeyPressedToken);
             }
         }
 
         #region DialogueComponent
+        
+        public static uint GetFirstNode(this DialogueComponent self, List<uint> children, bool needCheck = true)
+        {
+            if (!needCheck)
+            {
+                return children[0];
+            }
+
+            for (int index = 0; index < children.Count; index++)
+            {
+                uint targetID = children[index];
+                DialogueNode child = self.GetNode(targetID);
+                // 找到子节点中第一个符合条件的执行
+                if (!child.NeedCheck || DialogueDispatcherComponent.Instance.Checks(self.GetParent<Unit>(), child.checkList) == 0)
+                {
+                    return targetID;
+                }
+            }
+
+            return 0;
+        }
 
         private static async ETTask SkipCheckCor(ETCancellationToken typeToken)
         {
