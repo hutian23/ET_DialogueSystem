@@ -61,5 +61,11 @@ namespace ET.Client
 
             return go;
         }
+
+        public static void RemoveEffect(this EffectManager self, string name)
+        {
+            UnityEngine.Object.Destroy(self.GetEffect(name));
+            self.dic.Remove(name);
+        }
     }
 }

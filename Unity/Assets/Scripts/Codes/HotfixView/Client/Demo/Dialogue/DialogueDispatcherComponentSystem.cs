@@ -96,6 +96,9 @@ namespace ET.Client
         {
             if (self.dispatchHandlers.TryGetValue(node.GetType(), out NodeHandler handler))
             {
+                //执行脚本
+                await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node as DialogueNode, token);
+                if (token.IsCancel()) return Status.Failed;
                 return await handler.Handle(unit, node, token);
             }
 

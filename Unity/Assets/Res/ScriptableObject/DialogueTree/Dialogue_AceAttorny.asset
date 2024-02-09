@@ -448,7 +448,26 @@ MonoBehaviour:
       Data: false
     - Name: Script
       Entry: 1
-      Data: VN_AnimPlay ch = Skye clip = Happy;
+      Data: '# Hold It
+
+        HideWindow type = Dialogue;
+
+        VN_RegistEffect
+        name = hold_it prefabName = HoldIt;
+
+        VN_Shake effect = hold_it curve
+        = ShakeCurve duration = ShakeDuration intensity = ShakeIntensity;
+
+        VN_RemoveEffect
+        name = hold_it;
+
+        WaitTime 200;
+
+        ShowWindow type = Dialogue;
+
+
+        VN_RegistTalker
+        ch = Skye clip = Happy;'
     - Name: text
       Entry: 6
       Data: 
@@ -1505,15 +1524,9 @@ MonoBehaviour:
       Data: false
     - Name: Script
       Entry: 1
-      Data: 'VN_TextAlign type = MiddleCenter;
-
-        VN_AnimPlay ch = Skye clip
-        = Concern;
-
-        VN_Position ch = Skye position = (0,0);
-
-        VN_CharacterName
-        name = Skye;'
+      Data: "VN_TextAlign type = MiddleCenter;\nVN_AnimPlay ch = Skye clip = Concern;\nVN_Position
+        ch = Skye position = (0,0);\nVN_CharacterName name = \u5B9D\u6708\u831C;
+        # \u5237\u65B0\u5BF9\u8BDD\u6846\u89D2\u8272\u540D"
     - Name: text
       Entry: 6
       Data: 
@@ -2213,66 +2226,6 @@ MonoBehaviour:
       Data: 104|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
-      Data: c416ab50a9862eb4c8ca67267d4de582
-    - Name: inputNodeGuid
-      Entry: 1
-      Data: 81aad6d0d2b62de4596c79797c1c5e7f
-    - Name: portID
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 105|ET.Client.NodeLinkData, Unity.Loader
-    - Name: outputNodeGuid
-      Entry: 1
-      Data: c416ab50a9862eb4c8ca67267d4de582
-    - Name: inputNodeGuid
-      Entry: 1
-      Data: 013d7db15e8d0eb478cdb107ca562048
-    - Name: portID
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 106|ET.Client.NodeLinkData, Unity.Loader
-    - Name: outputNodeGuid
-      Entry: 1
-      Data: c416ab50a9862eb4c8ca67267d4de582
-    - Name: inputNodeGuid
-      Entry: 1
-      Data: 0298dd63353bdfe42b6f4235faecbead
-    - Name: portID
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 107|ET.Client.NodeLinkData, Unity.Loader
-    - Name: outputNodeGuid
-      Entry: 1
-      Data: c416ab50a9862eb4c8ca67267d4de582
-    - Name: inputNodeGuid
-      Entry: 1
-      Data: ac2480f007e610a46944569e5ffe0df4
-    - Name: portID
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 108|ET.Client.NodeLinkData, Unity.Loader
-    - Name: outputNodeGuid
-      Entry: 1
       Data: 013d7db15e8d0eb478cdb107ca562048
     - Name: inputNodeGuid
       Entry: 1
@@ -2285,7 +2238,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 109|ET.Client.NodeLinkData, Unity.Loader
+      Data: 105|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 013d7db15e8d0eb478cdb107ca562048
@@ -2300,7 +2253,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 110|ET.Client.NodeLinkData, Unity.Loader
+      Data: 106|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: b97738d1a4531e44e8ee9d65169cf55e
@@ -2315,22 +2268,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 111|ET.Client.NodeLinkData, Unity.Loader
-    - Name: outputNodeGuid
-      Entry: 1
-      Data: 0298dd63353bdfe42b6f4235faecbead
-    - Name: inputNodeGuid
-      Entry: 1
-      Data: 1713edecc1080704783d4731ffddfdb7
-    - Name: portID
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 112|ET.Client.NodeLinkData, Unity.Loader
+      Data: 107|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 1713edecc1080704783d4731ffddfdb7
@@ -2345,7 +2283,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 113|ET.Client.NodeLinkData, Unity.Loader
+      Data: 108|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: ac2480f007e610a46944569e5ffe0df4
@@ -2360,7 +2298,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 114|ET.Client.NodeLinkData, Unity.Loader
+      Data: 109|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 7e97849f77f55a44db532fb2df4416e8
@@ -2375,7 +2313,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 115|ET.Client.NodeLinkData, Unity.Loader
+      Data: 110|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: d823f47e5bca9df45b6434b2a1ecaffa
@@ -2390,7 +2328,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 116|ET.Client.NodeLinkData, Unity.Loader
+      Data: 111|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 81aad6d0d2b62de4596c79797c1c5e7f
@@ -2405,7 +2343,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 117|ET.Client.NodeLinkData, Unity.Loader
+      Data: 112|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 81aad6d0d2b62de4596c79797c1c5e7f
@@ -2420,7 +2358,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 118|ET.Client.NodeLinkData, Unity.Loader
+      Data: 113|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 81aad6d0d2b62de4596c79797c1c5e7f
@@ -2435,7 +2373,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 119|ET.Client.NodeLinkData, Unity.Loader
+      Data: 114|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 7a3938cde7b41344a8435f0e5ec0a89c
@@ -2450,22 +2388,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 120|ET.Client.NodeLinkData, Unity.Loader
-    - Name: outputNodeGuid
-      Entry: 1
-      Data: 95cac2630f987ff49b1dc2cd7e164844
-    - Name: inputNodeGuid
-      Entry: 1
-      Data: c416ab50a9862eb4c8ca67267d4de582
-    - Name: portID
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 121|ET.Client.NodeLinkData, Unity.Loader
+      Data: 115|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 3dba291a4ce80fd4eaeeba5673c2dedf
@@ -2480,7 +2403,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 122|ET.Client.NodeLinkData, Unity.Loader
+      Data: 116|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 3dba291a4ce80fd4eaeeba5673c2dedf
@@ -2495,7 +2418,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 123|ET.Client.NodeLinkData, Unity.Loader
+      Data: 117|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 3dba291a4ce80fd4eaeeba5673c2dedf
@@ -2510,7 +2433,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 124|ET.Client.NodeLinkData, Unity.Loader
+      Data: 118|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: fa500ef4be12bba49a2098cd35b70d03
@@ -2525,7 +2448,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 125|ET.Client.NodeLinkData, Unity.Loader
+      Data: 119|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 3b54e9373c72e1c488b44858e7054b72
@@ -2540,13 +2463,103 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 126|ET.Client.NodeLinkData, Unity.Loader
+      Data: 120|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 3b54e9373c72e1c488b44858e7054b72
     - Name: inputNodeGuid
       Entry: 1
       Data: 95cac2630f987ff49b1dc2cd7e164844
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 121|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 95cac2630f987ff49b1dc2cd7e164844
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: c416ab50a9862eb4c8ca67267d4de582
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 122|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: c416ab50a9862eb4c8ca67267d4de582
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 81aad6d0d2b62de4596c79797c1c5e7f
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 123|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: c416ab50a9862eb4c8ca67267d4de582
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 013d7db15e8d0eb478cdb107ca562048
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 124|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: c416ab50a9862eb4c8ca67267d4de582
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 0298dd63353bdfe42b6f4235faecbead
+    - Name: portID
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 125|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: c416ab50a9862eb4c8ca67267d4de582
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: ac2480f007e610a46944569e5ffe0df4
+    - Name: portID
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 126|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 0298dd63353bdfe42b6f4235faecbead
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 1713edecc1080704783d4731ffddfdb7
     - Name: portID
       Entry: 3
       Data: 0
@@ -2927,15 +2940,9 @@ MonoBehaviour:
       Data: false
     - Name: Script
       Entry: 1
-      Data: 'VN_TextAlign type = MiddleCenter;
-
-        VN_AnimPlay ch = Skye clip
-        = Concern;
-
-        VN_Position ch = Skye position = (0,0);
-
-        VN_CharacterName
-        name = Skye;'
+      Data: "VN_TextAlign type = MiddleCenter;\nVN_AnimPlay ch = Skye clip = Concern;\nVN_Position
+        ch = Skye position = (0,0);\nVN_CharacterName name = \u5B9D\u6708\u831C;
+        # \u5237\u65B0\u5BF9\u8BDD\u6846\u89D2\u8272\u540D"
     - Name: text
       Entry: 6
       Data: 
@@ -3392,7 +3399,26 @@ MonoBehaviour:
       Data: false
     - Name: Script
       Entry: 1
-      Data: VN_AnimPlay ch = Skye clip = Happy;
+      Data: '# Hold It
+
+        HideWindow type = Dialogue;
+
+        VN_RegistEffect
+        name = hold_it prefabName = HoldIt;
+
+        VN_Shake effect = hold_it curve
+        = ShakeCurve duration = ShakeDuration intensity = ShakeIntensity;
+
+        VN_RemoveEffect
+        name = hold_it;
+
+        WaitTime 200;
+
+        ShowWindow type = Dialogue;
+
+
+        VN_RegistTalker
+        ch = Skye clip = Happy;'
     - Name: text
       Entry: 6
       Data: 
@@ -4953,7 +4979,274 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 231|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: ShakeDuration
+    - Name: value
+      Entry: 7
+      Data: 232|System.Single, mscorlib
+    - Name: 
+      Entry: 4
+      Data: 0.4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 233|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: ShakeIntensity
+    - Name: value
+      Entry: 7
+      Data: 234|System.Single, mscorlib
+    - Name: 
+      Entry: 4
+      Data: 0.95
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 235|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: ShakeCurve
+    - Name: value
+      Entry: 7
+      Data: 236|UnityEngine.AnimationCurve, UnityEngine.CoreModule
+    - Name: 
+      Entry: 7
+      Data: 237|UnityEngine.Keyframe[], UnityEngine.CoreModule
+    - Name: 
+      Entry: 12
+      Data: 6
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Keyframe, UnityEngine.CoreModule
+    - Name: ver
+      Entry: 3
+      Data: 1
+    - Name: m_Time
+      Entry: 4
       Data: 0
+    - Name: m_Value
+      Entry: 4
+      Data: 0
+    - Name: m_InTangent
+      Entry: 4
+      Data: 1.2518996
+    - Name: m_OutTangent
+      Entry: 4
+      Data: 1.2518996
+    - Name: m_TangentMode
+      Entry: 3
+      Data: 34
+    - Name: m_WeightedMode
+      Entry: 3
+      Data: 0
+    - Name: m_InWeight
+      Entry: 4
+      Data: 0
+    - Name: m_OutWeight
+      Entry: 4
+      Data: 0.333333343
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Keyframe, UnityEngine.CoreModule
+    - Name: ver
+      Entry: 3
+      Data: 1
+    - Name: m_Time
+      Entry: 4
+      Data: 0.168581814
+    - Name: m_Value
+      Entry: 4
+      Data: 0.2110475
+    - Name: m_InTangent
+      Entry: 4
+      Data: 0.05350274
+    - Name: m_OutTangent
+      Entry: 4
+      Data: 0.05350274
+    - Name: m_TangentMode
+      Entry: 3
+      Data: 34
+    - Name: m_WeightedMode
+      Entry: 3
+      Data: 0
+    - Name: m_InWeight
+      Entry: 4
+      Data: 0.333333343
+    - Name: m_OutWeight
+      Entry: 4
+      Data: 0.333333343
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Keyframe, UnityEngine.CoreModule
+    - Name: ver
+      Entry: 3
+      Data: 1
+    - Name: m_Time
+      Entry: 4
+      Data: 0.4858797
+    - Name: m_Value
+      Entry: 4
+      Data: -0.152224958
+    - Name: m_InTangent
+      Entry: 4
+      Data: 0.223669708
+    - Name: m_OutTangent
+      Entry: 4
+      Data: 0.223669708
+    - Name: m_TangentMode
+      Entry: 3
+      Data: 34
+    - Name: m_WeightedMode
+      Entry: 3
+      Data: 0
+    - Name: m_InWeight
+      Entry: 4
+      Data: 0.333333343
+    - Name: m_OutWeight
+      Entry: 4
+      Data: 0.333333343
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Keyframe, UnityEngine.CoreModule
+    - Name: ver
+      Entry: 3
+      Data: 1
+    - Name: m_Time
+      Entry: 4
+      Data: 0.7326891
+    - Name: m_Value
+      Entry: 4
+      Data: 0.240753233
+    - Name: m_InTangent
+      Entry: 4
+      Data: 0.4309148
+    - Name: m_OutTangent
+      Entry: 4
+      Data: 0.4309148
+    - Name: m_TangentMode
+      Entry: 3
+      Data: 34
+    - Name: m_WeightedMode
+      Entry: 3
+      Data: 0
+    - Name: m_InWeight
+      Entry: 4
+      Data: 0.333333343
+    - Name: m_OutWeight
+      Entry: 4
+      Data: 0.333333343
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Keyframe, UnityEngine.CoreModule
+    - Name: ver
+      Entry: 3
+      Data: 1
+    - Name: m_Time
+      Entry: 4
+      Data: 1.36565018
+    - Name: m_Value
+      Entry: 4
+      Data: -0.221564054
+    - Name: m_InTangent
+      Entry: 4
+      Data: 1.32236516
+    - Name: m_OutTangent
+      Entry: 4
+      Data: 1.32236516
+    - Name: m_TangentMode
+      Entry: 3
+      Data: 34
+    - Name: m_WeightedMode
+      Entry: 3
+      Data: 0
+    - Name: m_InWeight
+      Entry: 4
+      Data: 0.333333343
+    - Name: m_OutWeight
+      Entry: 4
+      Data: 0.333333343
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: UnityEngine.Keyframe, UnityEngine.CoreModule
+    - Name: ver
+      Entry: 3
+      Data: 1
+    - Name: m_Time
+      Entry: 4
+      Data: 1.55227661
+    - Name: m_Value
+      Entry: 4
+      Data: 0.4083252
+    - Name: m_InTangent
+      Entry: 4
+      Data: 3.37513423
+    - Name: m_OutTangent
+      Entry: 4
+      Data: 3.37513423
+    - Name: m_TangentMode
+      Entry: 3
+      Data: 34
+    - Name: m_WeightedMode
+      Entry: 3
+      Data: 0
+    - Name: m_InWeight
+      Entry: 4
+      Data: 0.333333343
+    - Name: m_OutWeight
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 3
+      Data: 8
+    - Name: 
+      Entry: 3
+      Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
