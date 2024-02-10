@@ -112,9 +112,10 @@ namespace ET.Client
             await handler.Handle(unit, node, opCode, token);
         }
 
-        public static async ETTask ScriptHandles(this DialogueDispatcherComponent self, Unit unit, DialogueNode node, ETCancellationToken token)
+        public static async ETTask ScriptHandles(this DialogueDispatcherComponent self, Unit unit, DialogueNode node, string scripts,
+        ETCancellationToken token)
         {
-            var opLines = node.Script.Split("\n"); // 一行一行执行
+            var opLines = scripts.Split("\n"); // 一行一行执行
             int index = 0;
 
             while (index < opLines.Length)
@@ -141,7 +142,8 @@ namespace ET.Client
                     continue;
                 }
 
-                Match match = Regex.Match(opLine, @"^\w+");
+                // Match match = Regex.Match(opLine, @"^\w+");
+                Match match = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
                 if (!match.Success)
                 {
                     ScripMatchError(opLine);
@@ -156,6 +158,11 @@ namespace ET.Client
 
                 index++;
             }
+        }
+        
+        public static async ETTask ScriptHandles(this DialogueDispatcherComponent self, Unit unit, DialogueNode node, ETCancellationToken token)
+        {
+            await self.ScriptHandles(unit, node, node.Script, token);
         }
 
         #endregion

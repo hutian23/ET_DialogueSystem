@@ -126,8 +126,15 @@ static class Program
 
     public static void Main()
     {
-        Match match = Regex.Match("VN_Position ch = test position = (3,3);", @"VN_Position ch = (?<ch>\w+)(?: type = (?<type>\w+))?(?: position = \((?<x>-?\d+),(?<y>-?\d+)\))?;");
-        Console.WriteLine(match.Groups["x"].Value);
+        var pattern = @"^\w+\b(?:\(\))?";
+        Match match = Regex.Match("VN_Position name = hello world;", pattern);
+        Match match2 = Regex.Match("ShowDialogue;", pattern);
+        Match match3 = Regex.Match("HoldIt();", pattern);
+        Console.WriteLine(match.Value);
+        Console.WriteLine(match2.Value);
+        Console.WriteLine(match3.Value);
+        // Match match = Regex.Match("VN_Position ch = test position = (3,3);", @"VN_Position ch = (?<ch>\w+)(?: type = (?<type>\w+))?(?: position = \((?<x>-?\d+),(?<y>-?\d+)\))?;");
+        // Console.WriteLine(match.Groups["x"].Value);
         // string text = "Log info = 2323;";
         // Match match = Regex.Match(text, @"Log info = (?<info>\w+);");
         // Console.WriteLine(match.Groups["info"].Value);

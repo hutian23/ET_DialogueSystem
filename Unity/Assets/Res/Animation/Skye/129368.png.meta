@@ -650,6 +650,216 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Think_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1430
+        width: 800
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.5007323, y: 0.52917624}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6d408fa30411da4d83ed4cc1e34903e
+      internalID: 409934044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Think_2
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 1430
+        width: 782
+        height: 1179
+      alignment: 9
+      pivot: {x: 0.47721577, y: 0.5341331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19cd948004d3a6644af3109adac8043c
+      internalID: 2069550356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Think_3
+      rect:
+        serializedVersion: 2
+        x: 1581
+        y: 1430
+        width: 765
+        height: 1188
+      alignment: 9
+      pivot: {x: 0.47032335, y: 0.53005046}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dc7eabe87e97e441947626e1e69637e
+      internalID: 833335710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Think_talk_1
+      rect:
+        serializedVersion: 2
+        x: 2386
+        y: 1431
+        width: 855
+        height: 1185
+      alignment: 9
+      pivot: {x: 0.5293634, y: 0.5306027}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7143f19f4919a0e40bbdb4179f9bb21a
+      internalID: 1356046686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Think_talk_2
+      rect:
+        serializedVersion: 2
+        x: 3251
+        y: 1427
+        width: 756
+        height: 1197
+      alignment: 9
+      pivot: {x: 0.473824, y: 0.52857834}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6767ae12e3024244970d7e92a79ffb7
+      internalID: 1325121319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angry_1
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 339
+        width: 946
+        height: 1040
+      alignment: 9
+      pivot: {x: 0.29666692, y: 0.5363987}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66a00ff26d322d04aa8807a92212b390
+      internalID: -1523281496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angry_2
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 339
+        width: 933
+        height: 1040
+      alignment: 9
+      pivot: {x: 0.30231413, y: 0.5364048}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8c23c86715f6c9479a4b4e912af0e5d
+      internalID: 211917935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angry_3
+      rect:
+        serializedVersion: 2
+        x: 1918
+        y: 339
+        width: 937
+        height: 1040
+      alignment: 9
+      pivot: {x: 0.30141258, y: 0.5363979}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c20553238b325d4ab40e047feab8f25
+      internalID: 1911511516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angry_talk_1
+      rect:
+        serializedVersion: 2
+        x: 3049
+        y: 339
+        width: 926
+        height: 1041
+      alignment: 9
+      pivot: {x: 0.37796977, y: 0.53794426}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86cc1dd50d89bfe4baaaed00826c7300
+      internalID: -49820321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129368_0
+      rect:
+        serializedVersion: 2
+        x: 3999
+        y: 339
+        width: 940
+        height: 1038
+      alignment: 9
+      pivot: {x: 0.3723404, y: 0.53949904}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c11b1a953f896a84b88b42d6603a8d98
+      internalID: 1831127102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -663,21 +873,28 @@ TextureImporter:
     nameFileIdTable:
       Happy_talk_2: 450205397
       129368_5: -1779087109
+      Angry_1: -1523281496
       Concern_talk_1: 338679587
+      129368_0: 1831127102
       Confident_3: -178395978
       Write_5: 1430991004
+      Angry_2: 211917935
       Happy_3: -1238067124
       Idle_1: -1147865216
       129368_7: -513752676
       Idle_: 1146596940
+      Think_1: 409934044
+      Think_3: 833335710
       Idle_talk_2: 176334584
       Confident_2: 1146649790
       Write_2: -834712052
+      Think_talk_1: 1356046686
       Happy_1: 1315372553
       Concern_talk_3: -835290880
       Concern_2: 395861780
       Write_talk_2: -1697922340
       Confident_1: 1005792531
+      Angry_3: 1911511516
       Write_1: 580738470
       Write_talk: 2084298260
       Concern_3: 1543203531
@@ -687,7 +904,10 @@ TextureImporter:
       Idle_talk_1: 1711102953
       Concern_1: 1492696039
       Happy_2: 2113463141
+      Think_2: 2069550356
       Happy_talk_1: -1848512446
+      Angry_talk_1: -49820321
+      Think_talk_2: 1325121319
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

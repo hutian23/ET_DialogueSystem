@@ -56,7 +56,7 @@ MonoBehaviour:
         VN_RegistCharacter ch = Skye unitId
         = 1003;
 
-        VN_RegistBackground name = courtRoom;'
+        VN_RegistBackground name = Witness;'
     - Name: text
       Entry: 6
       Data: 
@@ -466,6 +466,11 @@ MonoBehaviour:
         ShowWindow type = Dialogue;
 
 
+        #
+        VN_TypeCor canSkip = true;
+
+        # VN_WaitNext;
+
         VN_RegistTalker
         ch = Skye clip = Happy;'
     - Name: text
@@ -479,7 +484,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 1172
+      Data: 1162
     - Name: 
       Entry: 4
       Data: 609
@@ -1524,7 +1529,7 @@ MonoBehaviour:
       Data: false
     - Name: Script
       Entry: 1
-      Data: "VN_TextAlign type = MiddleCenter;\nVN_AnimPlay ch = Skye clip = Concern;\nVN_Position
+      Data: "VN_TextAlign type = MiddleCenter;\n# VN_AnimPlay ch = Skye clip = Concern;\nVN_Position
         ch = Skye position = (0,0);\nVN_CharacterName name = \u5B9D\u6708\u831C;
         # \u5237\u65B0\u5BF9\u8BDD\u6846\u89D2\u8272\u540D"
     - Name: text
@@ -1541,7 +1546,7 @@ MonoBehaviour:
       Data: 471
     - Name: 
       Entry: 4
-      Data: 294
+      Data: 293
     - Name: 
       Entry: 8
       Data: 
@@ -2131,7 +2136,7 @@ MonoBehaviour:
       Data: false
     - Name: Script
       Entry: 1
-      Data: VN_AnimPlay ch = Skye clip = Concern;
+      Data: HoldIt();
     - Name: text
       Entry: 6
       Data: 
@@ -2226,6 +2231,66 @@ MonoBehaviour:
       Data: 104|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
+      Data: c416ab50a9862eb4c8ca67267d4de582
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 81aad6d0d2b62de4596c79797c1c5e7f
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 105|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: c416ab50a9862eb4c8ca67267d4de582
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 013d7db15e8d0eb478cdb107ca562048
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 106|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: c416ab50a9862eb4c8ca67267d4de582
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 0298dd63353bdfe42b6f4235faecbead
+    - Name: portID
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 107|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: c416ab50a9862eb4c8ca67267d4de582
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: ac2480f007e610a46944569e5ffe0df4
+    - Name: portID
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 108|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
       Data: 013d7db15e8d0eb478cdb107ca562048
     - Name: inputNodeGuid
       Entry: 1
@@ -2238,7 +2303,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 105|ET.Client.NodeLinkData, Unity.Loader
+      Data: 109|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 013d7db15e8d0eb478cdb107ca562048
@@ -2253,7 +2318,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 106|ET.Client.NodeLinkData, Unity.Loader
+      Data: 110|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: b97738d1a4531e44e8ee9d65169cf55e
@@ -2268,7 +2333,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 107|ET.Client.NodeLinkData, Unity.Loader
+      Data: 111|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 0298dd63353bdfe42b6f4235faecbead
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 1713edecc1080704783d4731ffddfdb7
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 112|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 1713edecc1080704783d4731ffddfdb7
@@ -2283,7 +2363,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 108|ET.Client.NodeLinkData, Unity.Loader
+      Data: 113|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: ac2480f007e610a46944569e5ffe0df4
@@ -2298,7 +2378,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 109|ET.Client.NodeLinkData, Unity.Loader
+      Data: 114|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 7e97849f77f55a44db532fb2df4416e8
@@ -2313,7 +2393,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 110|ET.Client.NodeLinkData, Unity.Loader
+      Data: 115|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: d823f47e5bca9df45b6434b2a1ecaffa
@@ -2328,7 +2408,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 111|ET.Client.NodeLinkData, Unity.Loader
+      Data: 116|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 81aad6d0d2b62de4596c79797c1c5e7f
@@ -2343,7 +2423,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 112|ET.Client.NodeLinkData, Unity.Loader
+      Data: 117|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 81aad6d0d2b62de4596c79797c1c5e7f
@@ -2358,7 +2438,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 113|ET.Client.NodeLinkData, Unity.Loader
+      Data: 118|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 81aad6d0d2b62de4596c79797c1c5e7f
@@ -2373,7 +2453,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 114|ET.Client.NodeLinkData, Unity.Loader
+      Data: 119|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 7a3938cde7b41344a8435f0e5ec0a89c
@@ -2388,7 +2468,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 115|ET.Client.NodeLinkData, Unity.Loader
+      Data: 120|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 95cac2630f987ff49b1dc2cd7e164844
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: c416ab50a9862eb4c8ca67267d4de582
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 121|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 3dba291a4ce80fd4eaeeba5673c2dedf
@@ -2403,7 +2498,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 116|ET.Client.NodeLinkData, Unity.Loader
+      Data: 122|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 3dba291a4ce80fd4eaeeba5673c2dedf
@@ -2418,7 +2513,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 117|ET.Client.NodeLinkData, Unity.Loader
+      Data: 123|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 3dba291a4ce80fd4eaeeba5673c2dedf
@@ -2433,7 +2528,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 118|ET.Client.NodeLinkData, Unity.Loader
+      Data: 124|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: fa500ef4be12bba49a2098cd35b70d03
@@ -2448,7 +2543,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 119|ET.Client.NodeLinkData, Unity.Loader
+      Data: 125|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 3b54e9373c72e1c488b44858e7054b72
@@ -2463,103 +2558,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 120|ET.Client.NodeLinkData, Unity.Loader
+      Data: 126|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 3b54e9373c72e1c488b44858e7054b72
     - Name: inputNodeGuid
       Entry: 1
       Data: 95cac2630f987ff49b1dc2cd7e164844
-    - Name: portID
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 121|ET.Client.NodeLinkData, Unity.Loader
-    - Name: outputNodeGuid
-      Entry: 1
-      Data: 95cac2630f987ff49b1dc2cd7e164844
-    - Name: inputNodeGuid
-      Entry: 1
-      Data: c416ab50a9862eb4c8ca67267d4de582
-    - Name: portID
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 122|ET.Client.NodeLinkData, Unity.Loader
-    - Name: outputNodeGuid
-      Entry: 1
-      Data: c416ab50a9862eb4c8ca67267d4de582
-    - Name: inputNodeGuid
-      Entry: 1
-      Data: 81aad6d0d2b62de4596c79797c1c5e7f
-    - Name: portID
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 123|ET.Client.NodeLinkData, Unity.Loader
-    - Name: outputNodeGuid
-      Entry: 1
-      Data: c416ab50a9862eb4c8ca67267d4de582
-    - Name: inputNodeGuid
-      Entry: 1
-      Data: 013d7db15e8d0eb478cdb107ca562048
-    - Name: portID
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 124|ET.Client.NodeLinkData, Unity.Loader
-    - Name: outputNodeGuid
-      Entry: 1
-      Data: c416ab50a9862eb4c8ca67267d4de582
-    - Name: inputNodeGuid
-      Entry: 1
-      Data: 0298dd63353bdfe42b6f4235faecbead
-    - Name: portID
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 125|ET.Client.NodeLinkData, Unity.Loader
-    - Name: outputNodeGuid
-      Entry: 1
-      Data: c416ab50a9862eb4c8ca67267d4de582
-    - Name: inputNodeGuid
-      Entry: 1
-      Data: ac2480f007e610a46944569e5ffe0df4
-    - Name: portID
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 126|ET.Client.NodeLinkData, Unity.Loader
-    - Name: outputNodeGuid
-      Entry: 1
-      Data: 0298dd63353bdfe42b6f4235faecbead
-    - Name: inputNodeGuid
-      Entry: 1
-      Data: 1713edecc1080704783d4731ffddfdb7
     - Name: portID
       Entry: 3
       Data: 0
@@ -2627,7 +2632,7 @@ MonoBehaviour:
         VN_RegistCharacter ch = Skye unitId
         = 1003;
 
-        VN_RegistBackground name = courtRoom;'
+        VN_RegistBackground name = Witness;'
     - Name: text
       Entry: 6
       Data: 
@@ -2940,7 +2945,7 @@ MonoBehaviour:
       Data: false
     - Name: Script
       Entry: 1
-      Data: "VN_TextAlign type = MiddleCenter;\nVN_AnimPlay ch = Skye clip = Concern;\nVN_Position
+      Data: "VN_TextAlign type = MiddleCenter;\n# VN_AnimPlay ch = Skye clip = Concern;\nVN_Position
         ch = Skye position = (0,0);\nVN_CharacterName name = \u5B9D\u6708\u831C;
         # \u5237\u65B0\u5BF9\u8BDD\u6846\u89D2\u8272\u540D"
     - Name: text
@@ -2957,7 +2962,7 @@ MonoBehaviour:
       Data: 471
     - Name: 
       Entry: 4
-      Data: 294
+      Data: 293
     - Name: 
       Entry: 8
       Data: 
@@ -3417,6 +3422,11 @@ MonoBehaviour:
         ShowWindow type = Dialogue;
 
 
+        #
+        VN_TypeCor canSkip = true;
+
+        # VN_WaitNext;
+
         VN_RegistTalker
         ch = Skye clip = Happy;'
     - Name: text
@@ -3430,7 +3440,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 1172
+      Data: 1162
     - Name: 
       Entry: 4
       Data: 609
@@ -3706,7 +3716,7 @@ MonoBehaviour:
       Data: false
     - Name: Script
       Entry: 1
-      Data: VN_AnimPlay ch = Skye clip = Concern;
+      Data: HoldIt();
     - Name: text
       Entry: 6
       Data: 
