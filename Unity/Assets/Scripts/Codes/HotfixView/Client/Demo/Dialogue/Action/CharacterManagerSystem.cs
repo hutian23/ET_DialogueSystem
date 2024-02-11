@@ -50,7 +50,7 @@ namespace ET.Client
         {
             if (self.characters.ContainsKey(characterName))
             {
-                Log.Error($"存在同名角色{characterName}");
+                Log.Error($"already have character: {characterName}");
                 return;
             }
 
@@ -69,6 +69,19 @@ namespace ET.Client
 
             unit.AddComponent<AnimatorComponent>();
             self.characters.Add(characterName, unit.Id);
+        }
+
+        public static void ShowCharacter(this CharacterManager self, string characterName, bool show)
+        {
+            if (!self.characters.TryGetValue(characterName, out long id))
+            {
+                Log.Error($"not found character: {characterName}");
+                return;
+            }
+
+            UnitComponent unitComponent = self.ClientScene().CurrentScene().GetComponent<UnitComponent>();
+            Unit character = unitComponent.GetChild<Unit>(id);
+            character.GetComponent<GameObjectComponent>().GameObject.SetActive(show);
         }
 
         public static void RemoveCharacter(this CharacterManager self, string characterName)

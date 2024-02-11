@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 48
+  spritePixelsToUnits: 56
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -462,13 +462,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Point
+      name: Point_4
       rect:
         serializedVersion: 2
-        x: 6
-        y: 2216
-        width: 950
-        height: 566
+        x: 5
+        y: 2214
+        width: 954
+        height: 569
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -486,10 +486,10 @@ TextureImporter:
       name: Thinking_1
       rect:
         serializedVersion: 2
-        x: 2958
-        y: 1083
-        width: 485
-        height: 556
+        x: 2957
+        y: 1081
+        width: 487
+        height: 558
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -507,10 +507,10 @@ TextureImporter:
       name: Thinking_2
       rect:
         serializedVersion: 2
-        x: 3451
-        y: 1082
-        width: 484
-        height: 556
+        x: 3449
+        y: 1081
+        width: 487
+        height: 558
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -528,10 +528,10 @@ TextureImporter:
       name: Thinking_3
       rect:
         serializedVersion: 2
-        x: 3942
-        y: 1083
-        width: 484
-        height: 555
+        x: 3941
+        y: 1081
+        width: 487
+        height: 558
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -671,6 +671,153 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Point_1
+      rect:
+        serializedVersion: 2
+        x: 1351
+        y: 2788
+        width: 954
+        height: 569
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6e92699174919741afbe18cf8a5ce75
+      internalID: -756091020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Think_talk_1
+      rect:
+        serializedVersion: 2
+        x: 1973
+        y: 1081
+        width: 487
+        height: 558
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69aea44049e294f4b8f71b6c1fd8fc76
+      internalID: -377048060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Think_talk_2
+      rect:
+        serializedVersion: 2
+        x: 2465
+        y: 1081
+        width: 487
+        height: 558
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebbab07f1563b98409894c753a02b5a9
+      internalID: 1223284476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Point_5
+      rect:
+        serializedVersion: 2
+        x: 964
+        y: 2214
+        width: 954
+        height: 569
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3fd218d24f21ba4aaba887419393500
+      internalID: -816052934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Point_6
+      rect:
+        serializedVersion: 2
+        x: 1923
+        y: 2214
+        width: 954
+        height: 569
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3af9b7bd7a63a54689bf7b562cca802
+      internalID: 429588682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Point_2
+      rect:
+        serializedVersion: 2
+        x: 2310
+        y: 2788
+        width: 954
+        height: 569
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f08baaf41a3460843b456df1038d42b4
+      internalID: -2044168827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Point_3
+      rect:
+        serializedVersion: 2
+        x: 3269
+        y: 2788
+        width: 954
+        height: 569
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2020c490886a87d4fb7e22c74d72a489
+      internalID: -1862811771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -682,33 +829,40 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      ReadPaper_3: 1690763398
       HeadShake_3: 1292286187
       Damage_Talk_4: 1737383124
       Objection_1: -814843226
+      Point_5: -816052934
+      Point_1: -756091020
       DeskSlam_2: -1325508242
+      HeadShake_5: -1522842560
+      Point_3: -1862811771
       ReadPaper_4: 142690778
       85766_0: -2017772900
       Damage_Talk_2: -1847047205
       Thinking_3: 1166649464
       Thinking_1: 57884692
       DeskSlam_1: 721100295
-      Point: 1279315843
+      Think_talk_1: -377048060
+      Point_4: 1279315843
+      Point_6: 429588682
       Thinking_2: -291985253
       DeskSlam_3: -809214707
       HeadShake_2: -1036908921
       85766_1: -1460102066
       Damage_Talk_3: -538508983
       ReadPaper_6: -1458858953
-      85766_3: 461366277
-      Damange_Talk_1: 445144914
-      ReadPaper_5: 1334805522
-      ReadPaper_1: -1422391107
-      HeadShake_4: -1555644773
-      ReadPaper_2: -1947595037
-      ReadPaper_3: 1690763398
-      HeadShake_5: -1522842560
-      BreakDown: 77856723
       HeadShake_1: 49292209
+      ReadPaper_5: 1334805522
+      Think_talk_2: 1223284476
+      85766_3: 461366277
+      ReadPaper_1: -1422391107
+      ReadPaper_2: -1947595037
+      Damange_Talk_1: 445144914
+      HeadShake_4: -1555644773
+      BreakDown: 77856723
+      Point_2: -2044168827
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

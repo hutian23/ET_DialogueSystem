@@ -218,9 +218,21 @@ namespace ET.Client
             return self.treeData.GetConstant<T>(variableName);
         }
 
-        public static T GetShareVariable<T>(this DialogueComponent self, string variableName)
+        public static SharedVariable GetShareVariable(this DialogueComponent self, string variableName)
         {
-            return default;
+            SharedVariable variable = self.Variables.FirstOrDefault(v => v.name == variableName);
+            if (variable == null) Log.Error($"not found variable: {variableName}");
+            return variable;
+        }
+
+        public static void RemoveSharedVariable(this DialogueComponent self, string variableName)
+        {
+            List<SharedVariable> temp = new();
+            self.Variables.ForEach(v => { if (v.name == variableName) temp.Add(v); });
+            for (int i = 0; i < temp.Count; i++)
+            {
+                self.Variables.Remove(temp[i]);
+            }
         }
 
         public static void AddTag(this DialogueComponent self, int tagType)

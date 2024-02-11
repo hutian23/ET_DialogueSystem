@@ -860,6 +860,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Confident_talk_1
+      rect:
+        serializedVersion: 2
+        x: 2484
+        y: 13634
+        width: 802
+        height: 1190
+      alignment: 9
+      pivot: {x: 0.46578592, y: 0.5294118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca98da68dc966034ea0ebcf457825b59
+      internalID: -560561022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -877,6 +898,7 @@ TextureImporter:
       Concern_talk_1: 338679587
       129368_0: 1831127102
       Confident_3: -178395978
+      Confident_talk_1: -560561022
       Write_5: 1430991004
       Angry_2: 211917935
       Happy_3: -1238067124

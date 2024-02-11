@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6711565591628892968}
   - component: {fileID: 6711565591628892970}
   m_Layer: 0
-  m_Name: Skye
+  m_Name: Phoniex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 2016810935
   m_SortingLayer: 1
   m_SortingOrder: 100
-  m_Sprite: {fileID: -1460102066, guid: 3401902ce884cc447a11d7d34700cce9, type: 3}
+  m_Sprite: {fileID: -1147865216, guid: de1f4e895f983f640b6706b61abd5459, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

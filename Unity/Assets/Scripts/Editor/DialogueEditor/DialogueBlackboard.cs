@@ -56,12 +56,12 @@ namespace ET.Client
 
         private void AddVariable(object obj)
         {
-            string variableName = "Variable";
+            string variableName = "Constant";
             //检查重名
             int id = 0;
             while (ContainVariable(variableName))
             {
-                variableName = $"Variable({++id})";
+                variableName = $"Constant({++id})";
             }
 
             SharedVariable variable = new() { name = variableName, value = obj };

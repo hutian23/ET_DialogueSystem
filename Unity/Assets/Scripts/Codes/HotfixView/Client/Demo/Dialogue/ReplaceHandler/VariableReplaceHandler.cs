@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class VariableReplaceHandler : ReplaceHandler
+    public class VariableReplaceHandler: ReplaceHandler
     {
         public override string GetReplaceType()
         {
@@ -13,11 +13,11 @@ namespace ET.Client
         public override string GetReplaceStr(Unit unit, string model)
         {
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
-            Match match = Regex.Match(model, @"<Variable name=(\w+)");
+            Match match = Regex.Match(model, @"<Variable name=(?<name>\w+)");
             if (!match.Success) DialogueHelper.ScripMatchError(model);
 
-            var variableName = match.Groups[1].Value;
-            return dialogueComponent.GetConstant<object>(variableName).ToString();
+            var variableName = match.Groups["name"].Value;
+            return dialogueComponent.GetShareVariable(variableName).value.ToString();
         }
     }
 }
