@@ -27,5 +27,19 @@ namespace ET.Client
             scrollView.Add(container);
             Add(scrollView);
         }
+
+        public void UpdateVaraibleView(List<SharedVariable> variables)
+        {
+            this.Clear();
+            UnityEngine.Object.DestroyImmediate(this.editor);
+            ShareVariableView variableView = ScriptableObject.CreateInstance<ShareVariableView>();
+            variableView.SharedVariables = variables;
+            editor = Editor.CreateEditor(variableView);
+
+            ScrollView scrollView = new();
+            IMGUIContainer container = new(() => { this.editor.OnInspectorGUI(); });
+            scrollView.Add(container);
+            Add(scrollView);
+        }
     }
 }

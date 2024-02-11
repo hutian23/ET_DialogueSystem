@@ -15,8 +15,8 @@ namespace ET.Client
             }
             else
             {
-                int min = dialogueComponent.GetVariable<int>(node.minVariable);
-                int max = dialogueComponent.GetVariable<int>(node.maxVariable);
+                int min = dialogueComponent.GetConstant<int>(node.minVariable);
+                int max = dialogueComponent.GetConstant<int>(node.maxVariable);
                 randomValue = new Random().Next(min, max + 1);
             }
 

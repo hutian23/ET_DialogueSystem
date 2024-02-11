@@ -2,22 +2,22 @@
 
 namespace ET.Client
 {
-    public class VariableReplaceHandler : ReplaceHandler
+    public class ConstantReplaceHandler: ReplaceHandler
     {
         public override string GetReplaceType()
         {
-            return "Variable";
+            return "Constant";
         }
 
-        //<Variable name=test/>;
+        //<Constant name=test/>;
         public override string GetReplaceStr(Unit unit, string model)
         {
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
-            Match match = Regex.Match(model, @"<Variable name=(\w+)");
+            Match match = Regex.Match(model, @"<Constant name=(\w+)");
             if (!match.Success) DialogueHelper.ScripMatchError(model);
 
-            var variableName = match.Groups[1].Value;
-            return dialogueComponent.GetConstant<object>(variableName).ToString();
+            var constantsName = match.Groups[1].Value;
+            return dialogueComponent.GetConstant<object>(constantsName).ToString();
         }
     }
 }

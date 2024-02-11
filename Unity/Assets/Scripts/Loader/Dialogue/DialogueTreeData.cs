@@ -52,7 +52,7 @@ namespace ET.Client
             return cloneNode;
         }
 
-        public T GetVariable<T>(string variableName)
+        public T GetConstant<T>(string variableName)
         {
             if (!this.variables.TryGetValue(variableName, out var value) || value == null) return default;
 

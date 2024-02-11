@@ -7,6 +7,15 @@ namespace ET.Client
     [FriendOf(typeof (Talker))]
     public static class CharacterManagerSystem
     {
+        public class CharacterManagerAwakeSystem: AwakeSystem<CharacterManager>
+        {
+            protected override void Awake(CharacterManager self)
+            {
+                self.parent = new GameObject("CharacterManager");
+                self.parent.transform.SetParent(GlobalComponent.Instance.Unit);
+            }
+        }
+
         public class CharacterManagerLoadSystem: LoadSystem<CharacterManager>
         {
             protected override void Load(CharacterManager self)
@@ -20,6 +29,7 @@ namespace ET.Client
             protected override void Destroy(CharacterManager self)
             {
                 self.Init();
+                UnityEngine.Object.Destroy(self.parent);
             }
         }
 
@@ -50,6 +60,8 @@ namespace ET.Client
             GameObject prefab = ResourcesComponent.Instance.GetAsset($"{config.ABName}.unity3d", config.Name) as GameObject;
             GameObject go = UnityEngine.Object.Instantiate(prefab, GlobalComponent.Instance.Unit, true);
             go.name = $"{characterName}";
+            go.transform.SetParent(self.parent.transform);
+
             //注意 角色都是在currentScene下的
             UnitComponent unitComponent = self.ClientScene().CurrentScene().GetComponent<UnitComponent>();
             Unit unit = unitComponent.AddChild<Unit, int>(config.Id);
@@ -85,7 +97,7 @@ namespace ET.Client
             self.RemoveTalker(characterName);
             Talker talker = self.AddChild<Talker>();
             self.talkers.Add(characterName, talker.Id);
-            talker.Init(characterName,clip);
+            talker.Init(characterName, clip);
             return talker;
         }
 

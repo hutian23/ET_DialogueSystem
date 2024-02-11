@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -47,7 +48,10 @@ namespace ET.Client
 
         [LabelText("克隆树: "), ShowIf("EditorMode")]
         public DialogueTree cloneTree;
-        
+
+        [HideInInspector]
+        public List<SharedVariable> Variables = new();
+
         public DialogueNode GetNode(uint targetID)
         {
             if (cloneTree == null)

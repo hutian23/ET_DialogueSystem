@@ -6,6 +6,8 @@ namespace ET.Client
     [ComponentOf(typeof (DialogueComponent))]
     public class CharacterManager: Entity, IAwake, IDestroy, ILoad
     {
+        public GameObject parent;
+        
         public Dictionary<string, long> characters = new();
         public Dictionary<string, long> talkers = new();
     }

@@ -22,9 +22,9 @@ namespace ET.Client
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
 
             GameObject effect = dialogueComponent.GetComponent<EffectManager>().GetEffect(match.Groups["effect"].Value);
-            AnimationCurve shakeCurve = dialogueComponent.GetVariable<AnimationCurve>(match.Groups["curve"].Value);
-            float duration = dialogueComponent.GetVariable<float>(match.Groups["duration"].Value);
-            float intensity = dialogueComponent.GetVariable<float>(match.Groups["intensity"].Value);
+            AnimationCurve shakeCurve = dialogueComponent.GetConstant<AnimationCurve>(match.Groups["curve"].Value);
+            float duration = dialogueComponent.GetConstant<float>(match.Groups["duration"].Value);
+            float intensity = dialogueComponent.GetConstant<float>(match.Groups["intensity"].Value);
 
             var originlPos = effect.transform.position;
             float shakeTimer = duration;

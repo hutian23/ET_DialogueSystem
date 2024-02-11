@@ -111,7 +111,7 @@ namespace ET.Client
         }
         
         //TODO 类型转换支持
-        public T GetVariable<T>(string variableName)
+        public T GetConstant<T>(string variableName)
         {
             SharedVariable sharedVariable = this.Variables.FirstOrDefault(x => x.name == variableName);
             if (sharedVariable == null || sharedVariable.value == null) return default;

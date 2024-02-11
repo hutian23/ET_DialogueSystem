@@ -67,6 +67,7 @@ namespace ET.Client
                             .GetComponent<GameObjectComponent>().GameObject
                             .AddComponent<DialogueViewComponent>();
                     viewComponent.instanceId = self.InstanceId;
+                    viewComponent.Variables = self.Variables; //没想到什么好办法，引用同一个list得了
                 }
 
                 self.AddComponent<ObjectWait>();
@@ -88,6 +89,7 @@ namespace ET.Client
             self.token = null;
             self.workQueue.Clear();
             self.tags.Clear();
+            self.Variables.Clear();
         }
 
         //运行时使用
@@ -103,11 +105,11 @@ namespace ET.Client
         {
             await TimerComponent.Instance.WaitFrameAsync();
             if (Application.isEditor) self.ViewStatusReset();
-        
+
             //根节点初始化
             DialogueNode node = self.GetNode(0);
             Unit unit = self.GetParent<Unit>();
-            self.SetNodeStatus(node,Status.Pending);
+            self.SetNodeStatus(node, Status.Pending);
             await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node, self.token);
             self.SetNodeStatus(node, self.token.IsCancel()? Status.Failed : Status.Success);
 
@@ -198,22 +200,27 @@ namespace ET.Client
             targets.ForEach(self.PushNextNode);
         }
 
-        public static T GetVariable<T>(this DialogueComponent self, string variableName)
+        public static T GetConstant<T>(this DialogueComponent self, string variableName)
         {
             if (Application.isEditor)
             {
                 switch (self.ReloadType)
                 {
                     case ViewReloadType.RuntimeReload:
-                        return self.treeData.GetVariable<T>(variableName);
+                        return self.treeData.GetConstant<T>(variableName);
                     default:
                         return self.GetParent<Unit>()
                                 .GetComponent<GameObjectComponent>().GameObject
-                                .GetComponent<DialogueViewComponent>().cloneTree.GetVariable<T>(variableName);
+                                .GetComponent<DialogueViewComponent>().cloneTree.GetConstant<T>(variableName);
                 }
             }
 
-            return self.treeData.GetVariable<T>(variableName);
+            return self.treeData.GetConstant<T>(variableName);
+        }
+
+        public static T GetShareVariable<T>(this DialogueComponent self, string variableName)
+        {
+            return default;
         }
 
         public static void AddTag(this DialogueComponent self, int tagType)

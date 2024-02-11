@@ -13,6 +13,7 @@ namespace ET
         private DialogueTreeView treeView;
         public DialogueViewComponent ViewComponent;
         public InspectorView inspectorView;
+        public InspectorView variableView;
         private Toolbar toolbar;
 
         public Toggle autoSaveToggle;
@@ -38,11 +39,12 @@ namespace ET
             treeView = root.Q<DialogueTreeView>();
 
             inspectorView = root.Q<InspectorView>();
+            variableView = root.Q<InspectorView>("SharedVariableView");
 
             toolbar = root.Q<Toolbar>();
             autoSaveToggle = toolbar.Q<ToolbarToggle>();
         }
-
+        
         public static void OpenWindow(DialogueTree dialogueTree)
         {
             DialogueEditor wnd = GetWindow<DialogueEditor>();

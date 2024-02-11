@@ -120,6 +120,9 @@ namespace ET.Client
 
             //5. 黑板
             blackboard.PopulateView(this);
+
+            //6. 共享变量
+            if (this.window.ViewComponent != null) window.variableView.UpdateVaraibleView(window.ViewComponent.Variables);
         }
 
         private void AddSearchWindow()
@@ -182,7 +185,7 @@ namespace ET.Client
             evt.menu.AppendAction("保存", _ => this.SaveDialogueTree());
             evt.menu.AppendAction("撤销", _ => this.OnRedo());
             evt.menu.AppendSeparator();
-            evt.menu.AppendAction("重载",_=>this.Reload());
+            evt.menu.AppendAction("重载", _ => this.Reload());
         }
 
         private void MouseEnterControl(MouseEnterEvent evt)
@@ -200,7 +203,7 @@ namespace ET.Client
                 evt.StopPropagation();
                 return;
             }
-            
+
             if (!evt.ctrlKey) return;
             switch (evt.keyCode)
             {
