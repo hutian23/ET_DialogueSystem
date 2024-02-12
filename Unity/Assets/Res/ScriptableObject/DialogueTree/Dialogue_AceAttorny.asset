@@ -48,7 +48,7 @@ MonoBehaviour:
       Data: 
     - Name: ShowScript
       Entry: 5
-      Data: false
+      Data: true
     - Name: Script
       Entry: 1
       Data: "ShowWindow type = Dialogue;\n\n# \u6CE8\u518C\u6F14\u5458\nVN_RegistCharacter
@@ -2056,7 +2056,7 @@ MonoBehaviour:
       Data: 
     - Name: ShowScript
       Entry: 5
-      Data: false
+      Data: true
     - Name: Script
       Entry: 1
       Data: 
