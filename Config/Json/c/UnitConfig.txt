@@ -2,4 +2,5 @@
 {"_t":"UnitConfig","_id":1001,"Type":1,"Name":"Knight","ABName":"knight"},
 {"_t":"UnitConfig","_id":1002,"Type":1,"Name":"Celika","ABName":"celika"},
 {"_t":"UnitConfig","_id":1003,"Type":1,"Name":"Skye","ABName":"skye"},
+{"_t":"UnitConfig","_id":1004,"Type":1,"Name":"Phoniex","ABName":"phoniex"},
 ]}

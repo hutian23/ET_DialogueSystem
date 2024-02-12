@@ -6,12 +6,8 @@ namespace ET.Client
     {
         protected override async ETTask<Status> Run(Unit unit, InterrogateNode node, ETCancellationToken token)
         {
-            //1. 执行脚本
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
-            await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node, token);
-            if (token.IsCancel()) return Status.Failed;
-
-            //2. 打印携程
+            //1. 打印携程
             DialogueHelper.ReplaceModel(unit, ref node.text);
             DlgDialogue dlgDialogue = unit.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgDialogue>();
             await dialogueComponent.TypeCor(dlgDialogue.View.E_TextText, node.text, token);

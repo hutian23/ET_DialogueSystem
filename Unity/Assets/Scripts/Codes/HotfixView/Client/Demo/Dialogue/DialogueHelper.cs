@@ -176,7 +176,7 @@ namespace ET.Client
             ETCancellationToken WaitKeyPressedToken = new();
             token.Add(WaitKeyPressedToken.Cancel);
             
-            //刷新UI
+            //刷新UI,显示右箭头
             DlgDialogue dlgDialogue = self.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgDialogue>();
             dlgDialogue.RefreshArrow();
             dlgDialogue.ShowRightArrow(() =>

@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 56
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -654,10 +654,10 @@ TextureImporter:
       name: BreakDown
       rect:
         serializedVersion: 2
-        x: 2351
-        y: 5176
-        width: 574
-        height: 485
+        x: 2349
+        y: 5174
+        width: 577
+        height: 488
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -818,6 +818,111 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Coffe_1
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 5677
+        width: 726
+        height: 570
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 741b1bc485e4a3c47a0d51b2c4338738
+      internalID: 1295525900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 85766_4
+      rect:
+        serializedVersion: 2
+        x: 1386
+        y: 56
+        width: 726
+        height: 570
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef7d6aa3ade71284eb35fff766e1afb6
+      internalID: -268849556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Coffe_3
+      rect:
+        serializedVersion: 2
+        x: 2117
+        y: 5677
+        width: 726
+        height: 570
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f742a4ab4fa4d984aa33dd9bd59914bd
+      internalID: 818582368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Coffe_2
+      rect:
+        serializedVersion: 2
+        x: 1386
+        y: 5677
+        width: 726
+        height: 570
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 707bf8ec10066a84dad1914e41ed4dcd
+      internalID: 1963618343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Coffe_4
+      rect:
+        serializedVersion: 2
+        x: 2849
+        y: 5667
+        width: 683
+        height: 580
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a70d983be6c8ed94d91fa21d4d5c340a
+      internalID: 1876666409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -829,16 +934,19 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ReadPaper_3: 1690763398
+      HeadShake_5: -1522842560
       HeadShake_3: 1292286187
       Damage_Talk_4: 1737383124
       Objection_1: -814843226
-      Point_5: -816052934
-      Point_1: -756091020
+      Coffe_2: 1963618343
+      Coffe_3: 818582368
+      85766_4: -268849556
       DeskSlam_2: -1325508242
-      HeadShake_5: -1522842560
+      ReadPaper_2: -1947595037
       Point_3: -1862811771
       ReadPaper_4: 142690778
+      Point_1: -756091020
+      Damange_Talk_1: 445144914
       85766_0: -2017772900
       Damage_Talk_2: -1847047205
       Thinking_3: 1166649464
@@ -846,23 +954,25 @@ TextureImporter:
       DeskSlam_1: 721100295
       Think_talk_1: -377048060
       Point_4: 1279315843
+      Coffe_4: 1876666409
       Point_6: 429588682
       Thinking_2: -291985253
       DeskSlam_3: -809214707
       HeadShake_2: -1036908921
       85766_1: -1460102066
-      Damage_Talk_3: -538508983
       ReadPaper_6: -1458858953
+      Damage_Talk_3: -538508983
+      Point_2: -2044168827
       HeadShake_1: 49292209
       ReadPaper_5: 1334805522
       Think_talk_2: 1223284476
-      85766_3: 461366277
       ReadPaper_1: -1422391107
-      ReadPaper_2: -1947595037
-      Damange_Talk_1: 445144914
+      ReadPaper_3: 1690763398
+      Point_5: -816052934
       HeadShake_4: -1555644773
+      Coffe_1: 1295525900
       BreakDown: 77856723
-      Point_2: -2044168827
+      85766_3: 461366277
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
