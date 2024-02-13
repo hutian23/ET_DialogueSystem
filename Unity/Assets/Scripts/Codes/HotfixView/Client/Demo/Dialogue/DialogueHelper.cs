@@ -167,37 +167,7 @@ namespace ET.Client
 
         #endregion
 
-        public static async ETTask WaitNextCor(this DialogueComponent self, ETCancellationToken token)
-        {
-            await TimerComponent.Instance.WaitAsync(200, token);
-            if (token.IsCancel()) return;
-            
-            //取消等待按键触发的携程
-            ETCancellationToken WaitKeyPressedToken = new();
-            token.Add(WaitKeyPressedToken.Cancel);
-            
-            //刷新UI,显示右箭头
-            DlgDialogue dlgDialogue = self.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgDialogue>();
-            dlgDialogue.RefreshArrow();
-            dlgDialogue.ShowRightArrow(() =>
-            {
-                self.GetComponent<ObjectWait>().Notify(new WaitNextNode());
-                WaitKeyPressedToken.Cancel();
-            });
-            
-            while (true)
-            {
-                if (WaitKeyPressedToken.IsCancel()) return;
-                if (Keyboard.current.spaceKey.isPressed)
-                {
-                    self.GetComponent<ObjectWait>().Notify(new WaitNextNode());
-                    token.Remove(WaitKeyPressedToken.Cancel);
-                    return;
-                }
-
-                await TimerComponent.Instance.WaitFrameAsync(WaitKeyPressedToken);
-            }
-        }
+       
 
         #region DialogueComponent
         
