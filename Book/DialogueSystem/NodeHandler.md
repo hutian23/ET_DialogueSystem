@@ -13,29 +13,16 @@
 
 ### 封装的节点太多
 
-![](https://img-blog.csdn.net/20161206150413792)
-
-传统行为树会每个方法封装一个节点。比如，Debug.Log会封装成一个Log节点，播放动画一个节点。
-
-一个行为可能会包含一个装饰器节点和若干Action节点。比如我想表达"怪物空闲时围绕某个点巡逻并播放行走动画"，如上，要添加动画节点和巡逻节点。目前看起来 还好，也就添加了两个叶节点。那我举一个我在做逆转小剧场时的需求: 进入根节点时，执行如下行为: 
-1. 加载对话UI 
-2. 加载对话背景
-3. 注册一个名为Skye的Character
-4. 注册一个名为Phoniex的Character
-5. Skye设为不可见
-6. Phoniex设为不可见
-7. 注册一个随机变量
-
-以传统行为树方式表达上述行为: 
+传统行为树会每个方法封装一个节点。比如，Debug.Log会封装成一个Log节点，播放动画一个节点。随着需求增加，一个装饰器节点下面的叶子节点会越来越多，且不说性能问题，看起来都很丑陋。
 
 ![](../../images/BehaviorTree.png)
 
-相信聪明如你已经发现了问题。需求越多，添加的叶子节点越多，整棵树会变得越来越大，最后会变得很不好编辑。
 
-传统行为树会将条件封装成一个节点。
+条件判断被抽象成节点。其一有些条件节点可能只在很少的场景下会用到，其二，会增加很多条件判断的分支，可读性差。
 
 ![](../../images/Condition.png)
 
+以对话系统为例。当我们的对话中有前置条件的检查，不可避免地会增加很多条件判断的分支，可读性变差
 
 ### 异步支持差
 
@@ -83,19 +70,73 @@ AnimPlay Write; // 从开始执行6000s后播放Write动画
 
 开发阶段需要频繁地修改节点执行逻辑。如果不能支持运行时重载逻辑，开发效率太低了。运行时我不用修改数据结构，只要重载方法就行了。大部分行为树方法跟数据都是耦合的，不像ET这样方法数据分离方便做热重载。
 
-## 改进
-1. 以帧为单位的行为树
+## 本项目中的改进
+### 以节点为单位的行为树
 
 我很喜欢ObjectionMaker中的一个设计，每个节点就是对话中的一帧，同时只有一个节点，也就是只有一帧正在执行，
 你可以控制从哪一帧进入对话。
 
-以ECS的思想来设计行为树，每个节点都是一个Entity，节点中包含条件(CheckerConfig)
+以ECS的思路来设计行为树。
 
-运行时，每个节点相当于一个协程。
+数据层: 
+```csharp
+public abstract class DialogueNode: Object
+{
+    public uint TreeID; //对话树的唯一标识ID
+    public uint TargetID; //节点在对话树中的唯一标识ID
 
-- NodeView(编辑器)
-- NodeHandler(逻辑层)
-- Node(数据层)
+    //节点在全局的唯一标识ID
+    //注意MongoBson只支持signed int64
+    public long GetID()
+    {
+        ulong result = 0;
+        result |= TargetID;
+        result |= (ulong)TreeID << 32;
+        return (long)result;
+    }
+
+#region 条件判断相关的数据
+    public bool NeedCheck;
+    public List<NodeCheckConfig> checkList = new();
+#endregion
+
+    // 脚本
+    public string Script = "";
+    
+    //请结合后面的本地化一起看
+    [BsonIgnore]
+    public string Text;
+}
+```
+
+```csharp
+namespace ET.Client
+{
+    [NodeType("Visual Novel/Action节点(Visual Novel)")]
+    public class VN_ActionNode: DialogueNode
+    {
+        public List<uint> children = new(); //子节点targetID列表
+    }
+}
+```
+
+
+编辑器:
+```csharp
+namespace ET.Client
+{
+    public sealed class VN_ActionNodeView: DialogueNodeView<VN_ActionNode>
+    {
+        public VN_ActionNodeView(VN_ActionNode dialogueNode, DialogueTreeView dialogueTreeView): base(dialogueNode, dialogueTreeView)
+        {
+            GenerateInputPort("", true); //生成输入端口
+            Port port = GenerateOutputPort("",true); //生成输出端口
+            SaveCallback += () => { dialogueNode.children = GetLinkNodes(port); };  //保存回调
+        }
+    }
+}
+```
+
 
 以下是对话携程的主函数:
 ```csharp
@@ -129,9 +170,9 @@ private static async ETTask DialogueCor(this DialogueComponent self)
     }
 }
 ```
-只关心节点是否执行失败(其他的状态都是编辑器中可视化节点执行结果的，运行时不关心)和对话携程是否被取消。
 
-将Start(),Update(),Exit()合成一个函数。
+一个节点就是一个协程，相当于将将Start(),Update(),Exit()合成一个函数。我们只关心节点是否执行失败(其他的状态都是用于编辑器中可视化节点执行结果的，运行时不关心)和对话携程是否被取消。
+
 ```csharp
 namespace ET.Client
 {
@@ -318,111 +359,3 @@ Numeric Hp + <Variable name=Random/>;
 ```
 
 关于变量这个，算是构思的比较久的。
-
-
-```csharp
- [HideReferenceObjectPicker]
-    public abstract class DialogueNode: Object
-    {
-        [HideInInspector, ReadOnly]
-        public uint TreeID;
-
-        [HideInInspector, ReadOnly]
-        public uint TargetID;
-
-        [FoldoutGroup("$nodeName"), LabelText("检查前置条件: ")]
-        public bool NeedCheck;
-        
-        [FoldoutGroup("$nodeName"),Space(5),ShowIf("$NeedCheck")]
-        public List<NodeCheckConfig> checkList = new();
-
-        [FoldoutGroup("$nodeName"), LabelText("显示脚本: "),Space(5)]
-        [BsonIgnore]
-        public bool ShowScript;
-
-        [FoldoutGroup("$nodeName"), HideLabel, TextArea(10, 35), ShowIf("ShowScript")]
-        public string Script = "";
-
-        [HideInInspector, BsonIgnore]
-        public string text;
-
-#if UNITY_EDITOR
-        [HideInInspector]
-        public string Guid;
-
-        [HideInInspector]
-        public Vector2 position;
-
-        [BsonIgnore]
-        [HideInInspector, ReadOnly, FoldoutGroup("$nodeName")]
-        public Status Status;
-        
-        [Searchable]
-        [FoldoutGroup("$nodeName"), HideReferenceObjectPicker, LabelText("本地化组"), Space(10),
-         ListDrawerSettings(ShowFoldout = true, ShowIndexLabels = true, ListElementLabelName = "eleName")]
-        public List<LocalizationGroup> LocalizationGroups = new();
-
-        public string nodeName => $"[{TargetID}]{GetType().Name}";
-
-        public string GetContent(Language language)
-        {
-            //所以我明明new了，为什么odin还会显示null呢?
-            if (LocalizationGroups == null) return String.Empty;
-            var targetGroup = LocalizationGroups.FirstOrDefault(group => group.Language == language);
-            return targetGroup == null? String.Empty : targetGroup.content;
-        }
-
-        public virtual DialogueNode Clone()
-        {
-            DialogueNode cloneNode = MongoHelper.Clone(this);
-            cloneNode.TargetID = 0;
-            cloneNode.TreeID = 0;
-            cloneNode.Guid = GUID.Generate().ToString();
-            return cloneNode;
-        }
-#endif
-        //注意MongoBson只支持signed int64
-        public long GetID()
-        {
-            ulong result = 0;
-            result |= TargetID;
-            result |= (ulong)TreeID << 32;
-            return (long)result;
-        }
-
-        //ID转成treeID和TargetID
-        public void FromID(long ID)
-        {
-            ulong result = (ulong)ID;
-            TargetID = (uint)(result & uint.MaxValue);
-            result >>= 32;
-            TreeID = (uint)(result & uint.MaxValue);
-        }
-    }
-
-#if UNITY_EDITOR
-    [Serializable]
-    public class LocalizationGroup
-    {
-        [LabelText("语言: "), Space(10)]
-        public Language Language = Language.Chinese;
-
-        public string eleName => Language.ToString();
-
-        [TextArea(3, 4), Space(10)]
-        [HideLabel]
-        public string content = "";
-    }
-#endif
-
-    public class NodeTypeAttribute: BaseAttribute
-    {
-        public string Level;
-
-        public NodeTypeAttribute(string level)
-        {
-            this.Level = level;
-        }
-    }
-}
-```
