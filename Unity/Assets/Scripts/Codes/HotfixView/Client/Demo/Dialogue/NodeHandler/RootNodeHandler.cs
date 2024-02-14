@@ -6,7 +6,6 @@
         {
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
             dialogueComponent.PushNextNode(node.nextNode);
-
             await ETTask.CompletedTask;
             return Status.Success;
         }

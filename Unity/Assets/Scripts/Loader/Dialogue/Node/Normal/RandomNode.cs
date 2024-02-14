@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace ET.Client
 {
@@ -9,4 +11,5 @@ namespace ET.Client
         [FoldoutGroup("$nodeName"), ListDrawerSettings(IsReadOnly = true), ReadOnly]
         public List<uint> random = new();
     }
+    
 }
