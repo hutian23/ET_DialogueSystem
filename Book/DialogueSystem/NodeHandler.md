@@ -8,7 +8,7 @@
 
 [ObjectionMaker](https://objection.lol/maker)
 
-## 传统行为树有什么缺点
+## 传统行为树有什么缺点(我认为的)
 项目中的对话系统其实就是行为树，不过相较于传统的行为树做了一些优化。先讲讲传统行为树有什么不足之处。
 
 ### 一个方法一个节点
@@ -34,15 +34,52 @@
 
 ### 异步支持差
 
+传统行为树对协程的支持比较原始。比如要同时执行两个任务，传统行为树会给每个节点定义Start(),Update(),Exit()方法。表达协程执行中会用并行节点执行全部子节点的Update。表达等待一段时间执行某个任务会用计时器累加时间，如下:
+
+```csharp
+//WaitTimeNode
+
+public float timer;
+public float WaitTime = 3.0f;
+
+public void Update()
+{
+    if(timer > WaitTime) this.Exit();
+    timer += Time.DeltaTime;
+}
+```
+
+如果我们以async，await的方法来表示一个节点的行为：
+```csharp
+AnimPlay Happy;
+
+if(Numeric Hp > 10)
+{
+    WaitTime 3000;    //相当于 await 3000ms
+    AnimPlay Concern; //从开始执行3000s后播放Concern动画
+}
+
+Coroutine:       //启动一个协程
+- WaitTime 1000;
+- Numeric Hp + 3;
+- AnimPlay Sad; // 从开始执行4000s后播放sad动画
+WaitTime 3000;  
+AnimPlay Write; // 从开始执行6000s后播放Write动画
+```
+
+上面的伪代码转成用行为树表达:
+
+![](../../images/Coroutine.png)
+
+可以发现，用代码来表示异步任务更加直观，因为阅读起来是从上到下的。以行为树的表达方式来看，因为分支太多，可读性是很差的(比如，上面这张图就很难分清播放Sad动画和播放Write动画的先后执行顺序)。
+
+### 条件和节点分离
 
 
 
+### 方法和数据不分离
 
-传统行为树
-
-树太大，不好编辑。
-表达性弱，难以阅读、重构。
-协程支持比较原始。一般行为树会把一个节点的执行状态分成Failed,Success,Running三种状态。进入节点执行Start(),节点运行时执行Running(),退出节点执行Exit()...对异步的支持比较弱，可能需要额外封装一个WaitTime节点。
+开发阶段需要频繁地修改节点执行逻辑。如果不能支持运行时重载逻辑，开发效率太低了。运行时我不用修改数据结构，只要重载方法就行了。大部分行为树方法跟数据都是耦合的，不像ET这样方法数据分离方便做热重载。
 
 ## 改进
 1. 以帧为单位的行为树
