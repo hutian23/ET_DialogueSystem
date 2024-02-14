@@ -12,7 +12,6 @@ namespace ET.Client
     public abstract class DialogueNodeView: Node
     {
         public DialogueNode node;
-
         public Port input;
         public readonly List<Port> outports = new();
         private TextField TextField;

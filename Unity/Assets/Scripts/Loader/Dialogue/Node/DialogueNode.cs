@@ -35,12 +35,12 @@ namespace ET
         public uint TargetID;
 
         [FoldoutGroup("$nodeName"), LabelText("检查前置条件: ")]
-        public bool NeedCheck;
-        
-        [FoldoutGroup("$nodeName"),Space(5),ShowIf("$NeedCheck")]
+        public bool NeedCheck = false;
+
+        [FoldoutGroup("$nodeName"), Space(5), ShowIf("$NeedCheck")]
         public List<NodeCheckConfig> checkList = new();
 
-        [FoldoutGroup("$nodeName"), LabelText("显示脚本: "),Space(5)]
+        [FoldoutGroup("$nodeName"), LabelText("显示脚本: "), Space(5)]
         [BsonIgnore]
         public bool ShowScript;
 
@@ -60,7 +60,7 @@ namespace ET
         [BsonIgnore]
         [HideInInspector, ReadOnly, FoldoutGroup("$nodeName")]
         public Status Status;
-        
+
         [Searchable]
         [FoldoutGroup("$nodeName"), HideReferenceObjectPicker, LabelText("本地化组"), Space(10),
          ListDrawerSettings(ShowFoldout = true, ShowIndexLabels = true, ListElementLabelName = "eleName")]
@@ -70,7 +70,6 @@ namespace ET
 
         public string GetContent(Language language)
         {
-            //所以我明明new了，为什么odin还会显示null呢?
             if (LocalizationGroups == null) return String.Empty;
             var targetGroup = LocalizationGroups.FirstOrDefault(group => group.Language == language);
             return targetGroup == null? String.Empty : targetGroup.content;

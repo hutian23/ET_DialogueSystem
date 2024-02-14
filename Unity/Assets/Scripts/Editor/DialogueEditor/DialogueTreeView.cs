@@ -57,6 +57,7 @@ namespace ET.Client
         {
             if (graphViewChange.elementsToRemove != null)
             {
+                //删除缓存
                 graphViewChange.elementsToRemove.ForEach(elem =>
                 {
                     switch (elem)
@@ -105,8 +106,7 @@ namespace ET.Client
                 if (node == null) continue;
                 CreateNodeView(node);
             }
-
-            // //删除某些节点的数据结构，可能会空引用
+            
             tree.nodes = tree.nodes.Where(node => node != null).ToList();
 
             //3. 生成边

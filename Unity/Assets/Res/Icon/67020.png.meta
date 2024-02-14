@@ -113,7 +113,7 @@ TextureImporter:
         width: 326
         height: 239
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -121,6 +121,48 @@ TextureImporter:
       bones: []
       spriteID: 1973316eda9f05b44a042a38d79b052e
       internalID: -632523911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Objection
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 3
+        width: 326
+        height: 239
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1eae53b0137c74644b408cbc0f16b42d
+      internalID: 1588998216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TakeThat
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 2
+        width: 326
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e994e86e18dbca4e9655e1e845b7b40
+      internalID: -2065064752
       vertices: []
       indices: 
       edges: []
@@ -137,6 +179,8 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       HoldIt: -632523911
+      TakeThat: -2065064752
+      Objection: 1588998216
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -71,9 +71,7 @@ namespace ET.Client
             EditorUtility.SetDirty(this);
             return node;
         }
-
-        #region old
-
+     
         public bool DeleteNode(DialogueNode node)
         {
             if (node == this.root || node.Guid == this.root.Guid)
@@ -98,9 +96,7 @@ namespace ET.Client
             this.blockDatas.Remove(blockData);
             EditorUtility.SetDirty(this);
         }
-
-        #endregion
-
+        
         public DialogueTree DeepClone()
         {
             DialogueTree cloneTree = MongoHelper.Clone(this);
@@ -113,11 +109,10 @@ namespace ET.Client
         //TODO 类型转换支持
         public T GetConstant<T>(string variableName)
         {
-            SharedVariable sharedVariable = this.Variables.FirstOrDefault(x => x.name == variableName);
+            SharedVariable sharedVariable = Variables.FirstOrDefault(x => x.name == variableName);
             if (sharedVariable == null || sharedVariable.value == null) return default;
             try
             {
-                
                 T convertValue = (T)sharedVariable.value;
                 if (typeof (T).IsValueType) return convertValue;
                 
