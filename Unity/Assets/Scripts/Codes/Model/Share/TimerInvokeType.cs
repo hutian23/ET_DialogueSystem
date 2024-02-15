@@ -17,5 +17,8 @@
         
         public const int RemoveBufferTimer = 301;
         public const int TypeingTimer = 302;
+
+        public const int SettingTimer = 303;
+        public const int SettingCheckTimer = 304;
     }
 }
