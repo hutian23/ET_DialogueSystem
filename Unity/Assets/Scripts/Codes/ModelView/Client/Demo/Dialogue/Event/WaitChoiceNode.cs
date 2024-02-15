@@ -11,6 +11,12 @@
         public int Error { get; set; }
     }
 
+    public struct WaitSelectStorageSlot: IWaitType
+    {
+        public int index;
+        public int Error { get; set; }
+    }
+    
     public struct AfterNodeExecuted
     {
         public long ID;

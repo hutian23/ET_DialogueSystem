@@ -262,7 +262,7 @@ namespace ET.Client
      		}
      	}
 
-		public UnityEngine.UI.Button E_QuickSaveButton
+		public UnityEngine.UI.Button E_SaveButton
      	{
      		get
      		{
@@ -271,15 +271,15 @@ namespace ET.Client
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_E_QuickSaveButton == null )
+     			if( this.m_E_SaveButton == null )
      			{
-		    		this.m_E_QuickSaveButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"E_QuickSave");
+		    		this.m_E_SaveButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"E_Save");
      			}
-     			return this.m_E_QuickSaveButton;
+     			return this.m_E_SaveButton;
      		}
      	}
 
-		public UnityEngine.UI.Image E_QuickSaveImage
+		public UnityEngine.UI.Image E_SaveImage
      	{
      		get
      		{
@@ -288,11 +288,11 @@ namespace ET.Client
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_E_QuickSaveImage == null )
+     			if( this.m_E_SaveImage == null )
      			{
-		    		this.m_E_QuickSaveImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_QuickSave");
+		    		this.m_E_SaveImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_Save");
      			}
-     			return this.m_E_QuickSaveImage;
+     			return this.m_E_SaveImage;
      		}
      	}
 
@@ -313,6 +313,40 @@ namespace ET.Client
      		}
      	}
 
+		public UnityEngine.UI.Button E_LoadButton
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_LoadButton == null )
+     			{
+		    		this.m_E_LoadButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"E_Load");
+     			}
+     			return this.m_E_LoadButton;
+     		}
+     	}
+
+		public UnityEngine.UI.Image E_LoadImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_LoadImage == null )
+     			{
+		    		this.m_E_LoadImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_Load");
+     			}
+     			return this.m_E_LoadImage;
+     		}
+     	}
+
 		public void DestroyWidget()
 		{
 			this.m_E_ClearQSButton = null;
@@ -330,9 +364,11 @@ namespace ET.Client
 			this.m_E_RightArrowButton = null;
 			this.m_E_RightArrowImage = null;
 			this.m_E_characterNameText = null;
-			this.m_E_QuickSaveButton = null;
-			this.m_E_QuickSaveImage = null;
+			this.m_E_SaveButton = null;
+			this.m_E_SaveImage = null;
 			this.m_E_ChoicePanelLoopVerticalScrollRect = null;
+			this.m_E_LoadButton = null;
+			this.m_E_LoadImage = null;
 			this.uiTransform = null;
 		}
 
@@ -351,9 +387,11 @@ namespace ET.Client
 		private UnityEngine.UI.Button m_E_RightArrowButton = null;
 		private UnityEngine.UI.Image m_E_RightArrowImage = null;
 		private UnityEngine.UI.Text m_E_characterNameText = null;
-		private UnityEngine.UI.Button m_E_QuickSaveButton = null;
-		private UnityEngine.UI.Image m_E_QuickSaveImage = null;
+		private UnityEngine.UI.Button m_E_SaveButton = null;
+		private UnityEngine.UI.Image m_E_SaveImage = null;
 		private UnityEngine.UI.LoopVerticalScrollRect m_E_ChoicePanelLoopVerticalScrollRect = null;
+		private UnityEngine.UI.Button m_E_LoadButton = null;
+		private UnityEngine.UI.Image m_E_LoadImage = null;
 		public Transform uiTransform = null;
 	}
 }

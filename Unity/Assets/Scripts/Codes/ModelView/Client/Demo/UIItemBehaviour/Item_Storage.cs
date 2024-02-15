@@ -104,13 +104,13 @@ namespace ET.Client
      			{
      				if( this.m_E_TreeIDText == null )
      				{
-		    			this.m_E_TreeIDText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"Info/E_TreeID");
+		    			this.m_E_TreeIDText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"E_Content/Info/E_TreeID");
      				}
      				return this.m_E_TreeIDText;
      			}
      			else
      			{
-		    		return UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"Info/E_TreeID");
+		    		return UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"E_Content/Info/E_TreeID");
      			}
      		}
      	}
@@ -128,13 +128,37 @@ namespace ET.Client
      			{
      				if( this.m_E_TargetIDText == null )
      				{
-		    			this.m_E_TargetIDText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"Info/E_TargetID");
+		    			this.m_E_TargetIDText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"E_Content/Info/E_TargetID");
      				}
      				return this.m_E_TargetIDText;
      			}
      			else
      			{
-		    		return UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"Info/E_TargetID");
+		    		return UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"E_Content/Info/E_TargetID");
+     			}
+     		}
+     	}
+
+		public UnityEngine.UI.Text E_EmptySlotText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if (this.isCacheNode)
+     			{
+     				if( this.m_E_EmptySlotText == null )
+     				{
+		    			this.m_E_EmptySlotText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"E_EmptySlot");
+     				}
+     				return this.m_E_EmptySlotText;
+     			}
+     			else
+     			{
+		    		return UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"E_EmptySlot");
      			}
      		}
      	}
@@ -146,6 +170,7 @@ namespace ET.Client
 			this.m_E_ContentText = null;
 			this.m_E_TreeIDText = null;
 			this.m_E_TargetIDText = null;
+			this.m_E_EmptySlotText = null;
 			this.uiTransform = null;
 			this.DataId = 0;
 		}
@@ -155,6 +180,7 @@ namespace ET.Client
 		private UnityEngine.UI.Text m_E_ContentText = null;
 		private UnityEngine.UI.Text m_E_TreeIDText = null;
 		private UnityEngine.UI.Text m_E_TargetIDText = null;
+		private UnityEngine.UI.Text m_E_EmptySlotText = null;
 		public Transform uiTransform = null;
 	}
 }

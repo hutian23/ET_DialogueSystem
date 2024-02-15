@@ -38,10 +38,9 @@ namespace ET.Client
             protected override void Destroy(SettingOpera self)
             {
                 self.RemoveTimer();
-                self.ClientScene().GetComponent<UIComponent>().CloseWindow<DlgStorage>();
             }
         }
-
+        
         private static void RemoveTimer(this SettingOpera self)
         {
             TimerComponent.Instance.Remove(ref self.controllerTimer);
@@ -61,8 +60,7 @@ namespace ET.Client
             
             //刷新存档界面
             self.ClientScene().GetComponent<UIComponent>().ShowWindow<DlgStorage>();
-            DlgStorage dlgStorage = self.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgStorage>();
-            
+            self.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgStorage>().Refresh();
         }
     }
 }

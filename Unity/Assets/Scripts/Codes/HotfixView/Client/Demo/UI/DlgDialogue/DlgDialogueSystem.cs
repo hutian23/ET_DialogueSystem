@@ -12,7 +12,8 @@ namespace ET.Client
         {
             self.View.E_ClearQSButton.AddListener(self.ClearQuickSave);
             self.View.E_CheckQuickSaveButton.AddListener(self.CheckQS);
-            self.View.E_QuickSaveButton.AddListener(self.Save);
+            self.View.E_SaveButton.AddListenerAsync(self.Save);
+            self.View.E_LoadButton.AddListenerAsync(self.Load);
             self.View.E_ChoicePanelLoopVerticalScrollRect.AddItemRefreshListener(self.OnLoopChoiceRefreshHandler);
             self.RefreshArrow();
         }
@@ -27,11 +28,33 @@ namespace ET.Client
             DialogueStorageManager.Instance.QuickSaveShot.storageSet.Clear();
         }
 
-        private static void Save(this DlgDialogue self)
+        private static async ETTask Save(this DlgDialogue self)
         {
+            DialogueComponent dialogueComponent = TODUnitHelper.GetPlayer(self.ClientScene()).GetComponent<DialogueComponent>();
+            if (!dialogueComponent.ContainTag(DialogueTag.CanEnterSetting)) return;
+
+            self.ClientScene().GetComponent<UIComponent>().ShowStackWindow<DlgStorage>();
+            self.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgStorage>().Refresh();
+            
+            WaitSelectStorageSlot wait = await dialogueComponent.GetComponent<ObjectWait>().Wait<WaitSelectStorageSlot>();
+            
+            
             DialogueStorageManager.Instance.QuickSaveShot.Save();
+            await ETTask.CompletedTask;
         }
 
+        private static async ETTask Load(this DlgDialogue self)
+        {
+            self.ClientScene().GetComponent<UIComponent>().HideWindow<DlgStorage>();
+            await ETTask.CompletedTask;
+        }
+
+        //退出协程
+        private static async ETTask EscapeCor(this DlgDialogue self)
+        {
+            await ETTask.CompletedTask;
+        }
+        
         private static void CheckQS(this DlgDialogue self)
         {
             uint treeID = uint.Parse(self.View.E_CheckInput_TreeIDInputField.text);
