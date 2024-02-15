@@ -10,8 +10,8 @@ namespace ET.Client
         public static DialogueStorageManager Instance;
 
         [BsonIgnore]
-        //快照的最大存储量
-        public const int MaxSize = 30;
+        //快照的最大存储量,第一位是快照,不显示在UI中
+        public const int MaxSize = 31;
 
         public long[] shots = new long[MaxSize];
 

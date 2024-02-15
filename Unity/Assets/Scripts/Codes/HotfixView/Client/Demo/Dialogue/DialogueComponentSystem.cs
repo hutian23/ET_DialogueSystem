@@ -123,6 +123,12 @@ namespace ET.Client
 
                     self.SetNodeStatus(node, Status.Pending);
                     Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, node, self.token);
+                    //节点执行后的回调
+                    await EventSystem.Instance.PublishAsync(self.DomainScene(), new AfterNodeExecuted()
+                    {
+                        ID = node.GetID(),
+                        component = self
+                    });
                     self.SetNodeStatus(node, ret);
 
                     if (self.token.IsCancel() || ret == Status.Failed) break; //携程取消 or 执行失败
@@ -154,7 +160,13 @@ namespace ET.Client
                     self.SetNodeStatus(node, Status.Pending);
                     Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, node, self.token);
                     self.SetNodeStatus(node, ret);
-
+                    //节点执行后的回调
+                    await EventSystem.Instance.PublishAsync(self.DomainScene(), new AfterNodeExecuted()
+                    {
+                        ID = node.GetID(),
+                        component = self
+                    });
+                    
                     if (self.token.IsCancel() || ret == Status.Failed) break; //携程取消 or 执行失败
                     await TimerComponent.Instance.WaitFrameAsync(self.token);
                 }

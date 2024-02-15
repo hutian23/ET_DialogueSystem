@@ -14,6 +14,14 @@ namespace ET.Client
             }
         }
 
+        public class DialogueStorageDeserializeSystem: DeserializeSystem<DialogueStorage>
+        {
+            protected override void Deserialize(DialogueStorage self)
+            {
+                self.currentID_Temp = self.currentID;
+            }
+        }
+
         #region 增
 
         public static bool Add(this DialogueStorage self, long ID)
@@ -25,9 +33,9 @@ namespace ET.Client
         {
             return self.storageSet.Add(node.GetID());
         }
-        
+
         #endregion
-        
+
         #region 删
 
         private static bool Remove(this DialogueStorage self, long ID)
@@ -68,7 +76,7 @@ namespace ET.Client
         {
             return self.storageSet.Contains(ID) || self.nodeIDTemp.Contains(ID);
         }
-        
+
         public static bool Check(this DialogueStorage self, DialogueNode node)
         {
             long ID = node.GetID();
@@ -79,7 +87,7 @@ namespace ET.Client
         {
             return self.Check(ToID(treeID, targetID));
         }
-        
+
         /// <summary>
         /// 返回一颗树中所有的保存的节点
         /// </summary>
@@ -90,7 +98,7 @@ namespace ET.Client
             foreach (long ID in self.storageSet)
             {
                 (uint _treeID, uint targetID) = FromID(ID);
-                if(_treeID != treeID) continue;
+                if (_treeID != treeID) continue;
                 caches.Add(targetID);
             }
 
@@ -98,7 +106,7 @@ namespace ET.Client
         }
 
         #endregion
-        
+
         private static (uint, uint) FromID(long ID)
         {
             ulong result = (ulong)ID;
@@ -115,7 +123,7 @@ namespace ET.Client
             result |= (ulong)treeID << 32;
             return (long)result;
         }
-        
+
         #region 缓冲
 
         public static void AddToBuffer(this DialogueStorage self, uint treeID, uint targetID)
@@ -132,9 +140,16 @@ namespace ET.Client
             self.nodeIDTemp.Add(ID);
         }
 
+        public static void AddToBuffer(this DialogueStorage self, long ID)
+        {
+            self.nodeIDTemp.Add(ID);
+            self.currentID_Temp = ID;
+        }
+
         public static void ClearBuffer(this DialogueStorage self)
         {
             self.nodeIDTemp.Clear();
+            self.currentID_Temp = self.currentID;
         }
 
         /// <summary>
@@ -145,6 +160,7 @@ namespace ET.Client
         {
             self.nodeIDTemp.ForEach(ID => { self.storageSet.Add(ID); });
             self.nodeIDTemp.Clear();
+            self.currentID = self.currentID_Temp;
         }
 
         #endregion
