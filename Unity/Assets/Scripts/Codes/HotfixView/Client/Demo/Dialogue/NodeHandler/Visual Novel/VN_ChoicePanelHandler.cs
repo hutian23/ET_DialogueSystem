@@ -7,7 +7,6 @@ namespace ET.Client
         protected override async ETTask<Status> Run(Unit unit, VN_ChoicePanel node, ETCancellationToken token)
         {
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
-            dialogueComponent.AddTag(DialogueTag.InDialogue);
             dialogueComponent.AddTag(DialogueTag.CanEnterSetting);
 
             var nodelist = new List<VN_ChoiceNode>();
@@ -31,8 +30,6 @@ namespace ET.Client
             dlgDialogue.HideChoicePanel(); //关闭选项版
             nodelist.ForEach(choice => dialogueComponent.SetNodeStatus(choice, Status.None)); //刷新视图状态
             dialogueComponent.PushNextNode(wait.next);
-
-            dialogueComponent.RemoveTag(DialogueTag.InDialogue);
             dialogueComponent.RemoveTag(DialogueTag.CanEnterSetting);
 
             return Status.Success;

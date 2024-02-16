@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace ET.Client
 {
@@ -15,6 +16,7 @@ namespace ET.Client
             self.View.E_SaveButton.AddListenerAsync(self.Save);
             self.View.E_LoadButton.AddListenerAsync(self.Load);
             self.View.E_ChoicePanelLoopVerticalScrollRect.AddItemRefreshListener(self.OnLoopChoiceRefreshHandler);
+            self.View.E_TestButton.AddListener(self.Test);
             self.RefreshArrow();
         }
 
@@ -33,28 +35,79 @@ namespace ET.Client
             DialogueComponent dialogueComponent = TODUnitHelper.GetPlayer(self.ClientScene()).GetComponent<DialogueComponent>();
             if (!dialogueComponent.ContainTag(DialogueTag.CanEnterSetting)) return;
 
-            self.ClientScene().GetComponent<UIComponent>().ShowStackWindow<DlgStorage>();
+            dialogueComponent.RemoveTag(DialogueTag.InDialogueCor);
+            await self.ClientScene().GetComponent<UIComponent>().ShowWindowAsync<DlgStorage>();
             self.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgStorage>().Refresh();
-            
+
+            ETCancellationToken escapeToken = new();
+            self.EscapeCor(escapeToken).Coroutine();
             WaitSelectStorageSlot wait = await dialogueComponent.GetComponent<ObjectWait>().Wait<WaitSelectStorageSlot>();
-            
-            
-            DialogueStorageManager.Instance.QuickSaveShot.Save();
-            await ETTask.CompletedTask;
+            if (wait.index > 0)
+            {
+                //TODO 显示存档中UI
+                DialogueStorageManager.Instance.QuickSaveShot.Save();
+                DialogueStorageManager.Instance.OverWriteShot(wait.index, 0);
+            }
+
+            escapeToken.Cancel();
+            self.ClientScene().GetComponent<UIComponent>().HideWindow<DlgStorage>();
+            dialogueComponent.AddTag(DialogueTag.InDialogueCor);
         }
 
         private static async ETTask Load(this DlgDialogue self)
         {
-            self.ClientScene().GetComponent<UIComponent>().HideWindow<DlgStorage>();
-            await ETTask.CompletedTask;
+            DialogueComponent dialogueComponent = TODUnitHelper.GetPlayer(self.ClientScene()).GetComponent<DialogueComponent>();
+            if (!dialogueComponent.ContainTag(DialogueTag.CanEnterSetting)) return;
+
+            dialogueComponent.RemoveTag(DialogueTag.InDialogueCor);
+            await self.ClientScene().GetComponent<UIComponent>().ShowWindowAsync<DlgStorage>();
+            self.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgStorage>().Refresh();
+
+            ETCancellationToken escapToken = new();
+            self.EscapeCor(escapToken).Coroutine();
+            WaitSelectStorageSlot wait = await dialogueComponent.GetComponent<ObjectWait>().Wait<WaitSelectStorageSlot>();
+            if (wait.index > 0 && !DialogueStorageManager.Instance.IsEmpty(wait.index))
+            {
+                //TODO 显示读取中UI
+                DialogueStorageManager.Instance.OverWriteShot(0, wait.index);
+                (uint treeID, uint targetID) = DialogueHelper.FromID(DialogueStorageManager.Instance.GetByIndex(wait.index).currentID);
+                EventSystem.Instance.Invoke(new LoadTreeCallback()
+                {
+                    instanceId = dialogueComponent.InstanceId, 
+                    ReloadType = ViewReloadType.Preview,
+                    treeID = treeID,
+                    targetID = targetID
+                });
+            }
+
+            escapToken.Cancel();
+            // self.ClientScene().GetComponent<UIComponent>().HideWindow<DlgStorage>(); //在根节点初始化中，token取消时会卸载UI,所以这里不要
+            dialogueComponent.AddTag(DialogueTag.InDialogueCor);
         }
 
-        //退出协程
-        private static async ETTask EscapeCor(this DlgDialogue self)
+        //退出协程(注意这个不能热重载!!!)
+        private static async ETTask EscapeCor(this DlgDialogue self, ETCancellationToken token)
         {
-            await ETTask.CompletedTask;
+            while (true)
+            {
+                if (token.IsCancel()) return;
+                //退出
+                if (Keyboard.current.escapeKey.wasPressedThisFrame)
+                {
+                    DialogueComponent dialogueComponent = TODUnitHelper.GetPlayer(self.ClientScene()).GetComponent<DialogueComponent>();
+                    dialogueComponent.GetComponent<ObjectWait>().Notify(new WaitSelectStorageSlot() { index = -1 });
+                    return;
+                }
+
+                await TimerComponent.Instance.WaitFrameAsync();
+            }
         }
-        
+
+        private static void Test(this DlgDialogue self)
+        {
+            Log.Warning(DialogueStorageManager.Instance.QuickSaveShot.ToString());
+        }
+
         private static void CheckQS(this DlgDialogue self)
         {
             uint treeID = uint.Parse(self.View.E_CheckInput_TreeIDInputField.text);

@@ -33,6 +33,18 @@ namespace ET
             }
         }
 
+        public class ObjectWaitLoadSystem : LoadSystem<ObjectWait>
+        {
+            protected override void Load(ObjectWait self)
+            {
+                foreach (object v in self.tcss.Values.ToArray())
+                {
+                    ((IDestroyRun) v).SetResult();
+                }
+                self.tcss.Clear();
+            }
+        }
+
         [ObjectSystem]
         public class ObjectWaitDestroySystem: DestroySystem<ObjectWait>
         {
@@ -161,7 +173,7 @@ namespace ET
     }
 
     [ComponentOf]
-    public class ObjectWait: Entity, IAwake, IDestroy
+    public class ObjectWait: Entity, IAwake, IDestroy, ILoad
     {
         public Dictionary<Type, object> tcss = new Dictionary<Type, object>();
     }

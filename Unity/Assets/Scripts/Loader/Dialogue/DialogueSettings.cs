@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 namespace ET.Client
@@ -23,16 +23,24 @@ namespace ET.Client
             return Resources.Load<DialogueSettings>("DialogueTreeSettings");
         }
 
-        [Space(10)]
-        public List<DialogueTree> exportTrees;
         public string ExportPath => $"{Application.dataPath}/Config/Localization";
 
-        [Button("导出对话树")]
-        public void Exports()
+        [Space(10)]
+        [HideInInspector]
+        public string folderPath = "Assets/Res/ScriptableObject/DialogueTree";
+
+        public DialogueTree GetTreeByID(uint treeID)
         {
-            if (Directory.Exists(ExportPath)) Directory.Delete(ExportPath, true);
-            Directory.CreateDirectory(ExportPath); 
-            exportTrees.ForEach(tree => { tree.Export(); });
+            string[] guids = AssetDatabase.FindAssets("t:ScriptableObject", new[] { folderPath });
+            foreach (var guid in guids)
+            {
+                string assetPath = AssetDatabase.GUIDToAssetPath(guid);
+                DialogueTree tree = AssetDatabase.LoadAssetAtPath<DialogueTree>(assetPath);
+                if (tree == null || tree.treeID != treeID) continue;
+                return tree;
+            }
+            Debug.LogError($"不存在目标树: {treeID}");
+            return null;
         }
     }
 }

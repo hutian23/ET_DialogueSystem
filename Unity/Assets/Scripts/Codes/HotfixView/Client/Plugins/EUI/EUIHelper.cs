@@ -231,6 +231,7 @@ namespace ET.Client
           {
               if ( UIEventComponent.Instance == null)
               {
+                  Log.Warning("null21323");
                   return;
               }
 
@@ -238,7 +239,6 @@ namespace ET.Client
               {
                   return;
               }
-                   
               clickActionAsync().Coroutine();
           });
       }

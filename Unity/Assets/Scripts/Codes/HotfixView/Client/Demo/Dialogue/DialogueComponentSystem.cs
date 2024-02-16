@@ -25,14 +25,43 @@ namespace ET.Client
                 switch (args.ReloadType)
                 {
                     case ViewReloadType.Preview:
-                        dialogueComponent.PreviewCor(dialogueComponent.GetNode(args.preView_TargetID)).Coroutine();
+                        dialogueComponent.DialogueCor(dialogueComponent.GetNode(args.preView_TargetID)).Coroutine();
                         break;
                     case ViewReloadType.RuntimeReload:
                         dialogueComponent.LoadTree(args.treeName, args.language);
                         break;
                     default:
-                        dialogueComponent.DialogueCor().Coroutine();
+                        dialogueComponent.DialogueCor(dialogueComponent.GetNode(0)).Coroutine();
                         break;
+                }
+            }
+        }
+
+        [Invoke]
+        [FriendOf(typeof (DialogueComponent))]
+        public class DialogueLoadTreeCallback: AInvokeHandler<LoadTreeCallback>
+        {
+            public override void Handle(LoadTreeCallback args)
+            {
+                DialogueComponent dialogueComponent = Root.Instance.Get(args.instanceId) as DialogueComponent;
+                dialogueComponent.Init();
+                dialogueComponent.token = new ETCancellationToken();
+                dialogueComponent.ReloadType = args.ReloadType;
+                EventSystem.Instance.Load(); //重载
+
+                switch (args.ReloadType)
+                {
+                    default:
+                    {
+                        DialogueViewComponent viewComponent = dialogueComponent.GetParent<Unit>()
+                                .GetComponent<GameObjectComponent>()
+                                .GameObject.GetComponent<DialogueViewComponent>();
+                        var sourceTree = DialogueSettings.GetSettings().GetTreeByID(args.treeID);
+                        viewComponent.tree = sourceTree;
+                        viewComponent.cloneTree = sourceTree.DeepClone();
+                        dialogueComponent.DialogueCor(dialogueComponent.GetNode(args.targetID)).Coroutine();
+                        break;
+                    }
                 }
             }
         }
@@ -93,80 +122,48 @@ namespace ET.Client
         }
 
         //运行时使用
-        public static void LoadTree(this DialogueComponent self, string treeName, Language language)
+        private static void LoadTree(this DialogueComponent self, string treeName, Language language)
         {
             self.Init();
             self.token = new ETCancellationToken();
             self.treeData = DialogueHelper.LoadDialogueTree(treeName, language);
-            self.DialogueCor().Coroutine();
+            self.DialogueCor(self.GetNode(0)).Coroutine();
         }
 
-        private static async ETTask PreviewCor(this DialogueComponent self, DialogueNode preViewNode)
-        {
-            await TimerComponent.Instance.WaitFrameAsync();
-            if (Application.isEditor) self.ViewStatusReset();
-
-            //根节点初始化
-            DialogueNode node = self.GetNode(0);
-            Unit unit = self.GetParent<Unit>();
-            self.SetNodeStatus(node, Status.Pending);
-            await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node, self.token);
-            self.SetNodeStatus(node, self.token.IsCancel()? Status.Failed : Status.Success);
-
-            self.workQueue.Enqueue(preViewNode);
-            try
-            {
-                while (self.workQueue.Count != 0)
-                {
-                    if (self.token.IsCancel()) break;
-                    node = self.workQueue.Dequeue(); //将下一个节点压入queue执行
-
-                    self.SetNodeStatus(node, Status.Pending);
-                    Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, node, self.token);
-                    //节点执行后的回调
-                    await EventSystem.Instance.PublishAsync(self.DomainScene(), new AfterNodeExecuted()
-                    {
-                        ID = node.GetID(),
-                        component = self
-                    });
-                    self.SetNodeStatus(node, ret);
-
-                    if (self.token.IsCancel() || ret == Status.Failed) break; //携程取消 or 执行失败
-                    await TimerComponent.Instance.WaitFrameAsync(self.token);
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error(e);
-            }
-        }
-
-        private static async ETTask DialogueCor(this DialogueComponent self)
+        private static async ETTask DialogueCor(this DialogueComponent self, DialogueNode startNode)
         {
             await TimerComponent.Instance.WaitFrameAsync(); // 意义?: 等待所有reload生命周期事件执行完毕
             if (Application.isEditor) self.ViewStatusReset();
 
-            DialogueNode node = self.GetNode(0); //压入根节点
-            self.workQueue.Enqueue(node);
+            //1. 执行初始化
+            RootNode root = self.GetNode(0) as RootNode;
             Unit unit = self.GetParent<Unit>();
+            await DialogueDispatcherComponent.Instance.ScriptHandles(unit, root, root.InitScript, self.token);
+            //2. 压入起始节点(不一定是根节点)
+            DialogueNode node = startNode;
+            self.workQueue.Enqueue(startNode);
+            self.AddTag(DialogueTag.InDialogueCor);
 
             try
             {
                 while (self.workQueue.Count != 0)
                 {
                     if (self.token.IsCancel()) break;
-                    node = self.workQueue.Dequeue(); //将下一个节点压入queue执行
+                    //3. 协程中断
+                    if (!self.ContainTag(DialogueTag.InDialogueCor))
+                    {
+                        await TimerComponent.Instance.WaitFrameAsync(self.token);
+                        continue;
+                    }
 
+                    //4. 执行节点子协程
+                    node = self.workQueue.Dequeue(); //将下一个节点压入queue执行
                     self.SetNodeStatus(node, Status.Pending);
                     Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, node, self.token);
                     self.SetNodeStatus(node, ret);
-                    //节点执行后的回调
-                    await EventSystem.Instance.PublishAsync(self.DomainScene(), new AfterNodeExecuted()
-                    {
-                        ID = node.GetID(),
-                        component = self
-                    });
-                    
+                    //5. 节点执行后的回调
+                    await EventSystem.Instance.PublishAsync(self.DomainScene(), new AfterNodeExecuted() { ID = node.GetID(), component = self });
+                    //6. 对话协程被取消
                     if (self.token.IsCancel() || ret == Status.Failed) break; //携程取消 or 执行失败
                     await TimerComponent.Instance.WaitFrameAsync(self.token);
                 }
@@ -195,7 +192,7 @@ namespace ET.Client
             return self.treeData.GetNode(targetID);
         }
 
-        public static void PushNextNode(this DialogueComponent self, DialogueNode node)
+        private static void PushNextNode(this DialogueComponent self, DialogueNode node)
         {
             if (node == null || node.TargetID == 0) return; //注意不能压入根节点
             self.workQueue.Enqueue(node);
@@ -240,7 +237,10 @@ namespace ET.Client
         public static void RemoveSharedVariable(this DialogueComponent self, string variableName)
         {
             List<SharedVariable> temp = new();
-            self.Variables.ForEach(v => { if (v.name == variableName) temp.Add(v); });
+            self.Variables.ForEach(v =>
+            {
+                if (v.name == variableName) temp.Add(v);
+            });
             for (int i = 0; i < temp.Count; i++)
             {
                 self.Variables.Remove(temp[i]);

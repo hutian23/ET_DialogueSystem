@@ -46,8 +46,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
     - Name: Script
       Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
       Data: 
     - Name: Guid
       Entry: 1
@@ -83,6 +89,9 @@ MonoBehaviour:
     - Name: nextNode
       Entry: 3
       Data: 1
+    - Name: InitScript
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -132,6 +141,19 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: Variables
+      Entry: 7
+      Data: 7|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   treeName: 
-  treeID: 0
+  treeID: 4
   blockDatas: []

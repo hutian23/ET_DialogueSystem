@@ -98,6 +98,9 @@ MonoBehaviour:
     - Name: nextNode
       Entry: 3
       Data: 1
+    - Name: InitScript
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -1737,6 +1740,9 @@ MonoBehaviour:
     - Name: nextNode
       Entry: 3
       Data: 1
+    - Name: InitScript
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -3067,7 +3073,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   treeName: DialogueTree
-  treeID: 1
+  treeID: 7
   blockDatas:
   - position: {x: 550, y: 41.000004}
     title: Choices

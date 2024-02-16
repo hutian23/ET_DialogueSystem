@@ -24,7 +24,8 @@ namespace ET.Client
                 Log.Error($"not found windowID: {match.Groups["WindowType"]}");
                 return;
             }
-            token.Add(() => { unit.ClientScene().GetComponent<UIComponent>().CloseWindow(windowID); });
+
+            token.Add(() => { unit.ClientScene().GetComponent<UIComponent>().UnLoadWindow(windowID); });
             await unit.ClientScene().GetComponent<UIComponent>().ShowWindowAsync(windowID);
         }
     }

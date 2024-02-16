@@ -159,7 +159,7 @@ namespace ET.Client
                 index++;
             }
         }
-        
+
         public static async ETTask ScriptHandles(this DialogueDispatcherComponent self, Unit unit, DialogueNode node, ETCancellationToken token)
         {
             await self.ScriptHandles(unit, node, node.Script, token);
@@ -167,10 +167,8 @@ namespace ET.Client
 
         #endregion
 
-       
-
         #region DialogueComponent
-        
+
         public static uint GetFirstNode(this DialogueComponent self, List<uint> children, bool needCheck = true)
         {
             if (!needCheck)
@@ -375,5 +373,22 @@ namespace ET.Client
         }
 
         #endregion
+
+        public static long GetID(uint TreeID, uint TargetID)
+        {
+            ulong result = 0;
+            result |= TargetID;
+            result |= (ulong)TreeID << 32;
+            return (long)result;
+        }
+
+        public static (uint TreeID, uint targetID) FromID(long ID)
+        {
+            ulong result = (ulong)ID;
+            uint TargetID = (uint)(result & uint.MaxValue);
+            result >>= 32;
+            uint TreeID = (uint)(result & uint.MaxValue);
+            return (TreeID, TargetID);
+        }
     }
 }

@@ -24,27 +24,6 @@ MonoBehaviour:
     - Name: root
       Entry: 7
       Data: 0|ET.Client.RootNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: aaa03b48b210f5c4285499754f7231c6
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 100
-    - Name: 
-      Entry: 4
-      Data: 200
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 6
-      Data: 
     - Name: TreeID
       Entry: 3
       Data: 100
@@ -67,9 +46,42 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 6
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: aaa03b48b210f5c4285499754f7231c6
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 100
+    - Name: 
+      Entry: 4
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 6
+      Data: 
     - Name: nextNode
       Entry: 3
       Data: 1
+    - Name: InitScript
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -81,35 +93,38 @@ MonoBehaviour:
       Entry: 12
       Data: 80
     - Name: 
-      Entry: 7
-      Data: 3|ET.Client.Persona_InitChoiceNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 265fb94c3198ec445a0329ceb5d6cfaa
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 274
-    - Name: 
-      Entry: 4
-      Data: 200
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u522B\uFF0C\u522B\u6740\u6211\uFF01\u6211\u4EEC\u6765\u8C08\u8C08\u5427\u3002"
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|ET.Client.GotoNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
       Entry: 3
-      Data: 1
+      Data: 25
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -126,607 +141,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: Character
-      Entry: 7
-      Data: 5|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Money
-      Entry: 7
-      Data: 6|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 4
-    - Name: 
-      Entry: 3
-      Data: 5
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Item
-      Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 6
-    - Name: 
-      Entry: 3
-      Data: 7
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: extras
-      Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 6
-    - Name: 
-      Entry: 3
-      Data: 8
-    - Name: 
-      Entry: 3
-      Data: 9
-    - Name: 
-      Entry: 3
-      Data: 10
-    - Name: 
-      Entry: 3
-      Data: 11
-    - Name: 
-      Entry: 3
-      Data: 12
-    - Name: 
-      Entry: 3
-      Data: 13
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 9|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 95aed35b1f20e2c4faeee95ca70e8ca7
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1577
-    - Name: 
-      Entry: 4
-      Data: 309
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u7ED9\u6211\u91D1\u94B1"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 5
-    - Name: NeedCheck
+    - Name: ShowScript
       Entry: 5
       Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 11|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 3
-      Data: 18
-    - Name: 
-      Entry: 3
-      Data: 19
-    - Name: 
-      Entry: 3
-      Data: 17
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 12|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 20
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 13|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: d5c5f34bd10775e459a5354de71db0ab
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1577
-    - Name: 
-      Entry: 4
-      Data: 30
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
     - Name: text
       Entry: 1
-      Data: "\u770B\u770B\u4F60\u7684\u8BDA\u610F"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 4
-    - Name: NeedCheck
-      Entry: 5
-      Data: true
-    - Name: checkList
-      Entry: 7
-      Data: 14|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 15|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 16|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 17
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 17|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 586d5bceb0d3e9344a9da84ba8818d73
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2455
-    - Name: 
-      Entry: 4
-      Data: 85
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u8FD8\u6709\u522B\u7684\u5427"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 35
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 18|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 19|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 20|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 123
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 21|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 9f7282034ad2410449e011807fc0b82d
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2141
-    - Name: 
-      Entry: 4
-      Data: 162
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u4F60\u8EAB\u4E0A\u6709<model type=UnitConfig/>\u5BF9\u5427~\n\u563B\u56AF\uFF0C\u8FD9\u4E9B\u62FF\u53BB\u5427\uFF0C\u4E00\u5171\u662F{{money}}\u5143\u3002"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 17
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 22|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 23|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 874bb0f4323fa124eac049a3dfeb30b3
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2457
-    - Name: 
-      Entry: 4
-      Data: 214
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u6211\u6536\u4E0B\u4E86"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 36
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 24|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 25|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 52
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 26|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 123
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 27|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: c313f9db26c5d544baa6aeba4574073b
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2722
-    - Name: 
-      Entry: 4
-      Data: 214
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u563B\u56AF\uFF01\u90A3\u518D\u89C1\u4E86~"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 52
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 28|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 29|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: bd3b7d0f462b31f479d2c6bd50cfbd0e
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 878
-    - Name: 
-      Entry: 4
-      Data: 1664
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u5F00\u4EC0\u4E48\u73A9\u7B11\uFF1F\u6211\u8FD8\u7AD9\u7740\u5462\uFF01"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 8
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 30|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 31|ET.Client.GotoNode, Unity.Loader
+      Data: "\u8D77\u70B9\u3002"
     - Name: Guid
       Entry: 1
       Data: 27afc269d82b4af4cb2d082152cb4670
@@ -745,30 +168,8 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u8D77\u70B9\u3002"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 25
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 32|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: LocalizationGroups
+      Entry: 6
       Data: 
     - Name: Goto_targetID
       Entry: 3
@@ -777,181 +178,29 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 33|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 30961641debff11459b1e21e22477279
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2429
-    - Name: 
-      Entry: 4
-      Data: 507
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u6B38\uFF1F\u6211\u4EEC\u4E4B\u524D\u662F\u4F19\u4F34\u5427\uFF1F\u518D\u7EED\u524D\u7F18\u5982\u4F55\uFF1F"
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|ET.Client.GotoNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
-      Entry: 3
-      Data: 19
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 34|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 35|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 9f8d8d0eaacb1be49911bf23f1efc479
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2737
-    - Name: 
-      Entry: 4
-      Data: 426
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u597D\u5440"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 39
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 36|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 37|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
       Entry: 3
       Data: 54
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 38|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 123
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 39|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 59c37baf0d97f614b9289b2ff1f788eb
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2737
-    - Name: 
-      Entry: 4
-      Data: 604
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u7ED9\u6211\u91D1\u94B1\u5C31\u597D\u3002"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 40
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 40|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 6|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -962,48 +211,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 41|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 55
-    - Name: 
-      Entry: 13
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 42|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 123
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 43|ET.Client.GotoNode, Unity.Loader
+    - Name: text
+      Entry: 1
+      Data: "\u4EBA\u683C\u9762\u5177"
     - Name: Guid
       Entry: 1
       Data: 96e0baabbc0069046b74541ef3199526
@@ -1022,30 +238,8 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u4EBA\u683C\u9762\u5177"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 54
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 44|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: LocalizationGroups
+      Entry: 6
       Data: 
     - Name: Goto_targetID
       Entry: 3
@@ -1054,212 +248,30 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 45|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: eb7803780db9e704cafb2f6ada2ca29e
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2477
-    - Name: 
-      Entry: 4
-      Data: 885
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u62FF\u7740\uFF0C\u8FD9\u662F{{money}}\u5143\u3002"
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 7|ET.Client.GotoNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
-      Entry: 3
-      Data: 18
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 46|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 47|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: d5e79f9e94a01a341837b158182e0a41
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2791
-    - Name: 
-      Entry: 4
-      Data: 821
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u6211\u6536\u4E0B\u4E86\u3002"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 37
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 48|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 49|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 50|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 123
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 51|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 298407d85e957444e8a092a77f82dfe2
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2791
-    - Name: 
-      Entry: 4
-      Data: 956
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u8FD8\u6709\u66F4\u591A\u5427\u3002"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 38
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 52|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 53|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
       Entry: 3
       Data: 53
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
       Entry: 7
-      Data: 54|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+      Data: 8|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -1269,15 +281,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: test
-      Entry: 3
-      Data: 123
-    - Name: 
-      Entry: 8
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 7
-      Data: 55|ET.Client.GotoNode, Unity.Loader
+    - Name: text
+      Entry: 1
+      Data: "\u6218\u6597"
     - Name: Guid
       Entry: 1
       Data: 5069ae8aad1e86f4a84ed8c2690bebb5
@@ -1296,30 +308,8 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u6218\u6597"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 53
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 56|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: LocalizationGroups
+      Entry: 6
       Data: 
     - Name: Goto_targetID
       Entry: 3
@@ -1328,41 +318,23 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 57|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 4bd48fd4620673646bba8e7e46038d11
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1054
-    - Name: 
-      Entry: 4
-      Data: 1872
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u8BF4\u8D77\u6765\u4F60\u73B0\u5728\u5168\u8EAB\u90FD\u662F\u7834\u7EFD\u5462~"
+    - Name: 
+      Entry: 7
+      Data: 9|ET.Client.GotoNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
       Entry: 3
-      Data: 26
+      Data: 47
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 58|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 10|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -1373,18 +345,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 7
-      Data: 59|ET.Client.GotoNode, Unity.Loader
+    - Name: text
+      Entry: 1
+      Data: "\u8D77\u70B9\u3002"
     - Name: Guid
       Entry: 1
       Data: 90ec42e322a5dbc4e85fc43754e89a19
@@ -1403,21 +372,30 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u8D77\u70B9\u3002"
+    - Name: LocalizationGroups
+      Entry: 6
+      Data: 
+    - Name: Goto_targetID
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 11|ET.Client.RandomNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
       Entry: 3
-      Data: 47
+      Data: 9
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 60|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 12|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -1428,15 +406,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: Goto_targetID
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 7
-      Data: 61|ET.Client.RandomNode, Unity.Loader
+    - Name: text
+      Entry: 6
+      Data: 
     - Name: Guid
       Entry: 1
       Data: 5a6c859ca4bfcfb4cadd6892ac304d8d
@@ -1455,34 +433,12 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
+    - Name: LocalizationGroups
       Entry: 6
-      Data: 
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 9
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 62|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
       Data: 
     - Name: random
       Entry: 7
-      Data: 63|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+      Data: 13|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
@@ -1502,41 +458,35 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 64|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 4a4f99d3d47d5224e8011467534c60b0
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1067
-    - Name: 
-      Entry: 4
-      Data: 2003
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u5471\uFF01\u4F60\u6B3A\u4EBA\u592A\u751A\u5566\uFF01"
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 14|ET.Client.GotoNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
       Entry: 3
-      Data: 27
+      Data: 20
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 65|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 15|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -1547,307 +497,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 66|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: f438e5796f865dd48bee990a6e008dfd
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1067
-    - Name: 
-      Entry: 4
-      Data: 2318
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u56AF\u56AF\uFF0C\u90A3\u4EE5\u540E\u518D\u89C1\u4E86~"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 29
-    - Name: NeedCheck
+    - Name: ShowScript
       Entry: 5
       Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 67|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 68|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: c3735bcafa40c144680ca9698d254d7c
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 868
-    - Name: 
-      Entry: 4
-      Data: 2471
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
     - Name: text
       Entry: 1
-      Data: "\u90A3\u6211\u8D70\u4EBA\u4E86\u3002\uFF08\u654C\u4EBA\u9003\u8D70\u4E86\uFF09"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 11
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 69|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 70|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 573fe049ea763c144939e221f3fa662c
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 903
-    - Name: 
-      Entry: 4
-      Data: 1159
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u7ED9\u6211\u9053\u5177\u3002"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 7
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 71|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 72|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 23
-    - Name: 
-      Entry: 3
-      Data: 22
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 73|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 24
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 74|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 55188b3573bdc8f4798f981de5a9e1bf
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 903
-    - Name: 
-      Entry: 4
-      Data: 769
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u770B\u770B\u4F60\u7684\u8BDA\u610F"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 6
-    - Name: NeedCheck
-      Entry: 5
-      Data: true
-    - Name: checkList
-      Entry: 7
-      Data: 75|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 76|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 21
-    - Name: 
-      Entry: 3
-      Data: 22
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 77|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 78|ET.Client.GotoNode, Unity.Loader
+      Data: "\u7B49\u7EA7\u88AB\u538B\u5236\u4E86\u3002"
     - Name: Guid
       Entry: 1
       Data: c44c5e69119b449469cb157eefa203dd
@@ -1866,21 +524,30 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u7B49\u7EA7\u88AB\u538B\u5236\u4E86\u3002"
+    - Name: LocalizationGroups
+      Entry: 6
+      Data: 
+    - Name: Goto_targetID
+      Entry: 3
+      Data: 6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 16|ET.Client.GotoNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
       Entry: 3
-      Data: 20
+      Data: 24
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 79|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 17|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -1891,15 +558,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: Goto_targetID
-      Entry: 3
-      Data: 6
-    - Name: 
-      Entry: 8
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 7
-      Data: 80|ET.Client.GotoNode, Unity.Loader
+    - Name: text
+      Entry: 1
+      Data: "\u7B49\u7EA7\u88AB\u538B\u5236\u4E86\u3002"
     - Name: Guid
       Entry: 1
       Data: 4eeb653fe7946884a8c81d82991a82f8
@@ -1918,30 +585,8 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u7B49\u7EA7\u88AB\u538B\u5236\u4E86\u3002"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 24
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 81|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: LocalizationGroups
+      Entry: 6
       Data: 
     - Name: Goto_targetID
       Entry: 3
@@ -1950,181 +595,29 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 82|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 144abd1d22c197b4fae165ac2a9f73a3
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1463
-    - Name: 
-      Entry: 4
-      Data: 1561
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u6B38\uFF1F\u6211\u4EEC\u4E4B\u524D\u662F\u4F19\u4F34\u5427\uFF1F\u518D\u7EED\u524D\u7F18\u5982\u4F55\uFF1F"
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 18|ET.Client.GotoNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
-      Entry: 3
-      Data: 23
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 83|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 84|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 5f36cc5516a6d9644be4b9f4ae5f0ce5
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1742
-    - Name: 
-      Entry: 4
-      Data: 1468
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u597D\u5440"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 45
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 85|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 86|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
       Entry: 3
       Data: 60
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 87|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 123
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 88|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 0cb2cdee47b8079428f5c5814254cd31
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1742
-    - Name: 
-      Entry: 4
-      Data: 1634
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u7ED9\u6211\u9053\u5177\u5C31\u597D\u3002"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 46
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 89|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 19|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -2135,48 +628,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 90|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 61
-    - Name: 
-      Entry: 13
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 91|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 123
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 92|ET.Client.GotoNode, Unity.Loader
+    - Name: text
+      Entry: 1
+      Data: "\u4EBA\u683C\u9762\u5177"
     - Name: Guid
       Entry: 1
       Data: 1213c6bf6a142d746bc3d8d95cc19aeb
@@ -2195,30 +655,8 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u4EBA\u683C\u9762\u5177"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 60
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 93|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: LocalizationGroups
+      Entry: 6
       Data: 
     - Name: Goto_targetID
       Entry: 3
@@ -2227,41 +665,23 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 94|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: dc8959c89b30cde48af304d3f3ccb5e2
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1924
-    - Name: 
-      Entry: 4
-      Data: 1634
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u771F\u662F\u7EDD\u60C5\u7684\u5BB6\u4F19\u5462~\u8FD9\u662F{{item}}\uFF0C\u62FF\u7740\u3002"
+    - Name: 
+      Entry: 7
+      Data: 20|ET.Client.GotoNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
       Entry: 3
-      Data: 61
+      Data: 66
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 95|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 21|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -2272,18 +692,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 7
-      Data: 96|ET.Client.GotoNode, Unity.Loader
+    - Name: text
+      Entry: 1
+      Data: "\u8C08\u5224\u6210\u529F"
     - Name: Guid
       Entry: 1
       Data: e719a2c8ab17da04096eda1ea7b8c8a6
@@ -2302,30 +719,8 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u8C08\u5224\u6210\u529F"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 66
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 97|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: LocalizationGroups
+      Entry: 6
       Data: 
     - Name: Goto_targetID
       Entry: 3
@@ -2334,41 +729,32 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 98|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 47984a1c538d09648a6cb34f7858eb47
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1217
-    - Name: 
-      Entry: 4
-      Data: 1160
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u62FF\u7740\uFF0C\u8FD9\u662F{{item}}\u3002"
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 22|ET.Client.RandomNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
       Entry: 3
-      Data: 22
+      Data: 10
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 99|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 23|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -2379,240 +765,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 100|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: bdda25cc520d2e64db848201b7f5bc07
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1393
-    - Name: 
-      Entry: 4
-      Data: 1099
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u6211\u6536\u4E0B\u4E86\u3002"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 43
-    - Name: NeedCheck
+    - Name: ShowScript
       Entry: 5
       Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 101|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 102|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 103|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 123
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 104|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: e096f8a72c0f48343bfe12041b63805f
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1393
-    - Name: 
-      Entry: 4
-      Data: 1221
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
     - Name: text
-      Entry: 1
-      Data: "\u8FD8\u6709\u66F4\u591A\u5427\u3002"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 44
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 105|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 106|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 59
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 107|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 123
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 108|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: fb8ff874be6edbd48be8c68663f6bcd9
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1057
-    - Name: 
-      Entry: 4
-      Data: 2195
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u563B\u56AF\uFF0C\u9E2D\u5FD7\u7530\u5927\u4EBA\u53EF\u662F\u5F88\u5F3A\u7684\uFF01"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 28
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 109|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 110|ET.Client.RandomNode, Unity.Loader
     - Name: Guid
       Entry: 1
       Data: 7b6a83df2fdec134a9e9879560e69a8d
@@ -2631,34 +792,12 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
+    - Name: LocalizationGroups
       Entry: 6
-      Data: 
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 10
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 111|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
       Data: 
     - Name: random
       Entry: 7
-      Data: 112|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+      Data: 24|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
@@ -2678,184 +817,29 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 113|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 7c883b334cd5f9c42a87c9e4facb3525
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1131
-    - Name: 
-      Entry: 4
-      Data: 768
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u4F60\u8EAB\u4E0A\u6709<model type=UnitConfig/>\u5BF9\u5427~\n\u563B\u56AF\uFF0C\u8FD9\u4E2A\u4F60\u62FF\u53BB\u5427\u3002"
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 25|ET.Client.GotoNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
-      Entry: 3
-      Data: 21
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 114|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 115|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 09e6d1535a877544ca8013c76756db8f
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1418
-    - Name: 
-      Entry: 4
-      Data: 708
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u8FD8\u6709\u522B\u7684\u5427"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 41
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 116|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 117|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
       Entry: 3
       Data: 56
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 118|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 57
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 123
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 119|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 28a8eaf53c4560b4b9fe6549bdf0ba63
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1420
-    - Name: 
-      Entry: 4
-      Data: 838
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u6211\u6536\u4E0B\u4E86"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 42
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 120|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 26|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -2866,48 +850,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 121|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 58
-    - Name: 
-      Entry: 13
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 8
+    - Name: text
+      Entry: 6
       Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 122|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 123
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 123|ET.Client.GotoNode, Unity.Loader
     - Name: Guid
       Entry: 1
       Data: 5a5d3a0a9e333754ebb34b721d3a78b2
@@ -2926,30 +877,8 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
+    - Name: LocalizationGroups
       Entry: 6
-      Data: 
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 56
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 124|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
       Data: 
     - Name: Goto_targetID
       Entry: 3
@@ -2958,41 +887,23 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 125|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: fe2e8b8f2826e9f47ad062a11cfba3ba
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1636
-    - Name: 
-      Entry: 4
-      Data: 781
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\uFF1F\uFF01\u4F60\u8FD9\u5BB6\u4F19\uFF0C\u771F\u8D2A\u5FC3\u554A\uFF01"
+    - Name: 
+      Entry: 7
+      Data: 27|ET.Client.GotoNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
       Entry: 3
-      Data: 57
+      Data: 65
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 126|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 28|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -3003,18 +914,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 7
-      Data: 127|ET.Client.GotoNode, Unity.Loader
+    - Name: text
+      Entry: 1
+      Data: "\u5077\u88AD\u3002"
     - Name: Guid
       Entry: 1
       Data: cd7244888068adb45961827b175e7713
@@ -3033,30 +941,8 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u5077\u88AD\u3002"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 65
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 128|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: LocalizationGroups
+      Entry: 6
       Data: 
     - Name: Goto_targetID
       Entry: 3
@@ -3065,217 +951,29 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 129|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 850fc61e00eec284c83a525bf58657e8
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 723
-    - Name: 
-      Entry: 4
-      Data: 30
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u8BA9\u6211\u4EEC\u6765\u8C08\u8C08\u5427\u3002"
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 29|ET.Client.GotoNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
-      Entry: 3
-      Data: 3
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 130|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 131|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 14
-    - Name: 
-      Entry: 3
-      Data: 15
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 132|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
       Entry: 3
       Data: 16
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 133|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: e0f09ac79c4897b4dabe5cec8131b13b
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 735
-    - Name: 
-      Entry: 4
-      Data: -315
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u6210\u4E3A\u6211\u7684\u4F19\u4F34\u5427\uFF01"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 2
-    - Name: NeedCheck
-      Entry: 5
-      Data: true
-    - Name: checkList
-      Entry: 7
-      Data: 134|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 135|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 14
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 136|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 137|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 0dfbdb32f3370634aa9d6f4c9d564622
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1053
-    - Name: 
-      Entry: 4
-      Data: -170
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u56AF\u56AF\uFF0C\u770B\u6765\u6211\u5DF2\u7ECF\u662F\u4F60\u7684\u4F19\u4F34\u4E86\u554A\u3002"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 14
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 138|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 30|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -3286,18 +984,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 7
-      Data: 139|ET.Client.GotoNode, Unity.Loader
+    - Name: text
+      Entry: 1
+      Data: "\u7B49\u7EA7\u88AB\u538B\u5236\u4E86\u3002"
     - Name: Guid
       Entry: 1
       Data: b39fe233c0f91fa4081718d77b0a4693
@@ -3316,30 +1011,8 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u7B49\u7EA7\u88AB\u538B\u5236\u4E86\u3002"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 16
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 140|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
+    - Name: LocalizationGroups
+      Entry: 6
       Data: 
     - Name: Goto_targetID
       Entry: 3
@@ -3348,41 +1021,89 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 141|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 6a38da9e58926be409de738af55b3440
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1339
-    - Name: 
-      Entry: 4
-      Data: -170
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u8BA9\u6211\u53D8\u6210\u4F60\u7684\u7ECF\u9A8C\u503C\u5427!"
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 31|ET.Client.GotoNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
       Entry: 3
-      Data: 33
+      Data: 78
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 142|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 32|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -3393,1318 +1114,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 143|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: eca0be96eb906c04faf538a62051229c
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1555
-    - Name: 
-      Entry: 4
-      Data: -170
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u83B7\u5F97\u4EBA\u683C\u9762\u5177<model type=UnitConfig/>!\u3002"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 48
-    - Name: NeedCheck
+    - Name: ShowScript
       Entry: 5
       Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 144|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 145|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 8dec4d7651c7e4348ae98937d397f500
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1163
-    - Name: 
-      Entry: 4
-      Data: -794
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
     - Name: text
       Entry: 1
-      Data: "\u597D\u5440\uFF0C\u8BA9\u6211\u4EEC\u6765\u8C08\u8C08~"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 15
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 146|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 147|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 090d0a3798517724c9a574317b72c500
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1324
-    - Name: 
-      Entry: 4
-      Data: -794
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u5982\u679C\u8BA9\u4F60    \u4F60\u4F1A\u5982\u4F55\u9009\u62E9\u5462?"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 34
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 148|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 149|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 2bf972d233a438e4f8df0b7510d23730
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1576
-    - Name: 
-      Entry: 4
-      Data: -935
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: A
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 49
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 150|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 151|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 62
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 152|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 123
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 153|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: d9d5432cd800a3a4a99aef24e59981a2
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1576
-    - Name: 
-      Entry: 4
-      Data: -794
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: B
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 50
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 154|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 155|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 63
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 156|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 123
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 157|ET.Client.Persona_moneyNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: dcd383b9fcf09aa4eb45147fd5dbe09f
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1576
-    - Name: 
-      Entry: 4
-      Data: -657
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: B
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 51
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 158|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MinValue
-      Entry: 3
-      Data: 0
-    - Name: MaxValue
-      Entry: 3
-      Data: 0
-    - Name: Success
-      Entry: 7
-      Data: 159|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 64
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Failed
-      Entry: 7
-      Data: 160|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: test
-      Entry: 3
-      Data: 123
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 161|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 351f5b19fdb14ce4b9f4e8c7ea48f108
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1804
-    - Name: 
-      Entry: 4
-      Data: -935
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u56AF\u56AF\uFF0C\u5F88\u8BA9\u4EBA\u610F\u5916\u5462?\uFF08\u597D\u5370\u8C61\uFF09"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 62
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 162|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 163|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 0a773d86a39a77f478405efbe4497e83
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1828
-    - Name: 
-      Entry: 4
-      Data: -794
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u554A\uFF0C\u4F60\u4F1A\u8FD9\u6837\u505A\u5417?\uFF08\u666E\u901A\uFF09"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 63
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 164|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 165|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 865c18c79348e4749b46d82c36ac12ac
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1846
-    - Name: 
-      Entry: 4
-      Data: -657
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u4F60\u600E\u4E48\u80FD\u8FD9\u6837\uFF08\u574F\u5370\u8C61\uFF09"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 64
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 166|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 167|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: acb55370c2d3d67408b106e5b5745075
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2062
-    - Name: 
-      Entry: 4
-      Data: -794
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u5982\u4F55\u9009\u62E9?"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 67
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 168|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 169|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: d8f64c6a04da9e54ab2f1cd20a4b2d60
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2246
-    - Name: 
-      Entry: 4
-      Data: -935
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u56AF\u56AF\uFF0C\u5F88\u8BA9\u4EBA\u610F\u5916\u5462?\uFF08\u597D\u5370\u8C61\uFF09"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 68
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 170|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 171|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: fb2fcadd85c11484dadf062920f3b712
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2256
-    - Name: 
-      Entry: 4
-      Data: -794
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u554A\uFF0C\u4F60\u4F1A\u8FD9\u6837\u505A\u5417?\uFF08\u666E\u901A\uFF09"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 69
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 172|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 173|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: fb856c3ea2203e9479b91cdcb0315d00
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2256
-    - Name: 
-      Entry: 4
-      Data: -657
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u554A\uFF0C\u4F60\u4F1A\u8FD9\u6837\u505A\u5417?\uFF08\u666E\u901A\uFF09"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 70
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 174|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 175|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: f03830e87785f7f419ef5e9f713ef3c5
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2513
-    - Name: 
-      Entry: 4
-      Data: -794
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u5982\u4F55\u9009\u62E9?"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 71
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 176|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 177|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 945811bab53a39b42964b7d3087ec985
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2706
-    - Name: 
-      Entry: 4
-      Data: -935
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u554A\uFF0C\u4F60\u4F1A\u8FD9\u6837\u505A\u5417?\uFF08\u666E\u901A\uFF09"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 72
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 178|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 179|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 8a5f937e49701b64b8951112526a4646
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2706
-    - Name: 
-      Entry: 4
-      Data: -794
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u554A\uFF0C\u4F60\u4F1A\u8FD9\u6837\u505A\u5417?\uFF08\u666E\u901A\uFF09"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 73
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 180|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 181|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: f2a93361f4fc8244c9b2fae32e17d2de
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2706
-    - Name: 
-      Entry: 4
-      Data: -657
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u554A\uFF0C\u4F60\u4F1A\u8FD9\u6837\u505A\u5417?\uFF08\u666E\u901A\uFF09"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 74
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 182|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 183|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 4dec172acec556045b81bd6f37c7ed40
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2958
-    - Name: 
-      Entry: 4
-      Data: -794
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u5224\u65AD\u5370\u8C61\u8282\u70B9"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 75
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 184|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 185|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: d79452e60810f1e4d8f91e4d35178465
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 3132
-    - Name: 
-      Entry: 4
-      Data: -928
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u563B\u56AF\uFF0C\u6211\u4EEC\u5F88\u5408\u7684\u6765\u554A\uFF0C\u8BA9\u6211\u6210\u4E3A\u4F60\u7684\u4F19\u4F34\u5427\uFF01"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 76
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 186|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 187|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 4a7b8cabf5d4ad845a2d709efbb95368
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 3132
-    - Name: 
-      Entry: 4
-      Data: -794
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u6211\u4EEC\u5904\u4E0D\u6765\u5462?\u8FD9\u4E2A\u9001\u7ED9\u4F60\u5427\uFF0C\u6211\u8D70\u4E86\u3002"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 77
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 188|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 189|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 6c4534a164c6a7140beaa436eff0a80d
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 857
-    - Name: 
-      Entry: 4
-      Data: 2673
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u83B7\u5F97\u4EBA\u683C\u9762\u5177<model type=UnitConfig/>!\u3002"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 12
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 190|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 191|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 35954cee0a9a98345907cc1e4ad8b031
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 3463
-    - Name: 
-      Entry: 4
-      Data: -928
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u83B7\u5F97\u4EBA\u683C\u9762\u5177!"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 80
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 192|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 193|ET.Client.GotoNode, Unity.Loader
+      Data: "\u6218\u6597"
     - Name: Guid
       Entry: 1
       Data: be2064ddaffbecd4297b1043e1a56650
@@ -4723,21 +1141,30 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u6218\u6597"
+    - Name: LocalizationGroups
+      Entry: 6
+      Data: 
+    - Name: Goto_targetID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 33|ET.Client.GotoNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
       Entry: 3
-      Data: 78
+      Data: 79
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 194|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 34|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -4748,15 +1175,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: Goto_targetID
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 7
-      Data: 195|ET.Client.GotoNode, Unity.Loader
+    - Name: text
+      Entry: 1
+      Data: "\u9003\u8D70\u3002"
     - Name: Guid
       Entry: 1
       Data: f50be7ee1f1386e4497c550de449ed79
@@ -4775,21 +1202,30 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u9003\u8D70\u3002"
+    - Name: LocalizationGroups
+      Entry: 6
+      Data: 
+    - Name: Goto_targetID
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 35|ET.Client.GotoNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
       Entry: 3
-      Data: 79
+      Data: 55
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 196|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 36|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -4800,15 +1236,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: Goto_targetID
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 7
-      Data: 197|ET.Client.GotoNode, Unity.Loader
+    - Name: text
+      Entry: 1
+      Data: "\u8981\u94B1"
     - Name: Guid
       Entry: 1
       Data: b2e4f3ea739fd214eaed998de676a008
@@ -4827,21 +1263,30 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u8981\u94B1"
+    - Name: LocalizationGroups
+      Entry: 6
+      Data: 
+    - Name: Goto_targetID
+      Entry: 3
+      Data: 16
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 37|ET.Client.GotoNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
       Entry: 3
-      Data: 55
+      Data: 58
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 198|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 38|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -4852,15 +1297,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: Goto_targetID
-      Entry: 3
-      Data: 16
-    - Name: 
-      Entry: 8
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 7
-      Data: 199|ET.Client.GotoNode, Unity.Loader
+    - Name: text
+      Entry: 1
+      Data: "\u4EA4\u6D89\u6210\u529F\u3002"
     - Name: Guid
       Entry: 1
       Data: 58f308e118ec050488b86d8a9ca6f422
@@ -4879,21 +1324,30 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u4EA4\u6D89\u6210\u529F\u3002"
+    - Name: LocalizationGroups
+      Entry: 6
+      Data: 
+    - Name: Goto_targetID
+      Entry: 3
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 39|ET.Client.RandomNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
       Entry: 3
-      Data: 58
+      Data: 59
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 200|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 40|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -4904,15 +1358,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: Goto_targetID
-      Entry: 3
-      Data: 11
-    - Name: 
-      Entry: 8
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 7
-      Data: 201|ET.Client.RandomNode, Unity.Loader
+    - Name: text
+      Entry: 6
+      Data: 
     - Name: Guid
       Entry: 1
       Data: af1c4968ba9044047bdfd74c3c68fc16
@@ -4931,21 +1385,39 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
+    - Name: LocalizationGroups
       Entry: 6
       Data: 
+    - Name: random
+      Entry: 7
+      Data: 41|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 42|ET.Client.RandomNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 100
     - Name: TargetID
       Entry: 3
-      Data: 59
+      Data: 13
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 202|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 43|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -4956,24 +1428,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: random
-      Entry: 7
-      Data: 203|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 8
+    - Name: text
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 204|ET.Client.RandomNode, Unity.Loader
     - Name: Guid
       Entry: 1
       Data: d2b07e17431fc134c9d3a2fc0971f612
@@ -4992,34 +1455,12 @@ MonoBehaviour:
     - Name: Status
       Entry: 3
       Data: 0
-    - Name: text
+    - Name: LocalizationGroups
       Entry: 6
-      Data: 
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 13
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 205|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
       Data: 
     - Name: random
       Entry: 7
-      Data: 206|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
+      Data: 44|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 3
@@ -5042,169 +1483,13 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 207|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 66f4f5d0bde18ba4586ddbade50a49a9
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1012
-    - Name: 
-      Entry: 4
-      Data: 2875
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u4EBA\u7C7B\u771F\u662F\u8D2A\u5FC3\u554A!"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 30
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 208|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
+      Entry: 6
       Data: 
     - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
     - Name: 
-      Entry: 7
-      Data: 209|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 77ef9418e24e87d4484ccc6cc830ffbc
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1012
-    - Name: 
-      Entry: 4
-      Data: 3069
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u4EC0\u4E48?!\u8FD9\u4E9B\u8FD8\u4E0D\u591F?\u53EF\u6076\u7684\u4EBA\u7C7B!"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 31
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 210|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 211|ET.Client.Persona_ActionNode, Unity.Loader
-    - Name: Guid
-      Entry: 1
-      Data: 7b1fa24b110512e4889a37269006143b
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1012
-    - Name: 
-      Entry: 4
-      Data: 2972
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: text
-      Entry: 1
-      Data: "\u4F60\u5C45\u7136\u8D81\u706B\u6253\u52AB!"
-    - Name: TreeID
-      Entry: 3
-      Data: 100
-    - Name: TargetID
-      Entry: 3
-      Data: 32
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 212|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: minValue
-      Entry: 3
-      Data: 0
-    - Name: maxValue
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
     - Name: 
       Entry: 13
@@ -5214,14 +1499,14 @@ MonoBehaviour:
       Data: 
     - Name: NodeLinkDatas
       Entry: 7
-      Data: 213|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
+      Data: 45|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 90
     - Name: 
       Entry: 7
-      Data: 214|ET.Client.NodeLinkData, Unity.Loader
+      Data: 46|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: aaa03b48b210f5c4285499754f7231c6
@@ -5236,7 +1521,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 215|ET.Client.NodeLinkData, Unity.Loader
+      Data: 47|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 265fb94c3198ec445a0329ceb5d6cfaa
@@ -5251,7 +1536,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 216|ET.Client.NodeLinkData, Unity.Loader
+      Data: 48|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 265fb94c3198ec445a0329ceb5d6cfaa
@@ -5266,7 +1551,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 217|ET.Client.NodeLinkData, Unity.Loader
+      Data: 49|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 265fb94c3198ec445a0329ceb5d6cfaa
@@ -5281,7 +1566,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 218|ET.Client.NodeLinkData, Unity.Loader
+      Data: 50|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 265fb94c3198ec445a0329ceb5d6cfaa
@@ -5296,7 +1581,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 219|ET.Client.NodeLinkData, Unity.Loader
+      Data: 51|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 265fb94c3198ec445a0329ceb5d6cfaa
@@ -5311,7 +1596,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 220|ET.Client.NodeLinkData, Unity.Loader
+      Data: 52|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 265fb94c3198ec445a0329ceb5d6cfaa
@@ -5326,7 +1611,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 221|ET.Client.NodeLinkData, Unity.Loader
+      Data: 53|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 265fb94c3198ec445a0329ceb5d6cfaa
@@ -5341,7 +1626,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 222|ET.Client.NodeLinkData, Unity.Loader
+      Data: 54|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 265fb94c3198ec445a0329ceb5d6cfaa
@@ -5356,7 +1641,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 223|ET.Client.NodeLinkData, Unity.Loader
+      Data: 55|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 265fb94c3198ec445a0329ceb5d6cfaa
@@ -5371,7 +1656,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 224|ET.Client.NodeLinkData, Unity.Loader
+      Data: 56|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 265fb94c3198ec445a0329ceb5d6cfaa
@@ -5386,7 +1671,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 225|ET.Client.NodeLinkData, Unity.Loader
+      Data: 57|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 265fb94c3198ec445a0329ceb5d6cfaa
@@ -5401,7 +1686,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 226|ET.Client.NodeLinkData, Unity.Loader
+      Data: 58|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 265fb94c3198ec445a0329ceb5d6cfaa
@@ -5416,7 +1701,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 227|ET.Client.NodeLinkData, Unity.Loader
+      Data: 59|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 95aed35b1f20e2c4faeee95ca70e8ca7
@@ -5431,7 +1716,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 228|ET.Client.NodeLinkData, Unity.Loader
+      Data: 60|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 95aed35b1f20e2c4faeee95ca70e8ca7
@@ -5446,7 +1731,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 229|ET.Client.NodeLinkData, Unity.Loader
+      Data: 61|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 95aed35b1f20e2c4faeee95ca70e8ca7
@@ -5461,7 +1746,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 230|ET.Client.NodeLinkData, Unity.Loader
+      Data: 62|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 95aed35b1f20e2c4faeee95ca70e8ca7
@@ -5476,7 +1761,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 231|ET.Client.NodeLinkData, Unity.Loader
+      Data: 63|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: d5c5f34bd10775e459a5354de71db0ab
@@ -5491,7 +1776,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 232|ET.Client.NodeLinkData, Unity.Loader
+      Data: 64|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 9f7282034ad2410449e011807fc0b82d
@@ -5506,7 +1791,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 233|ET.Client.NodeLinkData, Unity.Loader
+      Data: 65|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 9f7282034ad2410449e011807fc0b82d
@@ -5521,7 +1806,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 234|ET.Client.NodeLinkData, Unity.Loader
+      Data: 66|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 874bb0f4323fa124eac049a3dfeb30b3
@@ -5536,7 +1821,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 235|ET.Client.NodeLinkData, Unity.Loader
+      Data: 67|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: bd3b7d0f462b31f479d2c6bd50cfbd0e
@@ -5551,7 +1836,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 236|ET.Client.NodeLinkData, Unity.Loader
+      Data: 68|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 30961641debff11459b1e21e22477279
@@ -5566,7 +1851,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 237|ET.Client.NodeLinkData, Unity.Loader
+      Data: 69|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 30961641debff11459b1e21e22477279
@@ -5581,7 +1866,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 238|ET.Client.NodeLinkData, Unity.Loader
+      Data: 70|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 9f8d8d0eaacb1be49911bf23f1efc479
@@ -5596,7 +1881,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 239|ET.Client.NodeLinkData, Unity.Loader
+      Data: 71|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 59c37baf0d97f614b9289b2ff1f788eb
@@ -5611,7 +1896,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 240|ET.Client.NodeLinkData, Unity.Loader
+      Data: 72|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: eb7803780db9e704cafb2f6ada2ca29e
@@ -5626,7 +1911,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 241|ET.Client.NodeLinkData, Unity.Loader
+      Data: 73|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: eb7803780db9e704cafb2f6ada2ca29e
@@ -5641,7 +1926,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 242|ET.Client.NodeLinkData, Unity.Loader
+      Data: 74|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 298407d85e957444e8a092a77f82dfe2
@@ -5656,7 +1941,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 243|ET.Client.NodeLinkData, Unity.Loader
+      Data: 75|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 4bd48fd4620673646bba8e7e46038d11
@@ -5671,7 +1956,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 244|ET.Client.NodeLinkData, Unity.Loader
+      Data: 76|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 5a6c859ca4bfcfb4cadd6892ac304d8d
@@ -5686,7 +1971,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 245|ET.Client.NodeLinkData, Unity.Loader
+      Data: 77|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 5a6c859ca4bfcfb4cadd6892ac304d8d
@@ -5701,7 +1986,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 246|ET.Client.NodeLinkData, Unity.Loader
+      Data: 78|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 4a4f99d3d47d5224e8011467534c60b0
@@ -5716,7 +2001,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 247|ET.Client.NodeLinkData, Unity.Loader
+      Data: 79|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 573fe049ea763c144939e221f3fa662c
@@ -5731,7 +2016,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 248|ET.Client.NodeLinkData, Unity.Loader
+      Data: 80|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 573fe049ea763c144939e221f3fa662c
@@ -5746,7 +2031,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 249|ET.Client.NodeLinkData, Unity.Loader
+      Data: 81|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 573fe049ea763c144939e221f3fa662c
@@ -5761,7 +2046,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 250|ET.Client.NodeLinkData, Unity.Loader
+      Data: 82|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 55188b3573bdc8f4798f981de5a9e1bf
@@ -5776,7 +2061,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 251|ET.Client.NodeLinkData, Unity.Loader
+      Data: 83|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 55188b3573bdc8f4798f981de5a9e1bf
@@ -5791,7 +2076,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 252|ET.Client.NodeLinkData, Unity.Loader
+      Data: 84|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 144abd1d22c197b4fae165ac2a9f73a3
@@ -5806,7 +2091,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 253|ET.Client.NodeLinkData, Unity.Loader
+      Data: 85|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 144abd1d22c197b4fae165ac2a9f73a3
@@ -5821,7 +2106,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 254|ET.Client.NodeLinkData, Unity.Loader
+      Data: 86|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 5f36cc5516a6d9644be4b9f4ae5f0ce5
@@ -5836,7 +2121,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 255|ET.Client.NodeLinkData, Unity.Loader
+      Data: 87|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 0cb2cdee47b8079428f5c5814254cd31
@@ -5851,7 +2136,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 256|ET.Client.NodeLinkData, Unity.Loader
+      Data: 88|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: dc8959c89b30cde48af304d3f3ccb5e2
@@ -5866,7 +2151,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 257|ET.Client.NodeLinkData, Unity.Loader
+      Data: 89|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 47984a1c538d09648a6cb34f7858eb47
@@ -5881,7 +2166,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 258|ET.Client.NodeLinkData, Unity.Loader
+      Data: 90|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 47984a1c538d09648a6cb34f7858eb47
@@ -5896,7 +2181,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 259|ET.Client.NodeLinkData, Unity.Loader
+      Data: 91|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: e096f8a72c0f48343bfe12041b63805f
@@ -5911,7 +2196,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 260|ET.Client.NodeLinkData, Unity.Loader
+      Data: 92|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 7b6a83df2fdec134a9e9879560e69a8d
@@ -5926,7 +2211,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 261|ET.Client.NodeLinkData, Unity.Loader
+      Data: 93|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 7b6a83df2fdec134a9e9879560e69a8d
@@ -5941,7 +2226,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 262|ET.Client.NodeLinkData, Unity.Loader
+      Data: 94|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 7c883b334cd5f9c42a87c9e4facb3525
@@ -5956,7 +2241,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 263|ET.Client.NodeLinkData, Unity.Loader
+      Data: 95|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 7c883b334cd5f9c42a87c9e4facb3525
@@ -5971,7 +2256,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 264|ET.Client.NodeLinkData, Unity.Loader
+      Data: 96|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 09e6d1535a877544ca8013c76756db8f
@@ -5986,7 +2271,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 265|ET.Client.NodeLinkData, Unity.Loader
+      Data: 97|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 09e6d1535a877544ca8013c76756db8f
@@ -6001,7 +2286,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 266|ET.Client.NodeLinkData, Unity.Loader
+      Data: 98|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 28a8eaf53c4560b4b9fe6549bdf0ba63
@@ -6016,7 +2301,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 267|ET.Client.NodeLinkData, Unity.Loader
+      Data: 99|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: fe2e8b8f2826e9f47ad062a11cfba3ba
@@ -6031,7 +2316,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 268|ET.Client.NodeLinkData, Unity.Loader
+      Data: 100|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 850fc61e00eec284c83a525bf58657e8
@@ -6046,7 +2331,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 269|ET.Client.NodeLinkData, Unity.Loader
+      Data: 101|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 850fc61e00eec284c83a525bf58657e8
@@ -6061,7 +2346,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 270|ET.Client.NodeLinkData, Unity.Loader
+      Data: 102|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 850fc61e00eec284c83a525bf58657e8
@@ -6076,7 +2361,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 271|ET.Client.NodeLinkData, Unity.Loader
+      Data: 103|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: e0f09ac79c4897b4dabe5cec8131b13b
@@ -6091,7 +2376,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 272|ET.Client.NodeLinkData, Unity.Loader
+      Data: 104|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 0dfbdb32f3370634aa9d6f4c9d564622
@@ -6106,7 +2391,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 273|ET.Client.NodeLinkData, Unity.Loader
+      Data: 105|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 6a38da9e58926be409de738af55b3440
@@ -6121,7 +2406,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 274|ET.Client.NodeLinkData, Unity.Loader
+      Data: 106|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 8dec4d7651c7e4348ae98937d397f500
@@ -6136,7 +2421,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 275|ET.Client.NodeLinkData, Unity.Loader
+      Data: 107|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 090d0a3798517724c9a574317b72c500
@@ -6151,7 +2436,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 276|ET.Client.NodeLinkData, Unity.Loader
+      Data: 108|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 090d0a3798517724c9a574317b72c500
@@ -6166,7 +2451,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 277|ET.Client.NodeLinkData, Unity.Loader
+      Data: 109|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 090d0a3798517724c9a574317b72c500
@@ -6181,7 +2466,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 278|ET.Client.NodeLinkData, Unity.Loader
+      Data: 110|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 2bf972d233a438e4f8df0b7510d23730
@@ -6196,7 +2481,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 279|ET.Client.NodeLinkData, Unity.Loader
+      Data: 111|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: d9d5432cd800a3a4a99aef24e59981a2
@@ -6211,7 +2496,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 280|ET.Client.NodeLinkData, Unity.Loader
+      Data: 112|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: dcd383b9fcf09aa4eb45147fd5dbe09f
@@ -6226,7 +2511,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 281|ET.Client.NodeLinkData, Unity.Loader
+      Data: 113|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 351f5b19fdb14ce4b9f4e8c7ea48f108
@@ -6241,7 +2526,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 282|ET.Client.NodeLinkData, Unity.Loader
+      Data: 114|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 0a773d86a39a77f478405efbe4497e83
@@ -6256,7 +2541,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 283|ET.Client.NodeLinkData, Unity.Loader
+      Data: 115|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 865c18c79348e4749b46d82c36ac12ac
@@ -6271,7 +2556,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 284|ET.Client.NodeLinkData, Unity.Loader
+      Data: 116|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: acb55370c2d3d67408b106e5b5745075
@@ -6286,7 +2571,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 285|ET.Client.NodeLinkData, Unity.Loader
+      Data: 117|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: acb55370c2d3d67408b106e5b5745075
@@ -6301,7 +2586,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 286|ET.Client.NodeLinkData, Unity.Loader
+      Data: 118|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: acb55370c2d3d67408b106e5b5745075
@@ -6316,7 +2601,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 287|ET.Client.NodeLinkData, Unity.Loader
+      Data: 119|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: d8f64c6a04da9e54ab2f1cd20a4b2d60
@@ -6331,7 +2616,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 288|ET.Client.NodeLinkData, Unity.Loader
+      Data: 120|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: fb2fcadd85c11484dadf062920f3b712
@@ -6346,7 +2631,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 289|ET.Client.NodeLinkData, Unity.Loader
+      Data: 121|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: fb856c3ea2203e9479b91cdcb0315d00
@@ -6361,7 +2646,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 290|ET.Client.NodeLinkData, Unity.Loader
+      Data: 122|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: f03830e87785f7f419ef5e9f713ef3c5
@@ -6376,7 +2661,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 291|ET.Client.NodeLinkData, Unity.Loader
+      Data: 123|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: f03830e87785f7f419ef5e9f713ef3c5
@@ -6391,7 +2676,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 292|ET.Client.NodeLinkData, Unity.Loader
+      Data: 124|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: f03830e87785f7f419ef5e9f713ef3c5
@@ -6406,7 +2691,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 293|ET.Client.NodeLinkData, Unity.Loader
+      Data: 125|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 945811bab53a39b42964b7d3087ec985
@@ -6421,7 +2706,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 294|ET.Client.NodeLinkData, Unity.Loader
+      Data: 126|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 8a5f937e49701b64b8951112526a4646
@@ -6436,7 +2721,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 295|ET.Client.NodeLinkData, Unity.Loader
+      Data: 127|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: f2a93361f4fc8244c9b2fae32e17d2de
@@ -6451,7 +2736,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 296|ET.Client.NodeLinkData, Unity.Loader
+      Data: 128|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 4dec172acec556045b81bd6f37c7ed40
@@ -6466,7 +2751,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 297|ET.Client.NodeLinkData, Unity.Loader
+      Data: 129|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 4dec172acec556045b81bd6f37c7ed40
@@ -6481,7 +2766,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 298|ET.Client.NodeLinkData, Unity.Loader
+      Data: 130|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 4dec172acec556045b81bd6f37c7ed40
@@ -6496,7 +2781,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 299|ET.Client.NodeLinkData, Unity.Loader
+      Data: 131|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 4dec172acec556045b81bd6f37c7ed40
@@ -6511,7 +2796,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 300|ET.Client.NodeLinkData, Unity.Loader
+      Data: 132|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: d79452e60810f1e4d8f91e4d35178465
@@ -6526,7 +2811,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 301|ET.Client.NodeLinkData, Unity.Loader
+      Data: 133|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: d2b07e17431fc134c9d3a2fc0971f612
@@ -6541,7 +2826,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 302|ET.Client.NodeLinkData, Unity.Loader
+      Data: 134|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: d2b07e17431fc134c9d3a2fc0971f612
@@ -6556,7 +2841,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 303|ET.Client.NodeLinkData, Unity.Loader
+      Data: 135|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: d2b07e17431fc134c9d3a2fc0971f612
@@ -6577,11 +2862,11 @@ MonoBehaviour:
       Data: 
     - Name: targets
       Entry: 7
-      Data: 304|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
+      Data: 136|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
         Unity.Loader]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 305|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
+      Data: 137|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -6608,8 +2893,8 @@ MonoBehaviour:
       Entry: 3
       Data: 1
     - Name: $v
-      Entry: 9
-      Data: 3
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6620,8 +2905,8 @@ MonoBehaviour:
       Entry: 3
       Data: 2
     - Name: $v
-      Entry: 9
-      Data: 133
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6632,8 +2917,8 @@ MonoBehaviour:
       Entry: 3
       Data: 3
     - Name: $v
-      Entry: 9
-      Data: 129
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6644,8 +2929,8 @@ MonoBehaviour:
       Entry: 3
       Data: 4
     - Name: $v
-      Entry: 9
-      Data: 13
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6656,8 +2941,8 @@ MonoBehaviour:
       Entry: 3
       Data: 5
     - Name: $v
-      Entry: 9
-      Data: 9
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6668,8 +2953,8 @@ MonoBehaviour:
       Entry: 3
       Data: 6
     - Name: $v
-      Entry: 9
-      Data: 74
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6680,8 +2965,8 @@ MonoBehaviour:
       Entry: 3
       Data: 7
     - Name: $v
-      Entry: 9
-      Data: 70
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6692,8 +2977,8 @@ MonoBehaviour:
       Entry: 3
       Data: 8
     - Name: $v
-      Entry: 9
-      Data: 29
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6705,7 +2990,7 @@ MonoBehaviour:
       Data: 9
     - Name: $v
       Entry: 9
-      Data: 61
+      Data: 11
     - Name: 
       Entry: 8
       Data: 
@@ -6717,7 +3002,7 @@ MonoBehaviour:
       Data: 10
     - Name: $v
       Entry: 9
-      Data: 110
+      Data: 22
     - Name: 
       Entry: 8
       Data: 
@@ -6728,8 +3013,8 @@ MonoBehaviour:
       Entry: 3
       Data: 11
     - Name: $v
-      Entry: 9
-      Data: 68
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6740,8 +3025,8 @@ MonoBehaviour:
       Entry: 3
       Data: 12
     - Name: $v
-      Entry: 9
-      Data: 189
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6753,7 +3038,7 @@ MonoBehaviour:
       Data: 13
     - Name: $v
       Entry: 9
-      Data: 204
+      Data: 42
     - Name: 
       Entry: 8
       Data: 
@@ -6764,8 +3049,8 @@ MonoBehaviour:
       Entry: 3
       Data: 14
     - Name: $v
-      Entry: 9
-      Data: 137
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6776,8 +3061,8 @@ MonoBehaviour:
       Entry: 3
       Data: 15
     - Name: $v
-      Entry: 9
-      Data: 145
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6789,7 +3074,7 @@ MonoBehaviour:
       Data: 16
     - Name: $v
       Entry: 9
-      Data: 139
+      Data: 29
     - Name: 
       Entry: 8
       Data: 
@@ -6800,8 +3085,8 @@ MonoBehaviour:
       Entry: 3
       Data: 17
     - Name: $v
-      Entry: 9
-      Data: 21
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6812,8 +3097,8 @@ MonoBehaviour:
       Entry: 3
       Data: 18
     - Name: $v
-      Entry: 9
-      Data: 45
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6824,8 +3109,8 @@ MonoBehaviour:
       Entry: 3
       Data: 19
     - Name: $v
-      Entry: 9
-      Data: 33
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6837,7 +3122,7 @@ MonoBehaviour:
       Data: 20
     - Name: $v
       Entry: 9
-      Data: 78
+      Data: 14
     - Name: 
       Entry: 8
       Data: 
@@ -6848,8 +3133,8 @@ MonoBehaviour:
       Entry: 3
       Data: 21
     - Name: $v
-      Entry: 9
-      Data: 113
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6860,8 +3145,8 @@ MonoBehaviour:
       Entry: 3
       Data: 22
     - Name: $v
-      Entry: 9
-      Data: 98
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6872,8 +3157,8 @@ MonoBehaviour:
       Entry: 3
       Data: 23
     - Name: $v
-      Entry: 9
-      Data: 82
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6885,7 +3170,7 @@ MonoBehaviour:
       Data: 24
     - Name: $v
       Entry: 9
-      Data: 80
+      Data: 16
     - Name: 
       Entry: 8
       Data: 
@@ -6897,7 +3182,7 @@ MonoBehaviour:
       Data: 25
     - Name: $v
       Entry: 9
-      Data: 31
+      Data: 3
     - Name: 
       Entry: 8
       Data: 
@@ -6908,8 +3193,8 @@ MonoBehaviour:
       Entry: 3
       Data: 26
     - Name: $v
-      Entry: 9
-      Data: 57
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6920,8 +3205,8 @@ MonoBehaviour:
       Entry: 3
       Data: 27
     - Name: $v
-      Entry: 9
-      Data: 64
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6932,8 +3217,8 @@ MonoBehaviour:
       Entry: 3
       Data: 28
     - Name: $v
-      Entry: 9
-      Data: 108
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6944,8 +3229,8 @@ MonoBehaviour:
       Entry: 3
       Data: 29
     - Name: $v
-      Entry: 9
-      Data: 66
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6956,8 +3241,8 @@ MonoBehaviour:
       Entry: 3
       Data: 30
     - Name: $v
-      Entry: 9
-      Data: 207
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6968,8 +3253,8 @@ MonoBehaviour:
       Entry: 3
       Data: 31
     - Name: $v
-      Entry: 9
-      Data: 209
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6980,8 +3265,8 @@ MonoBehaviour:
       Entry: 3
       Data: 32
     - Name: $v
-      Entry: 9
-      Data: 211
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -6992,8 +3277,8 @@ MonoBehaviour:
       Entry: 3
       Data: 33
     - Name: $v
-      Entry: 9
-      Data: 141
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7004,8 +3289,8 @@ MonoBehaviour:
       Entry: 3
       Data: 34
     - Name: $v
-      Entry: 9
-      Data: 147
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7016,8 +3301,8 @@ MonoBehaviour:
       Entry: 3
       Data: 35
     - Name: $v
-      Entry: 9
-      Data: 17
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7028,8 +3313,8 @@ MonoBehaviour:
       Entry: 3
       Data: 36
     - Name: $v
-      Entry: 9
-      Data: 23
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7040,8 +3325,8 @@ MonoBehaviour:
       Entry: 3
       Data: 37
     - Name: $v
-      Entry: 9
-      Data: 47
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7052,8 +3337,8 @@ MonoBehaviour:
       Entry: 3
       Data: 38
     - Name: $v
-      Entry: 9
-      Data: 51
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7064,8 +3349,8 @@ MonoBehaviour:
       Entry: 3
       Data: 39
     - Name: $v
-      Entry: 9
-      Data: 35
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7076,8 +3361,8 @@ MonoBehaviour:
       Entry: 3
       Data: 40
     - Name: $v
-      Entry: 9
-      Data: 39
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7088,8 +3373,8 @@ MonoBehaviour:
       Entry: 3
       Data: 41
     - Name: $v
-      Entry: 9
-      Data: 115
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7100,8 +3385,8 @@ MonoBehaviour:
       Entry: 3
       Data: 42
     - Name: $v
-      Entry: 9
-      Data: 119
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7112,8 +3397,8 @@ MonoBehaviour:
       Entry: 3
       Data: 43
     - Name: $v
-      Entry: 9
-      Data: 100
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7124,8 +3409,8 @@ MonoBehaviour:
       Entry: 3
       Data: 44
     - Name: $v
-      Entry: 9
-      Data: 104
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7136,8 +3421,8 @@ MonoBehaviour:
       Entry: 3
       Data: 45
     - Name: $v
-      Entry: 9
-      Data: 84
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7148,8 +3433,8 @@ MonoBehaviour:
       Entry: 3
       Data: 46
     - Name: $v
-      Entry: 9
-      Data: 88
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7161,7 +3446,7 @@ MonoBehaviour:
       Data: 47
     - Name: $v
       Entry: 9
-      Data: 59
+      Data: 9
     - Name: 
       Entry: 8
       Data: 
@@ -7172,8 +3457,8 @@ MonoBehaviour:
       Entry: 3
       Data: 48
     - Name: $v
-      Entry: 9
-      Data: 143
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7184,8 +3469,8 @@ MonoBehaviour:
       Entry: 3
       Data: 49
     - Name: $v
-      Entry: 9
-      Data: 149
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7196,8 +3481,8 @@ MonoBehaviour:
       Entry: 3
       Data: 50
     - Name: $v
-      Entry: 9
-      Data: 153
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7208,8 +3493,8 @@ MonoBehaviour:
       Entry: 3
       Data: 51
     - Name: $v
-      Entry: 9
-      Data: 157
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7220,8 +3505,8 @@ MonoBehaviour:
       Entry: 3
       Data: 52
     - Name: $v
-      Entry: 9
-      Data: 27
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7233,7 +3518,7 @@ MonoBehaviour:
       Data: 53
     - Name: $v
       Entry: 9
-      Data: 55
+      Data: 7
     - Name: 
       Entry: 8
       Data: 
@@ -7245,7 +3530,7 @@ MonoBehaviour:
       Data: 54
     - Name: $v
       Entry: 9
-      Data: 43
+      Data: 5
     - Name: 
       Entry: 8
       Data: 
@@ -7257,7 +3542,7 @@ MonoBehaviour:
       Data: 55
     - Name: $v
       Entry: 9
-      Data: 197
+      Data: 35
     - Name: 
       Entry: 8
       Data: 
@@ -7269,7 +3554,7 @@ MonoBehaviour:
       Data: 56
     - Name: $v
       Entry: 9
-      Data: 123
+      Data: 25
     - Name: 
       Entry: 8
       Data: 
@@ -7280,8 +3565,8 @@ MonoBehaviour:
       Entry: 3
       Data: 57
     - Name: $v
-      Entry: 9
-      Data: 125
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7293,7 +3578,7 @@ MonoBehaviour:
       Data: 58
     - Name: $v
       Entry: 9
-      Data: 199
+      Data: 37
     - Name: 
       Entry: 8
       Data: 
@@ -7305,7 +3590,7 @@ MonoBehaviour:
       Data: 59
     - Name: $v
       Entry: 9
-      Data: 201
+      Data: 39
     - Name: 
       Entry: 8
       Data: 
@@ -7317,7 +3602,7 @@ MonoBehaviour:
       Data: 60
     - Name: $v
       Entry: 9
-      Data: 92
+      Data: 18
     - Name: 
       Entry: 8
       Data: 
@@ -7328,8 +3613,8 @@ MonoBehaviour:
       Entry: 3
       Data: 61
     - Name: $v
-      Entry: 9
-      Data: 94
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7340,8 +3625,8 @@ MonoBehaviour:
       Entry: 3
       Data: 62
     - Name: $v
-      Entry: 9
-      Data: 161
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7352,8 +3637,8 @@ MonoBehaviour:
       Entry: 3
       Data: 63
     - Name: $v
-      Entry: 9
-      Data: 163
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7364,8 +3649,8 @@ MonoBehaviour:
       Entry: 3
       Data: 64
     - Name: $v
-      Entry: 9
-      Data: 165
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7377,7 +3662,7 @@ MonoBehaviour:
       Data: 65
     - Name: $v
       Entry: 9
-      Data: 127
+      Data: 27
     - Name: 
       Entry: 8
       Data: 
@@ -7389,7 +3674,7 @@ MonoBehaviour:
       Data: 66
     - Name: $v
       Entry: 9
-      Data: 96
+      Data: 20
     - Name: 
       Entry: 8
       Data: 
@@ -7400,8 +3685,8 @@ MonoBehaviour:
       Entry: 3
       Data: 67
     - Name: $v
-      Entry: 9
-      Data: 167
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7412,8 +3697,8 @@ MonoBehaviour:
       Entry: 3
       Data: 68
     - Name: $v
-      Entry: 9
-      Data: 169
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7424,8 +3709,8 @@ MonoBehaviour:
       Entry: 3
       Data: 69
     - Name: $v
-      Entry: 9
-      Data: 171
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7436,8 +3721,8 @@ MonoBehaviour:
       Entry: 3
       Data: 70
     - Name: $v
-      Entry: 9
-      Data: 173
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7448,8 +3733,8 @@ MonoBehaviour:
       Entry: 3
       Data: 71
     - Name: $v
-      Entry: 9
-      Data: 175
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7460,8 +3745,8 @@ MonoBehaviour:
       Entry: 3
       Data: 72
     - Name: $v
-      Entry: 9
-      Data: 177
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7472,8 +3757,8 @@ MonoBehaviour:
       Entry: 3
       Data: 73
     - Name: $v
-      Entry: 9
-      Data: 179
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7484,8 +3769,8 @@ MonoBehaviour:
       Entry: 3
       Data: 74
     - Name: $v
-      Entry: 9
-      Data: 181
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7496,8 +3781,8 @@ MonoBehaviour:
       Entry: 3
       Data: 75
     - Name: $v
-      Entry: 9
-      Data: 183
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7508,8 +3793,8 @@ MonoBehaviour:
       Entry: 3
       Data: 76
     - Name: $v
-      Entry: 9
-      Data: 185
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7520,8 +3805,8 @@ MonoBehaviour:
       Entry: 3
       Data: 77
     - Name: $v
-      Entry: 9
-      Data: 187
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7533,7 +3818,7 @@ MonoBehaviour:
       Data: 78
     - Name: $v
       Entry: 9
-      Data: 193
+      Data: 31
     - Name: 
       Entry: 8
       Data: 
@@ -7545,7 +3830,7 @@ MonoBehaviour:
       Data: 79
     - Name: $v
       Entry: 9
-      Data: 195
+      Data: 33
     - Name: 
       Entry: 8
       Data: 
@@ -7556,8 +3841,8 @@ MonoBehaviour:
       Entry: 3
       Data: 80
     - Name: $v
-      Entry: 9
-      Data: 191
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -7567,8 +3852,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: Variables
+      Entry: 7
+      Data: 138|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   treeName: 
-  treeID: 100
+  treeID: 3
   blockDatas:
   - position: {x: 1552, y: -31}
     title: "\u91D1\u94B1"

@@ -17,6 +17,7 @@ namespace ET.Client
     {
         protected override void Load(UIEventComponent self)
         {
+            self.SetUIClicked(false);
             self.Awake();
         }
     }
@@ -45,7 +46,7 @@ namespace ET.Client
             }
         }
         
-        public static IAUIEventHandler GetUIEventHandler(this UIEventComponent self,WindowID windowID)
+        public static IAUIEventHandler GetUIEventHandler(this UIEventComponent self, WindowID windowID)
         {
             if (self.UIEventHandlers.TryGetValue(windowID, out IAUIEventHandler handler))
             {

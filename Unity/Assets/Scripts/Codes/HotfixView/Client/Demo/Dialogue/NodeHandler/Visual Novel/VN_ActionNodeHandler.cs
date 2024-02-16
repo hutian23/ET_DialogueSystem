@@ -7,8 +7,6 @@ namespace ET.Client
         protected override async ETTask<Status> Run(Unit unit, VN_ActionNode node, ETCancellationToken token)
         {
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
-            dialogueComponent.AddTag(DialogueTag.InDialogue);
-
             //1. 打印携程
             DialogueHelper.ReplaceModel(unit, ref node.text);
             DlgDialogue dlgDialogue = unit.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgDialogue>();
@@ -25,9 +23,8 @@ namespace ET.Client
 
             //3. 执行下一个节点
             dialogueComponent.PushNextNode(dialogueComponent.GetFirstNode(node.children));
-            dialogueComponent.RemoveTag(DialogueTag.InDialogue);
             dialogueComponent.RemoveTag(DialogueTag.CanEnterSetting);
-            
+
             return Status.Success;
         }
 
@@ -52,11 +49,10 @@ namespace ET.Client
             while (true)
             {
                 if (WaitKeyPressedToken.IsCancel()) return;
-                if (!self.ContainTag(DialogueTag.InDialogue)) return; //比如在Setting界面，按键检测不生效
-                if (Keyboard.current.spaceKey.isPressed)
+                //比如在Setting界面，按键检测不生效
+                if (self.ContainTag(DialogueTag.InDialogueCor) && Keyboard.current.spaceKey.isPressed)
                 {
                     self.GetComponent<ObjectWait>().Notify(new WaitNextNode());
-                    token.Remove(WaitKeyPressedToken.Cancel);
                     return;
                 }
 
