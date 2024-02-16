@@ -59,6 +59,7 @@ namespace ET.Client
                         var sourceTree = DialogueSettings.GetSettings().GetTreeByID(args.treeID);
                         viewComponent.tree = sourceTree;
                         viewComponent.cloneTree = sourceTree.DeepClone();
+                        viewComponent.OpenWindow?.Invoke();
                         dialogueComponent.DialogueCor(dialogueComponent.GetNode(args.targetID)).Coroutine();
                         break;
                     }

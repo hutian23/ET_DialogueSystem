@@ -2,7 +2,8 @@
 
 namespace ET.Client
 {
-    public class VN_Delay_ChoicePanelHandler: NodeHandler<VN_Delay_ChoicePanel>
+    [FriendOf(typeof(DialogueStorage))]
+    public class VN_Delay_ChoicePanelHandler : NodeHandler<VN_Delay_ChoicePanel>
     {
         protected override async ETTask<Status> Run(Unit unit, VN_Delay_ChoicePanel node, ETCancellationToken token)
         {
@@ -46,6 +47,9 @@ namespace ET.Client
                     nodeList.Add(choiceNode);
                 });
                 dlgDialogue.ShowChoicePanel(nodeList);
+                //5. 选项节点存档要特殊处理一下
+                dialogueComponent.AddTag(DialogueTag.CanEnterSetting);
+                DialogueStorageManager.Instance.QuickSaveShot.currentID_Temp = node.GetID();
             }
 
             //2. 延时展示
@@ -61,6 +65,7 @@ namespace ET.Client
             dlgDialogue.HideChoicePanel(); //关闭选项版
             nodeList.ForEach(choice => dialogueComponent.SetNodeStatus(choice, Status.None)); //刷新视图状态
             dialogueComponent.PushNextNode(wait.next); //执行下一个节点
+            dialogueComponent.RemoveTag(DialogueTag.CanEnterSetting);
 
             return Status.Success;
         }

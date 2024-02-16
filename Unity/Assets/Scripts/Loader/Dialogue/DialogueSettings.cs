@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 
@@ -31,7 +30,7 @@ namespace ET.Client
 
         public DialogueTree GetTreeByID(uint treeID)
         {
-            string[] guids = AssetDatabase.FindAssets("t:ScriptableObject", new[] { folderPath });
+            string[] guids = AssetDatabase.FindAssets("t:DialogueTree", new[] { folderPath });
             foreach (var guid in guids)
             {
                 string assetPath = AssetDatabase.GUIDToAssetPath(guid);

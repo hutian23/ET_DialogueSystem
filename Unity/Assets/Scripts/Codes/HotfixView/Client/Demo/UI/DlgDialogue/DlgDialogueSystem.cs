@@ -5,8 +5,9 @@ using UnityEngine.InputSystem;
 
 namespace ET.Client
 {
-    [FriendOf(typeof (DlgDialogue))]
-    [FriendOf(typeof (DialogueStorage))]
+    [FriendOf(typeof(DlgDialogue))]
+    [FriendOf(typeof(DialogueStorage))]
+    [FriendOf(typeof(DialogueComponent))]
     public static class DlgDialogueSystem
     {
         public static void RegisterUIEvent(this DlgDialogue self)
@@ -58,6 +59,7 @@ namespace ET.Client
         {
             DialogueComponent dialogueComponent = TODUnitHelper.GetPlayer(self.ClientScene()).GetComponent<DialogueComponent>();
             if (!dialogueComponent.ContainTag(DialogueTag.CanEnterSetting)) return;
+            var token = dialogueComponent.token;
 
             dialogueComponent.RemoveTag(DialogueTag.InDialogueCor);
             await self.ClientScene().GetComponent<UIComponent>().ShowWindowAsync<DlgStorage>();
@@ -73,7 +75,7 @@ namespace ET.Client
                 (uint treeID, uint targetID) = DialogueHelper.FromID(DialogueStorageManager.Instance.GetByIndex(wait.index).currentID);
                 EventSystem.Instance.Invoke(new LoadTreeCallback()
                 {
-                    instanceId = dialogueComponent.InstanceId, 
+                    instanceId = dialogueComponent.InstanceId,
                     ReloadType = ViewReloadType.Preview,
                     treeID = treeID,
                     targetID = targetID
@@ -81,7 +83,7 @@ namespace ET.Client
             }
 
             escapToken.Cancel();
-            // self.ClientScene().GetComponent<UIComponent>().HideWindow<DlgStorage>(); //在根节点初始化中，token取消时会卸载UI,所以这里不要
+            if(!token.IsCancel()) self.ClientScene().GetComponent<UIComponent>().HideWindow<DlgStorage>(); //重载时会卸载UI
             dialogueComponent.AddTag(DialogueTag.InDialogueCor);
         }
 
@@ -150,7 +152,7 @@ namespace ET.Client
                 default:
                     int ret = DialogueDispatcherComponent.Instance.Checks(player, node.handle_Configs);
                     //选项是否被锁定
-                    scrollItemChoice.E_SelectImage.color = (ret == 0)? Color.white : Color.gray;
+                    scrollItemChoice.E_SelectImage.color = (ret == 0) ? Color.white : Color.gray;
                     //选项是否可执行
                     if (ret == 0)
                     {

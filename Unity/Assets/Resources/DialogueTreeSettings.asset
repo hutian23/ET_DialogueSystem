@@ -17,6 +17,4 @@ MonoBehaviour:
   SuccessColor: {r: 0.20683517, g: 0.5283019, b: 0.2575931, a: 0.627451}
   FailedColor: {r: 0.8666667, g: 0.23137255, b: 0.15294118, a: 1}
   ChoiceColor: {r: 0.8392157, g: 0.8052848, b: 0.11372549, a: 0.7607843}
-  exportTrees:
-  - {fileID: 11400000, guid: 9e249e177010cff458ead71d5795764c, type: 2}
   folderPath: Assets/Res/ScriptableObject/DialogueTree
