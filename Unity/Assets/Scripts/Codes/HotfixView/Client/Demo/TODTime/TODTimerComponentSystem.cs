@@ -47,7 +47,7 @@ namespace ET.Client
             {
                 action?.Recycle();
             }
-            
+
             self.TimerId.Clear();
             self.timeOutTime.Clear();
             self.timeOutTimerIds.Clear();
@@ -243,13 +243,7 @@ namespace ET.Client
 
             //从对象池中取出ETTask
             ETTask tcs = ETTask.Create(true);
-            TODTimerAction timer = TODTimerAction.Create(self.GetId(),
-                TimerClass.OnceWaitTimer,
-                self.curFrame,
-                frame,
-                0,
-                tcs);
-
+            TODTimerAction timer = TODTimerAction.Create(self.GetId(), TimerClass.OnceWaitTimer, self.curFrame, frame, 0, tcs);
             self.AddTimer(timer);
             long timerId = timer.Id;
 
@@ -272,6 +266,11 @@ namespace ET.Client
             }
         }
 
+        public static async ETTask WaitFrameAsync(this TODTimerComponent self, ETCancellationToken token = null)
+        {
+            await self.WaitAsync(1, token);
+        }
+
         public static long NewOnceTimer(this TODTimerComponent self, long tillFrame, int type, object args)
         {
             if (tillFrame < self.curFrame)
@@ -279,24 +278,19 @@ namespace ET.Client
                 Log.Error($"tillframe should be bigger than currentFrame:{tillFrame} {self.curFrame}");
             }
 
-            TODTimerAction timer = TODTimerAction.Create(self.GetId(),
-                TimerClass.OnceTimer,
-                self.curFrame,
-                tillFrame - self.curFrame,
-                type,
-                args);
+            TODTimerAction timer = TODTimerAction.Create(self.GetId(), TimerClass.OnceTimer, self.curFrame, tillFrame - self.curFrame, type, args);
             self.AddTimer(timer);
             return timer.Id;
         }
 
-        public static long NewRepeatedTimer(this TODTimerComponent self, long frame, int type, object args)
+        public static long NewFrameTimer(this TODTimerComponent self, int type, object args)
         {
-            TODTimerAction timer = TODTimerAction.Create(self.GetId(),
-                TimerClass.RepeatedTimer,
-                self.curFrame,
-                frame,
-                type,
-                args);
+            return self.NewRepeatedTimer(0, type, args);
+        }
+
+        private static long NewRepeatedTimer(this TODTimerComponent self, long frame, int type, object args)
+        {
+            TODTimerAction timer = TODTimerAction.Create(self.GetId(), TimerClass.RepeatedTimer, self.curFrame, frame, type, args);
 
             self.AddTimer(timer);
             return timer.Id;
