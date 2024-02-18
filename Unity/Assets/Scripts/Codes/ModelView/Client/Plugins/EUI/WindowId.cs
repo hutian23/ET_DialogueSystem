@@ -11,5 +11,6 @@ namespace ET.Client
     	WindowID_Test,
 		WindowID_Dialogue,
 		WindowID_Storage,
+		WindowID_Ftg,
 	}
 }

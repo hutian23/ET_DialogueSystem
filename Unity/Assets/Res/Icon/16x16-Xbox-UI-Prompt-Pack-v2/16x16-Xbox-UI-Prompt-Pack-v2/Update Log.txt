@@ -1,0 +1,24 @@
+
+
+	██╗░░░██╗██████╗░██████╗░░█████╗░████████╗███████╗  ██╗░░░░░░█████╗░░██████╗░
+	██║░░░██║██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔════╝  ██║░░░░░██╔══██╗██╔════╝░
+	██║░░░██║██████╔╝██║░░██║███████║░░░██║░░░█████╗░░  ██║░░░░░██║░░██║██║░░██╗░
+	██║░░░██║██╔═══╝░██║░░██║██╔══██║░░░██║░░░██╔══╝░░  ██║░░░░░██║░░██║██║░░╚██╗
+	╚██████╔╝██║░░░░░██████╔╝██║░░██║░░░██║░░░███████╗  ███████╗╚█████╔╝╚██████╔╝
+	░╚═════╝░╚═╝░░░░░╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚══════╝  ╚══════╝░╚════╝░░╚═════╝░
+
+
+	Version 1 (20th September 2021):
+
+	- Added Dark Theme
+	- Added Light Theme
+	- Added Gold Theme
+
+	Version 2 (18th October 2021):
+
+	- Added Pumpkin Theme (halloween theme)
+	- Added Purple Theme (halloween theme)
+	- Added Green Theme (halloween theme)
+	- Added a 'pressed' state for all joysticks
+	- Fixed 'lb' and 'rb' being the wrong way around for all themes (oops)
+	- Each theme now has a seperate sprite sheet, as well as being including in the atlas
