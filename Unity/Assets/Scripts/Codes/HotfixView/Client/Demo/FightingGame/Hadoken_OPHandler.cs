@@ -7,13 +7,13 @@
         public async ETTask<Status> CheckHandler(Unit unit, ETCancellationToken token)
         {
             InputWait inputWait = unit.GetComponent<InputWait>();
-            //现在假设这是一个OD波动拳
+            //现在假设这是一个OD波动拳释放检测协程
             //第一段
             InputBuffer state_1 = await inputWait.Wait(
                 op: TODOperaType.DOWNLEFT | TODOperaType.DOWN, //模糊输入
                 cancellationToken: token, //用来取消等待协程,被取消了后面的都不执行了(if cancel state_1.Error  == WaitTypeError.Destroy)
                 waitType: 0,   // 0表示以上任意一个都可以判定成成功, 1表示OD即需要以上任意两个按下
-                waitFrame: 5); // 犹豫区间
+                waitFrame: 5); // 犹豫区间,超出这个时间，结束当前协程，启动一个新的检测协程
             if (state_1.Error != WaitTypeError.Success) return Status.Failed;
             
             //第二段
@@ -36,7 +36,8 @@
             else if ((status_4.inputInfo & (TODOperaType.LIGHTPUNCH | TODOperaType.HEAVYPUNCH)) != 0) { }
             else { }
             
-            //检查成功，
+            //取消其他必杀检测协程(不会清空缓冲区输入)
+            token.Cancel();
             return Status.Success;
         }
     }

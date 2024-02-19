@@ -2,8 +2,10 @@
 
 namespace ET.Client
 {
-    public class InputComponent: Entity, IAwake, IDestroy
+    [ComponentOf]
+    public class TODInputComponent: Entity, IAwake, IDestroy,IUpdate, ILoad
     {
+        public long timer;
         public Queue<InputInfo> infos = new();
     }
 

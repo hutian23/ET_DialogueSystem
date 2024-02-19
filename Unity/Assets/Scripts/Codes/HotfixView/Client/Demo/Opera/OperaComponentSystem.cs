@@ -31,12 +31,12 @@ namespace ET.Client
                 //     }
                 // }
 
-                // if (UnityEngine.Input.GetKeyDown(KeyCode.R))
-                // {
-                //     CodeLoader.Instance.LoadHotfix();
-                //     EventSystem.Instance.Load();
-                //     Log.Debug("hot reload success!");
-                // }
+                if (UnityEngine.Input.GetKeyDown(KeyCode.R))
+                {
+                    CodeLoader.Instance.LoadHotfix();
+                    EventSystem.Instance.Load();
+                    Log.Debug("hot reload success!");
+                }
             
                 // if (Input.GetKeyDown(KeyCode.T))
                 // {
