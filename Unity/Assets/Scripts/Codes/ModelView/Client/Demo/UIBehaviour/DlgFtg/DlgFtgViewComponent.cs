@@ -7,23 +7,6 @@ namespace ET.Client
 	[EnableMethod]
 	public  class DlgFtgViewComponent : Entity,IAwake,IDestroy 
 	{
-		public UnityEngine.UI.LoopVerticalScrollRect E_InputsLoopVerticalScrollRect
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_InputsLoopVerticalScrollRect == null )
-     			{
-		    		this.m_E_InputsLoopVerticalScrollRect = UIFindHelper.FindDeepChild<UnityEngine.UI.LoopVerticalScrollRect>(this.uiTransform.gameObject,"E_Inputs");
-     			}
-     			return this.m_E_InputsLoopVerticalScrollRect;
-     		}
-     	}
-
 		public UnityEngine.UI.Image E_Arrow_DownImage
      	{
      		get
@@ -262,9 +245,25 @@ namespace ET.Client
      		}
      	}
 
+		public UnityEngine.UI.LoopVerticalScrollRect ELoopScrollList_InputLoopVerticalScrollRect
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_ELoopScrollList_InputLoopVerticalScrollRect == null )
+     			{
+		    		this.m_ELoopScrollList_InputLoopVerticalScrollRect = UIFindHelper.FindDeepChild<UnityEngine.UI.LoopVerticalScrollRect>(this.uiTransform.gameObject,"ELoopScrollList_Input");
+     			}
+     			return this.m_ELoopScrollList_InputLoopVerticalScrollRect;
+     		}
+     	}
+
 		public void DestroyWidget()
 		{
-			this.m_E_InputsLoopVerticalScrollRect = null;
 			this.m_E_Arrow_DownImage = null;
 			this.m_E_Arrow_DownRightImage = null;
 			this.m_E_Arrow_RightImage = null;
@@ -279,10 +278,10 @@ namespace ET.Client
 			this.m_E_MiddlePunchImage = null;
 			this.m_E_HeavyPunchImage = null;
 			this.m_E_HeavyKickImage = null;
+			this.m_ELoopScrollList_InputLoopVerticalScrollRect = null;
 			this.uiTransform = null;
 		}
 
-		private UnityEngine.UI.LoopVerticalScrollRect m_E_InputsLoopVerticalScrollRect = null;
 		private UnityEngine.UI.Image m_E_Arrow_DownImage = null;
 		private UnityEngine.UI.Image m_E_Arrow_DownRightImage = null;
 		private UnityEngine.UI.Image m_E_Arrow_RightImage = null;
@@ -297,6 +296,7 @@ namespace ET.Client
 		private UnityEngine.UI.Image m_E_MiddlePunchImage = null;
 		private UnityEngine.UI.Image m_E_HeavyPunchImage = null;
 		private UnityEngine.UI.Image m_E_HeavyKickImage = null;
+		private UnityEngine.UI.LoopVerticalScrollRect m_ELoopScrollList_InputLoopVerticalScrollRect = null;
 		public Transform uiTransform = null;
 	}
 }

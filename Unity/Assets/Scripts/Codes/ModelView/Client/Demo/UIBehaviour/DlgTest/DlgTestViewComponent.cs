@@ -75,12 +75,30 @@ namespace ET.Client
      		}
      	}
 
+		public UnityEngine.UI.LoopHorizontalScrollRect ELoopScrollList_testLoopHorizontalScrollRect
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_ELoopScrollList_testLoopHorizontalScrollRect == null )
+     			{
+		    		this.m_ELoopScrollList_testLoopHorizontalScrollRect = UIFindHelper.FindDeepChild<UnityEngine.UI.LoopHorizontalScrollRect>(this.uiTransform.gameObject,"Sprite_BackGround/ELoopScrollList_test");
+     			}
+     			return this.m_ELoopScrollList_testLoopHorizontalScrollRect;
+     		}
+     	}
+
 		public void DestroyWidget()
 		{
 			this.m_E_LoginButton = null;
 			this.m_E_LoginImage = null;
 			this.m_E_SceneInputField = null;
 			this.m_E_SceneImage = null;
+			this.m_ELoopScrollList_testLoopHorizontalScrollRect = null;
 			this.uiTransform = null;
 		}
 
@@ -88,6 +106,7 @@ namespace ET.Client
 		private UnityEngine.UI.Image m_E_LoginImage = null;
 		private UnityEngine.UI.InputField m_E_SceneInputField = null;
 		private UnityEngine.UI.Image m_E_SceneImage = null;
+		private UnityEngine.UI.LoopHorizontalScrollRect m_ELoopScrollList_testLoopHorizontalScrollRect = null;
 		public Transform uiTransform = null;
 	}
 }

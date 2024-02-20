@@ -17,8 +17,8 @@
             protected override void Awake(TODInputComponent self)
             {
                 self.ClientScene().GetComponent<UIComponent>().ShowWindow<DlgFtg>();
-                TODTimerComponent todTimerComponent = self.AddComponent<TODTimerComponent>();
-                self.timer = todTimerComponent.NewOnceTimer(todTimerComponent.GetNow() + 300, TODTimerInvokeType.CheckInput, self);
+                TODTimerComponent timerComponent = self.AddComponent<TODTimerComponent>();
+                self.timer = timerComponent.NewFrameTimer(TODTimerInvokeType.CheckInput, self);
             }
         }
 

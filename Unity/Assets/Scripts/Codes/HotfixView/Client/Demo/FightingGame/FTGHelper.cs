@@ -12,7 +12,7 @@ namespace ET.Client
 
             //1. 方向键
             Vector2 direction = gamepad.leftStick.ReadValue();
-            if (direction.magnitude <= 0.4f) //手柄漂移问题
+            if (direction.magnitude <= 0.55f) //手柄漂移问题
             {
                 ops |= TODOperaType.MIDDLE;
             }
@@ -92,12 +92,14 @@ namespace ET.Client
                 ops |= TODOperaType.HEAVYKICK;
             }
             
+            // LT
             if (gamepad.leftTrigger.isPressed)
             {
                 ops |= TODOperaType.MIDDLEPUNCH;
                 ops |= TODOperaType.MIDDLEKICK;
             }
             
+            // RT
             if (gamepad.rightTrigger.isPressed)
             {
                 ops |= TODOperaType.HEAVYKICK;
