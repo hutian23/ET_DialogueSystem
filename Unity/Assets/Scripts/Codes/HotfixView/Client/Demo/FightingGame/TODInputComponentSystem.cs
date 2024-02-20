@@ -3,11 +3,12 @@
     public static class TODInputComponentSystem
     {
         [Invoke(TODTimerInvokeType.CheckInput)]
-        public class CheckInputTimer: ATimer<TODInputComponent>
+        public class CheckInputTimer: TODTimer<TODInputComponent>
         {
             protected override void Run(TODInputComponent self)
             {
                 long ops = FTGHelper.CheckInput();
+                self.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgFtg>().Refresh(ops);
             }
         }
 
@@ -15,8 +16,9 @@
         {
             protected override void Awake(TODInputComponent self)
             {
-                self.AddComponent<TODTimerComponent>();
-                self.timer = self.GetComponent<TODTimerComponent>().NewFrameTimer(TODTimerInvokeType.CheckInput, self);
+                self.ClientScene().GetComponent<UIComponent>().ShowWindow<DlgFtg>();
+                TODTimerComponent todTimerComponent = self.AddComponent<TODTimerComponent>();
+                self.timer = todTimerComponent.NewOnceTimer(todTimerComponent.GetNow() + 300, TODTimerInvokeType.CheckInput, self);
             }
         }
 
@@ -24,8 +26,12 @@
         {
             protected override void Load(TODInputComponent self)
             {
-                self.GetComponent<TODTimerComponent>().Remove(ref self.timer);
-                self.timer = self.GetComponent<TODTimerComponent>().NewFrameTimer(TODTimerInvokeType.CheckInput, self);
+                self.ClientScene().GetComponent<UIComponent>().UnLoadWindow<DlgFtg>();
+                self.ClientScene().GetComponent<UIComponent>().ShowWindow<DlgFtg>();
+                
+                self.RemoveComponent<TODTimerComponent>();   
+                TODTimerComponent timerComponent = self.AddComponent<TODTimerComponent>();
+                self.timer = timerComponent.NewFrameTimer(TODTimerInvokeType.CheckInput, self);
             }
         }
 

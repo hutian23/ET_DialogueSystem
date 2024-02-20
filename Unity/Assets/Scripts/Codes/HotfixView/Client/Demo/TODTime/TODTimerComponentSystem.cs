@@ -14,13 +14,14 @@ namespace ET.Client
             }
         }
 
-        public class TODTimerComponentLoadSystem: LoadSystem<TODTimerComponent>
-        {
-            protected override void Load(TODTimerComponent self)
-            {
-                self.Init();
-            }
-        }
+        // 执行顺序的问题
+        // public class TODTimerComponentLoadSystem: LoadSystem<TODTimerComponent>
+        // {
+        //     protected override void Load(TODTimerComponent self)
+        //     {
+        //         self.Init();
+        //     }
+        // }
 
         public class TODTimerComponentDestorySystem: DestroySystem<TODTimerComponent>
         {
