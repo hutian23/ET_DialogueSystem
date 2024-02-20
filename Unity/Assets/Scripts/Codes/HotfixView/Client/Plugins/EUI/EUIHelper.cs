@@ -345,7 +345,13 @@ namespace ET.Client
 
 
         #endregion
-        
+
+        public static void Setalpha(this Image self, float alpha)
+        {
+            Color tmp = self.color;
+            tmp.a = alpha;
+            self.color = tmp;
+        }
     }
 }
 
