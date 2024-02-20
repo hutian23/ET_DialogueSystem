@@ -63,15 +63,10 @@ namespace ET.Client
         /// <summary>
         /// 获得一帧的真实时长
         /// </summary>
-        private static int GetFrameLength(this TODTimerComponent self)
+        private static float GetFrameLength(this TODTimerComponent self)
         {
-            if (self.timeScale == 0)
-            {
-                return 0;
-            }
-
             //假设一秒为60帧
-            return Mathf.RoundToInt(1000 / (60 * self.timeScale));
+            return Mathf.Round(1000 / (60 * self.timeScale));
         }
 
         private static void TimerUpdate(this TODTimerComponent self)
@@ -84,8 +79,8 @@ namespace ET.Client
 
             self.deltaTimereminder += Time.deltaTime * 1000;
 
-            int frameLength = self.GetFrameLength();
-            int num = (int)self.deltaTimereminder / frameLength;
+            float frameLength = self.GetFrameLength();
+            int num = (int)(self.deltaTimereminder / frameLength);
             self.deltaTimereminder -= num * frameLength;
             self.curFrame += num;
 
@@ -286,7 +281,7 @@ namespace ET.Client
 
         public static long NewFrameTimer(this TODTimerComponent self, int type, object args)
         {
-            return self.NewRepeatedTimer(0, type, args);
+            return self.NewRepeatedTimer(1, type, args);
         }
 
         private static long NewRepeatedTimer(this TODTimerComponent self, long frame, int type, object args)

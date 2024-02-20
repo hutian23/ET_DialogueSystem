@@ -1042,7 +1042,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -945, y: -20}
-  m_SizeDelta: {x: 400, y: 800}
+  m_SizeDelta: {x: 400, y: 900}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1451098929
 MonoBehaviour:
@@ -1057,10 +1057,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabSource:
-    prefabName: Item_OpInfo
+    prefabName: Item_OPInfo
     poolSize: 5
   totalCount: 0
-  reverseDirection: 0
+  reverseDirection: 1
   m_Content: {fileID: 1100997383}
   m_Horizontal: 0
   m_Vertical: 0

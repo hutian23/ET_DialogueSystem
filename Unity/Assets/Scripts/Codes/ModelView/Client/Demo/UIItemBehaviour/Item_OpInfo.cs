@@ -4,7 +4,7 @@ using UnityEngine.UI;
 namespace ET.Client
 {
 	[EnableMethod]
-	public  class Scroll_Item_OpInfo : Entity,IAwake,ILoad,IDestroy,IUIScrollItem 
+	public  class Scroll_Item_OPInfo : Entity,IAwake,ILoad,IDestroy,IUIScrollItem 
 	{
 		public long DataId {get;set;}
 		private bool isCacheNode = false;
@@ -13,7 +13,7 @@ namespace ET.Client
 			this.isCacheNode = isCache;
 		}
 
-		public Scroll_Item_OpInfo BindTrans(Transform trans)
+		public Scroll_Item_OPInfo BindTrans(Transform trans)
 		{
 			this.uiTransform = trans;
 			return this;
@@ -43,7 +43,7 @@ namespace ET.Client
      		}
      	}
 
-		public UnityEngine.UI.Image E_DirectionImage
+		public UnityEngine.UI.LoopHorizontalScrollRect ELoopScrollList_OpsLoopHorizontalScrollRect
      	{
      		get
      		{
@@ -54,15 +54,15 @@ namespace ET.Client
      			}
      			if (this.isCacheNode)
      			{
-     				if( this.m_E_DirectionImage == null )
+     				if( this.m_ELoopScrollList_OpsLoopHorizontalScrollRect == null )
      				{
-		    			this.m_E_DirectionImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_Direction");
+		    			this.m_ELoopScrollList_OpsLoopHorizontalScrollRect = UIFindHelper.FindDeepChild<UnityEngine.UI.LoopHorizontalScrollRect>(this.uiTransform.gameObject,"E_Frame/ELoopScrollList_Ops");
      				}
-     				return this.m_E_DirectionImage;
+     				return this.m_ELoopScrollList_OpsLoopHorizontalScrollRect;
      			}
      			else
      			{
-		    		return UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_Direction");
+		    		return UIFindHelper.FindDeepChild<UnityEngine.UI.LoopHorizontalScrollRect>(this.uiTransform.gameObject,"E_Frame/ELoopScrollList_Ops");
      			}
      		}
      	}
@@ -70,13 +70,13 @@ namespace ET.Client
 		public void DestroyWidget()
 		{
 			this.m_E_FrameText = null;
-			this.m_E_DirectionImage = null;
+			this.m_ELoopScrollList_OpsLoopHorizontalScrollRect = null;
 			this.uiTransform = null;
 			this.DataId = 0;
 		}
 
 		private UnityEngine.UI.Text m_E_FrameText = null;
-		private UnityEngine.UI.Image m_E_DirectionImage = null;
+		private UnityEngine.UI.LoopHorizontalScrollRect m_ELoopScrollList_OpsLoopHorizontalScrollRect = null;
 		public Transform uiTransform = null;
 	}
 }

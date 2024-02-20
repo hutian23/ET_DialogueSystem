@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace ET.Client
@@ -106,6 +107,19 @@ namespace ET.Client
             }
 
             return ops;
+        }
+
+        public static List<int> GetInput(long ops)
+        {
+            var tmpList = new List<int>();
+            for (int i = 0; i < 64; i++)
+            {
+                if ((ops & (2 << i)) != 0)
+                {
+                    tmpList.Add(i);
+                }
+            }
+            return tmpList;
         }
     }
 }
