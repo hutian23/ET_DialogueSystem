@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace ET.Client
 {
@@ -15,6 +16,24 @@ namespace ET.Client
         public long currentOP; 
         public Queue<OpInfo> OPQueue = new();
         public int maxStack = 18;
+        
+        //只加载一次
+        public Sprite arrow_Up;
+        public Sprite arrow_UpRight;
+        public Sprite arrow_Right;
+        public Sprite arrow_DownRight;
+        public Sprite arrow_Down;
+        public Sprite arrow_DownLeft;
+        public Sprite arrow_Left;
+        public Sprite arrow_UpLeft;
+        public Sprite arrow_None;
+
+        public Sprite lp;
+        public Sprite lk;
+        public Sprite mp;
+        public Sprite mk;
+        public Sprite hk;
+        public Sprite hp;
     }
 
     public struct OpInfo

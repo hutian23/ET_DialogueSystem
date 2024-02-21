@@ -43,40 +43,14 @@ namespace ET.Client
      		}
      	}
 
-		public UnityEngine.UI.LoopHorizontalScrollRect ELoopScrollList_OpsLoopHorizontalScrollRect
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if (this.isCacheNode)
-     			{
-     				if( this.m_ELoopScrollList_OpsLoopHorizontalScrollRect == null )
-     				{
-		    			this.m_ELoopScrollList_OpsLoopHorizontalScrollRect = UIFindHelper.FindDeepChild<UnityEngine.UI.LoopHorizontalScrollRect>(this.uiTransform.gameObject,"E_Frame/ELoopScrollList_Ops");
-     				}
-     				return this.m_ELoopScrollList_OpsLoopHorizontalScrollRect;
-     			}
-     			else
-     			{
-		    		return UIFindHelper.FindDeepChild<UnityEngine.UI.LoopHorizontalScrollRect>(this.uiTransform.gameObject,"E_Frame/ELoopScrollList_Ops");
-     			}
-     		}
-     	}
-
 		public void DestroyWidget()
 		{
 			this.m_E_FrameText = null;
-			this.m_ELoopScrollList_OpsLoopHorizontalScrollRect = null;
 			this.uiTransform = null;
 			this.DataId = 0;
 		}
 
 		private UnityEngine.UI.Text m_E_FrameText = null;
-		private UnityEngine.UI.LoopHorizontalScrollRect m_ELoopScrollList_OpsLoopHorizontalScrollRect = null;
 		public Transform uiTransform = null;
 	}
 }
