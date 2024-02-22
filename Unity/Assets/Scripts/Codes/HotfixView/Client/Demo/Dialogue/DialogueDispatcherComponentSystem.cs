@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace ET.Client
 {
@@ -90,6 +89,20 @@ namespace ET.Client
 
                 self.replaceHandlers.Add(handler.GetReplaceType(), handler);
             }
+
+            self.BBCheckHandlers.Clear();
+            var bbHandlers = EventSystem.Instance.GetTypes(typeof (BBCheckHandler));
+            foreach (var checker in bbHandlers)
+            {
+                BBCheckHandler handler = Activator.CreateInstance(checker) as BBCheckHandler;
+                if (handler == null)
+                {
+                    Log.Error($"this obj is not a BBCheckerHandler: {checker.Name}");
+                    continue;
+                }
+
+                self.BBCheckHandlers.Add(handler.GetSkillType(), handler);
+            }
         }
 
         public static async ETTask<Status> Handle(this DialogueDispatcherComponent self, Unit unit, object node, ETCancellationToken token)
@@ -129,7 +142,7 @@ namespace ET.Client
 
             return 0;
         }
-        
+
         public static string GetReplaceStr(this DialogueDispatcherComponent self, Unit unit, string replaceType, string replaceText)
         {
             if (self.replaceHandlers.TryGetValue(replaceType, out ReplaceHandler handler))
@@ -138,6 +151,15 @@ namespace ET.Client
             }
 
             return string.Empty;
+        }
+
+        public static int GetSkillChecker(this DialogueDispatcherComponent self, string nodeCheckName, Unit unit)
+        {
+            if (self.BBCheckHandlers.TryGetValue(nodeCheckName, out BBCheckHandler handler))
+            {
+                return handler.Run(unit);
+            }
+            return 0;
         }
     }
 }
