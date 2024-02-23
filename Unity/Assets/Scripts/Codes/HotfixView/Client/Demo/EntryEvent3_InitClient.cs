@@ -19,7 +19,7 @@ namespace ET.Client
             clientScene.AddComponent<TODEventSystem>();
             clientScene.AddComponent<OperaComponent>();
             clientScene.AddComponent<DialogueDispatcherComponent>();
-            clientScene.AddComponent<TODInputComponent>();
+            clientScene.AddComponent<BBInputComponent>();
             
             Unit player = TODUnitFactory.CreatePlayer(clientScene);
             player.AddComponent<DialogueStorageManager>();

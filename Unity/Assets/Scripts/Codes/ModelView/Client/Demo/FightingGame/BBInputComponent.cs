@@ -3,7 +3,7 @@
 namespace ET.Client
 {
     [ComponentOf]
-    public class TODInputComponent: Entity, IAwake, IDestroy, IUpdate, ILoad
+    public class BBInputComponent: Entity, IAwake, IDestroy, IUpdate, ILoad
     {
         public long timer;
         public int maxStackSize = 60;

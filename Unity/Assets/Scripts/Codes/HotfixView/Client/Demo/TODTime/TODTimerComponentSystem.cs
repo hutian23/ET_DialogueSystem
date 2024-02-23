@@ -13,16 +13,7 @@ namespace ET.Client
                 self.TimerUpdate();
             }
         }
-
-        // 执行顺序的问题
-        // public class TODTimerComponentLoadSystem: LoadSystem<TODTimerComponent>
-        // {
-        //     protected override void Load(TODTimerComponent self)
-        //     {
-        //         self.Init();
-        //     }
-        // }
-
+        
         public class TODTimerComponentDestorySystem: DestroySystem<TODTimerComponent>
         {
             protected override void Destroy(TODTimerComponent self)

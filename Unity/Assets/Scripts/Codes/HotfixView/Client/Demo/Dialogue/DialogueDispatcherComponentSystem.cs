@@ -153,13 +153,14 @@ namespace ET.Client
             return string.Empty;
         }
 
-        public static int GetSkillChecker(this DialogueDispatcherComponent self, string nodeCheckName, Unit unit)
+        public static BBCheckHandler GetBBCheckHandler(this DialogueDispatcherComponent self, string name)
         {
-            if (self.BBCheckHandlers.TryGetValue(nodeCheckName, out BBCheckHandler handler))
+            if (self.BBCheckHandlers.TryGetValue(name, out BBCheckHandler handler))
             {
-                return handler.Run(unit);
+                return handler;
             }
-            return 0;
+
+            return null;
         }
     }
 }

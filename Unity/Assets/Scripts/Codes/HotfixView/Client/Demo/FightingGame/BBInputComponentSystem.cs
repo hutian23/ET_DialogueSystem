@@ -5,11 +5,11 @@ namespace ET.Client
     public static class TODInputComponentSystem
     {
         [Invoke(TODTimerInvokeType.CheckInput)]
-        [FriendOf(typeof (TODInputComponent))]
+        [FriendOf(typeof (BBInputComponent))]
         [FriendOf(typeof (TODTimerComponent))]
-        public class CheckInputTimer: TODTimer<TODInputComponent>
+        public class CheckInputTimer: TODTimer<BBInputComponent>
         {
-            protected override void Run(TODInputComponent self)
+            protected override void Run(BBInputComponent self)
             {
                 long ops = FTGHelper.CheckInput();
                 if (Gamepad.current.startButton.isPressed)
@@ -29,25 +29,25 @@ namespace ET.Client
                 self.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgFtg>().Refresh(ops);
             }
         }
-        
-        [FriendOf(typeof(TODTimerComponent))]
-        public class TODInputComponentAwakeSystem : AwakeSystem<TODInputComponent>
+
+        [FriendOf(typeof (TODTimerComponent))]
+        public class TODInputComponentAwakeSystem: AwakeSystem<BBInputComponent>
         {
-            protected override void Awake(TODInputComponent self)
+            protected override void Awake(BBInputComponent self)
             {
                 self.ClientScene().GetComponent<UIComponent>().ShowWindow<DlgFtg>();
                 TODTimerComponent timerComponent = self.AddComponent<TODTimerComponent>();
                 self.timer = timerComponent.NewFrameTimer(TODTimerInvokeType.CheckInput, self);
-                
+                self.AddComponent<BBWait>();
                 self.infos.Clear();
                 self.infos.Enqueue(InputInfo.Create(self.GetComponent<TODTimerComponent>().curFrame, 0));
             }
         }
 
         [FriendOf(typeof (TODTimerComponent))]
-        public class TODInputComponentLoadSystem: LoadSystem<TODInputComponent>
+        public class TODInputComponentLoadSystem: LoadSystem<BBInputComponent>
         {
-            protected override void Load(TODInputComponent self)
+            protected override void Load(BBInputComponent self)
             {
                 self.ClientScene().GetComponent<UIComponent>().UnLoadWindow<DlgFtg>();
                 self.ClientScene().GetComponent<UIComponent>().ShowWindow<DlgFtg>();
@@ -55,7 +55,7 @@ namespace ET.Client
                 self.RemoveComponent<TODTimerComponent>();
                 TODTimerComponent timerComponent = self.AddComponent<TODTimerComponent>();
                 self.timer = timerComponent.NewFrameTimer(TODTimerInvokeType.CheckInput, self);
-                
+
                 self.infos.Clear();
                 self.infos.Enqueue(InputInfo.Create(self.GetComponent<TODTimerComponent>().curFrame, 0));
             }

@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 namespace ET.Client
 {
+    [FriendOf(typeof(BBInputComponent))]
+    [FriendOf(typeof(TODTimerComponent))]
     public static class FTGHelper
     {
         public static long CheckInput()
@@ -24,7 +26,7 @@ namespace ET.Client
                 {
                     angle += 360f;
                 }
-            
+
                 if (angle is >= 22.5f and < 67.5f)
                 {
                     ops |= TODOperaType.UPRIGHT;
@@ -58,48 +60,48 @@ namespace ET.Client
                     ops |= TODOperaType.RIGHT;
                 }
             }
-            
+
             //2. 技能按键
             if (gamepad.buttonSouth.isPressed)
             {
                 ops |= TODOperaType.LIGHTKICK;
             }
-            
+
             if (gamepad.buttonEast.isPressed)
             {
                 ops |= TODOperaType.MIDDLEKICK;
             }
-            
+
             if (gamepad.buttonNorth.isPressed)
             {
                 ops |= TODOperaType.MIDDLEPUNCH;
             }
-            
+
             if (gamepad.buttonWest.isPressed)
             {
                 ops |= TODOperaType.LIGHTPUNCH;
             }
-            
+
             // 检测 RB 按钮
             if (gamepad.rightShoulder.isPressed)
             {
                 ops |= TODOperaType.HEAVYPUNCH;
             }
-            
+
             // 检测 LB 按钮
             if (gamepad.leftShoulder.isPressed)
             {
                 ops |= TODOperaType.HEAVYPUNCH;
                 ops |= TODOperaType.HEAVYKICK;
             }
-            
+
             // LT
             if (gamepad.leftTrigger.isPressed)
             {
                 ops |= TODOperaType.MIDDLEPUNCH;
                 ops |= TODOperaType.MIDDLEKICK;
             }
-            
+
             // RT
             if (gamepad.rightTrigger.isPressed)
             {
@@ -119,7 +121,20 @@ namespace ET.Client
                     tmpList.Add(i);
                 }
             }
+
             return tmpList;
+        }
+
+        //获得按键输入缓冲区
+        public static Queue<InputInfo> GetBuffer(Unit unit)
+        {
+            return unit.GetComponent<DialogueComponent>().GetComponent<BBInputComponent>().infos;
+        }
+
+        //获取输入缓冲组件当前帧号
+        public static long GetCurFrame(Unit unit)
+        {
+            return unit.GetComponent<DialogueComponent>().GetComponent<BBInputComponent>().GetComponent<TODTimerComponent>().curFrame;
         }
     }
 }

@@ -7,20 +7,10 @@ namespace ET.Client
     }
 
     [BBScript]
-    public abstract class BBCheckHandler: NodeCheckHandler
+    public abstract class BBCheckHandler
     {
-        public int Check(Unit unit, object nodeCheckConfig)
-        {
-            return 0;
-        }
-
-        public Type GetNodeCheckType()
-        {
-            return default;
-        }
-
         public abstract string GetSkillType();
 
-        public abstract int Run(Unit unit);
+        public abstract ETTask Handler(Unit unit, ETCancellationToken token);
     }
 }
