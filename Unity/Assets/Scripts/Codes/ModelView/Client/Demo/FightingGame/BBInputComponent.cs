@@ -6,8 +6,11 @@ namespace ET.Client
     public class BBInputComponent: Entity, IAwake, IDestroy, IUpdate, ILoad
     {
         public long timer;
+
         public int maxStackSize = 60;
-        public Queue<InputInfo> infos = new();
+
+        //按键与按下按键的帧号的映射，超过 n 帧判定为过期，这个按键没有按下
+        public Dictionary<int, long> pressDict = new();
     }
 
     public class InputInfo

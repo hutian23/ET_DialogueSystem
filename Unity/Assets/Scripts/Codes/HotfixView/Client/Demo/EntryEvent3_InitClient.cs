@@ -19,7 +19,6 @@ namespace ET.Client
             clientScene.AddComponent<TODEventSystem>();
             clientScene.AddComponent<OperaComponent>();
             clientScene.AddComponent<DialogueDispatcherComponent>();
-            clientScene.AddComponent<BBInputComponent>();
             
             Unit player = TODUnitFactory.CreatePlayer(clientScene);
             player.AddComponent<DialogueStorageManager>();
@@ -29,6 +28,10 @@ namespace ET.Client
             Unit loadUnit = await Storage.Instance.LoadStorage(0);
             
             TODUnitHelper.AddPlayer(clientScene, loadUnit);
+            //测试
+            Unit player_test = TODUnitHelper.GetPlayer(clientScene);
+            player_test.AddComponent<DialogueComponent>().AddComponent<BBInputComponent>();
+            
             await EventSystem.Instance.PublishAsync(clientScene, new EventType.AppStartInitFinish());
         }
     }

@@ -26,7 +26,7 @@ namespace ET.Client
             }
         }
 
-        public ETTask<WaitInput> Task => this.tcs; 
+        public ETTask<WaitInput> Task => this.tcs;
 
         public void SetResult(WaitInput wait)
         {
@@ -43,7 +43,7 @@ namespace ET.Client
         }
 
         public long OP;
-        public long frame;
+        public int waitType;
     }
 
     public struct WaitInput: IWaitType
@@ -55,6 +55,13 @@ namespace ET.Client
         public long frame;
         public long OP;
         public int Error { get; set; }
+    }
+
+    public static class FuzzyInputType
+    {
+        public const int None = 0;
+        public const int AND = 1;
+        public const int OR = 2;
     }
 
     public static class TODOperaType

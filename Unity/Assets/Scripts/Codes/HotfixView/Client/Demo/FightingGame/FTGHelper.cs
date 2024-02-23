@@ -67,43 +67,43 @@ namespace ET.Client
                 ops |= TODOperaType.LIGHTKICK;
             }
 
-            if (gamepad.buttonEast.isPressed)
+            if (gamepad.buttonEast.wasPressedThisFrame)
             {
                 ops |= TODOperaType.MIDDLEKICK;
             }
 
-            if (gamepad.buttonNorth.isPressed)
+            if (gamepad.buttonNorth.wasPressedThisFrame)
             {
                 ops |= TODOperaType.MIDDLEPUNCH;
             }
 
-            if (gamepad.buttonWest.isPressed)
+            if (gamepad.buttonWest.wasPressedThisFrame)
             {
                 ops |= TODOperaType.LIGHTPUNCH;
             }
 
             // 检测 RB 按钮
-            if (gamepad.rightShoulder.isPressed)
+            if (gamepad.rightShoulder.wasPressedThisFrame)
             {
                 ops |= TODOperaType.HEAVYPUNCH;
             }
 
             // 检测 LB 按钮
-            if (gamepad.leftShoulder.isPressed)
+            if (gamepad.leftShoulder.wasPressedThisFrame)
             {
                 ops |= TODOperaType.HEAVYPUNCH;
                 ops |= TODOperaType.HEAVYKICK;
             }
 
             // LT
-            if (gamepad.leftTrigger.isPressed)
+            if (gamepad.leftTrigger.wasPressedThisFrame)
             {
                 ops |= TODOperaType.MIDDLEPUNCH;
                 ops |= TODOperaType.MIDDLEKICK;
             }
 
             // RT
-            if (gamepad.rightTrigger.isPressed)
+            if (gamepad.rightTrigger.wasPressedThisFrame)
             {
                 ops |= TODOperaType.HEAVYKICK;
             }
@@ -125,16 +125,15 @@ namespace ET.Client
             return tmpList;
         }
 
-        //获得按键输入缓冲区
-        public static Queue<InputInfo> GetBuffer(Unit unit)
-        {
-            return unit.GetComponent<DialogueComponent>().GetComponent<BBInputComponent>().infos;
-        }
-
         //获取输入缓冲组件当前帧号
         public static long GetCurFrame(Unit unit)
         {
             return unit.GetComponent<DialogueComponent>().GetComponent<BBInputComponent>().GetComponent<TODTimerComponent>().curFrame;
+        }
+
+        public static BBWait GetBBWait(Unit unit)
+        {
+            return unit.GetComponent<DialogueComponent>().GetComponent<BBInputComponent>().GetComponent<BBWait>();
         }
     }
 }

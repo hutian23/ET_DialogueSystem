@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     public class BBScriptAttribute: BaseAttribute
     {
@@ -11,6 +9,6 @@ namespace ET.Client
     {
         public abstract string GetSkillType();
 
-        public abstract ETTask Handler(Unit unit, ETCancellationToken token);
+        public abstract ETTask Handle(Unit unit, ETCancellationToken token);
     }
 }

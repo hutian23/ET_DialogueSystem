@@ -91,14 +91,14 @@ namespace ET.Client
         {
             protected override void Awake(DialogueComponent self)
             {
-                if (Application.isEditor)
-                {
-                    DialogueViewComponent viewComponent = self.GetParent<Unit>()
-                            .GetComponent<GameObjectComponent>().GameObject
-                            .AddComponent<DialogueViewComponent>();
-                    viewComponent.instanceId = self.InstanceId;
-                    viewComponent.Variables = self.Variables; //没想到什么好办法，引用同一个list得了
-                }
+                // if (Application.isEditor)
+                // {
+                //     DialogueViewComponent viewComponent = self.GetParent<Unit>()
+                //             .GetComponent<GameObjectComponent>().GameObject
+                //             .AddComponent<DialogueViewComponent>();
+                //     viewComponent.instanceId = self.InstanceId;
+                //     viewComponent.Variables = self.Variables; //没想到什么好办法，引用同一个list得了
+                // }
 
                 self.AddComponent<ObjectWait>();
             }

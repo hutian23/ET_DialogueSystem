@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using Sirenix.Utilities;
 
 namespace ET.Client
 {
@@ -6,30 +6,71 @@ namespace ET.Client
     [FriendOf(typeof (BBWait))]
     public static class BBWaitSystem
     {
-        public static void CheckCor(this BBWait self)
+        public class BBWaitAwakeSystem: AwakeSystem<BBWait>
         {
-            // foreach (var VARIABLE in COLLECTION)
+            protected override void Awake(BBWait self)
             {
-                
+                self.Init();
             }
         }
-        
+
+        public class BBWaitLoadSystem: LoadSystem<BBWait>
+        {
+            protected override void Load(BBWait self)
+            {
+                self.Init();
+            }
+        }
+
+        /// <summary>
+        /// 取消所有招式检测协程
+        /// </summary>
+        public static void Cancel(this BBWait self)
+        {
+            self.token?.Cancel();
+            self.tcss.ForEach(tcs => { tcs.SetResult(new WaitInput() { Error = WaitTypeError.Cancel }); });
+            self.tcss.Clear();
+        }
+
+        public static void Init(this BBWait self)
+        {
+            self.Cancel();
+            self.token = new ETCancellationToken();
+            DialogueDispatcherComponent.Instance.BBCheckHandlers.Values.ForEach(handler => { self.CheckCor(handler).Coroutine(); });
+        }
+
+        private static async ETTask CheckCor(this BBWait self, BBCheckHandler handler)
+        {
+            while (true)
+            {
+                if (self.token.IsCancel()) return;
+                Unit unit = self.GetParent<BBInputComponent>().GetParent<DialogueComponent>().GetParent<Unit>();
+                await handler.Handle(unit, self.token);
+                if (self.token.IsCancel()) return;
+                await TimerComponent.Instance.WaitFrameAsync(self.token);
+            }
+        }
+
         // https://www.zhihu.com/question/36951135/answer/69880133
         public static void Notify(this BBWait self, long OP)
         {
-            var tmp = new List<InputCallback>();
-            self.tcss.ForEach(inputCallback =>
+            for (int i = 0; i < self.tcss.Count; i++)
             {
+                InputCallback inputCallback = self.tcss[i];
                 //当前输入不符合条件
-                if ((inputCallback.OP & OP) == 0) return;
+                switch (inputCallback.waitType)
+                {
+                    case FuzzyInputType.OR:
+                        if ((OP & inputCallback.OP) == 0) continue;
+                        break;
+                    case FuzzyInputType.AND:
+                        if ((OP & inputCallback.OP) != inputCallback.OP) continue;
+                        break;
+                }
 
                 TODTimerComponent timerComponent = self.GetParent<BBInputComponent>().GetComponent<TODTimerComponent>();
                 inputCallback.SetResult(new WaitInput() { frame = timerComponent.GetNow(), Error = WaitTypeError.Success });
-                tmp.Add(inputCallback);
-            });
-            for (int i = 0; i < tmp.Count; i++)
-            {
-                self.tcss.Remove(tmp[i]);
+                self.tcss.Remove(inputCallback);
             }
         }
 
@@ -37,9 +78,9 @@ namespace ET.Client
         /// 等待起手指令输入
         /// 比如一些起手的指令 236P 第一个2的等待帧数无限长
         /// </summary>
-        public static async ETTask<WaitInput> Wait(this BBWait self, long OP)
+        public static async ETTask<WaitInput> Wait(this BBWait self, long OP, int waitType)
         {
-            InputCallback tcs = new();
+            InputCallback tcs = new() { OP = OP, waitType = waitType };
             self.tcss.Add(tcs);
 
             void CancelAction()
@@ -65,13 +106,9 @@ namespace ET.Client
         /// <summary>
         /// 按键犹豫期
         /// </summary>
-        /// <param name="self"></param>
-        /// <param name="OP"></param>
-        /// <param name="waitFrame"></param>
-        /// <returns></returns>
-        public static async ETTask<WaitInput> Wait(this BBWait self, long OP, int waitFrame)
+        public static async ETTask<WaitInput> Wait(this BBWait self, long OP, int waitType, int waitFrame)
         {
-            InputCallback tcs = new();
+            InputCallback tcs = new() { OP = OP, waitType = waitType };
             self.tcss.Add(tcs);
 
             async ETTask WaitTimeOut()

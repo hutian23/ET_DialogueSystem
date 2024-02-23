@@ -16,16 +16,8 @@ namespace ET.Client
                 {
                     EventSystem.Instance.Load();
                 }
-
-                //可能有大量帧的按键输入是连续且一致的，这里只存储相同帧的第一帧
-                var curInfo = self.infos.Peek();
-                curInfo.lastedFrame++;
-                if (curInfo.ops != ops)
-                {
-                    self.infos.Enqueue(InputInfo.Create(self.GetComponent<TODTimerComponent>().curFrame, ops));
-                    if (self.infos.Count > self.maxStackSize) self.infos.Dequeue().Recyle();
-                }
-
+                
+                self.GetComponent<BBWait>().Notify(ops);
                 self.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgFtg>().Refresh(ops);
             }
         }
@@ -39,8 +31,6 @@ namespace ET.Client
                 TODTimerComponent timerComponent = self.AddComponent<TODTimerComponent>();
                 self.timer = timerComponent.NewFrameTimer(TODTimerInvokeType.CheckInput, self);
                 self.AddComponent<BBWait>();
-                self.infos.Clear();
-                self.infos.Enqueue(InputInfo.Create(self.GetComponent<TODTimerComponent>().curFrame, 0));
             }
         }
 
@@ -55,9 +45,6 @@ namespace ET.Client
                 self.RemoveComponent<TODTimerComponent>();
                 TODTimerComponent timerComponent = self.AddComponent<TODTimerComponent>();
                 self.timer = timerComponent.NewFrameTimer(TODTimerInvokeType.CheckInput, self);
-
-                self.infos.Clear();
-                self.infos.Enqueue(InputInfo.Create(self.GetComponent<TODTimerComponent>().curFrame, 0));
             }
         }
     }
