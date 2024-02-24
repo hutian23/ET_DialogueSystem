@@ -11,20 +11,26 @@
         {
             BBWait bbwait = FTGHelper.GetBBWait(unit);
 
-            WaitInput wait1 = await bbwait.Wait(OP: TODOperaType.DOWN | TODOperaType.DOWNLEFT, waitType: FuzzyInputType.OR);
+            WaitInput wait1 = await bbwait.Wait(OP: BBOperaType.DOWN | BBOperaType.DOWNLEFT, waitType: FuzzyInputType.OR);
             if (wait1.Error != WaitTypeError.Success) return;
 
-            WaitInput wait2 = await bbwait.Wait(OP: TODOperaType.DOWNRIGHT, waitType: FuzzyInputType.AND, waitFrame: 99);
+            WaitInput wait2 = await bbwait.Wait(OP: BBOperaType.DOWNRIGHT, waitType: FuzzyInputType.AND, waitFrame: 10);
             if (wait2.Error != WaitTypeError.Success) return;
 
-            WaitInput wait3 = await bbwait.Wait(OP: TODOperaType.RIGHT | TODOperaType.UPRIGHT, waitType: FuzzyInputType.OR, waitFrame: 99);
+            WaitInput wait3 = await bbwait.Wait(OP: BBOperaType.RIGHT | BBOperaType.UPRIGHT, waitType: FuzzyInputType.OR, waitFrame: 5);
             if (wait3.Error != WaitTypeError.Success) return;
-
-            WaitInput wait4 = await bbwait.Wait(OP: TODOperaType.LIGHTPUNCH | TODOperaType.MIDDLEPUNCH | TODOperaType.HEAVYPUNCH, FuzzyInputType.OR, waitFrame: 99);
+            //最后的攻击键和方向键一起按下
+            if ((wait3.OP & (BBOperaType.LIGHTPUNCH | BBOperaType.MIDDLEPUNCH | BBOperaType.HEAVYPUNCH)) != 0)
+            {
+                unit.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgFtg>().RefreshUI("波动拳!!!");
+                return;
+            }
+            
+            WaitInput wait4 = await bbwait.Wait(OP: BBOperaType.LIGHTPUNCH | BBOperaType.MIDDLEPUNCH | BBOperaType.HEAVYPUNCH, FuzzyInputType.OR, waitFrame: 5);
             if (wait4.Error != WaitTypeError.Success) return;
 
-            Log.Warning("波动拳!!!");
-
+            unit.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgFtg>().RefreshUI("波动拳");
+            
             await ETTask.CompletedTask;
         }
     }

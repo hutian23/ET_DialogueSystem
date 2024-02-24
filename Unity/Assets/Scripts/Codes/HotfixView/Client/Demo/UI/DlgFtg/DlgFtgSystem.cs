@@ -48,6 +48,11 @@ namespace ET.Client
             self.opInfos[index].uiTransform.Find("OPs").SetVisible(false);
         }
 
+        public static void RefreshUI(this DlgFtg self, string text)
+        {
+            self.View.E_SkillText.SetText(text);
+        }
+
         public static void Refresh(this DlgFtg self, long ops)
         {
             //更新指令历史队列
@@ -80,35 +85,35 @@ namespace ET.Client
                 parent.SetVisible(true);
                 ReferenceCollector refer = parent.GetComponent<ReferenceCollector>();
                 //1. 方向键
-                if ((opInfo.OP & TODOperaType.DOWN) != 0)
+                if ((opInfo.OP & BBOperaType.DOWN) != 0)
                 {
                     refer.Get<GameObject>("Direction").GetComponent<Image>().overrideSprite = self.arrow_Down;
                 }
-                else if ((opInfo.OP & TODOperaType.DOWNRIGHT) != 0)
+                else if ((opInfo.OP & BBOperaType.DOWNRIGHT) != 0)
                 {
                     refer.Get<GameObject>("Direction").GetComponent<Image>().overrideSprite = self.arrow_DownRight;
                 }
-                else if ((opInfo.OP & TODOperaType.RIGHT) != 0)
+                else if ((opInfo.OP & BBOperaType.RIGHT) != 0)
                 {
                     refer.Get<GameObject>("Direction").GetComponent<Image>().overrideSprite = self.arrow_Right;
                 }
-                else if ((opInfo.OP & TODOperaType.UPRIGHT) != 0)
+                else if ((opInfo.OP & BBOperaType.UPRIGHT) != 0)
                 {
                     refer.Get<GameObject>("Direction").GetComponent<Image>().overrideSprite = self.arrow_UpRight;
                 }
-                else if ((opInfo.OP & TODOperaType.UP) != 0)
+                else if ((opInfo.OP & BBOperaType.UP) != 0)
                 {
                     refer.Get<GameObject>("Direction").GetComponent<Image>().overrideSprite = self.arrow_Up;
                 }
-                else if ((opInfo.OP & TODOperaType.UPLEFT) != 0)
+                else if ((opInfo.OP & BBOperaType.UPLEFT) != 0)
                 {
                     refer.Get<GameObject>("Direction").GetComponent<Image>().overrideSprite = self.arrow_UpLeft;
                 }
-                else if ((opInfo.OP & TODOperaType.LEFT) != 0)
+                else if ((opInfo.OP & BBOperaType.LEFT) != 0)
                 {
                     refer.Get<GameObject>("Direction").GetComponent<Image>().overrideSprite = self.arrow_Left;
                 }
-                else if ((opInfo.OP & TODOperaType.DOWNLEFT) != 0)
+                else if ((opInfo.OP & BBOperaType.DOWNLEFT) != 0)
                 {
                     refer.Get<GameObject>("Direction").GetComponent<Image>().overrideSprite = self.arrow_DownLeft;
                 }
@@ -122,35 +127,35 @@ namespace ET.Client
                 {
                     Image op_UI = refer.Get<GameObject>($"OP{i + 1}").GetComponent<Image>();
                     op_UI.SetVisible(true);
-                    if ((op & TODOperaType.LIGHTPUNCH) != 0)
+                    if ((op & BBOperaType.LIGHTPUNCH) != 0)
                     {
                         op_UI.overrideSprite = self.lp;
-                        op ^= TODOperaType.LIGHTPUNCH;
+                        op ^= BBOperaType.LIGHTPUNCH;
                     }
-                    else if ((op & TODOperaType.LIGHTKICK) != 0)
+                    else if ((op & BBOperaType.LIGHTKICK) != 0)
                     {
                         op_UI.overrideSprite = self.lk;
-                        op ^= TODOperaType.LIGHTKICK;
+                        op ^= BBOperaType.LIGHTKICK;
                     }
-                    else if((op & TODOperaType.MIDDLEPUNCH)!=0)
+                    else if ((op & BBOperaType.MIDDLEPUNCH) != 0)
                     {
                         op_UI.overrideSprite = self.mp;
-                        op ^= TODOperaType.MIDDLEPUNCH;
+                        op ^= BBOperaType.MIDDLEPUNCH;
                     }
-                    else if ((op & TODOperaType.MIDDLEKICK) != 0)
+                    else if ((op & BBOperaType.MIDDLEKICK) != 0)
                     {
                         op_UI.overrideSprite = self.mk;
-                        op ^= TODOperaType.MIDDLEKICK;
+                        op ^= BBOperaType.MIDDLEKICK;
                     }
-                    else if((op & TODOperaType.HEAVYPUNCH)!=0)
+                    else if ((op & BBOperaType.HEAVYPUNCH) != 0)
                     {
                         op_UI.overrideSprite = self.hp;
-                        op ^= TODOperaType.HEAVYPUNCH;
+                        op ^= BBOperaType.HEAVYPUNCH;
                     }
-                    else if ((op & TODOperaType.HEAVYKICK) != 0)
+                    else if ((op & BBOperaType.HEAVYKICK) != 0)
                     {
                         op_UI.overrideSprite = self.hk;
-                        op ^= TODOperaType.HEAVYKICK;
+                        op ^= BBOperaType.HEAVYKICK;
                     }
                     else
                     {
@@ -163,21 +168,21 @@ namespace ET.Client
 
             //每帧刷新控制器UI
             float disable = 0.3f, enable = 1;
-            self.View.E_Arrow_DownImage.Setalpha((ops & TODOperaType.DOWN) != 0? enable : disable);
-            self.View.E_Arrow_DownRightImage.Setalpha((ops & TODOperaType.DOWNRIGHT) != 0? enable : disable);
-            self.View.E_Arrow_RightImage.Setalpha((ops & TODOperaType.RIGHT) != 0? enable : disable);
-            self.View.E_Arrow_UpRightImage.Setalpha((ops & TODOperaType.UPRIGHT) != 0? enable : disable);
-            self.View.E_Arrow_UpImage.Setalpha((ops & TODOperaType.UP) != 0? enable : disable);
-            self.View.E_Arrow_UpLeftImage.Setalpha((ops & TODOperaType.UPLEFT) != 0? enable : disable);
-            self.View.E_Arrow_LeftImage.Setalpha((ops & TODOperaType.LEFT) != 0? enable : disable);
-            self.View.E_Arrow_DownLeftImage.Setalpha((ops & TODOperaType.DOWNLEFT) != 0? enable : disable);
+            self.View.E_Arrow_DownImage.Setalpha((ops & BBOperaType.DOWN) != 0? enable : disable);
+            self.View.E_Arrow_DownRightImage.Setalpha((ops & BBOperaType.DOWNRIGHT) != 0? enable : disable);
+            self.View.E_Arrow_RightImage.Setalpha((ops & BBOperaType.RIGHT) != 0? enable : disable);
+            self.View.E_Arrow_UpRightImage.Setalpha((ops & BBOperaType.UPRIGHT) != 0? enable : disable);
+            self.View.E_Arrow_UpImage.Setalpha((ops & BBOperaType.UP) != 0? enable : disable);
+            self.View.E_Arrow_UpLeftImage.Setalpha((ops & BBOperaType.UPLEFT) != 0? enable : disable);
+            self.View.E_Arrow_LeftImage.Setalpha((ops & BBOperaType.LEFT) != 0? enable : disable);
+            self.View.E_Arrow_DownLeftImage.Setalpha((ops & BBOperaType.DOWNLEFT) != 0? enable : disable);
 
-            self.View.E_LightPunchImage.Setalpha((ops & TODOperaType.LIGHTPUNCH) != 0? enable : disable);
-            self.View.E_LightKickImage.Setalpha((ops & TODOperaType.LIGHTKICK) != 0? enable : disable);
-            self.View.E_MiddlePunchImage.Setalpha((ops & TODOperaType.MIDDLEPUNCH) != 0? enable : disable);
-            self.View.E_MiddleKickImage.Setalpha((ops & TODOperaType.MIDDLEKICK) != 0? enable : disable);
-            self.View.E_HeavyPunchImage.Setalpha((ops & TODOperaType.HEAVYPUNCH) != 0? enable : disable);
-            self.View.E_HeavyKickImage.Setalpha((ops & TODOperaType.HEAVYKICK) != 0? enable : disable);
+            self.View.E_LightPunchImage.Setalpha((ops & BBOperaType.LIGHTPUNCH) != 0? enable : disable);
+            self.View.E_LightKickImage.Setalpha((ops & BBOperaType.LIGHTKICK) != 0? enable : disable);
+            self.View.E_MiddlePunchImage.Setalpha((ops & BBOperaType.MIDDLEPUNCH) != 0? enable : disable);
+            self.View.E_MiddleKickImage.Setalpha((ops & BBOperaType.MIDDLEKICK) != 0? enable : disable);
+            self.View.E_HeavyPunchImage.Setalpha((ops & BBOperaType.HEAVYPUNCH) != 0? enable : disable);
+            self.View.E_HeavyKickImage.Setalpha((ops & BBOperaType.HEAVYKICK) != 0? enable : disable);
         }
     }
 }

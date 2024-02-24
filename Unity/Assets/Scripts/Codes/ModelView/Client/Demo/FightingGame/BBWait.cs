@@ -62,9 +62,10 @@ namespace ET.Client
         public const int None = 0;
         public const int AND = 1;
         public const int OR = 2;
+        public const int Hold = 3;
     }
 
-    public static class TODOperaType
+    public static class BBOperaType
     {
         public const int None = 0;
         public const int DOWNLEFT = 2 << 1;

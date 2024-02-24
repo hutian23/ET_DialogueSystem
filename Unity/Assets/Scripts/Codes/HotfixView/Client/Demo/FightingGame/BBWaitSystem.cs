@@ -54,8 +54,10 @@ namespace ET.Client
         // https://www.zhihu.com/question/36951135/answer/69880133
         public static void Notify(this BBWait self, long OP)
         {
+            //回调后会有新的InputCallback添加到list，下一帧再执行
             for (int i = 0; i < self.tcss.Count; i++)
             {
+                TODTimerComponent timerComponent = self.GetParent<BBInputComponent>().GetComponent<TODTimerComponent>();
                 InputCallback inputCallback = self.tcss[i];
                 //当前输入不符合条件
                 switch (inputCallback.waitType)
@@ -66,10 +68,13 @@ namespace ET.Client
                     case FuzzyInputType.AND:
                         if ((OP & inputCallback.OP) != inputCallback.OP) continue;
                         break;
+                    case FuzzyInputType.Hold:
+                        //蓄力中，一直拉后，不包含拉后指令了，判断退出蓄力协程
+                        if ((OP & inputCallback.OP) != 0) continue; //一直拉后
+                        break;
                 }
 
-                TODTimerComponent timerComponent = self.GetParent<BBInputComponent>().GetComponent<TODTimerComponent>();
-                inputCallback.SetResult(new WaitInput() { frame = timerComponent.GetNow(), Error = WaitTypeError.Success });
+                inputCallback.SetResult(new WaitInput() { frame = timerComponent.GetNow(), Error = WaitTypeError.Success, OP = OP });
                 self.tcss.Remove(inputCallback);
             }
         }

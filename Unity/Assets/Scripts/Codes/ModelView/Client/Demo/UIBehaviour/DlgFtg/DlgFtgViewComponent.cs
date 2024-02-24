@@ -262,6 +262,23 @@ namespace ET.Client
      		}
      	}
 
+		public UnityEngine.UI.Text E_SkillText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_SkillText == null )
+     			{
+		    		this.m_E_SkillText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"E_Skill");
+     			}
+     			return this.m_E_SkillText;
+     		}
+     	}
+
 		public void DestroyWidget()
 		{
 			this.m_E_Arrow_DownImage = null;
@@ -279,6 +296,7 @@ namespace ET.Client
 			this.m_E_HeavyPunchImage = null;
 			this.m_E_HeavyKickImage = null;
 			this.m_ELoopScrollList_InputLoopVerticalScrollRect = null;
+			this.m_E_SkillText = null;
 			this.uiTransform = null;
 		}
 
@@ -297,6 +315,7 @@ namespace ET.Client
 		private UnityEngine.UI.Image m_E_HeavyPunchImage = null;
 		private UnityEngine.UI.Image m_E_HeavyKickImage = null;
 		private UnityEngine.UI.LoopVerticalScrollRect m_ELoopScrollList_InputLoopVerticalScrollRect = null;
+		private UnityEngine.UI.Text m_E_SkillText = null;
 		public Transform uiTransform = null;
 	}
 }

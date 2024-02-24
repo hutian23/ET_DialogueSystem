@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace ET.Client
 {
@@ -31,7 +32,7 @@ namespace ET.Client
                 //     }
                 // }
 
-                if (UnityEngine.Input.GetKeyDown(KeyCode.R))
+                if (UnityEngine.Input.GetKeyDown(KeyCode.R) || Gamepad.current.startButton.wasPressedThisFrame)
                 {
                     CodeLoader.Instance.LoadHotfix();
                     EventSystem.Instance.Load();
