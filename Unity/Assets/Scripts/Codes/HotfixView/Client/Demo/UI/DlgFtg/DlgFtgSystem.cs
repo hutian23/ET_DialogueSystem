@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using Image = UnityEngine.UI.Image;
 
 namespace ET.Client
 {
     [FriendOf(typeof (DlgFtg))]
     [FriendOf(typeof (Scroll_Item_OPInfo))]
+    [FriendOf(typeof (DlgFtgViewComponent))]
     public static class DlgFtgSystem
     {
         public static void RegisterUIEvent(this DlgFtg self)
@@ -30,6 +32,8 @@ namespace ET.Client
             self.mk = IconHelper.LoadIconSprite("OPInfo", "OP_MK");
             self.hp = IconHelper.LoadIconSprite("OPInfo", "OP_HP");
             self.hk = IconHelper.LoadIconSprite("OPInfo", "OP_HK");
+            // 初始化帧数测量表
+            self.InitFrameDataList();
         }
 
         public static void ShowWindow(this DlgFtg self, Entity contextData = null)
@@ -183,6 +187,21 @@ namespace ET.Client
             self.View.E_MiddleKickImage.Setalpha((ops & BBOperaType.MIDDLEKICK) != 0? enable : disable);
             self.View.E_HeavyPunchImage.Setalpha((ops & BBOperaType.HEAVYPUNCH) != 0? enable : disable);
             self.View.E_HeavyKickImage.Setalpha((ops & BBOperaType.HEAVYKICK) != 0? enable : disable);
+        }
+
+        private static void InitFrameDataList(this DlgFtg self)
+        {
+            Transform trans = self.View.E_P1Image.transform.Find("FrameList");
+            foreach (GameObject go in trans.GetComponent<ReferenceCollector>().data.Select(data => data.gameObject as GameObject))
+            {
+                go.transform.Find("FrameType").GetComponent<Image>().color = EUIHelper.HexToColor(FrameDataType.None);
+            }
+
+            Transform trans2 = self.View.E_P2Image.transform.Find("FrameList");
+            foreach (GameObject go in trans2.GetComponent<ReferenceCollector>().data.Select(data => data.gameObject as GameObject))
+            {
+                go.transform.Find("FrameType").GetComponent<Image>().color = EUIHelper.HexToColor(FrameDataType.None);
+            }
         }
     }
 }

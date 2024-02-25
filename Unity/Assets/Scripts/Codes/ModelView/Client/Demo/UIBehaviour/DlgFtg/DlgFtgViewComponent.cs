@@ -262,6 +262,74 @@ namespace ET.Client
      		}
      	}
 
+		public UnityEngine.UI.Image E_P1Image
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_P1Image == null )
+     			{
+		    		this.m_E_P1Image = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"background/E_P1");
+     			}
+     			return this.m_E_P1Image;
+     		}
+     	}
+
+		public UnityEngine.UI.Text E_P1_FrameInfoText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_P1_FrameInfoText == null )
+     			{
+		    		this.m_E_P1_FrameInfoText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"background/E_P1/E_P1_FrameInfo");
+     			}
+     			return this.m_E_P1_FrameInfoText;
+     		}
+     	}
+
+		public UnityEngine.UI.Image E_P2Image
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_P2Image == null )
+     			{
+		    		this.m_E_P2Image = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"background/E_P2");
+     			}
+     			return this.m_E_P2Image;
+     		}
+     	}
+
+		public UnityEngine.UI.Text E_P2_FrameInfoText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_P2_FrameInfoText == null )
+     			{
+		    		this.m_E_P2_FrameInfoText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"background/E_P2/E_P2_FrameInfo");
+     			}
+     			return this.m_E_P2_FrameInfoText;
+     		}
+     	}
+
 		public UnityEngine.UI.Text E_SkillText
      	{
      		get
@@ -296,6 +364,10 @@ namespace ET.Client
 			this.m_E_HeavyPunchImage = null;
 			this.m_E_HeavyKickImage = null;
 			this.m_ELoopScrollList_InputLoopVerticalScrollRect = null;
+			this.m_E_P1Image = null;
+			this.m_E_P1_FrameInfoText = null;
+			this.m_E_P2Image = null;
+			this.m_E_P2_FrameInfoText = null;
 			this.m_E_SkillText = null;
 			this.uiTransform = null;
 		}
@@ -315,6 +387,10 @@ namespace ET.Client
 		private UnityEngine.UI.Image m_E_HeavyPunchImage = null;
 		private UnityEngine.UI.Image m_E_HeavyKickImage = null;
 		private UnityEngine.UI.LoopVerticalScrollRect m_ELoopScrollList_InputLoopVerticalScrollRect = null;
+		private UnityEngine.UI.Image m_E_P1Image = null;
+		private UnityEngine.UI.Text m_E_P1_FrameInfoText = null;
+		private UnityEngine.UI.Image m_E_P2Image = null;
+		private UnityEngine.UI.Text m_E_P2_FrameInfoText = null;
 		private UnityEngine.UI.Text m_E_SkillText = null;
 		public Transform uiTransform = null;
 	}

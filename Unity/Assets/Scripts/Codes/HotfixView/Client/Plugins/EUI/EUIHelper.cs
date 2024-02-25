@@ -352,6 +352,27 @@ namespace ET.Client
             tmp.a = alpha;
             self.color = tmp;
         }
+
+        public static Color HexToColor(string hex)
+        {
+            // 去掉十六进制颜色码中的“#”
+            hex = hex.Replace("#", "");
+        
+            // 将十六进制颜色码转换成Color类型
+            byte r = byte.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+            byte g = byte.Parse(hex.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
+            byte b = byte.Parse(hex.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
+            byte a = byte.Parse(hex.Substring(6, 2), System.Globalization.NumberStyles.HexNumber);
+
+            // 将值映射到0到1的范围内
+            float rFloat = r / 255f;
+            float gFloat = g / 255f;
+            float bFloat = b / 255f;
+            float aFloat = a / 255f;
+
+            // 创建并返回Color结构体
+            return new Color(rFloat, gFloat, bFloat, aFloat);
+        }
     }
 }
 

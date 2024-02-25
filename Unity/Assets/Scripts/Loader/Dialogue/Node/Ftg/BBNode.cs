@@ -6,7 +6,7 @@ namespace ET.Client
     [NodeType("Blazblue/技能节点")]
     public class BBNode: DialogueNode
     {
-        [FoldoutGroup("$nodeName/data"), TextArea(15, 30)]
+        [FoldoutGroup("$nodeName/data"), TextArea(15, 20)]
         public string BBScript = "";
     }
 }

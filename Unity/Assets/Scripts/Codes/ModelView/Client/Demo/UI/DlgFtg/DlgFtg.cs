@@ -13,10 +13,10 @@ namespace ET.Client
 
         public Dictionary<int, Scroll_Item_OPInfo> opInfos = new();
 
-        public long currentOP; 
+        public long currentOP;
         public Queue<OpInfo> OPQueue = new();
         public int maxStack = 18;
-        
+
         //只加载一次
         public Sprite arrow_Up;
         public Sprite arrow_UpRight;
@@ -41,5 +41,10 @@ namespace ET.Client
         //当前指令持续了多少帧,最大显示99
         public int LastedFrame;
         public long OP;
+    }
+
+    public static class FrameDataType
+    {
+        public const string None = "#413F3F96";
     }
 }
