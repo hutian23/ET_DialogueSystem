@@ -17,7 +17,7 @@ namespace ET.Client
 
         public Dictionary<string, ReplaceHandler> replaceHandlers = new();
 
-        //技能前置检查
+        // 技能前置检查
         public Dictionary<string, BBCheckHandler> BBCheckHandlers = new();
     }
 }

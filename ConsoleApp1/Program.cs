@@ -126,6 +126,20 @@ static class Program
 
     public static void Main()
     {
+        string input = "@State_Init:Hello world";
+        string pattern = "@([^:]+)";
+        
+        Match match = Regex.Match(input, pattern);
+        
+        if (match.Success)
+        {
+            string stateInit = match.Groups[1].Value;
+            Console.WriteLine("State_Init: " + stateInit);
+        }
+        else
+        {
+            Console.WriteLine("No match found.");
+        }
         // for (int i = 0; i < 3; i++)
         // {
         //     switch (i)

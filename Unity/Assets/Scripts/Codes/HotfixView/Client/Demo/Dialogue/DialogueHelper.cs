@@ -112,8 +112,7 @@ namespace ET.Client
             await handler.Handle(unit, node, opCode, token);
         }
 
-        public static async ETTask ScriptHandles(this DialogueDispatcherComponent self, Unit unit, DialogueNode node, string scripts,
-        ETCancellationToken token)
+        public static async ETTask ScriptHandles(this DialogueDispatcherComponent self, Unit unit, DialogueNode node, string scripts, ETCancellationToken token)
         {
             var opLines = scripts.Split("\n"); // 一行一行执行
             int index = 0;
