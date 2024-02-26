@@ -1,5 +1,3 @@
-using MongoDB.Bson;
-
 namespace ET.Client
 {
     [Event(SceneType.Process)]
@@ -26,11 +24,8 @@ namespace ET.Client
             await Storage.Instance.SaveStorage(0, player);
             //反序列化存档
             Unit loadUnit = await Storage.Instance.LoadStorage(0);
-            
             TODUnitHelper.AddPlayer(clientScene, loadUnit);
-            //测试
-            // Unit player_test = TODUnitHelper.GetPlayer(clientScene);
-            // player_test.AddComponent<DialogueComponent>().AddComponent<BBInputComponent>();
+            
             
             await EventSystem.Instance.PublishAsync(clientScene, new EventType.AppStartInitFinish());
         }

@@ -9,7 +9,7 @@ namespace ET.Client
             return "HitStop";
         }
 
-        // HitStop frame = 5;
+        // HitStop frame = 60;
         public override async ETTask Handle(Unit unit, DialogueNode node, string line, ETCancellationToken token)
         {
             Match match = Regex.Match(line, @"HitStop frame = (?<FrameCount>\w+);");

@@ -13,17 +13,9 @@ namespace ET.Client
                 self.waitFrame = waitFrame;
                 self.preTimeScale = timerComponent.GetTimeScale();
                 timerComponent.SetTimeScale(0f);
-                self.TestCor().Coroutine();
             }
         }
-
-        private static async ETTask TestCor(this HitStop self)
-        {
-            TODTimerComponent timerComponent = self.GetParent<DialogueComponent>().GetComponent<TODTimerComponent>(); 
-            await timerComponent.WaitFrameAsync();
-            Log.Warning("HitStop!!!!");
-        }
-
+        
         public class HitStopUpdateSystem: UpdateSystem<HitStop>
         {
             protected override void Update(HitStop self)

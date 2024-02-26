@@ -103,6 +103,20 @@ namespace ET.Client
 
                 self.BBCheckHandlers.Add(handler.GetSkillType(), handler);
             }
+
+            self.BBScriptHandlers.Clear();
+            var bbScriptHandlers = EventSystem.Instance.GetTypes(typeof (BBScriptAttribute));
+            foreach (var bbScript in bbScriptHandlers)
+            {
+                BBScriptHandler handler = Activator.CreateInstance(bbScript) as BBScriptHandler;
+                if (handler == null)
+                {
+                    Log.Error($"this obj is not a bbScriptHandler:{bbScript.Name} ");
+                    continue;
+                }
+
+                self.BBScriptHandlers.Add(handler.GetOPType(), handler);
+            }
         }
 
         public static async ETTask<Status> Handle(this DialogueDispatcherComponent self, Unit unit, object node, ETCancellationToken token)

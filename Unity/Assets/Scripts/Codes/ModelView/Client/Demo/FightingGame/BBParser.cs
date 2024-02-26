@@ -8,5 +8,6 @@ namespace ET.Client
     {
         //记录状态块的索引
         public Dictionary<string,int> funcMap = new();
+        public string opLines;
     }
 }

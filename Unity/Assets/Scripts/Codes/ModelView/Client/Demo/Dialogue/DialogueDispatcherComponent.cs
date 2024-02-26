@@ -19,5 +19,6 @@ namespace ET.Client
 
         // 技能前置检查
         public Dictionary<string, BBCheckHandler> BBCheckHandlers = new();
+        public Dictionary<string, BBScriptHandler> BBScriptHandlers = new();
     }
 }
