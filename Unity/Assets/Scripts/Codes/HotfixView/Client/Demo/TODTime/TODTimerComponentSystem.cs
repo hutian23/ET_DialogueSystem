@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using UnityEngine;
 
 namespace ET.Client
@@ -13,7 +13,7 @@ namespace ET.Client
                 self.TimerUpdate();
             }
         }
-        
+
         public class TODTimerComponentDestorySystem: DestroySystem<TODTimerComponent>
         {
             protected override void Destroy(TODTimerComponent self)
@@ -81,10 +81,8 @@ namespace ET.Client
                 return;
             }
 
-            foreach (KeyValuePair<long, List<long>> kv in self.TimerId)
+            foreach (long k in self.TimerId.Select(kv => kv.Key))
             {
-                //key 为帧号
-                long k = kv.Key;
                 // 设置定时器中的最小执行帧号
                 if (k > self.curFrame)
                 {
@@ -280,6 +278,16 @@ namespace ET.Client
 
             self.AddTimer(timer);
             return timer.Id;
+        }
+
+        public static void SetTimeScale(this TODTimerComponent self, float timeScale)
+        {
+            self.timeScale = timeScale;
+        }
+
+        public static float GetTimeScale(this TODTimerComponent self)
+        {
+            return self.timeScale;
         }
     }
 }

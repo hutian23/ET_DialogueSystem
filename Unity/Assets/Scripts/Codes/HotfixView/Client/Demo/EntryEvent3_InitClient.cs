@@ -29,8 +29,8 @@ namespace ET.Client
             
             TODUnitHelper.AddPlayer(clientScene, loadUnit);
             //测试
-            Unit player_test = TODUnitHelper.GetPlayer(clientScene);
-            player_test.AddComponent<DialogueComponent>().AddComponent<BBInputComponent>();
+            // Unit player_test = TODUnitHelper.GetPlayer(clientScene);
+            // player_test.AddComponent<DialogueComponent>().AddComponent<BBInputComponent>();
             
             await EventSystem.Instance.PublishAsync(clientScene, new EventType.AppStartInitFinish());
         }

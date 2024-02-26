@@ -31,5 +31,11 @@ namespace ET.Client
                 }
             }
         }
+
+        public static void CallFunc(this BBParser self, string ops)
+        {
+            
+        }
+                
     }
 }
