@@ -93,7 +93,9 @@ MonoBehaviour:
       Entry: 1
       Data: 'BBInit;
 
-        HitStop frame = 60;'
+        HitStop frame = 60;
+
+        HitStop frame = 50;'
     - Name: 
       Entry: 8
       Data: 
@@ -321,11 +323,12 @@ MonoBehaviour:
         //\u6807\u8BB0\u5F53\u524D\u5E27\u4E3A\u542F\u52A8\u5E27\nEditor_FrameList_SetStartFrame
         text = \"7\"; //\u5237\u65B0UI\u542F\u52A8\u5E27\nEditor_FrameList_SetTotalFrame
         text = \"---\";\n\nSprite rg001_1 3;\nSprite rg001_2 5;\n\n//\u6301\u7EED\u5E27\nEditor_FrameList_SetFrameType
-        type = Active; \n\nEnable_HitCheck goto = SubState_Hit;\nEnable_BlockCheck
-        goto = SubState_Block;\n\nSprite rg001_3 7;\n\n//\u786C\u76F4\u5E27\nEditor_FrameList_SetFrameType
-        type = Recover;\n\nDisable_Invincible;\nSprite rg001_4 5;\nExitState;\n\n@SubState_Hit:\nGatlingCancel
-        \"Sol_2HS\";\nGatlingCancel \"Sol_GunFlame\";\nHitStop 8;\n\n@SubState_Block:\nGatlingCancel
-        \"Sol_2HS\";\nGatlingCancel \"Sol_GunFlame\";\nHitStop 5;\n\n"
+        type = Active; \n\nOnHitCallback func = SubCoroutine_OnHit;\nOnBlockCallback
+        func = SubCoroutine_OnBlock;\nSprite rg001_3 7;\n\n//\u786C\u76F4\u5E27\nEditor_FrameList_SetFrameType
+        type = Recover;\n\nDisable_Invincible;\nSprite rg001_4 5;\nExitState;\nreturn;\n\n//
+        \u547D\u4E2D\u654C\u4EBA\u540E\u7684\u56DE\u8C03(\u683C\u6321\uFF0C\u547D\u4E2D\u90FD\u4F1A\u89E6\u53D1\uFF0C\u8D1F\u8D23\u5904\u7406\u4E00\u4E9B\u6D3E\u751F)\n@SubCoroutine_OnHit:\nGatlingCancel
+        \"Sol_2HS\";\nGatlingCancel \"Sol_GunFlame\";\nHitStop 8;\nreturn;\n\n//\u683C\u6321\u540E\u7684\u56DE\u8C03\n@SubCoroutine_OnBlock:\nHitStop
+        5;\nreturn;\n\n//\u6253\u5EB7\u540E\u7684\u56DE\u8C03\n@SubCoroutine_CounterHit:\nreturn;\n"
     - Name: 
       Entry: 8
       Data: 

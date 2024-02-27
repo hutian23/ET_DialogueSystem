@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class HitStop_BBScriptHandler: ScriptHandler
+    public class HitStop_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
         {
@@ -10,13 +10,13 @@ namespace ET.Client
         }
 
         // HitStop frame = 60;
-        public override async ETTask Handle(Unit unit, DialogueNode node, string line, ETCancellationToken token)
+        public override async ETTask<Status> Handle(Unit unit, string line, ETCancellationToken token)
         {
             Match match = Regex.Match(line, @"HitStop frame = (?<FrameCount>\w+);");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(line);
-                return;
+                return Status.Failed;
             }
 
             int.TryParse(match.Groups["FrameCount"].Value, out int frameCount);
@@ -27,6 +27,7 @@ namespace ET.Client
 
             token.Add(() => { dialogueComponent.RemoveComponent<HitStop>(); });
             await ETTask.CompletedTask;
+            return Status.Success;
         }
     }
 }
