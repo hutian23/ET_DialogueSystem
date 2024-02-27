@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class AddGatlingCancel_ScriptHandler: BBScriptHandler
+    public class AddGatlingCancel_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
         {

@@ -14,32 +14,48 @@ namespace ET.Client
             }
         }
 
+        public class BBParserDestroySystem: DestroySystem<BBParser>
+        {
+            protected override void Destroy(BBParser self)
+            {
+                self.BBParser_Destroy();
+            }
+        }
+
+        private static void BBParser_Destroy(this BBParser self)
+        {
+            self.funcMap.Clear();
+            self.opLines = null;
+        }
+
         public static void InitScript(this BBParser self, string ops)
         {
-            //建立状态块和索引的映射
-            self.funcMap.Clear();
+            self.BBParser_Destroy();
             self.opLines = ops;
 
+            //建立状态块和索引的映射
             var opLines = ops.Split("\n");
             for (int i = 0; i < opLines.Length; i++)
             {
                 string opLine = opLines[i];
-                if (string.IsNullOrEmpty(opLine)) continue;
-                if (opLine[0] == '@')
-                {
-                    string pattern = "@([^:]+)";
-                    Match match = Regex.Match(opLine, pattern);
-                    if (!match.Success) continue;
-                    self.funcMap.TryAdd(match.Groups[1].Value, i);
-                }
+                if (string.IsNullOrEmpty(opLine) || opLine[0] != '@') continue;
+                string pattern = "@([^:]+)";
+                Match match = Regex.Match(opLine, pattern);
+                if (!match.Success) continue;
+                self.funcMap.TryAdd(match.Groups[1].Value, i);
             }
         }
 
         public static async ETTask Init(this BBParser self, ETCancellationToken token)
-        { 
+        {
             await self.Invoke("Init", token);
         }
-        
+
+        public static async ETTask Main(this BBParser self, ETCancellationToken token)
+        {
+            await self.Invoke("State_Main", token);
+        }
+
         private static async ETTask Invoke(this BBParser self, string funcName, ETCancellationToken token)
         {
             if (!self.funcMap.TryGetValue(funcName, out int index))
