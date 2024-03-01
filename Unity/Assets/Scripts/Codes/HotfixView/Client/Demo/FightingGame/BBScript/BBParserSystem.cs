@@ -32,6 +32,7 @@ namespace ET.Client
         {
             self.BBParser_Destroy();
             self.opLines = ops;
+            self.cancellationToken = new ETCancellationToken();
 
             //建立状态块和索引的映射
             var opLines = ops.Split("\n");
@@ -46,6 +47,16 @@ namespace ET.Client
             }
         }
 
+        public static int GetFunctionPointer(this BBParser self, string functionName)
+        {
+            if (!self.funcMap.TryGetValue(functionName, out int pointer))
+            {
+                Log.Error($"not found function : {functionName}");
+                return 0;
+            }
+            return pointer;
+        }
+        
         public static async ETTask Init(this BBParser self, ETCancellationToken token)
         {
             await self.Invoke("Init", token);
@@ -56,12 +67,16 @@ namespace ET.Client
             await self.Invoke("State_Main", token);
         }
 
-        private static async ETTask Invoke(this BBParser self, string funcName, ETCancellationToken token)
+        /// <summary>
+        /// 同步调用 Main函数或者在Main函数中调用函数
+        /// 异步调用 不需要记录指针
+        /// </summary>
+        public static async ETTask<Status> Invoke(this BBParser self, string funcName, ETCancellationToken token)
         {
             if (!self.funcMap.TryGetValue(funcName, out int index))
             {
                 Log.Warning($"not found function : {funcName}");
-                return;
+                return Status.Failed;
             }
 
             index++;
@@ -70,7 +85,7 @@ namespace ET.Client
 
             while (index < opLines.Length)
             {
-                if (token.IsCancel()) return;
+                if (token.IsCancel()) return Status.Failed;
 
                 string opLine = opLines[index];
                 //空行 or 注释行，跳过
@@ -85,22 +100,24 @@ namespace ET.Client
                 if (!match.Success)
                 {
                     Log.Error($"{opLine}匹配失败! 请检查格式");
-                    return;
+                    return Status.Failed;
                 }
 
                 var opType = match.Value;
                 var opCode = Regex.Match(opLine, "^(.*?);").Value;
-                if (opType.Equals("return")) return;
+
+                if (opType.Equals("return")) return Status.Failed;
                 if (!DialogueDispatcherComponent.Instance.BBScriptHandlers.TryGetValue(opType, out BBScriptHandler handler))
                 {
                     Log.Error($"not found script handler； {opType}");
-                    return;
+                    return Status.Failed;
                 }
-
+                
                 Status ret = await handler.Handle(unit, opCode, token);
-                if (token.IsCancel() || ret == Status.Failed) return;
+                if (token.IsCancel() || ret == Status.Failed) return Status.Failed;
                 await TimerComponent.Instance.WaitFrameAsync(token);
             }
+            return Status.Success;
         }
     }
 }
