@@ -64,7 +64,7 @@ namespace ET.Client
         public const int OR = 2;
         public const int Hold = 3;
     }
-
+    
     public static class BBOperaType
     {
         public const int None = 0;

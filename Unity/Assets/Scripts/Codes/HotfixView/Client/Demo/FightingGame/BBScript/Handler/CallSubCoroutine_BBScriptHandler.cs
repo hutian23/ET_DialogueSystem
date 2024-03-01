@@ -2,24 +2,24 @@
 
 namespace ET.Client
 {
-    public class RemoveGatlingCancel_ScriptHandler: BBScriptHandler
+    public class CallSubCoroutine_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "RemoveGatlingCancel";
+            return "CallSubCoroutine";
         }
 
+        //CallSubCoroutine func = OnBlock;
         public override async ETTask<Status> Handle(Unit unit, string opCode, ETCancellationToken token)
         {
-            Match match = Regex.Match(opCode, @"RemoveGatlingCancel skill = (?<skill>\w+);");
+            Match match = Regex.Match(opCode, @"CallSubCoroutine func = (?<Function>\w+);");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(opCode);
                 return Status.Failed;
             }
 
-            string skillValue = match.Groups["skill"].Value;
-            unit.GetComponent<DialogueComponent>().GetComponent<GatlingCancel>().RemoveTag(skillValue);
+            unit.GetComponent<DialogueComponent>().GetComponent<BBParser>().SubCoroutine(match.Groups["Function"].Value).Coroutine();
             await ETTask.CompletedTask;
             return Status.Success;
         }

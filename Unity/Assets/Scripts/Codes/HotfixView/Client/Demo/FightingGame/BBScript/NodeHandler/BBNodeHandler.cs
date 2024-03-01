@@ -5,12 +5,18 @@
         protected override async ETTask<Status> Run(Unit unit, BBNode node, ETCancellationToken token)
         {
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
-            
-            dialogueComponent.GetComponent<GatlingCancel>().Clear(); // 移除所有加特林取消
+
+            //移除所有加特林取消
+            dialogueComponent.GetComponent<GatlingCancel>().Clear(); 
+            //清除回调
+            ObjectWait objectWait = dialogueComponent.GetComponent<ObjectWait>();
+            objectWait.Notify(new WaitBlock() { Error = WaitTypeError.Destroy });
+            objectWait.Notify(new WaitHit() { Error = WaitTypeError.Destroy });
+            objectWait.Notify(new WaitCounterHit() { Error = WaitTypeError.Destroy });
             
             dialogueComponent.GetComponent<BBParser>().InitScript(node.BBScript);
             await dialogueComponent.GetComponent<BBParser>().Main(token);
-            
+
             return token.IsCancel()? Status.Failed : Status.Success;
         }
     }
