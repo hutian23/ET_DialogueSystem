@@ -19,7 +19,7 @@ namespace ET.Client
             player.AddComponent<ObjectWait>();
             player.AddComponent<GameObjectComponent>().GameObject = go;
             player.AddComponent<AnimatorComponent>();
-            player.AddComponent<TODTimerComponent>();
+            player.AddComponent<BBTimerComponent>();
             player.AddComponent<Skill_InfoComponent>();
             player.GetComponent<Skill_InfoComponent>().AddComponent<ChainComponent>();
             go.transform.position = new Vector2(1, 1);

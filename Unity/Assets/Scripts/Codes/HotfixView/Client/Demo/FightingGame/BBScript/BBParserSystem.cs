@@ -27,6 +27,7 @@ namespace ET.Client
             self.cancellationToken?.Cancel();
             self.funcMap.Clear();
             self.opLines = null;
+            self.currentTargetID = 0;
         }
 
         public static void InitScript(this BBParser self, string ops)
@@ -66,7 +67,9 @@ namespace ET.Client
 
         public static async ETTask<Status> Main(this BBParser self, ETCancellationToken token)
         {
-            return await self.Invoke("Main", token);
+            Status ret = await self.Invoke("Main", token);
+            self.cancellationToken.Cancel(); //Main执行完毕，取消所有子协程
+            return ret;
         }
 
         /// <summary>

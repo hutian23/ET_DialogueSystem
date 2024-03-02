@@ -9,7 +9,7 @@ namespace ET.Client
         {
             protected override void Awake(HitStop self, int waitFrame)
             {
-                TODTimerComponent timerComponent = self.GetParent<DialogueComponent>().GetComponent<TODTimerComponent>();
+                BBTimerComponent timerComponent = self.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>();
                 self.waitFrame = waitFrame;
                 self.preTimeScale = timerComponent.GetTimeScale();
                 timerComponent.SetTimeScale(0f);
@@ -28,7 +28,7 @@ namespace ET.Client
 
                 if (self.frameCounter >= self.waitFrame)
                 {
-                    self.GetParent<DialogueComponent>().GetComponent<TODTimerComponent>()?.SetTimeScale(self.preTimeScale);
+                    self.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>()?.SetTimeScale(self.preTimeScale);
                     self.Dispose();
                 }
             }

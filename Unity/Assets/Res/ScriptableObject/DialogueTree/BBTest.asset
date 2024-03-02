@@ -215,7 +215,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 359
+      Data: 440
     - Name: 
       Entry: 4
       Data: 200
@@ -240,14 +240,29 @@ MonoBehaviour:
       Data: 
     - Name: BBScript
       Entry: 1
-      Data: '@Main:
+      Data: '@Init:
 
-        CallSubCoroutine func = SubCoroutine_1;
+        LogWarning "Init";
 
-        Invoke
-        func = Test;
+        return;
 
-        LogWarning "After WaitFrame 2";
+
+        @Main:
+
+        CallSubCoroutine
+        func = SubCoroutine_1;
+
+        Invoke func = Test;
+
+        LogWarning "After
+        WaitFrame 2";
+
+        RegistCallback type = OnBlock func = OnBlockCallback;
+
+        WaitFrame
+        frame = 60;
+
+        InvokeCallback type = OnBlock;
 
         return;
 
@@ -269,7 +284,7 @@ MonoBehaviour:
 
         @SubCoroutine_1:
 
-        Log.Warning
+        LogWarning
         "SubCoroutine Start!!!";
 
         WaitFrame frame = 60;
@@ -280,7 +295,14 @@ MonoBehaviour:
         return;
 
 
-'
+
+
+        @OnBlockCallback:
+
+        LogWarning
+        "OnBlockCallback!!!";
+
+        return;'
     - Name: 
       Entry: 8
       Data: 
@@ -326,10 +348,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 611
+      Data: 726
     - Name: 
       Entry: 4
-      Data: 123
+      Data: 63
     - Name: 
       Entry: 8
       Data: 
@@ -410,10 +432,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 359
+      Data: 265
     - Name: 
       Entry: 4
-      Data: -25
+      Data: 62
     - Name: 
       Entry: 8
       Data: 
@@ -627,7 +649,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 359
+      Data: 440
     - Name: 
       Entry: 4
       Data: 200
@@ -652,14 +674,29 @@ MonoBehaviour:
       Data: 
     - Name: BBScript
       Entry: 1
-      Data: '@Main:
+      Data: '@Init:
 
-        CallSubCoroutine func = SubCoroutine_1;
+        LogWarning "Init";
 
-        Invoke
-        func = Test;
+        return;
 
-        LogWarning "After WaitFrame 2";
+
+        @Main:
+
+        CallSubCoroutine
+        func = SubCoroutine_1;
+
+        Invoke func = Test;
+
+        LogWarning "After
+        WaitFrame 2";
+
+        RegistCallback type = OnBlock func = OnBlockCallback;
+
+        WaitFrame
+        frame = 60;
+
+        InvokeCallback type = OnBlock;
 
         return;
 
@@ -681,7 +718,7 @@ MonoBehaviour:
 
         @SubCoroutine_1:
 
-        Log.Warning
+        LogWarning
         "SubCoroutine Start!!!";
 
         WaitFrame frame = 60;
@@ -692,7 +729,14 @@ MonoBehaviour:
         return;
 
 
-'
+
+
+        @OnBlockCallback:
+
+        LogWarning
+        "OnBlockCallback!!!";
+
+        return;'
     - Name: 
       Entry: 8
       Data: 

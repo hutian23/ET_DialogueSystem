@@ -20,7 +20,7 @@ namespace ET.Client
             }
 
             int.TryParse(match.Groups["frame"].Value, out int frame);
-            await unit.GetComponent<DialogueComponent>().GetComponent<TODTimerComponent>().WaitAsync(frame, token);
+            await unit.GetComponent<DialogueComponent>().GetComponent<BBTimerComponent>().WaitAsync(frame, token);
             return token.IsCancel()? Status.Failed : Status.Success;
         }
     }

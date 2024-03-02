@@ -9,7 +9,7 @@
                 Log.Warning("unit is null");
                 return;
             }
-            TODTimerComponent timerComponent = unit.GetComponent<TODTimerComponent>();
+            BBTimerComponent timerComponent = unit.GetComponent<BBTimerComponent>();
             if (timerComponent == null)
             {
                 Log.Warning($"please add todtimercomponent to unit: {unit.InstanceId}");
@@ -25,7 +25,7 @@
                 Log.Warning("unit is null");
                 return;
             }
-            TODTimerComponent timerComponent = unit.GetComponent<TODTimerComponent>();
+            BBTimerComponent timerComponent = unit.GetComponent<BBTimerComponent>();
             if (timerComponent == null)
             {
                 Log.Warning($"please add todtimercomponent to unit: {unit.InstanceId}");

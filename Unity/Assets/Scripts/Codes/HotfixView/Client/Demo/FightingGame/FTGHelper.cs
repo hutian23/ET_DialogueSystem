@@ -2,7 +2,7 @@
 namespace ET.Client
 {
     [FriendOf(typeof(BBInputComponent))]
-    [FriendOf(typeof(TODTimerComponent))]
+    [FriendOf(typeof(BBTimerComponent))]
     public static class FTGHelper
     {
         // public static long CheckInput()
@@ -125,7 +125,7 @@ namespace ET.Client
         //获取输入缓冲组件当前帧号
         public static long GetCurFrame(Unit unit)
         {
-            return unit.GetComponent<DialogueComponent>().GetComponent<BBInputComponent>().GetComponent<TODTimerComponent>().curFrame;
+            return unit.GetComponent<DialogueComponent>().GetComponent<BBInputComponent>().GetComponent<BBTimerComponent>().curFrame;
         }
 
         public static BBWait GetBBWait(Unit unit)

@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class TODTimerAction
+    public class BBTimerAction
     {
         public long Id;
         public TimerClass TimerClass;
@@ -11,9 +11,9 @@ namespace ET.Client
         public long Frame; // 持续的帧数
         public int Type; //战斗中的事件 具体见TODTimeInvokeType
 
-        public static TODTimerAction Create(long id, TimerClass timerClass, long startFrame, long frame, int type, object obj)
+        public static BBTimerAction Create(long id, TimerClass timerClass, long startFrame, long frame, int type, object obj)
         {
-            TODTimerAction timerAction = ObjectPool.Instance.Fetch<TODTimerAction>();
+            BBTimerAction timerAction = ObjectPool.Instance.Fetch<BBTimerAction>();
             timerAction.Id = id;
             timerAction.TimerClass = timerClass;
             timerAction.startFrame = startFrame;
@@ -35,13 +35,13 @@ namespace ET.Client
         }
     }
 
-    public struct TODTimerCallback
+    public struct BBTimerCallback
     {
         public object Args;
     }
     
     [ComponentOf]
-    public class TODTimerComponent: Entity, IAwake, IDestroy, ILoad, IUpdate
+    public class BBTimerComponent: Entity, IAwake, IDestroy, ILoad, IUpdate
     {
         public readonly MultiMap<long, long> TimerId = new();
 
@@ -49,7 +49,7 @@ namespace ET.Client
 
         public readonly Queue<long> timeOutTimerIds = new();
 
-        public readonly Dictionary<long, TODTimerAction> timerActions = new();
+        public readonly Dictionary<long, BBTimerAction> timerActions = new();
 
         public long idGenerator;
 

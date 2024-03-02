@@ -57,7 +57,7 @@ namespace ET.Client
             //回调后会有新的InputCallback添加到list，下一帧再执行
             for (int i = 0; i < self.tcss.Count; i++)
             {
-                TODTimerComponent timerComponent = self.GetParent<BBInputComponent>().GetComponent<TODTimerComponent>();
+                BBTimerComponent timerComponent = self.GetParent<BBInputComponent>().GetComponent<BBTimerComponent>();
                 InputCallback inputCallback = self.tcss[i];
                 //当前输入不符合条件
                 switch (inputCallback.waitType)
@@ -119,7 +119,7 @@ namespace ET.Client
             async ETTask WaitTimeOut()
             {
                 // n帧内输入有效(sf6训练场还有该标准速度的选项，调整timeScale后，犹豫期也会跟着改变)
-                TODTimerComponent timerComponent = self.GetParent<BBInputComponent>().GetComponent<TODTimerComponent>();
+                BBTimerComponent timerComponent = self.GetParent<BBInputComponent>().GetComponent<BBTimerComponent>();
                 await timerComponent.WaitAsync(waitFrame, self.token);
                 if (self.token.IsCancel())
                 {

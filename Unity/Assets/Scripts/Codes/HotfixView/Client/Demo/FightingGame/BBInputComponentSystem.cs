@@ -8,7 +8,7 @@ namespace ET.Client
     {
         [Invoke(TODTimerInvokeType.CheckInput)]
         [FriendOf(typeof (BBInputComponent))]
-        [FriendOf(typeof (TODTimerComponent))]
+        [FriendOf(typeof (BBTimerComponent))]
         public class CheckInputTimer: TODTimer<BBInputComponent>
         {
             protected override void Run(BBInputComponent self)
@@ -19,14 +19,14 @@ namespace ET.Client
             }
         }
 
-        [FriendOf(typeof (TODTimerComponent))]
+        [FriendOf(typeof (BBTimerComponent))]
         public class TODInputComponentAwakeSystem: AwakeSystem<BBInputComponent>
         {
             protected override void Awake(BBInputComponent self)
             {
                 self.ClientScene().GetComponent<UIComponent>().ShowWindow<DlgFtg>();
                 
-                TODTimerComponent timerComponent = self.AddComponent<TODTimerComponent>();
+                BBTimerComponent timerComponent = self.AddComponent<BBTimerComponent>();
                 self.timer = timerComponent.NewFrameTimer(TODTimerInvokeType.CheckInput, self);
                 
                 self.AddComponent<BBWait>();
@@ -35,7 +35,7 @@ namespace ET.Client
             }
         }
 
-        [FriendOf(typeof (TODTimerComponent))]
+        [FriendOf(typeof (BBTimerComponent))]
         public class TODInputComponentLoadSystem: LoadSystem<BBInputComponent>
         {
             protected override void Load(BBInputComponent self)
@@ -43,8 +43,8 @@ namespace ET.Client
                 self.ClientScene().GetComponent<UIComponent>().UnLoadWindow<DlgFtg>();
                 self.ClientScene().GetComponent<UIComponent>().ShowWindow<DlgFtg>();
 
-                self.RemoveComponent<TODTimerComponent>();
-                TODTimerComponent timerComponent = self.AddComponent<TODTimerComponent>();
+                self.RemoveComponent<BBTimerComponent>();
+                BBTimerComponent timerComponent = self.AddComponent<BBTimerComponent>();
                 self.timer = timerComponent.NewFrameTimer(TODTimerInvokeType.CheckInput, self);
                 
                 self.InitPressDict();
@@ -120,7 +120,7 @@ namespace ET.Client
             }
 
             //2. 技能按键
-            TODTimerComponent timerComponent = self.GetComponent<TODTimerComponent>();
+            BBTimerComponent timerComponent = self.GetComponent<BBTimerComponent>();
             // 轻拳
             if (gamepad.xButton.isPressed)
             {

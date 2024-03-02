@@ -13,12 +13,12 @@
 
             token.Add(() =>
             {
-                dialogueComponent.RemoveComponent<TODTimerComponent>();
+                dialogueComponent.RemoveComponent<BBTimerComponent>();
                 dialogueComponent.RemoveComponent<BBParser>();
                 dialogueComponent.RemoveComponent<GatlingCancel>();
             });
 
-            dialogueComponent.AddComponent<TODTimerComponent>();
+            dialogueComponent.AddComponent<BBTimerComponent>();
             dialogueComponent.AddComponent<BBParser>();
             dialogueComponent.AddComponent<GatlingCancel>();
 

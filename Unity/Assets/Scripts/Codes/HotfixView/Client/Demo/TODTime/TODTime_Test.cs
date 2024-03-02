@@ -1,10 +1,10 @@
 ﻿namespace ET.Client
 {
     [Invoke(TODTimerInvokeType.Test1)]
-    [FriendOf(typeof(TODTimerComponent))]
-    public class TODTime_Test : TODTimer<TODTimerComponent>
+    [FriendOf(typeof(BBTimerComponent))]
+    public class TODTime_Test : TODTimer<BBTimerComponent>
     {
-        protected override void Run(TODTimerComponent timerComponent)
+        protected override void Run(BBTimerComponent timerComponent)
         {
             Log.Warning($"{timerComponent.curFrame} {timerComponent.deltaTimereminder}");
         }
