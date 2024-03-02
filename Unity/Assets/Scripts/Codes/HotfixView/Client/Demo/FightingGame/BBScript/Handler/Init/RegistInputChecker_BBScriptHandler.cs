@@ -2,7 +2,8 @@
 
 namespace ET.Client
 {
-    public class RegistInputChecker_BBScriptHandler: BBScriptHandler
+    [FriendOf(typeof(BBInputComponent))]
+    public class RegistInputChecker_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
@@ -18,7 +19,10 @@ namespace ET.Client
                 DialogueHelper.ScripMatchError(opCode);
                 return Status.Failed;
             }
-            
+
+            BBInputComponent bbInput = unit.GetComponent<DialogueComponent>().GetComponent<BBInputComponent>();
+            bbInput.bbCheckers.Add($"{match.Groups["Checker"].Value}_CheckHandler");
+
             await ETTask.CompletedTask;
             return Status.Success;
         }

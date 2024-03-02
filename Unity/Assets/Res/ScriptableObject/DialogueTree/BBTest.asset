@@ -181,7 +181,7 @@ MonoBehaviour:
       Data: 10
     - Name: TargetID
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -215,7 +215,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 440
+      Data: 468
     - Name: 
       Entry: 4
       Data: 200
@@ -242,9 +242,18 @@ MonoBehaviour:
       Entry: 1
       Data: '@Init:
 
-        LogWarning "Init";
+        #RegistSkill name = Sol_GunFlame;
+
+        #RegistSkillChecker
+        name = Sol_GunFlame;
+
+        #InitPool name = GunFlame;
+
+        LogWarning
+        "Hello world";
 
         return;
+
 
 
         @Main:
@@ -398,7 +407,7 @@ MonoBehaviour:
       Data: 10
     - Name: TargetID
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -432,10 +441,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 265
+      Data: 229
     - Name: 
       Entry: 4
-      Data: 62
+      Data: 200
     - Name: 
       Entry: 8
       Data: 
@@ -446,18 +455,6 @@ MonoBehaviour:
       Entry: 7
       Data: 15|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
         mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: behaviors
-      Entry: 7
-      Data: 16|System.Collections.Generic.List`1[[System.UInt32, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -478,17 +475,32 @@ MonoBehaviour:
       Data: 
     - Name: NodeLinkDatas
       Entry: 7
-      Data: 17|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
+      Data: 16|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 17|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: af02638c02677c8428f34c6209bd7f67
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: fd7edf70805074a4693b101d877aed47
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: 18|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
-      Data: af02638c02677c8428f34c6209bd7f67
+      Data: fd7edf70805074a4693b101d877aed47
     - Name: inputNodeGuid
       Entry: 1
       Data: 69aa31528026443469407d376a1772ab
@@ -517,229 +529,40 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 9
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 9
+      Data: 13
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
       Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
     - Name: $v
-      Entry: 7
-      Data: 21|ET.Client.RootNode, Unity.Loader
-    - Name: TreeID
-      Entry: 3
-      Data: 10
-    - Name: TargetID
-      Entry: 3
-      Data: 0
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 22|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ShowScript
-      Entry: 5
-      Data: false
-    - Name: Script
-      Entry: 1
-      Data: 
-    - Name: text
-      Entry: 6
-      Data: 
-    - Name: Guid
-      Entry: 1
-      Data: af02638c02677c8428f34c6209bd7f67
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 100
-    - Name: 
-      Entry: 4
-      Data: 200
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: LocalizationGroups
-      Entry: 7
-      Data: 23|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: nextNode
-      Entry: 3
-      Data: 1
-    - Name: InitScript
-      Entry: 1
-      Data: BBInit;
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 7
-      Data: 24|ET.Client.BBNode, Unity.Loader
-    - Name: TreeID
-      Entry: 3
-      Data: 10
-    - Name: TargetID
-      Entry: 3
-      Data: 1
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 25|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ShowScript
-      Entry: 5
-      Data: false
-    - Name: Script
-      Entry: 1
-      Data: 
-    - Name: text
-      Entry: 6
-      Data: 
-    - Name: Guid
-      Entry: 1
-      Data: 69aa31528026443469407d376a1772ab
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 440
-    - Name: 
-      Entry: 4
-      Data: 200
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: LocalizationGroups
-      Entry: 7
-      Data: 26|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: BBScript
-      Entry: 1
-      Data: '@Init:
-
-        LogWarning "Init";
-
-        return;
-
-
-        @Main:
-
-        CallSubCoroutine
-        func = SubCoroutine_1;
-
-        Invoke func = Test;
-
-        LogWarning "After
-        WaitFrame 2";
-
-        RegistCallback type = OnBlock func = OnBlockCallback;
-
-        WaitFrame
-        frame = 60;
-
-        InvokeCallback type = OnBlock;
-
-        return;
-
-
-        @Test:
-
-        LogWarning
-        "Before WaitFrame";
-
-        AddGatlingCancel skill = Sol_GunFlame;
-
-        WaitFrame
-        frame = 60;
-
-        LogWarning "After WaitFrame";
-
-        return;
-
-
-        @SubCoroutine_1:
-
-        LogWarning
-        "SubCoroutine Start!!!";
-
-        WaitFrame frame = 60;
-
-        LogWarning
-        "SubCoroutine End!!!!";
-
-        return;
-
-
-
-
-        @OnBlockCallback:
-
-        LogWarning
-        "OnBlockCallback!!!";
-
-        return;'
-    - Name: 
-      Entry: 8
-      Data: 
+      Entry: 9
+      Data: 7
     - Name: 
       Entry: 8
       Data: 
@@ -751,7 +574,7 @@ MonoBehaviour:
       Data: 
     - Name: Variables
       Entry: 7
-      Data: 27|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
+      Data: 21|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12

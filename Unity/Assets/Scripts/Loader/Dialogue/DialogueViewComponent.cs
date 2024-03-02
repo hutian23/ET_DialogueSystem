@@ -71,6 +71,11 @@ namespace ET.Client
             return null;
         }
 
+        public int GetLength()
+        {
+            return cloneTree.targets.Count;
+        }
+        
         [Button("导出对话树"), ShowIf("RuntimeMode")]
         public void ExportTree()
         {

@@ -52,6 +52,11 @@ namespace ET.Client
             return cloneNode;
         }
 
+        public int GetLength()
+        {
+            return targets.Count;
+        }
+        
         public T GetConstant<T>(string variableName)
         {
             if (!this.variables.TryGetValue(variableName, out var value) || value == null) return default;

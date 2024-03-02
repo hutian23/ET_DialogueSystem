@@ -13,10 +13,12 @@ namespace ET.Client
         //按键与按下按键的帧号的映射，超过 n 帧判定为过期，这个按键没有按下
         public Dictionary<int, long> pressDict = new();
 
-        public List<string> bbCheckers = new();
+        public HashSet<string> bbCheckers = new();
 
         //技能和节点ID的映射
         public Dictionary<string, uint> skillMap = new();
+
+        public uint currentID;
     }
 
     public class InputInfo

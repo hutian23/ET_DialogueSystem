@@ -193,6 +193,24 @@ namespace ET.Client
             return self.treeData.GetNode(targetID);
         }
 
+        public static int GetLength(this DialogueComponent self)
+        {
+            if (Application.isEditor)
+            {
+                switch (self.ReloadType)
+                {
+                    case ViewReloadType.RuntimeReload:
+                        return self.treeData.GetLength();
+                    default:
+                        return self.GetParent<Unit>()
+                                .GetComponent<GameObjectComponent>().GameObject
+                                .GetComponent<DialogueViewComponent>().GetLength();
+                }
+            }
+
+            return self.treeData.GetLength();
+        }
+
         private static void PushNextNode(this DialogueComponent self, DialogueNode node)
         {
             if (node == null || node.TargetID == 0) return; //注意不能压入根节点
