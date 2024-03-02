@@ -562,10 +562,10 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.82, y: 4.39}
+  m_Size: {x: 5.52, y: 3.67}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1357804246
@@ -816,59 +816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801de8b73ad15924dbdecd6767ba0b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.3218824
-      outSlope: 0.3218824
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.58390343
-      value: 0.18794824
-      inSlope: -0.04021257
-      outSlope: -0.04021257
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1.4738401
-      value: -0.17007998
-      inSlope: 0.17432527
-      outSlope: 0.17432527
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1.8946546
-      value: 0.14593408
-      inSlope: 0.30524874
-      outSlope: 0.30524874
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 2.7267838
-      value: 0.029052734
-      inSlope: -0.14046058
-      outSlope: -0.14046058
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 1
-    m_RotationOrder: 4
-  shakeDuration: 0.61
-  shakeIntensity: 0.95
+  Text: 
 --- !u!1 &1974695019
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,7 +915,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1974695019}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.78, y: -0.59, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

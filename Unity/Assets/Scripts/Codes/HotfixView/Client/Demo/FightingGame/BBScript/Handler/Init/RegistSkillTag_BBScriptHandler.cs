@@ -19,10 +19,10 @@ namespace ET.Client
                 DialogueHelper.ScripMatchError(opCode);
                 return Status.Failed;
             }
-            
+
             BBInputComponent bbInput = unit.GetComponent<DialogueComponent>().GetComponent<BBInputComponent>();
             bbInput.skillMap.TryAdd(match.Groups["SkillTag"].Value, bbInput.currentID);
-
+            Log.Warning(bbInput.currentID + "  " + match.Groups["SkillTag"].Value);
             await ETTask.CompletedTask;
             return Status.Success;
         }

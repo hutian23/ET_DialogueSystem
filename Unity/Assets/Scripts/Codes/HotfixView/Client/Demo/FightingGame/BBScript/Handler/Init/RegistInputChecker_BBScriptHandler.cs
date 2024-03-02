@@ -19,7 +19,7 @@ namespace ET.Client
                 DialogueHelper.ScripMatchError(opCode);
                 return Status.Failed;
             }
-
+        
             BBInputComponent bbInput = unit.GetComponent<DialogueComponent>().GetComponent<BBInputComponent>();
             bbInput.bbCheckers.Add($"{match.Groups["Checker"].Value}_CheckHandler");
 

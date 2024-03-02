@@ -16,12 +16,14 @@
                 dialogueComponent.RemoveComponent<BBTimerComponent>();
                 dialogueComponent.RemoveComponent<BBParser>();
                 dialogueComponent.RemoveComponent<GatlingCancel>();
+                dialogueComponent.RemoveComponent<BBInputComponent>();
             });
 
             dialogueComponent.AddComponent<BBTimerComponent>();
             dialogueComponent.AddComponent<BBParser>();
             dialogueComponent.AddComponent<GatlingCancel>();
-
+            dialogueComponent.AddComponent<BBInputComponent>();
+            
             await ETTask.CompletedTask;
         }
     }
