@@ -91,7 +91,7 @@ namespace ET.Client
             }
 
             self.BBCheckHandlers.Clear();
-            var bbHandlers = EventSystem.Instance.GetTypes(typeof (BBScriptAttribute));
+            var bbHandlers = EventSystem.Instance.GetTypes(typeof (BBScriptCheckAttribute));
             foreach (var checker in bbHandlers)
             {
                 BBCheckHandler handler = Activator.CreateInstance(checker) as BBCheckHandler;

@@ -32,13 +32,13 @@ namespace ET.Client
                 //     }
                 // }
 
-                if (UnityEngine.Input.GetKeyDown(KeyCode.R) || Gamepad.current.startButton.wasPressedThisFrame)
-                {
-                    CodeLoader.Instance.LoadHotfix();
-                    EventSystem.Instance.Load();
-                    Log.Debug("hot reload success!");
-                }
-            
+                // if (UnityEngine.Input.GetKeyDown(KeyCode.R) || Gamepad.current.startButton.wasPressedThisFrame)
+                // {
+                //     CodeLoader.Instance.LoadHotfix();
+                //     EventSystem.Instance.Load();
+                //     Log.Debug("hot reload success!");
+                // }
+                //
                 // if (Input.GetKeyDown(KeyCode.T))
                 // {
                 //     C2M_TransferMap c2MTransferMap = new C2M_TransferMap();

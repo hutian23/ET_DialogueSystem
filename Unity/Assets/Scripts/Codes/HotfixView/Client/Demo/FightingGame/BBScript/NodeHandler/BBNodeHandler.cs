@@ -15,9 +15,7 @@
             objectWait.Notify(new WaitCounterHit() { Error = WaitTypeError.Destroy });
             
             dialogueComponent.GetComponent<BBParser>().InitScript(node.BBScript);
-            await dialogueComponent.GetComponent<BBParser>().Main(token);
-
-            return token.IsCancel()? Status.Failed : Status.Success;
+            return await dialogueComponent.GetComponent<BBParser>().Main(token);
         }
     }
 }

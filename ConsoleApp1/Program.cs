@@ -126,8 +126,17 @@ static class Program
 
     public static void Main()
     {
-        Match match = Regex.Match("return;", @"^\w+\b(?:\(\))?");
-        Console.WriteLine(match.Value);
+        string input = "Log \"Hello world\";";
+        string pattern = "\"(.*?)\"";
+        
+        Match match = Regex.Match(input, pattern);
+        if (match.Success)
+        {
+            string content = match.Groups[1].Value;
+            Console.WriteLine(content);
+        }
+        // Console.WriteLine("This is a string with a double quote: \"");
+        // Console.WriteLine("");
         // string input = "@State_Init:Hello world";
         // string pattern = "@([^:]+)";
         //

@@ -64,9 +64,9 @@ namespace ET.Client
             await self.Invoke("Init", token);
         }
 
-        public static async ETTask Main(this BBParser self, ETCancellationToken token)
+        public static async ETTask<Status> Main(this BBParser self, ETCancellationToken token)
         {
-            await self.Invoke("State_Main", token);
+            return await self.Invoke("Main", token);
         }
 
         /// <summary>
@@ -84,18 +84,13 @@ namespace ET.Client
             index++;
 
             var opLines = self.opLines.Split("\n");
-
             while (index < opLines.Length)
             {
                 if (token.IsCancel()) return Status.Failed;
 
-                string opLine = opLines[index];
+                string opLine = opLines[index++];
                 //空行 or 注释行，跳过
-                if (string.IsNullOrEmpty(opLine) || opLine[0] == '#')
-                {
-                    index++;
-                    continue;
-                }
+                if (string.IsNullOrEmpty(opLine) || opLine[0] == '#') continue;
 
                 Unit unit = self.GetParent<DialogueComponent>().GetParent<Unit>();
                 Match match = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
@@ -108,7 +103,7 @@ namespace ET.Client
                 var opType = match.Value;
                 var opCode = Regex.Match(opLine, "^(.*?);").Value;
 
-                if (opType.Equals("return")) return Status.Failed;
+                if (opType.Equals("return")) return Status.Success;
                 if (!DialogueDispatcherComponent.Instance.BBScriptHandlers.TryGetValue(opType, out BBScriptHandler handler))
                 {
                     Log.Error($"not found script handler； {opType}");
@@ -139,13 +134,9 @@ namespace ET.Client
             {
                 if (self.cancellationToken.IsCancel()) return;
 
-                string opLine = opLines[index];
+                string opLine = opLines[index++];
                 //空行 or 注释行，跳过
-                if (string.IsNullOrEmpty(opLine) || opLine[0] == '#')
-                {
-                    index++;
-                    continue;
-                }
+                if (string.IsNullOrEmpty(opLine) || opLine[0] == '#') continue;
 
                 Unit unit = self.GetParent<DialogueComponent>().GetParent<Unit>();
                 Match match = Regex.Match(opLine, @"^\w+\b(?:\(\))?");

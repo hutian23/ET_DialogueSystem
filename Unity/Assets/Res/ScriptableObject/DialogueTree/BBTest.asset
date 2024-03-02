@@ -91,11 +91,7 @@ MonoBehaviour:
       Data: 1
     - Name: InitScript
       Entry: 1
-      Data: 'BBInit;
-
-        HitStop frame = 60;
-
-        HitStop frame = 50;'
+      Data: BBInit;
     - Name: 
       Entry: 8
       Data: 
@@ -185,7 +181,7 @@ MonoBehaviour:
       Data: 10
     - Name: TargetID
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -219,7 +215,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 712
+      Data: 359
     - Name: 
       Entry: 4
       Data: 200
@@ -244,7 +240,47 @@ MonoBehaviour:
       Data: 
     - Name: BBScript
       Entry: 1
-      Data: 
+      Data: '@Main:
+
+        CallSubCoroutine func = SubCoroutine_1;
+
+        Invoke
+        func = Test;
+
+        LogWarning "After WaitFrame 2";
+
+        return;
+
+
+        @Test:
+
+        LogWarning
+        "Before WaitFrame";
+
+        AddGatlingCancel skill = Sol_GunFlame;
+
+        WaitFrame
+        frame = 60;
+
+        LogWarning "After WaitFrame";
+
+        return;
+
+
+        @SubCoroutine_1:
+
+        Log.Warning
+        "SubCoroutine Start!!!";
+
+        WaitFrame frame = 60;
+
+        LogWarning
+        "SubCoroutine End!!!!";
+
+        return;
+
+
+'
     - Name: 
       Entry: 8
       Data: 
@@ -290,10 +326,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 712
+      Data: 611
     - Name: 
       Entry: 4
-      Data: 92
+      Data: 123
     - Name: 
       Entry: 8
       Data: 
@@ -340,7 +376,7 @@ MonoBehaviour:
       Data: 10
     - Name: TargetID
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -374,10 +410,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 376
+      Data: 359
     - Name: 
       Entry: 4
-      Data: 200
+      Data: -25
     - Name: 
       Entry: 8
       Data: 
@@ -433,7 +469,7 @@ MonoBehaviour:
       Data: af02638c02677c8428f34c6209bd7f67
     - Name: inputNodeGuid
       Entry: 1
-      Data: fd7edf70805074a4693b101d877aed47
+      Data: 69aa31528026443469407d376a1772ab
     - Name: portID
       Entry: 3
       Data: 0
@@ -467,8 +503,79 @@ MonoBehaviour:
       Entry: 3
       Data: 0
     - Name: $v
-      Entry: 9
+      Entry: 7
+      Data: 21|ET.Client.RootNode, Unity.Loader
+    - Name: TreeID
+      Entry: 3
+      Data: 10
+    - Name: TargetID
+      Entry: 3
       Data: 0
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 22|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: af02638c02677c8428f34c6209bd7f67
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 100
+    - Name: 
+      Entry: 4
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 7
+      Data: 23|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: nextNode
+      Entry: 3
+      Data: 1
+    - Name: InitScript
+      Entry: 1
+      Data: BBInit;
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -479,8 +586,116 @@ MonoBehaviour:
       Entry: 3
       Data: 1
     - Name: $v
-      Entry: 9
-      Data: 13
+      Entry: 7
+      Data: 24|ET.Client.BBNode, Unity.Loader
+    - Name: TreeID
+      Entry: 3
+      Data: 10
+    - Name: TargetID
+      Entry: 3
+      Data: 1
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 25|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: 69aa31528026443469407d376a1772ab
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 359
+    - Name: 
+      Entry: 4
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 7
+      Data: 26|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: BBScript
+      Entry: 1
+      Data: '@Main:
+
+        CallSubCoroutine func = SubCoroutine_1;
+
+        Invoke
+        func = Test;
+
+        LogWarning "After WaitFrame 2";
+
+        return;
+
+
+        @Test:
+
+        LogWarning
+        "Before WaitFrame";
+
+        AddGatlingCancel skill = Sol_GunFlame;
+
+        WaitFrame
+        frame = 60;
+
+        LogWarning "After WaitFrame";
+
+        return;
+
+
+        @SubCoroutine_1:
+
+        Log.Warning
+        "SubCoroutine Start!!!";
+
+        WaitFrame frame = 60;
+
+        LogWarning
+        "SubCoroutine End!!!!";
+
+        return;
+
+
+'
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -492,7 +707,7 @@ MonoBehaviour:
       Data: 
     - Name: Variables
       Entry: 7
-      Data: 21|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
+      Data: 27|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12

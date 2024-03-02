@@ -1,10 +1,10 @@
 ﻿namespace ET.Client
 {
-    public class BBScriptAttribute: BaseAttribute
+    public class BBScriptCheckAttribute: BaseAttribute
     {
     }
 
-    [BBScript]
+    [BBScriptCheck]
     public abstract class BBCheckHandler
     {
         public abstract string GetSkillType();

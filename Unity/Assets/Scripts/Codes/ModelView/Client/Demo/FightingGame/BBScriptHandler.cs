@@ -1,5 +1,9 @@
 ﻿namespace ET.Client
 {
+    public class BBScriptAttribute: BaseAttribute
+    {
+    }
+    
     [BBScript]
     public abstract class BBScriptHandler
     {

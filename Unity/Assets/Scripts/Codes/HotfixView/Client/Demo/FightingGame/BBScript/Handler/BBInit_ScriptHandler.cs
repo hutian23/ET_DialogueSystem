@@ -16,13 +16,11 @@
                 dialogueComponent.RemoveComponent<TODTimerComponent>();
                 dialogueComponent.RemoveComponent<BBParser>();
                 dialogueComponent.RemoveComponent<GatlingCancel>();
-                dialogueComponent.RemoveComponent<ObjectWait>();
             });
 
             dialogueComponent.AddComponent<TODTimerComponent>();
             dialogueComponent.AddComponent<BBParser>();
             dialogueComponent.AddComponent<GatlingCancel>();
-            dialogueComponent.AddComponent<ObjectWait>();
 
             await ETTask.CompletedTask;
         }
