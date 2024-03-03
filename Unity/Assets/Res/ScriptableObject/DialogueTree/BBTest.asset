@@ -110,7 +110,7 @@ MonoBehaviour:
       Data: 10
     - Name: TargetID
       Entry: 3
-      Data: 0
+      Data: 3
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -144,10 +144,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 712
+      Data: 469
     - Name: 
       Entry: 4
-      Data: 323
+      Data: 295
     - Name: 
       Entry: 8
       Data: 
@@ -169,7 +169,11 @@ MonoBehaviour:
       Data: 
     - Name: BBScript
       Entry: 1
-      Data: 
+      Data: '@Main:
+
+        PlayAnim clip = rg000 type = Loop;
+
+        return;'
     - Name: 
       Entry: 8
       Data: 
@@ -441,7 +445,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 229
+      Data: 249
     - Name: 
       Entry: 4
       Data: 200
@@ -479,7 +483,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: 17|ET.Client.NodeLinkData, Unity.Loader
@@ -511,6 +515,21 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 19|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: fd7edf70805074a4693b101d877aed47
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: f1860dd379b767a40b57a6ca2d906e39
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -518,18 +537,18 @@ MonoBehaviour:
       Data: 
     - Name: targets
       Entry: 7
-      Data: 19|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
+      Data: 20|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
         Unity.Loader]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 20|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
+      Data: 21|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
       Data: 
@@ -567,6 +586,18 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 9
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -574,7 +605,7 @@ MonoBehaviour:
       Data: 
     - Name: Variables
       Entry: 7
-      Data: 21|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
+      Data: 22|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
