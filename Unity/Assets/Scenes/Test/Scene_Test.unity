@@ -977,6 +977,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ragna
       objectReference: {fileID: 0}
+    - target: {fileID: 7728331812354445376, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7728331812354445378, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
       propertyPath: m_RootOrder

@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6317f82f2ebea140a22a3e2d4a69fa6, type: 3}
+  m_Name: BBAnimClip_rg201
+  m_EditorClassIdentifier: 
+  IsLoop: 1
+  Keyframes:
+  - LastedFrame: 4
+    sprite: {fileID: 21300000, guid: 790144d1c9e0e3b49a9c6b2830c0fc72, type: 3}
+    hitBoxInfos: []
+  - LastedFrame: 3
+    sprite: {fileID: 21300000, guid: c105e85f391960b4ca5d251b1656e2e8, type: 3}
+    hitBoxInfos: []
+  - LastedFrame: 4
+    sprite: {fileID: 21300000, guid: 7a0babadca5815a4aa391ec098cdb851, type: 3}
+    hitBoxInfos: []
+  - LastedFrame: 3
+    sprite: {fileID: 21300000, guid: 3c4580276308d9046b0517148e6a3655, type: 3}
+    hitBoxInfos: []
+  - LastedFrame: 5
+    sprite: {fileID: 21300000, guid: c805a3ea82d1ab646ad14840c7d0580c, type: 3}
+    hitBoxInfos: []
+  - LastedFrame: 3
+    sprite: {fileID: 21300000, guid: fa1659dfa146c0c4faf60af70dc7fabe, type: 3}
+    hitBoxInfos: []
+  - LastedFrame: 4
+    sprite: {fileID: 21300000, guid: bdda5f2f9bdf74544a57769c0bf6f1cf, type: 3}
+    hitBoxInfos: []
+  - LastedFrame: 5
+    sprite: {fileID: 21300000, guid: afbf4d35689663a408e90af93402369b, type: 3}
+    hitBoxInfos: []
+  - LastedFrame: 3
+    sprite: {fileID: 21300000, guid: 7a1cef223c15cf1439c6440ddf11c4ac, type: 3}
+    hitBoxInfos: []
+  - LastedFrame: 4
+    sprite: {fileID: 21300000, guid: d0628da4918b4a443bc863b33e4f7dec, type: 3}
+    hitBoxInfos: []
+  - LastedFrame: 3
+    sprite: {fileID: 21300000, guid: 20f126b3c33c7404d9e7ed5432b5737a, type: 3}
+    hitBoxInfos: []
+  - LastedFrame: 4
+    sprite: {fileID: 21300000, guid: 6e2ae27d2bf20434ea2f31c2b284d141, type: 3}
+    hitBoxInfos: []
+  - LastedFrame: 3
+    sprite: {fileID: 21300000, guid: b6df55a3df4fc5b4fa0bae3628f575ae, type: 3}
+    hitBoxInfos: []
+  - LastedFrame: 4
+    sprite: {fileID: 21300000, guid: dba43ce2403da2948bf4561664d397c5, type: 3}
+    hitBoxInfos: []
+  - LastedFrame: 3
+    sprite: {fileID: 21300000, guid: 9401deb6bd3d60f4ea15a3e176dbeaab, type: 3}
+    hitBoxInfos: []
+  - LastedFrame: 4
+    sprite: {fileID: 21300000, guid: dc816918864a0d140a16f9888b533e34, type: 3}
+    hitBoxInfos: []

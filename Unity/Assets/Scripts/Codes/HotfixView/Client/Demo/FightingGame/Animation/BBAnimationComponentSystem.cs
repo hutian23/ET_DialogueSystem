@@ -1,15 +1,16 @@
-﻿using Sirenix.Utilities;
+﻿using System.Collections.Generic;
+using Sirenix.Utilities;
 using UnityEngine;
 
 namespace ET.Client
 {
-    [FriendOf(typeof(BBAnimComponent))]
-    [FriendOf(typeof(DialogueComponent))]
+    [FriendOf(typeof (BBAnimComponent))]
+    [FriendOf(typeof (DialogueComponent))]
     public static class BBAnimationComponentSystem
     {
         [Invoke]
-        [FriendOf(typeof(BBAnimComponent))]
-        public class BBKeyFrameTestCallback : AInvokeHandler<KeyFrameTest>
+        [FriendOf(typeof (BBAnimComponent))]
+        public class BBKeyFrameTestCallback: AInvokeHandler<KeyFrameTest>
         {
             public override void Handle(KeyFrameTest args)
             {
@@ -22,7 +23,7 @@ namespace ET.Client
         }
 
         [Invoke]
-        public class BBPlayAnimCallback : AInvokeHandler<BBPlayAnim>
+        public class BBPlayAnimCallback: AInvokeHandler<BBPlayAnim>
         {
             public override void Handle(BBPlayAnim args)
             {
@@ -32,30 +33,32 @@ namespace ET.Client
                     Log.Error("bbClip is null");
                     return;
                 }
-                
+
                 bbAnim.Init();
-                
+
                 if (args.animClip.IsLoop) bbAnim.AnimLoopCor(args.animClip).Coroutine();
                 else bbAnim.AnimCor(args.animClip).Coroutine();
             }
         }
 
-        public class BBAnimationComponentAwakeSystem : AwakeSystem<BBAnimComponent>
+        public class BBAnimationComponentAwakeSystem: AwakeSystem<BBAnimComponent>
         {
             protected override void Awake(BBAnimComponent self)
             {
                 GameObject go = self.GetParent<DialogueComponent>().GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject;
                 BBAnimViewComponent animComponent = go.AddComponent<BBAnimViewComponent>();
-                
+
+                BBTimerComponent bbTimerComponent = self.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>();
                 animComponent.instanceId = self.InstanceId;
-                
+                animComponent.timerComponentInstanceId = bbTimerComponent.InstanceId;
+
                 GameObjectPoolHelper.InitPool("Hitbox", 10);
-                
+
                 self.Init();
             }
         }
 
-        public class BBAnimationComponentDestroySystem : DestroySystem<BBAnimComponent>
+        public class BBAnimationComponentDestroySystem: DestroySystem<BBAnimComponent>
         {
             protected override void Destroy(BBAnimComponent self)
             {
@@ -94,9 +97,14 @@ namespace ET.Client
         private static async ETTask AnimLoopCor(this BBAnimComponent self, BBAnimClip animClip)
         {
             BBTimerComponent timerComponent = self.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>();
+
+            //TODO 缓存clip,暂时不能动态增删keyframe
+            var tmp = new List<BBKeyframe>();
+            animClip.Keyframes.ForEach(k => { tmp.Add(k); });
+
             while (true)
             {
-                foreach (BBKeyframe keyFrame in animClip.Keyframes)
+                foreach (BBKeyframe keyFrame in tmp)
                 {
                     self.SetSprite(keyFrame.sprite);
                     await timerComponent.WaitAsync(keyFrame.LastedFrame, self.token);

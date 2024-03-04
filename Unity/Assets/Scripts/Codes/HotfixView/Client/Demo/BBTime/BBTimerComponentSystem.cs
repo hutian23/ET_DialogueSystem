@@ -4,8 +4,18 @@ using UnityEngine;
 namespace ET.Client
 {
     [FriendOf(typeof (BBTimerComponent))]
-    public static class TODTimerComponentSystem
+    public static class BBTimerComponentSystem
     {
+        [Invoke]
+        public class BBTimerComponentChangedCallback: AInvokeHandler<BBTimeChanged>
+        {
+            public override void Handle(BBTimeChanged args)
+            {
+                BBTimerComponent timerComponent = Root.Instance.Get(args.instanceId) as BBTimerComponent;
+                timerComponent.SetTimeScale(args.timeScale);
+            }
+        }
+
         public class TODTimerComponentUpdateSystem: UpdateSystem<BBTimerComponent>
         {
             protected override void Update(BBTimerComponent self)

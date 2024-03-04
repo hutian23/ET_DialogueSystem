@@ -12,44 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6317f82f2ebea140a22a3e2d4a69fa6, type: 3}
   m_Name: BBAnimClip_Test
   m_EditorClassIdentifier: 
-  IsLoop: 0
+  IsLoop: 1
   Keyframes:
-  - frameNo: 5
+  - LastedFrame: 5
     sprite: {fileID: -1331877821, guid: a714674fa1a745f47809580dd5aa27ef, type: 3}
     hitBoxInfos: []
-  - frameNo: 5
+  - LastedFrame: 5
     sprite: {fileID: -898875547, guid: 249a1eb7ace5d9f4cb4f3e0f9fefcf6c, type: 3}
     hitBoxInfos: []
-  - frameNo: 5
+  - LastedFrame: 5
     sprite: {fileID: 1633333993, guid: 5bff696bc646bc24da588afc6c65f285, type: 3}
     hitBoxInfos: []
-  - frameNo: 5
+  - LastedFrame: 5
     sprite: {fileID: 117965388, guid: 5fd833d9392288d49b0dc00453dd50d4, type: 3}
     hitBoxInfos: []
-  - frameNo: 5
+  - LastedFrame: 5
     sprite: {fileID: -2054640082, guid: 729c10707d6197543b92e3247d3ea8ea, type: 3}
     hitBoxInfos: []
-  - frameNo: 5
+  - LastedFrame: 5
     sprite: {fileID: -255855529, guid: 44ca8ff9816141147a483f0ce241ae4f, type: 3}
     hitBoxInfos: []
-  - frameNo: 5
+  - LastedFrame: 5
     sprite: {fileID: 1229453224, guid: 1930b55616461904d88b5075be8fb3de, type: 3}
     hitBoxInfos: []
-  - frameNo: 5
+  - LastedFrame: 5
     sprite: {fileID: -255855529, guid: 44ca8ff9816141147a483f0ce241ae4f, type: 3}
     hitBoxInfos: []
-  - frameNo: 5
+  - LastedFrame: 5
     sprite: {fileID: -2054640082, guid: 729c10707d6197543b92e3247d3ea8ea, type: 3}
     hitBoxInfos: []
-  - frameNo: 5
+  - LastedFrame: 5
     sprite: {fileID: 117965388, guid: 5fd833d9392288d49b0dc00453dd50d4, type: 3}
     hitBoxInfos: []
-  - frameNo: 5
+  - LastedFrame: 5
     sprite: {fileID: 1633333993, guid: 5bff696bc646bc24da588afc6c65f285, type: 3}
     hitBoxInfos: []
-  - frameNo: 5
+  - LastedFrame: 5
     sprite: {fileID: -898875547, guid: 249a1eb7ace5d9f4cb4f3e0f9fefcf6c, type: 3}
-    hitBoxInfos: []
-  - frameNo: 5
-    sprite: {fileID: -1331877821, guid: a714674fa1a745f47809580dd5aa27ef, type: 3}
     hitBoxInfos: []

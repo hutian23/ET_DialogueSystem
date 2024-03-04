@@ -1,6 +1,6 @@
 ﻿namespace ET.Client
 {
-    public static class TODTimeHelper
+    public static class BBTimeHelper
     {
         public static async ETTask WaitAsync(this Unit unit, long frame, ETCancellationToken token)
         {
