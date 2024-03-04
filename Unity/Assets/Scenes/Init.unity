@@ -637,32 +637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   instanceId: 375442745113968646
-  Clip: {fileID: 0}
-  keyFrame:
-    frameNo: 0
-    sprite: {fileID: 0}
-    hitBoxInfos:
-    - type: 1
-      rect:
-        serializedVersion: 2
-        x: -0.9
-        y: 1
-        width: 15
-        height: 25
-    - type: 1
-      rect:
-        serializedVersion: 2
-        x: -0.9
-        y: -1.5
-        width: 15
-        height: 8
-    - type: 1
-      rect:
-        serializedVersion: 2
-        x: -0.65
-        y: 1.5
-        width: 10
-        height: 5
+  Clip: {fileID: 11400000, guid: e9f504983d34f784191e76cd08dba4d2, type: 2}
 --- !u!1 &1114695592
 GameObject:
   m_ObjectHideFlags: 0

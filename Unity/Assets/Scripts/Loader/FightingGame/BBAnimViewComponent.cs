@@ -9,19 +9,27 @@ namespace ET
         public long instanceId;
     }
 
+    public struct BBPlayAnim
+    {
+        public long instanceId;
+        public BBAnimClip animClip;
+    }
+
     public class BBAnimViewComponent: MonoBehaviour
     {
         [HideInInspector]
         public long instanceId;
 
-        public BBAnimClip Clip;
+        public BBAnimClip currentClip;
 
-        public BBKeyframe keyFrame;
-
-        [Button("测试KeyFrame")]
-        public void Test()
+        [Button("测试动画")]
+        public void PlayAnim()
         {
-            EventSystem.Instance.Invoke(new KeyFrameTest() { instanceId = this.instanceId, Keyframe = this.keyFrame });
+            EventSystem.Instance.Invoke(new BBPlayAnim()
+            {
+                instanceId = this.instanceId, 
+                animClip = this.currentClip
+            });
         }
     }
 }

@@ -977,32 +977,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ragna
       objectReference: {fileID: 0}
-    - target: {fileID: 7728331812354445376, guid: cb941c738eff80e48a47613d914c2780,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7728331812354445377, guid: cb941c738eff80e48a47613d914c2780,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 1.3958334
-      objectReference: {fileID: 0}
-    - target: {fileID: 7728331812354445377, guid: cb941c738eff80e48a47613d914c2780,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 3.5208333
-      objectReference: {fileID: 0}
-    - target: {fileID: 7728331812354445377, guid: cb941c738eff80e48a47613d914c2780,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1331877821, guid: a714674fa1a745f47809580dd5aa27ef,
-        type: 3}
-    - target: {fileID: 7728331812354445377, guid: cb941c738eff80e48a47613d914c2780,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7728331812354445378, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
       propertyPath: m_RootOrder
