@@ -1,8 +1,8 @@
 ﻿namespace ET.Client
 {
-    [Invoke(TODTimerInvokeType.Test1)]
+    [Invoke(BBTimerInvokeType.Test1)]
     [FriendOf(typeof(BBTimerComponent))]
-    public class TODTime_Test : TODTimer<BBTimerComponent>
+    public class BbTimeTest : BBTimer<BBTimerComponent>
     {
         protected override void Run(BBTimerComponent timerComponent)
         {

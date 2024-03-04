@@ -11,12 +11,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>ET</RootNamespace>
-    <ProjectGuid>{c4d634f5-6833-2b03-289c-a943cc171719}</ProjectGuid>
+    <RootNamespace></RootNamespace>
+    <ProjectGuid>{e55c3f73-c3d2-9868-cb86-8b46fb4db6f5}</ProjectGuid>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp-Editor-firstpass</AssemblyName>
+    <AssemblyName>SLATE</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -25,12 +25,12 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>Temp\Bin\Debug\Assembly-CSharp-Editor-firstpass\</OutputPath>
+    <OutputPath>Temp\Bin\Debug\SLATE\</OutputPath>
     <DefineConstants>UNITY_2021_3_17;UNITY_2021_3;UNITY_2021;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;PLATFORM_STANDALONE;TEXTCORE_1_0_OR_NEWER;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;UNITY_UGP_API;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_NVIDIA;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITY_GAME_SERVICES_ANALYTICS_SUPPORT;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;NET_UNITY_4_8;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_IG;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_INPUT_SYSTEM;ENABLE_LEGACY_INPUT_MANAGER;TEXTCORE_FONT_ENGINE_1_5_OR_NEWER;NETSTANDARD2_0;UNITY;ENABLE_VIEW;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;SLATE;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169,0649</NoWarn>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
@@ -41,23 +41,282 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Editor\ItemSlotCellDrawer.cs" />
-     <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\OdinMenuStyleExample.cs" />
-     <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\OdinMenuEditorWindowExample.cs" />
-     <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Editor\ItemDrawer.cs" />
-     <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Editor\ScriptableObjectCreator.cs" />
-     <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Editor\CharacterTable.cs" />
-     <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\SomeData.cs" />
-     <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Editor\RPGEditorWindow.cs" />
-     <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\OverrideGetTargetsExampleWindow.cs" />
-     <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\SomeTextureToolWindow.cs" />
-     <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\BasicOdinEditorExampleWindow.cs" />
-     <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\QuicklyInspectObjects.cs" />
-     <Folder Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Editor" />
-     <Folder Include="Assets\Plugins\Sirenix\Odin Inspector\Config\Editor" />
-     <Folder Include="Assets\Plugins\Sirenix\Odin Inspector\Assets\Editor" />
-     <Folder Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor" />
-     <None Include="Assets\Plugins\Sirenix\Odin Inspector\Assets\Editor\Bootstrap License.txt" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Paths\Path.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\RequiredDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Events\SendGlobalMessageBoolean.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\ShowIfDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Utility\AnimatePlaybackSpeed.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\GameObject\AnimateActorVisibility.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Director\DirectorActionTrack.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Actor\ActorActionTrack.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\VideoTrack\PlayVideo.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\LeftToggleDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Control\InstantiateObject.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Environment\EasySlowMotion.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\_QuickStartScripts\DirectorGUITemplate.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\RuntimeRecorder\Editor\RuntimeRecorderClipInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Framework\IAnimatableData.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Partial Editor\SceneGUIUtility.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Paths\PathfindFromTo.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Control\SampleParticleSystem.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Other\HierarchyIcons.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\AttachObject.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Attributes.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\RectUtility.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Cameras\ShotCamera.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Director\DirectorPropertiesTrack.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Framework\ActionClip.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Characters\BlendShape.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\RuntimeRecorder\RuntimeRecorder.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\Enums.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Actor\AnimationTrack.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Character\CharacterExpression.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\MecanimTrack\AnimateBoolParameter.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\DirectorActionClip.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\ShaderPropertyPopupDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\AnimatableParameterDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\MecanimTrack\AnimateIntegerParameter.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Partial Editor\EditorTools.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Paths\PathfindTo.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Partial Editor\CurveEditor.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Events\SendMessageString.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Environment\AnimateGravity.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Framework\Cutscene.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Events\SendMessageObject.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\MecanimTrack\AnimateLimbIK.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Events\SendGlobalMessageString.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\RotateTo.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Framework\Section.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\AnimateProperties.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Other\DefinesManager.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Windows\PreferencesWindow.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\MecanimTrack\AnimateLookAtIK.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Sprites\SpriteFlipbook.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Editor\AnimateBlendShapeInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Director\DirectorAudioTrack.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Framework\CutsceneTrack.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Cameras\DirectorCamera.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\PinToTarget.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Partial Editor\AnimatableParameterEditor.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\MecanimTrack\MecanimBaseClip.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\ObjectSnapshot.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Framework\TimePointers.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\ActorActionClip.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Cameras\IDirectableCamera.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\_QuickStartScripts\StopCutsceneOnTrigger.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Cameras\GameCamera.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Partial Editor\Prefs.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Renderer\AnimateMaterialTexture.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Paths\FollowPath.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Renderer\SetMaterial.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Renderer\SetMaterialTexture.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\GameObject\SetActorVisibilityTemporary.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Cameras\DynamicCameraController.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Events\RaiseUnityEvent.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Inspectors\CutsceneTrackInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Inspectors\CutsceneInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Character\CharacterLookAt.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\SetTransformParent.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\EnableIfDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\AttachObjectPrefab.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\MatchTransformsToTarget.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Utility\ScreenCapture.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Groups\Runtime\DirectorGroup.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\TransformRefPositionRotationDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\MecanimTrack\CrossFadeState.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Other\Commands.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Director\CameraTrack.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\PropertyAttributes.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\DynamicCameraControllerDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\SortingLayerPropertyDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\Easing.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Rendering\Captions.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\RotateBy.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\ScaleBy.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\TranslateBy.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\LookAt.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\_QuickStartScripts\CutsceneSequencePlayer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Characters\Character.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\ReadOnlyDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Framework\CutsceneGroup.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\AnimatorTrack\PlayAnimatorClip.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Framework\IDirectableExtensions.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\ReflectionTools.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Editor\FollowPathInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\TransformSnapshot.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\Noise.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Events\SendGlobalMessageObject.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Events\SendGlobalMessage(T).cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Rendering\ScreenFader.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\RuntimeRecorder\RuntimeRecorderTrack.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\CurveUtility.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\GameObject\MakeCameraTarget.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Composition\AdditiveScene.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Events\IEvent.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Windows\QuickPopup.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\MecanimTrack\AnimateTrigger.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Windows\ShotPicker.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Utility\DebugLog.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\AnimatorDispatcher.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\_QuickStartScripts\PlayCutsceneOnStart.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Editor\CameraShotInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Renderer\AnimateMaterialColor.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Actor\AnimatorTrack.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Characters\BlendShapeGroup.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Editor\AnimatorTrackInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\AudioTrack\PlayAudio.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Events\SendMessage(T).cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Cameras\Editor\ShotCameraInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Events\SendMessageFloat.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Rendering\CineBox.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Framework\AnimatedParameter.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Control\DirectorEnableGameObjects.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Cameras\Editor\DirectorCameraInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\AudioTrack.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\RuntimeRecorder\TransformRecorder.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Character\AnimateBlendShape.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\GameObject\SetActorActiveState.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Other\AssetProcessor.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Renderer\ScrollMaterialTexture.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\TransformRefPositionRotation.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\AnimationDataUtility.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\DecoratorFactory.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Editor\CameraTrackInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\ActorGroupPopupDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\UnityObjectUtility.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Framework\IDirector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Partial Editor\Styles.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\AudioSampler.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\_QuickStartScripts\StopCutsceneOnClick.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Characters\Editor\CharacterInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Inspectors\CutsceneGroupInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\RuntimeRecorder\RuntimeRecorderClip.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Paths\AnimateOnPath.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Environment\AnimateTimeScale.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Director\VideoTrack.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Rendering\OverlayText.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\SetTransformValues.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Actor\AnimatorTrack_2017.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ShotTrack\CameraShot.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\TranslateTo.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Environment\AnimateFog.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Control\TransitAudioMixerSnapshot.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Paths\BezierPath.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Paths\Editor\BezierPathEditor.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Actor\AnimatorTrack_5_6.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\MinDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Windows\RenderWindow.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Partial Editor\CutsceneUtility.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Rendering\OverlayTexture.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\AnimationTrack\PlayAnimationClip.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\ExampleTextDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Paths\BezierPoint.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\_QuickStartScripts\PlayCutsceneOnTrigger.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Control\DirectorDisableGameObjects.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Partial Editor\DopeSheetEditor.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\PropertiesTrack.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\VideoSampler.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\ActionTrack.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Framework\AnimatedParameterModels.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Inspectors\ActionClipInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\PlaybackProtectedDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\MecanimTrack\AnimateLayerWeight.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\GameObject\SetBehavioursActiveState.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Windows\CutsceneEditor.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Environment\AnimateAmbientLighting.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Control\DestroyGameObjects.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Events\SendGlobalMessageInteger.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Actor\MecanimTrack.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Events\SendMessage.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Editor\SendMessageInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Composition\SubCutscene.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Events\SendMessageBoolean.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Utility\PauseCutscene.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\TransformRefPositionDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\SimpleGrounder.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\SetParentTemporary.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\CallbackDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Events\SendMessageInteger.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\TransformRefPosition.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Editor\AnimatePropertiesInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Events\SendGlobalMessage.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Framework\AnimationDataCollection.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Actor\ActorAudioTrack.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Editor\CharacterExpressionInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Editor\SetBehavioursActiveStateInspector.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\ColorUtility.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\HelpBoxDrawer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\_QuickStartScripts\PlayCutsceneOnClick.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\ScaleTo.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Sprites\SetSortingLayer.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\RotateAround.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Partial Editor\CurveEditor3D.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Groups\Runtime\ActorGroup.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\StringUtility.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Cameras\DirectorGUI.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility\ITransformRefParameter.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Renderer\AnimateMaterialFloat.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Events\SendGlobalMessageFloat.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Rendering\OverlaySprite.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Actor\ActorPropertiesTrack.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Framework\IDirectable.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\MecanimTrack\AnimateFloatParameter.cs" />
+     <Compile Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Sprites\SetSprite.cs" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Director" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers" />
+     <None Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\SLATE.asmdef" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Resources" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\RuntimeRecorder\Editor" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Inspectors" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Editor" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Characters\Editor" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\AnimationTrack" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\VideoTrack" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Other" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Editor" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Cameras" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\AudioTrack" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Groups\Runtime" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\MecanimTrack" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Events" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Control" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\GameObject" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\RuntimeRecorder" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Utility" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Partial Editor" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Events" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\AnimatorTrack" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Windows" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Groups" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Actor" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Sprites" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Framework" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Composition" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Utility" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\_QuickStartScripts" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Character" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Rendering" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Paths\Editor" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ShotTrack" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions" />
+     <None Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\README.txt" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Renderer" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Design" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Paths" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Characters" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Paths" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Environment" />
+     <Folder Include="Assets\ParadoxNotion\SLATE Cinematic Sequencer\Cameras\Editor" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>
@@ -81,9 +340,6 @@
      </Reference>
      <Reference Include="UnityEngine.AudioModule">
      <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.AudioModule.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.AutoStreamingModule">
-     <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.AutoStreamingModule.dll</HintPath>
      </Reference>
      <Reference Include="UnityEngine.ClothModule">
      <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.ClothModule.dll</HintPath>
@@ -136,9 +392,6 @@
      <Reference Include="UnityEngine.LocalizationModule">
      <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.LocalizationModule.dll</HintPath>
      </Reference>
-     <Reference Include="UnityEngine.NVIDIAModule">
-     <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.NVIDIAModule.dll</HintPath>
-     </Reference>
      <Reference Include="UnityEngine.ParticleSystemModule">
      <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.ParticleSystemModule.dll</HintPath>
      </Reference>
@@ -174,9 +427,6 @@
      </Reference>
      <Reference Include="UnityEngine.SubstanceModule">
      <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.SubstanceModule.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.SubsystemsModule">
-     <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.SubsystemsModule.dll</HintPath>
      </Reference>
      <Reference Include="UnityEngine.TLSModule">
      <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.TLSModule.dll</HintPath>
@@ -250,9 +500,6 @@
      <Reference Include="UnityEngine.VFXModule">
      <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.VFXModule.dll</HintPath>
      </Reference>
-     <Reference Include="UnityEngine.VRModule">
-     <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.VRModule.dll</HintPath>
-     </Reference>
      <Reference Include="UnityEngine.VehiclesModule">
      <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.VehiclesModule.dll</HintPath>
      </Reference>
@@ -264,9 +511,6 @@
      </Reference>
      <Reference Include="UnityEngine.WindModule">
      <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.WindModule.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.XRModule">
-     <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.XRModule.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor">
      <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\Managed\UnityEngine\UnityEditor.dll</HintPath>
@@ -387,9 +631,6 @@
      </Reference>
      <Reference Include="MongoDB.Bson">
      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\MongoDB.Bson.dll</HintPath>
-     </Reference>
-     <Reference Include="nunit.framework">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
      </Reference>
      <Reference Include="mscorlib">
      <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\mscorlib.dll</HintPath>
@@ -766,192 +1007,20 @@
      <Reference Include="System.Xml.XPath.XDocument">
      <HintPath>C:\Program Files\Unity 2021.3.17f1c1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XPath.XDocument.dll</HintPath>
      </Reference>
-     <Reference Include="UnityEditor.TestRunner">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.TestRunner">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\UnityEngine.TestRunner.dll</HintPath>
-     </Reference>
-     <Reference Include="HybridCLR.Runtime">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\HybridCLR.Runtime.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.InternalAPIEngineBridge.001">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.001.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VSCode.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.PixelPerfect">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.PixelPerfect.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.RenderPipelines.Universal.Shaders">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
-     </Reference>
-     <Reference Include="PsdPlugin">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\PsdPlugin.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.TextMeshPro.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Searcher.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.IK.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Path.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.Path.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEditor.UI">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.InputSystem">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.InputSystem.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Rider.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.UI">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.IK.Runtime">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.ShaderGraph.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Mathematics.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Common.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Tilemap.Extras">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Animation.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Tilemap.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
+     <Reference Include="Unity.RenderPipelines.Core.Runtime">
+     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
      </Reference>
      <Reference Include="Unity.RenderPipelines.Universal.Runtime">
      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
      </Reference>
-     <Reference Include="PPv2URPConverters">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
+     <Reference Include="UnityEditor.UI">
+     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.VisualStudio.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Timeline">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.TextMeshPro">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Burst.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Sprite.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Psdimporter.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.Psdimporter.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.InternalAPIEditorBridge.001">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.RenderPipelines.Core.Runtime">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Tilemap.Extras.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="HybridCLR.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\HybridCLR.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Mathematics">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Burst">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.RenderPipelines.Universal.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Animation.Runtime">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.Animation.Runtime.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.PixelPerfect.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.PixelPerfect.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Timeline.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Common.Runtime">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.Common.Runtime.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.SpriteShape.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.SpriteShape.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.RenderPipelines.Core.Editor">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.SpriteShape.Runtime">
-     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.SpriteShape.Runtime.dll</HintPath>
+     <Reference Include="UnityEngine.UI">
+     <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{09b46226-3263-561e-d797-c9025c53bdd6}</Project>
-      <Name>Assembly-CSharp-firstpass</Name>
-    </ProjectReference>
-    <ProjectReference Include="Sirenix.OdinInspector.Modules.UnityMathematics.csproj">
-      <Project>{56df1de4-7636-2075-3b3d-021f8dba6bfa}</Project>
-      <Name>Sirenix.OdinInspector.Modules.UnityMathematics</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.HotfixView.csproj">
-      <Project>{de4513d3-889b-5c52-8e9c-744c99ae7509}</Project>
-      <Name>Unity.HotfixView</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.ThirdParty.csproj">
-      <Project>{d2ad5be1-263a-9a30-ab0f-dc5b08044350}</Project>
-      <Name>Unity.ThirdParty</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Editor.csproj">
-      <Project>{041131cd-3018-19b1-81b6-5dbee2467ffb}</Project>
-      <Name>Unity.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Hotfix.csproj">
-      <Project>{52f66610-896a-c4d1-9881-1a19df7ab80e}</Project>
-      <Name>Unity.Hotfix</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Model.csproj">
-      <Project>{9498bfb4-d9f5-c441-13e3-3f26f7700e29}</Project>
-      <Name>Unity.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Loader.csproj">
-      <Project>{32b76b98-b8f4-f864-d1f9-50cf255042d8}</Project>
-      <Name>Unity.Loader</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.ModelView.csproj">
-      <Project>{c109842f-01da-64d4-dbf2-00c6449e459e}</Project>
-      <Name>Unity.ModelView</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Core.csproj">
-      <Project>{770e9beb-b313-3761-faa2-76daf4b34ada}</Project>
-      <Name>Unity.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

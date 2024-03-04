@@ -18,19 +18,6 @@ namespace ET.Client
             //2. 以下组件 切换场景时全部销毁
             player.AddComponent<ObjectWait>();
             player.AddComponent<GameObjectComponent>().GameObject = go;
-            player.AddComponent<AnimatorComponent>();
-            player.AddComponent<BBTimerComponent>();
-            player.AddComponent<Skill_InfoComponent>();
-            player.GetComponent<Skill_InfoComponent>().AddComponent<ChainComponent>();
-            go.transform.position = new Vector2(1, 1);
-            // go.SetActive(false);
-            // player.AddComponent<TODMoveComponent>()
-            //         .Load()
-            //         .SetPosition(new Vector2(3,3))
-            //         .RegisterAsActor(new PlayerActorHandler());
-
-            // player.AddComponent<TODAIComponent>().AILoad(ReferenceHelper.GetGlobalRC<AIBehaviorConfig>("Test"));
-
             player.AddComponent<DialogueComponent>();
         }
     }

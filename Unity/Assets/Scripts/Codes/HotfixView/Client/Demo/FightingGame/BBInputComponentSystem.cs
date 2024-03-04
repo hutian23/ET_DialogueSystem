@@ -6,10 +6,10 @@ namespace ET.Client
     [FriendOf(typeof (BBInputComponent))]
     public static class TODInputComponentSystem
     {
-        [Invoke(TODTimerInvokeType.CheckInput)]
+        [Invoke(BBTimerInvokeType.CheckInput)]
         [FriendOf(typeof (BBInputComponent))]
         [FriendOf(typeof (BBTimerComponent))]
-        public class CheckInputTimer: TODTimer<BBInputComponent>
+        public class CheckInputTimer: BBTimer<BBInputComponent>
         {
             protected override void Run(BBInputComponent self)
             {
@@ -27,7 +27,7 @@ namespace ET.Client
                 self.ClientScene().GetComponent<UIComponent>().ShowWindow<DlgFtg>();
                 
                 BBTimerComponent timerComponent = self.AddComponent<BBTimerComponent>();
-                self.timer = timerComponent.NewFrameTimer(TODTimerInvokeType.CheckInput, self);
+                self.timer = timerComponent.NewFrameTimer(BBTimerInvokeType.CheckInput, self);
                 
                 self.AddComponent<BBWait>();
                 
@@ -45,7 +45,7 @@ namespace ET.Client
 
                 self.RemoveComponent<BBTimerComponent>();
                 BBTimerComponent timerComponent = self.AddComponent<BBTimerComponent>();
-                self.timer = timerComponent.NewFrameTimer(TODTimerInvokeType.CheckInput, self);
+                self.timer = timerComponent.NewFrameTimer(BBTimerInvokeType.CheckInput, self);
                 
                 self.InitPressDict();
             }
@@ -66,7 +66,7 @@ namespace ET.Client
             self.pressDict.Add(BBOperaType.MIDDLEKICK | BBOperaType.MIDDLEPUNCH, 0);
         }
 
-        public static long CheckInput(this BBInputComponent self)
+        private static long CheckInput(this BBInputComponent self)
         {
             Gamepad gamepad = Gamepad.current;
             long ops = 0;

@@ -1,6 +1,6 @@
 ﻿namespace ET.Client
 {
-    public abstract class TODTimer<T>: AInvokeHandler<BBTimerCallback> where T : class
+    public abstract class BBTimer<T>: AInvokeHandler<BBTimerCallback> where T : class
     {
         public override void Handle(BBTimerCallback a)
         {

@@ -14,15 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsLoop: 0
   Keyframes:
-  - frameNo: 3232
-    sprite: {fileID: 21300000, guid: 5f706287080574849867de6f0935abe6, type: 3}
+  - frameNo: 1
+    sprite: {fileID: 0}
     hitBoxInfos:
     - type: 1
       position: {x: 1, y: 1}
-      size: {x: 230, y: 23}
-    - type: 3
-      position: {x: 23, y: 23}
-      size: {x: 32, y: 230}
-    - type: 6
-      position: {x: 23, y: 23}
-      size: {x: 34, y: 23}
+      size: {x: 20, y: 20}
+    - type: 2
+      position: {x: 0, y: 0}
+      size: {x: 0, y: 0}
