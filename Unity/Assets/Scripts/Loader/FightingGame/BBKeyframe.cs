@@ -17,9 +17,10 @@ namespace ET
     [Serializable]
     public struct HitBoxInfo
     {
+        public string name;
         public HitBoxType type;
-        public Vector2Int position;
-        public Vector2Int size;
+        public Rect rect;
+        public HashSet<int> tags;
     }
     
     public enum HitBoxType

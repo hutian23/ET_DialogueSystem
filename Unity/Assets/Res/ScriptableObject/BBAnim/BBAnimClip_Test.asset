@@ -18,8 +18,8 @@ MonoBehaviour:
     sprite: {fileID: 0}
     hitBoxInfos:
     - type: 1
-      position: {x: 1, y: 1}
-      size: {x: 20, y: 20}
+      position: {x: -0.2, y: 1}
+      size: {x: 20, y: 50}
     - type: 2
       position: {x: 0, y: 0}
       size: {x: 0, y: 0}
