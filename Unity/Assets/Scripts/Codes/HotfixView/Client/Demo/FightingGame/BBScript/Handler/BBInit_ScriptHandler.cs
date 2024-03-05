@@ -18,6 +18,7 @@
                 dialogueComponent.RemoveComponent<GatlingCancel>();
                 dialogueComponent.RemoveComponent<BBInputComponent>();
                 dialogueComponent.RemoveComponent<BBAnimComponent>();
+                unit.RemoveComponent<NumericComponent>();
             });
 
             dialogueComponent.AddComponent<BBTimerComponent>();
@@ -25,7 +26,8 @@
             dialogueComponent.AddComponent<GatlingCancel>();
             dialogueComponent.AddComponent<BBInputComponent>();
             dialogueComponent.AddComponent<BBAnimComponent>();
-            
+            unit.AddComponent<NumericComponent>();
+
             await ETTask.CompletedTask;
         }
     }

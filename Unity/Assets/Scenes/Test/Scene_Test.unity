@@ -977,11 +977,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ragna
       objectReference: {fileID: 0}
-    - target: {fileID: 7728331812354445376, guid: cb941c738eff80e48a47613d914c2780,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7728331812354445378, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
       propertyPath: m_RootOrder
@@ -1036,6 +1031,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7728331813152793238, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
+      propertyPath: m_SceneBindings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7728331813152793238, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
+      propertyPath: m_SceneBindings.Array.data[0].key
+      value: 
+      objectReference: {fileID: -340418548465394563, guid: 601be1e365259044893950f9eeb9831c,
+        type: 2}
+    - target: {fileID: 7728331813152793238, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
+      propertyPath: m_SceneBindings.Array.data[0].value
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb941c738eff80e48a47613d914c2780, type: 3}

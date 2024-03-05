@@ -29,13 +29,14 @@ namespace ET
         [HideInInspector]
         public long timerComponentInstanceId;
 
+        [LabelText("测试动画")]
         public BBAnimClip currentClip;
 
         [LabelText("运行速度")]
         [Range(0, 1)]
         [OnValueChanged("TimeScaleChanged")]
-        public float timeScale;
-
+        public float timeScale = 1;
+        
         [Button("测试动画")]
         public void PlayAnim()
         {
