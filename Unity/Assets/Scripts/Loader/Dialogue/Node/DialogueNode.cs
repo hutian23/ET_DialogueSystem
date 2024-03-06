@@ -15,7 +15,8 @@ namespace ET
         Success,
         Pending,
         Failed,
-        Choice //显示在选项中时
+        Choice, //显示在选项中时
+        Return //函数执行完毕
     }
 
     public enum Language

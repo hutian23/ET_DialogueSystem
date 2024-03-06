@@ -18,21 +18,20 @@ namespace ET.Client
         {
             protected override void Destroy(BBParser self)
             {
-                self.BBParser_Destroy();
+                self.Init();
             }
         }
 
-        private static void BBParser_Destroy(this BBParser self)
+        public static void Init(this BBParser self)
         {
             self.cancellationToken?.Cancel();
             self.funcMap.Clear();
             self.opLines = null;
-            self.currentTargetID = 0;
         }
 
         public static void InitScript(this BBParser self, string ops)
         {
-            self.BBParser_Destroy();
+            self.Init();
             self.opLines = ops;
             self.cancellationToken = new ETCancellationToken();
 
@@ -47,17 +46,6 @@ namespace ET.Client
                 if (!match.Success) continue;
                 self.funcMap.TryAdd(match.Groups[1].Value, i);
             }
-        }
-
-        public static int GetFunctionPointer(this BBParser self, string functionName)
-        {
-            if (!self.funcMap.TryGetValue(functionName, out int pointer))
-            {
-                Log.Error($"not found function : {functionName}");
-                return 0;
-            }
-
-            return pointer;
         }
 
         public static async ETTask Init(this BBParser self, ETCancellationToken token)
@@ -105,8 +93,6 @@ namespace ET.Client
 
                 var opType = match.Value;
                 var opCode = Regex.Match(opLine, "^(.*?);").Value;
-
-                if (opType.Equals("return")) return Status.Success;
                 if (!DialogueDispatcherComponent.Instance.BBScriptHandlers.TryGetValue(opType, out BBScriptHandler handler))
                 {
                     Log.Error($"not found script handler； {opType}");
@@ -115,6 +101,8 @@ namespace ET.Client
 
                 Status ret = await handler.Handle(unit, opCode, token);
                 if (token.IsCancel() || ret == Status.Failed) return Status.Failed;
+                //对应return
+                if (ret != Status.Success) return Status.Success;
                 await TimerComponent.Instance.WaitFrameAsync(token);
             }
 
@@ -151,8 +139,6 @@ namespace ET.Client
 
                 var opType = match.Value;
                 var opCode = Regex.Match(opLine, "^(.*?);").Value;
-
-                if (opType.Equals("return")) return;
                 if (!DialogueDispatcherComponent.Instance.BBScriptHandlers.TryGetValue(opType, out BBScriptHandler handler))
                 {
                     Log.Error($"not found script handler； {opType}");

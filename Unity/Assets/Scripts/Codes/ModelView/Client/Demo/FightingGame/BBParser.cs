@@ -7,8 +7,9 @@ namespace ET.Client
     public class BBParser: Entity, IAwake, IDestroy, ILoad
     {
         public Dictionary<string,int> funcMap = new();// 记录状态块的索引
+        public Dictionary<string, int> markers = new(); //标记位置
         public string opLines; // 脚本
         public ETCancellationToken cancellationToken; //取消当前执行的所有子协程
-        public uint currentTargetID; // 执行初始化时，当前节点ID
+        
     }
 }
