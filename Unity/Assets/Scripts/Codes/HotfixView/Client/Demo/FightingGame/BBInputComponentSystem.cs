@@ -52,17 +52,6 @@ namespace ET.Client
             }
         }
         
-        /// <summary>
-        /// 返回当前执行技能的tag
-        /// </summary>
-        public static string GetCurSkill(this BBInputComponent self)
-        {
-            return self.skillMap
-                    .Where(kv => kv.Value == self.currentID)
-                    .Select(kv => kv.Key)
-                    .FirstOrDefault();
-        }
-        
         private static void InitPressDict(this BBInputComponent self)
         {
             self.pressDict.Clear();

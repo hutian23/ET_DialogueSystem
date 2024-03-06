@@ -10,7 +10,7 @@ namespace ET.Client
             return "InitPool";
         }
 
-        //InitPool name = HoldIt size = 5; 
+        //InitPool: 'HoldIt', 5 
         public override async ETTask<Status> Handle(Unit unit, string opCode, ETCancellationToken token)
         {
             Match match = Regex.Match(opCode, @"InitPool name = (?<poolName>\w+) size = (?<poolSize>\w+);");

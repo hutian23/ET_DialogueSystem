@@ -17,8 +17,6 @@ namespace ET.Client
 
         //技能和节点ID的映射
         public Dictionary<string, uint> skillMap = new();
-
-        public uint currentID;
     }
 
     public class InputInfo

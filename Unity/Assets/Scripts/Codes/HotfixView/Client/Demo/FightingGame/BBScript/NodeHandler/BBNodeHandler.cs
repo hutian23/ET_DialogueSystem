@@ -14,7 +14,7 @@
             objectWait.Notify(new WaitHit() { Error = WaitTypeError.Destroy });
             objectWait.Notify(new WaitCounterHit() { Error = WaitTypeError.Destroy });
             
-            dialogueComponent.GetComponent<BBParser>().InitScript(node.BBScript);
+            dialogueComponent.GetComponent<BBParser>().InitScript(node);
             return await dialogueComponent.GetComponent<BBParser>().Main(token);
         }
     }

@@ -29,14 +29,15 @@ namespace ET.Client
             self.opLines = null;
         }
 
-        public static void InitScript(this BBParser self, string ops)
+        public static void InitScript(this BBParser self, BBNode node)
         {
             self.Init();
-            self.opLines = ops;
+            self.opLines = node.BBScript;
+            self.currentID = node.TargetID;
             self.cancellationToken = new ETCancellationToken();
 
             //建立状态块和索引的映射
-            var opLines = ops.Split("\n");
+            var opLines = self.opLines.Split("\n");
             for (int i = 0; i < opLines.Length; i++)
             {
                 string opLine = opLines[i];
@@ -50,6 +51,11 @@ namespace ET.Client
 
         public static async ETTask Init(this BBParser self, ETCancellationToken token)
         {
+            //必杀配置，还有其他配置要作为子Entity挂在SkillInfo下面
+            BBInputComponent inputComponent = self.GetParent<DialogueComponent>().GetComponent<BBInputComponent>();
+            inputComponent.RemoveChild(self.currentID);
+            inputComponent.AddChild<BBSkillInfo,uint>(self.currentID);
+            
             await self.Invoke("Init", token);
         }
 

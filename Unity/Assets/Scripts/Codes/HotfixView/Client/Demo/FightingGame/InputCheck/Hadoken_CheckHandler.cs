@@ -22,14 +22,11 @@
             //最后的攻击键和方向键一起按下
             if ((wait3.OP & (BBOperaType.LIGHTPUNCH | BBOperaType.MIDDLEPUNCH | BBOperaType.HEAVYPUNCH)) != 0)
             {
-                unit.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgFtg>().RefreshUI("波动拳!!!");
                 return;
             }
             
             WaitInput wait4 = await bbwait.Wait(OP: BBOperaType.LIGHTPUNCH | BBOperaType.MIDDLEPUNCH | BBOperaType.HEAVYPUNCH, FuzzyInputType.OR, waitFrame: 5);
             if (wait4.Error != WaitTypeError.Success) return;
-
-            unit.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgFtg>().RefreshUI("波动拳");
             
             await ETTask.CompletedTask;
         }

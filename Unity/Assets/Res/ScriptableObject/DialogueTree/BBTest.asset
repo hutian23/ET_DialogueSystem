@@ -144,10 +144,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 469
+      Data: 471
     - Name: 
       Entry: 4
-      Data: 294
+      Data: 318
     - Name: 
       Entry: 8
       Data: 
@@ -169,16 +169,9 @@ MonoBehaviour:
       Data: 
     - Name: BBScript
       Entry: 1
-      Data: '@Init:
-
-        return;
-
-
-        @Main:
-
-        Trigger HP > 10: return;
-
-        return;'
+      Data: "@Init:\nRegistInput: 'Hadoken';\nSkillType: SpecialMove;\nOrder: 0;\n\nreturn;\n\n@Main:\n#\u542F\u52A8\u5E27\nSprite
+        'rg000_1' 3;\nSprite 'rg000_2' 2;\nSprite 'rg000_3' 3;\nSprite 'rg000_4'
+        2;\n\nTrigger HP > 10: return;\n\nreturn;"
     - Name: 
       Entry: 8
       Data: 
@@ -224,7 +217,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 469
+      Data: 471
     - Name: 
       Entry: 4
       Data: 200
@@ -468,7 +461,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 249
+      Data: 250
     - Name: 
       Entry: 4
       Data: 200

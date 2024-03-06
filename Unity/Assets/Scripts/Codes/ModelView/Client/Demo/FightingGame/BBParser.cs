@@ -6,10 +6,10 @@ namespace ET.Client
     [ComponentOf(typeof (DialogueComponent))]
     public class BBParser: Entity, IAwake, IDestroy, ILoad
     {
-        public Dictionary<string,int> funcMap = new();// 记录状态块的索引
+        public Dictionary<string, int> funcMap = new(); // 记录状态块的索引
         public Dictionary<string, int> markers = new(); //标记位置
         public string opLines; // 脚本
         public ETCancellationToken cancellationToken; //取消当前执行的所有子协程
-        
+        public uint currentID; // 当前执行的节点ID
     }
 }
