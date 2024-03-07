@@ -117,6 +117,20 @@ namespace ET.Client
 
                 self.BBScriptHandlers.Add(handler.GetOPType(), handler);
             }
+
+            self.BBTriggerHandlers.Clear();
+            var bbTriggerHandlers = EventSystem.Instance.GetTypes(typeof (BBTriggerAttribute));
+            foreach (var bbtrigger in bbTriggerHandlers)
+            {
+                BBTriggerHandler handler = Activator.CreateInstance(bbtrigger) as BBTriggerHandler;
+                if (handler == null)
+                {
+                    Log.Error($"this obj is not a bbTriggerHandler:{bbtrigger.Name}");
+                    continue;
+                }
+                
+                self.BBTriggerHandlers.Add(handler.GetTriggerType(), handler);
+            }
         }
 
         public static async ETTask<Status> Handle(this DialogueDispatcherComponent self, Unit unit, object node, ETCancellationToken token)
@@ -170,6 +184,16 @@ namespace ET.Client
         public static BBCheckHandler GetBBCheckHandler(this DialogueDispatcherComponent self, string name)
         {
             if (self.BBCheckHandlers.TryGetValue(name, out BBCheckHandler handler))
+            {
+                return handler;
+            }
+
+            return null;
+        }
+
+        public static BBTriggerHandler GetTriggerHandler(this DialogueDispatcherComponent self, string name)
+        {
+            if (self.BBTriggerHandlers.TryGetValue(name, out BBTriggerHandler handler))
             {
                 return handler;
             }

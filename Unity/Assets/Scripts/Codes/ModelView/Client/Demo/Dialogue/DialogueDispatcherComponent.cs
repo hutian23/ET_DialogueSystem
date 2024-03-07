@@ -16,9 +16,9 @@ namespace ET.Client
         public Dictionary<string, ScriptHandler> scriptHandlers = new();
 
         public Dictionary<string, ReplaceHandler> replaceHandlers = new();
-
-        // 技能前置检查
+        
         public Dictionary<string, BBCheckHandler> BBCheckHandlers = new();
         public Dictionary<string, BBScriptHandler> BBScriptHandlers = new();
+        public Dictionary<string, BBTriggerHandler> BBTriggerHandlers = new();
     }
 }
