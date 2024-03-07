@@ -191,14 +191,15 @@ namespace ET.Client
             return null;
         }
 
-        public static BBTriggerHandler GetTriggerHandler(this DialogueDispatcherComponent self, string name)
+        public static BBTriggerHandler GetTrigger(this DialogueDispatcherComponent self, string name)
         {
-            if (self.BBTriggerHandlers.TryGetValue(name, out BBTriggerHandler handler))
+            if (!self.BBTriggerHandlers.TryGetValue(name, out BBTriggerHandler handler))
             {
-                return handler;
+                Log.Error($"not found triggerHandler: {name}");
+                return null;
             }
 
-            return null;
+            return handler;
         }
     }
 }
