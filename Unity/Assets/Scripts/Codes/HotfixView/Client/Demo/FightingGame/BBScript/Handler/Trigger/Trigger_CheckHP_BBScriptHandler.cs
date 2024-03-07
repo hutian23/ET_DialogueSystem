@@ -2,6 +2,10 @@
 { 
     public class Trigger_CheckHP_BBScriptHandler: BBTriggerHandler
     {
+        public override string GetTriggerType()
+        {
+            return "HP";
+        }
     }
 //Trigger HP > 10: CallSubCoroutine func = PrintHelloWorld
 //Trigger SP < 100: Invoke func = PrintHelloWorld    

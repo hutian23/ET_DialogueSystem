@@ -5,7 +5,8 @@
     }
 
     [BBTrigger]
-    public class BBTriggerHandler
+    public abstract class BBTriggerHandler
     {
+        public abstract string GetTriggerType();
     }
 }

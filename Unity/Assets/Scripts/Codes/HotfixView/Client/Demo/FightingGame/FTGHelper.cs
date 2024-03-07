@@ -19,9 +19,14 @@ namespace ET.Client
 
             return tmpList;
         }
-
-        //获取输入缓冲组件当前帧号
-        public static long GetCurFrame(Unit unit)
+        
+        /// <summary>
+        /// 获取输入缓冲组件当前帧号
+        /// 输入缓冲是独立的协程，timeScale不受战斗时间影响
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <returns></returns>
+        public static long GetCurFrame_InputCor(Unit unit)
         {
             return unit.GetComponent<DialogueComponent>().GetComponent<BBInputComponent>().GetComponent<BBTimerComponent>().curFrame;
         }

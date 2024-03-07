@@ -10,13 +10,13 @@ namespace ET.Client
             return "InitPool";
         }
 
-        //InitPool: 'HoldIt', 5 
-        public override async ETTask<Status> Handle(Unit unit, string opCode, ETCancellationToken token)
+        //InitPool: 'HoldIt', 5;
+        public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(opCode, @"InitPool name = (?<poolName>\w+) size = (?<poolSize>\w+);");
+            Match match = Regex.Match(data.opLine, @"InitPool: '(?<poolName>\w+)', '(?<poolSize>\w+)';");
             if (!match.Success)
             {
-                DialogueHelper.ScripMatchError(opCode);
+                DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 

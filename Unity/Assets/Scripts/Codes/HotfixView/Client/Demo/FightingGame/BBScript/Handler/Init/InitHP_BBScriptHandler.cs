@@ -8,9 +8,11 @@
         }
 
         //InitHp: 1000;
-        public override async ETTask<Status> Handle(Unit unit, string opCode, ETCancellationToken token)
+        public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            unit.GetComponent<NumericComponent>()[NumericType.MaxHpBase] = 30;
+            parser.GetParent<DialogueComponent>()
+                    .GetParent<Unit>()
+                    .GetComponent<NumericComponent>()[NumericType.MaxHpBase] = 30;
             await ETTask.CompletedTask;
             return Status.Success;
         }

@@ -9,6 +9,6 @@
     {
         public abstract string GetSkillType();
 
-        public abstract ETTask Handle(Unit unit, ETCancellationToken token);
+        public abstract ETTask<Status> Handle(Unit unit, ETCancellationToken token);
     }
 }

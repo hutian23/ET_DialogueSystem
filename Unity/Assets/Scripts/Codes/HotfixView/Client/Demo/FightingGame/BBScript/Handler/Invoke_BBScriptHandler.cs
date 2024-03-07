@@ -10,19 +10,18 @@ namespace ET.Client
             return "Invoke";
         }
 
-        //Invoke func = OnBlock; 调用一个方法
-        public override async ETTask<Status> Handle(Unit unit, string opCode, ETCancellationToken token)
+        //Invoke: 'OnBlock'; 调用一个方法
+        public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(opCode, @"Invoke func = (?<Function>\w+);");
+            Match match = Regex.Match(data.opLine, "Invoke: '(?<Function>.*?)';");
             if (!match.Success)
             {
-                DialogueHelper.ScripMatchError(opCode);
+                DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
-
-            BBParser bbParser = unit.GetComponent<DialogueComponent>().GetComponent<BBParser>();
-            Status ret = await bbParser.Invoke(match.Groups["Function"].Value, token);
             
+            Status ret = await parser.Invoke(match.Groups["Function"].Value, token);
+
             return token.IsCancel() || ret == Status.Failed? Status.Failed : Status.Success;
         }
     }

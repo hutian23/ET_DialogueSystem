@@ -6,9 +6,9 @@
         {
             return "return";
         }
-        
+
         //return;
-        public override async ETTask<Status> Handle(Unit unit, string opCode, ETCancellationToken token)
+        public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
             await ETTask.CompletedTask;
             return Status.Return;

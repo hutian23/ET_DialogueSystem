@@ -126,15 +126,20 @@ static class Program
 
     public static void Main()
     {
-        string input = "Log \"Hello world\";";
-        string pattern = "\"(.*?)\"";
-        
-        Match match = Regex.Match(input, pattern);
-        if (match.Success)
-        {
-            string content = match.Groups[1].Value;
-            Console.WriteLine(content);
-        }
+        Match match = Regex.Match("AddGatlingCancel: 'Hello world';", "AddGatlingCancel: '(?<skill>.*?)';");
+        Console.WriteLine(match.Groups["skill"].Value);
+        // string v = "SetMarker: 'hello world'";
+        // string pattern2 = @"SetMarker:\s+'([^']*)'";
+        // Console.WriteLine(Regex.Match(v,pattern2).Groups[1].Value);
+        // string input = "Log \"Hello world\";";
+        // string pattern = "\"(.*?)\"";
+        //
+        // Match match = Regex.Match(input, pattern);
+        // if (match.Success)
+        // {
+        //     string content = match.Groups[1].Value;
+        //     Console.WriteLine(content);
+        // }
         // Console.WriteLine("This is a string with a double quote: \"");
         // Console.WriteLine("");
         // string input = "@State_Init:Hello world";
@@ -161,7 +166,7 @@ static class Program
         //     }
         //     Console.WriteLine("hello world");
         // }
-        
+
         // var pattern = @"^\w+\b(?:\(\))?";
         // Match match = Regex.Match("VN_Position name = hello world;", pattern);
         // Match match2 = Regex.Match("ShowDialogue;", pattern);

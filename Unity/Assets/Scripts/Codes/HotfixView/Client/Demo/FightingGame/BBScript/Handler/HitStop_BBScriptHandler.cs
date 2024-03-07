@@ -9,19 +9,19 @@ namespace ET.Client
             return "HitStop";
         }
 
-        // HitStop frame = 60;
-        public override async ETTask<Status> Handle(Unit unit, string line, ETCancellationToken token)
+        // HitStop: 60;
+        public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(line, @"HitStop frame = (?<FrameCount>\w+);");
+            Match match = Regex.Match(data.opLine, "HitStop: (?<Frame>.*?);");
             if (!match.Success)
             {
-                DialogueHelper.ScripMatchError(line);
+                DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
-            int.TryParse(match.Groups["FrameCount"].Value, out int frameCount);
+            int.TryParse(match.Groups["Frame"].Value, out int frameCount);
 
-            DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
+            DialogueComponent dialogueComponent = parser.GetParent<DialogueComponent>();
             dialogueComponent.RemoveComponent<HitStop>();
             dialogueComponent.AddComponent<HitStop, int>(frameCount);
 

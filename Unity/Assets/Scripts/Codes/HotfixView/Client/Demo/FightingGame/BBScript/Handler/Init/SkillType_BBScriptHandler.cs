@@ -12,19 +12,17 @@ namespace ET.Client
         }
 
         //SkillType: Normal
-        public override async ETTask<Status> Handle(Unit unit, string opCode, ETCancellationToken token)
+        public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            BBParser bbParser = unit.GetComponent<DialogueComponent>().GetComponent<BBParser>();
-
-            Match match = Regex.Match(opCode, @"SkillType: (?<skill>\w+);");
+            Match match = Regex.Match(data.opLine, @"SkillType: (?<skill>\w+);");
             if (!match.Success)
             {
-                DialogueHelper.ScripMatchError(opCode);
+                DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
             string skillType = match.Groups["skill"].Value;
-            BBSkillInfo skillInfo = FTGHelper.GetSkillInfo(unit, bbParser.currentID);
+            BBSkillInfo skillInfo = parser.GetParent<DialogueComponent>().GetComponent<BBInputComponent>().GetSkillInfo(parser.currentID);
             switch (skillType)
             {
                 case "Move":

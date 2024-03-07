@@ -9,17 +9,17 @@ namespace ET.Client
             return "CallSubCoroutine";
         }
 
-        //CallSubCoroutine func = OnBlock;
-        public override async ETTask<Status> Handle(Unit unit, string opCode, ETCancellationToken token)
+        //CallSubCoroutine: 'OnBlock';
+        public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(opCode, @"CallSubCoroutine func = (?<Function>\w+);");
+            Match match = Regex.Match(data.opLine, @"CallSubCoroutine func = (?<Function>\w+);");
             if (!match.Success)
             {
-                DialogueHelper.ScripMatchError(opCode);
+                DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
-            unit.GetComponent<DialogueComponent>().GetComponent<BBParser>().SubCoroutine(match.Groups["Function"].Value).Coroutine();
+            // parser.Invoke(match.Groups["Function"].Value).Coroutine();
             await ETTask.CompletedTask;
             return Status.Success;
         }

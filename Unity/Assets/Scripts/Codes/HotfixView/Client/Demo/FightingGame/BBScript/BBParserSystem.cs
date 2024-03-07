@@ -6,14 +6,6 @@ namespace ET.Client
     [FriendOf(typeof (DialogueDispatcherComponent))]
     public static class BBParserSystem
     {
-        public class BBParserLoadSystem: LoadSystem<BBParser>
-        {
-            protected override void Load(BBParser self)
-            {
-                self.Dispose();
-            }
-        }
-
         public class BBParserDestroySystem: DestroySystem<BBParser>
         {
             protected override void Destroy(BBParser self)
@@ -27,6 +19,8 @@ namespace ET.Client
             self.cancellationToken?.Cancel();
             self.funcMap.Clear();
             self.opLines = null;
+            self.markers.Clear();
+            self.function_Pointers.Clear();
         }
 
         public static void InitScript(this BBParser self, BBNode node)
@@ -35,17 +29,30 @@ namespace ET.Client
             self.opLines = node.BBScript;
             self.currentID = node.TargetID;
             self.cancellationToken = new ETCancellationToken();
+            self.function_Pointers.Clear();
 
-            //建立状态块和索引的映射
+            //建立函数和索引的映射
             var opLines = self.opLines.Split("\n");
             for (int i = 0; i < opLines.Length; i++)
             {
                 string opLine = opLines[i];
-                if (string.IsNullOrEmpty(opLine) || opLine[0] != '@') continue;
+                if (string.IsNullOrEmpty(opLine) || opLine[0] == '#') continue; //空行 or 注释行
+
+                //匹配函数
                 string pattern = "@([^:]+)";
                 Match match = Regex.Match(opLine, pattern);
-                if (!match.Success) continue;
-                self.funcMap.TryAdd(match.Groups[1].Value, i);
+                if (match.Success)
+                {
+                    self.funcMap.TryAdd(match.Groups[1].Value, i);
+                }
+
+                //匹配标记
+                string pattern2 = @"SetMarker:\s+'([^']*)'";
+                Match match2 = Regex.Match(opLine, pattern2);
+                if (match2.Success)
+                {
+                    self.markers.TryAdd(match2.Groups[1].Value, i);
+                }
             }
         }
 
@@ -53,9 +60,7 @@ namespace ET.Client
         {
             //必杀配置，还有其他配置要作为子Entity挂在SkillInfo下面
             BBInputComponent inputComponent = self.GetParent<DialogueComponent>().GetComponent<BBInputComponent>();
-            inputComponent.RemoveChild(self.currentID);
-            inputComponent.AddChild<BBSkillInfo,uint>(self.currentID);
-            
+            inputComponent.AddSkillInfo(self.currentID);
             await self.Invoke("Init", token);
         }
 
@@ -78,83 +83,45 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            index++;
+            //当前子协程的唯一标识符,对应调用索引
+            long funcId = IdGenerater.Instance.GenerateInstanceId();
+            self.function_Pointers.Add(funcId, index++);
 
             var opLines = self.opLines.Split("\n");
-            while (index < opLines.Length)
+            while (self.function_Pointers[funcId] < opLines.Length)
             {
                 if (token.IsCancel()) return Status.Failed;
-
-                string opLine = opLines[index++];
+                
+                string opLine = opLines[self.function_Pointers[funcId]++];
                 //空行 or 注释行，跳过
                 if (string.IsNullOrEmpty(opLine) || opLine[0] == '#') continue;
-
-                Unit unit = self.GetParent<DialogueComponent>().GetParent<Unit>();
+                
                 Match match = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
                 if (!match.Success)
                 {
                     Log.Error($"{opLine}匹配失败! 请检查格式");
                     return Status.Failed;
                 }
-
-                var opType = match.Value;
-                var opCode = Regex.Match(opLine, "^(.*?);").Value;
+                
+                //匹配handler
+                string opType = match.Value;
+                string opCode = Regex.Match(opLine, "^(.*?);").Value;
                 if (!DialogueDispatcherComponent.Instance.BBScriptHandlers.TryGetValue(opType, out BBScriptHandler handler))
                 {
                     Log.Error($"not found script handler； {opType}");
                     return Status.Failed;
                 }
-
-                Status ret = await handler.Handle(unit, opCode, token);
+                
+                //执行一个指令相当于一个子协程
+                BBScriptData data = BBScriptData.Create(opCode, funcId);
+                Status ret = await handler.Handle(self, data, token);
+                data.Recycle();
+                if (ret == Status.Return) return Status.Success;
                 if (token.IsCancel() || ret == Status.Failed) return Status.Failed;
-                //对应return
-                if (ret != Status.Success) return Status.Success;
                 await TimerComponent.Instance.WaitFrameAsync(token);
             }
 
             return Status.Success;
-        }
-
-        public static async ETTask SubCoroutine(this BBParser self, string funcName)
-        {
-            if (!self.funcMap.TryGetValue(funcName, out int index))
-            {
-                Log.Warning($"not found function : {funcName}");
-                return;
-            }
-
-            index++;
-
-            var opLines = self.opLines.Split("\n");
-
-            while (index < opLines.Length)
-            {
-                if (self.cancellationToken.IsCancel()) return;
-
-                string opLine = opLines[index++];
-                //空行 or 注释行，跳过
-                if (string.IsNullOrEmpty(opLine) || opLine[0] == '#') continue;
-
-                Unit unit = self.GetParent<DialogueComponent>().GetParent<Unit>();
-                Match match = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
-                if (!match.Success)
-                {
-                    Log.Error($"{opLine}匹配失败! 请检查格式");
-                    return;
-                }
-
-                var opType = match.Value;
-                var opCode = Regex.Match(opLine, "^(.*?);").Value;
-                if (!DialogueDispatcherComponent.Instance.BBScriptHandlers.TryGetValue(opType, out BBScriptHandler handler))
-                {
-                    Log.Error($"not found script handler； {opType}");
-                    return;
-                }
-
-                Status ret = await handler.Handle(unit, opCode, self.cancellationToken);
-                if (self.cancellationToken.IsCancel() || ret == Status.Failed) return;
-                await TimerComponent.Instance.WaitFrameAsync(self.cancellationToken);
-            }
         }
     }
 }

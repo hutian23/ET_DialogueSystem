@@ -1,0 +1,10 @@
+﻿if SP < 10: GotoMarker 'Test111'
+LogWarning 'Hello world'
+
+if Sp < 5: GotoMarker 'test222'
+SetMarker: 'test222'
+
+LogWarning '123232'
+LogWarning 'test22222'
+
+SetMarker: 'Hello world'

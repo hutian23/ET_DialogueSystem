@@ -9,17 +9,17 @@ namespace ET.Client
             return "Log";
         }
 
-        //Log "Hello world";
-        public override async ETTask<Status> Handle(Unit unit, string opCode, ETCancellationToken token)
+        //Log: 'Hello world';
+        public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(opCode, "\"(.*?)\"");
+            Match match = Regex.Match(data.opLine, "Log: '(?<Info>.*?)';");
             if (!match.Success)
             {
-                DialogueHelper.ScripMatchError(opCode);
+                DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
-            Log.Debug(match.Groups[1].Value);
+            Log.Debug(match.Groups["Info"].Value);
             await ETTask.CompletedTask;
             return Status.Success;
         }

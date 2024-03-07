@@ -2,28 +2,29 @@
 
 namespace ET.Client
 {
-    [FriendOfAttribute(typeof(ET.Client.BBParser))]
-    public class SkillOrder_BBScriptHandler : BBScriptHandler
+    [FriendOf(typeof (BBParser))]
+    [FriendOf(typeof (BBSkillInfo))]
+    public class SkillOrder_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "SkillOrder";
+            return "Order";
         }
 
         //Order: 30;
-        public override async ETTask<Status> Handle(Unit unit, string opCode, ETCancellationToken token)
+        public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            BBParser bbParser = unit.GetComponent<DialogueComponent>().GetComponent<BBParser>();
-
-            Match match = Regex.Match(opCode, @"SkillType: (?<skill>\w+);");
+            Match match = Regex.Match(data.opLine, @"Order: (?<order>\w+);");
             if (!match.Success)
             {
-                DialogueHelper.ScripMatchError(opCode);
+                DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
-            string skillType = match.Groups["skill"].Value;
-            BBSkillInfo skillInfo = FTGHelper.GetSkillInfo(unit, bbParser.currentID);
+            uint.TryParse(match.Groups["order"].Value, out uint order);
+            BBSkillInfo skillInfo = parser.GetParent<DialogueComponent>().GetComponent<BBInputComponent>().GetSkillInfo(parser.currentID);
+            skillInfo.order = order;
+
             await ETTask.CompletedTask;
             return Status.Success;
         }

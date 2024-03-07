@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace ET.Client
@@ -26,12 +25,12 @@ namespace ET.Client
             protected override void Awake(BBInputComponent self)
             {
                 self.ClientScene().GetComponent<UIComponent>().ShowWindow<DlgFtg>();
-                
+
                 BBTimerComponent timerComponent = self.AddComponent<BBTimerComponent>();
                 self.timer = timerComponent.NewFrameTimer(BBTimerInvokeType.CheckInput, self);
-                
+
                 self.AddComponent<BBWait>();
-                
+
                 self.InitPressDict();
             }
         }
@@ -47,11 +46,11 @@ namespace ET.Client
                 self.RemoveComponent<BBTimerComponent>();
                 BBTimerComponent timerComponent = self.AddComponent<BBTimerComponent>();
                 self.timer = timerComponent.NewFrameTimer(BBTimerInvokeType.CheckInput, self);
-                
+
                 self.InitPressDict();
             }
         }
-        
+
         private static void InitPressDict(this BBInputComponent self)
         {
             self.pressDict.Clear();
@@ -216,5 +215,41 @@ namespace ET.Client
 
             return ops;
         }
+
+        #region 技能配置组件
+
+        public static BBSkillInfo GetSkillInfo(this BBInputComponent self, uint targetID)
+        {
+            if (!self.skilInfoDict.TryGetValue(targetID, out BBSkillInfo info))
+            {
+                Log.Error($"not found skillInfo: {targetID}");
+                return null;
+            }
+
+            return info;
+        }
+
+        public static BBSkillInfo AddSkillInfo(this BBInputComponent self, uint targetID)
+        {
+            if (self.skilInfoDict.TryGetValue(targetID, out BBSkillInfo _))
+            {
+                Log.Error($"already exist skillInfo: {targetID}");
+                return null;
+            }
+
+            BBSkillInfo skillInfo = self.AddChild<BBSkillInfo>();
+            self.skilInfoDict.Add(targetID, skillInfo);
+            return skillInfo;
+        }
+
+        public static void RemoveSkillInfo(this BBInputComponent self, uint targetID)
+        {
+            if (self.skilInfoDict.TryGetValue(targetID, out BBSkillInfo info))
+            {
+                self.RemoveChild(info.Id);
+            }
+        }
+
+        #endregion
     }
 }

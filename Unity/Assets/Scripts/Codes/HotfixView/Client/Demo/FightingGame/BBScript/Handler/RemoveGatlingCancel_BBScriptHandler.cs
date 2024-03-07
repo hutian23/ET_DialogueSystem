@@ -9,17 +9,19 @@ namespace ET.Client
             return "RemoveGatlingCancel";
         }
 
-        public override async ETTask<Status> Handle(Unit unit, string opCode, ETCancellationToken token)
+        //RemoveGatlingCancel: 'Sol_5s';
+        public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(opCode, @"RemoveGatlingCancel skill = (?<skill>\w+);");
+            Match match = Regex.Match(data.opLine, "RemoveGatlingCancel: '(?<skill>.*?)';");
             if (!match.Success)
             {
-                DialogueHelper.ScripMatchError(opCode);
+                DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
             string skillValue = match.Groups["skill"].Value;
-            unit.GetComponent<DialogueComponent>().GetComponent<GatlingCancel>().RemoveTag(skillValue);
+            parser.GetParent<DialogueComponent>().GetComponent<GatlingCancel>().RemoveTag(skillValue);
+            
             await ETTask.CompletedTask;
             return Status.Success;
         }

@@ -11,13 +11,13 @@ namespace ET.Client
 
         //调用回调
         //InvokeCallback type = OnBlock;
-        public override async ETTask<Status> Handle(Unit unit, string opCode, ETCancellationToken token)
+        public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            ObjectWait objectWait = unit.GetComponent<DialogueComponent>().GetComponent<ObjectWait>();
-            Match match = Regex.Match(opCode, @"InvokeCallback type = (?<Type>\w+);");
+            ObjectWait objectWait = parser.GetParent<DialogueComponent>().GetComponent<ObjectWait>();
+            Match match = Regex.Match(data.opLine, @"InvokeCallback type = (?<Type>\w+);");
             if (!match.Success)
             {
-                DialogueHelper.ScripMatchError(opCode);
+                DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
@@ -34,7 +34,7 @@ namespace ET.Client
                     objectWait.Notify(new WaitHit());
                     break;
             }
-            
+
             await ETTask.CompletedTask;
             return Status.Success;
         }

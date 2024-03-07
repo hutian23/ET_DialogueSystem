@@ -2,26 +2,28 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof(BBInputComponent))]
-    public class RegistInputChecker_BBScriptHandler : BBScriptHandler
+    [FriendOf(typeof (BBInputComponent))]
+    [FriendOf(typeof (BBParser))]
+    [FriendOf(typeof (BBSkillInfo))]
+    public class RegistInputChecker_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "RegistInputChecker";
+            return "RegistInput";
         }
 
-        //RegistInputChecker name = Sol_GunFlame;
-        public override async ETTask<Status> Handle(Unit unit, string opCode, ETCancellationToken token)
+        //RegistInput: '236P';
+        public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(opCode, @"RegistInputChecker name = (?<Checker>\w+);");
+            Match match = Regex.Match(data.opLine, @"RegistInput: '(?<Checker>\w+)';");
             if (!match.Success)
             {
-                DialogueHelper.ScripMatchError(opCode);
+                DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
-        
-            BBInputComponent bbInput = unit.GetComponent<DialogueComponent>().GetComponent<BBInputComponent>();
-            bbInput.bbCheckers.Add($"{match.Groups["Checker"].Value}_CheckHandler");
+
+            BBSkillInfo skillInfo = parser.GetParent<DialogueComponent>().GetComponent<BBInputComponent>().GetSkillInfo(parser.currentID);
+            skillInfo.inputChecker = match.Groups["Checker"].Value;
 
             await ETTask.CompletedTask;
             return Status.Success;
