@@ -4,8 +4,8 @@
     public class BBSkillInfo: Entity, IAwake, IDestroy
     {
         public uint targetID;
-        public uint skillType;
-        public uint order;
+        public int skillType;
+        public int order;
         public string tag;
         public string inputChecker;
     }

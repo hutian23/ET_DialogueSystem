@@ -21,7 +21,7 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            uint.TryParse(match.Groups["order"].Value, out uint order);
+            int.TryParse(match.Groups["order"].Value, out int order);
             BBSkillInfo skillInfo = parser.GetParent<DialogueComponent>().GetComponent<BBInputComponent>().GetSkillInfo(parser.currentID);
             skillInfo.order = order;
 

@@ -11,7 +11,7 @@ namespace ET.Client
             return "SkillType";
         }
 
-        //SkillType: Normal
+        //SkillType: Normal;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
             Match match = Regex.Match(data.opLine, @"SkillType: (?<skill>\w+);");

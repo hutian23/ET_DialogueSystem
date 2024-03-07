@@ -14,7 +14,7 @@ namespace ET.Client
             Scene currentScene = SceneFactory.CreateCurrentScene(IdGenerater.Instance.GenerateId(), clientScene.Zone, sceneName, currentScenesComponent);
             currentScene.AddComponent<UnitComponent>();
             
-            //3. 加载场景资源
+            //3. 加载场景
             await EventSystem.Instance.PublishAsync(clientScene, new SceneChangeStart());
             await EventSystem.Instance.PublishAsync(clientScene, new CreatePlayerView());
             //5. 切换场景完成

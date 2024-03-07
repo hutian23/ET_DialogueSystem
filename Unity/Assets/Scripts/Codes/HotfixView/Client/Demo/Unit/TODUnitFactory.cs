@@ -9,8 +9,6 @@
             playerComponent.RemoveChild(playerComponent.MyId);
             Unit player = playerComponent.AddChild<Unit, int>(1001);
             playerComponent.MyId = player.Id;
-            
-            player.AddComponent<NumericComponent>();
             return player;
         }
     }

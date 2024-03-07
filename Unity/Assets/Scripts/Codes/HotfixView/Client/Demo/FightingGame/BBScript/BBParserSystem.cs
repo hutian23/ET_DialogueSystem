@@ -71,6 +71,17 @@ namespace ET.Client
             return ret;
         }
 
+        public static int GetMarker(this BBParser self, string markerName)
+        {
+            if (!self.markers.TryGetValue(markerName, out int index))
+            {
+                Log.Error($"not found marker: {markerName}");
+                return -1;
+            }
+
+            return index;
+        }
+
         /// <summary>
         /// 同步调用 Main函数或者在Main函数中调用函数
         /// 异步调用 不需要记录指针
@@ -85,37 +96,43 @@ namespace ET.Client
 
             //当前子协程的唯一标识符,对应调用索引
             long funcId = IdGenerater.Instance.GenerateInstanceId();
-            self.function_Pointers.Add(funcId, index++);
+            self.function_Pointers.Add(funcId, ++index);
 
             var opLines = self.opLines.Split("\n");
             while (self.function_Pointers[funcId] < opLines.Length)
             {
                 if (token.IsCancel()) return Status.Failed;
-                
+
                 string opLine = opLines[self.function_Pointers[funcId]++];
+
                 //空行 or 注释行，跳过
                 if (string.IsNullOrEmpty(opLine) || opLine[0] == '#') continue;
-                
+
                 Match match = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
                 if (!match.Success)
                 {
                     Log.Error($"{opLine}匹配失败! 请检查格式");
                     return Status.Failed;
                 }
-                
+
                 //匹配handler
                 string opType = match.Value;
                 string opCode = Regex.Match(opLine, "^(.*?);").Value;
+
+                //Init时执行过，跳过
+                if (opType == "SetMarker") continue;
+
                 if (!DialogueDispatcherComponent.Instance.BBScriptHandlers.TryGetValue(opType, out BBScriptHandler handler))
                 {
                     Log.Error($"not found script handler； {opType}");
                     return Status.Failed;
                 }
-                
+
                 //执行一个指令相当于一个子协程
                 BBScriptData data = BBScriptData.Create(opCode, funcId);
                 Status ret = await handler.Handle(self, data, token);
                 data.Recycle();
+
                 if (ret == Status.Return) return Status.Success;
                 if (token.IsCancel() || ret == Status.Failed) return Status.Failed;
                 await TimerComponent.Instance.WaitFrameAsync(token);

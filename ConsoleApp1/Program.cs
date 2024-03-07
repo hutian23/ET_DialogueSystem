@@ -126,8 +126,8 @@ static class Program
 
     public static void Main()
     {
-        Match match = Regex.Match("AddGatlingCancel: 'Hello world';", "AddGatlingCancel: '(?<skill>.*?)';");
-        Console.WriteLine(match.Groups["skill"].Value);
+        Match match = Regex.Match("WaitFrame: 30;", "WaitFrame: (?<WaitFrame>.*?);");
+        Console.WriteLine(match.Groups["WaitFrame"].Value);
         // string v = "SetMarker: 'hello world'";
         // string pattern2 = @"SetMarker:\s+'([^']*)'";
         // Console.WriteLine(Regex.Match(v,pattern2).Groups[1].Value);

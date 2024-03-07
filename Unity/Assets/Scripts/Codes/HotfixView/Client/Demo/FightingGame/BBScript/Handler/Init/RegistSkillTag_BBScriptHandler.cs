@@ -2,29 +2,27 @@
 
 namespace ET.Client
 {
-    public class InitHP_BBScriptHandler: BBScriptHandler
+    [FriendOf(typeof(BBParser))]
+    [FriendOf(typeof(BBSkillInfo))]
+    public class RegistSkillTag_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "HP";
+            return "SkillTag";
         }
 
-        //HP: 1000;
+        //SkillTag: 'Sol_GunFlame';
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"HP: (?<HP>\w+);");
+            Match match = Regex.Match(data.opLine, @"SkillTag: '(?<tag>\w+)';");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
-            int.TryParse(match.Groups["HP"].Value, out int MaxHPBase);
-            parser.GetParent<DialogueComponent>()
-                    .GetParent<Unit>()
-                    .GetComponent<NumericComponent>()[NumericType.MaxHpBase] = MaxHPBase;
-            Log.Warning(MaxHPBase.ToString());
-            
+            BBSkillInfo skillInfo = parser.GetParent<DialogueComponent>().GetComponent<BBInputComponent>().GetSkillInfo(parser.currentID);
+            skillInfo.tag = match.Groups["tag"].Value;
             await ETTask.CompletedTask;
             return Status.Success;
         }

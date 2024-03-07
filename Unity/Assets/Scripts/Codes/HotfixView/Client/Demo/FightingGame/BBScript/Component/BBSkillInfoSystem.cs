@@ -7,7 +7,7 @@
         public static long GetSkillOrder(this BBSkillInfo self)
         {
             ulong result = 0;
-            result |= self.order;
+            result |= (uint)self.order;
             result |= (ulong)self.skillType << 32;
             return (long)result;
         }
@@ -17,11 +17,11 @@
             while (true)
             {
                 if (token.IsCancel()) return;
-                
+
                 BBCheckHandler checker = DialogueDispatcherComponent.Instance.GetBBCheckHandler(self.inputChecker);
                 await checker.Handle(unit, token);
                 if (token.IsCancel()) return;
-                
+
                 await TimerComponent.Instance.WaitFrameAsync(token);
             }
         }
