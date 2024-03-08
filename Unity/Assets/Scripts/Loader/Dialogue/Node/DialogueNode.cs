@@ -45,7 +45,7 @@ namespace ET
         [BsonIgnore]
         public bool ShowScript;
 
-        [FoldoutGroup("$nodeName"), HideLabel, TextArea(10, 35), ShowIf("ShowScript")]
+        [FoldoutGroup("$nodeName"), HideLabel, TextArea(10, 55), ShowIf("ShowScript")]
         public string Script = "";
 
         [HideInInspector, BsonIgnore]

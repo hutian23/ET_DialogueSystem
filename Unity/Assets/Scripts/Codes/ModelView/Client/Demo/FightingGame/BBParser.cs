@@ -36,4 +36,12 @@ namespace ET.Client
             ObjectPool.Instance.Recycle(this);
         }
     }
+
+    public class SyntaxNode
+    {
+        public string condition;
+        public int startIndex;
+        public int endIndex;
+        public List<SyntaxNode> children = new();
+    }
 }
