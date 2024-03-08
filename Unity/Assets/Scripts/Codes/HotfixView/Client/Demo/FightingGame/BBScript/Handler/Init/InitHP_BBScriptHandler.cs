@@ -22,9 +22,7 @@ namespace ET.Client
             int.TryParse(match.Groups["HP"].Value, out int MaxHPBase);
             parser.GetParent<DialogueComponent>()
                     .GetParent<Unit>()
-                    .GetComponent<NumericComponent>()[NumericType.MaxHpBase] = MaxHPBase;
-            Log.Warning(MaxHPBase.ToString());
-            
+                    .GetComponent<NumericComponent>()[NumericType.Hp] = MaxHPBase;
             await ETTask.CompletedTask;
             return Status.Success;
         }

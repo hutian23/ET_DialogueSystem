@@ -15,3 +15,8 @@
     font-size: 30px;
     -unity-font-style: bold;
 }
+
+.Btn{
+    font-size: 11px;
+    -unity-font-style: bold;
+}

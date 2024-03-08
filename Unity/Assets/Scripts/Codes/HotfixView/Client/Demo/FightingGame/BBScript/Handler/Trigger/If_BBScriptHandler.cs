@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using Sirenix.Utilities.Editor;
 
 namespace ET.Client
 {
@@ -11,56 +10,37 @@ namespace ET.Client
             return "If";
         }
 
-        //if HP > 10:
-        //  LogWarning: 'Hello world';
-        //  LogWarning: '111';
-        //  if HP < 10:
-        //      LogWarning: '222';
-        //  LogWarning: '222';
+        //If: HP > 10
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, "if (?<Check>.*?):");
+            await ETTask.CompletedTask;
+            //匹配条件码 HP > 10
+            Match match = Regex.Match(data.opLine, @"If:\s*(.*)");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
-            //获取条件码 HP > 10
-            Match match2 = Regex.Match(match.Groups["Check"].Value, @"^\w+");
+            //条件判断 CheckHP_TriggerHandler
+            Match match2 = Regex.Match(match.Groups[1].Value, @"^\w+");
             if (!match2.Success)
             {
-                Log.Error($"not found trigger: {data.opLine}");
+                Log.Error($"not found trigger handler: {match.Groups[1].Value}");
                 return Status.Failed;
             }
-
-            string triggerType = match2.Value;
-            BBTriggerHandler handler = DialogueDispatcherComponent.Instance.GetTrigger(triggerType);
+            BBTriggerHandler handler = DialogueDispatcherComponent.Instance.GetTrigger(match2.Value);
             bool ret = handler.Check(parser, data);
-
             if (ret)
             {
-                var opLines = parser.opLines.Split('\n');
-                while (parser.function_Pointers[data.functionID] < opLines.Length)
-                {
-                    string opLine = opLines[++parser.function_Pointers[data.functionID]];
-                    if (string.IsNullOrEmpty(opLine)) continue;
-
-                    if (!opLine.StartsWith('\t'))
-                    {
-                        Log.Error($"格式错误!:{opLine}");
-                        return Status.Failed;
-                    }
-
-                    //去除空行
-                    opLine = opLine.Trim();
-                    if (string.IsNullOrEmpty(opLine) || opLine.StartsWith('#')) continue;
-                    Match match3 = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
-                }
+                Log.Warning("判定成功");
+                return Status.Success;
             }
-
-            await ETTask.CompletedTask;
-            return Status.Success;
+            else
+            {
+                Log.Warning("判定失败");
+                return Status.Failed;
+            }
         }
     }
 }

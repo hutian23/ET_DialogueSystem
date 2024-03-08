@@ -107,7 +107,7 @@ namespace ET.Client
 
                 //空行 or 注释行，跳过
                 if (string.IsNullOrEmpty(opLine) || opLine[0] == '#') continue;
-
+                
                 Match match = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
                 if (!match.Success)
                 {
@@ -117,7 +117,7 @@ namespace ET.Client
 
                 //匹配handler
                 string opType = match.Value;
-                string opCode = Regex.Match(opLine, "^(.*?);").Value;
+                // string opCode = Regex.Match(opLine, "^(.*?);").Value;
 
                 //Init时执行过，跳过
                 if (opType == "SetMarker") continue;
@@ -129,7 +129,7 @@ namespace ET.Client
                 }
 
                 //执行一个指令相当于一个子协程
-                BBScriptData data = BBScriptData.Create(opCode, funcId);
+                BBScriptData data = BBScriptData.Create(opLine, funcId);
                 Status ret = await handler.Handle(self, data, token);
                 data.Recycle();
 

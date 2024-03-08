@@ -57,11 +57,19 @@ class Program
 {
     static void Main(string[] args)
     {
-        SyntaxTreeBuilder builder = new SyntaxTreeBuilder();
-        Node syntaxTree = builder.BuildSyntaxTree("x > 5", "Console.WriteLine(\"x is greater than 5\");");
+        string pattern = "HP > 10";
 
-        // 打印语法树
-        PrintSyntaxTree(syntaxTree, 0);
+        // 使用正则表达式匹配操作符和数字
+        Match match = Regex.Match(pattern, @"(\w+)\s*([<>]=?)\s*(\d+)");
+
+        if (match.Success)
+        {
+            string op = match.Groups[2].Value;
+            string numeric = match.Groups[3].Value;
+
+            Console.WriteLine("操作符: " + op);
+            Console.WriteLine("数字: " + numeric);
+        }
     }
 
     static void PrintSyntaxTree(Node node, int indent)

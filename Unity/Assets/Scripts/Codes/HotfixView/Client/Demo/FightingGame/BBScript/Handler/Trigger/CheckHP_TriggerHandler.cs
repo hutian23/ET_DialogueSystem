@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class Trigger_CheckHP_BBScriptHandler: BBTriggerHandler
+    public class CheckHP_TriggerHandler: BBTriggerHandler
     {
         public override string GetTriggerType()
         {
@@ -13,17 +13,16 @@ namespace ET.Client
         public override bool Check(BBParser parser, BBScriptData data)
         {
             NumericComponent nu = parser.GetParent<DialogueComponent>().GetParent<Unit>().GetComponent<NumericComponent>();
-            Log.Warning(nu[NumericType.Hp].ToString());
 
-            Match match = Regex.Match(data.opLine, "HP (?<OP>.*?) (?<Numeric>.*?)");
+            Match match = Regex.Match(data.opLine, @"(\w+)\s*([<>=]+)\s*(\d+)");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(data.opLine);
                 return false;
             }
 
-            int.TryParse(match.Groups["Numeric"].Value, out int checkValue);
-            switch (match.Groups["OP"].Value)
+            int.TryParse(match.Groups[3].Value, out int checkValue);
+            switch (match.Groups[2].Value)
             {
                 case "<":
                     return nu[NumericType.Hp] < checkValue;
@@ -32,6 +31,7 @@ namespace ET.Client
                 case ">":
                     return nu[NumericType.Hp] > checkValue;
             }
+
             return false;
         }
     }
