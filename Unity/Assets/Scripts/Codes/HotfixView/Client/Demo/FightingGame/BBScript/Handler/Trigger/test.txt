@@ -1,0 +1,17 @@
+﻿LogWarning: 'test1';
+if: HP > 10             
+    LogWarning: '111';  
+    LogWarning: '222';
+    if: HP > 3
+        LogWarning: '333';
+        LogWarning: '444';
+        if: HP > 3.4
+            LogWarning: '333';
+            LogWarning: '44433';
+        endIf:
+    endIf:
+    if: HP > 2
+        LogWarning: '333';
+    endIf
+    LogWarning: '333';
+endIf:

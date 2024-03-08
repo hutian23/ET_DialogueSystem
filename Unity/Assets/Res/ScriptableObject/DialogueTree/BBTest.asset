@@ -57,7 +57,7 @@ MonoBehaviour:
       Data: 
     - Name: Guid
       Entry: 1
-      Data: af02638c02677c8428f34c6209bd7f67
+      Data: 63ccd9ae6fe34fe418e7d3e097d13abc
     - Name: position
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -101,7 +101,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 1
     - Name: 
       Entry: 7
       Data: 4|ET.Client.BBNode, Unity.Loader
@@ -110,7 +110,7 @@ MonoBehaviour:
       Data: 10
     - Name: TargetID
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -138,16 +138,16 @@ MonoBehaviour:
       Data: 
     - Name: Guid
       Entry: 1
-      Data: f1860dd379b767a40b57a6ca2d906e39
+      Data: 0b8174c9cbfc3554887fd1974762833c
     - Name: position
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 270
+      Data: 272
     - Name: 
       Entry: 4
-      Data: -376
+      Data: 200
     - Name: 
       Entry: 8
       Data: 
@@ -169,393 +169,8 @@ MonoBehaviour:
       Data: 
     - Name: BBScript
       Entry: 1
-      Data: "@Init:\nRegistInput: 'Hadoken';\nSkillType: SpecialMove;\nOrder: 0;\n\nreturn;\n\n@Main:\n#\u542F\u52A8\u5E27\nSprite
-        'rg000_1' 3;\nSprite 'rg000_2' 2;\nSprite 'rg000_3' 3;\nSprite 'rg000_4'
-        2;\n\nTrigger HP > 10: GotoMarker: '333';\nLogWarning 'Hello world';\n\n\nMarker:
-        '2323';\nreturn;"
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 7|ET.Client.BBNode, Unity.Loader
-    - Name: TreeID
-      Entry: 3
-      Data: 10
-    - Name: TargetID
-      Entry: 3
-      Data: 0
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ShowScript
-      Entry: 5
-      Data: false
-    - Name: Script
-      Entry: 1
-      Data: 
-    - Name: text
-      Entry: 6
-      Data: 
-    - Name: Guid
-      Entry: 1
-      Data: 69aa31528026443469407d376a1772ab
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 386
-    - Name: 
-      Entry: 4
-      Data: -376
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: LocalizationGroups
-      Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: BBScript
-      Entry: 1
-      Data: '@Init:
-
-        #RegistSkill name = Sol_GunFlame;
-
-        #RegistSkillChecker
-        name = Sol_GunFlame;
-
-        #InitPool name = GunFlame;
-
-        LogWarning
-        "Hello world";
-
-        return;
-
-
-
-        @Main:
-
-        CallSubCoroutine
-        func = SubCoroutine_1;
-
-        Invoke func = Test;
-
-        LogWarning "After
-        WaitFrame 2";
-
-        RegistCallback type = OnBlock func = OnBlockCallback;
-
-        WaitFrame
-        frame = 60;
-
-        InvokeCallback type = OnBlock;
-
-        SetMarker "test1";
-
-        GotoMarker
-        "test1";
-
-        return;
-
-
-        @Test:
-
-        LogWarning "Before WaitFrame";
-
-        AddGatlingCancel
-        Sol_GunFlame;
-
-        WaitFrame frame = 60;
-
-        LogWarning "After WaitFrame";
-
-
-        Trigger
-        HP > 10: GotoMarker "test1";
-
-        LogWarning "Hello world";
-
-
-        Trigger
-        HP < 5: return;
-
-
-        SetMarker "test1";
-
-
-        return;
-
-
-        @SubCoroutine_1:
-
-        LogWarning
-        "SubCoroutine Start!!!";
-
-        WaitFrame frame = 60;
-
-        LogWarning
-        "SubCoroutine End!!!!";
-
-        return;
-
-
-
-
-        @OnBlockCallback:
-
-        LogWarning
-        "OnBlockCallback!!!";
-
-        return;'
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 10|ET.Client.BBNode, Unity.Loader
-    - Name: TreeID
-      Entry: 3
-      Data: 10
-    - Name: TargetID
-      Entry: 3
-      Data: 0
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 11|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ShowScript
-      Entry: 5
-      Data: false
-    - Name: Script
-      Entry: 1
-      Data: 
-    - Name: text
-      Entry: 6
-      Data: 
-    - Name: Guid
-      Entry: 1
-      Data: fab97fd87b639224bacbfe7fea24fb45
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 504
-    - Name: 
-      Entry: 4
-      Data: -376
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: LocalizationGroups
-      Entry: 7
-      Data: 12|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: BBScript
-      Entry: 1
-      Data: "@Init:\nRegistValue name = DI value = 12;\nRegistValue name = Block
-        value = 5;\nreturn;\n\n@State_Main:\n//\u542F\u52A8\u5E27\nEnable_Invincible;
-        //\u7C7B\u4F3C\u8001\u6851\u7684\u84C4\u529B\u91CD\u62F3\uFF0C\u6709\u9738\u4F53\u6548\u679C\nEnable_HurtCheck
-        goto = SubState_Counter_Hurt; //\u62DB\u5F0F\u4E2D\u88AB\u547D\u4E2D\uFF0C\u6253\u5EB7\n\nEditor_FrameList_Refresh;
-        //\u5237\u65B0\u5E27\u6570\u8868\nEditor_FrameList_SetFrameType type = StartUp;
-        //\u6807\u8BB0\u5F53\u524D\u5E27\u4E3A\u542F\u52A8\u5E27\nEditor_FrameList_SetStartFrame
-        text = \"7\"; //\u5237\u65B0UI\u542F\u52A8\u5E27\nEditor_FrameList_SetTotalFrame
-        text = \"---\";\n\nSprite rg001_1 3;\nSprite rg001_2 5;\n\n//\u6301\u7EED\u5E27\nEditor_FrameList_SetFrameType
-        type = Active; \n\nOnHitCallback func = SubCoroutine_OnHit;\nOnBlockCallback
-        func = SubCoroutine_OnBlock;\nSprite rg001_3 7;\n\n//\u786C\u76F4\u5E27\nEditor_FrameList_SetFrameType
-        type = Recover;\n\nDisable_Invincible;\nSprite rg001_4 5;\nExitState;\nreturn;\n\n//
-        \u547D\u4E2D\u654C\u4EBA\u540E\u7684\u56DE\u8C03(\u683C\u6321\uFF0C\u547D\u4E2D\u90FD\u4F1A\u89E6\u53D1\uFF0C\u8D1F\u8D23\u5904\u7406\u4E00\u4E9B\u6D3E\u751F)\n@SubCoroutine_OnHit:\nGatlingCancel
-        \"Sol_2HS\";\nGatlingCancel \"Sol_GunFlame\";\nHitStop 8;\nreturn;\n\n//\u683C\u6321\u540E\u7684\u56DE\u8C03\n@SubCoroutine_OnBlock:\nHitStop
-        5;\nreturn;\n\n//\u6253\u5EB7\u540E\u7684\u56DE\u8C03\n@SubCoroutine_CounterHit:\nreturn;\n"
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 13|ET.Client.BBRoot, Unity.Loader
-    - Name: TreeID
-      Entry: 3
-      Data: 10
-    - Name: TargetID
-      Entry: 3
-      Data: 0
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 14|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ShowScript
-      Entry: 5
-      Data: false
-    - Name: Script
-      Entry: 1
-      Data: 
-    - Name: text
-      Entry: 6
-      Data: 
-    - Name: Guid
-      Entry: 1
-      Data: fd7edf70805074a4693b101d877aed47
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 158
-    - Name: 
-      Entry: 4
-      Data: 41
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: LocalizationGroups
-      Entry: 7
-      Data: 15|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 16|ET.Client.BBNode, Unity.Loader
-    - Name: TreeID
-      Entry: 3
-      Data: 10
-    - Name: TargetID
-      Entry: 3
-      Data: 1
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 17|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ShowScript
-      Entry: 5
-      Data: false
-    - Name: Script
-      Entry: 1
-      Data: 
-    - Name: text
-      Entry: 6
-      Data: 
-    - Name: Guid
-      Entry: 1
-      Data: 5ba6ca81b2fba724592c27137f255ad1
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 261
-    - Name: 
-      Entry: 4
-      Data: 200
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: LocalizationGroups
-      Entry: 7
-      Data: 18|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: BBScript
-      Entry: 1
-      Data: "@Main:\nIf: HP < 10\n\n\tLogWarning: 'Hello world';\n\tLogWarning: 'Test';\t\nEndIf:\nreturn;"
+      Data: "@Main:\nIf: HP > 10:\n\tLogWarning: 'Hello world22';\n\tLogWarning:
+        'Hello world';\nEndIf:"
     - Name: 
       Entry: 8
       Data: 
@@ -567,20 +182,20 @@ MonoBehaviour:
       Data: 
     - Name: NodeLinkDatas
       Entry: 7
-      Data: 19|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
+      Data: 7|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 20|ET.Client.NodeLinkData, Unity.Loader
+      Data: 8|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
-      Data: af02638c02677c8428f34c6209bd7f67
+      Data: 63ccd9ae6fe34fe418e7d3e097d13abc
     - Name: inputNodeGuid
       Entry: 1
-      Data: 5ba6ca81b2fba724592c27137f255ad1
+      Data: 0b8174c9cbfc3554887fd1974762833c
     - Name: portID
       Entry: 3
       Data: 0
@@ -595,11 +210,11 @@ MonoBehaviour:
       Data: 
     - Name: targets
       Entry: 7
-      Data: 21|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
+      Data: 9|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
         Unity.Loader]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 22|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
+      Data: 10|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -615,7 +230,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: 23|ET.Client.RootNode, Unity.Loader
+      Data: 11|ET.Client.RootNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 10
@@ -627,7 +242,7 @@ MonoBehaviour:
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 24|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 12|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -649,7 +264,7 @@ MonoBehaviour:
       Data: 
     - Name: Guid
       Entry: 1
-      Data: af02638c02677c8428f34c6209bd7f67
+      Data: 63ccd9ae6fe34fe418e7d3e097d13abc
     - Name: position
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -667,7 +282,7 @@ MonoBehaviour:
       Data: 0
     - Name: LocalizationGroups
       Entry: 7
-      Data: 25|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+      Data: 13|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -698,7 +313,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 26|ET.Client.BBNode, Unity.Loader
+      Data: 14|ET.Client.BBNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 10
@@ -710,7 +325,7 @@ MonoBehaviour:
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 27|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 15|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -732,13 +347,13 @@ MonoBehaviour:
       Data: 
     - Name: Guid
       Entry: 1
-      Data: 5ba6ca81b2fba724592c27137f255ad1
+      Data: 0b8174c9cbfc3554887fd1974762833c
     - Name: position
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 261
+      Data: 272
     - Name: 
       Entry: 4
       Data: 200
@@ -750,7 +365,7 @@ MonoBehaviour:
       Data: 0
     - Name: LocalizationGroups
       Entry: 7
-      Data: 28|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+      Data: 16|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -763,7 +378,8 @@ MonoBehaviour:
       Data: 
     - Name: BBScript
       Entry: 1
-      Data: "@Main:\nIf: HP < 10\n\n\tLogWarning: 'Hello world';\n\tLogWarning: 'Test';\t\nEndIf:\nreturn;"
+      Data: "@Main:\nIf: HP > 10:\n\tLogWarning: 'Hello world22';\n\tLogWarning:
+        'Hello world';\nEndIf:"
     - Name: 
       Entry: 8
       Data: 
@@ -778,7 +394,7 @@ MonoBehaviour:
       Data: 
     - Name: Variables
       Entry: 7
-      Data: 29|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
+      Data: 17|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12

@@ -37,12 +37,17 @@ namespace ET.Client
         }
     }
 
+    public enum SyntaxType
+    {
+        Condition,
+        Normal
+    }
+
     public class SyntaxNode
     {
-        public string condition;
-        public int startIndex;
-        public int endIndex;
+        public string opLine;
         public List<SyntaxNode> children = new();
-        public List<string> oplines = new();
+        public SyntaxType nodeType;
+        public int index;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace ET.Client
 {
@@ -31,67 +32,52 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            TransformToSyntaxTree(parser, data, out SyntaxNode node);
-            foreach (string opline in node.oplines)
-            {
-                if (token.IsCancel()) return Status.Failed;
-                Match match3 = Regex.Match(opline, @"^\w+\b(?:\(\))?");
-                if (!match3.Success)
-                {
-                    DialogueHelper.ScripMatchError(opline);
-                    return Status.Failed;
-                }
+            SyntaxNode root = GenerateSyntaxTree(parser, data);
+            root.children.ForEach(n => { Log.Warning(n.opLine); });
 
-                string opType = match3.Value;
-                if (opType == "SetMarker")
-                {
-                    Log.Error($"cannot use marker in if-block!!!");
-                    return Status.Failed;
-                }
-
-                if (!DialogueDispatcherComponent.Instance.BBScriptHandlers.TryGetValue(opType, out BBScriptHandler handler))
-                {
-                    Log.Error($"not found script handler； {opType}");
-                    return Status.Failed;
-                }
-
-                BBScriptData subData = BBScriptData.Create(opline, data.functionID); //池化，不然GC很高
-                Status ret = await handler.Handle(parser, subData, token); //执行一条语句相当于一个子协程
-                data.Recycle();
-                if (ret == Status.Return) return Status.Success;
-                if (token.IsCancel() || ret == Status.Failed) return Status.Failed;
-            }
-
-            parser.function_Pointers[data.functionID] = ++node.endIndex;
             return Status.Success;
         }
 
-        private static void TransformToSyntaxTree(BBParser parser, BBScriptData data, out SyntaxNode rootNode)
+        private SyntaxNode GenerateSyntaxTree(BBParser parser, BBScriptData data)
         {
-            rootNode = new SyntaxNode();
-            SyntaxNode currentNode = rootNode;
+            Stack<SyntaxNode> conditionStack = new Stack<SyntaxNode>();
 
-            string[] opLines = parser.opLines.Split('\n');
-            //If块的起始索引
+            var opLines = parser.opLines.Split('\n');
             int index = parser.function_Pointers[data.functionID];
-            currentNode.condition = opLines[index];
-            currentNode.startIndex = index;
+            //嵌套if的根节点
+            SyntaxNode rootNode = new() { opLine = opLines[index].Trim(), nodeType = SyntaxType.Condition, index = index };
+            conditionStack.Push(rootNode);
 
-            while (++index < opLines.Length)
+            while (++index < opLines.Length && conditionStack.Count != 0)
             {
-                string opLine = opLines[index];
-                if (string.IsNullOrEmpty(opLine) || opLine.StartsWith('#')) continue;
+                if (string.IsNullOrEmpty(opLines[index]) || opLines[index].StartsWith('#')) continue;
 
+                string opLine = opLines[index].Trim();
                 Match match = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
-                switch (match.Value)
+                if (!match.Success)
                 {
-                    case "EndIf":
-                        currentNode.endIndex = index;
-                        return;
+                    DialogueHelper.ScripMatchError(opLine);
+                    return null;
                 }
 
-                currentNode.oplines.Add(opLine.Trim());
+                string opType = match.Value;
+                switch (opType)
+                {
+                    case "If":
+                        SyntaxNode child = new() { opLine = opLine, nodeType = SyntaxType.Condition, index = index };
+                        conditionStack.Peek().children.Add(child);
+                        break;
+                    case "EndIf":
+                        conditionStack.Pop();
+                        break;
+                    default:
+                        SyntaxNode child_normal = new() { opLine = opLine, nodeType = SyntaxType.Normal, index = index };
+                        conditionStack.Peek().children.Add(child_normal);
+                        break;
+                }
             }
+
+            return rootNode;
         }
     }
 }
