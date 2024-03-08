@@ -462,10 +462,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 150
+      Data: 158
     - Name: 
       Entry: 4
-      Data: 44
+      Data: 41
     - Name: 
       Entry: 8
       Data: 
@@ -530,7 +530,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 260
+      Data: 261
     - Name: 
       Entry: 4
       Data: 200
@@ -555,11 +555,7 @@ MonoBehaviour:
       Data: 
     - Name: BBScript
       Entry: 1
-      Data: "@Main:\nLogWarning: 'Hello world';\n\nif: HP < 10\n\tLogWarning: 'test11';\n\tLogWarning:
-        'test22';\n\tif: HP < 5\n\t\tLogWarning: 'test33';\n\t\tLogWarning: 'test333';\n\t\tif:
-        HP > 4:\n\t\t\tLogWarning: 'subtest333';\n\t\tendIf;\n\t\tLogWarning: 'test333_2';\n\tendIf:\n\tLogWarning:
-        'test444';\t\n\tif: HP > 6\n\t\tLogWarning: 'test555';\n\t\tLogWarning: 'a
-        test';\n\tendIf\t\nendIf:\nreturn;"
+      Data: "@Main:\nIf: HP < 10\n\n\tLogWarning: 'Hello world';\n\tLogWarning: 'Test';\t\nEndIf:\nreturn;"
     - Name: 
       Entry: 8
       Data: 
@@ -618,8 +614,79 @@ MonoBehaviour:
       Entry: 3
       Data: 0
     - Name: $v
-      Entry: 9
+      Entry: 7
+      Data: 23|ET.Client.RootNode, Unity.Loader
+    - Name: TreeID
+      Entry: 3
+      Data: 10
+    - Name: TargetID
+      Entry: 3
       Data: 0
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 24|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: af02638c02677c8428f34c6209bd7f67
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 100
+    - Name: 
+      Entry: 4
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 7
+      Data: 25|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: nextNode
+      Entry: 3
+      Data: 1
+    - Name: InitScript
+      Entry: 1
+      Data: BBInit;
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -630,8 +697,76 @@ MonoBehaviour:
       Entry: 3
       Data: 1
     - Name: $v
-      Entry: 9
-      Data: 16
+      Entry: 7
+      Data: 26|ET.Client.BBNode, Unity.Loader
+    - Name: TreeID
+      Entry: 3
+      Data: 10
+    - Name: TargetID
+      Entry: 3
+      Data: 1
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 27|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: 5ba6ca81b2fba724592c27137f255ad1
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 261
+    - Name: 
+      Entry: 4
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 7
+      Data: 28|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: BBScript
+      Entry: 1
+      Data: "@Main:\nIf: HP < 10\n\n\tLogWarning: 'Hello world';\n\tLogWarning: 'Test';\t\nEndIf:\nreturn;"
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -643,7 +778,7 @@ MonoBehaviour:
       Data: 
     - Name: Variables
       Entry: 7
-      Data: 23|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
+      Data: 29|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12

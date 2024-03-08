@@ -43,5 +43,6 @@ namespace ET.Client
         public int startIndex;
         public int endIndex;
         public List<SyntaxNode> children = new();
+        public List<string> oplines = new();
     }
 }

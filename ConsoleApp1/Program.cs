@@ -9,7 +9,6 @@ using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Options;
 using MongoDB.Bson.Serialization.Serializers;
 using UnityEngine;
-
 using System;
 
 // 定义语法树节点的类型
@@ -57,19 +56,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        string pattern = "HP > 10";
-
-        // 使用正则表达式匹配操作符和数字
-        Match match = Regex.Match(pattern, @"(\w+)\s*([<>]=?)\s*(\d+)");
-
-        if (match.Success)
-        {
-            string op = match.Groups[2].Value;
-            string numeric = match.Groups[3].Value;
-
-            Console.WriteLine("操作符: " + op);
-            Console.WriteLine("数字: " + numeric);
-        }
+        int i = 0;
+        Console.WriteLine(i++);
     }
 
     static void PrintSyntaxTree(Node node, int indent)
