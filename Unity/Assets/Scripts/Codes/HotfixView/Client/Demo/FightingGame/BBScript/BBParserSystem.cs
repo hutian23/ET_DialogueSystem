@@ -102,8 +102,7 @@ namespace ET.Client
 
             long funcId = IdGenerater.Instance.GenerateInstanceId(); //当前子协程的唯一标识符,对应调用指针
             self.function_Pointers.Add(funcId, index);
-
-          
+            
             while (++self.function_Pointers[funcId] < self.opDict.Count)
             {
                 if (token.IsCancel()) return Status.Failed;

@@ -33,29 +33,22 @@ namespace ET.Client
             }
 
             SyntaxNode root = GenerateSyntaxTree(parser, data);
-            await HandleSyntaxTree(parser, root, token);
-            if (token.IsCancel()) return Status.Failed;
-
-            root.children.ForEach(n => { parser.function_Pointers[data.functionID] = n.index; });
-            parser.function_Pointers[data.functionID]++;
-            return Status.Success;
+            await HandleSyntaxTree(parser, data, root, token);
+            return token.IsCancel()? Status.Failed : Status.Success;
         }
 
         private SyntaxNode GenerateSyntaxTree(BBParser parser, BBScriptData data)
         {
             Stack<SyntaxNode> conditionStack = new Stack<SyntaxNode>();
 
-            var opLines = parser.opLines.Split('\n');
             int index = parser.function_Pointers[data.functionID];
             //嵌套if的根节点
             SyntaxNode rootNode = new() { nodeType = SyntaxType.Condition, index = index };
             conditionStack.Push(rootNode);
 
-            while (++index < opLines.Length && conditionStack.Count != 0)
+            while (++index < parser.opDict.Count && conditionStack.Count != 0)
             {
-                if (string.IsNullOrEmpty(opLines[index]) || opLines[index].StartsWith('#')) continue;
-
-                string opLine = opLines[index].Trim();
+                string opLine = parser.opDict[index];
                 Match match = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
                 if (!match.Success)
                 {
@@ -69,6 +62,7 @@ namespace ET.Client
                     case "If":
                         SyntaxNode child = new() { nodeType = SyntaxType.Condition, index = index };
                         conditionStack.Peek().children.Add(child);
+                        conditionStack.Push(child);
                         break;
                     case "EndIf":
                         conditionStack.Pop();
@@ -83,18 +77,21 @@ namespace ET.Client
             return rootNode;
         }
 
-        private async ETTask HandleSyntaxTree(BBParser parser, SyntaxNode node, ETCancellationToken token)
+        private async ETTask HandleSyntaxTree(BBParser parser, BBScriptData data, SyntaxNode node, ETCancellationToken token)
         {
-            var opLines = parser.opLines.Split('\n');
-            Log.Warning(opLines[node.index].Trim());
+            string opLine = parser.opDict[node.index];
+            parser.function_Pointers[data.functionID] = node.index;
+            Log.Warning(opLine);
 
             await TimerComponent.Instance.WaitFrameAsync(token);
             if (token.IsCancel()) return;
 
-            foreach (var n in node.children)
+            foreach (SyntaxNode n in node.children)
             {
-                await HandleSyntaxTree(parser, n, token);
+                await HandleSyntaxTree(parser, data, n, token);
             }
+
+            if (node.nodeType == SyntaxType.Condition) parser.function_Pointers[data.functionID]++;
         }
     }
 }
