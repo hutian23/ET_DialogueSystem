@@ -41,6 +41,7 @@ namespace ET.Client
 
     public enum SyntaxType
     {
+        None,
         Condition,
         Normal
     }
@@ -50,5 +51,21 @@ namespace ET.Client
         public List<SyntaxNode> children = new();
         public SyntaxType nodeType;
         public int index;
+
+        public static SyntaxNode Create(SyntaxType nodeType, int index)
+        {
+            SyntaxNode node = ObjectPool.Instance.Fetch<SyntaxNode>();
+            node.nodeType = nodeType;
+            node.index = index;
+            return node;
+        }
+
+        public void Recycle()
+        {
+            this.nodeType = SyntaxType.None;
+            this.index = 0;
+            this.children.Clear();
+            ObjectPool.Instance.Recycle(this);
+        }
     }
 }

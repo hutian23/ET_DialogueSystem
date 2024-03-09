@@ -4,7 +4,8 @@ using System;
 namespace ET
 {
 
-    public interface IFixedUpdate
+    public interface 
+            IFixedUpdate
     {
     }
     

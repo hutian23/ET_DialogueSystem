@@ -34,6 +34,8 @@ namespace ET.Client
 
             SyntaxNode root = GenerateSyntaxTree(parser, data);
             await HandleSyntaxTree(parser, data, root, token);
+            RecycleSyntaxTree(root);
+            
             return token.IsCancel()? Status.Failed : Status.Success;
         }
 
@@ -43,7 +45,7 @@ namespace ET.Client
 
             int index = parser.function_Pointers[data.functionID];
             //嵌套if的根节点
-            SyntaxNode rootNode = new() { nodeType = SyntaxType.Condition, index = index };
+            SyntaxNode rootNode = SyntaxNode.Create(SyntaxType.Condition, index);
             conditionStack.Push(rootNode);
 
             while (++index < parser.opDict.Count && conditionStack.Count != 0)
@@ -60,7 +62,7 @@ namespace ET.Client
                 switch (opType)
                 {
                     case "If":
-                        SyntaxNode child = new() { nodeType = SyntaxType.Condition, index = index };
+                        SyntaxNode child = SyntaxNode.Create(SyntaxType.Condition, index);
                         conditionStack.Peek().children.Add(child);
                         conditionStack.Push(child);
                         break;
@@ -68,7 +70,7 @@ namespace ET.Client
                         conditionStack.Pop();
                         break;
                     default:
-                        SyntaxNode child_normal = new() { nodeType = SyntaxType.Normal, index = index };
+                        SyntaxNode child_normal = SyntaxNode.Create(SyntaxType.Normal, index);
                         conditionStack.Peek().children.Add(child_normal);
                         break;
                 }
@@ -82,7 +84,7 @@ namespace ET.Client
             string opLine = parser.opDict[node.index];
             parser.function_Pointers[data.functionID] = node.index;
             Log.Warning(opLine);
-
+            
             await TimerComponent.Instance.WaitFrameAsync(token);
             if (token.IsCancel()) return;
 
@@ -91,7 +93,24 @@ namespace ET.Client
                 await HandleSyntaxTree(parser, data, n, token);
             }
 
+            //跳过EndIf
             if (node.nodeType == SyntaxType.Condition) parser.function_Pointers[data.functionID]++;
+        }
+
+        private void RecycleSyntaxTree(SyntaxNode root)
+        {
+            Stack<SyntaxNode> stack = new();
+            RecycleNode(stack,root);
+            while (stack.Count != 0)
+            {
+                stack.Pop().Recycle();
+            }
+        }
+
+        private void RecycleNode(Stack<SyntaxNode> stack, SyntaxNode node)
+        {
+            stack.Push(node);
+            node.children.ForEach(child => { RecycleNode(stack, child); });
         }
     }
 }
