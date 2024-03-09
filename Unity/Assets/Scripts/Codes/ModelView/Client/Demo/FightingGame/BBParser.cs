@@ -51,6 +51,7 @@ namespace ET.Client
         public List<SyntaxNode> children = new();
         public SyntaxType nodeType;
         public int index;
+        public int endIndex;
 
         public static SyntaxNode Create(SyntaxType nodeType, int index)
         {
@@ -64,6 +65,7 @@ namespace ET.Client
         {
             this.nodeType = SyntaxType.None;
             this.index = 0;
+            this.endIndex = 0;
             this.children.Clear();
             ObjectPool.Instance.Recycle(this);
         }

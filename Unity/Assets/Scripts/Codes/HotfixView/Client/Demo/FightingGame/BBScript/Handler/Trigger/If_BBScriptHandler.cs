@@ -15,19 +15,9 @@ namespace ET.Client
         //If: HP > 10
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            await ETTask.CompletedTask;
-            //匹配条件码 HP > 10
-            Match match = Regex.Match(data.opLine, @"If:\s*(.*)");
-            if (!match.Success)
-            {
-                DialogueHelper.ScripMatchError(data.opLine);
-                return Status.Failed;
-            }
-
             SyntaxNode root = GenerateSyntaxTree(parser, data);
             await HandleSyntaxTree(parser, data, root, token);
             RecycleSyntaxTree(root);
-
             return token.IsCancel()? Status.Failed : Status.Success;
         }
 
@@ -59,7 +49,8 @@ namespace ET.Client
                         conditionStack.Push(child);
                         break;
                     case "EndIf":
-                        conditionStack.Pop();
+                        SyntaxNode conditionNode = conditionStack.Pop();
+                        conditionNode.endIndex = index;
                         break;
                     default:
                         SyntaxNode child_normal = SyntaxNode.Create(SyntaxType.Normal, index);
@@ -67,7 +58,6 @@ namespace ET.Client
                         break;
                 }
             }
-
             return rootNode;
         }
 
@@ -90,8 +80,13 @@ namespace ET.Client
 
                     BBScriptData _data = BBScriptData.Create(opLine, data.functionID);
                     bool ret = DialogueDispatcherComponent.Instance.GetTrigger(match.Groups[1].Value).Check(parser, _data);
-                    //判定失败, 不会执行if块中的代码
-                    if (!ret) return Status.Success;
+                    //判定失败, 跳过整个if块中的代码
+                    if (!ret)
+                    {
+                        parser.function_Pointers[data.functionID] = node.endIndex;
+                        return Status.Success;
+                    }
+
                     break;
                 }
                 case SyntaxType.Normal:
@@ -111,23 +106,28 @@ namespace ET.Client
 
                     BBScriptData _data = BBScriptData.Create(opLine, data.functionID);
                     Status ret = await handler.Handle(parser, _data, token);
-                    if (ret == Status.Return) return Status.Return;
-                    if (token.IsCancel() || ret == Status.Failed) return Status.Failed;
+
+                    if (token.IsCancel()) return Status.Failed;
+                    if (ret != Status.Success) return ret;
                     break;
                 }
             }
 
+            //递归执行子节点
             foreach (SyntaxNode n in node.children)
             {
                 Status ret = await HandleSyntaxTree(parser, data, n, token);
                 if (ret != Status.Success) return ret; //子节点执行失败，停止递归
             }
 
-            //跳过EndIf
-            if (node.nodeType == SyntaxType.Condition) parser.function_Pointers[data.functionID]++;
+            //指针跳过EndIf
+            if (node.nodeType == SyntaxType.Condition) parser.function_Pointers[data.functionID] = node.endIndex;
             return Status.Success;
         }
 
+        /// <summary>
+        /// 回收语法树
+        /// </summary>
         private void RecycleSyntaxTree(SyntaxNode root)
         {
             Stack<SyntaxNode> stack = new();
