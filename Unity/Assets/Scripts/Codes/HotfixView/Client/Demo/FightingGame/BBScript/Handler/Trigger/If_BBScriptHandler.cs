@@ -16,9 +16,11 @@ namespace ET.Client
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
             SyntaxNode root = GenerateSyntaxTree(parser, data);
-            await HandleSyntaxTree(parser, data, root, token);
+            Status ret = await HandleSyntaxTree(parser, data, root, token);
             RecycleSyntaxTree(root);
-            return token.IsCancel()? Status.Failed : Status.Success;
+
+            if (token.IsCancel()) return Status.Failed;
+            return ret;
         }
 
         private SyntaxNode GenerateSyntaxTree(BBParser parser, BBScriptData data)
@@ -58,6 +60,7 @@ namespace ET.Client
                         break;
                 }
             }
+
             return rootNode;
         }
 
@@ -91,6 +94,7 @@ namespace ET.Client
                 }
                 case SyntaxType.Normal:
                 {
+                    //匹配OpType
                     Match match2 = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
                     if (!match2.Success)
                     {
