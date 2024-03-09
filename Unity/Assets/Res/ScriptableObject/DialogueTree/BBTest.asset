@@ -169,10 +169,9 @@ MonoBehaviour:
       Data: 
     - Name: BBScript
       Entry: 1
-      Data: "@Main:\nIf: HP > 10:\n\tLogWarning: 'Hello world22';\n\tLogWarning:
-        'Hello world';\n\tIf: HP > 30\n\t\tLogWarning: '333';\n\t\tIf: HP > 333\n\t\t\tLogWarning:
-        '33333';\n\t\tEndIf:\n\tLogWarning: '333333333333';\n\tEndIf:\n\tIf: HP <
-        333333\n\t\tLogWarning: 'Final';\n\tEndIf:\n\tLogWarning: '33333333';\nEndIf:"
+      Data: "@Main:\nIf: HP < 10:\n\tLogWarning: 'test1';\n\tLogWarning: 'test2';\n\tIf:
+        HP < 3:\n\t\tLogWarning: 'test3';\n\t\tLogWarning: 'test4';\n\t\tWaitFrame:
+        160;\n\tEndIf:\n\tLogWarning: 'test5';\nEndIf:"
     - Name: 
       Entry: 8
       Data: 
@@ -380,10 +379,9 @@ MonoBehaviour:
       Data: 
     - Name: BBScript
       Entry: 1
-      Data: "@Main:\nIf: HP > 10:\n\tLogWarning: 'Hello world22';\n\tLogWarning:
-        'Hello world';\n\tIf: HP > 30\n\t\tLogWarning: '333';\n\t\tIf: HP > 333\n\t\t\tLogWarning:
-        '33333';\n\t\tEndIf:\n\tLogWarning: '333333333333';\n\tEndIf:\n\tIf: HP <
-        333333\n\t\tLogWarning: 'Final';\n\tEndIf:\n\tLogWarning: '33333333';\nEndIf:"
+      Data: "@Main:\nIf: HP < 10:\n\tLogWarning: 'test1';\n\tLogWarning: 'test2';\n\tIf:
+        HP < 3:\n\t\tLogWarning: 'test3';\n\t\tLogWarning: 'test4';\n\t\tWaitFrame:
+        160;\n\tEndIf:\n\tLogWarning: 'test5';\nEndIf:"
     - Name: 
       Entry: 8
       Data: 

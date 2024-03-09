@@ -24,18 +24,10 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            //条件判断 CheckHP_TriggerHandler
-            Match match2 = Regex.Match(match.Groups[1].Value, @"^\w+");
-            if (!match2.Success)
-            {
-                Log.Error($"not found trigger handler: {match.Groups[1].Value}");
-                return Status.Failed;
-            }
-
             SyntaxNode root = GenerateSyntaxTree(parser, data);
             await HandleSyntaxTree(parser, data, root, token);
             RecycleSyntaxTree(root);
-            
+
             return token.IsCancel()? Status.Failed : Status.Success;
         }
 
@@ -79,28 +71,67 @@ namespace ET.Client
             return rootNode;
         }
 
-        private async ETTask HandleSyntaxTree(BBParser parser, BBScriptData data, SyntaxNode node, ETCancellationToken token)
+        private async ETTask<Status> HandleSyntaxTree(BBParser parser, BBScriptData data, SyntaxNode node, ETCancellationToken token)
         {
             string opLine = parser.opDict[node.index];
             parser.function_Pointers[data.functionID] = node.index;
-            Log.Warning(opLine);
-            
-            await TimerComponent.Instance.WaitFrameAsync(token);
-            if (token.IsCancel()) return;
+
+            switch (node.nodeType)
+            {
+                case SyntaxType.Condition:
+                {
+                    //条件判断 CheckHP_TriggerHandler
+                    Match match = Regex.Match(opLine, @":\s*(\w+)");
+                    if (!match.Success)
+                    {
+                        Log.Error($"not found trigger handler: {opLine}");
+                        return Status.Failed;
+                    }
+
+                    BBScriptData _data = BBScriptData.Create(opLine, data.functionID);
+                    bool ret = DialogueDispatcherComponent.Instance.GetTrigger(match.Groups[1].Value).Check(parser, _data);
+                    //判定失败, 不会执行if块中的代码
+                    if (!ret) return Status.Success;
+                    break;
+                }
+                case SyntaxType.Normal:
+                {
+                    Match match2 = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
+                    if (!match2.Success)
+                    {
+                        Log.Error($"not found bbScriptHandler: {opLine}");
+                        return Status.Failed;
+                    }
+
+                    if (!DialogueDispatcherComponent.Instance.BBScriptHandlers.TryGetValue(match2.Value, out BBScriptHandler handler))
+                    {
+                        Log.Error($"not found script handler: {match2.Value}");
+                        return Status.Failed;
+                    }
+
+                    BBScriptData _data = BBScriptData.Create(opLine, data.functionID);
+                    Status ret = await handler.Handle(parser, _data, token);
+                    if (ret == Status.Return) return Status.Return;
+                    if (token.IsCancel() || ret == Status.Failed) return Status.Failed;
+                    break;
+                }
+            }
 
             foreach (SyntaxNode n in node.children)
             {
-                await HandleSyntaxTree(parser, data, n, token);
+                Status ret = await HandleSyntaxTree(parser, data, n, token);
+                if (ret != Status.Success) return ret; //子节点执行失败，停止递归
             }
 
             //跳过EndIf
             if (node.nodeType == SyntaxType.Condition) parser.function_Pointers[data.functionID]++;
+            return Status.Success;
         }
 
         private void RecycleSyntaxTree(SyntaxNode root)
         {
             Stack<SyntaxNode> stack = new();
-            RecycleNode(stack,root);
+            RecycleNode(stack, root);
             while (stack.Count != 0)
             {
                 stack.Pop().Recycle();

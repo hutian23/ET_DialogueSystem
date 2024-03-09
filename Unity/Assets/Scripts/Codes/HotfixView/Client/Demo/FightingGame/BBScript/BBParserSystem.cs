@@ -115,7 +115,6 @@ namespace ET.Client
                     return Status.Failed;
                 }
                 string opType = match.Value;
-
                 if (opType == "SetMarker") continue; //Init时执行过，跳过
 
                 if (!DialogueDispatcherComponent.Instance.BBScriptHandlers.TryGetValue(opType, out BBScriptHandler handler))

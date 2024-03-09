@@ -56,13 +56,26 @@ class Program
 {
     static void Main(string[] args)
     {
+        string input = "If: Check_HelloWorld > 10";
+        string pattern = @":\s*(\w+)"; // 匹配冒号后面的第一个单词
+
+        Match match = Regex.Match(input, pattern);
+        if (match.Success)
+        {
+            string word = match.Groups[1].Value;
+            Console.WriteLine("匹配到的单词是: " + word);
+        }
+        else
+        {
+            Console.WriteLine("未找到匹配的单词。");
+        }
         // int i = 0;
         // Console.WriteLine(i++);
-        Dictionary<int, string> dic = new();
-        dic.Add(1,"222");
-        var op = dic[1];
-        op = "Hello world";
-        Console.WriteLine(dic[1]);
+        // Dictionary<int, string> dic = new();
+        // dic.Add(1,"222");
+        // var op = dic[1];
+        // op = "Hello world";
+        // Console.WriteLine(dic[1]);
     }
 
     static void PrintSyntaxTree(Node node, int indent)
