@@ -33,8 +33,11 @@ namespace ET.Client
             }
 
             SyntaxNode root = GenerateSyntaxTree(parser, data);
-            root.children.ForEach(n => { Log.Warning(n.opLine); });
+            await HandleSyntaxTree(parser, root, token);
+            if (token.IsCancel()) return Status.Failed;
 
+            root.children.ForEach(n => { parser.function_Pointers[data.functionID] = n.index; });
+            parser.function_Pointers[data.functionID]++;
             return Status.Success;
         }
 
@@ -45,7 +48,7 @@ namespace ET.Client
             var opLines = parser.opLines.Split('\n');
             int index = parser.function_Pointers[data.functionID];
             //嵌套if的根节点
-            SyntaxNode rootNode = new() { opLine = opLines[index].Trim(), nodeType = SyntaxType.Condition, index = index };
+            SyntaxNode rootNode = new() { nodeType = SyntaxType.Condition, index = index };
             conditionStack.Push(rootNode);
 
             while (++index < opLines.Length && conditionStack.Count != 0)
@@ -64,20 +67,34 @@ namespace ET.Client
                 switch (opType)
                 {
                     case "If":
-                        SyntaxNode child = new() { opLine = opLine, nodeType = SyntaxType.Condition, index = index };
+                        SyntaxNode child = new() { nodeType = SyntaxType.Condition, index = index };
                         conditionStack.Peek().children.Add(child);
                         break;
                     case "EndIf":
                         conditionStack.Pop();
                         break;
                     default:
-                        SyntaxNode child_normal = new() { opLine = opLine, nodeType = SyntaxType.Normal, index = index };
+                        SyntaxNode child_normal = new() { nodeType = SyntaxType.Normal, index = index };
                         conditionStack.Peek().children.Add(child_normal);
                         break;
                 }
             }
 
             return rootNode;
+        }
+
+        private async ETTask HandleSyntaxTree(BBParser parser, SyntaxNode node, ETCancellationToken token)
+        {
+            var opLines = parser.opLines.Split('\n');
+            Log.Warning(opLines[node.index].Trim());
+
+            await TimerComponent.Instance.WaitFrameAsync(token);
+            if (token.IsCancel()) return;
+
+            foreach (var n in node.children)
+            {
+                await HandleSyntaxTree(parser, n, token);
+            }
         }
     }
 }

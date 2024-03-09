@@ -19,6 +19,7 @@ namespace ET.Client
             self.cancellationToken?.Cancel();
             self.funcMap.Clear();
             self.opLines = null;
+            self.opDict.Clear();
             self.markers.Clear();
             self.function_Pointers.Clear();
         }
@@ -31,34 +32,39 @@ namespace ET.Client
             self.cancellationToken = new ETCancellationToken();
             self.function_Pointers.Clear();
 
-            //建立函数和索引的映射
-            var opLines = self.opLines.Split("\n");
-            for (int i = 0; i < opLines.Length; i++)
+            //建立执行语句和指针的映射
+            string[] opLines = self.opLines.Split("\n");
+            int pointer = 0;
+            foreach (string opLine in opLines)
             {
-                string opLine = opLines[i];
-                if (string.IsNullOrEmpty(opLine) || opLine[0] == '#') continue; //空行 or 注释行
+                string op = opLine.Trim();
+                if (string.IsNullOrEmpty(op) || op.StartsWith('#')) continue; //空行 or 注释行
+                self.opDict[pointer++] = op;
+            }
 
-                //匹配函数
+            foreach (var kv in self.opDict)
+            {
+                //函数指针
                 string pattern = "@([^:]+)";
-                Match match = Regex.Match(opLine, pattern);
+                Match match = Regex.Match(kv.Value, pattern);
                 if (match.Success)
                 {
-                    self.funcMap.TryAdd(match.Groups[1].Value, i);
+                    self.funcMap.TryAdd(match.Groups[1].Value, kv.Key);
                 }
 
-                //匹配标记
+                //匹配marker
                 string pattern2 = @"SetMarker:\s+'([^']*)'";
-                Match match2 = Regex.Match(opLine, pattern2);
+                Match match2 = Regex.Match(kv.Value, pattern2);
                 if (match2.Success)
                 {
-                    self.markers.TryAdd(match2.Groups[1].Value, i);
+                    self.markers.TryAdd(match2.Groups[1].Value, kv.Key);
                 }
             }
         }
 
         public static async ETTask Init(this BBParser self, ETCancellationToken token)
         {
-            //必杀配置，还有其他配置要作为子Entity挂在SkillInfo下面
+            //技能配置，还有其他配置要作为子Entity挂在SkillInfo下面
             BBInputComponent inputComponent = self.GetParent<DialogueComponent>().GetComponent<BBInputComponent>();
             inputComponent.AddSkillInfo(self.currentID);
             await self.Invoke("Init", token);
@@ -97,23 +103,19 @@ namespace ET.Client
             long funcId = IdGenerater.Instance.GenerateInstanceId(); //当前子协程的唯一标识符,对应调用指针
             self.function_Pointers.Add(funcId, index);
 
-            var opLines = self.opLines.Split("\n");
-            while (++self.function_Pointers[funcId] < opLines.Length)
+          
+            while (++self.function_Pointers[funcId] < self.opDict.Count)
             {
                 if (token.IsCancel()) return Status.Failed;
 
-                string opLine = opLines[self.function_Pointers[funcId]].Trim();
-                if (string.IsNullOrEmpty(opLine) || opLine[0] == '#') continue; //空行 or 注释行，跳过
-
+                string opLine = self.opDict[self.function_Pointers[funcId]];
                 Match match = Regex.Match(opLine, @"^\w+\b(?:\(\))?"); //匹配handler
                 if (!match.Success)
                 {
                     Log.Error($"{opLine}匹配失败! 请检查格式");
                     return Status.Failed;
                 }
-
                 string opType = match.Value;
-                // string opCode = Regex.Match(opLine, "^(.*?);").Value;
 
                 if (opType == "SetMarker") continue; //Init时执行过，跳过
 
@@ -129,7 +131,7 @@ namespace ET.Client
 
                 if (ret == Status.Return) return Status.Success;
                 if (token.IsCancel() || ret == Status.Failed) return Status.Failed;
-                
+
                 await TimerComponent.Instance.WaitFrameAsync(token);
             }
 

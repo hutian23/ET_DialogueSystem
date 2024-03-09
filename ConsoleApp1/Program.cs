@@ -56,8 +56,13 @@ class Program
 {
     static void Main(string[] args)
     {
-        int i = 0;
-        Console.WriteLine(i++);
+        // int i = 0;
+        // Console.WriteLine(i++);
+        Dictionary<int, string> dic = new();
+        dic.Add(1,"222");
+        var op = dic[1];
+        op = "Hello world";
+        Console.WriteLine(dic[1]);
     }
 
     static void PrintSyntaxTree(Node node, int indent)
