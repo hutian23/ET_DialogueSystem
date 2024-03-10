@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ET
 {
     [Serializable]
     public struct BBKeyframe
     {
-        //关键帧帧号
-        [FormerlySerializedAs("frameNo")]
-        public long LastedFrame;
-        //当前帧 动画
+        public string keyName;
         public Sprite sprite;
         public List<HitBoxInfo> hitBoxInfos;
     }

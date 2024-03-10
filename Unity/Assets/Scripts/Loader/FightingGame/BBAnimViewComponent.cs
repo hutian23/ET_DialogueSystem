@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace ET
@@ -30,22 +31,28 @@ namespace ET
         public long timerComponentInstanceId;
 
         [LabelText("测试动画")]
-        public BBAnimClip currentClip;
+        public List<BBAnimClip> currentClip = new();
 
         [LabelText("运行速度")]
         [Range(0, 1)]
         [OnValueChanged("TimeScaleChanged")]
         public float timeScale = 1;
-        
+
         [Button("测试动画")]
         public void PlayAnim()
         {
-            EventSystem.Instance.Invoke(new BBPlayAnim() { instanceId = this.instanceId, animClip = this.currentClip });
+            if (Application.isPlaying)
+            {
+                // EventSystem.Instance.Invoke(new BBPlayAnim() { instanceId = this.instanceId, animClip = this.currentClip });
+            }
         }
 
         public void TimeScaleChanged()
         {
-            EventSystem.Instance.Invoke(new BBTimeChanged() { instanceId = this.timerComponentInstanceId, timeScale = this.timeScale });
+            if (Application.isPlaying)
+            {
+                EventSystem.Instance.Invoke(new BBTimeChanged() { instanceId = this.timerComponentInstanceId, timeScale = this.timeScale });
+            }
         }
     }
 }

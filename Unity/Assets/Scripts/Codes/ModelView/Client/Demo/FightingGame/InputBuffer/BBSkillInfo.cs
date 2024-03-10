@@ -1,4 +1,6 @@
-﻿namespace ET.Client
+﻿using System.Collections.Generic;
+
+namespace ET.Client
 {
     [ChildOf(typeof (BBInputComponent))]
     public class BBSkillInfo: Entity, IAwake, IDestroy
@@ -8,5 +10,6 @@
         public int order;
         public string tag;
         public string inputChecker;
+        public List<string> triggers = new();
     }
 }

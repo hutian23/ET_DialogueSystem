@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Sirenix.Utilities;
+﻿using Sirenix.Utilities;
 using UnityEngine;
 
 namespace ET.Client
@@ -21,26 +20,7 @@ namespace ET.Client
                 args.Keyframe.hitBoxInfos.ForEach(hb => { bbAnim.SpawnHitBox(hb); });
             }
         }
-
-        [Invoke]
-        public class BBPlayAnimCallback: AInvokeHandler<BBPlayAnim>
-        {
-            public override void Handle(BBPlayAnim args)
-            {
-                BBAnimComponent bbAnim = Root.Instance.Get(args.instanceId) as BBAnimComponent;
-                if (args.animClip == null)
-                {
-                    Log.Error("bbClip is null");
-                    return;
-                }
-
-                bbAnim.Init();
-
-                if (args.animClip.IsLoop) bbAnim.AnimLoopCor(args.animClip).Coroutine();
-                else bbAnim.AnimCor(args.animClip).Coroutine();
-            }
-        }
-
+        
         public class BBAnimationComponentAwakeSystem: AwakeSystem<BBAnimComponent>
         {
             protected override void Awake(BBAnimComponent self)
@@ -74,48 +54,7 @@ namespace ET.Client
             self.token = new ETCancellationToken();
             self.GetParent<DialogueComponent>().token.Add(self.token.Cancel);
         }
-
-        // private static BBAnimViewComponent GetViewComponent(this BBAnimComponent self)
-        // {
-        //     return self.GetParent<DialogueComponent>()
-        //             .GetParent<Unit>()
-        //             .GetComponent<GameObjectComponent>().GameObject
-        //             .GetComponent<BBAnimViewComponent>();
-        // }
-
-        private static async ETTask AnimCor(this BBAnimComponent self, BBAnimClip animClip)
-        {
-            BBTimerComponent timerComponent = self.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>();
-            foreach (BBKeyframe keyFrame in animClip.Keyframes)
-            {
-                self.SetSprite(keyFrame.sprite);
-                await timerComponent.WaitAsync(keyFrame.LastedFrame, self.token);
-                if (self.token.IsCancel()) return;
-            }
-        }
-
-        private static async ETTask AnimLoopCor(this BBAnimComponent self, BBAnimClip animClip)
-        {
-            BBTimerComponent timerComponent = self.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>();
-
-            //TODO 缓存clip,暂时不能动态增删keyframe
-            var tmp = new List<BBKeyframe>();
-            animClip.Keyframes.ForEach(k => { tmp.Add(k); });
-
-            while (true)
-            {
-                foreach (BBKeyframe keyFrame in tmp)
-                {
-                    self.SetSprite(keyFrame.sprite);
-                    await timerComponent.WaitAsync(keyFrame.LastedFrame, self.token);
-                    if (self.token.IsCancel()) return;
-                }
-
-                await TimerComponent.Instance.WaitFrameAsync(self.token);
-                if (self.token.IsCancel()) return;
-            }
-        }
-
+        
         private static void SetSprite(this BBAnimComponent self, Sprite sprite)
         {
             self.GetParent<DialogueComponent>()

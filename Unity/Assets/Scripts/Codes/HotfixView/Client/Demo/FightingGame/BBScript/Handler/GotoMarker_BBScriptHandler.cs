@@ -21,8 +21,8 @@ namespace ET.Client
             }
 
             parser.function_Pointers[data.functionID] = parser.GetMarker(match.Groups["marker"].Value);
-            await ETTask.CompletedTask;
-            return Status.Success;
+            await TimerComponent.Instance.WaitFrameAsync(token);
+            return token.IsCancel()? Status.Failed : Status.Success;
         }
     }
 }

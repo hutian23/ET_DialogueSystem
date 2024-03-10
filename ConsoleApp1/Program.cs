@@ -56,19 +56,36 @@ class Program
 {
     static void Main(string[] args)
     {
-        string input = "If: Check_HelloWorld > 10";
-        string pattern = @":\s*(\w+)"; // 匹配冒号后面的第一个单词
+        string input = "Sprite: 'rg000_1',3;";
+        string pattern = @"Sprite:\s*'([^']+)',(\d+);";
 
         Match match = Regex.Match(input, pattern);
         if (match.Success)
         {
-            string word = match.Groups[1].Value;
-            Console.WriteLine("匹配到的单词是: " + word);
+            string spriteName = match.Groups[1].Value;
+            int param1 = int.Parse(match.Groups[2].Value);
+
+            Console.WriteLine("Sprite Name: " + spriteName);
+            Console.WriteLine("Parameter 1: " + param1);
         }
         else
         {
-            Console.WriteLine("未找到匹配的单词。");
+            Console.WriteLine("No match found.");
         }
+        // string input = "SkillTrigger: HP < 10;";
+        // string pattern = @":\s*(.+);"; // 匹配冒号后面的内容，直到分号为止
+        //
+        // Match match = Regex.Match(input, pattern);
+        //
+        // if (match.Success)
+        // {
+        //     string content = match.Groups[1].Value;
+        //     Console.WriteLine("匹配到的内容是:" + content);
+        // }
+        // else
+        // {
+        //     Console.WriteLine("没有找到匹配的内容。");
+        // }
         // int i = 0;
         // Console.WriteLine(i++);
         // Dictionary<int, string> dic = new();

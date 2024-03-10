@@ -129,8 +129,6 @@ namespace ET.Client
 
                 if (ret == Status.Return) return Status.Success;
                 if (token.IsCancel() || ret == Status.Failed) return Status.Failed;
-
-                await TimerComponent.Instance.WaitFrameAsync(token);
             }
 
             return Status.Success;
