@@ -1,4 +1,6 @@
-﻿namespace ET.Client
+﻿using System.Collections.Generic;
+
+namespace ET.Client
 {
     [FriendOf(typeof (BBSkillInfo))]
     [FriendOf(typeof (DialogueComponent))]
@@ -21,9 +23,12 @@
                 BBCheckHandler checker = DialogueDispatcherComponent.Instance.GetBBCheckHandler(self.inputChecker);
                 Status ret = await checker.Handle(unit, token);
                 if (token.IsCancel()) return;
+                
                 if (ret == Status.Success)
                 {
-                    Log.Warning($"{self.tag}");
+                    BBTimerComponent bbTimerComponent = self.GetParent<BBInputComponent>().GetComponent<BBTimerComponent>();
+                    BehaviorBuffer buffer = BehaviorBuffer.Create(self.tag, self.GetSkillOrder(), bbTimerComponent.GetNow(),self.triggers);
+                    
                 }
 
                 await TimerComponent.Instance.WaitFrameAsync(token);

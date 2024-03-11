@@ -30,6 +30,7 @@ namespace ET.Client
                 self.timer = timerComponent.NewFrameTimer(BBTimerInvokeType.CheckInput, self);
 
                 self.AddComponent<BBWait>();
+                self.AddComponent<BBBehaviorBufferComponent>();
 
                 self.InitPressDict();
             }

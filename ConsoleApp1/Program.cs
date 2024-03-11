@@ -1,15 +1,4 @@
-﻿using System.Reflection;
-using System.Text.RegularExpressions;
-using ET;
-using MongoDB.Bson;
-using MongoDB.Bson.IO;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson.Serialization.Conventions;
-using MongoDB.Bson.Serialization.Options;
-using MongoDB.Bson.Serialization.Serializers;
-using UnityEngine;
-using System;
+﻿using System.Text.RegularExpressions;
 
 // 定义语法树节点的类型
 public enum NodeType
@@ -56,22 +45,28 @@ class Program
 {
     static void Main(string[] args)
     {
-        string input = "Sprite: 'rg000_1',3;";
-        string pattern = @"Sprite:\s*'([^']+)',(\d+);";
+        List<string> str = new();
+        str.Add("111");
+        str.Add("222");
 
-        Match match = Regex.Match(input, pattern);
-        if (match.Success)
-        {
-            string spriteName = match.Groups[1].Value;
-            int param1 = int.Parse(match.Groups[2].Value);
-
-            Console.WriteLine("Sprite Name: " + spriteName);
-            Console.WriteLine("Parameter 1: " + param1);
-        }
-        else
-        {
-            Console.WriteLine("No match found.");
-        }
+        // List<string> str2 = new();
+        // str.ForEach(s => { str2.Add(s); });
+        // string input = "Sprite: 'rg000_1',3;";
+        // string pattern = @"Sprite:\s*'([^']+)',(\d+);";
+        //
+        // Match match = Regex.Match(input, pattern);
+        // if (match.Success)
+        // {
+        //     string spriteName = match.Groups[1].Value;
+        //     int param1 = int.Parse(match.Groups[2].Value);
+        //
+        //     Console.WriteLine("Sprite Name: " + spriteName);
+        //     Console.WriteLine("Parameter 1: " + param1);
+        // }
+        // else
+        // {
+        //     Console.WriteLine("No match found.");
+        // }
         // string input = "SkillTrigger: HP < 10;";
         // string pattern = @":\s*(.+);"; // 匹配冒号后面的内容，直到分号为止
         //

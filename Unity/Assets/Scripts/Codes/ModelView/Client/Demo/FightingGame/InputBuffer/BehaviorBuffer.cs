@@ -1,12 +1,5 @@
 ﻿namespace ET.Client
 {
-    public struct BehaviorBuffer
-    {
-        public long frameNo;
-        public string tag;
-        public int order;
-    }
-
     //优先级从上往下递增
     [UniqueId]
     public static class SkillOrder
