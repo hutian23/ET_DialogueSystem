@@ -20,20 +20,12 @@ namespace ET.Client
                 args.Keyframe.hitBoxInfos.ForEach(hb => { bbAnim.SpawnHitBox(hb); });
             }
         }
-        
+
         public class BBAnimationComponentAwakeSystem: AwakeSystem<BBAnimComponent>
         {
             protected override void Awake(BBAnimComponent self)
             {
-                GameObject go = self.GetParent<DialogueComponent>().GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject;
-                BBAnimViewComponent animComponent = go.AddComponent<BBAnimViewComponent>();
-
-                BBTimerComponent bbTimerComponent = self.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>();
-                animComponent.instanceId = self.InstanceId;
-                animComponent.timerComponentInstanceId = bbTimerComponent.InstanceId;
-
                 GameObjectPoolHelper.InitPool("Hitbox", 10);
-
                 self.Init();
             }
         }
@@ -42,9 +34,17 @@ namespace ET.Client
         {
             protected override void Destroy(BBAnimComponent self)
             {
-                GameObject go = self.GetParent<DialogueComponent>().GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject;
-                UnityEngine.Object.Destroy(go.GetComponent<BBAnimViewComponent>());
+                self.token?.Cancel();
+                self.keyFrameDict.Clear();
                 self.hitBoxes.ForEach(GameObjectPoolHelper.ReturnObjectToPool); //对象池回收
+            }
+        }
+
+        public class BBAnimationComponentLoadSystem: LoadSystem<BBAnimComponent>
+        {
+            protected override void Load(BBAnimComponent self)
+            {
+                self.Init();
             }
         }
 
@@ -53,15 +53,60 @@ namespace ET.Client
             self.token?.Cancel();
             self.token = new ETCancellationToken();
             self.GetParent<DialogueComponent>().token.Add(self.token.Cancel);
+
+            if (!Application.isEditor) return;
+
+            BBAnimViewComponent animComponent = self.GetViewComponent();
+            //Editor中回调
+            BBTimerComponent bbTimerComponent = self.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>();
+            animComponent.instanceId = self.InstanceId;
+            animComponent.timerComponentInstanceId = bbTimerComponent.InstanceId;
+            //建立keyframeName和keyframe的映射
+            self.LoadKeyFrames();
         }
-        
-        private static void SetSprite(this BBAnimComponent self, Sprite sprite)
+
+        public static void SetSprite(this BBAnimComponent self, Sprite sprite)
         {
             self.GetParent<DialogueComponent>()
                     .GetParent<Unit>()
                     .GetComponent<GameObjectComponent>().GameObject
                     .GetComponent<SpriteRenderer>()
                     .sprite = sprite;
+        }
+
+        private static BBAnimViewComponent GetViewComponent(this BBAnimComponent self)
+        {
+            return self.GetParent<DialogueComponent>()
+                    .GetParent<Unit>()
+                    .GetComponent<GameObjectComponent>().GameObject
+                    .GetComponent<BBAnimViewComponent>();
+        }
+
+        private static void LoadKeyFrames(this BBAnimComponent self)
+        {
+            self.keyFrameDict.Clear();
+            BBAnimViewComponent animView = self.GetViewComponent();
+            foreach (BBAnimClip clip in animView.currentClip)
+            {
+                foreach (BBKeyframe k in clip.Keyframes)
+                {
+                    if (!self.keyFrameDict.TryAdd(k.keyName, k))
+                    {
+                        Log.Error($"already exist keyFrame: {k.keyName}");
+                        return;
+                    }
+                }
+            }
+        }
+
+        public static BBKeyframe GetKeyframe(this BBAnimComponent self, string name)
+        {
+            if (!self.keyFrameDict.TryGetValue(name, out BBKeyframe keyframe))
+            {
+                Log.Error($"not found bbKeyframe: {name}");
+            }
+
+            return keyframe;
         }
 
         #region HitBox

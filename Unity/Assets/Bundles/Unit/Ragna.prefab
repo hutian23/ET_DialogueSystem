@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 7728331812354445378}
   - component: {fileID: 7728331812354445377}
   - component: {fileID: 7728331812354445388}
+  - component: {fileID: 1027462104376051047}
   m_Layer: 0
   m_Name: Ragna
   m_TagString: Untagged
@@ -175,6 +176,23 @@ MonoBehaviour:
     gameObject: {fileID: 7728331813278968711}
   - key: ProximityBox
     gameObject: {fileID: 7728331811758872090}
+--- !u!114 &1027462104376051047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7728331812354445376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48641e1b851c62b498b781dbde74151d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instanceId: 0
+  timerComponentInstanceId: 0
+  currentClip:
+  - {fileID: 11400000, guid: 089d1b391d4ded54ebb36700ad03be07, type: 2}
+  timeScale: 1
 --- !u!1 &7728331812427471843
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,10 +25,13 @@ namespace ET.Client
                 Log.Warning($"cannot parse {match.Groups[2].Value} to int!");
                 return Status.Failed;
             }
-            
-            await TimerComponent.Instance.WaitAsync(100000, token);
-            if (token.IsCancel()) return Status.Failed;
-            return Status.Success;
+
+            BBAnimComponent animComponent = parser.GetParent<DialogueComponent>().GetComponent<BBAnimComponent>();
+            BBKeyframe keyframe = animComponent.GetKeyframe(spriteName);
+            animComponent.SetSprite(keyframe.sprite);
+
+            await parser.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>().WaitAsync(param, token);
+            return token.IsCancel()? Status.Failed : Status.Success;
         }
     }
 }

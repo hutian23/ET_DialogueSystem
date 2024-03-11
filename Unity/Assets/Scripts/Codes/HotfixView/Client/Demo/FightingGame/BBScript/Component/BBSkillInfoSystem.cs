@@ -19,8 +19,12 @@
                 if (token.IsCancel()) return;
 
                 BBCheckHandler checker = DialogueDispatcherComponent.Instance.GetBBCheckHandler(self.inputChecker);
-                await checker.Handle(unit, token);
+                Status ret = await checker.Handle(unit, token);
                 if (token.IsCancel()) return;
+                if (ret == Status.Success)
+                {
+                    Log.Warning($"{self.tag}");
+                }
 
                 await TimerComponent.Instance.WaitFrameAsync(token);
             }

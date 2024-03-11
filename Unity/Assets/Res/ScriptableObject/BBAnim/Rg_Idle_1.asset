@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6317f82f2ebea140a22a3e2d4a69fa6, type: 3}
+  m_Name: Rg_Idle_1
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  IsLoop: 0
+  Keyframes:
+  - keyName: Rg_001_00
+    sprite: {fileID: -1505184845, guid: ace8a5ab09303194386cd45ad1e816b5, type: 3}
+    hitBoxInfos: []
+  - keyName: Rg_001_01
+    sprite: {fileID: 948621662, guid: 1a9b564fa91b4a44eaec8137dbed5d58, type: 3}
+    hitBoxInfos: []
+  - keyName: Rg_001_02
+    sprite: {fileID: 691760246, guid: ff84e1f76542f2e4896758bf4b08f54f, type: 3}
+    hitBoxInfos: []
+  - keyName: Rg_001_03
+    sprite: {fileID: -1221853660, guid: 4bb31252624c72e45a8efa9110653fca, type: 3}
+    hitBoxInfos: []
+  - keyName: Rg_001_04
+    sprite: {fileID: -1262298803, guid: 9e19eb429862c734799d022c86fd91f8, type: 3}
+    hitBoxInfos: []
+  - keyName: Rg_001_05
+    sprite: {fileID: -2022590333, guid: 2d7e994b0b3c98b49a4e26330324d941, type: 3}
+    hitBoxInfos: []
+  - keyName: Rg_001_06
+    sprite: {fileID: -1626424882, guid: 9ee27a5e34932d341b07a1e32238625d, type: 3}
+    hitBoxInfos: []
+  - keyName: Rg_001_07
+    sprite: {fileID: 356953237, guid: 8d5a0c1e5e97ebd498a5ce827d67d436, type: 3}
+    hitBoxInfos: []
+  - keyName: Rg_001_08
+    sprite: {fileID: 1353976597, guid: 22030dbb0d5ed9744adefdc0bc997367, type: 3}
+    hitBoxInfos: []
+  - keyName: Rg_001_09
+    sprite: {fileID: -1840932395, guid: dfd3dc83e19fa6141a7f31b1390915af, type: 3}
+    hitBoxInfos: []
+  - keyName: Rg_001_10
+    sprite: {fileID: -418350589, guid: d91db5bfe142a2a45aa7c66223e5570b, type: 3}
+    hitBoxInfos: []
+  - keyName: Rg_001_11
+    sprite: {fileID: 1830873927, guid: 68c2a2210310a5d4b93a11405c55bf7c, type: 3}
+    hitBoxInfos: []
+  - keyName: Rg_001_12
+    sprite: {fileID: 1509132429, guid: 277ca14a965b32044844f547ffac1e0d, type: 3}
+    hitBoxInfos: []
+  - keyName: Rg_001_13
+    sprite: {fileID: 1896992979, guid: e3aa2b356e0230341a4ee2c4ea77ab0e, type: 3}
+    hitBoxInfos: []
+  - keyName: Rg_001_14
+    sprite: {fileID: -1405124706, guid: bc82f34d27e886c45b01bc9ad3dc33a5, type: 3}
+    hitBoxInfos: []
+  - keyName: Rg_001_15
+    sprite: {fileID: -1797307545, guid: 7919ed77ea01c5b49a0f52b82889d560, type: 3}
+    hitBoxInfos: []
+  - keyName: Rg_001_16
+    sprite: {fileID: 549903040, guid: 5d0200995716dba4d9dcb358cfe53531, type: 3}
+    hitBoxInfos: []
