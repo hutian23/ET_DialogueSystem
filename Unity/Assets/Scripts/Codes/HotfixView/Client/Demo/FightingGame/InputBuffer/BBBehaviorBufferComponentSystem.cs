@@ -42,28 +42,38 @@ namespace ET.Client
             return self.GetNow() - 5;
         }
 
-        public static void Update(this BBBehaviorBufferComponent self)
+        public static void BufferUpdate(this BBBehaviorBufferComponent self)
         {
             if (self.bufferIds.Count == 0)
             {
                 return;
             }
 
-            // foreach (KeyValuePair<long,List<long>> kv in self.bufferIds)
-            // {
-            //     long k = kv.Key;
-            //     if (k > self.GetMinFrame())
-            //     {
-            //         
-            //     }
-            // }
+            //1. 移除过期的缓存
+            foreach (KeyValuePair<long, List<long>> kv in self.bufferIds)
+            {
+                long k = kv.Key;
+                if (k < self.GetMinFrame()) self.timeOutQueue.Enqueue(k);
+            }
+            while (self.timeOutQueue.Count > 0)
+            {
+                long timeId = self.timeOutQueue.Dequeue();
+                List<long> bufferIds = self.bufferIds[timeId];
+                for (int i = 0; i < bufferIds.Count; i++)
+                {
+                    long bufferId = bufferIds[i];
+                    BehaviorBuffer buffer = self.bufferDict[bufferId];
+                    buffer.Recycle();
+                }
+                self.bufferIds.Remove(timeId);
+            }
+            //2. 
         }
 
         private static void Init(this BBBehaviorBufferComponent self)
         {
             self.bufferDict.Clear();
             self.bufferIds.Clear();
-            self.bufferOutQueue.Clear();
         }
 
         public static void AddBehaviorBuffer(this BBBehaviorBufferComponent self, string skillTag, long skillOrder, List<string> triggers)

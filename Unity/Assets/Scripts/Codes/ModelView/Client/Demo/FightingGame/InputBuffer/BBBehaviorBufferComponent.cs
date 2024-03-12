@@ -8,7 +8,7 @@ namespace ET.Client
         public readonly MultiMap<long, long> bufferIds = new();
 
         //这一帧过期了,回收所有的BehaviorBuffer
-        public readonly Queue<long> bufferOutQueue = new();
+        public readonly Queue<long> timeOutQueue = new();
         public readonly Dictionary<long, BehaviorBuffer> bufferDict = new();
 
         public long idGenerator;
