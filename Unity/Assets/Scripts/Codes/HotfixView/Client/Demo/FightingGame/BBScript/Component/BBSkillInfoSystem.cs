@@ -27,8 +27,6 @@ namespace ET.Client
                 if (ret == Status.Success)
                 {
                     BBTimerComponent bbTimerComponent = self.GetParent<BBInputComponent>().GetComponent<BBTimerComponent>();
-                    BehaviorBuffer buffer = BehaviorBuffer.Create(self.tag, self.GetSkillOrder(), bbTimerComponent.GetNow(),self.triggers);
-                    
                 }
 
                 await TimerComponent.Instance.WaitFrameAsync(token);
