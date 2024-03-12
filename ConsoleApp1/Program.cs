@@ -45,10 +45,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        List<string> str = new();
-        str.Add("111");
-        str.Add("222");
-
+        Match match = Regex.Match("RegistInput: '236P',5;", @"RegistInput: '(?<Checker>\w+)',(?<LastedFrame>\w+);");
+        Console.WriteLine(match.Groups["LastedFrame"].Value);
         // List<string> str2 = new();
         // str.ForEach(s => { str2.Add(s); });
         // string input = "Sprite: 'rg000_1',3;";

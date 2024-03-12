@@ -21,15 +21,17 @@ namespace ET.Client
         public string skillTag;
         public long skillOrder;
         public long startFrame;
+        public long LastedFrame;
         public List<string> triggers = new();
 
-        public static BehaviorBuffer Create(long Id, string skillTag, long skillOrder, long startFrame, List<string> _triggers)
+        public static BehaviorBuffer Create(long Id, string skillTag, long skillOrder, long startFrame, long LastedFrame, List<string> _triggers)
         {
             BehaviorBuffer buffer = ObjectPool.Instance.Fetch<BehaviorBuffer>();
             buffer.Id = Id;
             buffer.skillTag = skillTag;
             buffer.skillOrder = skillOrder;
             buffer.startFrame = startFrame;
+            buffer.LastedFrame = LastedFrame;
             _triggers.ForEach(t => { buffer.triggers.Add(t); });
             return buffer;
         }
@@ -37,9 +39,10 @@ namespace ET.Client
         public void Recycle()
         {
             this.Id = 0;
-            this.skillOrder = 0;
             this.skillTag = "";
+            this.skillOrder = 0;
             this.startFrame = 0;
+            this.LastedFrame = 0;
             this.triggers.Clear();
         }
     }

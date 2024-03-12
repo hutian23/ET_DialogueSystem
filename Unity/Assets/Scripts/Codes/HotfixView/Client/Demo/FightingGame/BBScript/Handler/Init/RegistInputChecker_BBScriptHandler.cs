@@ -12,10 +12,10 @@ namespace ET.Client
             return "RegistInput";
         }
 
-        //RegistInput: '236P';
+        //RegistInput: '236P',5;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"RegistInput: '(?<Checker>\w+)';");
+            Match match = Regex.Match(data.opLine, @"RegistInput: '(?<Checker>\w+)',(?<LastedFrame>\w+);");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(data.opLine);
@@ -24,6 +24,8 @@ namespace ET.Client
 
             BBSkillInfo skillInfo = parser.GetParent<DialogueComponent>().GetComponent<BBInputComponent>().GetSkillInfo(parser.currentID);
             skillInfo.inputChecker = match.Groups["Checker"].Value;
+            int.TryParse(match.Groups["LastedFrame"].Value, out int lastedFrame);
+            skillInfo.tagLastedFrame = lastedFrame;
 
             await ETTask.CompletedTask;
             return Status.Success;

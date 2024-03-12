@@ -55,6 +55,7 @@ namespace ET.Client
                 long k = kv.Key;
                 if (k < self.GetMinFrame()) self.timeOutQueue.Enqueue(k);
             }
+
             while (self.timeOutQueue.Count > 0)
             {
                 long timeId = self.timeOutQueue.Dequeue();
@@ -65,6 +66,7 @@ namespace ET.Client
                     BehaviorBuffer buffer = self.bufferDict[bufferId];
                     buffer.Recycle();
                 }
+
                 self.bufferIds.Remove(timeId);
             }
             //2. 
@@ -76,10 +78,10 @@ namespace ET.Client
             self.bufferIds.Clear();
         }
 
-        public static void AddBehaviorBuffer(this BBBehaviorBufferComponent self, string skillTag, long skillOrder, List<string> triggers)
+        public static void AddBehaviorBuffer(this BBBehaviorBufferComponent self, string skillTag, long skillOrder, long lastedFrame, List<string> triggers)
         {
             BBTimerComponent timerComponent = self.GetParent<BBInputComponent>().GetComponent<BBTimerComponent>();
-            BehaviorBuffer buffer = BehaviorBuffer.Create(self.GetId(), skillTag, skillOrder, timerComponent.GetNow(), triggers);
+            BehaviorBuffer buffer = BehaviorBuffer.Create(self.GetId(), skillTag, skillOrder, timerComponent.GetNow(), lastedFrame, triggers);
 
             self.bufferDict.Add(buffer.Id, buffer);
             self.bufferIds.Add(buffer.startFrame, self.GetId());
