@@ -3,13 +3,14 @@ using UnityEngine.InputSystem;
 
 namespace ET.Client
 {
-    [FriendOf(typeof (BBInputComponent))]
+    [FriendOf(typeof(BBInputComponent))]
+    [FriendOf(typeof(BBSkillInfo))]
     public static class TODInputComponentSystem
     {
         [Invoke(BBTimerInvokeType.CheckInput)]
-        [FriendOf(typeof (BBInputComponent))]
-        [FriendOf(typeof (BBTimerComponent))]
-        public class CheckInputTimer: BBTimer<BBInputComponent>
+        [FriendOf(typeof(BBInputComponent))]
+        [FriendOf(typeof(BBTimerComponent))]
+        public class CheckInputTimer : BBTimer<BBInputComponent>
         {
             protected override void Run(BBInputComponent self)
             {
@@ -19,8 +20,8 @@ namespace ET.Client
             }
         }
 
-        [FriendOf(typeof (BBTimerComponent))]
-        public class TODInputComponentAwakeSystem: AwakeSystem<BBInputComponent>
+        [FriendOf(typeof(BBTimerComponent))]
+        public class TODInputComponentAwakeSystem : AwakeSystem<BBInputComponent>
         {
             protected override void Awake(BBInputComponent self)
             {
@@ -36,8 +37,8 @@ namespace ET.Client
             }
         }
 
-        [FriendOf(typeof (BBTimerComponent))]
-        public class TODInputComponentLoadSystem: LoadSystem<BBInputComponent>
+        [FriendOf(typeof(BBTimerComponent))]
+        public class TODInputComponentLoadSystem : LoadSystem<BBInputComponent>
         {
             protected override void Load(BBInputComponent self)
             {
@@ -239,6 +240,8 @@ namespace ET.Client
             }
 
             BBSkillInfo skillInfo = self.AddChild<BBSkillInfo>();
+            skillInfo.targetID = targetID;
+            
             self.skilInfoDict.Add(targetID, skillInfo);
             return skillInfo;
         }

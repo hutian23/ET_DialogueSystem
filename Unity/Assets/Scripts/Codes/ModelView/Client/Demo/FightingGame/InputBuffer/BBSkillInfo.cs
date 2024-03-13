@@ -10,7 +10,7 @@ namespace ET.Client
         public int order;
         public string tag;
         public string inputChecker;
-        public long tagLastedFrame;
+        public long LastedFrame;
         public List<string> triggers = new();
     }
 }

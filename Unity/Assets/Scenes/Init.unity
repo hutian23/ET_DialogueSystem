@@ -1089,7 +1089,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instanceId: 0
   timerComponentInstanceId: 0
-  currentClip: {fileID: 0}
+  currentClip:
+  - {fileID: 0}
   timeScale: 1
 --- !u!1 &2112265938
 GameObject:

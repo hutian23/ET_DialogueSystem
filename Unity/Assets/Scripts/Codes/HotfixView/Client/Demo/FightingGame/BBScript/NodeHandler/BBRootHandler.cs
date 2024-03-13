@@ -29,8 +29,15 @@ namespace ET.Client
 
             while (true)
             {
+                WaitNextSkill waitNext = await unit.GetComponent<ObjectWait>().Wait<WaitNextSkill>(token);
                 if (token.IsCancel()) return Status.Failed;
+                
+                Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, dialogueComponent.GetNode(waitNext.targetID), token);
+                if (token.IsCancel()) return Status.Failed;
+                if (ret != Status.Success) return ret;
+                
                 await TimerComponent.Instance.WaitFrameAsync(token);
+                if (token.IsCancel()) return Status.Failed;
             }
         }
     }

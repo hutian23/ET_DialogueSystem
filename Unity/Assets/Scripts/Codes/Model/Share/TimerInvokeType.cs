@@ -20,5 +20,7 @@
 
         public const int SettingTimer = 303;
         public const int SettingCheckTimer = 304;
+
+        public const int BehaviorBufferTimer = 305;
     }
 }

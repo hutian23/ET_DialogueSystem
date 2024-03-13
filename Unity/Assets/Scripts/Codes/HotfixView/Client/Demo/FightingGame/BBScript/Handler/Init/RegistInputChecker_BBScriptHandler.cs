@@ -25,7 +25,7 @@ namespace ET.Client
             BBSkillInfo skillInfo = parser.GetParent<DialogueComponent>().GetComponent<BBInputComponent>().GetSkillInfo(parser.currentID);
             skillInfo.inputChecker = match.Groups["Checker"].Value;
             int.TryParse(match.Groups["LastedFrame"].Value, out int lastedFrame);
-            skillInfo.tagLastedFrame = lastedFrame;
+            skillInfo.LastedFrame = lastedFrame;
 
             await ETTask.CompletedTask;
             return Status.Success;

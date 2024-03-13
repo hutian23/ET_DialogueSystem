@@ -45,8 +45,10 @@ class Program
 {
     static void Main(string[] args)
     {
-        Match match = Regex.Match("RegistInput: '236P',5;", @"RegistInput: '(?<Checker>\w+)',(?<LastedFrame>\w+);");
-        Console.WriteLine(match.Groups["LastedFrame"].Value);
+        Match match = Regex.Match("If: HP > 10", @":\s*(\w+)");
+        Console.WriteLine(match.Groups[1].Value);
+        // Match match = Regex.Match("RegistInput: '236P',5;", @"RegistInput: '(?<Checker>\w+)',(?<LastedFrame>\w+);");
+        // Console.WriteLine(match.Groups["LastedFrame"].Value);
         // List<string> str2 = new();
         // str.ForEach(s => { str2.Add(s); });
         // string input = "Sprite: 'rg000_1',3;";
