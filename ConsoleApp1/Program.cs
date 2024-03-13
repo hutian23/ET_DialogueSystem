@@ -45,8 +45,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        Match match = Regex.Match("If: HP > 10", @":\s*(\w+)");
-        Console.WriteLine(match.Groups[1].Value);
+        Match match = Regex.Match("HP > 10", @"^\w+");
+        Console.WriteLine(match.Value);
         // Match match = Regex.Match("RegistInput: '236P',5;", @"RegistInput: '(?<Checker>\w+)',(?<LastedFrame>\w+);");
         // Console.WriteLine(match.Groups["LastedFrame"].Value);
         // List<string> str2 = new();

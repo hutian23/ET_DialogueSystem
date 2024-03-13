@@ -23,10 +23,11 @@ namespace ET.Client
                 BBCheckHandler checker = DialogueDispatcherComponent.Instance.GetBBCheckHandler(self.inputChecker);
                 Status ret = await checker.Handle(unit, token);
                 if (token.IsCancel()) return;
-                
+
                 if (ret == Status.Success)
                 {
-                    BBTimerComponent bbTimerComponent = self.GetParent<BBInputComponent>().GetComponent<BBTimerComponent>();
+                    self.GetParent<BBInputComponent>().GetComponent<BBBehaviorBufferComponent>().AddBehaviorBuffer(self);
+                    Log.Warning("GunFlame");
                 }
 
                 await TimerComponent.Instance.WaitFrameAsync(token);

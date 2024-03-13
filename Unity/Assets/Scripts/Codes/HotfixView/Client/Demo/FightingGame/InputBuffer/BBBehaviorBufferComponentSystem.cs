@@ -39,13 +39,12 @@ namespace ET.Client
                 }
 
                 //3. 判断技能前置条件
-                for (int i = 0; i < self.workDict.Count; i++)
+                foreach(BehaviorBuffer buffer in self.workDict.Values)
                 {
-                    BehaviorBuffer buffer = self.workDict[i];
                     bool ret = true;
                     foreach (string trigger in buffer.triggers)
                     {
-                        Match match = Regex.Match(trigger, @":\s*(\w+)");
+                        Match match = Regex.Match(trigger, @"^\w+");
                         if (!match.Success)
                         {
                             Log.Error($"not found trigger handler: {trigger}");
@@ -55,7 +54,7 @@ namespace ET.Client
                         BBParser parser = self.GetParent<BBInputComponent>().GetParent<DialogueComponent>().GetComponent<BBParser>();
                         BBScriptData data = BBScriptData.Create(trigger, 0);
 
-                        bool res = DialogueDispatcherComponent.Instance.GetTrigger(match.Groups[1].Value).Check(parser, data);
+                        bool res = DialogueDispatcherComponent.Instance.GetTrigger(match.Value).Check(parser, data);
                         data.Recycle();
 
                         if (res) continue;
@@ -81,6 +80,14 @@ namespace ET.Client
             }
         }
 
+        public class BBBehaviorBufferComponentDestroySystem : DestroySystem<BBBehaviorBufferComponent>
+        {
+            protected override void Destroy(BBBehaviorBufferComponent self)
+            {
+                self.Init();
+            }
+        }
+        
         private static long GetId(this BBBehaviorBufferComponent self)
         {
             return ++self.idGenerator;

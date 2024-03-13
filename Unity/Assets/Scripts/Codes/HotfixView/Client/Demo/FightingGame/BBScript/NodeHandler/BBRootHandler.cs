@@ -21,21 +21,27 @@ namespace ET.Client
 
             //开启技能输入检测输入协程
             BBInputComponent inputComponent = dialogueComponent.GetComponent<BBInputComponent>();
+
             inputComponent.skilInfoDict.Values.ForEach(v =>
             {
                 if (string.IsNullOrEmpty(v.inputChecker)) return;
                 v.InputCheckCor(unit, token).Coroutine();
             });
 
+            unit.GetComponent<DialogueComponent>()
+                    .GetComponent<BBInputComponent>()
+                    .GetComponent<BBBehaviorBufferComponent>()
+                    .EnableBehaviorBufferCheckTimer();
+
             while (true)
             {
-                WaitNextSkill waitNext = await unit.GetComponent<ObjectWait>().Wait<WaitNextSkill>(token);
+                WaitNextSkill waitNext = await unit.GetComponent<DialogueComponent>().GetComponent<ObjectWait>().Wait<WaitNextSkill>(token);
                 if (token.IsCancel()) return Status.Failed;
-                
+
                 Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, dialogueComponent.GetNode(waitNext.targetID), token);
                 if (token.IsCancel()) return Status.Failed;
                 if (ret != Status.Success) return ret;
-                
+
                 await TimerComponent.Instance.WaitFrameAsync(token);
                 if (token.IsCancel()) return Status.Failed;
             }
