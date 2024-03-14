@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     [FriendOf(typeof (BBBehaviorBufferComponent))]
-    [FriendOf(typeof (BBSkillInfo))]
+    [FriendOf(typeof (BehaviorInfo))]
     public static class BBBehaviorBufferComponentSystem
     {
         [Invoke(TimerInvokeType.BehaviorBufferTimer)]
@@ -13,62 +10,58 @@ namespace ET.Client
         {
             protected override void Run(BBBehaviorBufferComponent self)
             {
-                //1.移除过期buffer
+                // //1. 根据技能order排序buffer
+                // int count = self.BufferQueue.Count;
+                // while (count-- > 0)
+                // {
+                //     BehaviorBuffer buffer = self.BufferQueue.Dequeue();
+                //     
+                //     bool ret = true;
+                //     //2. 检查前置条件
+                //     foreach (string trigger in buffer.triggers)
+                //     {
+                //         Match match = Regex.Match(trigger, @"^\w+");
+                //         if (!match.Success)
+                //         {
+                //             Log.Error($"not found trigger handler: {trigger}");
+                //             return;
+                //         }
+                //
+                //         BBParser parser = self.GetParent<BBInputComponent>().GetParent<DialogueComponent>().GetComponent<BBParser>();
+                //         BBScriptData data = BBScriptData.Create(trigger, 0);
+                //
+                //         bool res = DialogueDispatcherComponent.Instance.GetTrigger(match.Value).Check(parser, data);
+                //         data.Recycle();
+                //
+                //         if (res)
+                //         {
+                //             continue;
+                //         }
+                //         //不符合条件，取下一个buffer
+                //         ret = false;
+                //         break;
+                //     }
+                //     
+                //     //3. 符合条件，释放技能
+                //     if (ret)
+                //     {
+                //         
+                //         buffer.Recycle();
+                //         return;   
+                //     }
+                //     
+                //     self.BufferQueue.Enqueue(buffer);
+                // }
+             
+                
+                //1. 遍历行为缓存列表,过期的回收
                 int count = self.BufferQueue.Count;
                 while (count-- > 0)
                 {
-                    BehaviorBuffer buffer = self.BufferQueue.Dequeue();
-                    //过期，回收
-                    if (self.GetNow() > buffer.startFrame + buffer.LastedFrame)
-                    {
-                        buffer.Recycle();
-                        continue;
-                    }
-
-                    self.BufferQueue.Enqueue(buffer);
+                    
                 }
-
-                //2. 根据技能order排序buffer
-                count = self.BufferQueue.Count;
-                self.workDict.Clear();
-                while (count-- > 0)
-                {
-                    BehaviorBuffer buffer = self.BufferQueue.Dequeue();
-                    self.workDict.TryAdd(buffer.skillOrder, buffer);
-                    self.BufferQueue.Enqueue(buffer);
-                }
-
-                //3. 判断技能前置条件
-                foreach(BehaviorBuffer buffer in self.workDict.Values)
-                {
-                    bool ret = true;
-                    foreach (string trigger in buffer.triggers)
-                    {
-                        Match match = Regex.Match(trigger, @"^\w+");
-                        if (!match.Success)
-                        {
-                            Log.Error($"not found trigger handler: {trigger}");
-                            return;
-                        }
-
-                        BBParser parser = self.GetParent<BBInputComponent>().GetParent<DialogueComponent>().GetComponent<BBParser>();
-                        BBScriptData data = BBScriptData.Create(trigger, 0);
-
-                        bool res = DialogueDispatcherComponent.Instance.GetTrigger(match.Value).Check(parser, data);
-                        data.Recycle();
-
-                        if (res) continue;
-                        ret = false;
-                        break;
-                    }
-
-                    //符合条件，释放技能
-                    if (!ret) continue;
-                    ObjectWait wait = self.GetParent<BBInputComponent>().GetParent<DialogueComponent>().GetComponent<ObjectWait>();
-                    wait.Notify(new WaitNextSkill() { targetID = buffer.targetID });
-                    buffer.Recycle();
-                    return;
-                }
+                //2. 把当前帧符合条件的行为Order添加到List中，从优先级高的开始遍历，
+                
             }
         }
 
@@ -93,15 +86,6 @@ namespace ET.Client
             return ++self.idGenerator;
         }
 
-        /// <summary>
-        /// 当前帧号
-        /// </summary>
-        private static long GetNow(this BBBehaviorBufferComponent self)
-        {
-            BBTimerComponent timerComponent = self.GetParent<BBInputComponent>().GetComponent<BBTimerComponent>();
-            return timerComponent.GetNow();
-        }
-
         private static void Init(this BBBehaviorBufferComponent self)
         {
             int count = self.BufferQueue.Count;
@@ -112,11 +96,10 @@ namespace ET.Client
             }
 
             self.BufferQueue.Clear();
-            self.workDict.Clear();
             TimerComponent.Instance.Remove(ref self.timer);
         }
 
-        public static void AddBehaviorBuffer(this BBBehaviorBufferComponent self, BBSkillInfo skillInfo)
+        public static void AddBehaviorBuffer(this BBBehaviorBufferComponent self, BehaviorInfo skillInfo)
         {
             if (self.BufferQueue.Count >= 100)
             {

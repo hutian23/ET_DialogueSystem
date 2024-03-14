@@ -7,17 +7,13 @@ namespace ET.Client
     {
         //这一帧过期了,回收所有的BehaviorBuffer
         public readonly Queue<BehaviorBuffer> BufferQueue = new(100);
-        public readonly SortedDictionary<long, BehaviorBuffer> workDict = new();
+        //当前帧可执行的行为 
+        public SortedSet<long> skillOrders = new();
+
         public long idGenerator;
         public long timer;
     }
 
-    public struct WaitNextSkill : IWaitType
-    {
-        public uint targetID;
-        public int Error { get; set; }
-    }
-    
     //缓冲行为
     public class BehaviorBuffer
     {

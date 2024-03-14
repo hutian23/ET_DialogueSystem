@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 namespace ET.Client
 {
     [FriendOf(typeof(BBInputComponent))]
-    [FriendOf(typeof(BBSkillInfo))]
+    [FriendOf(typeof(BehaviorInfo))]
     public static class TODInputComponentSystem
     {
         [Invoke(BBTimerInvokeType.CheckInput)]
@@ -220,9 +220,9 @@ namespace ET.Client
 
         #region 技能配置组件
 
-        public static BBSkillInfo GetSkillInfo(this BBInputComponent self, uint targetID)
+        public static BehaviorInfo GetSkillInfo(this BBInputComponent self, uint targetID)
         {
-            if (!self.skilInfoDict.TryGetValue(targetID, out BBSkillInfo info))
+            if (!self.skilInfoDict.TryGetValue(targetID, out BehaviorInfo info))
             {
                 Log.Error($"not found skillInfo: {targetID}");
                 return null;
@@ -231,15 +231,15 @@ namespace ET.Client
             return info;
         }
 
-        public static BBSkillInfo AddSkillInfo(this BBInputComponent self, uint targetID)
+        public static BehaviorInfo AddSkillInfo(this BBInputComponent self, uint targetID)
         {
-            if (self.skilInfoDict.TryGetValue(targetID, out BBSkillInfo _))
+            if (self.skilInfoDict.TryGetValue(targetID, out BehaviorInfo _))
             {
                 Log.Error($"already exist skillInfo: {targetID}");
                 return null;
             }
 
-            BBSkillInfo skillInfo = self.AddChild<BBSkillInfo>();
+            BehaviorInfo skillInfo = self.AddChild<BehaviorInfo>();
             skillInfo.targetID = targetID;
             
             self.skilInfoDict.Add(targetID, skillInfo);
@@ -248,7 +248,7 @@ namespace ET.Client
 
         public static void RemoveSkillInfo(this BBInputComponent self, uint targetID)
         {
-            if (self.skilInfoDict.TryGetValue(targetID, out BBSkillInfo info))
+            if (self.skilInfoDict.TryGetValue(targetID, out BehaviorInfo info))
             {
                 self.RemoveChild(info.Id);
             }

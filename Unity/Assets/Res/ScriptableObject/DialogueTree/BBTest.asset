@@ -103,7 +103,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 12
     - Name: 
       Entry: 7
       Data: 4|ET.Client.BBNode, Unity.Loader
@@ -112,7 +112,7 @@ MonoBehaviour:
       Data: 10
     - Name: TargetID
       Entry: 3
-      Data: 4
+      Data: 6
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -140,16 +140,16 @@ MonoBehaviour:
       Data: 
     - Name: Guid
       Entry: 1
-      Data: 0b8174c9cbfc3554887fd1974762833c
+      Data: 8b8615905ffdf9142a46dd6da535db7e
     - Name: position
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 514
+      Data: 735
     - Name: 
       Entry: 4
-      Data: 302
+      Data: 410
     - Name: 
       Entry: 8
       Data: 
@@ -169,131 +169,16 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: behaviorName
+      Entry: 1
+      Data: Rg_Idle_1
     - Name: BBScript
       Entry: 1
       Data: '@Init:
 
-        SkillTrigger: HP < 30;
+        SkillType: Normal;
 
-        SkillTrigger: SP = 3;
-
-        return;
-
-
-        @Main:
-
-
-        SetMarker:
-        ''Loop'';
-
-        Sprite: ''Rg_000_00'',5;
-
-        Sprite: ''Rg_000_01'',5;
-
-        Sprite:
-        ''Rg_000_02'',5;
-
-        Sprite: ''Rg_000_03'',5;
-
-        Sprite: ''Rg_000_04'',5;
-
-        Sprite:
-        ''Rg_000_05'',5;
-
-        Sprite: ''Rg_000_06'',5;
-
-
-        Sprite: ''Rg_000_05'',5;
-
-        Sprite:
-        ''Rg_000_04'',5;
-
-        Sprite: ''Rg_000_03'',5;
-
-        Sprite: ''Rg_000_02'',5;
-
-        Sprite:
-        ''Rg_000_01'',5;
-
-        Sprite: ''Rg_000_00'',2;
-
-        GotoMarker: ''Loop'';
-
-
-        return;'
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 7|ET.Client.BBNode, Unity.Loader
-    - Name: TreeID
-      Entry: 3
-      Data: 10
-    - Name: TargetID
-      Entry: 3
-      Data: 3
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ShowScript
-      Entry: 5
-      Data: false
-    - Name: Script
-      Entry: 1
-      Data: 
-    - Name: text
-      Entry: 6
-      Data: 
-    - Name: Guid
-      Entry: 1
-      Data: 8b8615905ffdf9142a46dd6da535db7e
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 514
-    - Name: 
-      Entry: 4
-      Data: 200
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: LocalizationGroups
-      Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: BBScript
-      Entry: 1
-      Data: '@Init:
-
-        SkillTrigger: HP > 10;
+        Order: 1;
 
         return;
 
@@ -351,13 +236,81 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 10|ET.Client.BBRoot, Unity.Loader
+      Data: 7|ET.Client.BBRoot, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 10
     - Name: TargetID
       Entry: 3
       Data: 1
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: true
+    - Name: Script
+      Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: a6e70d3652c0f9f48a30ff1503a6fd94
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 267
+    - Name: 
+      Entry: 4
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 7
+      Data: 9|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 10|ET.Client.BBNode, Unity.Loader
+    - Name: TreeID
+      Entry: 3
+      Data: 10
+    - Name: TargetID
+      Entry: 3
+      Data: 5
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -385,16 +338,16 @@ MonoBehaviour:
       Data: 
     - Name: Guid
       Entry: 1
-      Data: a6e70d3652c0f9f48a30ff1503a6fd94
+      Data: 62b5870b75b07e34481c973304a562e2
     - Name: position
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 267
+      Data: 732
     - Name: 
       Entry: 4
-      Data: 200
+      Data: -1
     - Name: 
       Entry: 8
       Data: 
@@ -414,6 +367,70 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: behaviorName
+      Entry: 1
+      Data: Rg_6B
+    - Name: BBScript
+      Entry: 1
+      Data: '@Init:
+
+        RegistInput: ''236P'',5;
+
+        SkillTag: ''Sol_GunFlame'';
+
+        Order:
+        10;
+
+        return;
+
+
+        @Main:
+
+        SetMarker: ''Loop'';
+
+        Sprite:
+        ''Rg_201_00'',3;
+
+        Sprite: ''Rg_201_01'',3;
+
+        Sprite: ''Rg_201_02'',3;
+
+        Sprite:
+        ''Rg_201_03'',3;
+
+        Sprite: ''Rg_201_04'',3;
+
+        Sprite: ''Rg_201_05'',3;
+
+        Sprite:
+        ''Rg_201_06'',3;
+
+        Sprite: ''Rg_201_07'',3;
+
+        Sprite: ''Rg_201_08'',3;
+
+        Sprite:
+        ''Rg_201_09'',3;
+
+        Sprite: ''Rg_201_10'',3;
+
+        Sprite: ''Rg_201_11'',3;
+
+        Sprite:
+        ''Rg_201_12'',3;
+
+        Sprite: ''Rg_201_13'',3;
+
+        Sprite: ''Rg_201_14'',3;
+
+        Sprite:
+        ''Rg_201_15'',3;
+
+        Sprite: ''Rg_000_00'',4;
+
+        GotoMarker: ''Loop'';
+
+        return;'
     - Name: 
       Entry: 8
       Data: 
@@ -425,7 +442,7 @@ MonoBehaviour:
       Data: 10
     - Name: TargetID
       Entry: 3
-      Data: 2
+      Data: 3
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -453,16 +470,16 @@ MonoBehaviour:
       Data: 
     - Name: Guid
       Entry: 1
-      Data: 62b5870b75b07e34481c973304a562e2
+      Data: 0896d8a2db1a15a459d1581da5aae04d
     - Name: position
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 514
+      Data: 577
     - Name: 
       Entry: 4
-      Data: 98
+      Data: 410
     - Name: 
       Entry: 8
       Data: 
@@ -482,18 +499,16 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: behaviorName
+      Entry: 1
+      Data: Rg_Idle
     - Name: BBScript
       Entry: 1
       Data: '@Init:
 
-        RegistInput: ''236P'';
+        SkillType: Normal;
 
-        SkillTag: ''Sol_GunFlame'';
-
-        Order:
-        10;
-
-        SkillTrigger: HP > 10;
+        Order: 0;
 
         return;
 
@@ -503,47 +518,1097 @@ MonoBehaviour:
         SetMarker:
         ''Loop'';
 
-        Sprite: ''Rg_201_00'',3;
+        Sprite: ''Rg_000_00'',5;
+
+        Sprite: ''Rg_000_01'',5;
+
+        Sprite:
+        ''Rg_000_02'',5;
+
+        Sprite: ''Rg_000_03'',5;
+
+        Sprite: ''Rg_000_04'',5;
+
+        Sprite:
+        ''Rg_000_05'',5;
+
+        Sprite: ''Rg_000_06'',5;
+
+
+        Sprite: ''Rg_000_05'',5;
+
+        Sprite:
+        ''Rg_000_04'',5;
+
+        Sprite: ''Rg_000_03'',5;
+
+        Sprite: ''Rg_000_02'',5;
+
+        Sprite:
+        ''Rg_000_01'',5;
+
+        Sprite: ''Rg_000_00'',2;
+
+        GotoMarker: ''Loop'';
+
+        return;
+
+
+'
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 16|ET.Client.BBNode, Unity.Loader
+    - Name: TreeID
+      Entry: 3
+      Data: 10
+    - Name: TargetID
+      Entry: 3
+      Data: 2
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 17|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: a6f68b669c3d36847bf51978ea60ff60
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 581
+    - Name: 
+      Entry: 4
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 7
+      Data: 18|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviorName
+      Entry: 1
+      Data: Rg_5B
+    - Name: BBScript
+      Entry: 1
+      Data: '@Init:
+
+        RegistInput: ''236P'',5;
+
+        SkillTag: ''Sol_GunFlame'';
+
+        Order:
+        10;
+
+        return;
+
+
+        @Main:
+
+        SetMarker: ''Loop'';
+
+        Sprite:
+        ''Rg_201_00'',3;
 
         Sprite: ''Rg_201_01'',3;
 
-        Sprite:
-        ''Rg_201_02'',3;
+        Sprite: ''Rg_201_02'',3;
 
-        Sprite: ''Rg_201_03'',3;
+        Sprite:
+        ''Rg_201_03'',3;
 
         Sprite: ''Rg_201_04'',3;
 
-        Sprite:
-        ''Rg_201_05'',3;
+        Sprite: ''Rg_201_05'',3;
 
-        Sprite: ''Rg_201_06'',3;
+        Sprite:
+        ''Rg_201_06'',3;
 
         Sprite: ''Rg_201_07'',3;
 
-        Sprite:
-        ''Rg_201_08'',3;
+        Sprite: ''Rg_201_08'',3;
 
-        Sprite: ''Rg_201_09'',3;
+        Sprite:
+        ''Rg_201_09'',3;
 
         Sprite: ''Rg_201_10'',3;
 
-        Sprite:
-        ''Rg_201_11'',3;
+        Sprite: ''Rg_201_11'',3;
 
-        Sprite: ''Rg_201_12'',3;
+        Sprite:
+        ''Rg_201_12'',3;
 
         Sprite: ''Rg_201_13'',3;
 
-        Sprite:
-        ''Rg_201_14'',3;
+        Sprite: ''Rg_201_14'',3;
 
-        Sprite: ''Rg_201_15'',3;
+        Sprite:
+        ''Rg_201_15'',3;
 
         Sprite: ''Rg_000_00'',4;
 
-        GotoMarker:
-        ''Loop'';
+        GotoMarker: ''Loop'';
+
+        return;'
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 19|ET.Client.BBNode, Unity.Loader
+    - Name: TreeID
+      Entry: 3
+      Data: 10
+    - Name: TargetID
+      Entry: 3
+      Data: 8
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 20|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: 374d16ee08ce89a4a9d471d2bab710ef
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 882
+    - Name: 
+      Entry: 4
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 7
+      Data: 21|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviorName
+      Entry: 1
+      Data: Rg_2B
+    - Name: BBScript
+      Entry: 1
+      Data: '@Init:
+
+        RegistInput: ''236P'',5;
+
+        SkillTag: ''Sol_GunFlame'';
+
+        Order:
+        10;
+
+        return;
+
+
+        @Main:
+
+        SetMarker: ''Loop'';
+
+        Sprite:
+        ''Rg_201_00'',3;
+
+        Sprite: ''Rg_201_01'',3;
+
+        Sprite: ''Rg_201_02'',3;
+
+        Sprite:
+        ''Rg_201_03'',3;
+
+        Sprite: ''Rg_201_04'',3;
+
+        Sprite: ''Rg_201_05'',3;
+
+        Sprite:
+        ''Rg_201_06'',3;
+
+        Sprite: ''Rg_201_07'',3;
+
+        Sprite: ''Rg_201_08'',3;
+
+        Sprite:
+        ''Rg_201_09'',3;
+
+        Sprite: ''Rg_201_10'',3;
+
+        Sprite: ''Rg_201_11'',3;
+
+        Sprite:
+        ''Rg_201_12'',3;
+
+        Sprite: ''Rg_201_13'',3;
+
+        Sprite: ''Rg_201_14'',3;
+
+        Sprite:
+        ''Rg_201_15'',3;
+
+        Sprite: ''Rg_000_00'',4;
+
+        GotoMarker: ''Loop'';
+
+        return;'
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 22|ET.Client.BBNode, Unity.Loader
+    - Name: TreeID
+      Entry: 3
+      Data: 10
+    - Name: TargetID
+      Entry: 3
+      Data: 10
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 23|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: e1c64b53cc168d44086b4344caaa6837
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1036
+    - Name: 
+      Entry: 4
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 7
+      Data: 24|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviorName
+      Entry: 1
+      Data: Rg_JB
+    - Name: BBScript
+      Entry: 1
+      Data: '@Init:
+
+        RegistInput: ''236P'',5;
+
+        SkillTag: ''Sol_GunFlame'';
+
+        Order:
+        10;
+
+        return;
+
+
+        @Main:
+
+        SetMarker: ''Loop'';
+
+        Sprite:
+        ''Rg_201_00'',3;
+
+        Sprite: ''Rg_201_01'',3;
+
+        Sprite: ''Rg_201_02'',3;
+
+        Sprite:
+        ''Rg_201_03'',3;
+
+        Sprite: ''Rg_201_04'',3;
+
+        Sprite: ''Rg_201_05'',3;
+
+        Sprite:
+        ''Rg_201_06'',3;
+
+        Sprite: ''Rg_201_07'',3;
+
+        Sprite: ''Rg_201_08'',3;
+
+        Sprite:
+        ''Rg_201_09'',3;
+
+        Sprite: ''Rg_201_10'',3;
+
+        Sprite: ''Rg_201_11'',3;
+
+        Sprite:
+        ''Rg_201_12'',3;
+
+        Sprite: ''Rg_201_13'',3;
+
+        Sprite: ''Rg_201_14'',3;
+
+        Sprite:
+        ''Rg_201_15'',3;
+
+        Sprite: ''Rg_000_00'',4;
+
+        GotoMarker: ''Loop'';
+
+        return;'
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 25|ET.Client.BBNode, Unity.Loader
+    - Name: TreeID
+      Entry: 3
+      Data: 10
+    - Name: TargetID
+      Entry: 3
+      Data: 7
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 26|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: a18d9008db0a66649b6275fbd61a1bf1
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 707
+    - Name: 
+      Entry: 4
+      Data: 199
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 7
+      Data: 27|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviorName
+      Entry: 1
+      Data: Rg_6C
+    - Name: BBScript
+      Entry: 1
+      Data: '@Init:
+
+        RegistInput: ''236P'',5;
+
+        SkillTag: ''Sol_GunFlame'';
+
+        Order:
+        10;
+
+        return;
+
+
+        @Main:
+
+        SetMarker: ''Loop'';
+
+        Sprite:
+        ''Rg_201_00'',3;
+
+        Sprite: ''Rg_201_01'',3;
+
+        Sprite: ''Rg_201_02'',3;
+
+        Sprite:
+        ''Rg_201_03'',3;
+
+        Sprite: ''Rg_201_04'',3;
+
+        Sprite: ''Rg_201_05'',3;
+
+        Sprite:
+        ''Rg_201_06'',3;
+
+        Sprite: ''Rg_201_07'',3;
+
+        Sprite: ''Rg_201_08'',3;
+
+        Sprite:
+        ''Rg_201_09'',3;
+
+        Sprite: ''Rg_201_10'',3;
+
+        Sprite: ''Rg_201_11'',3;
+
+        Sprite:
+        ''Rg_201_12'',3;
+
+        Sprite: ''Rg_201_13'',3;
+
+        Sprite: ''Rg_201_14'',3;
+
+        Sprite:
+        ''Rg_201_15'',3;
+
+        Sprite: ''Rg_000_00'',4;
+
+        GotoMarker: ''Loop'';
+
+        return;'
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 28|ET.Client.BBNode, Unity.Loader
+    - Name: TreeID
+      Entry: 3
+      Data: 10
+    - Name: TargetID
+      Entry: 3
+      Data: 4
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 29|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: 4bbc1deb6e661d64e84bc400152dc630
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 576
+    - Name: 
+      Entry: 4
+      Data: 199
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 7
+      Data: 30|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviorName
+      Entry: 1
+      Data: Rg_5C
+    - Name: BBScript
+      Entry: 1
+      Data: '@Init:
+
+        RegistInput: ''236P'',5;
+
+        SkillTag: ''Sol_GunFlame'';
+
+        Order:
+        10;
+
+        return;
+
+
+        @Main:
+
+        SetMarker: ''Loop'';
+
+        Sprite:
+        ''Rg_201_00'',3;
+
+        Sprite: ''Rg_201_01'',3;
+
+        Sprite: ''Rg_201_02'',3;
+
+        Sprite:
+        ''Rg_201_03'',3;
+
+        Sprite: ''Rg_201_04'',3;
+
+        Sprite: ''Rg_201_05'',3;
+
+        Sprite:
+        ''Rg_201_06'',3;
+
+        Sprite: ''Rg_201_07'',3;
+
+        Sprite: ''Rg_201_08'',3;
+
+        Sprite:
+        ''Rg_201_09'',3;
+
+        Sprite: ''Rg_201_10'',3;
+
+        Sprite: ''Rg_201_11'',3;
+
+        Sprite:
+        ''Rg_201_12'',3;
+
+        Sprite: ''Rg_201_13'',3;
+
+        Sprite: ''Rg_201_14'',3;
+
+        Sprite:
+        ''Rg_201_15'',3;
+
+        Sprite: ''Rg_000_00'',4;
+
+        GotoMarker: ''Loop'';
+
+        return;'
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 31|ET.Client.BBNode, Unity.Loader
+    - Name: TreeID
+      Entry: 3
+      Data: 10
+    - Name: TargetID
+      Entry: 3
+      Data: 9
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 32|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: ab252046fe5d56a45b36dddc89054a2c
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 844
+    - Name: 
+      Entry: 4
+      Data: 199
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 7
+      Data: 33|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviorName
+      Entry: 1
+      Data: Rg_2C
+    - Name: BBScript
+      Entry: 1
+      Data: '@Init:
+
+        RegistInput: ''236P'',5;
+
+        SkillTag: ''Sol_GunFlame'';
+
+        Order:
+        10;
+
+        return;
+
+
+        @Main:
+
+        SetMarker: ''Loop'';
+
+        Sprite:
+        ''Rg_201_00'',3;
+
+        Sprite: ''Rg_201_01'',3;
+
+        Sprite: ''Rg_201_02'',3;
+
+        Sprite:
+        ''Rg_201_03'',3;
+
+        Sprite: ''Rg_201_04'',3;
+
+        Sprite: ''Rg_201_05'',3;
+
+        Sprite:
+        ''Rg_201_06'',3;
+
+        Sprite: ''Rg_201_07'',3;
+
+        Sprite: ''Rg_201_08'',3;
+
+        Sprite:
+        ''Rg_201_09'',3;
+
+        Sprite: ''Rg_201_10'',3;
+
+        Sprite: ''Rg_201_11'',3;
+
+        Sprite:
+        ''Rg_201_12'',3;
+
+        Sprite: ''Rg_201_13'',3;
+
+        Sprite: ''Rg_201_14'',3;
+
+        Sprite:
+        ''Rg_201_15'',3;
+
+        Sprite: ''Rg_000_00'',4;
+
+        GotoMarker: ''Loop'';
+
+        return;'
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 34|ET.Client.BBNode, Unity.Loader
+    - Name: TreeID
+      Entry: 3
+      Data: 10
+    - Name: TargetID
+      Entry: 3
+      Data: 11
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 35|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: c7b126096f8aff144843aec22bb2f630
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 978
+    - Name: 
+      Entry: 4
+      Data: 199
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 7
+      Data: 36|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviorName
+      Entry: 1
+      Data: Rg_3C
+    - Name: BBScript
+      Entry: 1
+      Data: '@Init:
+
+        RegistInput: ''236P'',5;
+
+        SkillTag: ''Sol_GunFlame'';
+
+        Order:
+        10;
+
+        return;
+
+
+        @Main:
+
+        SetMarker: ''Loop'';
+
+        Sprite:
+        ''Rg_201_00'',3;
+
+        Sprite: ''Rg_201_01'',3;
+
+        Sprite: ''Rg_201_02'',3;
+
+        Sprite:
+        ''Rg_201_03'',3;
+
+        Sprite: ''Rg_201_04'',3;
+
+        Sprite: ''Rg_201_05'',3;
+
+        Sprite:
+        ''Rg_201_06'',3;
+
+        Sprite: ''Rg_201_07'',3;
+
+        Sprite: ''Rg_201_08'',3;
+
+        Sprite:
+        ''Rg_201_09'',3;
+
+        Sprite: ''Rg_201_10'',3;
+
+        Sprite: ''Rg_201_11'',3;
+
+        Sprite:
+        ''Rg_201_12'',3;
+
+        Sprite: ''Rg_201_13'',3;
+
+        Sprite: ''Rg_201_14'',3;
+
+        Sprite:
+        ''Rg_201_15'',3;
+
+        Sprite: ''Rg_000_00'',4;
+
+        GotoMarker: ''Loop'';
+
+        return;'
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 37|ET.Client.BBNode, Unity.Loader
+    - Name: TreeID
+      Entry: 3
+      Data: 10
+    - Name: TargetID
+      Entry: 3
+      Data: 12
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 38|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: d552ac3fbe86ed545bf5131cd595761b
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1123
+    - Name: 
+      Entry: 4
+      Data: 199
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 7
+      Data: 39|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviorName
+      Entry: 1
+      Data: Rg_JC
+    - Name: BBScript
+      Entry: 1
+      Data: '@Init:
+
+        RegistInput: ''236P'',5;
+
+        SkillTag: ''Sol_GunFlame'';
+
+        Order:
+        10;
+
+        return;
+
+
+        @Main:
+
+        SetMarker: ''Loop'';
+
+        Sprite:
+        ''Rg_201_00'',3;
+
+        Sprite: ''Rg_201_01'',3;
+
+        Sprite: ''Rg_201_02'',3;
+
+        Sprite:
+        ''Rg_201_03'',3;
+
+        Sprite: ''Rg_201_04'',3;
+
+        Sprite: ''Rg_201_05'',3;
+
+        Sprite:
+        ''Rg_201_06'',3;
+
+        Sprite: ''Rg_201_07'',3;
+
+        Sprite: ''Rg_201_08'',3;
+
+        Sprite:
+        ''Rg_201_09'',3;
+
+        Sprite: ''Rg_201_10'',3;
+
+        Sprite: ''Rg_201_11'',3;
+
+        Sprite:
+        ''Rg_201_12'',3;
+
+        Sprite: ''Rg_201_13'',3;
+
+        Sprite: ''Rg_201_14'',3;
+
+        Sprite:
+        ''Rg_201_15'',3;
+
+        Sprite: ''Rg_000_00'',4;
+
+        GotoMarker: ''Loop'';
 
         return;'
     - Name: 
@@ -557,14 +1622,14 @@ MonoBehaviour:
       Data: 
     - Name: NodeLinkDatas
       Entry: 7
-      Data: 16|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
+      Data: 40|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 12
     - Name: 
       Entry: 7
-      Data: 17|ET.Client.NodeLinkData, Unity.Loader
+      Data: 41|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 63ccd9ae6fe34fe418e7d3e097d13abc
@@ -579,13 +1644,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 18|ET.Client.NodeLinkData, Unity.Loader
+      Data: 42|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: a6e70d3652c0f9f48a30ff1503a6fd94
     - Name: inputNodeGuid
       Entry: 1
-      Data: 62b5870b75b07e34481c973304a562e2
+      Data: a6f68b669c3d36847bf51978ea60ff60
     - Name: portID
       Entry: 3
       Data: 0
@@ -594,10 +1659,55 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 19|ET.Client.NodeLinkData, Unity.Loader
+      Data: 43|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: a6e70d3652c0f9f48a30ff1503a6fd94
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 0896d8a2db1a15a459d1581da5aae04d
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 44|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: a6e70d3652c0f9f48a30ff1503a6fd94
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 4bbc1deb6e661d64e84bc400152dc630
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 45|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 62b5870b75b07e34481c973304a562e2
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 374d16ee08ce89a4a9d471d2bab710ef
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 46|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 0896d8a2db1a15a459d1581da5aae04d
     - Name: inputNodeGuid
       Entry: 1
       Data: 8b8615905ffdf9142a46dd6da535db7e
@@ -609,13 +1719,88 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 20|ET.Client.NodeLinkData, Unity.Loader
+      Data: 47|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
-      Data: a6e70d3652c0f9f48a30ff1503a6fd94
+      Data: a6f68b669c3d36847bf51978ea60ff60
     - Name: inputNodeGuid
       Entry: 1
-      Data: 0b8174c9cbfc3554887fd1974762833c
+      Data: 62b5870b75b07e34481c973304a562e2
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 48|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 374d16ee08ce89a4a9d471d2bab710ef
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: e1c64b53cc168d44086b4344caaa6837
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 49|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: a18d9008db0a66649b6275fbd61a1bf1
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: ab252046fe5d56a45b36dddc89054a2c
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 50|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 4bbc1deb6e661d64e84bc400152dc630
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: a18d9008db0a66649b6275fbd61a1bf1
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 51|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: ab252046fe5d56a45b36dddc89054a2c
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: c7b126096f8aff144843aec22bb2f630
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 52|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: c7b126096f8aff144843aec22bb2f630
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: d552ac3fbe86ed545bf5131cd595761b
     - Name: portID
       Entry: 3
       Data: 0
@@ -630,18 +1815,18 @@ MonoBehaviour:
       Data: 
     - Name: targets
       Entry: 7
-      Data: 21|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
+      Data: 53|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
         Unity.Loader]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 22|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
+      Data: 54|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 13
     - Name: 
       Entry: 7
       Data: 
@@ -662,7 +1847,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 9
-      Data: 10
+      Data: 7
     - Name: 
       Entry: 8
       Data: 
@@ -674,7 +1859,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 9
-      Data: 13
+      Data: 16
     - Name: 
       Entry: 8
       Data: 
@@ -686,7 +1871,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 9
-      Data: 7
+      Data: 13
     - Name: 
       Entry: 8
       Data: 
@@ -698,7 +1883,103 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 9
+      Data: 28
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 9
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 6
+    - Name: $v
+      Entry: 9
       Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 7
+    - Name: $v
+      Entry: 9
+      Data: 25
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 8
+    - Name: $v
+      Entry: 9
+      Data: 19
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 9
+    - Name: $v
+      Entry: 9
+      Data: 31
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 10
+    - Name: $v
+      Entry: 9
+      Data: 22
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 11
+    - Name: $v
+      Entry: 9
+      Data: 34
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 12
+    - Name: $v
+      Entry: 9
+      Data: 37
     - Name: 
       Entry: 8
       Data: 
@@ -710,7 +1991,7 @@ MonoBehaviour:
       Data: 
     - Name: Variables
       Entry: 7
-      Data: 23|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
+      Data: 55|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -723,4 +2004,24 @@ MonoBehaviour:
       Data: 
   treeName: 
   treeID: 10
-  blockDatas: []
+  blockDatas:
+  - position: {x: 552, y: 351}
+    title: Idle
+    children:
+    - 0896d8a2db1a15a459d1581da5aae04d
+    - 8b8615905ffdf9142a46dd6da535db7e
+  - position: {x: 556, y: -60}
+    title: B
+    children:
+    - 62b5870b75b07e34481c973304a562e2
+    - a6f68b669c3d36847bf51978ea60ff60
+    - 374d16ee08ce89a4a9d471d2bab710ef
+    - e1c64b53cc168d44086b4344caaa6837
+  - position: {x: 551, y: 140}
+    title: C
+    children:
+    - a18d9008db0a66649b6275fbd61a1bf1
+    - 4bbc1deb6e661d64e84bc400152dc630
+    - ab252046fe5d56a45b36dddc89054a2c
+    - c7b126096f8aff144843aec22bb2f630
+    - d552ac3fbe86ed545bf5131cd595761b

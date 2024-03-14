@@ -4,7 +4,7 @@ namespace ET.Client
 {
     [FriendOf(typeof (BBInputComponent))]
     [FriendOf(typeof (BBParser))]
-    [FriendOf(typeof (BBSkillInfo))]
+    [FriendOf(typeof (BehaviorInfo))]
     public class RegistInputChecker_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
@@ -22,7 +22,7 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            BBSkillInfo skillInfo = parser.GetParent<DialogueComponent>().GetComponent<BBInputComponent>().GetSkillInfo(parser.currentID);
+            BehaviorInfo skillInfo = parser.GetParent<DialogueComponent>().GetComponent<BBInputComponent>().GetSkillInfo(parser.currentID);
             skillInfo.inputChecker = match.Groups["Checker"].Value;
             int.TryParse(match.Groups["LastedFrame"].Value, out int lastedFrame);
             skillInfo.LastedFrame = lastedFrame;

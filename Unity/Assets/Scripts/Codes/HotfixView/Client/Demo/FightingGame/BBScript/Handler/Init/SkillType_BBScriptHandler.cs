@@ -3,7 +3,7 @@
 namespace ET.Client
 {
     [FriendOf(typeof(BBParser))]
-    [FriendOf(typeof(BBSkillInfo))]
+    [FriendOf(typeof(BehaviorInfo))]
     public class SkillType_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
@@ -22,20 +22,20 @@ namespace ET.Client
             }
 
             string skillType = match.Groups["skill"].Value;
-            BBSkillInfo skillInfo = parser.GetParent<DialogueComponent>().GetComponent<BBInputComponent>().GetSkillInfo(parser.currentID);
+            BehaviorInfo skillInfo = parser.GetParent<DialogueComponent>().GetComponent<BBInputComponent>().GetSkillInfo(parser.currentID);
             switch (skillType)
             {
                 case "Move":
-                    skillInfo.skillType = SkillOrder.Move;
+                    skillInfo.BehaviorType = SkillOrder.Move;
                     break;
                 case "Normal":
-                    skillInfo.skillType = SkillOrder.Normal;
+                    skillInfo.BehaviorType = SkillOrder.Normal;
                     break;
                 case "SpecialMove":
-                    skillInfo.skillType = SkillOrder.SpecialMove;
+                    skillInfo.BehaviorType = SkillOrder.SpecialMove;
                     break;
                 case "SuperArt":
-                    skillInfo.skillType = SkillOrder.SuperArt;
+                    skillInfo.BehaviorType = SkillOrder.SuperArt;
                     break;
             }
 

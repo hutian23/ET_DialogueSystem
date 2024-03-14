@@ -2,19 +2,19 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof (BBSkillInfo))]
+    [FriendOf(typeof (BehaviorInfo))]
     [FriendOf(typeof (DialogueComponent))]
-    public static class BBSkillInfoSystem
+    public static class BehaviorInfoSystem
     {
-        public static long GetSkillOrder(this BBSkillInfo self)
+        public static long GetSkillOrder(this BehaviorInfo self)
         {
             ulong result = 0;
             result |= (uint)self.order;
-            result |= (ulong)self.skillType << 32;
+            result |= (ulong)self.BehaviorType << 32;
             return (long)result;
         }
 
-        public static async ETTask InputCheckCor(this BBSkillInfo self, Unit unit, ETCancellationToken token)
+        public static async ETTask InputCheckCor(this BehaviorInfo self, Unit unit, ETCancellationToken token)
         {
             while (true)
             {
@@ -27,7 +27,6 @@ namespace ET.Client
                 if (ret == Status.Success)
                 {
                     self.GetParent<BBInputComponent>().GetComponent<BBBehaviorBufferComponent>().AddBehaviorBuffer(self);
-                    Log.Warning("GunFlame");
                 }
 
                 await TimerComponent.Instance.WaitFrameAsync(token);

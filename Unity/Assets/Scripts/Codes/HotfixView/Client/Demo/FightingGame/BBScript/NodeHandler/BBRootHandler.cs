@@ -3,7 +3,7 @@
 namespace ET.Client
 {
     [FriendOf(typeof (BBInputComponent))]
-    [FriendOf(typeof (BBSkillInfo))]
+    [FriendOf(typeof (BehaviorInfo))]
     public class BBRootHandler: NodeHandler<BBRoot>
     {
         protected override async ETTask<Status> Run(Unit unit, BBRoot node, ETCancellationToken token)
@@ -28,17 +28,13 @@ namespace ET.Client
                 v.InputCheckCor(unit, token).Coroutine();
             });
 
-            unit.GetComponent<DialogueComponent>()
-                    .GetComponent<BBInputComponent>()
-                    .GetComponent<BBBehaviorBufferComponent>()
-                    .EnableBehaviorBufferCheckTimer();
-
+            uint currentID = 0;
             while (true)
             {
-                WaitNextSkill waitNext = await unit.GetComponent<DialogueComponent>().GetComponent<ObjectWait>().Wait<WaitNextSkill>(token);
-                if (token.IsCancel()) return Status.Failed;
-
-                Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, dialogueComponent.GetNode(waitNext.targetID), token);
+                BBNode child = dialogueComponent.GetNode(currentID) as BBNode;
+     
+                Status ret = await DialogueDispatcherComponent.Instance.Handle(unit, child, token);
+                
                 if (token.IsCancel()) return Status.Failed;
                 if (ret != Status.Success) return ret;
 

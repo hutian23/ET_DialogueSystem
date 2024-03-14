@@ -10,4 +10,5 @@
         public const int SpecialMove = 3; 
         public const int SuperArt = 4;
     }
+    
 }
