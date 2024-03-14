@@ -16,7 +16,9 @@
                 dialogueComponent.RemoveComponent<BBTimerComponent>();
                 dialogueComponent.RemoveComponent<BBParser>();
                 dialogueComponent.RemoveComponent<GatlingCancel>();
+                dialogueComponent.RemoveComponent<WhiffCancel>();
                 dialogueComponent.RemoveComponent<BBInputComponent>();
+                dialogueComponent.RemoveComponent<BehaviorBufferComponent>();
                 dialogueComponent.RemoveComponent<BBAnimComponent>();
                 unit.RemoveComponent<NumericComponent>();
             });
@@ -24,7 +26,9 @@
             dialogueComponent.AddComponent<BBTimerComponent>();
             dialogueComponent.AddComponent<BBParser>();
             dialogueComponent.AddComponent<GatlingCancel>();
+            dialogueComponent.AddComponent<WhiffCancel>();
             dialogueComponent.AddComponent<BBInputComponent>();
+            dialogueComponent.AddComponent<BehaviorBufferComponent>();
             dialogueComponent.AddComponent<BBAnimComponent>();
             unit.AddComponent<NumericComponent>();
 

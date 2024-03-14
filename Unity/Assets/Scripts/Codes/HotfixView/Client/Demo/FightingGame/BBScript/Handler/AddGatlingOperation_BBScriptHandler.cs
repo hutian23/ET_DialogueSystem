@@ -2,11 +2,11 @@
 
 namespace ET.Client
 {
-    public class AddGatlingCancel_BBScriptHandler: BBScriptHandler
+    public class AddGatlingOperation_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "AddGatlingCancel";
+            return "AddGatlingOperation";
         }
 
         //AddGatlingCancel: 'Sol_5HS';
@@ -19,7 +19,7 @@ namespace ET.Client
         //3. 可GC取消时(设置一个窗口)，每帧遍历栈，找到符合条件的行为(包括数值检测等等),执行
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, "AddGatlingCancel: '(?<skill>.*?)';");
+            Match match = Regex.Match(data.opLine, "AddGatlingOperation: '(?<skill>.*?)';");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(data.opLine);

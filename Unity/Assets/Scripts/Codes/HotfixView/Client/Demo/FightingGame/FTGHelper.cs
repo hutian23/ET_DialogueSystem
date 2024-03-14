@@ -35,11 +35,5 @@ namespace ET.Client
         {
             return unit.GetComponent<DialogueComponent>().GetComponent<BBInputComponent>().GetComponent<BBWait>();
         }
-
-        public static BehaviorInfo GetSkillInfo(Unit unit, uint targetID)
-        {
-            BBInputComponent inputComponent = unit.GetComponent<DialogueComponent>().GetComponent<BBInputComponent>();
-            return inputComponent.GetChild<BehaviorInfo>(targetID);
-        }
     }
 }

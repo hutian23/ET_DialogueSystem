@@ -64,9 +64,6 @@ namespace ET.Client
 
         public static async ETTask Init(this BBParser self, ETCancellationToken token)
         {
-            //技能配置，还有其他配置要作为子Entity挂在SkillInfo下面
-            BBInputComponent inputComponent = self.GetParent<DialogueComponent>().GetComponent<BBInputComponent>();
-            inputComponent.AddSkillInfo(self.currentID);
             await self.Invoke("Init", token);
         }
 

@@ -103,7 +103,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 12
+      Data: 13
     - Name: 
       Entry: 7
       Data: 4|ET.Client.BBNode, Unity.Loader
@@ -146,10 +146,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 735
+      Data: 763
     - Name: 
       Entry: 4
-      Data: 410
+      Data: 413
     - Name: 
       Entry: 8
       Data: 
@@ -476,10 +476,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 577
+      Data: 580
     - Name: 
       Entry: 4
-      Data: 410
+      Data: 511
     - Name: 
       Entry: 8
       Data: 
@@ -504,57 +504,13 @@ MonoBehaviour:
       Data: Rg_Idle
     - Name: BBScript
       Entry: 1
-      Data: '@Init:
-
-        SkillType: Normal;
-
-        Order: 0;
-
-        return;
-
-
-        @Main:
-
-        SetMarker:
-        ''Loop'';
-
-        Sprite: ''Rg_000_00'',5;
-
-        Sprite: ''Rg_000_01'',5;
-
-        Sprite:
-        ''Rg_000_02'',5;
-
-        Sprite: ''Rg_000_03'',5;
-
-        Sprite: ''Rg_000_04'',5;
-
-        Sprite:
-        ''Rg_000_05'',5;
-
-        Sprite: ''Rg_000_06'',5;
-
-
-        Sprite: ''Rg_000_05'',5;
-
-        Sprite:
-        ''Rg_000_04'',5;
-
-        Sprite: ''Rg_000_03'',5;
-
-        Sprite: ''Rg_000_02'',5;
-
-        Sprite:
-        ''Rg_000_01'',5;
-
-        Sprite: ''Rg_000_00'',2;
-
-        GotoMarker: ''Loop'';
-
-        return;
-
-
-'
+      Data: "@Init:\nBehaviorOrder: Normal,1;\nTag: 'Rg_Idle';\n\nTrigger: Input(236P);
+        # \u5F53\u524D\u5E27\u662F\u5426\u5B58\u5728\u8BE5\u6307\u4EE4\u7F13\u51B2\nTrigger:
+        HP > 10;\nTrigger: SP > 10;\nreturn;\n\n@Main:\nSetMarker: 'Loop';\nSprite:
+        'Rg_000_00',5;\nSprite: 'Rg_000_01',5;\nSprite: 'Rg_000_02',5;\nSprite: 'Rg_000_03',5;\nSprite:
+        'Rg_000_04',5;\nSprite: 'Rg_000_05',5;\nSprite: 'Rg_000_06',5;\n\nSprite:
+        'Rg_000_05',5;\nSprite: 'Rg_000_04',5;\nSprite: 'Rg_000_03',5;\nSprite: 'Rg_000_02',5;\nSprite:
+        'Rg_000_01',5;\nSprite: 'Rg_000_00',2;\nGotoMarker: 'Loop';\nreturn;\n\n"
     - Name: 
       Entry: 8
       Data: 
@@ -632,6 +588,7 @@ MonoBehaviour:
 
         RegistInput: ''236P'',5;
 
+
         SkillTag: ''Sol_GunFlame'';
 
         Order:
@@ -698,7 +655,7 @@ MonoBehaviour:
       Data: 10
     - Name: TargetID
       Entry: 3
-      Data: 8
+      Data: 9
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -830,7 +787,7 @@ MonoBehaviour:
       Data: 10
     - Name: TargetID
       Entry: 3
-      Data: 10
+      Data: 11
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -962,7 +919,7 @@ MonoBehaviour:
       Data: 10
     - Name: TargetID
       Entry: 3
-      Data: 7
+      Data: 8
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -1128,7 +1085,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 576
+      Data: 580
     - Name: 
       Entry: 4
       Data: 199
@@ -1165,40 +1122,69 @@ MonoBehaviour:
         Order:
         10;
 
+
+        Trigger: HP > 10;
+
+        Trigger: SP > 100;
+
         return;
 
 
         @Main:
 
-        SetMarker: ''Loop'';
+        SetMarker:
+        ''Loop'';
+
+
+        #Start
+
+        Sprite: ''Rg_201_00'',3;
 
         Sprite:
-        ''Rg_201_00'',3;
-
-        Sprite: ''Rg_201_01'',3;
+        ''Rg_201_01'',3;
 
         Sprite: ''Rg_201_02'',3;
 
-        Sprite:
-        ''Rg_201_03'',3;
+        Sprite: ''Rg_201_03'',3;
 
-        Sprite: ''Rg_201_04'',3;
+        Sprite:
+        ''Rg_201_04'',3;
 
         Sprite: ''Rg_201_05'',3;
 
-        Sprite:
-        ''Rg_201_06'',3;
+
+        # Active
+
+        EnableGC;
+
+        AddGatlingOption:
+        ''Rg_5C'';
+
+        AddGatlingOption: ''Rg_6C'';
+
+        AddGatlingOption:
+        ''Rg_2C'';
+
+
+        Sprite: ''Rg_201_06'',3;
 
         Sprite: ''Rg_201_07'',3;
 
-        Sprite: ''Rg_201_08'',3;
-
         Sprite:
-        ''Rg_201_09'',3;
+        ''Rg_201_08'',3;
+
+        Sprite: ''Rg_201_09'',3;
 
         Sprite: ''Rg_201_10'',3;
 
-        Sprite: ''Rg_201_11'',3;
+        Sprite:
+        ''Rg_201_11'',3;
+
+
+        DisableGC;
+
+
+        # Recovery
 
         Sprite:
         ''Rg_201_12'',3;
@@ -1226,7 +1212,7 @@ MonoBehaviour:
       Data: 10
     - Name: TargetID
       Entry: 3
-      Data: 9
+      Data: 10
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -1358,7 +1344,7 @@ MonoBehaviour:
       Data: 10
     - Name: TargetID
       Entry: 3
-      Data: 11
+      Data: 12
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -1490,7 +1476,7 @@ MonoBehaviour:
       Data: 10
     - Name: TargetID
       Entry: 3
-      Data: 12
+      Data: 13
     - Name: NeedCheck
       Entry: 5
       Data: false
@@ -1615,6 +1601,87 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 40|ET.Client.BBNode, Unity.Loader
+    - Name: TreeID
+      Entry: 3
+      Data: 10
+    - Name: TargetID
+      Entry: 3
+      Data: 7
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 41|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: 6a99ce2cd70d1c14fa278a422dd8baa7
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 733
+    - Name: 
+      Entry: 4
+      Data: 613
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 7
+      Data: 42|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: behaviorName
+      Entry: 1
+      Data: Rg_Airbrone
+    - Name: BBScript
+      Entry: 1
+      Data: "@Init:\nBehaviorOrder: Normal,1;\nTag: 'Rg_Idle';\nRegistInput: '236P';  
+        #  \u6CE8\u518C\u6307\u4EE4\u68C0\u6D4B\u534F\u7A0B\n\nTrigger: Input(236P);
+        # \u5F53\u524D\u5E27\u662F\u5426\u5B58\u5728\u8BE5\u6307\u4EE4\u7F13\u51B2\nTrigger:
+        HP > 10;\nTrigger: SP > 10;\nTrigger: InAir;\nTension: 50;\nreturn;\n\n@Main:\nSetMarker:
+        'Loop';\nSprite: 'Rg_000_00',5;\nSprite: 'Rg_000_01',5;\nSprite: 'Rg_000_02',5;\nSprite:
+        'Rg_000_03',5;\nSprite: 'Rg_000_04',5;\nSprite: 'Rg_000_05',5;\nSprite: 'Rg_000_06',5;\n\nSprite:
+        'Rg_000_05',5;\nSprite: 'Rg_000_04',5;\nSprite: 'Rg_000_03',5;\nSprite: 'Rg_000_02',5;\nSprite:
+        'Rg_000_01',5;\nSprite: 'Rg_000_00',2;\nGotoMarker: 'Loop';\nreturn;\n\n"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -1622,14 +1689,14 @@ MonoBehaviour:
       Data: 
     - Name: NodeLinkDatas
       Entry: 7
-      Data: 40|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
+      Data: 43|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 12
+      Data: 13
     - Name: 
       Entry: 7
-      Data: 41|ET.Client.NodeLinkData, Unity.Loader
+      Data: 44|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 63ccd9ae6fe34fe418e7d3e097d13abc
@@ -1644,7 +1711,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 42|ET.Client.NodeLinkData, Unity.Loader
+      Data: 45|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: a6e70d3652c0f9f48a30ff1503a6fd94
@@ -1659,7 +1726,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 43|ET.Client.NodeLinkData, Unity.Loader
+      Data: 46|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: a6e70d3652c0f9f48a30ff1503a6fd94
@@ -1674,7 +1741,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 44|ET.Client.NodeLinkData, Unity.Loader
+      Data: 47|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: a6e70d3652c0f9f48a30ff1503a6fd94
@@ -1689,7 +1756,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 45|ET.Client.NodeLinkData, Unity.Loader
+      Data: 48|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 62b5870b75b07e34481c973304a562e2
@@ -1704,22 +1771,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 46|ET.Client.NodeLinkData, Unity.Loader
-    - Name: outputNodeGuid
-      Entry: 1
-      Data: 0896d8a2db1a15a459d1581da5aae04d
-    - Name: inputNodeGuid
-      Entry: 1
-      Data: 8b8615905ffdf9142a46dd6da535db7e
-    - Name: portID
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 47|ET.Client.NodeLinkData, Unity.Loader
+      Data: 49|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: a6f68b669c3d36847bf51978ea60ff60
@@ -1734,7 +1786,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 48|ET.Client.NodeLinkData, Unity.Loader
+      Data: 50|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 374d16ee08ce89a4a9d471d2bab710ef
@@ -1749,7 +1801,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 49|ET.Client.NodeLinkData, Unity.Loader
+      Data: 51|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: a18d9008db0a66649b6275fbd61a1bf1
@@ -1764,7 +1816,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 50|ET.Client.NodeLinkData, Unity.Loader
+      Data: 52|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 4bbc1deb6e661d64e84bc400152dc630
@@ -1779,7 +1831,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 51|ET.Client.NodeLinkData, Unity.Loader
+      Data: 53|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: ab252046fe5d56a45b36dddc89054a2c
@@ -1794,13 +1846,43 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 52|ET.Client.NodeLinkData, Unity.Loader
+      Data: 54|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: c7b126096f8aff144843aec22bb2f630
     - Name: inputNodeGuid
       Entry: 1
       Data: d552ac3fbe86ed545bf5131cd595761b
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 55|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 0896d8a2db1a15a459d1581da5aae04d
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 8b8615905ffdf9142a46dd6da535db7e
+    - Name: portID
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 56|ET.Client.NodeLinkData, Unity.Loader
+    - Name: outputNodeGuid
+      Entry: 1
+      Data: 0896d8a2db1a15a459d1581da5aae04d
+    - Name: inputNodeGuid
+      Entry: 1
+      Data: 6a99ce2cd70d1c14fa278a422dd8baa7
     - Name: portID
       Entry: 3
       Data: 0
@@ -1815,18 +1897,18 @@ MonoBehaviour:
       Data: 
     - Name: targets
       Entry: 7
-      Data: 53|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
+      Data: 57|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
         Unity.Loader]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 54|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
+      Data: 58|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 12
-      Data: 13
+      Data: 14
     - Name: 
       Entry: 7
       Data: 
@@ -1919,7 +2001,7 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 9
-      Data: 25
+      Data: 40
     - Name: 
       Entry: 8
       Data: 
@@ -1931,7 +2013,7 @@ MonoBehaviour:
       Data: 8
     - Name: $v
       Entry: 9
-      Data: 19
+      Data: 25
     - Name: 
       Entry: 8
       Data: 
@@ -1943,7 +2025,7 @@ MonoBehaviour:
       Data: 9
     - Name: $v
       Entry: 9
-      Data: 31
+      Data: 19
     - Name: 
       Entry: 8
       Data: 
@@ -1955,7 +2037,7 @@ MonoBehaviour:
       Data: 10
     - Name: $v
       Entry: 9
-      Data: 22
+      Data: 31
     - Name: 
       Entry: 8
       Data: 
@@ -1967,7 +2049,7 @@ MonoBehaviour:
       Data: 11
     - Name: $v
       Entry: 9
-      Data: 34
+      Data: 22
     - Name: 
       Entry: 8
       Data: 
@@ -1977,6 +2059,18 @@ MonoBehaviour:
     - Name: $k
       Entry: 3
       Data: 12
+    - Name: $v
+      Entry: 9
+      Data: 34
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 13
     - Name: $v
       Entry: 9
       Data: 37
@@ -1991,7 +2085,7 @@ MonoBehaviour:
       Data: 
     - Name: Variables
       Entry: 7
-      Data: 55|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
+      Data: 59|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -2005,11 +2099,12 @@ MonoBehaviour:
   treeName: 
   treeID: 10
   blockDatas:
-  - position: {x: 552, y: 351}
+  - position: {x: 555, y: 354}
     title: Idle
     children:
     - 0896d8a2db1a15a459d1581da5aae04d
     - 8b8615905ffdf9142a46dd6da535db7e
+    - 6a99ce2cd70d1c14fa278a422dd8baa7
   - position: {x: 556, y: -60}
     title: B
     children:
@@ -2017,7 +2112,7 @@ MonoBehaviour:
     - a6f68b669c3d36847bf51978ea60ff60
     - 374d16ee08ce89a4a9d471d2bab710ef
     - e1c64b53cc168d44086b4344caaa6837
-  - position: {x: 551, y: 140}
+  - position: {x: 555, y: 140}
     title: C
     children:
     - a18d9008db0a66649b6275fbd61a1bf1

@@ -3,7 +3,7 @@
 namespace ET.Client
 {
     [FriendOf(typeof (BBParser))]
-    [FriendOf(typeof (BehaviorInfo))]
+    // [FriendOf(typeof (BehaviorInfo))]
     public class SkillOrder_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()

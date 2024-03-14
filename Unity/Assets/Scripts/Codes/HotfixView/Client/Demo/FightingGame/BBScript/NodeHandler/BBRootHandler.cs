@@ -1,9 +1,6 @@
-﻿using Sirenix.Utilities;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     [FriendOf(typeof (BBInputComponent))]
-    [FriendOf(typeof (BehaviorInfo))]
     public class BBRootHandler: NodeHandler<BBRoot>
     {
         protected override async ETTask<Status> Run(Unit unit, BBRoot node, ETCancellationToken token)
@@ -18,16 +15,7 @@ namespace ET.Client
                 Parser.InitScript(bbNode);
                 await Parser.Init(token);
             }
-
-            //开启技能输入检测输入协程
-            BBInputComponent inputComponent = dialogueComponent.GetComponent<BBInputComponent>();
-
-            inputComponent.skilInfoDict.Values.ForEach(v =>
-            {
-                if (string.IsNullOrEmpty(v.inputChecker)) return;
-                v.InputCheckCor(unit, token).Coroutine();
-            });
-
+            
             uint currentID = 0;
             while (true)
             {
