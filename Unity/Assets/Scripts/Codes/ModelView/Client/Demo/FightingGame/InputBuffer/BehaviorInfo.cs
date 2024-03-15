@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    [ChildOf(typeof (BBInputComponent))]
+    [ChildOf(typeof (BehaviorBufferComponent))]
     public class BehaviorInfo: Entity, IAwake, IDestroy
     {
         public uint skillType;

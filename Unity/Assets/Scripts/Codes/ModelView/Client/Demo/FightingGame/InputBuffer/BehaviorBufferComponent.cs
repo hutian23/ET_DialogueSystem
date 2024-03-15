@@ -8,6 +8,12 @@ namespace ET.Client
         public long bufferCheckTimer;
         public Queue<BehaviorBuffer> BufferQueue = new();
         public HashSet<long> OrderSet = new();
+
+        public Dictionary<uint, BehaviorInfo> behaviorDict = new();
+        //协程化输入检测
+        public Dictionary<uint, InputCheck> inputCheckDict = new();
+        //每帧检测
+        public Dictionary<uint, TriggerCheck> triggerCheckDict = new();
     }
 
     public class BehaviorBuffer

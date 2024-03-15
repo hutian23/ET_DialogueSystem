@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof (BBInputComponent))]
+    [FriendOf(typeof(BehaviorBufferComponent))]
     [FriendOf(typeof (BBTimerComponent))]
     public static class FTGHelper
     {
@@ -38,7 +38,7 @@ namespace ET.Client
 
         public static BehaviorInfo GetBehaviorInfo(BBParser parser, uint targetID)
         {
-            if (parser.GetParent<DialogueComponent>().GetComponent<BBInputComponent>().behaviorDict.TryGetValue(targetID, out BehaviorInfo info))
+            if (parser.GetParent<DialogueComponent>().GetComponent<BehaviorBufferComponent>().behaviorDict.TryGetValue(targetID, out BehaviorInfo info))
             {
                 return info;
             }

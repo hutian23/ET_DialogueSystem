@@ -40,7 +40,7 @@ namespace ET.Client
             return self.ContainOrder((long)result);
         }
 
-        public static bool ContainOrder(this BehaviorBufferComponent self, long skillOrder)
+        private static bool ContainOrder(this BehaviorBufferComponent self, long skillOrder)
         {
             return self.OrderSet.Contains(skillOrder);
         }

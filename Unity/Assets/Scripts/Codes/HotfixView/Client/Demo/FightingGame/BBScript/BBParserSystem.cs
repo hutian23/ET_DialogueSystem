@@ -2,12 +2,12 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof(BBParser))]
-    [FriendOf(typeof(DialogueDispatcherComponent))]
-    [FriendOf(typeof(BBInputComponent))]
+    [FriendOf(typeof (BBParser))]
+    [FriendOf(typeof (DialogueDispatcherComponent))]
+    [FriendOf(typeof (BehaviorBufferComponent))]
     public static class BBParserSystem
     {
-        public class BBParserDestroySystem : DestroySystem<BBParser>
+        public class BBParserDestroySystem: DestroySystem<BBParser>
         {
             protected override void Destroy(BBParser self)
             {
@@ -65,9 +65,9 @@ namespace ET.Client
 
         public static async ETTask Init(this BBParser self, ETCancellationToken token)
         {
-            BBInputComponent bbInput = self.GetParent<DialogueComponent>().GetComponent<BBInputComponent>();
-            BehaviorInfo behaviorInfo = bbInput.AddChild<BehaviorInfo>();
-            bbInput.behaviorDict.Add(self.currentID, behaviorInfo);
+            BehaviorBufferComponent bufferComponent = self.GetParent<DialogueComponent>().GetComponent<BehaviorBufferComponent>();
+            BehaviorInfo behaviorInfo = bufferComponent.AddChild<BehaviorInfo>();
+            bufferComponent.behaviorDict.Add(self.currentID, behaviorInfo);
 
             await self.Invoke("Init", token);
         }
