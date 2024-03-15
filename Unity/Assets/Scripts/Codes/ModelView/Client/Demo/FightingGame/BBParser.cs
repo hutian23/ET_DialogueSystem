@@ -22,12 +22,14 @@ namespace ET.Client
     {
         public string opLine; //指令码
         public long functionID; //协程ID
-
-        public static BBScriptData Create(string opLine, long functionID)
+        public uint targetID; // 节点ID
+        
+        public static BBScriptData Create(string opLine, long functionID,uint targetID)
         {
             BBScriptData scriptData = ObjectPool.Instance.Fetch<BBScriptData>();
             scriptData.opLine = opLine;
             scriptData.functionID = functionID;
+            scriptData.targetID = targetID;
             return scriptData;
         }
 
@@ -35,6 +37,7 @@ namespace ET.Client
         {
             this.opLine = string.Empty;
             this.functionID = 0;
+            this.targetID = 0;
             ObjectPool.Instance.Recycle(this);
         }
     }

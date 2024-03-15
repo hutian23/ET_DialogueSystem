@@ -11,6 +11,8 @@ namespace ET.Client
 
         //按键与按下按键的帧号的映射，超过 n 帧判定为过期，这个按键没有按下
         public Dictionary<int, long> pressDict = new();
+
+        public Dictionary<uint, BehaviorInfo> behaviorDict = new();
     }
 
     public class InputInfo

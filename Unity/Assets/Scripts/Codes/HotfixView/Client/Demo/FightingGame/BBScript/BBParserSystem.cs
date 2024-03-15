@@ -2,11 +2,12 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof (BBParser))]
-    [FriendOf(typeof (DialogueDispatcherComponent))]
+    [FriendOf(typeof(BBParser))]
+    [FriendOf(typeof(DialogueDispatcherComponent))]
+    [FriendOf(typeof(BBInputComponent))]
     public static class BBParserSystem
     {
-        public class BBParserDestroySystem: DestroySystem<BBParser>
+        public class BBParserDestroySystem : DestroySystem<BBParser>
         {
             protected override void Destroy(BBParser self)
             {
@@ -64,6 +65,10 @@ namespace ET.Client
 
         public static async ETTask Init(this BBParser self, ETCancellationToken token)
         {
+            BBInputComponent bbInput = self.GetParent<DialogueComponent>().GetComponent<BBInputComponent>();
+            BehaviorInfo behaviorInfo = bbInput.AddChild<BehaviorInfo>();
+            bbInput.behaviorDict.Add(self.currentID, behaviorInfo);
+
             await self.Invoke("Init", token);
         }
 
@@ -99,7 +104,7 @@ namespace ET.Client
 
             long funcId = IdGenerater.Instance.GenerateInstanceId(); //当前子协程的唯一标识符,对应调用指针
             self.function_Pointers.Add(funcId, index);
-            
+
             while (++self.function_Pointers[funcId] < self.opDict.Count)
             {
                 if (token.IsCancel()) return Status.Failed;
@@ -111,6 +116,7 @@ namespace ET.Client
                     Log.Error($"{opLine}匹配失败! 请检查格式");
                     return Status.Failed;
                 }
+
                 string opType = match.Value;
                 if (opType == "SetMarker") continue; //Init时执行过，跳过
 
@@ -120,7 +126,7 @@ namespace ET.Client
                     return Status.Failed;
                 }
 
-                BBScriptData data = BBScriptData.Create(opLine, funcId); //池化，不然GC很高
+                BBScriptData data = BBScriptData.Create(opLine, funcId, self.currentID); //池化，不然GC很高
                 Status ret = await handler.Handle(self, data, token); //执行一条语句相当于一个子协程
                 data.Recycle();
 

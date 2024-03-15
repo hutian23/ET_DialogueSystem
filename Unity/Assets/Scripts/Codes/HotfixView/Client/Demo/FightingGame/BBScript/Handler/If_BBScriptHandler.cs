@@ -81,7 +81,7 @@ namespace ET.Client
                         return Status.Failed;
                     }
 
-                    BBScriptData _data = BBScriptData.Create(opLine, data.functionID);
+                    BBScriptData _data = BBScriptData.Create(opLine, data.functionID, data.targetID);
                     bool ret = DialogueDispatcherComponent.Instance.GetTrigger(match.Groups[1].Value).Check(parser, _data);
                     //判定失败, 跳过整个if块中的代码
                     if (!ret)
@@ -108,7 +108,7 @@ namespace ET.Client
                         return Status.Failed;
                     }
 
-                    BBScriptData _data = BBScriptData.Create(opLine, data.functionID);
+                    BBScriptData _data = BBScriptData.Create(opLine, data.functionID, data.targetID);
                     Status ret = await handler.Handle(parser, _data, token);
 
                     if (token.IsCancel()) return Status.Failed;

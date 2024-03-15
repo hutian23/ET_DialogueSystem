@@ -19,7 +19,7 @@ namespace ET.Client
 
             return tmpList;
         }
-        
+
         /// <summary>
         /// 获取输入缓冲组件当前帧号
         /// 输入缓冲是独立的协程，timeScale不受战斗时间影响
@@ -34,6 +34,18 @@ namespace ET.Client
         public static BBWait GetBBWait(Unit unit)
         {
             return unit.GetComponent<DialogueComponent>().GetComponent<BBInputComponent>().GetComponent<BBWait>();
+        }
+
+        public static BehaviorInfo GetBehaviorInfo(BBParser parser, uint targetID)
+        {
+            if (parser.GetParent<DialogueComponent>().GetComponent<BBInputComponent>().behaviorDict.TryGetValue(targetID, out BehaviorInfo info))
+            {
+                return info;
+            }
+
+            Log.Error($"not found behaviorInfo，targetID: {targetID}");
+            return null;
+
         }
     }
 }

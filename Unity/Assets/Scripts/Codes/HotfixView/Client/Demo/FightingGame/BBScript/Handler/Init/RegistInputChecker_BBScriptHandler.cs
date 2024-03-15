@@ -4,7 +4,6 @@ namespace ET.Client
 {
     [FriendOf(typeof (BBInputComponent))]
     [FriendOf(typeof (BBParser))]
-    // [FriendOf(typeof (BehaviorInfo))]
     public class RegistInputChecker_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
