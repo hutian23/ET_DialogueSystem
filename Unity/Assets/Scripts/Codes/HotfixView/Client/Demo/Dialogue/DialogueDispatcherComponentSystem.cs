@@ -101,7 +101,7 @@ namespace ET.Client
                     continue;
                 }
 
-                self.BBCheckHandlers.Add(handler.GetSkillType(), handler);
+                self.BBCheckHandlers.Add(handler.GetBehaviorType(), handler);
             }
 
             self.BBScriptHandlers.Clear();

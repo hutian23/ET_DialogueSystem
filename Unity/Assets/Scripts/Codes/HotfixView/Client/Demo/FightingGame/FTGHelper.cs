@@ -45,7 +45,14 @@ namespace ET.Client
 
             Log.Error($"not found behaviorInfo，targetID: {targetID}");
             return null;
+        }
 
+        public static long GetOrder(uint skillType, uint order)
+        {
+            ulong result = 0;
+            result |= order;
+            result |= (ulong)skillType << 16;
+            return (long)result;
         }
     }
 }

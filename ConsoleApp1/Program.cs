@@ -45,8 +45,30 @@ class Program
 {
     static void Main(string[] args)
     {
-        Match match = Regex.Match("HP > 10", @"^\w+");
-        Console.WriteLine(match.Value);
+        SortedSet<int> set = new();
+        set.Add(2);
+        set.Add(1);
+        set.Add(1);
+        set.Add(0);
+        foreach (var  t in set)
+        {
+            Console.WriteLine(t);
+        }
+        // string input = "HP < 10";
+        // string pattern = @"^\w+"; // 匹配以字母开头的字符序列
+        //
+        // Match match = Regex.Match(input, pattern);
+        //
+        // if (match.Success)
+        // {
+        //     Console.WriteLine("第一个单词是: " + match.Value);
+        // }
+        // else
+        // {
+        //     Console.WriteLine("没有找到匹配的单词");
+        // }
+        // Match match = Regex.Match("HP > 10", @"^\w+");
+        // Console.WriteLine(match.Value);
         // Match match = Regex.Match("RegistInput: '236P',5;", @"RegistInput: '(?<Checker>\w+)',(?<LastedFrame>\w+);");
         // Console.WriteLine(match.Groups["LastedFrame"].Value);
         // List<string> str2 = new();

@@ -5,10 +5,12 @@ namespace ET.Client
     [ComponentOf(typeof (DialogueComponent))]
     public class BehaviorBufferComponent: Entity, IAwake, IDestroy
     {
-        public long bufferCheckTimer;
+        public long bufferTimer;
         public Queue<BehaviorBuffer> BufferQueue = new();
-        public HashSet<long> OrderSet = new();
+        public List<long> OrderList = new();
 
+        //技能优先级和节点ID的映射
+        public Dictionary<long, uint> targetIDDict = new();
         public Dictionary<uint, BehaviorInfo> behaviorDict = new();
         //协程化输入检测
         public Dictionary<uint, InputCheck> inputCheckDict = new();
@@ -21,13 +23,15 @@ namespace ET.Client
         public long order;
         public long startFrame;
         public long LastedFrame;
-
-        public static BehaviorBuffer Create(long order, long startFrame, long lastedFrame)
+        public uint targetID;
+        
+        public static BehaviorBuffer Create(long order, long startFrame, long lastedFrame,uint targetID)
         {
             BehaviorBuffer buffer = ObjectPool.Instance.Fetch<BehaviorBuffer>();
             buffer.order = order;
             buffer.startFrame = startFrame;
             buffer.LastedFrame = lastedFrame;
+            buffer.targetID = targetID;
             return buffer;
         }
 
@@ -36,6 +40,7 @@ namespace ET.Client
             this.order = 0;
             this.startFrame = 0;
             this.LastedFrame = 0;
+            this.targetID = 0;
             ObjectPool.Instance.Recycle(this);
         }
     }

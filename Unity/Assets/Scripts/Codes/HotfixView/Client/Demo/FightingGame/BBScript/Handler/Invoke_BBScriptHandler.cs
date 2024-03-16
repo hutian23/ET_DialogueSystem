@@ -20,7 +20,7 @@ namespace ET.Client
                 return Status.Failed;
             }
             
-            Status ret = await parser.Invoke(match.Groups["Function"].Value, token);
+            Status ret = await parser.Invoke(match.Groups["Function"].Value);
 
             return token.IsCancel() || ret == Status.Failed? Status.Failed : Status.Success;
         }

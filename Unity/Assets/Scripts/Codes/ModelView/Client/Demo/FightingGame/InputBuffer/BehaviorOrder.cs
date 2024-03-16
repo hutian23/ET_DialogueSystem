@@ -2,7 +2,7 @@
 {
     //优先级从上往下递增
     [UniqueId]
-    public static class SkillOrder
+    public static class BehaviorOrder
     {
         public const int None = 0;
         public const int Move = 1; // dash idle run

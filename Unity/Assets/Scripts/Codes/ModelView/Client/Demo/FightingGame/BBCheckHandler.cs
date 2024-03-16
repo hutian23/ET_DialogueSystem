@@ -7,7 +7,7 @@
     [BBScriptCheck]
     public abstract class BBCheckHandler
     {
-        public abstract string GetSkillType();
+        public abstract string GetBehaviorType();
 
         public abstract ETTask<Status> Handle(Unit unit, ETCancellationToken token);
     }

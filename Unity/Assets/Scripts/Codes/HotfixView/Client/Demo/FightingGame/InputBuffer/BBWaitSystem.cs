@@ -37,18 +37,6 @@
             // DialogueDispatcherComponent.Instance.BBCheckHandlers.Values.ForEach(handler => { self.CheckCor(handler).Coroutine(); });
         }
 
-        // private static async ETTask CheckCor(this BBWait self, BBCheckHandler handler)
-        // {
-        //     while (true)
-        //     {
-        //         if (self.token.IsCancel()) return;
-        //         Unit unit = self.GetParent<BBInputComponent>().GetParent<DialogueComponent>().GetParent<Unit>();
-        //         await handler.Handle(unit, self.token);
-        //         if (self.token.IsCancel()) return;
-        //         await TimerComponent.Instance.WaitFrameAsync(self.token);
-        //     }
-        // }
-
         // https://www.zhihu.com/question/36951135/answer/69880133
         public static void Notify(this BBWait self, long OP)
         {

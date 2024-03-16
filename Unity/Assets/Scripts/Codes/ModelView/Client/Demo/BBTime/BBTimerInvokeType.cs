@@ -9,5 +9,6 @@
         
         public const int BehaviorBuffer_TriggerTimer = 3;
         public const int BehaviorBufferCheckTimer = 4;
+        public const int BehaviorTimer = 5;
     }
 }

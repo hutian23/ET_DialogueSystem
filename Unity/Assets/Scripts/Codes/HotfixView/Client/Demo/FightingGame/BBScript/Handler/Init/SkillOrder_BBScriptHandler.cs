@@ -2,9 +2,10 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof(BBParser))]
-    [FriendOf(typeof(BehaviorInfo))]
-    public class SkillOrder_BBScriptHandler : BBScriptHandler
+    [FriendOf(typeof (BBParser))]
+    [FriendOf(typeof (BehaviorInfo))]
+    [FriendOf(typeof (BehaviorBufferComponent))]
+    public class SkillOrder_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
         {
@@ -26,23 +27,26 @@ namespace ET.Client
             switch (skillType)
             {
                 case "Move":
-                    skill = SkillOrder.Move;
+                    skill = BehaviorOrder.Move;
                     break;
                 case "Normal":
-                    skill = SkillOrder.Normal;
+                    skill = BehaviorOrder.Normal;
                     break;
                 case "SpecialMove":
-                    skill = SkillOrder.SpecialMove;
+                    skill = BehaviorOrder.SpecialMove;
                     break;
                 case "SuperArt":
-                    skill = SkillOrder.SuperArt;
+                    skill = BehaviorOrder.SuperArt;
                     break;
             }
-            
+
             uint.TryParse(match.Groups["order"].Value, out uint order);
             BehaviorInfo info = FTGHelper.GetBehaviorInfo(parser, data.targetID);
             info.order = order;
             info.skillType = skill;
+
+            BehaviorBufferComponent bufferComponent = info.GetParent<BehaviorBufferComponent>();
+            bufferComponent.targetIDDict.TryAdd(info.GetOrder(), data.targetID);
 
             await ETTask.CompletedTask;
             return Status.Success;

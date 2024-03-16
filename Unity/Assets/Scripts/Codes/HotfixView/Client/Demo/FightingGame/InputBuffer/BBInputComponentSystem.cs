@@ -65,7 +65,7 @@ namespace ET.Client
             self.pressDict.Add(BBOperaType.MIDDLEKICK | BBOperaType.MIDDLEPUNCH, 0);
         }
 
-        private static long CheckInput(this BBInputComponent self)
+        public static long CheckInput(this BBInputComponent self)
         {
             Gamepad gamepad = Gamepad.current;
             long ops = 0;

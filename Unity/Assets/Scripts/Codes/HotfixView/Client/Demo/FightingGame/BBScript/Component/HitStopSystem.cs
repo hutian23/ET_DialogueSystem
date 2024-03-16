@@ -26,11 +26,13 @@ namespace ET.Client
                 self.deltaTimeReminder -= num * frameLength;
                 self.frameCounter += num;
 
-                if (self.frameCounter >= self.waitFrame)
+                if (self.frameCounter < self.waitFrame)
                 {
-                    self.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>()?.SetTimeScale(self.preTimeScale);
-                    self.Dispose();
+                    return;
                 }
+
+                self.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>()?.SetTimeScale(self.preTimeScale);
+                self.Dispose();
             }
         }
     }

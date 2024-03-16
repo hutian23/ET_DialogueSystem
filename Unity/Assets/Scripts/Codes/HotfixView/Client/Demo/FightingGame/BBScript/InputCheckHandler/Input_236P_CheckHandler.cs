@@ -2,7 +2,7 @@
 {
     public class Input_236P_CheckHandler: BBCheckHandler
     {
-        public override string GetSkillType()
+        public override string GetBehaviorType()
         {
             return "236P";
         }
