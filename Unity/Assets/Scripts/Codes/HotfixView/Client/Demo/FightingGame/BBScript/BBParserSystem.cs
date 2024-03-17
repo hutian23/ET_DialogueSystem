@@ -77,12 +77,12 @@ namespace ET.Client
             bufferComponent.behaviorDict.Add(self.currentID, behaviorInfo);
             behaviorInfo.targetID = self.currentID;
 
-            await self.Invoke("Init");
+            await self.Invoke("Init",self.cancellationToken);
         }
 
         public static async ETTask<Status> Main(this BBParser self)
         {
-            Status ret = await self.Invoke("Main");
+            Status ret = await self.Invoke("Main",self.cancellationToken);
             self.cancellationToken.Cancel(); // 取消子协程
             return ret;
         }
@@ -102,7 +102,7 @@ namespace ET.Client
         /// 同步调用 Main函数或者在Main函数中调用函数
         /// 异步调用 不需要记录指针
         /// </summary>
-        public static async ETTask<Status> Invoke(this BBParser self, string funcName)
+        public static async ETTask<Status> Invoke(this BBParser self, string funcName,ETCancellationToken token)
         {
             //1. 找到函数入口指针
             if (!self.funcMap.TryGetValue(funcName, out int index))
@@ -148,6 +148,36 @@ namespace ET.Client
             }
 
             return Status.Success;
+        }
+
+        /// <summary>
+        /// 虽然不知道有什么用但还是做一下
+        /// 加特林取消窗口输入检测实际上是一个子协程，我想要注册到FunctionMap中
+        /// 主协程执行完毕才能取消子协程太麻烦了，我想支持随时可以取消子协程
+        /// </summary>
+        public static ETCancellationToken RegistSubCoroutine(this BBParser self, string funcName)
+        {
+            if (self.subCoroutineDict.ContainsKey(funcName))
+            {
+                Log.Error($"already contain subCoroutine: {funcName}!!!");
+                return null;
+            }
+
+            ETCancellationToken subToken = new();
+            self.cancellationToken.Add(subToken.Cancel);
+            self.subCoroutineDict.Add(funcName, subToken);
+            return subToken;
+        }
+
+        public static void CancelSubCoroutine(this BBParser self, string funcName)
+        {
+            if (!self.subCoroutineDict.TryGetValue(funcName, out ETCancellationToken subToken))
+            {
+                return;
+            }
+
+            self.cancellationToken?.Remove(subToken.Cancel);
+            subToken.Cancel();
         }
     }
 }

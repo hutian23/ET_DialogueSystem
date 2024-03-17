@@ -2,26 +2,25 @@
 
 namespace ET.Client
 {
-    public class CallSubCoroutine_BBScriptHandler: BBScriptHandler
+    public class CancelSubCoroutine_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "CallSubCoroutine";
+            return "CancelSubCoroutine";
         }
 
-        //CallSubCoroutine: 'OnBlock';
+        //CancelSubCoroutine: 'GatlingWindow';
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"CallSubCoroutine func = (?<Function>\w+);");
+            Match match = Regex.Match(data.opLine,@"CancelSubCoroutine: '(?<Function>\w+)';");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
-            string funcName = match.Groups["Function"].Value;
-            ETCancellationToken subToken = parser.RegistSubCoroutine(funcName);
-            parser.Invoke(funcName, subToken).Coroutine();
+            string subCoroutineName = match.Groups["Function"].Value;
+            parser.CancelSubCoroutine(subCoroutineName);
             
             await ETTask.CompletedTask;
             return Status.Success;

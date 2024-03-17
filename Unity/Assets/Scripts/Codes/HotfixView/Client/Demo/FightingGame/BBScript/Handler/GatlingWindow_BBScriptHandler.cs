@@ -28,12 +28,12 @@ namespace ET.Client
             //窗口持续帧数
             int.TryParse(match.Groups["behaviorTag"].Value, out int lastedFrame);
 
-            GatlingCancelCor(parser, lastedFrame, token).Coroutine();
+            GatlingCancelCor(parser, lastedFrame).Coroutine();
             await ETTask.CompletedTask;
             return Status.Success;
         }
 
-        private async ETTask GatlingCancelCor(BBParser parser, int lastedFrame, ETCancellationToken token)
+        private async ETTask GatlingCancelCor(BBParser parser, int lastedFrame)
         {
             DialogueComponent dialogueComponent = parser.GetParent<DialogueComponent>();
             BBTimerComponent bbTimer = dialogueComponent.GetComponent<BBTimerComponent>();
@@ -41,27 +41,23 @@ namespace ET.Client
 
             List<long> orderSet = behaviorBuffer.GCSet.OrderByDescending(order => order).ToList();
 
+            //注册为一个子协程
+            ETCancellationToken gcToken = parser.RegistSubCoroutine("GatlingWindow");
+
             int count = 0;
-            long targetOrder = 0; // 取消到这个行为
             while (count++ < lastedFrame)
             {
-                if (targetOrder != 0)
-                {
-                    parser.Cancel();
-                    dialogueComponent.GetComponent<ObjectWait>().Notify(new WaitNextBehavior() { order = targetOrder });
-                }
-
+                await bbTimer.WaitFrameAsync(gcToken);
+                if (gcToken.IsCancel()) return;
                 //TODO 检测当前帧是否hit
 
                 //找到优先级最高的可切换行为
                 foreach (long order in orderSet.Where(order => behaviorBuffer.OrderSet.Contains(order)))
                 {
-                    targetOrder = order;
+                    parser.Cancel();
+                    dialogueComponent.GetComponent<ObjectWait>().Notify(new WaitNextBehavior() { order = order });
                     break;
                 }
-
-                await bbTimer.WaitFrameAsync(token);
-                if (token.IsCancel()) return;
             }
         }
     }

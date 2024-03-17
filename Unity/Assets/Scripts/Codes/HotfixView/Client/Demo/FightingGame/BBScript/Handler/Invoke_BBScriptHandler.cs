@@ -19,8 +19,8 @@ namespace ET.Client
                 DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
-            
-            Status ret = await parser.Invoke(match.Groups["Function"].Value);
+
+            Status ret = await parser.Invoke(match.Groups["Function"].Value, parser.cancellationToken);
 
             return token.IsCancel() || ret == Status.Failed? Status.Failed : Status.Success;
         }

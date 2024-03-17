@@ -16,6 +16,7 @@ namespace ET.Client
 
         //协程ID --> 协程指针
         public Dictionary<long, int> function_Pointers = new();
+        public Dictionary<string, ETCancellationToken> subCoroutineDict = new();
     }
 
     public class BBScriptData
@@ -23,8 +24,8 @@ namespace ET.Client
         public string opLine; //指令码
         public long functionID; //协程ID
         public uint targetID; // 节点ID
-        
-        public static BBScriptData Create(string opLine, long functionID,uint targetID)
+
+        public static BBScriptData Create(string opLine, long functionID, uint targetID)
         {
             BBScriptData scriptData = ObjectPool.Instance.Fetch<BBScriptData>();
             scriptData.opLine = opLine;
