@@ -24,15 +24,16 @@ namespace ET.Client
                 DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
+
             //窗口持续帧数
             int.TryParse(match.Groups["behaviorTag"].Value, out int lastedFrame);
 
-            GatlingCancelCor(parser, lastedFrame).Coroutine();
+            GatlingCancelCor(parser, lastedFrame, token).Coroutine();
             await ETTask.CompletedTask;
             return Status.Success;
         }
 
-        private async ETTask GatlingCancelCor(BBParser parser, int lastedFrame)
+        private async ETTask GatlingCancelCor(BBParser parser, int lastedFrame, ETCancellationToken token)
         {
             DialogueComponent dialogueComponent = parser.GetParent<DialogueComponent>();
             BBTimerComponent bbTimer = dialogueComponent.GetComponent<BBTimerComponent>();
@@ -49,9 +50,9 @@ namespace ET.Client
                     parser.Cancel();
                     dialogueComponent.GetComponent<ObjectWait>().Notify(new WaitNextBehavior() { order = targetOrder });
                 }
-                
+
                 //TODO 检测当前帧是否hit
-                
+
                 //找到优先级最高的可切换行为
                 foreach (long order in orderSet.Where(order => behaviorBuffer.OrderSet.Contains(order)))
                 {
@@ -59,8 +60,8 @@ namespace ET.Client
                     break;
                 }
 
-                await bbTimer.WaitFrameAsync(parser.cancellationToken);
-                if(parser.cancellationToken.IsCancel()) return;
+                await bbTimer.WaitFrameAsync(token);
+                if (token.IsCancel()) return;
             }
         }
     }

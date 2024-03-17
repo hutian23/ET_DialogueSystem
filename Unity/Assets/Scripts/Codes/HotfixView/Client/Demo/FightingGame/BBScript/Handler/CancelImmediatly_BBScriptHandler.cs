@@ -16,7 +16,7 @@ namespace ET.Client
         //eg. Idle行为中，可以在任意一帧中取消到其他行为,因为Idle是优先级最低的(Normal,0)
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            CancelImmediatelyCor(parser, data, parser.cancellationToken).Coroutine();
+            CancelImmediatelyCor(parser, data, token).Coroutine();
             await ETTask.CompletedTask;
             return Status.Success;
         }

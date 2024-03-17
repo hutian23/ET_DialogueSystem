@@ -4,9 +4,9 @@ using System.Text.RegularExpressions;
 
 namespace ET.Client
 {
-    [FriendOf(typeof(BehaviorBufferComponent))]
-    [FriendOf(typeof(BBParser))]
-    public class WhiffWindow_BBScriptHandler : BBScriptHandler
+    [FriendOf(typeof (BehaviorBufferComponent))]
+    [FriendOf(typeof (BBParser))]
+    public class WhiffWindow_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
         {
@@ -26,12 +26,12 @@ namespace ET.Client
             //窗口持续帧数
             int.TryParse(match.Groups["whiffTag"].Value, out int lastedFrame);
 
-            WhiffCancelCor(parser, lastedFrame).Coroutine();
+            WhiffCancelCor(parser, lastedFrame, token).Coroutine();
             await ETTask.CompletedTask;
             return Status.Success;
         }
 
-        private async ETTask WhiffCancelCor(BBParser parser, int lastedFrame)
+        private async ETTask WhiffCancelCor(BBParser parser, int lastedFrame, ETCancellationToken token)
         {
             DialogueComponent dialogueComponent = parser.GetParent<DialogueComponent>();
             BBTimerComponent bbTimer = dialogueComponent.GetComponent<BBTimerComponent>();
@@ -54,8 +54,8 @@ namespace ET.Client
                     break;
                 }
 
-                await bbTimer.WaitFrameAsync(parser.cancellationToken);
-                if(parser.cancellationToken.IsCancel()) return;
+                await bbTimer.WaitFrameAsync(token);
+                if (token.IsCancel()) return;
             }
         }
     }
