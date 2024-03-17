@@ -2,14 +2,14 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof(BBParser))]
-    [FriendOf(typeof(DialogueDispatcherComponent))]
-    [FriendOf(typeof(BehaviorBufferComponent))]
-    [FriendOf(typeof(DialogueComponent))]
-    [FriendOf(typeof(BehaviorInfo))]
+    [FriendOf(typeof (BBParser))]
+    [FriendOf(typeof (DialogueDispatcherComponent))]
+    [FriendOf(typeof (BehaviorBufferComponent))]
+    [FriendOf(typeof (DialogueComponent))]
+    [FriendOf(typeof (BehaviorInfo))]
     public static class BBParserSystem
     {
-        public class BBParserDestroySystem : DestroySystem<BBParser>
+        public class BBParserDestroySystem: DestroySystem<BBParser>
         {
             protected override void Destroy(BBParser self)
             {
@@ -143,8 +143,8 @@ namespace ET.Client
                 Status ret = await handler.Handle(self, data, self.cancellationToken);
                 data.Recycle();
 
-                if (ret == Status.Return) return Status.Success;
                 if (self.cancellationToken.IsCancel() || ret == Status.Failed) return Status.Failed;
+                if (ret != Status.Success) return ret;
             }
 
             return Status.Success;

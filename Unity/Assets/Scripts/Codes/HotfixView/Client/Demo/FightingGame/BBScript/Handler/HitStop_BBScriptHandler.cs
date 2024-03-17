@@ -2,6 +2,7 @@
 
 namespace ET.Client
 {
+    [FriendOf(typeof (BBTimerComponent))]
     public class HitStop_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
@@ -20,14 +21,23 @@ namespace ET.Client
             }
 
             int.TryParse(match.Groups["Frame"].Value, out int frameCount);
+            HitStopCor(parser, frameCount, token).Coroutine();
 
-            DialogueComponent dialogueComponent = parser.GetParent<DialogueComponent>();
-            dialogueComponent.RemoveComponent<HitStop>();
-            dialogueComponent.AddComponent<HitStop, int>(frameCount);
-
-            token.Add(() => { dialogueComponent.RemoveComponent<HitStop>(); });
             await ETTask.CompletedTask;
-            return Status.Success;
+            return token.IsCancel()? Status.Failed : Status.Success;
+        }
+
+        private async ETTask HitStopCor(BBParser parser, int frame, ETCancellationToken token)
+        {
+            BBTimerComponent bbTimer = parser.GetParent<DialogueComponent>().GetComponent<BBInputComponent>().GetComponent<BBTimerComponent>();
+            BBTimerComponent combatTimer = parser.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>();
+
+            float timeScale = combatTimer.timeScale;
+            combatTimer.timeScale = 0;
+            await bbTimer.WaitTillAsync(bbTimer.GetNow() + frame, token);
+            if (token.IsCancel()) return;
+
+            combatTimer.timeScale = timeScale;
         }
     }
 }
