@@ -7,15 +7,19 @@ namespace ET.Client
     {
         public long bufferTimer;
         public Queue<BehaviorBuffer> BufferQueue = new();
-        public List<long> OrderList = new();
-
-        //技能优先级和节点ID的映射
-        public Dictionary<long, uint> targetIDDict = new();
+        public HashSet<long> OrderSet = new();
+        
         public Dictionary<uint, BehaviorInfo> behaviorDict = new();
         //协程化输入检测
         public Dictionary<uint, InputCheck> inputCheckDict = new();
         //每帧检测
         public Dictionary<uint, TriggerCheck> triggerCheckDict = new();
+
+        public Dictionary<long, uint> orderDict = new();
+        public Dictionary<string, uint> tagDict = new();
+
+        public HashSet<long> GCSet = new();
+        public HashSet<long> WhiffSet = new();
     }
 
     public class BehaviorBuffer

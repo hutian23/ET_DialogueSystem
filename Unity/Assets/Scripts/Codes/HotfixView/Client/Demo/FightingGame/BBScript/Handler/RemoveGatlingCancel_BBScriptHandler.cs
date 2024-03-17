@@ -20,7 +20,6 @@ namespace ET.Client
             }
 
             string skillValue = match.Groups["skill"].Value;
-            parser.GetParent<DialogueComponent>().GetComponent<GatlingCancel>().RemoveTag(skillValue);
             
             await ETTask.CompletedTask;
             return Status.Success;

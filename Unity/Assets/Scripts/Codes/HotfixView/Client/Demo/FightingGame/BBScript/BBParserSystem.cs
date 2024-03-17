@@ -2,13 +2,14 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof (BBParser))]
-    [FriendOf(typeof (DialogueDispatcherComponent))]
-    [FriendOf(typeof (BehaviorBufferComponent))]
-    [FriendOf(typeof (DialogueComponent))]
+    [FriendOf(typeof(BBParser))]
+    [FriendOf(typeof(DialogueDispatcherComponent))]
+    [FriendOf(typeof(BehaviorBufferComponent))]
+    [FriendOf(typeof(DialogueComponent))]
+    [FriendOf(typeof(BehaviorInfo))]
     public static class BBParserSystem
     {
-        public class BBParserDestroySystem: DestroySystem<BBParser>
+        public class BBParserDestroySystem : DestroySystem<BBParser>
         {
             protected override void Destroy(BBParser self)
             {
@@ -74,6 +75,7 @@ namespace ET.Client
             BehaviorBufferComponent bufferComponent = self.GetParent<DialogueComponent>().GetComponent<BehaviorBufferComponent>();
             BehaviorInfo behaviorInfo = bufferComponent.AddChild<BehaviorInfo>();
             bufferComponent.behaviorDict.Add(self.currentID, behaviorInfo);
+            behaviorInfo.targetID = self.currentID;
 
             await self.Invoke("Init");
         }
@@ -110,7 +112,7 @@ namespace ET.Client
             }
 
             //2. 当前协程唯一标识符,生成协程ID和调用指针的映射关系
-            long funcId = IdGenerater.Instance.GenerateInstanceId(); 
+            long funcId = IdGenerater.Instance.GenerateInstanceId();
             self.function_Pointers.Add(funcId, index);
 
             //3. 逐条执行语句
@@ -118,7 +120,7 @@ namespace ET.Client
             {
                 if (self.cancellationToken.IsCancel()) return Status.Failed;
 
-                //4. 语句(A: xxxx;)根据A匹配handler
+                //4. 语句(OPType: xxxx;) 根据 OPType 匹配handler
                 string opLine = self.opDict[self.function_Pointers[funcId]];
                 Match match = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
                 if (!match.Success)
@@ -126,10 +128,10 @@ namespace ET.Client
                     Log.Error($"{opLine}匹配失败! 请检查格式");
                     return Status.Failed;
                 }
-                
+
                 string opType = match.Value;
                 if (opType == "SetMarker") continue; //Init时执行过，跳过
-                
+
                 if (!DialogueDispatcherComponent.Instance.BBScriptHandlers.TryGetValue(opType, out BBScriptHandler handler))
                 {
                     Log.Error($"not found script handler； {opType}");
@@ -138,7 +140,7 @@ namespace ET.Client
 
                 //5. 执行一条语句相当于一个子协程
                 BBScriptData data = BBScriptData.Create(opLine, funcId, self.currentID); //池化，不然GC很高
-                Status ret = await handler.Handle(self, data, self.cancellationToken); 
+                Status ret = await handler.Handle(self, data, self.cancellationToken);
                 data.Recycle();
 
                 if (ret == Status.Return) return Status.Success;

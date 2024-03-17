@@ -44,10 +44,14 @@ namespace ET.Client
             BehaviorInfo info = FTGHelper.GetBehaviorInfo(parser, data.targetID);
             info.order = order;
             info.skillType = skill;
-
-            BehaviorBufferComponent bufferComponent = info.GetParent<BehaviorBufferComponent>();
-            bufferComponent.targetIDDict.TryAdd(info.GetOrder(), data.targetID);
-
+            
+            BehaviorBufferComponent bufferComponent = parser.GetParent<DialogueComponent>().GetComponent<BehaviorBufferComponent>();
+            if (!bufferComponent.orderDict.TryAdd(info.GetOrder(), info.targetID))
+            {
+                Log.Error($"already contain order: {info.GetOrder()}");
+                return Status.Failed;
+            }
+            
             await ETTask.CompletedTask;
             return Status.Success;
         }

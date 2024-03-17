@@ -18,41 +18,38 @@
             }
 
             //2. 启动行为缓冲组件
-            BehaviorBufferComponent behaviorBuffer = dialogueComponent.GetComponent<BehaviorBufferComponent>();
-            behaviorBuffer.EnableBufferCheck(token);
+            BehaviorBufferComponent bufferComponent = dialogueComponent.GetComponent<BehaviorBufferComponent>();
+            bufferComponent.EnableBufferCheck(token);
 
             //3. 执行行为
-            IdleCor(unit, token).Coroutine();
+            long currentOrder = FTGHelper.GetOrder(BehaviorOrder.Normal, 0);
             while (true)
             {
-                ObjectWait objectWait = dialogueComponent.GetComponent<ObjectWait>();
-                WaitNextBehavior wait = await objectWait.Wait<WaitNextBehavior>(token);
-                if (token.IsCancel()) return Status.Failed;
-
-                uint targetID = behaviorBuffer.GetTargetID(wait.order);
+                uint targetID = bufferComponent.GetTargetID(currentOrder);
                 if (dialogueComponent.GetNode(targetID) is not BBNode bbNode)
                 {
-                    Log.Error($"cannot convert {targetID} to bbNode");
+                    Log.Error($"cannot node TargetID: {targetID} is not a BBNode");
                     return Status.Failed;
                 }
-
+                
                 dialogueComponent.SetNodeStatus(bbNode, Status.Pending);
                 await DialogueDispatcherComponent.Instance.Handle(unit, bbNode, token);
                 if (token.IsCancel()) return Status.Failed;
                 dialogueComponent.SetNodeStatus(bbNode, Status.None);
-
+                
+                //等待执行下一个行为
+                ObjectWait objectWait = dialogueComponent.GetComponent<ObjectWait>();
+                WaitNextBehavior wait = await objectWait.Wait<WaitNextBehavior>(token);
+                if (token.IsCancel())
+                {
+                    return Status.Failed;
+                }
+                currentOrder = wait.order;
+                
+                //这里是我怕死循环了，过一帧再执行
                 await TimerComponent.Instance.WaitFrameAsync(token);
                 if (token.IsCancel()) return Status.Failed;
             }
-        }
-
-        private async ETTask IdleCor(Unit unit, ETCancellationToken token)
-        {
-            await TimerComponent.Instance.WaitFrameAsync(token);
-            if (token.IsCancel()) return;
-
-            long order = FTGHelper.GetOrder(BehaviorOrder.Normal, 0); //Idle
-            unit.GetComponent<DialogueComponent>().GetComponent<ObjectWait>().Notify(new WaitNextBehavior() { order = order });
         }
     }
 }

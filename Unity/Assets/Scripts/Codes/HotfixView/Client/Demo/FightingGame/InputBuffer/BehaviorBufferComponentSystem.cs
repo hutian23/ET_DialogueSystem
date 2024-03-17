@@ -5,6 +5,7 @@ namespace ET.Client
 {
     [FriendOf(typeof (BehaviorBufferComponent))]
     [FriendOf(typeof (InputCheck))]
+    [FriendOf(typeof (BehaviorInfo))]
     public static class BehaviorBufferComponentSystem
     {
         [Invoke(BBTimerInvokeType.BehaviorTimer)]
@@ -26,7 +27,7 @@ namespace ET.Client
                 //3. 清理过期缓存，得到每帧所有可执行的行为
                 BBTimerComponent bbtimer = self.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>();
                 int count = self.BufferQueue.Count;
-                self.OrderList.Clear();
+                self.OrderSet.Clear();
                 while (count-- > 0)
                 {
                     BehaviorBuffer buffer = self.BufferQueue.Dequeue();
@@ -62,7 +63,7 @@ namespace ET.Client
 
                     if (!ret) continue;
                     //缓存当前帧所有可执行的行为
-                    self.OrderList.Add(buffer.order);
+                    self.OrderSet.Add(buffer.order);
                     self.BufferQueue.Enqueue(buffer);
                 }
             }
@@ -89,22 +90,23 @@ namespace ET.Client
             }
         }
 
-        public static bool ContainOrder(this BehaviorBufferComponent self, uint skillType, uint order)
+        public static void ClearGC(this BehaviorBufferComponent self)
         {
-            ulong result = 0;
-            result |= order;
-            result |= (ulong)skillType << 16;
-            return self.ContainOrder((long)result);
+            self.GCSet.Clear();
         }
 
-        private static bool ContainOrder(this BehaviorBufferComponent self, long skillOrder)
+        public static void ClearWhiff(this BehaviorBufferComponent self)
         {
-            return self.OrderList.Contains(skillOrder);
+            self.WhiffSet.Clear();
         }
 
         private static void Init(this BehaviorBufferComponent self)
         {
-            self.OrderList.Clear();
+            self.OrderSet.Clear();
+            self.orderDict.Clear();
+            self.tagDict.Clear();
+            self.GCSet.Clear();
+            self.WhiffSet.Clear();
             self.BufferQueue.ForEach(buffer => { buffer.Recycle(); });
             self.GetParent<DialogueComponent>()
                     .GetComponent<BBInputComponent>()?
@@ -121,14 +123,42 @@ namespace ET.Client
 
         public static uint GetTargetID(this BehaviorBufferComponent self, long order)
         {
-            if (self.targetIDDict.TryGetValue(order, out uint targetID))
+            if (self.orderDict.TryGetValue(order, out uint targetID))
             {
                 return targetID;
             }
-            Log.Error($"not found behaviorInfo ,order: {order}");
+
+            Log.Error($"not exist behaviorInfo, order: {order}");
             return 0;
         }
 
+        public static uint GetTargetID(this BehaviorBufferComponent self, string tag)
+        {
+            if (self.tagDict.TryGetValue(tag, out uint targetID))
+            {
+                return targetID;
+            }
+
+            Log.Error($"not exist behaviorInfo,tag: {tag}");
+            return 0;
+        }
+
+        public static long GetOrder(this BehaviorBufferComponent self, uint targetID)
+        {
+            if (self.behaviorDict.TryGetValue(targetID, out BehaviorInfo info))
+            {
+                return info.GetOrder();
+            }
+
+            return -1;
+        }
+
+        public static long GetOrder(this BehaviorBufferComponent self, string tag)
+        {
+            uint targetID = self.GetTargetID(tag);
+            return self.GetOrder(targetID);
+        }
+        
         public class BehaviorBufferComponentDestroySystem: DestroySystem<BehaviorBufferComponent>
         {
             protected override void Destroy(BehaviorBufferComponent self)

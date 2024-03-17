@@ -2,7 +2,8 @@
 
 namespace ET.Client
 {
-    public class AddGatlingOperation_BBScriptHandler: BBScriptHandler
+    [FriendOf(typeof(BehaviorBufferComponent))]
+    public class AddGatlingOperation_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
@@ -19,15 +20,19 @@ namespace ET.Client
         //3. 可GC取消时(设置一个窗口)，每帧遍历栈，找到符合条件的行为(包括数值检测等等),执行
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, "AddGatlingOperation: '(?<skill>.*?)';");
+            Match match = Regex.Match(data.opLine, "AddGatlingOperation: '(?<behaviorTag>.*?)';");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
-            string skillValue = match.Groups["skill"].Value;
-            parser.GetParent<DialogueComponent>().GetComponent<GatlingCancel>().AddTag(skillValue);
+            string behaviorTag = match.Groups["behaviorTag"].Value;
+
+            BehaviorBufferComponent bufferComponent = parser.GetParent<DialogueComponent>().GetComponent<BehaviorBufferComponent>();
+            long order = bufferComponent.GetOrder(behaviorTag);
+            bufferComponent.GCSet.Add(order);
+
             await ETTask.CompletedTask;
             return Status.Success;
         }

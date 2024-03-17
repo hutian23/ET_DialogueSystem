@@ -5,9 +5,11 @@
         protected override async ETTask<Status> Run(Unit unit, BBNode node, ETCancellationToken token)
         {
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
-
+            BehaviorBufferComponent bufferComponent = dialogueComponent.GetComponent<BehaviorBufferComponent>();
             //移除所有加特林取消
-            dialogueComponent.GetComponent<GatlingCancel>().Init();
+            bufferComponent.ClearWhiff();
+            bufferComponent.ClearGC();
+            
             //清除回调
             // ObjectWait objectWait = dialogueComponent.GetComponent<ObjectWait>();
             // objectWait.Notify(new WaitBlock() { Error = WaitTypeError.Destroy });
