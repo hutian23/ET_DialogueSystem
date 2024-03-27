@@ -977,6 +977,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ragna
       objectReference: {fileID: 0}
+    - target: {fileID: 7728331812354445377, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8fc3e938f76642e4393ba0bba3bfc9fb,
+        type: 3}
     - target: {fileID: 7728331812354445378, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
       propertyPath: m_RootOrder
@@ -1060,6 +1066,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &7728331813152793239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7728331813152793237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d91451998f5f62e4e8f4e669c8448b4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testClip: {fileID: 7400000, guid: 9e941dc2378dea74b891f98cc8bd4119, type: 2}
 --- !u!1001 &8709501952455806716
 PrefabInstance:
   m_ObjectHideFlags: 0
