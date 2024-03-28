@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace ET
 {
@@ -8,6 +9,7 @@ namespace ET
         Hold = 1
     }
 
+    [Flags]
     public enum ClipCapabilities
     {
         None = 0,

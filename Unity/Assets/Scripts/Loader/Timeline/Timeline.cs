@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Audio;
@@ -430,6 +432,27 @@ namespace ET
         }
     }
 
+    public abstract partial class SignalClip: Clip
+    {
+        public override void Evaluate(float deltaTime)
+        {
+            TargetTime = Time + deltaTime;
+
+            if (!Active && StartTime <= TargetTime)
+            {
+                Active = true;
+                OnEnable();
+            }
+            else if(Active && TargetTime < StartTime)
+            {
+                Active = false;
+                OnDisable();
+            }
+
+            Time = TargetTime;
+        }
+    }
+    
 #if UNITY_EDITOR
     public partial class Timeline
     {
@@ -452,17 +475,68 @@ namespace ET
 
         public Clip AddClip(Track track, int frame)
         {
-            return null;
+            Clip clip = track.AddClip(frame);
+            Init();
+            return clip;
+        }
+
+        public Clip AddClip(UnityEngine.Object referenceObject, Track track, int frame)
+        {
+            Clip clip = track.AddClip(referenceObject, frame);
+            Init();
+            return clip;
+        }
+
+        public void RemoveClip(Clip clip)
+        {
+            clip.Track.RemoveClip(clip);
+            Init();
+        }
+
+        public void UpdateMix()
+        {
+            m_Tracks.ForEach(track => track.UpdateMix());
+        }
+
+        public void Resort()
+        {
+            OnValueChanged?.Invoke();
+        }
+
+        public void ApplyModify(Action action, string _name)
+        {
+            UnityEditor.Undo.RegisterCompleteObjectUndo(this, $"Timeline: {_name}");
+            SerializedTimeline.Update();
+            action?.Invoke();
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+
+        public void UpdateSerializedTimeline()
+        {
+            SerializedTimeline = new UnityEditor.SerializedObject(this);
+        }
+
+        [UnityEditor.MenuItem("Assets/Create/ScriptableObject/Timeline/Timeline")]
+        public static void CreateTimeline()
+        {
+            Timeline timeline = CreateInstance<Timeline>();
+            string path = UnityEditor.AssetDatabase.GetAssetPath(UnityEditor.Selection.activeObject);
+            string assetPathAndName = UnityEditor.AssetDatabase.GenerateUniqueAssetPath(path + "/New Timeline.asset");
+            UnityEditor.AssetDatabase.CreateAsset(timeline,assetPathAndName);
+            UnityEditor.AssetDatabase.SaveAssets();
+            UnityEditor.AssetDatabase.Refresh();
+            UnityEditor.Selection.activeObject = timeline;
         }
     }
 
     public abstract partial class Track
     {
+        //AudioTrack ---> AudioClip
         public virtual Type ClipType => typeof (Clip);
 
         public virtual Clip AddClip(int frame)
         {
-            Clip clip = Activator.CreateInstance(ClipType,this,frame) as Clip;
+            Clip clip = Activator.CreateInstance(ClipType, this, frame) as Clip;
             m_Clips.Add(clip);
             return clip;
         }
@@ -481,7 +555,25 @@ namespace ET
         {
             this.Clips.ForEach(c =>
             {
+                c.UpdateMix();
+                c.FrameToTime();
             });
+        }
+
+        public Color Color()
+        {
+            var colorAttributes = GetType().GetCustomAttributes<ColorAttribute>().ToArray();
+            return colorAttributes[^1].Color / 255;
+        }
+
+        public virtual bool DragValid()
+        {
+            return false;
+        }
+
+        public void RebindTimeline()
+        {
+            Timeline.RebindTrack(this);
         }
     }
 
@@ -509,12 +601,12 @@ namespace ET
         {
             OtherEaseInFrame = 0;
             OtherEaseOutFrame = 0;
-            
+
             if (Invalid)
             {
                 return;
             }
-            
+
             foreach (var clip in Track.Clips)
             {
                 if (clip != this && !clip.Invalid)
@@ -529,12 +621,13 @@ namespace ET
                     {
                         return;
                     }
+
                     //在当前段前面
                     if (clip.StartFrame < StartFrame && clip.EndFrame > StartFrame)
                     {
                         OtherEaseInFrame = clip.EndFrame - StartFrame;
                     }
-                    
+
                     if (clip.StartFrame == StartFrame)
                     {
                         if (clip.EndFrame < EndFrame)
@@ -558,10 +651,59 @@ namespace ET
             return StartFrame < halfFrame && halfFrame < EndFrame;
         }
 
+        //最后一个color标签的颜色
         public Color Color()
         {
-            // var colorAttribute = 
-            return UnityEngine.Color.black;
+            var colorAttribute = GetType().GetCustomAttributes<ColorAttribute>().ToArray();
+            return colorAttribute[^1].Color / 255;
+        }
+
+        public string StartTimeText()
+        {
+            return $"StartTime: {StartTime.ToString("0.00")}S / StartFrame: {StartFrame}";
+        }
+
+        public string EndTimeText()
+        {
+            return $"EndTime: {EndTime.ToString("0.00")}S / StartFrame: {EndFrame}";
+        }
+
+        public string DurationText()
+        {
+            return $"Duration: {DurationTime.ToString("0.00")}S / {Duration}";
+        }
+
+        public virtual void RebindTimeline()
+        {
+            Track.RebindTimeline();
+        }
+
+        public virtual void RepaintInspector()
+        {
+            OnInspectorRepaint?.Invoke();
+        }
+
+        public virtual bool IsResizeable()
+        {
+            return (Capabilities & ClipCapabilities.Resizeable) == ClipCapabilities.Resizeable;
+        }
+
+        public virtual bool IsMixable()
+        {
+            return (Capabilities & ClipCapabilities.Mixable) == ClipCapabilities.Mixable;
+        }
+
+        public virtual bool IsClipInable()
+        {
+            return (Capabilities & ClipCapabilities.ClipInable) == ClipCapabilities.ClipInable;
+        }
+    }
+    
+    public abstract partial class SignalClip
+    {
+        protected SignalClip(Track track, int frame): base(track, frame)
+        {
+            EndFrame = StartFrame + 1;
         }
     }
 #endif

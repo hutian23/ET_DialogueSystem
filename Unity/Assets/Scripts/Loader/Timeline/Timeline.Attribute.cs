@@ -101,11 +101,11 @@ namespace ET
     }
 
     [AttributeUsage(AttributeTargets.Class,AllowMultiple = false,Inherited = false)]
-    public class TrackGroups: Attribute
+    public class TrackGroup: Attribute
     {
         public string Group;
 
-        public TrackGroups(string group)
+        public TrackGroup(string group)
         {
             Group = group;
         }
