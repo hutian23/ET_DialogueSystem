@@ -83,7 +83,7 @@ namespace ET
             }
 
             Duration = (float)MaxFrame / TimelineUtility.FrameRate;
-            this.OnValueChanged?.Invoke();
+            OnValueChanged?.Invoke();
 
             #endregion
 
@@ -101,11 +101,11 @@ namespace ET
         public void Evaluate(float deltaTime)
         {
             Time += deltaTime;
-            this.Tracks.ForEach(t => t.Evaluate(deltaTime));
-            if (this.Time > this.Duration)
+            Tracks.ForEach(t => t.Evaluate(deltaTime));
+            if (Time > Duration)
             {
-                this.OnDone?.Invoke();
-                this.OnDone = null;
+                OnDone?.Invoke();
+                OnDone = null;
             }
         }
 
@@ -429,4 +429,140 @@ namespace ET
             DurationTime = Duration / (float)TimelineUtility.FrameRate;
         }
     }
+
+#if UNITY_EDITOR
+    public partial class Timeline
+    {
+        public float Scale = 1;
+        public UnityEditor.SerializedObject SerializedTimeline;
+
+        public void AddTrack(Type type)
+        {
+            Track track = Activator.CreateInstance(type) as Track;
+            track.Name = type.Name.Replace("Track", string.Empty);
+            m_Tracks.Add(track);
+            Init();
+        }
+
+        public void RemoveTrack(Track track)
+        {
+            m_Tracks.Remove(track);
+            Init();
+        }
+
+        public Clip AddClip(Track track, int frame)
+        {
+            return null;
+        }
+    }
+
+    public abstract partial class Track
+    {
+        public virtual Type ClipType => typeof (Clip);
+
+        public virtual Clip AddClip(int frame)
+        {
+            Clip clip = Activator.CreateInstance(ClipType,this,frame) as Clip;
+            m_Clips.Add(clip);
+            return clip;
+        }
+
+        public virtual Clip AddClip(UnityEngine.Object referenceObject, int frame)
+        {
+            return null;
+        }
+
+        public void RemoveClip(Clip clip)
+        {
+            m_Clips.Remove(clip);
+        }
+
+        public void UpdateMix()
+        {
+            this.Clips.ForEach(c =>
+            {
+            });
+        }
+    }
+
+    public abstract partial class Clip
+    {
+        [NonSerialized]
+        public bool Invalid;
+
+        public virtual string Name => GetType().Name;
+        public virtual int Length => EndFrame - StartFrame;
+        public virtual ClipCapabilities Capabilities => ClipCapabilities.None;
+
+        public Clip()
+        {
+        }
+
+        public Clip(Track track, int frame)
+        {
+            Track = track;
+            StartFrame = frame;
+            EndFrame = this.StartFrame + 3;
+        }
+
+        public void UpdateMix()
+        {
+            OtherEaseInFrame = 0;
+            OtherEaseOutFrame = 0;
+            
+            if (Invalid)
+            {
+                return;
+            }
+            
+            foreach (var clip in Track.Clips)
+            {
+                if (clip != this && !clip.Invalid)
+                {
+                    //包含
+                    if (clip.StartFrame < StartFrame && clip.EndFrame > EndFrame)
+                    {
+                        return;
+                    }
+                    //被包含
+                    else if (clip.StartFrame > StartFrame && clip.EndFrame < EndFrame)
+                    {
+                        return;
+                    }
+                    //在当前段前面
+                    if (clip.StartFrame < StartFrame && clip.EndFrame > StartFrame)
+                    {
+                        OtherEaseInFrame = clip.EndFrame - StartFrame;
+                    }
+                    
+                    if (clip.StartFrame == StartFrame)
+                    {
+                        if (clip.EndFrame < EndFrame)
+                        {
+                            OtherEaseInFrame = clip.EndFrame - StartFrame;
+                        }
+                        else if (clip.EndFrame > EndFrame)
+                        {
+                            OtherEaseOutFrame = EndFrame - StartFrame;
+                        }
+                    }
+
+                    SelfEaseInFrame = Mathf.Min(SelfEaseInFrame, Duration - OtherEaseOutFrame);
+                    SelfEaseOutFrame = Mathf.Min(SelfEaseOutFrame, Duration - OtherEaseInFrame);
+                }
+            }
+        }
+
+        public bool Contains(float halfFrame)
+        {
+            return StartFrame < halfFrame && halfFrame < EndFrame;
+        }
+
+        public Color Color()
+        {
+            // var colorAttribute = 
+            return UnityEngine.Color.black;
+        }
+    }
+#endif
 }

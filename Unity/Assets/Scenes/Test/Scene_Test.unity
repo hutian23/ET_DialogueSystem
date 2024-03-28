@@ -1075,10 +1075,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7728331813152793237}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d91451998f5f62e4e8f4e669c8448b4c, type: 3}
+  m_Script: {fileID: 11500000, guid: bfd2cdf17bd9f32449b016861d3df3be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testClip: {fileID: 7400000, guid: 9e941dc2378dea74b891f98cc8bd4119, type: 2}
+  Controller: {fileID: 0}
+  ApplyRootMotion: 0
+  m_IsPlaying: 0
+  m_PlaySpeed: 0
 --- !u!1001 &8709501952455806716
 PrefabInstance:
   m_ObjectHideFlags: 0
