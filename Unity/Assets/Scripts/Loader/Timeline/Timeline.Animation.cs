@@ -39,7 +39,7 @@ namespace ET
 
         public int PlayableIndex { get; protected set; }
         public TimelineAnimationTrackPlayable TrackPlayable { get; protected set; }
-        public List<TimelineAnimationTrackPlayable> ClipPlayables { get; protected set; }
+        public List<TimelineAnimationClipPlayable> ClipPlayables { get; protected set; }
         public event Action Delay;
         public int m_ExecutedCount;
 
@@ -60,7 +60,7 @@ namespace ET
 
         public override void Bind()
         {
-            // TrackPlayable = TimelineAnimationTrackPlayable.
+            // TrackPlayable = TimelineAnimationTrackPlayable.C
         }
     }
 
@@ -82,12 +82,47 @@ namespace ET
                     return;
                 }
 
-                float sunWeight = 0;
+                float sumWeight = 0;
                 foreach (var clipPlayable in Track.ClipPlayables)
                 {
-                    // sunWeight += clipPlayable.t
+                    sumWeight += clipPlayable.TargetWeight;
+                }
+
+                // float weight = Mathf.Clamp01(sumWeight);
+                if (sumWeight == 0)
+                {
+                    Output.SetInputWeight(Track.PlayableIndex, 0);
+                }
+                else if (0 < sumWeight && sumWeight < 1)
+                {
+                    Output.SetInputWeight(Track.PlayableIndex, sumWeight);
+                }
+                else
+                {
+                    Output.SetInputWeight(Track.PlayableIndex, 1);
                 }
             };
+        }
+
+        public void SetTime(float time)
+        {
+            Handle.SetTime(time);
+            MixerPlayable.SetTime(time);
+            PrepareFrame(default, default);
+        }
+
+        public static TimelineAnimationTrackPlayable Create(AnimationTrack track, Playable output)
+        {
+            var handle = ScriptPlayable<TimelineAnimationTrackPlayable>.Create(track.Timeline.PlayableGraph);
+            var trackPlayable = handle.GetBehaviour();
+            trackPlayable.Track = track;
+            trackPlayable.Handle = handle;
+            trackPlayable.MixerPlayable = AnimationMixerPlayable.Create(track.Timeline.PlayableGraph, track.Clips.Count);
+            handle.AddInput(trackPlayable.MixerPlayable, 0, 1);
+
+            trackPlayable.Output = output;
+            output.AddInput(handle, 0, 0);
+            return trackPlayable;
         }
     }
 
@@ -139,7 +174,7 @@ namespace ET
             m_HandleTime = (float)Handle.GetTime();
             float deltaTime = info.deltaTime;
 
-            TimelineUtility.Lerp(m_HandleTime,deltaTime,Evaluate,ref m_LastTime);
+            TimelineUtility.Lerp(m_HandleTime, deltaTime, Evaluate, ref m_LastTime);
             Track.Executed();
         }
 
