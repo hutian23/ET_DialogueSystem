@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ET
+namespace Timeline
 {
     [AttributeUsage(AttributeTargets.Class,AllowMultiple = false,Inherited = true)]
     public class ColorAttribute: Attribute

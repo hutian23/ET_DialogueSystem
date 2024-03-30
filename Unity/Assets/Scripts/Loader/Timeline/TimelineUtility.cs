@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ET
+namespace Timeline
 {
     public enum ExtraPolationMode
     {

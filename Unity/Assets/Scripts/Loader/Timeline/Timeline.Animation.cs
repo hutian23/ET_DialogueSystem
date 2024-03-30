@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
 
-namespace ET
+namespace Timeline
 {
     [TrackGroup("Base")]
     public class AnimationTrack: Track
@@ -97,9 +97,53 @@ namespace ET
             }
             else if (Timeline.Time < Timeline.Duration)
             {
-                // Timeline.TimelinePlayer.
+                Timeline.TimelinePlayer.AddAnimationEaseOut(this);
             }
         }
+
+        public override void SetTime(float time)
+        {
+            TrackPlayable.SetTime(time);
+            ClipPlayables.ForEach(x => x.SetTime(time));
+        }
+
+        protected float m_OriginalWeight;
+
+        public override void RuntimeMute(bool value)
+        {
+            if (PersistentMuted)
+            {
+                return;
+            }
+
+            if (value && !RuntimeMuted)
+            {
+                m_OriginalWeight = Timeline.AnimationRootPlayable.GetInputWeight(PlayableIndex);
+                RuntimeMuted = true;
+                Timeline.AnimationRootPlayable.SetInputWeight(PlayableIndex, value? 0 : 1);
+            }
+            else if (!value && RuntimeMuted)
+            {
+                RuntimeMuted = false;
+                Timeline.AnimationRootPlayable.SetInputWeight(PlayableIndex, m_OriginalWeight);
+            }
+        }
+
+#if UNITY_EDITOR
+        public override Type ClipType => typeof (AnimationClip);
+
+        public override Clip AddClip(UnityEngine.Object referenceObject, int frame)
+        {
+            AnimationClip clip = new AnimationClip(referenceObject as UnityEngine.AnimationClip, this, frame);
+            m_Clips.Add(clip);
+            return clip;
+        }
+
+        public override bool DragValid()
+        {
+            return UnityEditor.DragAndDrop.objectReferences.Length == 1 && UnityEditor.DragAndDrop.objectReferences[0] as UnityEngine.AnimationClip;
+        }
+#endif
     }
 
     public class TimelineAnimationTrackPlayable: PlayableBehaviour
@@ -213,6 +257,13 @@ namespace ET
             float deltaTime = info.deltaTime;
 
             TimelineUtility.Lerp(m_HandleTime, deltaTime, Evaluate, ref m_LastTime);
+            Track.Executed();
+        }
+
+        public void SetTime(float time)
+        {
+            Handle.SetTime(time);
+            TimelineUtility.Lerp(time, time, Evaluate, ref m_LastTime);
             Track.Executed();
         }
 

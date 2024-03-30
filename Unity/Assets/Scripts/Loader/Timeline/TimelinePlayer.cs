@@ -6,7 +6,7 @@ using UnityEngine.Animations;
 using UnityEngine.Audio;
 using UnityEngine.Playables;
 
-namespace ET
+namespace Timeline
 {
     public class TimelinePlayer: MonoBehaviour
     {
