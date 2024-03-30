@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -59,32 +57,36 @@ namespace ET
         public AnimatorControllerPlayable CtrlPlayable { get; private set; }
         public AudioMixerPlayable AudioRootPlayable { get; private set; }
         public List<Timeline> RunningTimelines { get; private set; }
-        
+        public List<RuntimeTrackEaseOut> RuntimeTrackEaseOuts { get; private set; }
         public float AddtionalDelta { get; set; }
         public event Action OnEvaluated;
 
         protected virtual void OnEnable()
         {
-            this.Init();
-            this.IsPlaying = true;
+            Init();
+            IsPlaying = true;
         }
 
         protected void OnDisable()
         {
-            this.Dispose();
-        }
-
-        protected virtual void Update()
-        {
-            
+            Dispose();
         }
 
         protected void FixedUpdate()
         {
-            if (this.IsPlaying)
+            if (IsPlaying)
             {
-                Evaluate(Time.deltaTime * (float)this.PlaySpeed);
+                Evaluate(Time.deltaTime * (float)PlaySpeed);
+                if (AddtionalDelta != 0)
+                {
+                    Evaluate(AddtionalDelta);
+                    AddtionalDelta = 0;
+                }
             }
+        }
+
+        protected virtual void Update()
+        {
         }
 
 #if UNITY_EDITOR
@@ -95,61 +97,97 @@ namespace ET
 
         public virtual void Init()
         {
-            this.PlayableGraph = PlayableGraph.Create("Blazblue.Timeline.PlayableGraph");
-            this.AnimationRootPlayable = AnimationLayerMixerPlayable.Create(this.PlayableGraph);
+            PlayableGraph = PlayableGraph.Create("Blazblue.Timeline.PlayableGraph");
+            AnimationRootPlayable = AnimationLayerMixerPlayable.Create(this.PlayableGraph);
 
-            Animator = this.GetComponent<Animator>();
-            var playableOutput = AnimationPlayableOutput.Create(this.PlayableGraph, "Animation", this.Animator);
-            playableOutput.SetSourcePlayable(this.AnimationRootPlayable);
+            Animator = GetComponent<Animator>();
+            var playableOutput = AnimationPlayableOutput.Create(PlayableGraph, "Animation", Animator);
+            playableOutput.SetSourcePlayable(AnimationRootPlayable);
 
-            AudioSource = this.GetComponent<AudioSource>();
-            var audioOutput = AudioPlayableOutput.Create(this.PlayableGraph, "Audio", this.GetComponent<AudioSource>());
-            audioOutput.SetSourcePlayable(this.AudioRootPlayable);
+            AudioSource = GetComponent<AudioSource>();
+            var audioOutput = AudioPlayableOutput.Create(PlayableGraph, "Audio", GetComponent<AudioSource>());
+            audioOutput.SetSourcePlayable(AudioRootPlayable);
             audioOutput.SetEvaluateOnSeek(true);
 
-            this.CtrlPlayable = AnimatorControllerPlayable.Create(PlayableGraph, Controller);
-            this.AnimationRootPlayable.AddInput(CtrlPlayable, 0, 1);
+            CtrlPlayable = AnimatorControllerPlayable.Create(PlayableGraph, Controller);
+            AnimationRootPlayable.AddInput(CtrlPlayable, 0, 1);
+
+            RunningTimelines = new List<Timeline>();
+            RuntimeTrackEaseOuts = new List<RuntimeTrackEaseOut>();
+
+            IsPlaying = false;
+            PlaySpeed = 1;
         }
 
         public virtual void Dispose()
         {
             if (this.IsValid)
             {
-                for (int i = this.RunningTimelines.Count - 1; i >= 0; i--)
+                for (int i = RunningTimelines.Count - 1; i >= 0; i--)
                 {
-                    RemoveTimeline(this.RunningTimelines[i]);
+                    RemoveTimeline(RunningTimelines[i]);
                 }
 
-                this.PlayableGraph.Destroy();
+                PlayableGraph.Destroy();
             }
 
-            this.RunningTimelines = null;
-            this.IsPlaying = false;
-            this.PlaySpeed = 1;
+            RunningTimelines = null;
+            IsPlaying = false;
+            PlaySpeed = 1;
         }
 
         public virtual void Evaluate(float deltaTime)
         {
-            for (int i = this.RunningTimelines.Count - 1; i >= 0; i--)
+            for (int i = RunningTimelines.Count - 1; i >= 0; i--)
             {
-                Timeline runningTimelines = this.RunningTimelines[i];
+                Timeline runningTimelines = RunningTimelines[i];
                 runningTimelines.Evaluate(deltaTime);
             }
-            this.PlayableGraph.Evaluate(deltaTime);
+
+            PlayableGraph.Evaluate(deltaTime);
         }
 
         protected virtual void OnRootMotion()
         {
-            if (this.ApplyRootMotion)
+            if (ApplyRootMotion)
             {
-                this.transform.position += this.Animator.deltaPosition;
+                transform.position += Animator.deltaPosition;
             }
         }
 
-        public virtual void RemoveTimeline(Timeline timeline)
+        #region Animator
+
+        public virtual void SetFloat(string _name, float value)
         {
-            
+            CtrlPlayable.SetFloat(_name, value);
         }
+
+        public virtual float GetFloat(string _name)
+        {
+            return CtrlPlayable.GetFloat(_name);
+        }
+
+        public virtual void SetBool(string _name, bool value)
+        {
+            CtrlPlayable.SetBool(_name, value);
+        }
+
+        public virtual bool GetBool(string _name)
+        {
+            return CtrlPlayable.GetBool(_name);
+        }
+
+        public virtual void SetTrigger(string _name)
+        {
+            CtrlPlayable.SetTrigger(_name);
+        }
+
+        public virtual void SetStateTime(string _name, float time, int layer)
+        {
+            CtrlPlayable.CrossFade(name, 0, layer, time);
+        }
+
+        #endregion
 
         public virtual void AddTimeline(Timeline timeline)
         {
@@ -157,6 +195,54 @@ namespace ET
             timeline.Bind(this);
             RunningTimelines.Add(timeline);
             Evaluate(0);
+        }
+
+        public virtual void RemoveTimeline(Timeline timeline)
+        {
+            timeline.UnBind();
+            RunningTimelines.Remove(timeline);
+            if (RunningTimelines.Count == 0)
+            {
+                AnimationRootPlayable.SetInputCount(1);
+            }
+        }
+
+        public virtual void AddAnimationEaseOut(AnimationTrack animationTrack)
+        {
+            RuntimeTrackEaseOut runtimeTrackEaseOut = new RuntimeTrackEaseOut(AnimationRootPlayable, animationTrack);
+            RuntimeTrackEaseOuts.Add(runtimeTrackEaseOut);
+        }
+    }
+
+    public class RuntimeTrackEaseOut
+    {
+        public Playable Root;
+        public Playable Track;
+        public int Index;
+        public float EaseOutTime;
+        public float Timer;
+        public float OriginalWeight;
+
+        public RuntimeTrackEaseOut(Playable root, AnimationTrack animationTrack)
+        {
+            Root = root;
+            Track = animationTrack.TrackPlayable.Handle;
+            if (!animationTrack.PlayWhenEaseOut)
+            {
+                Track.Pause();
+            }
+
+            Index = animationTrack.PlayableIndex;
+            EaseOutTime = animationTrack.EaseOutTime;
+
+            OriginalWeight = Root.GetInputWeight(Index);
+            Timer = 0;
+        }
+
+        public void Evaluate(float deltaTime)
+        {
+            Timer += deltaTime;
+            Root.SetInputWeight(Index, Mathf.Lerp(OriginalWeight, 0, Timer / EaseOutTime));
         }
     }
 }

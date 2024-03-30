@@ -60,7 +60,45 @@ namespace ET
 
         public override void Bind()
         {
-            // TrackPlayable = TimelineAnimationTrackPlayable.C
+            TrackPlayable = TimelineAnimationTrackPlayable.Create(this, Timeline.AnimationRootPlayable);
+            PlayableIndex = Timeline.AnimationRootPlayable.GetInputCount() - 1;
+            ClipPlayables = new List<TimelineAnimationClipPlayable>();
+
+            if (m_PersistentMuted)
+            {
+                Timeline.AnimationRootPlayable.SetInputWeight(PlayableIndex, 0);
+                return;
+            }
+
+            for (int i = 0; i < Clips.Count; i++)
+            {
+                ClipPlayables.Add(TimelineAnimationClipPlayable.Create(Clips[i] as AnimationClip, TrackPlayable.MixerPlayable, i));
+            }
+
+            if (AvatarMask)
+            {
+                Timeline.AnimationRootPlayable.SetLayerMaskFromAvatarMask((uint)PlayableIndex, AvatarMask);
+            }
+            else
+            {
+                Timeline.AnimationRootPlayable.SetLayerMaskFromAvatarMask((uint)PlayableIndex, FullBodyMask);
+            }
+        }
+
+        public override void UnBind()
+        {
+            if (TrackPlayable != null)
+            {
+                if (!Application.isPlaying || EaseOutTime == 0)
+                {
+                    Timeline.AnimationRootPlayable.DisconnectInput(PlayableIndex);
+                    TrackPlayable.Handle.Destroy();
+                }
+            }
+            else if (Timeline.Time < Timeline.Duration)
+            {
+                // Timeline.TimelinePlayer.
+            }
         }
     }
 
