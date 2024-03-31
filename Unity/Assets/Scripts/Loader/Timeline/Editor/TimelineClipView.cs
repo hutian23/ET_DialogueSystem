@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,7 +14,26 @@ namespace Timeline.Editor
         public bool Selected { get; private set; }
         public bool Hoverd { get; private set; }
         public ISelection SelectionContainer { get; set; }
-        // public ClipCapabilities Capabilities => 
+        public ClipCapabilities Capabilities;
+
+        public TimelineFieldView FieldView;
+        public TimelineEditorWindow EditorWindow;
+        public Timeline Timeline;
+        public Dictionary<int, float> FramePosMap => FieldView.FramePosMap;
+        public Clip Clip { get; private set; }
+        public TimelineTrackView TrackView { get; private set; }
+
+        public int StartFrame => Clip.StartFrame;
+        public int EndFrame => Clip.EndFrame;
+        public int OtherEaseInFrame => Clip.OtherEaseInFrame;
+        public int OtherEaseOutFrame => Clip.OtherEaseOutFrame;
+        public int SelfEaseInFrame => Clip.SelfEaseInFrame;
+        public int SelfEaseOutFrame => Clip.SelfEaseOutFrame;
+        public int EaseInFrame => Clip.EaseInFrame;
+        public int EaseOutFrame => Clip.EaseOutFrame;
+        public int ClipInFrame => Clip.ClipInFrame;
+        public int WidthFrame => EndFrame - StartFrame;
+        
         
         // public Dictionary<int,float> FramePosMap => FieldVie
         public bool IsSelectable()
