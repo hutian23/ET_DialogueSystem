@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using ET;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
-    public class TimelineFieldView : VisualElement, ISelection
+    public class TimelineFieldView : VisualElement
     {
         public new class UxmlFactory : UxmlFactory<TimelineFieldView,UxmlTraits> { }
 
@@ -63,22 +61,10 @@ namespace Timeline.Editor
         // public int CurrentMinFrame => GetClos
         
         public Dictionary<int,float> FramePosMap { get; set; }
-        
-        public void AddToSelection(ISelectable selectable)
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public void RemoveFromSelection(ISelectable selectable)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ClearSelection()
-        {
-            throw new System.NotImplementedException();
-        }
-
+        public VisualElement ContentContainer { get; }
+        public List<ISelectable> Elements { get; }
+        public List<ISelectable> Selections { get; }
         public List<ISelectable> selection { get; }
 
         #region Helper

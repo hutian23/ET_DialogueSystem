@@ -1,23 +1,21 @@
-﻿using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+﻿using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
-    public class TimelineClipView : VisualElement
+    public class TimelineTrackView : VisualElement
     {
-        public new class UxmlFactory : UxmlFactory<TimelineClipView,UxmlTraits> {}
+        public new class UxmlFactory : UxmlFactory<TimelineTrackView,UxmlTraits> {}
 
-        protected string m_DefaultVisualTreeGuid = "";
-        protected virtual string VisualTreeGuid => m_DefaultVisualTreeGuid;
+        protected bool m_Selected;
+
+        public ISelection SelectionContainer
+        {
+            get; set; 
+        }
         
-        public bool Selected { get; private set; }
-        public bool Hoverd { get; private set; }
-        public ISelection SelectionContainer { get; set; }
-        // public ClipCapabilities Capabilities => 
-        
-        // public Dictionary<int,float> FramePosMap => FieldVie
+        // public Timeline Timeline => Edi
         public bool IsSelectable()
         {
             throw new System.NotImplementedException();
