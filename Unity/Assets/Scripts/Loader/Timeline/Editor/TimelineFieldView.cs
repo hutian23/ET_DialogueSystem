@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ET;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -51,6 +52,12 @@ namespace Timeline.Editor
         protected int m_MaxFrame = 60;
         protected bool m_DrawTimeText;
         protected bool m_ScrollViewPanDelta;
+
+        public TimelineEditorWindow EditorWindow;
+        public Timeline Timeline => EditorWindow.Timeline;
+        public DoubleMap<Track, TimelineTrackView> TrackViewMap { get; private set; } = new();
+        public List<TimelineTrackView> TrackViews { get; set; } = new();
+        public DragManipulator LocatorDragManipulator { get; set; }
         
         // public MultiMap<Track>
         // public Timeline Timeline => 
