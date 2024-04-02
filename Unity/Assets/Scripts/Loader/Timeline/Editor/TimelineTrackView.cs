@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ET;
 using UnityEditor;
 using UnityEngine;
@@ -16,7 +17,8 @@ namespace Timeline.Editor
         public Timeline Timeline;
         public Track Track { get; private set; }
         public DoubleMap<Clip,TimelineClipView> ClipViewMap { get; private set; }
-
+        public List<TimelineClipView> ClipViews { get; set; }
+        
         public Action OnSelected;
         public Action OnUnSelected;
 
