@@ -7,10 +7,10 @@ namespace Timeline.Editor
     {
         public VisualElement ContentContainer { get; }
         public List<ISelectable> Elements { get; }
-        protected List<ISelectable> Selections { get; }
+        public List<ISelectable> Selections { get; }
 
-        protected void AddToSelection(ISelectable selectable);
-        protected void RemoveFromSelection(ISelectable selectable);
-        protected void ClearSelection();
+        public void AddToSelection(ISelectable selectable);
+        public void RemoveFromSelection(ISelectable selectable);
+        public void ClearSelection();
     }
 }

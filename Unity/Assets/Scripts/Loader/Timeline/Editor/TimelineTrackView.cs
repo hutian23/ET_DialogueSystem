@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
-    public class TimelineTrackView : VisualElement
+    public class TimelineTrackView : VisualElement,ISelectable
     {
         public new class UxmlFactory : UxmlFactory<TimelineTrackView,UxmlTraits> {}
         protected bool m_Selected;

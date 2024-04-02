@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using ET;
-using Mono.Cecil;
+using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -28,6 +29,7 @@ namespace Timeline.Editor
         public VisualElement TrackField { get; private set; }
         public VisualElement MarkerField { get; private set; }
         public VisualElement DrawFrameLineField { get; private set; }
+        public VisualElement TimeLocator { get; private set; }
         public Label LocaterFrameLabel { get; private set; }
         public ScrollView InspectorScrollView { get; private set; }
         public VisualElement ClipInspector { get; private set; }
@@ -68,12 +70,12 @@ namespace Timeline.Editor
         public Action OnPopulatedCallback;
         public Action OnGeometryChangedCallback;
 
-        public int CurrentMinFrame;
-        public int CurrentMaxFrame;
-        public float OneFrameWidth;
-        public float ScrollViewContentWidth;
-        public float ScrollViewContentOffset;
-        public float ContentWidth;
+        public int CurrentMinFrame => GetClosestCeilFrame(ScrollViewContentOffset);
+        public int CurrentMaxFrame => GetClosestCeilFrame(ScrollViewContentWidth + ScrollViewContentOffset);
+        public float OneFrameWidth => m_MarkerWidth + m_FieldScale;
+        public float ScrollViewContentWidth => TrackScrollView.contentContainer.worldBound.width;
+        public float ScrollViewContentOffset => TrackScrollView.scrollOffset.x;
+        public float ContentWidth => FieldContent.worldBound.width;
 
         public TimelineFieldView()
         {
@@ -113,15 +115,111 @@ namespace Timeline.Editor
                 m_ScrollViewPan = false;
                 TrackField.RemoveFromClassList("pan");
             });
+            TrackScrollView.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
             TrackScrollView.horizontalScroller.valueChanged += (e) =>
             {
                 if (FieldContent.worldBound.width < ScrollViewContentWidth + ScrollViewContentOffset)
                 {
                     FieldContent.style.width = ScrollViewContentWidth + ScrollViewContentOffset;
                 }
+
+                DrawTimeField();
             };
 
+            FieldContent = this.Q("field-content");
+            FieldContent.RegisterCallback<GeometryChangedEvent>(OnTrackFieldGeometryChanged);
+
+            TrackField = this.Q("track-field");
+            TrackField.generateVisualContent += OnTrackFieldGenerateVisualContent;
+
+            MarkerField = this.Q("marker-field");
+            MarkerField.AddToClassList("droppable");
             MarkerField.generateVisualContent += OnMarkerFieldGenerateVisualContent;
+            MarkerField.RegisterCallback<PointerDownEvent>((e) =>
+            {
+                //鼠标左键
+                if (e.button == 0)
+                {
+                    SettimeLocator(GetCloseFrame(e.localPosition.x));
+                    LocatorDragManipulator.DragBeginForce(e);
+                }
+            });
+            MarkerField.SetEnabled(false);
+
+            LocatorDragManipulator = new DragManipulator(OnTimeLocatorStartMove, OnTimeLocatorStopMove, OnTimeLocatorMove);
+            TimeLocator = this.Q("time-locater");
+            TimeLocator.AddManipulator(LocatorDragManipulator);
+            TimeLocator.generateVisualContent += OnTimeLocatorGenerateVisualContent;
+            TimeLocator.SetEnabled(false);
+
+            DrawFrameLineField = this.Q("draw-frame-line-field");
+            DrawFrameLineField.generateVisualContent += OnDrawFrameLineFieldGenerateVisualContent;
+
+            LocaterFrameLabel = this.Q<Label>("time-locater-frame-label");
+
+            InspectorScrollView = this.Q<ScrollView>("inspector-scroll");
+            InspectorScrollView.RegisterCallback<WheelEvent>((e) => e.StopImmediatePropagation());
+            ClipInspector = this.Q("clip-inspector");
+            ClipInspector.RegisterCallback<KeyDownEvent>((e) =>
+            {
+                if (!e.ctrlKey)
+                {
+                    e.StopImmediatePropagation();
+                }
+            });
+            ClipInspector.RegisterCallback<PointerDownEvent>((e)=> e.StopImmediatePropagation());
+            
+            RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
+            RegisterCallback<WheelEvent>(OnWheelEvent);
+            RegisterCallback<KeyDownEvent>((e) =>
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.Delete:
+                    {
+                        Timeline.ApplyModify(() =>
+                        {
+                            var selectableToRemove = Selections.ToList();
+                            foreach (var selectable in selectableToRemove)
+                            {
+                                if (selectable is TimelineTrackView trackView)
+                                {
+                                    Timeline.RemoveTrack(trackView.Track);
+                                }
+
+                                if (selectable is TimelineClipView clipView)
+                                {
+                                    Timeline.RemoveClip(clipView.Clip);
+                                }
+                            }
+                        },"Remove");
+                        break;
+                    }
+                    case KeyCode.F:
+                    {
+                        int startFrame = int.MaxValue;
+                        int endFrame = int.MinValue;
+                        foreach (var track in Timeline.Tracks)
+                        {
+                            foreach (var clip in track.Clips)
+                            {
+                                if (clip.StartFrame < startFrame)
+                                {
+                                    startFrame = clip.StartFrame;
+                                }
+                                if (clip.EndFrame >= endFrame)
+                                {
+                                    endFrame = clip.EndFrame;
+                                }
+                            }
+
+                            int middleFrame = (startFrame + endFrame) / 2;
+                            TrackScrollView.scrollOffset = new Vector2(middleFrame * OneFrameWidth, TrackScrollView.scrollOffset.y);
+                        }
+                        break;
+                    }
+                }
+            });
         }
 
         public Dictionary<int, float> FramePosMap { get; set; }
@@ -154,9 +252,8 @@ namespace Timeline.Editor
                 FramePosMap.Add(i, OneFrameWidth * i * m_FieldOffsetX);
             }
 
-            float maxTextWidth = TextWidth(m_MaxFrame.ToString(),m_MarkerTextFont, m_TimeTextFontSize);
+            float maxTextWidth = TextWidth(m_MaxFrame.ToString(), m_MarkerTextFont, m_TimeTextFontSize);
             m_DrawTimeText = OneFrameWidth > maxTextWidth * 1.5f;
-            
         }
 
         public void DrawTimeField()
@@ -169,7 +266,141 @@ namespace Timeline.Editor
         private void OnMarkerFieldGenerateVisualContent(MeshGenerationContext mgc)
         {
         }
-        
+
+        private void OnTrackFieldGenerateVisualContent(MeshGenerationContext mgc)
+        {
+            var paint2D = mgc.painter2D;
+            paint2D.strokeColor = m_FieldLineColor;
+            paint2D.BeginPath();
+
+            int showInterval = Mathf.CeilToInt(1 / m_FieldScale);
+            int startFrame = CurrentMinFrame;
+            int endFrame = CurrentMaxFrame;
+
+            for (int i = startFrame; i <= endFrame; i++)
+            {
+                if (i % (showInterval * 5) == 0)
+                {
+                    paint2D.MoveTo(new Vector2(FramePosMap[i], 0));
+                    paint2D.LineTo(new Vector2(FramePosMap[i], TrackScrollView.worldBound.height));
+                }
+            }
+
+            paint2D.Stroke();
+        }
+
+        #endregion
+
+        #region TimeLocator
+
+        public void SettimeLocator(int targetFrame)
+        {
+        }
+
+        public void UpdateTimeLocator()
+        {
+        }
+
+        private void OnTimeLocatorStartMove(PointerDownEvent evt)
+        {
+        }
+
+        private void OnTimeLocatorMove(Vector2 deltaPosition)
+        {
+        }
+
+        private void OnTimeLocatorStopMove()
+        {
+        }
+
+        private void OnTimeLocatorGenerateVisualContent(MeshGenerationContext mgc)
+        {
+        }
+
+        #endregion
+
+        #region DragFrameLine
+
+        private int[] m_DrawFrameLine = new int[0];
+
+        public void DrawFrameLine(params int[] frames)
+        {
+            this.m_DrawFrameLine = frames;
+            this.DrawFrameLineField.MarkDirtyRepaint();
+        }
+
+        private void OnDrawFrameLineFieldGenerateVisualContent(MeshGenerationContext mgc)
+        {
+        }
+
+        #endregion
+
+        #region AdjustClip
+
+        public void ResizeClip(TimelineClipView clipView, int border, float deltaPosition)
+        {
+        }
+
+        public void AdjustSelfEase(TimelineClipView clipView, int border, float deltaPosition)
+        {
+        }
+
+        private TimelineClipView m_MoveLeader;
+        private int m_MoveStartFrame;
+
+        public void StartMove(TimelineClipView moveLeader)
+        {
+        }
+
+        public void MoveClips(float deltaPosition)
+        {
+        }
+
+        public void ApplyMove()
+        {
+        }
+
+        public bool GetMoveValid(TimelineClipView clipView)
+        {
+            return false;
+        }
+
+        #endregion
+
+        #region Add Clip
+
+        public void AddClip(Track track, int startFrame)
+        {
+        }
+
+        public void AddClip(UnityEngine.Object referenceObject, Track track, int startFrame)
+        {
+        }
+
+        private void AdjustClip(Clip clip)
+        {
+        }
+
+        #endregion
+
+        #region Callback
+
+        private void OnCustomStyleResolved(CustomStyleResolvedEvent evt)
+        {
+        }
+
+        private void OnGeometryChanged(GeometryChangedEvent evt)
+        {
+        }
+
+        private void OnTrackFieldGeometryChanged(GeometryChangedEvent evt)
+        {
+        }
+
+        private void OnWheelEvent(WheelEvent wheelEvent)
+        {
+        }
+
         #endregion
 
         #region Helper
@@ -282,6 +513,7 @@ namespace Timeline.Editor
                     closestClip = clip;
                 }
             }
+
             return closestClip;
         }
 
@@ -297,6 +529,7 @@ namespace Timeline.Editor
                     cloestClip = clip;
                 }
             }
+
             return cloestClip;
         }
 
@@ -324,9 +557,9 @@ namespace Timeline.Editor
                     return clip;
                 }
             }
+
             return null;
         }
-
 
         public int TextWidth(string s, Font font, int fontSize, FontStyle fontStyle = FontStyle.Normal)
         {
@@ -336,15 +569,17 @@ namespace Timeline.Editor
             }
 
             int w = 0;
-            font.RequestCharactersInTexture(s,fontSize,fontStyle);
+            font.RequestCharactersInTexture(s, fontSize, fontStyle);
 
             foreach (char c in s)
             {
                 font.GetCharacterInfo(c, out CharacterInfo cInfo, fontSize);
                 w += cInfo.advance;
             }
+
             return w;
         }
+
         #endregion
     }
 }

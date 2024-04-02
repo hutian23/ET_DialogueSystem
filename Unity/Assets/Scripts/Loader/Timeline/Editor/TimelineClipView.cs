@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
-    public class TimelineClipView : VisualElement
+    public class TimelineClipView : VisualElement,ISelectable
     {
         public new class UxmlFactory : UxmlFactory<TimelineClipView,UxmlTraits> {}
 
@@ -141,6 +141,21 @@ namespace Timeline.Editor
         public bool IsSelectable()
         {
             throw new System.NotImplementedException();
+        }
+
+        public void Select()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnSelect()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsSelected()
+        {
+            throw new NotImplementedException();
         }
 
         public bool HitTest(Vector2 localPoint)
