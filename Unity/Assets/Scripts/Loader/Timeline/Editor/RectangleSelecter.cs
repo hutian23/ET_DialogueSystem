@@ -1,17 +1,17 @@
 ﻿using System;
-using UnityEditor.Experimental.GraphView;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
     public class RectangleSelecter: MouseManipulator
-    {
-        protected class RectangleSelect: ImmediateModeElement
+    { 
+        class RectangleSelect: ImmediateModeElement
         {
             private static Material lineMaterial;
-            private Vector2 start { get; set; }
-            private Vector2 end { get; set; }
+            public Vector2 start { get; set; }
+            public Vector2 end { get; set; }
             public Func<Vector2> offset { get; set; }
 
             public RectangleSelect()
@@ -105,6 +105,12 @@ namespace Timeline.Editor
             m_Active = false;
         }
 
+        /// <summary>
+        /// Computer the axis-aligned bound rectangle
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="transform"></param>
+        /// <returns></returns>
         public Rect ComputeAxisAlignBound(Rect position, Matrix4x4 transform)
         {
             Vector3 vector = transform.MultiplyPoint3x4(position.min);
@@ -114,17 +120,113 @@ namespace Timeline.Editor
         
         protected override void RegisterCallbacksOnTarget()
         {
-            // target.RegisterCallback<MouseDownEvent>(OnM);
+            target.RegisterCallback<MouseDownEvent>(OnMouseDown);
+            target.RegisterCallback<MouseUpEvent>(OnMouseUp);
+            target.RegisterCallback<MouseMoveEvent>(OnMouseMove);
+            target.RegisterCallback<MouseCaptureOutEvent>(OnMouseCaptureOutEvent);
         }
-
+        
         protected override void UnregisterCallbacksFromTarget()
         {
-            throw new System.NotImplementedException();
+            target.UnregisterCallback<MouseDownEvent>(OnMouseDown);
+            target.UnregisterCallback<MouseUpEvent>(OnMouseUp);
+            target.UnregisterCallback<MouseMoveEvent>(OnMouseMove);
+            target.UnregisterCallback<MouseCaptureOutEvent>(OnMouseCaptureOutEvent);
         }
 
         private void OnMouseCaptureOutEvent(MouseCaptureOutEvent evt)
         {
+            if (m_Active)
+            {
+                m_Rectangle.RemoveFromHierarchy();
+                m_Active = false;
+            }
+        }
+
+        private void OnMouseDown(MouseDownEvent evt)
+        {
+            if (m_Active)
+            {
+                evt.StopImmediatePropagation();
+                return;
+            }
+            ISelection selection = target as ISelection;
+            if (selection != null && target.panel?.GetCapturingElement(PointerId.mousePointerId) == null && CanStartManipulation(evt))
+            {
+                if (!evt.actionKey)
+                {
+                    selection.ClearSelection();
+                }
+                
+                target.Add(m_Rectangle);
+                m_Rectangle.start = evt.localMousePosition;
+                m_Rectangle.end = m_Rectangle.start;
+                m_Active = true;
+                target.CaptureMouse();
+                evt.StopImmediatePropagation();
+            }
+        }
+        
+        private void OnMouseUp(MouseUpEvent evt)
+        {
+            if (m_Active)
+            {
+                evt.StopImmediatePropagation();
+                return;
+            }
             
+            ISelection selection = target as ISelection;
+            if (selection == null || !CanStartManipulation(evt))
+            {
+                return;
+            }
+            
+            target.Remove(m_Rectangle);
+            m_Rectangle.end = evt.localMousePosition;
+            Rect selectionRect = new Rect
+            {
+                min = new Vector2(Math.Min(m_Rectangle.start.x,m_Rectangle.end.x),Math.Min(m_Rectangle.start.y,m_Rectangle.end.y)),
+                max = new Vector2(Math.Max(m_Rectangle.start.x,m_Rectangle.end.x),Math.Max(m_Rectangle.start.y,m_Rectangle.end.y))
+            };
+            selectionRect = ComputeAxisAlignBound(selectionRect, selection.ContentContainer.transform.matrix.inverse);
+
+            List<ISelectable> newSelection = new List<ISelectable>();
+            selection.Elements.ForEach(child =>
+            {
+                Rect rectangle = target.ChangeCoordinatesTo(child as VisualElement, selectionRect);
+                if (child.IsSelectable() && child.Overlaps(rectangle))
+                {
+                    newSelection.Add(child);
+                }
+            });
+            foreach (ISelectable item in newSelection)
+            {
+                if (selection.Selections.Contains(item))
+                {
+                    //ctrl
+                    if (evt.actionKey)
+                    {
+                        selection.RemoveFromSelection(item);
+                    }
+                }
+                else
+                {
+                    selection.AddToSelection(item);
+                }
+            }
+
+            m_Active = false;
+            target.ReleaseMouse();
+            evt.StopPropagation();
+        }
+        
+        private void OnMouseMove(MouseMoveEvent evt)
+        {
+            if (m_Active)
+            {
+                m_Rectangle.end = evt.localMousePosition;
+                evt.StopPropagation();
+            }
         }
     }
 }
