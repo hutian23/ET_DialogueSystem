@@ -300,7 +300,20 @@ namespace Timeline.Editor
                         serializedProperty = serializedProperty.GetArrayElementAtIndex(clip.Track.Clips.IndexOf(clip));
                         
                         DrawProperties(serializedProperty,target);
-                        
+
+                        ClipInspectorView clipViewName = clip.GetAttribute<ClipInspectorView>();
+                        if (clipViewName != null)
+                        {
+                            foreach (var clipInspectorViewScriptPair in TimelineEditorUtility.ClipInspectorViewScriptMap)
+                            {
+                                if (clipInspectorViewScriptPair.Key.Name == clipViewName.Name)
+                                {
+                                    TimelineClipInspectorView clipInspectorView = Activator.CreateInstance(clipInspectorViewScriptPair.Key,clip) as TimelineClipInspectorView;
+                                    ClipInspector.Add(clipInspectorView);
+                                    return;
+                                }
+                            }
+                        }
                         break;
                     }
                 }
