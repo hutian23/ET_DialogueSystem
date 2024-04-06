@@ -36,7 +36,7 @@ namespace Timeline
         }
     }
 
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Field)]
     public class ShowInInspectorAttribute: OrderedAttribute
     {
         public ShowInInspectorAttribute(float index = 0): base(index)

@@ -124,6 +124,18 @@ namespace Timeline.Editor
             }
         }
 
+        public static bool HideIf(this MemberInfo memberInfo, object target)
+        {
+            if (memberInfo.GetCustomAttribute<HideIfAttribute>() is HideIfAttribute hideIfAttribute && hideIfAttribute.Hide(target))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
         public static bool ReadOnly(this MemberInfo memberInfo, object target)
         {
             if (memberInfo.GetCustomAttributes<ReadOnlyAttribute>() is ReadOnlyAttribute readOnlyAttribute && readOnlyAttribute.ReadOnly(target))

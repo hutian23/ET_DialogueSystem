@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using ET;
 using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
-    public class TimelineFieldView: VisualElement,ISelection
+    public class TimelineFieldView: VisualElement, ISelection
     {
         public new class UxmlFactory: UxmlFactory<TimelineFieldView, UxmlTraits>
         {
@@ -255,7 +257,7 @@ namespace Timeline.Editor
 
                 m_MaxFrame = Mathf.Max(m_MaxFrame, maxFrame);
                 m_FieldScale = Timeline.Scale;
-                
+
                 ResizeTimeField();
                 DrawTimeField();
 
@@ -264,14 +266,14 @@ namespace Timeline.Editor
                     TimelineTrackView trackView = new();
                     trackView.SelectionContainer = this;
                     trackView.Init(track);
-                    
+
                     Elements.Add(trackView);
                     TrackField.Add(trackView);
-                    TrackViewMap.Add(track,trackView);
+                    TrackViewMap.Add(track, trackView);
                     TrackViews.Add(trackView);
                 }
             }
-            
+
             OnPopulatedCallback?.Invoke();
         }
 
@@ -286,8 +288,8 @@ namespace Timeline.Editor
                     {
                         SerializedProperty serializedProperty = Timeline.SerializedTimeline.FindProperty("m_Tracks");
                         serializedProperty = serializedProperty.GetArrayElementAtIndex(Timeline.Tracks.IndexOf(track));
-                        
-                        DrawProperties(serializedProperty,target);
+
+                        DrawProperties(serializedProperty, target);
                         break;
                     }
                     case Clip clip:
@@ -298,8 +300,8 @@ namespace Timeline.Editor
                         serializedProperty = serializedProperty.GetArrayElementAtIndex(Timeline.Tracks.IndexOf(clip.Track));
                         serializedProperty = serializedProperty.FindPropertyRelative("m_Clips");
                         serializedProperty = serializedProperty.GetArrayElementAtIndex(clip.Track.Clips.IndexOf(clip));
-                        
-                        DrawProperties(serializedProperty,target);
+
+                        DrawProperties(serializedProperty, target);
 
                         ClipInspectorView clipViewName = clip.GetAttribute<ClipInspectorView>();
                         if (clipViewName != null)
@@ -308,12 +310,14 @@ namespace Timeline.Editor
                             {
                                 if (clipInspectorViewScriptPair.Key.Name == clipViewName.Name)
                                 {
-                                    TimelineClipInspectorView clipInspectorView = Activator.CreateInstance(clipInspectorViewScriptPair.Key,clip) as TimelineClipInspectorView;
+                                    TimelineClipInspectorView clipInspectorView =
+                                            Activator.CreateInstance(clipInspectorViewScriptPair.Key, clip) as TimelineClipInspectorView;
                                     ClipInspector.Add(clipInspectorView);
                                     return;
                                 }
                             }
                         }
+
                         break;
                     }
                 }
@@ -322,22 +326,92 @@ namespace Timeline.Editor
 
         public void DrawProperties(SerializedProperty serializedProperty, object target)
         {
-            
+            #region Base
+
+            if (target is Clip clip)
+            {
+                VisualElement baseInspector = new();
+                baseInspector.name = "base-inspector";
+                ClipInspector.Add(baseInspector);
+
+                IMGUIContainer baseIMGUIContainer = new(() =>
+                {
+                    DrawGUI("Start", clip.StartFrame);
+                    DrawGUI("End", clip.EndFrame);
+                    if (clip.IsMixable())
+                    {
+                        DrawGUI("Ease In", clip.EaseInFrame);
+                        DrawGUI("Ease Out", clip.EaseOutFrame);
+                        DrawGUI("ClipIn", clip.ClipInFrame);
+                    }
+                    DrawGUI("Duration",clip.Duration);
+                });
+            }
+
+            void DrawGUI(string title, int frame)
+            {
+                GUILayout.BeginHorizontal();
+                GUILayout.Label($"{title}", GUILayout.Width(100));
+                GUILayout.FlexibleSpace();
+                GUILayout.Label($"{(frame / (float)TimelineUtility.FrameRate).ToString("0.00")}S / {frame}F", GUILayout.ExpandWidth(true));
+                GUILayout.EndHorizontal();
+            }
+
+            #endregion
+
+            #region Addition
+
+            VisualElement additionalInspector = new();
+            additionalInspector.name = "additional-inspector";
+            ClipInspector.Add(additionalInspector);
+
+            List<VisualElement> visualElements = new List<VisualElement>();
+            Dictionary<string, (VisualElement, List<VisualElement>)> groupMap = new Dictionary<string, (VisualElement, List<VisualElement>)>();
+
+            foreach (var fieldInfo in target.GetAllFields())
+            {
+                if (fieldInfo.GetCustomAttribute<ShowInInspectorAttribute>() is ShowInInspectorAttribute showInInspectorAttribute)
+                {
+                    if (!fieldInfo.ShowIf(target))
+                    {
+                        continue;
+                    }
+
+                    if (fieldInfo.HideIf(target))
+                    {
+                        continue;
+                    }
+
+                    SerializedProperty sp = serializedProperty.FindPropertyRelative(fieldInfo.Name);
+                    if (sp != null)
+                    {
+                        PropertyField propertyField = new(sp);
+                        propertyField.name = showInInspectorAttribute.Index * 10 + visualElements.Count.ToString();
+                        propertyField.Bind(Timeline.SerializedTimeline);
+                    }
+
+                    if (fieldInfo.GetCustomAttribute<OnValueChangedAttribute>() is OnValueChangedAttribute onValueChanged)
+                    {
+                        
+                    }
+                }
+            }
+
+            #endregion
         }
 
         public void UpdateBindState()
         {
-            
         }
 
         public void ForceScrollViewUpdate(ScrollView view)
         {
-            
         }
-        
+
         public Dictionary<int, float> FramePosMap { get; set; }
 
         #region Selection
+
         public VisualElement ContentContainer => TrackField;
         protected List<ISelectable> m_Elements = new();
         public List<ISelectable> Elements => m_Elements;
@@ -356,16 +430,14 @@ namespace Timeline.Editor
 
         public void RemoveFromSelection(ISelectable selectable)
         {
-            
         }
 
         public void ClearSelection()
         {
-            
         }
-        
+
         #endregion
-        
+
         #region TimelineField
 
         public void ResizeTimeField()

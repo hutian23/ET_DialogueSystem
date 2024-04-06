@@ -847,6 +847,9 @@
     <Reference Include="Unity.Sysroot.Linux_x86_64">
       <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.Sysroot.Linux_x86_64.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.EditorCoroutines.Editor">
+      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="PsdPlugin">
       <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\PsdPlugin.dll</HintPath>
     </Reference>
