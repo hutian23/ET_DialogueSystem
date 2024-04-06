@@ -141,7 +141,7 @@ namespace Timeline.Editor
                 //鼠标左键
                 if (e.button == 0)
                 {
-                    SettimeLocator(GetCloseFrame(e.localPosition.x));
+                    SettimeLocator(GetClosestFrame(e.localPosition.x));
                     LocatorDragManipulator.DragBeginForce(e);
                 }
             });
@@ -344,7 +344,8 @@ namespace Timeline.Editor
                         DrawGUI("Ease Out", clip.EaseOutFrame);
                         DrawGUI("ClipIn", clip.ClipInFrame);
                     }
-                    DrawGUI("Duration",clip.Duration);
+
+                    DrawGUI("Duration", clip.Duration);
                 });
             }
 
@@ -368,6 +369,7 @@ namespace Timeline.Editor
             List<VisualElement> visualElements = new List<VisualElement>();
             Dictionary<string, (VisualElement, List<VisualElement>)> groupMap = new Dictionary<string, (VisualElement, List<VisualElement>)>();
 
+            //blackboard中显示成员
             foreach (var fieldInfo in target.GetAllFields())
             {
                 if (fieldInfo.GetCustomAttribute<ShowInInspectorAttribute>() is ShowInInspectorAttribute showInInspectorAttribute)
@@ -388,12 +390,94 @@ namespace Timeline.Editor
                         PropertyField propertyField = new(sp);
                         propertyField.name = showInInspectorAttribute.Index * 10 + visualElements.Count.ToString();
                         propertyField.Bind(Timeline.SerializedTimeline);
-                    }
 
-                    if (fieldInfo.GetCustomAttribute<OnValueChangedAttribute>() is OnValueChangedAttribute onValueChanged)
-                    {
-                        
+                        fieldInfo.Group(propertyField, showInInspectorAttribute.Index, ref visualElements, ref groupMap);
+
+                        if (fieldInfo.ReadOnly(target))
+                        {
+                            propertyField.SetEnabled(false);
+                        }
+
+                        if (fieldInfo.GetCustomAttribute<OnValueChangedAttribute>() is OnValueChangedAttribute onValueChanged)
+                        {
+                            EditorCoroutineHelper.Delay(() =>
+                            {
+                                propertyField.RegisterValueChangeCallback((e) =>
+                                {
+                                    foreach (var method in onValueChanged.Methods)
+                                    {
+                                        target.GetMethod(method)?.Invoke(target, null);
+                                    }
+                                });
+                            }, 0.01f);
+                        }
                     }
+                }
+            }
+
+            //属性
+            foreach (var propertyInfo in target.GetAllProperties())
+            {
+                if (!propertyInfo.ShowIf(target))
+                {
+                    continue;
+                }
+
+                if (propertyInfo.HideIf(target))
+                {
+                    continue;
+                }
+
+                if (propertyInfo.GetCustomAttributes<ShowTextAttribute>() is ShowTextAttribute showTextAttribute)
+                {
+                    IMGUIContainer container = new(() => { GUILayout.Label(propertyInfo.GetValue(target).ToString()); });
+                    container.name = showTextAttribute.Index * 10 + visualElements.Count.ToString();
+                    propertyInfo.Group(container, showTextAttribute.Index, ref visualElements, ref groupMap);
+                }
+            }
+
+            //成员
+            foreach (var methodInfo in target.GetAllMethods())
+            {
+                if (!methodInfo.ShowIf(target))
+                {
+                    continue;
+                }
+
+                if (methodInfo.HideIf(target))
+                {
+                    continue;
+                }
+
+                if (methodInfo.GetCustomAttribute<ShowTextAttribute>() is ShowTextAttribute showTextAttribute)
+                {
+                    IMGUIContainer container = new IMGUIContainer(() => { GUILayout.Label(methodInfo.Invoke(target, null).ToString()); });
+                    container.name = showTextAttribute.Index * 10 + visualElements.Count.ToString();
+                    methodInfo.Group(container, showTextAttribute.Index, ref visualElements, ref groupMap);
+                }
+
+                if (methodInfo.GetCustomAttributes<ButtonAttribute>() is ButtonAttribute buttonAttribute)
+                {
+                    Button button = new Button();
+                    button.name = buttonAttribute.Index * 10 + visualElements.Count.ToString();
+                    button.text = string.IsNullOrEmpty(buttonAttribute.Label)? methodInfo.Name : buttonAttribute.Label;
+                    button.clicked += () => methodInfo.Invoke(target, null);
+                    methodInfo.Group(button, buttonAttribute.Index, ref visualElements, ref groupMap);
+                }
+            }
+
+            foreach (var visualElement in visualElements.OrderBy(i => float.Parse(i.name)))
+            {
+                visualElement.AddToClassList("inspectorElement");
+                additionalInspector.Add(visualElement);
+            }
+
+            foreach (var groupPair in groupMap)
+            {
+                foreach (var groupElement in groupPair.Value.Item2.OrderBy(i => float.Parse(i.name)))
+                {
+                    groupElement.AddToClassList("inspectorElement");
+                    groupPair.Value.Item1.Add(groupElement);
                 }
             }
 
@@ -402,10 +486,38 @@ namespace Timeline.Editor
 
         public void UpdateBindState()
         {
+            if (EditorWindow == null)
+            {
+                return;
+            }
+
+            if (Timeline && Timeline.TimelinePlayer)
+            {
+                MarkerField.SetEnabled(true);
+                TimeLocator.SetEnabled(true);
+            }
+            else
+            {
+                MarkerField.SetEnabled(false);
+                TimeLocator.SetEnabled(false);
+            }
+
+            UpdateTimeLocator();
+            PopulateInspector(Timeline);
         }
 
         public void ForceScrollViewUpdate(ScrollView view)
         {
+            view.schedule.Execute(() =>
+            {
+                var fakeOldRect = Rect.zero;
+                var fakeNewRect = view.layout;
+
+                //调用滚动事件?
+                using var evt = GeometryChangedEvent.GetPooled(fakeOldRect, fakeNewRect);
+                evt.target = view.contentContainer;
+                view.contentContainer.SendEvent(evt);
+            });
         }
 
         public Dictionary<int, float> FramePosMap { get; set; }
@@ -425,15 +537,26 @@ namespace Timeline.Editor
 
             if (selectable is TimelineTrackView trackView)
             {
+                PopulateInspector(trackView.Track);
+            }
+
+            if (selectable is TimelineClipView clipView)
+            {
+                PopulateInspector(clipView.Clip);
             }
         }
 
         public void RemoveFromSelection(ISelectable selectable)
         {
+            m_Selections.Remove(selectable);
         }
 
         public void ClearSelection()
         {
+            m_Selections.ForEach(i => i.UnSelect());
+            Selections.Clear();
+
+            PopulateInspector(null);
         }
 
         #endregion
@@ -474,6 +597,38 @@ namespace Timeline.Editor
 
         private void OnMarkerFieldGenerateVisualContent(MeshGenerationContext mgc)
         {
+            var paint2D = mgc.painter2D;
+            paint2D.strokeColor = Color.white;
+            paint2D.BeginPath();
+
+            int showInterval = Mathf.CeilToInt(1 / m_FieldScale);
+            int startFrame = CurrentMinFrame;
+            int endFrame = CurrentMaxFrame;
+
+            for (int i = startFrame; i <= endFrame; i++)
+            {
+                //大刻度
+                if (i % (showInterval * 5) == 0)
+                {
+                    paint2D.MoveTo(new Vector2(FramePosMap[i], 10));
+                    paint2D.LineTo(new Vector2(FramePosMap[i], 25));
+
+                    mgc.DrawText(i.ToString(), new Vector2(FramePosMap[i] + 5, 5), m_TimeTextFontSize, Color.white);
+                }
+                //小刻度
+                else if (i % showInterval == 0)
+                {
+                    paint2D.MoveTo(new Vector2(FramePosMap[i], 20));
+                    paint2D.LineTo(new Vector2(FramePosMap[i], 25));
+
+                    if (m_DrawTimeText)
+                    {
+                        mgc.DrawText(i.ToString(), new Vector2(FramePosMap[i] + 5, 5), m_TimeTextFontSize, Color.white);
+                    }
+                }
+
+                paint2D.Stroke();
+            }
         }
 
         private void OnTrackFieldGenerateVisualContent(MeshGenerationContext mgc)
@@ -504,26 +659,55 @@ namespace Timeline.Editor
 
         public void SettimeLocator(int targetFrame)
         {
+            Timeline.TimelinePlayer.IsPlaying = false;
+            float deltaTime = targetFrame / 60f - Timeline.Time;
+            Timeline.TimelinePlayer.Evaluate(deltaTime);
         }
 
         public void UpdateTimeLocator()
         {
+            if (EditorWindow == null) return;
+
+            if (Timeline != null && Timeline.Binding)
+            {
+                TimeLocator.style.left = Timeline.Time * TimelineUtility.FrameRate * OneFrameWidth + m_FieldOffsetX;
+                TimeLocator.MarkDirtyRepaint();
+                LocaterFrameLabel.text = Timeline.Frame.ToString();
+            }
+            else
+            {
+                TimeLocator.style.left = m_FieldOffsetX;
+                TimeLocator.MarkDirtyRepaint();
+                LocaterFrameLabel.text = string.Empty;
+            }
         }
 
         private void OnTimeLocatorStartMove(PointerDownEvent evt)
         {
+            LocaterFrameLabel.style.display = DisplayStyle.Flex;
         }
 
         private void OnTimeLocatorMove(Vector2 deltaPosition)
         {
+            int targetFrame = GetClosestFrame(FramePosMap[Timeline.Frame] + deltaPosition.x);
+            targetFrame = Mathf.Clamp(targetFrame, CurrentMinFrame, CurrentMaxFrame);
+
+            SettimeLocator(targetFrame);
         }
 
         private void OnTimeLocatorStopMove()
         {
+            LocaterFrameLabel.style.display = DisplayStyle.None;
         }
 
         private void OnTimeLocatorGenerateVisualContent(MeshGenerationContext mgc)
         {
+            var paint2D = mgc.painter2D;
+            paint2D.strokeColor = Color.white;
+            paint2D.BeginPath();
+            paint2D.MoveTo(new Vector2(0, 25));
+            paint2D.LineTo(new Vector2(0, TrackScrollView.worldBound.height));
+            paint2D.Stroke();
         }
 
         #endregion
@@ -540,6 +724,21 @@ namespace Timeline.Editor
 
         private void OnDrawFrameLineFieldGenerateVisualContent(MeshGenerationContext mgc)
         {
+            var paint2D = mgc.painter2D;
+            paint2D.strokeColor = new Color(1f, 0.6f, 0f, 1f);
+            paint2D.BeginPath();
+            foreach (var drawFrame in m_DrawFrameLine)
+            {
+                int count = Mathf.CeilToInt(TrackScrollView.worldBound.height / 5);
+                for (int i = 0; i < count; i += 2)
+                {
+                    paint2D.MoveTo(new Vector2(FramePosMap[drawFrame], i * 5));
+                    paint2D.LineTo(new Vector2(FramePosMap[drawFrame], i * 5 + 5));
+                }
+
+                mgc.DrawText(drawFrame.ToString(), new Vector2(FramePosMap[drawFrame] + 5, 5), m_TimeTextFontSize, Color.white);
+            }
+            paint2D.Stroke();
         }
 
         #endregion
@@ -548,10 +747,110 @@ namespace Timeline.Editor
 
         public void ResizeClip(TimelineClipView clipView, int border, float deltaPosition)
         {
+            if (border == 0)
+            {
+                int targetFrame = GetClosestFrame(FramePosMap[clipView.StartFrame] + deltaPosition);
+                if (clipView.Clip.IsClipInable())
+                {
+                    targetFrame = Mathf.Clamp(targetFrame, Mathf.Max(CurrentMinFrame, clipView.StartFrame - clipView.ClipInFrame), Mathf.Min(clipView.EndFrame - 1, CurrentMaxFrame));
+                }
+                else
+                {
+                    targetFrame = Mathf.Clamp(targetFrame, CurrentMinFrame, Mathf.Min(clipView.EndFrame - 1, CurrentMaxFrame));
+                }
+
+                if (!clipView.Clip.IsMixable())
+                {
+                    Clip closetLeftClip = GetClosestLeftClip(clipView.Clip);
+                    if (closetLeftClip != null)
+                    {
+                        targetFrame = Mathf.Max(targetFrame, closetLeftClip.EndFrame);
+                    }
+                }
+                else
+                {
+                    targetFrame = Mathf.Min(targetFrame, clipView.EndFrame - clipView.OtherEaseOutFrame);
+                    Clip overlapClip = GetOverlapClip(clipView.Clip);
+                    if (overlapClip != null && targetFrame <= overlapClip.StartFrame)
+                    {
+                        return;
+                    }
+
+                    Clip closetLeftClip = GetClosestLeftClip(clipView.Clip);
+                    if (closetLeftClip != null)
+                    {
+                        targetFrame = Mathf.Max(targetFrame, closetLeftClip.StartFrame + closetLeftClip.OtherEaseInFrame);
+                    }
+                }
+
+                if (targetFrame != clipView.StartFrame)
+                {
+                    Timeline.ApplyModify(() =>
+                    {
+                        clipView.Resize(targetFrame,clipView.EndFrame);
+                    },"Resize Clip");
+                    Timeline.RebindTrack(clipView.TrackView.Track);
+                }
+            }
+            else
+            {
+                int targetFrame = GetClosestFrame(FramePosMap[clipView.EndFrame] + deltaPosition);
+                targetFrame = Mathf.Clamp(targetFrame, Mathf.Max(clipView.StartFrame + 1, CurrentMinFrame), CurrentMaxFrame);
+
+                if (!clipView.Clip.IsMixable())
+                {
+                    Clip closestRightClip = GetClosestRightClip(clipView.Clip);
+                    if (closestRightClip != null)
+                    {
+                        targetFrame = Mathf.Min(targetFrame, closestRightClip.StartFrame);
+                    }
+                }
+                else
+                {
+                    targetFrame = Mathf.Max(targetFrame, clipView.StartFrame + clipView.OtherEaseInFrame);
+
+                    Clip closestRightClip = GetClosestRightClip(clipView.Clip);
+                    if (closestRightClip != null)
+                    {
+                        targetFrame = Mathf.Min(targetFrame, closestRightClip.EndFrame - closestRightClip.OtherEaseOutFrame);
+                    }
+                }
+
+                if (targetFrame != clipView.EndFrame)
+                {
+                    Timeline.ApplyModify(() =>
+                    {
+                        clipView.Resize(clipView.StartFrame,targetFrame);
+                    },"Resize Clip");
+                    Timeline.RebindTrack(clipView.TrackView.Track);
+                }
+            }
         }
 
         public void AdjustSelfEase(TimelineClipView clipView, int border, float deltaPosition)
         {
+            int deltaFrame = 0;
+            if (border == 0)
+            {
+                int targetFrame = GetClosestFrame(FramePosMap[clipView.StartFrame + clipView.SelfEaseInFrame] + deltaPosition);
+                targetFrame = Mathf.Clamp(targetFrame, Mathf.Max(clipView.StartFrame, CurrentMinFrame), Mathf.Min(clipView.EndFrame - clipView.EaseOutFrame,CurrentMaxFrame));
+                deltaFrame = targetFrame - (clipView.StartFrame + clipView.SelfEaseInFrame);
+            }
+            else
+            {
+                int targetFrame = GetClosestFrame(FramePosMap[clipView.EndFrame - clipView.SelfEaseOutFrame] + deltaPosition);
+                targetFrame = Mathf.Clamp(targetFrame, Mathf.Max(clipView.StartFrame + clipView.EaseInFrame, CurrentMinFrame), Mathf.Min(clipView.EndFrame, CurrentMaxFrame));
+                deltaFrame = targetFrame - (clipView.EndFrame - clipView.SelfEaseOutFrame);
+            }
+
+            if (deltaFrame != 0)
+            {
+                Timeline.ApplyModify(() =>
+                {
+                    //TODO 
+                },"Resize Clip");
+                Timeline.RebindTrack(clipView.TrackView.Track);
+            }
         }
 
         private TimelineClipView m_MoveLeader;
@@ -559,10 +858,53 @@ namespace Timeline.Editor
 
         public void StartMove(TimelineClipView moveLeader)
         {
+            m_MoveLeader = moveLeader;
+            m_MoveStartFrame = moveLeader.StartFrame;
         }
 
         public void MoveClips(float deltaPosition)
         {
+            int startFrame = int.MaxValue;
+            int endFrame = int.MinValue;
+            List<TimelineClipView> moveClips = new List<TimelineClipView>();
+            foreach (var selectable in Selections)
+            {
+                if (selectable is TimelineClipView clipView)
+                {
+                    moveClips.Add(clipView);
+                    if (clipView.StartFrame < startFrame)
+                    {
+                        startFrame = clipView.StartFrame;
+                    }
+
+                    if (clipView.EndFrame > endFrame)
+                    {
+                        endFrame = clipView.EndFrame;
+                    }
+                }
+            }
+
+            int targetStartFrame = GetClosestFrame(FramePosMap[startFrame] + deltaPosition);
+            targetStartFrame = Mathf.Clamp(targetStartFrame, CurrentMinFrame, CurrentMaxFrame);
+
+            if (targetStartFrame != startFrame)
+            {
+                int deltaFrame = targetStartFrame - startFrame;
+                if (deltaFrame + endFrame >= m_MaxFrame)
+                {
+                    for (int i = m_MaxFrame; i <= deltaFrame + endFrame; i++)
+                    {
+                        FramePosMap.Add(i, OneFrameWidth * i * m_FieldOffsetX);
+                    }
+
+                    m_MaxFrame = deltaFrame + endFrame + 1;
+                }
+
+                foreach (var moveClip in moveClips)
+                {
+                    //TODO
+                }
+            }
         }
 
         public void ApplyMove()
@@ -614,7 +956,7 @@ namespace Timeline.Editor
 
         #region Helper
 
-        public int GetCloseFrame(float position)
+        public int GetClosestFrame(float position)
         {
             int frame = 0;
             foreach (var framePosPair in FramePosMap)
