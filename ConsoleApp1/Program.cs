@@ -45,15 +45,15 @@ class Program
 {
     static void Main(string[] args)
     {
-        SortedSet<int> set = new();
-        set.Add(2);
-        set.Add(1);
-        set.Add(1);
-        set.Add(0);
-        foreach (var  t in set)
-        {
-            Console.WriteLine(t);
-        }
+        // SortedSet<int> set = new();
+        // set.Add(2);
+        // set.Add(1);
+        // set.Add(1);
+        // set.Add(0);
+        // foreach (var  t in set)
+        // {
+        //     Console.WriteLine(t);
+        // }
         // string input = "HP < 10";
         // string pattern = @"^\w+"; // 匹配以字母开头的字符序列
         //
@@ -61,7 +61,7 @@ class Program
         //
         // if (match.Success)
         // {
-        //     Console.WriteLine("第一个单词是: " + match.Value);
+        Console.WriteLine("第一个单词是: " + match.Value);
         // }
         // else
         // {

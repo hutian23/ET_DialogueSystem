@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using ET;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
-    public class TimelineFieldView: VisualElement
+    public class TimelineFieldView: VisualElement,ISelection
     {
         public new class UxmlFactory: UxmlFactory<TimelineFieldView, UxmlTraits>
         {
@@ -37,21 +36,21 @@ namespace Timeline.Editor
         #region Param
 
         public float m_MaxFieldScale = 10;
-        public float m_FieldOffsetX = 6;
-        public float m_MarkerWidth = 50;
+        private readonly float m_FieldOffsetX = 6;
+        private readonly float m_MarkerWidth = 50;
         public float m_WheelLerpSpeed = 0.2f;
-        public int m_TimeTextFontSize = 14;
+        private readonly int m_TimeTextFontSize = 14;
 
         #endregion
 
         #region Style
 
         public static CustomStyleProperty<Color> s_FieldLineColor = new("--field-line-color");
-        protected Color m_FieldLineColor;
+        private readonly Color m_FieldLineColor;
         public static CustomStyleProperty<Color> s_LocatorLineColor = new("--locator-line-color");
         protected Color m_LocatorLineColor;
         public static CustomStyleProperty<Font> s_MarkerTextFont = new("--marker-text-font");
-        protected Font m_MarkerTextFont;
+        private readonly Font m_MarkerTextFont;
 
         #endregion
 
@@ -167,8 +166,8 @@ namespace Timeline.Editor
                     e.StopImmediatePropagation();
                 }
             });
-            ClipInspector.RegisterCallback<PointerDownEvent>((e)=> e.StopImmediatePropagation());
-            
+            ClipInspector.RegisterCallback<PointerDownEvent>((e) => e.StopImmediatePropagation());
+
             RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
             RegisterCallback<WheelEvent>(OnWheelEvent);
             RegisterCallback<KeyDownEvent>((e) =>
@@ -192,7 +191,7 @@ namespace Timeline.Editor
                                     Timeline.RemoveClip(clipView.Clip);
                                 }
                             }
-                        },"Remove");
+                        }, "Remove");
                         break;
                     }
                     case KeyCode.F:
@@ -207,6 +206,7 @@ namespace Timeline.Editor
                                 {
                                     startFrame = clip.StartFrame;
                                 }
+
                                 if (clip.EndFrame >= endFrame)
                                 {
                                     endFrame = clip.EndFrame;
@@ -216,19 +216,143 @@ namespace Timeline.Editor
                             int middleFrame = (startFrame + endFrame) / 2;
                             TrackScrollView.scrollOffset = new Vector2(middleFrame * OneFrameWidth, TrackScrollView.scrollOffset.y);
                         }
+
                         break;
                     }
                 }
             });
+
+            this.AddManipulator(new RectangleSelecter(() => -localBound.position));
         }
 
+        public void PopulateView()
+        {
+            TrackField.Clear();
+            m_Selections.Clear();
+            m_Elements.Clear();
+            TrackViewMap.Clear();
+            TrackViews.Clear();
+            PopulateInspector(null);
+            UpdateBindState();
+
+            if (Timeline)
+            {
+                Timeline.UpdateSerializedTimeline();
+
+                int maxFrame = 0;
+                foreach (var track in Timeline.Tracks)
+                {
+                    foreach (var clip in track.Clips)
+                    {
+                        if (clip.EndFrame >= maxFrame)
+                        {
+                            maxFrame = clip.EndFrame;
+                        }
+                    }
+                }
+
+                maxFrame++;
+
+                m_MaxFrame = Mathf.Max(m_MaxFrame, maxFrame);
+                m_FieldScale = Timeline.Scale;
+                
+                ResizeTimeField();
+                DrawTimeField();
+
+                foreach (var track in Timeline.Tracks)
+                {
+                    TimelineTrackView trackView = new();
+                    trackView.SelectionContainer = this;
+                    trackView.Init(track);
+                    
+                    Elements.Add(trackView);
+                    TrackField.Add(trackView);
+                    TrackViewMap.Add(track,trackView);
+                    TrackViews.Add(trackView);
+                }
+            }
+            
+            OnPopulatedCallback?.Invoke();
+        }
+
+        public void PopulateInspector(object target)
+        {
+            ClipInspector.Clear();
+            if (target != null)
+            {
+                switch (target)
+                {
+                    case Track track:
+                    {
+                        SerializedProperty serializedProperty = Timeline.SerializedTimeline.FindProperty("m_Tracks");
+                        serializedProperty = serializedProperty.GetArrayElementAtIndex(Timeline.Tracks.IndexOf(track));
+                        
+                        DrawProperties(serializedProperty,target);
+                        break;
+                    }
+                    case Clip clip:
+                    {
+                        clip.OnInspectorRepaint = () => PopulateInspector(clip);
+
+                        SerializedProperty serializedProperty = Timeline.SerializedTimeline.FindProperty("m_Tracks");
+                        serializedProperty = serializedProperty.GetArrayElementAtIndex(Timeline.Tracks.IndexOf(clip.Track));
+                        serializedProperty = serializedProperty.FindPropertyRelative("m_Clips");
+                        serializedProperty = serializedProperty.GetArrayElementAtIndex(clip.Track.Clips.IndexOf(clip));
+                        
+                        DrawProperties(serializedProperty,target);
+                        
+                        break;
+                    }
+                }
+            }
+        }
+
+        public void DrawProperties(SerializedProperty serializedProperty, object target)
+        {
+            
+        }
+
+        public void UpdateBindState()
+        {
+            
+        }
+
+        public void ForceScrollViewUpdate(ScrollView view)
+        {
+            
+        }
+        
         public Dictionary<int, float> FramePosMap { get; set; }
 
-        public VisualElement ContentContainer { get; }
-        public List<ISelectable> Elements { get; }
-        public List<ISelectable> Selections { get; }
-        public List<ISelectable> selection { get; }
+        #region Selection
+        public VisualElement ContentContainer => TrackField;
+        protected List<ISelectable> m_Elements = new();
+        public List<ISelectable> Elements => m_Elements;
+        protected List<ISelectable> m_Selections = new();
+        public List<ISelectable> Selections => m_Selections;
 
+        public void AddToSelection(ISelectable selectable)
+        {
+            m_Selections.Add(selectable);
+            selectable.Select();
+
+            if (selectable is TimelineTrackView trackView)
+            {
+            }
+        }
+
+        public void RemoveFromSelection(ISelectable selectable)
+        {
+            
+        }
+
+        public void ClearSelection()
+        {
+            
+        }
+        
+        #endregion
+        
         #region TimelineField
 
         public void ResizeTimeField()
