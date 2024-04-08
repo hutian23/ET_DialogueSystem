@@ -10,6 +10,12 @@ namespace Timeline.Editor
 {
     public class TimelineEditorWindow: EditorWindow, ISelection
     {
+        [MenuItem("Window/test window")]
+        public static void CreateEditorWindow()
+        {
+            EditorWindow.GetWindow(typeof(TimelineEditorWindow), false, "My Window");
+        }
+        
         protected VisualElement m_Top;
         protected VisualElement m_LeftPanel;
         protected VisualElement m_TrackHierachy;

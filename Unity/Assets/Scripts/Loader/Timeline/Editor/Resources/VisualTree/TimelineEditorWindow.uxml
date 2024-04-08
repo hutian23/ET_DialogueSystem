@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/Loader/Timeline/Editor/Resources/Style/TimelineEditorWindow.uss?fileID=7433441132597879392&amp;guid=dd412e76b6520e14cb2532733bbe8e3c&amp;type=3#TimelineEditorWindow" />
+    <ui:VisualElement name="top">
+        <uie:ObjectField name="target-field" style="height: 25px; width: 158px;" />
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="play-button" />
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="pause-button" />
+        <ui:VisualElement name="play-speed" style="flex-grow: 0; min-width: 76px; width: 76px;">
+            <ui:VisualElement name="play-speed-icon" style="height: 21px; margin-top: 2px; margin-right: 0; margin-bottom: 2px; margin-left: 0; width: 27px; align-self: center;" />
+            <ui:FloatField value="-1" name="play-speed-field" style="-unity-text-align: middle-left; width: 44px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ET.Client.SplitView name="track-inspector">
+        <ui:VisualElement name="left-panel" style="flex-grow: 1;">
+            <ui:VisualElement name="track-hierarchy" style="flex-grow: 1;">
+                <ui:VisualElement name="tool-bar" style="flex-grow: 1;">
+                    <ui:VisualElement name="add-track-button" style="flex-grow: 1;">
+                        <ui:VisualElement name="add-track-button-Icon" style="flex-grow: 1;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="track-handle-container" style="flex-grow: 1;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <Timeline.Editor.TimelineFieldView focusable="false" name="field-view" />
+    </ET.Client.SplitView>
+</ui:UXML>

@@ -1,0 +1,180 @@
+#top {
+    flex-direction: row;
+    background-color: rgb(40, 40, 40);
+    border-left-color: rgb(32, 32, 32);
+    border-right-color: rgb(32, 32, 32);
+    border-top-color: rgb(32, 32, 32);
+    border-bottom-color: rgb(32, 32, 32);
+    border-bottom-width: 1px;
+}
+
+#top > .unity-button {
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgb(32, 32, 32);
+    border-right-color: rgb(32, 32, 32);
+    border-top-color: rgb(32, 32, 32);
+    border-bottom-color: rgb(32, 32, 32);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#top > .unity-button:hover {
+    background-color: rgb(88, 88, 88);
+}
+
+#top > .unity-button:active {
+    background-color: rgba(88, 88, 88, 0);
+}
+
+#target-field {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-text-align: middle-left;
+    height: 25px;
+    width: 100px;
+    border-right-width: 1px;
+    border-right-color: rgb(32, 32, 32);
+}
+
+#play-button {
+    background-image: resource('Icon/PlayButton On@2x');
+    width: 25px;
+    height: 25px;
+    border-right-width: 1px;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+#pause-button {
+    background-image: resource('Icon/PauseButton On@2x');
+    width: 25px;
+    height: 25px;
+    border-top-width: 0;
+    border-right-width: 1px;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+#play-speed {
+    flex-direction: row;
+    width: 76px;
+    border-right-width: 1px;
+    border-right-color: rgb(32, 32, 32);
+}
+
+#play-speed:hover {
+    background-color: rgb(88, 88, 88);
+}
+
+#play-speed-icon {
+    background-image: resource('Icon/d_UnityEditor.ProfilerWindow@2x');
+    width: 25px;
+    margin-left: 2px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: 0;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+#play-speed-field {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    flex-grow: 1;
+}
+
+#play-speed-field > .unity-float-field__input {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 5px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 18px;
+}
+
+#track-container {
+    background-color: rgb(32, 32, 32);
+    flex-grow: 1;
+}
+
+#left-panel {
+    min-width: 225px;
+}
+
+#tool-bar {
+    flex-direction: row;
+    background-color: rgb(56, 56, 56);
+    height: 25px;
+    overflow: hidden;
+}
+
+#add-track-button {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    flex-direction: row;
+    width: 100px;
+    height: 25px;
+    flex-shrink: 0;
+}
+
+#add-track-button:hover {
+    background-color: rgb(88, 88, 88);
+}
+
+#add-track-button:active {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#track-inspector {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    min-width: 100px;
+    border-left-color: rgb(89, 89, 89);
+    border-right-color: rgb(89, 89, 89);
+    border-top-color: rgb(89, 89, 89);
+    border-bottom-color: rgb(89, 89, 89);
+    border-left-width: 1px;
+    display: none;
+}

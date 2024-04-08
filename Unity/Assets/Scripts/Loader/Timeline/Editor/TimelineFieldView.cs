@@ -84,147 +84,147 @@ namespace Timeline.Editor
             visualTree.CloneTree(this);
             AddToClassList("timelineField");
 
-            m_MarkerTextFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-
-            TrackScrollView = this.Q<ScrollView>("track-scroll");
-            TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
-            {
-                //鼠标左键
-                if (e.button == 2)
-                {
-                    m_ScrollViewPan = true;
-                    m_ScrollViewPanDelta = e.localPosition.x;
-                    TrackField.AddToClassList("pan");
-                }
-            });
-            TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
-            {
-                if (m_ScrollViewPan)
-                {
-                    TrackScrollView.scrollOffset = new Vector2(TrackScrollView.scrollOffset.x + m_ScrollViewPanDelta - e.localPosition.x,
-                        TrackScrollView.scrollOffset.y);
-                    m_ScrollViewPanDelta = e.localPosition.x;
-                }
-            });
-            TrackScrollView.RegisterCallback<PointerOutEvent>((e) =>
-            {
-                m_ScrollViewPan = false;
-                TrackField.RemoveFromClassList("pan");
-            });
-            TrackScrollView.RegisterCallback<PointerUpEvent>((e) =>
-            {
-                m_ScrollViewPan = false;
-                TrackField.RemoveFromClassList("pan");
-            });
-            TrackScrollView.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
-            TrackScrollView.horizontalScroller.valueChanged += (e) =>
-            {
-                if (FieldContent.worldBound.width < ScrollViewContentWidth + ScrollViewContentOffset)
-                {
-                    FieldContent.style.width = ScrollViewContentWidth + ScrollViewContentOffset;
-                }
-
-                DrawTimeField();
-            };
-
-            FieldContent = this.Q("field-content");
-            FieldContent.RegisterCallback<GeometryChangedEvent>(OnTrackFieldGeometryChanged);
-
-            TrackField = this.Q("track-field");
-            TrackField.generateVisualContent += OnTrackFieldGenerateVisualContent;
-
-            MarkerField = this.Q("marker-field");
-            MarkerField.AddToClassList("droppable");
-            MarkerField.generateVisualContent += OnMarkerFieldGenerateVisualContent;
-            MarkerField.RegisterCallback<PointerDownEvent>((e) =>
-            {
-                //鼠标左键
-                if (e.button == 0)
-                {
-                    SettimeLocator(GetClosestFrame(e.localPosition.x));
-                    LocatorDragManipulator.DragBeginForce(e);
-                }
-            });
-            MarkerField.SetEnabled(false);
-
-            LocatorDragManipulator = new DragManipulator(OnTimeLocatorStartMove, OnTimeLocatorStopMove, OnTimeLocatorMove);
-            TimeLocator = this.Q("time-locater");
-            TimeLocator.AddManipulator(LocatorDragManipulator);
-            TimeLocator.generateVisualContent += OnTimeLocatorGenerateVisualContent;
-            TimeLocator.SetEnabled(false);
-
-            DrawFrameLineField = this.Q("draw-frame-line-field");
-            DrawFrameLineField.generateVisualContent += OnDrawFrameLineFieldGenerateVisualContent;
-
-            LocaterFrameLabel = this.Q<Label>("time-locater-frame-label");
-
-            InspectorScrollView = this.Q<ScrollView>("inspector-scroll");
-            InspectorScrollView.RegisterCallback<WheelEvent>((e) => e.StopImmediatePropagation());
-            ClipInspector = this.Q("clip-inspector");
-            ClipInspector.RegisterCallback<KeyDownEvent>((e) =>
-            {
-                if (!e.ctrlKey)
-                {
-                    e.StopImmediatePropagation();
-                }
-            });
-            ClipInspector.RegisterCallback<PointerDownEvent>((e) => e.StopImmediatePropagation());
-
-            RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
-            RegisterCallback<WheelEvent>(OnWheelEvent);
-            RegisterCallback<KeyDownEvent>((e) =>
-            {
-                switch (e.keyCode)
-                {
-                    case KeyCode.Delete:
-                    {
-                        Timeline.ApplyModify(() =>
-                        {
-                            var selectableToRemove = Selections.ToList();
-                            foreach (var selectable in selectableToRemove)
-                            {
-                                if (selectable is TimelineTrackView trackView)
-                                {
-                                    Timeline.RemoveTrack(trackView.Track);
-                                }
-
-                                if (selectable is TimelineClipView clipView)
-                                {
-                                    Timeline.RemoveClip(clipView.Clip);
-                                }
-                            }
-                        }, "Remove");
-                        break;
-                    }
-                    case KeyCode.F:
-                    {
-                        int startFrame = int.MaxValue;
-                        int endFrame = int.MinValue;
-                        foreach (var track in Timeline.Tracks)
-                        {
-                            foreach (var clip in track.Clips)
-                            {
-                                if (clip.StartFrame < startFrame)
-                                {
-                                    startFrame = clip.StartFrame;
-                                }
-
-                                if (clip.EndFrame >= endFrame)
-                                {
-                                    endFrame = clip.EndFrame;
-                                }
-                            }
-
-                            int middleFrame = (startFrame + endFrame) / 2;
-                            TrackScrollView.scrollOffset = new Vector2(middleFrame * OneFrameWidth, TrackScrollView.scrollOffset.y);
-                        }
-
-                        break;
-                    }
-                }
-            });
-
-            this.AddManipulator(new RectangleSelecter(() => -localBound.position));
+            // m_MarkerTextFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            //
+            // TrackScrollView = this.Q<ScrollView>("track-scroll");
+            // TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
+            // {
+            //     //鼠标左键
+            //     if (e.button == 2)
+            //     {
+            //         m_ScrollViewPan = true;
+            //         m_ScrollViewPanDelta = e.localPosition.x;
+            //         TrackField.AddToClassList("pan");
+            //     }
+            // });
+            // TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
+            // {
+            //     if (m_ScrollViewPan)
+            //     {
+            //         TrackScrollView.scrollOffset = new Vector2(TrackScrollView.scrollOffset.x + m_ScrollViewPanDelta - e.localPosition.x,
+            //             TrackScrollView.scrollOffset.y);
+            //         m_ScrollViewPanDelta = e.localPosition.x;
+            //     }
+            // });
+            // TrackScrollView.RegisterCallback<PointerOutEvent>((e) =>
+            // {
+            //     m_ScrollViewPan = false;
+            //     TrackField.RemoveFromClassList("pan");
+            // });
+            // TrackScrollView.RegisterCallback<PointerUpEvent>((e) =>
+            // {
+            //     m_ScrollViewPan = false;
+            //     TrackField.RemoveFromClassList("pan");
+            // });
+            // TrackScrollView.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+            // TrackScrollView.horizontalScroller.valueChanged += (e) =>
+            // {
+            //     if (FieldContent.worldBound.width < ScrollViewContentWidth + ScrollViewContentOffset)
+            //     {
+            //         FieldContent.style.width = ScrollViewContentWidth + ScrollViewContentOffset;
+            //     }
+            //
+            //     DrawTimeField();
+            // };
+            //
+            // FieldContent = this.Q("field-content");
+            // FieldContent.RegisterCallback<GeometryChangedEvent>(OnTrackFieldGeometryChanged);
+            //
+            // TrackField = this.Q("track-field");
+            // TrackField.generateVisualContent += OnTrackFieldGenerateVisualContent;
+            //
+            // MarkerField = this.Q("marker-field");
+            // MarkerField.AddToClassList("droppable");
+            // MarkerField.generateVisualContent += OnMarkerFieldGenerateVisualContent;
+            // MarkerField.RegisterCallback<PointerDownEvent>((e) =>
+            // {
+            //     //鼠标左键
+            //     if (e.button == 0)
+            //     {
+            //         SettimeLocator(GetClosestFrame(e.localPosition.x));
+            //         LocatorDragManipulator.DragBeginForce(e);
+            //     }
+            // });
+            // MarkerField.SetEnabled(false);
+            //
+            // LocatorDragManipulator = new DragManipulator(OnTimeLocatorStartMove, OnTimeLocatorStopMove, OnTimeLocatorMove);
+            // TimeLocator = this.Q("time-locater");
+            // TimeLocator.AddManipulator(LocatorDragManipulator);
+            // TimeLocator.generateVisualContent += OnTimeLocatorGenerateVisualContent;
+            // TimeLocator.SetEnabled(false);
+            //
+            // DrawFrameLineField = this.Q("draw-frame-line-field");
+            // DrawFrameLineField.generateVisualContent += OnDrawFrameLineFieldGenerateVisualContent;
+            //
+            // LocaterFrameLabel = this.Q<Label>("time-locater-frame-label");
+            //
+            // InspectorScrollView = this.Q<ScrollView>("inspector-scroll");
+            // InspectorScrollView.RegisterCallback<WheelEvent>((e) => e.StopImmediatePropagation());
+            // ClipInspector = this.Q("clip-inspector");
+            // ClipInspector.RegisterCallback<KeyDownEvent>((e) =>
+            // {
+            //     if (!e.ctrlKey)
+            //     {
+            //         e.StopImmediatePropagation();
+            //     }
+            // });
+            // ClipInspector.RegisterCallback<PointerDownEvent>((e) => e.StopImmediatePropagation());
+            //
+            // RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
+            // RegisterCallback<WheelEvent>(OnWheelEvent);
+            // RegisterCallback<KeyDownEvent>((e) =>
+            // {
+            //     switch (e.keyCode)
+            //     {
+            //         case KeyCode.Delete:
+            //         {
+            //             Timeline.ApplyModify(() =>
+            //             {
+            //                 var selectableToRemove = Selections.ToList();
+            //                 foreach (var selectable in selectableToRemove)
+            //                 {
+            //                     if (selectable is TimelineTrackView trackView)
+            //                     {
+            //                         Timeline.RemoveTrack(trackView.Track);
+            //                     }
+            //
+            //                     if (selectable is TimelineClipView clipView)
+            //                     {
+            //                         Timeline.RemoveClip(clipView.Clip);
+            //                     }
+            //                 }
+            //             }, "Remove");
+            //             break;
+            //         }
+            //         case KeyCode.F:
+            //         {
+            //             int startFrame = int.MaxValue;
+            //             int endFrame = int.MinValue;
+            //             foreach (var track in Timeline.Tracks)
+            //             {
+            //                 foreach (var clip in track.Clips)
+            //                 {
+            //                     if (clip.StartFrame < startFrame)
+            //                     {
+            //                         startFrame = clip.StartFrame;
+            //                     }
+            //
+            //                     if (clip.EndFrame >= endFrame)
+            //                     {
+            //                         endFrame = clip.EndFrame;
+            //                     }
+            //                 }
+            //
+            //                 int middleFrame = (startFrame + endFrame) / 2;
+            //                 TrackScrollView.scrollOffset = new Vector2(middleFrame * OneFrameWidth, TrackScrollView.scrollOffset.y);
+            //             }
+            //
+            //             break;
+            //         }
+            //     }
+            // });
+            //
+            // this.AddManipulator(new RectangleSelecter(() => -localBound.position));
         }
 
         public void PopulateView()
