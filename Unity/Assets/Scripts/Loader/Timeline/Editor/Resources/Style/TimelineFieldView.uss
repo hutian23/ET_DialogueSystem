@@ -1,5 +1,6 @@
 .timelineField{
     --field-line-color: rgb(89,89,89);
+    --cell-size: 2;
     flex-direction: row;
 }
 
@@ -22,7 +23,7 @@
     padding-top: 5px;
 }
 
-#pan#track-fiel{
+#pan#track-field{
     flex-grow: 1;
     padding-top: 5px;
 }

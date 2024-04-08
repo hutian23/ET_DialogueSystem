@@ -47,12 +47,12 @@ namespace Timeline.Editor
 
         #region Style
 
-        public static CustomStyleProperty<Color> s_FieldLineColor = new("--field-line-color");
-        private readonly Color m_FieldLineColor;
-        public static CustomStyleProperty<Color> s_LocatorLineColor = new("--locator-line-color");
+        private static readonly CustomStyleProperty<Color> s_FieldLineColor = new("--field-line-color");
+        private Color m_FieldLineColor;
+        private static readonly CustomStyleProperty<Color> s_LocatorLineColor = new("--locator-line-color");
         protected Color m_LocatorLineColor;
-        public static CustomStyleProperty<Font> s_MarkerTextFont = new("--marker-text-font");
-        private readonly Font m_MarkerTextFont;
+        private static readonly CustomStyleProperty<Font> s_MarkerTextFont = new("--marker-text-font");
+        private Font m_MarkerTextFont;
 
         #endregion
 
@@ -65,28 +65,29 @@ namespace Timeline.Editor
         public TimelineEditorWindow EditorWindow;
         public Timeline Timeline => EditorWindow.Timeline;
         public DoubleMap<Track, TimelineTrackView> TrackViewMap { get; private set; } = new();
-        public List<TimelineTrackView> TrackViews { get; set; } = new();
+        private List<TimelineTrackView> TrackViews { get; set; } = new();
+        public Dictionary<int, float> FramePosMap { get; set; } = new();
         public DragManipulator LocatorDragManipulator { get; set; }
 
         public Action OnPopulatedCallback;
         public Action OnGeometryChangedCallback;
 
-        public int CurrentMinFrame => GetClosestCeilFrame(ScrollViewContentOffset);
-        public int CurrentMaxFrame => GetClosestCeilFrame(ScrollViewContentWidth + ScrollViewContentOffset);
-        public float OneFrameWidth => m_MarkerWidth + m_FieldScale;
-        public float ScrollViewContentWidth => TrackScrollView.contentContainer.worldBound.width;
-        public float ScrollViewContentOffset => TrackScrollView.scrollOffset.x;
+        private int CurrentMinFrame => GetClosestCeilFrame(ScrollViewContentOffset);
+        private int CurrentMaxFrame => GetClosestCeilFrame(ScrollViewContentWidth + ScrollViewContentOffset);
+        private float OneFrameWidth => m_MarkerWidth + m_FieldScale;
+        private float ScrollViewContentWidth => TrackScrollView.contentContainer.worldBound.width;
+        private float ScrollViewContentOffset => TrackScrollView.scrollOffset.x;
         public float ContentWidth => FieldContent.worldBound.width;
 
         public TimelineFieldView()
         {
-            var visualTree = Resources.Load<VisualTreeAsset>("VisualTree/TimelineFieldView");
+            VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>($"VisualTree/TimelineFieldView");
             visualTree.CloneTree(this);
             AddToClassList("timelineField");
 
             // 没这个字体
             // m_MarkerTextFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            
+
             TrackScrollView = this.Q<ScrollView>("track-scroll");
             TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
             {
@@ -128,11 +129,11 @@ namespace Timeline.Editor
             // };
             //
             FieldContent = this.Q("field-content");
-            // FieldContent.RegisterCallback<GeometryChangedEvent>(OnTrackFieldGeometryChanged);
-            
+            FieldContent.RegisterCallback<GeometryChangedEvent>(OnTrackFieldGeometryChanged);
+
             TrackField = this.Q("track-field");
             TrackField.generateVisualContent += OnTrackFieldGenerateVisualContent;
-            
+
             MarkerField = this.Q("marker-field");
             // MarkerField.AddToClassList("droppable");
             // MarkerField.generateVisualContent += OnMarkerFieldGenerateVisualContent;
@@ -170,7 +171,7 @@ namespace Timeline.Editor
             // });
             // ClipInspector.RegisterCallback<PointerDownEvent>((e) => e.StopImmediatePropagation());
             //
-            // RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
+            RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
             // RegisterCallback<WheelEvent>(OnWheelEvent);
             // RegisterCallback<KeyDownEvent>((e) =>
             // {
@@ -520,8 +521,6 @@ namespace Timeline.Editor
             });
         }
 
-        public Dictionary<int, float> FramePosMap { get; set; }
-
         #region Selection
 
         public VisualElement ContentContainer => TrackField;
@@ -640,7 +639,6 @@ namespace Timeline.Editor
             int showInterval = Mathf.CeilToInt(1 / m_FieldScale);
             int startFrame = CurrentMinFrame;
             int endFrame = CurrentMaxFrame;
-
             for (int i = startFrame; i <= endFrame; i++)
             {
                 if (i % (showInterval * 5) == 0)
@@ -738,6 +736,7 @@ namespace Timeline.Editor
 
                 mgc.DrawText(drawFrame.ToString(), new Vector2(FramePosMap[drawFrame] + 5, 5), m_TimeTextFontSize, Color.white);
             }
+
             paint2D.Stroke();
         }
 
@@ -752,7 +751,8 @@ namespace Timeline.Editor
                 int targetFrame = GetClosestFrame(FramePosMap[clipView.StartFrame] + deltaPosition);
                 if (clipView.Clip.IsClipInable())
                 {
-                    targetFrame = Mathf.Clamp(targetFrame, Mathf.Max(CurrentMinFrame, clipView.StartFrame - clipView.ClipInFrame), Mathf.Min(clipView.EndFrame - 1, CurrentMaxFrame));
+                    targetFrame = Mathf.Clamp(targetFrame, Mathf.Max(CurrentMinFrame, clipView.StartFrame - clipView.ClipInFrame),
+                        Mathf.Min(clipView.EndFrame - 1, CurrentMaxFrame));
                 }
                 else
                 {
@@ -785,10 +785,7 @@ namespace Timeline.Editor
 
                 if (targetFrame != clipView.StartFrame)
                 {
-                    Timeline.ApplyModify(() =>
-                    {
-                        clipView.Resize(targetFrame,clipView.EndFrame);
-                    },"Resize Clip");
+                    Timeline.ApplyModify(() => { clipView.Resize(targetFrame, clipView.EndFrame); }, "Resize Clip");
                     Timeline.RebindTrack(clipView.TrackView.Track);
                 }
             }
@@ -818,10 +815,7 @@ namespace Timeline.Editor
 
                 if (targetFrame != clipView.EndFrame)
                 {
-                    Timeline.ApplyModify(() =>
-                    {
-                        clipView.Resize(clipView.StartFrame,targetFrame);
-                    },"Resize Clip");
+                    Timeline.ApplyModify(() => { clipView.Resize(clipView.StartFrame, targetFrame); }, "Resize Clip");
                     Timeline.RebindTrack(clipView.TrackView.Track);
                 }
             }
@@ -833,13 +827,15 @@ namespace Timeline.Editor
             if (border == 0)
             {
                 int targetFrame = GetClosestFrame(FramePosMap[clipView.StartFrame + clipView.SelfEaseInFrame] + deltaPosition);
-                targetFrame = Mathf.Clamp(targetFrame, Mathf.Max(clipView.StartFrame, CurrentMinFrame), Mathf.Min(clipView.EndFrame - clipView.EaseOutFrame,CurrentMaxFrame));
+                targetFrame = Mathf.Clamp(targetFrame, Mathf.Max(clipView.StartFrame, CurrentMinFrame),
+                    Mathf.Min(clipView.EndFrame - clipView.EaseOutFrame, CurrentMaxFrame));
                 deltaFrame = targetFrame - (clipView.StartFrame + clipView.SelfEaseInFrame);
             }
             else
             {
                 int targetFrame = GetClosestFrame(FramePosMap[clipView.EndFrame - clipView.SelfEaseOutFrame] + deltaPosition);
-                targetFrame = Mathf.Clamp(targetFrame, Mathf.Max(clipView.StartFrame + clipView.EaseInFrame, CurrentMinFrame), Mathf.Min(clipView.EndFrame, CurrentMaxFrame));
+                targetFrame = Mathf.Clamp(targetFrame, Mathf.Max(clipView.StartFrame + clipView.EaseInFrame, CurrentMinFrame),
+                    Mathf.Min(clipView.EndFrame, CurrentMaxFrame));
                 deltaFrame = targetFrame - (clipView.EndFrame - clipView.SelfEaseOutFrame);
             }
 
@@ -848,7 +844,7 @@ namespace Timeline.Editor
                 Timeline.ApplyModify(() =>
                 {
                     //TODO 
-                },"Resize Clip");
+                }, "Resize Clip");
                 Timeline.RebindTrack(clipView.TrackView.Track);
             }
         }
@@ -936,8 +932,18 @@ namespace Timeline.Editor
 
         #region Callback
 
+        //获取uss中定义的变量
         private void OnCustomStyleResolved(CustomStyleResolvedEvent evt)
         {
+            if (customStyle.TryGetValue(s_FieldLineColor, out Color lineColor))
+            {
+                m_FieldLineColor = lineColor;
+            }
+
+            if (customStyle.TryGetValue(s_MarkerTextFont, out Font textFont))
+            {
+                m_MarkerTextFont = textFont;
+            }
         }
 
         private void OnGeometryChanged(GeometryChangedEvent evt)
@@ -946,10 +952,46 @@ namespace Timeline.Editor
 
         private void OnTrackFieldGeometryChanged(GeometryChangedEvent evt)
         {
+            float delta = evt.newRect.width - evt.oldRect.width;
+            if (delta > 0)
+            {
+                int count = Mathf.CeilToInt(delta / OneFrameWidth);
+                for (int i = 0; i < count; i++)
+                {
+                    FramePosMap.Add(m_MaxFrame, OneFrameWidth * m_MaxFrame + m_FieldOffsetX);
+                    m_MaxFrame++;
+                }
+            }
         }
 
         private void OnWheelEvent(WheelEvent wheelEvent)
         {
+            m_FieldScale *= (1 - wheelEvent.delta.y / 100);
+            m_FieldScale = Mathf.Min(m_MaxFieldScale, m_FieldScale);
+            Timeline.Scale = m_FieldScale;
+
+            float targetWidth = Mathf.Max(FieldContent.worldBound.width * (1 - wheelEvent.delta.y / 100), ScrollViewContentWidth);
+            if (FieldContent.style.width == targetWidth)
+            {
+                ResizeTimeField();
+                DrawTimeField();
+            }
+            else
+            {
+                FieldContent.style.width = targetWidth;
+
+                int ratioInt = Mathf.RoundToInt(wheelEvent.localMousePosition.x / worldBound.width);
+                if (ratioInt < .1f)
+                {
+                    ratioInt = 0;
+                }
+                else if(ratioInt > .9f)
+                {
+                    ratioInt = 1;
+                }
+
+                float targetOffset = -(ScrollViewContentWidth - targetWidth) * ratioInt;
+            }
         }
 
         #endregion
@@ -1001,7 +1043,7 @@ namespace Timeline.Editor
         }
 
         //向上取整
-        public int GetClosestCeilFrame(float position)
+        private int GetClosestCeilFrame(float position)
         {
             int frame = 0;
             foreach (var framePosPair in FramePosMap)
