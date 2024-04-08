@@ -81,6 +81,7 @@
     width: 76px;
     border-right-width: 1px;
     border-right-color: rgb(32, 32, 32);
+    flex-grow: 0;
 }
 
 #play-speed:hover {

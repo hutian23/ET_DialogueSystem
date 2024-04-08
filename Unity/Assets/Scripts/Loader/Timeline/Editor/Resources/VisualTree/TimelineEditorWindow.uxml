@@ -9,17 +9,18 @@
             <ui:FloatField value="-1" name="play-speed-field" style="-unity-text-align: middle-left; width: 44px;" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ET.Client.SplitView name="track-inspector">
+    <ET.Client.SplitView fixed-pane-initial-dimension="225" name="track-container">
         <ui:VisualElement name="left-panel" style="flex-grow: 1;">
-            <ui:VisualElement name="track-hierarchy" style="flex-grow: 1;">
-                <ui:VisualElement name="tool-bar" style="flex-grow: 1;">
-                    <ui:VisualElement name="add-track-button" style="flex-grow: 1;">
-                        <ui:VisualElement name="add-track-button-Icon" style="flex-grow: 1;" />
+            <ui:VisualElement name="track-hirerachy" style="flex-grow: 1;">
+                <ui:VisualElement name="tool-bar" style="flex-grow: 0; flex-shrink: 1;">
+                    <ui:VisualElement name="add-track-button" style="flex-grow: 0; width: 100px;">
+                        <ui:VisualElement name="add-track-button-Icon" style="flex-grow: 1; background-image: resource(&apos;Icon/d_Toolbar Plus More@2x&apos;); -unity-background-scale-mode: scale-to-fit; padding-left: 0; margin-left: 50px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="track-handle-container" style="flex-grow: 1;" />
+                <ui:VisualElement name="track-handle-container" style="flex-grow: 1; background-color: rgb(40, 40, 40);" />
             </ui:VisualElement>
         </ui:VisualElement>
         <Timeline.Editor.TimelineFieldView focusable="false" name="field-view" />
     </ET.Client.SplitView>
+    <ui:VisualElement name="track-inspector" style="flex-grow: 1;" />
 </ui:UXML>
