@@ -1,0 +1,136 @@
+.timelineField{
+    --field-line-color: rgb(89,89,89);
+    flex-direction: row;
+}
+
+#track-scroll{
+    flex-grow: 1;
+}
+
+#track-scroll .unity-scroll-view__content-container{
+    height: 100%;
+}
+
+#field-content{
+    width: 100%;
+    height: 100%;
+    flex-direction: column-reverse;
+}
+
+#track-field{
+    flex-grow: 1;
+    padding-top: 5px;
+}
+
+#pan#track-fiel{
+    flex-grow: 1;
+    padding-top: 5px;
+}
+
+#marker-field{
+    background-color: rgb(56,56,56);
+    height: 25px;
+    width: 100%;
+}
+
+#time-locater{
+    position: absolute;
+    left: 6px;
+}
+
+#time-locater-icon{
+    width: 12px;
+    height: 28px;
+    background-image: resource('Icon/SignalAsset Icon');
+    -unity-background-image-tint-color: rgb(166,162,162);
+    -unity-background-scale-mode: scale-and-crop;
+    margin-top: -3px;
+    margin-left: -6px;
+    align-items: center;
+}
+
+:hover > #time-locater-icon{
+    -unity-background-image-tint-color: rgb(255,255,255);
+}
+
+#draggable--dragging > #time-locater-icon{
+    -unity-background-image-tint-color: rgb(255,255,255);
+}
+
+#time-locater-frame-label{
+    color: rgb(239,240,239);
+    display: none;
+    background-color: rgb(32,32,32);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 1px;
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 1px;
+    border-bottom-left-radius: 1px;
+    font-size: 14px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 1px;
+    padding-bottom: 0;
+    padding-left: 1px;
+}
+
+#draw-frame-line-field{
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 25px;
+    top: 0;
+}
+
+#inspector-scroll{
+    flex-grow: 1;
+    min-width: 200px;
+}
+
+#inspector-scroll .unity-scroll-view__content-container{
+    min-height: 100%;
+}
+
+#clip-inspector{
+    height: 100%;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    display: flex;
+    background-color: rgb(56,56,56);
+    min-width: 200px;
+}
+
+#clip-inspector .unity-imgui-container{
+    margin-top: 0;
+    margin-bottom: 2px;
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
+#clip-inspector > #base-inspector{
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(88,88,88);
+}
+
+.inspectorElement{
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.inspectorElement .unity-property-field{
+    flex-grow: 1;
+}

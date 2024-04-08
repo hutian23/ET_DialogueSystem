@@ -43,6 +43,9 @@ namespace Timeline.Editor
             m_TargetField = root.Q<ObjectField>("target-field");
             m_TargetField.objectType = typeof (TimelinePlayer);
             m_TargetField.allowSceneObjects = true;
+
+            return;
+            
             m_TargetField.RegisterValueChangedCallback(e =>
             {
                 //对象是否为持久化对象 
