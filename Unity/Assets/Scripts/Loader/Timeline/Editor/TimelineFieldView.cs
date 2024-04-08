@@ -84,25 +84,25 @@ namespace Timeline.Editor
             visualTree.CloneTree(this);
             AddToClassList("timelineField");
 
+            // 没这个字体
             // m_MarkerTextFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            //
-            // TrackScrollView = this.Q<ScrollView>("track-scroll");
-            // TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
-            // {
-            //     //鼠标左键
-            //     if (e.button == 2)
-            //     {
-            //         m_ScrollViewPan = true;
-            //         m_ScrollViewPanDelta = e.localPosition.x;
-            //         TrackField.AddToClassList("pan");
-            //     }
-            // });
+            
+            TrackScrollView = this.Q<ScrollView>("track-scroll");
+            TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
+            {
+                //鼠标滚轮按下
+                if (e.button == 2)
+                {
+                    m_ScrollViewPan = true;
+                    m_ScrollViewPanDelta = e.localPosition.x;
+                    TrackField.AddToClassList("pan");
+                }
+            });
             // TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
             // {
             //     if (m_ScrollViewPan)
             //     {
-            //         TrackScrollView.scrollOffset = new Vector2(TrackScrollView.scrollOffset.x + m_ScrollViewPanDelta - e.localPosition.x,
-            //             TrackScrollView.scrollOffset.y);
+            //         TrackScrollView.scrollOffset = new Vector2(TrackScrollView.scrollOffset.x + m_ScrollViewPanDelta - e.localPosition.x, TrackScrollView.scrollOffset.y);
             //         m_ScrollViewPanDelta = e.localPosition.x;
             //     }
             // });
@@ -127,13 +127,13 @@ namespace Timeline.Editor
             //     DrawTimeField();
             // };
             //
-            // FieldContent = this.Q("field-content");
+            FieldContent = this.Q("field-content");
             // FieldContent.RegisterCallback<GeometryChangedEvent>(OnTrackFieldGeometryChanged);
-            //
-            // TrackField = this.Q("track-field");
-            // TrackField.generateVisualContent += OnTrackFieldGenerateVisualContent;
-            //
-            // MarkerField = this.Q("marker-field");
+            
+            TrackField = this.Q("track-field");
+            TrackField.generateVisualContent += OnTrackFieldGenerateVisualContent;
+            
+            MarkerField = this.Q("marker-field");
             // MarkerField.AddToClassList("droppable");
             // MarkerField.generateVisualContent += OnMarkerFieldGenerateVisualContent;
             // MarkerField.RegisterCallback<PointerDownEvent>((e) =>
