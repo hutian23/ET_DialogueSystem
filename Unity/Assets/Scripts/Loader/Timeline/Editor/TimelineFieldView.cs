@@ -65,7 +65,7 @@ namespace Timeline.Editor
         public TimelineEditorWindow EditorWindow;
         public Timeline Timeline => EditorWindow.Timeline;
         public DoubleMap<Track, TimelineTrackView> TrackViewMap { get; private set; } = new();
-        private List<TimelineTrackView> TrackViews { get; set; } = new();
+        public List<TimelineTrackView> TrackViews { get; set; } = new();
         public Dictionary<int, float> FramePosMap { get; set; } = new();
         public DragManipulator LocatorDragManipulator { get; set; }
 
