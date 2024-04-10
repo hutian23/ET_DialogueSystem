@@ -43,39 +43,38 @@ namespace Timeline.Editor
             m_TargetField = root.Q<ObjectField>("target-field");
             m_TargetField.objectType = typeof (TimelinePlayer);
             m_TargetField.allowSceneObjects = true;
-
-            return;
             
-            m_TargetField.RegisterValueChangedCallback(e =>
-            {
-                //对象是否为持久化对象 
-                //what is 持久化对象? 在 Scene 保存的 gameObject
-                if (!EditorUtility.IsPersistent(e.newValue) && e.newValue is TimelinePlayer timelinePlayer &&
-                    Timeline.TimelinePlayer != timelinePlayer)
-                {
-                    if (Timeline.TimelinePlayer)
-                    {
-                        Timeline.TimelinePlayer.Dispose();
-                    }
-
-                    if (!timelinePlayer.IsValid)
-                    {
-                        timelinePlayer.Init();
-                        timelinePlayer.AddTimeline(Timeline);
-                    }
-                    else if (e.newValue == null)
-                    {
-                        if (Timeline.TimelinePlayer)
-                        {
-                            Timeline.TimelinePlayer.Dispose();
-                        }
-                    }
-                    else
-                    {
-                        m_TargetField.SetValueWithoutNotify(null);
-                    }
-                }
-            });
+            // m_TargetField.RegisterValueChangedCallback(e =>
+            // {
+            //     //对象是否为持久化对象 
+            //     //what is 持久化对象? 在 Scene 保存的 gameObject
+            //     if (!EditorUtility.IsPersistent(e.newValue) && e.newValue is TimelinePlayer timelinePlayer &&
+            //         Timeline.TimelinePlayer != timelinePlayer)
+            //     {
+            //         if (Timeline.TimelinePlayer)
+            //         {
+            //             Timeline.TimelinePlayer.Dispose();
+            //         }
+            //
+            //         if (!timelinePlayer.IsValid)
+            //         {
+            //             timelinePlayer.Init();
+            //             timelinePlayer.AddTimeline(Timeline);
+            //         }
+            //         else if (e.newValue == null)
+            //         {
+            //             if (Timeline.TimelinePlayer)
+            //             {
+            //                 Timeline.TimelinePlayer.Dispose();
+            //             }
+            //         }
+            //         else
+            //         {
+            //             m_TargetField.SetValueWithoutNotify(null);
+            //         }
+            //     }
+            // });
+            
             m_TargetField.SetEnabled(!Application.isPlaying);
             m_PlayButton = root.Q<Button>("play-button");
             m_PlayButton.clicked += () => { Timeline.TimelinePlayer.IsPlaying = true; };
@@ -90,6 +89,7 @@ namespace Timeline.Editor
 
             m_TrackHierachy = root.Q("track-hierachy");
             m_Toolbar = root.Q("tool-bar");
+            m_TrackHandleContainer = root.Q("track-handle-container");
             m_TrackHandleContainer.focusable = true;
             m_TrackHandleContainer.RegisterCallback<KeyDownEvent>((e) =>
             {
@@ -97,15 +97,28 @@ namespace Timeline.Editor
                 {
                     case KeyCode.Delete:
                     {
+                        //删除轨道
                         Timeline.ApplyModify(() =>
                         {
                             var selectableToRemove = Selections.ToList();
                             foreach (var selectable in selectableToRemove)
                             {
-                                
+                                if (selectable is TimelineTrackHandle trackHandle)
+                                {
+                                    Timeline.RemoveTrack(trackHandle.Track);
+                                }
                             }
                         }, "Remove");
                         break;
+                    }
+                }
+            });
+            m_TrackHandleContainer.RegisterCallback<PointerDownEvent>((e) =>
+            {
+                foreach (var timelineTrackHandle in m_TrackHandleContainer.Query<TimelineTrackHandle>().ToList())
+                {
+                    if (timelineTrackHandle.worldBound.Contains(e.position))
+                    {
                     }
                 }
             });

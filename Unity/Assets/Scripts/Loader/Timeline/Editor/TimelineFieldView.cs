@@ -84,21 +84,20 @@ namespace Timeline.Editor
             VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>($"VisualTree/TimelineFieldView");
             visualTree.CloneTree(this);
             AddToClassList("timelineField");
-
-            // 没这个字体
-            // m_MarkerTextFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-
+            
+            m_MarkerTextFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            
             TrackScrollView = this.Q<ScrollView>("track-scroll");
-            TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
-            {
-                //鼠标滚轮按下
-                if (e.button == 2)
-                {
-                    m_ScrollViewPan = true;
-                    m_ScrollViewPanDelta = e.localPosition.x;
-                    TrackField.AddToClassList("pan");
-                }
-            });
+            // TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
+            // {
+            //     //鼠标滚轮按下
+            //     if (e.button == 2)
+            //     {
+            //         m_ScrollViewPan = true;
+            //         m_ScrollViewPanDelta = e.localPosition.x;
+            //         TrackField.AddToClassList("pan");
+            //     }
+            // });
             // TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
             // {
             //     if (m_ScrollViewPan)
@@ -149,19 +148,19 @@ namespace Timeline.Editor
             // MarkerField.SetEnabled(false);
             //
             // LocatorDragManipulator = new DragManipulator(OnTimeLocatorStartMove, OnTimeLocatorStopMove, OnTimeLocatorMove);
-            // TimeLocator = this.Q("time-locater");
+            TimeLocator = this.Q("time-locater");
             // TimeLocator.AddManipulator(LocatorDragManipulator);
             // TimeLocator.generateVisualContent += OnTimeLocatorGenerateVisualContent;
             // TimeLocator.SetEnabled(false);
             //
-            // DrawFrameLineField = this.Q("draw-frame-line-field");
+            DrawFrameLineField = this.Q("draw-frame-line-field");
             // DrawFrameLineField.generateVisualContent += OnDrawFrameLineFieldGenerateVisualContent;
             //
-            // LocaterFrameLabel = this.Q<Label>("time-locater-frame-label");
+            LocaterFrameLabel = this.Q<Label>("time-locater-frame-label");
             //
-            // InspectorScrollView = this.Q<ScrollView>("inspector-scroll");
+            InspectorScrollView = this.Q<ScrollView>("inspector-scroll");
             // InspectorScrollView.RegisterCallback<WheelEvent>((e) => e.StopImmediatePropagation());
-            // ClipInspector = this.Q("clip-inspector");
+            ClipInspector = this.Q("clip-inspector");
             // ClipInspector.RegisterCallback<KeyDownEvent>((e) =>
             // {
             //     if (!e.ctrlKey)
@@ -235,8 +234,8 @@ namespace Timeline.Editor
             m_Elements.Clear();
             TrackViewMap.Clear();
             TrackViews.Clear();
-            PopulateInspector(null);
-            UpdateBindState();
+            // PopulateInspector(null);
+            // UpdateBindState();
 
             if (Timeline)
             {
@@ -570,8 +569,7 @@ namespace Timeline.Editor
             {
                 FieldContent.style.width = ScrollViewContentWidth + ScrollViewContentOffset;
             }
-
-            // 算占用帧数?
+            
             int interval = Mathf.CeilToInt(Mathf.Max(FieldContent.worldBound.width, worldBound.width) / OneFrameWidth);
             if (m_MaxFrame < interval)
             {
