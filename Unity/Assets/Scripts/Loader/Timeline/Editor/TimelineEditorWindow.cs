@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
+    //从这里开始看
     public class TimelineEditorWindow: EditorWindow, ISelection
     {
         protected VisualElement m_Top;
@@ -35,7 +36,7 @@ namespace Timeline.Editor
 
             m_Top = root.Q("top");
             m_Top.SetEnabled(false);
-
+            
             m_TargetField = root.Q<ObjectField>("target-field");
             m_TargetField.objectType = typeof (TimelinePlayer);
             m_TargetField.allowSceneObjects = true;
@@ -43,6 +44,8 @@ namespace Timeline.Editor
             {
                 //对象是否为持久化对象 
                 //what is 持久化对象? 在 Scene 保存的 gameObject
+                Debug.LogWarning(e.newValue);
+                //不是scene中的gameObject
                 if (!EditorUtility.IsPersistent(e.newValue) && e.newValue is TimelinePlayer timelinePlayer && Timeline.TimelinePlayer != timelinePlayer)
                 {
                     if (Timeline.TimelinePlayer)
@@ -55,25 +58,32 @@ namespace Timeline.Editor
                         timelinePlayer.Init();
                         timelinePlayer.AddTimeline(Timeline);
                     }
-                    else if (e.newValue == null)
+                }
+                else if (e.newValue == null)
+                {
+                    if (Timeline.TimelinePlayer)
                     {
-                        if (Timeline.TimelinePlayer)
-                        {
-                            Timeline.TimelinePlayer.Dispose();
-                        }
-                    }
-                    else
-                    {
-                        m_TargetField.SetValueWithoutNotify(null);
+                        Timeline.TimelinePlayer.Dispose();
                     }
                 }
+                else
+                {
+                    m_TargetField.SetValueWithoutNotify(null);
+                }
             });
-
+            
+            //运行时不可用
+            //TODO 热重载之后改成运行时支持修改
             m_TargetField.SetEnabled(!Application.isPlaying);
-
+            
             m_PlayButton = root.Q<Button>("play-button");
-            m_PlayButton.clicked += () => { Timeline.TimelinePlayer.IsPlaying = true; };
-
+            m_PlayButton.clicked += () =>
+            {
+                Debug.LogWarning("clicked");
+                Timeline.TimelinePlayer.IsPlaying = true; 
+            };
+            return;
+            
             m_PauseButton = root.Q<Button>("pause-button");
             m_PauseButton.clicked += () => { Timeline.TimelinePlayer.IsPlaying = false; };
 
@@ -198,17 +208,17 @@ namespace Timeline.Editor
             Timeline = timeline;
             Timeline.UpdateSerializedTimeline();
 
-            Timeline.OnValueChanged += m_TimelineField.PopulateView;
-            Timeline.OnEvaluated += m_TimelineField.UpdateTimeLocator;
-            Timeline.OnBindStateChanged += m_TimelineField.UpdateBindState;
-            Timeline.OnBindStateChanged += UpdateBindState;
+            //Timeline.OnValueChanged += m_TimelineField.PopulateView;
+            // Timeline.OnEvaluated += m_TimelineField.UpdateTimeLocator;
+            // Timeline.OnBindStateChanged += m_TimelineField.UpdateBindState;
+            // Timeline.OnBindStateChanged += UpdateBindState;
             
             m_Top.SetEnabled(true);
             m_LeftPanel.SetEnabled(true);
             m_TimelineField.SetEnabled(true);
             UpdateBindState();
-
-            EditorCoroutineHelper.WaitWhile(m_TimelineField.PopulateView, () => m_TimelineField.ContentWidth == 0);
+            
+            // EditorCoroutineHelper.WaitWhile(m_TimelineField.PopulateView, () => m_TimelineField.ContentWidth == 0);
         }
         
         public void Dispose()

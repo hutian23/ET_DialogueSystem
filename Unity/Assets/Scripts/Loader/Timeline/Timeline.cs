@@ -9,6 +9,7 @@ using UnityEngine.Playables;
 
 namespace Timeline
 {
+    [AcceptableTrackGroups("Base")]
     public partial class Timeline: ScriptableObject
     {
         [SerializeReference]

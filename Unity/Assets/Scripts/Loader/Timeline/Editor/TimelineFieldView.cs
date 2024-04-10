@@ -85,6 +85,7 @@ namespace Timeline.Editor
             visualTree.CloneTree(this);
             AddToClassList("timelineField");
             
+            return;
             m_MarkerTextFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             
             TrackScrollView = this.Q<ScrollView>("track-scroll");
@@ -234,8 +235,8 @@ namespace Timeline.Editor
             m_Elements.Clear();
             TrackViewMap.Clear();
             TrackViews.Clear();
-            // PopulateInspector(null);
-            // UpdateBindState();
+            PopulateInspector(null);
+            UpdateBindState();
 
             if (Timeline)
             {
