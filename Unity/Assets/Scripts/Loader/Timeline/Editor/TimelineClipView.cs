@@ -7,13 +7,15 @@ using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
-    public class TimelineClipView : VisualElement,ISelectable
+    public class TimelineClipView: VisualElement, ISelectable
     {
-        public new class UxmlFactory : UxmlFactory<TimelineClipView,UxmlTraits> {}
+        public new class UxmlFactory: UxmlFactory<TimelineClipView, UxmlTraits>
+        {
+        }
 
         protected string m_DefaultVisualTreeGuid = "";
         protected virtual string VisualTreeGuid => m_DefaultVisualTreeGuid;
-        
+
         public bool Selected { get; private set; }
         public bool Hoverd { get; private set; }
         public ISelection SelectionContainer { get; set; }
@@ -106,7 +108,7 @@ namespace Timeline.Editor
             m_MoveDrag = new DragManipulator(OnStartDrag, OnStopDrag, OnDragMove);
             m_MoveDrag.enabled = false;
             this.AddManipulator(m_MoveDrag);
-            
+
             // m_MenuHandle = new DropdownMenuHandler(MenuBu)
             // m_DrawBox.generateVisualContent += O
         }
@@ -123,39 +125,29 @@ namespace Timeline.Editor
             {
                 m_LeftResizeDragLine = new DragLineManipulator(DraglineDirection.Left, (e) =>
                 {
-                    FieldView.ResizeClip(this,0,e.x);
+                    FieldView.ResizeClip(this, 0, e.x);
                     if (!IsSelected())
                     {
                         SelectionContainer.ClearSelection();
                         SelectionContainer.AddToSelection(this);
                     }
+
                     FieldView.DrawFrameLine(StartFrame);
-                }, (e) =>
-                {
-                    FieldView.DrawFrameLine(StartFrame);
-                }, () =>
-                {
-                    FieldView.DrawFrameLine();
-                });
+                }, (e) => { FieldView.DrawFrameLine(StartFrame); }, () => { FieldView.DrawFrameLine(); });
                 m_LeftResizeDragLine.Size = 4;
                 this.AddManipulator(m_LeftResizeDragLine);
 
                 m_RightResizeDragLine = new DragLineManipulator(DraglineDirection.Right, (e) =>
                 {
-                    FieldView.ResizeClip(this,1,e.x);
+                    FieldView.ResizeClip(this, 1, e.x);
                     if (!IsSelected())
                     {
                         SelectionContainer.ClearSelection();
                         SelectionContainer.AddToSelection(this);
                     }
+
                     FieldView.DrawFrameLine(StartFrame);
-                }, (e) =>
-                {
-                    FieldView.DrawFrameLine(StartFrame);
-                }, () =>
-                {
-                    FieldView.DrawFrameLine();
-                });
+                }, (e) => { FieldView.DrawFrameLine(StartFrame); }, () => { FieldView.DrawFrameLine(); });
                 m_RightResizeDragLine.Size = 4;
                 this.AddManipulator(m_RightResizeDragLine);
             }
@@ -164,35 +156,23 @@ namespace Timeline.Editor
             {
                 m_SelfEaseInDragLine = new DragLineManipulator(DraglineDirection.Right, (e) =>
                 {
-                    FieldView.AdjustSelfEase(this,0,e.x);
+                    FieldView.AdjustSelfEase(this, 0, e.x);
                     FieldView.DrawFrameLine(StartFrame + SelfEaseInFrame);
-                }, (e) =>
-                {
-                    FieldView.DrawFrameLine(StartFrame + SelfEaseInFrame);
-                }, () =>
-                {
-                    FieldView.DrawFrameLine();
-                });
+                }, (e) => { FieldView.DrawFrameLine(StartFrame + SelfEaseInFrame); }, () => { FieldView.DrawFrameLine(); });
                 m_SelfEaseInDragLine.Size = 4;
                 m_LeftMixer.AddManipulator(m_SelfEaseInDragLine);
                 SelfEaseIn = false;
 
                 m_SelfEaseOutDragLine = new DragLineManipulator(DraglineDirection.Left, (e) =>
                 {
-                    FieldView.AdjustSelfEase(this,1,e.x);
+                    FieldView.AdjustSelfEase(this, 1, e.x);
                     FieldView.DrawFrameLine(EndFrame - SelfEaseOutFrame);
-                }, (e) =>
-                {
-                    FieldView.DrawFrameLine(EndFrame - SelfEaseOutFrame);
-                }, () =>
-                {
-                    FieldView.DrawFrameLine();
-                });
+                }, (e) => { FieldView.DrawFrameLine(EndFrame - SelfEaseOutFrame); }, () => { FieldView.DrawFrameLine(); });
                 m_SelfEaseOutDragLine.Size = 4;
                 m_RightMixer.AddManipulator(m_SelfEaseOutDragLine);
                 SelfEaseOut = false;
             }
-            
+
             Refresh();
         }
 
@@ -212,7 +192,7 @@ namespace Timeline.Editor
 
             Clip.SelfEaseInFrame = Mathf.RoundToInt(easeInRatio * Clip.Duration);
             Clip.SelfEaseOutFrame = Mathf.Min(Mathf.RoundToInt(easeOutRatio * Clip.Duration), Clip.Duration - SelfEaseInFrame);
-            
+
             Clip.Track.UpdateMix();
         }
 
@@ -226,6 +206,7 @@ namespace Timeline.Editor
             {
                 Clip.SelfEaseOutFrame -= deltaFrame;
             }
+
             Clip.Track.UpdateMix();
         }
 
@@ -234,76 +215,287 @@ namespace Timeline.Editor
             Clip.StartFrame += deltaFrame;
             Clip.EndFrame += deltaFrame;
         }
-        
+
+        public void ResetMove(int deltaFrame)
+        {
+            Clip.Invalid = false;
+            Clip.StartFrame -= deltaFrame;
+            Clip.EndFrame -= deltaFrame;
+        }
+
         public void Refresh()
         {
-            
-        }
-        
-        // public Dictionary<int,float> FramePosMap => FieldVie
-        public bool IsSelectable()
-        {
-            throw new System.NotImplementedException();
+            style.left = FramePosMap[StartFrame];
+            style.width = FramePosMap[EndFrame] - FramePosMap[StartFrame];
+
+            m_LeftClipIn.style.display = Clip.ClipInFrame > 0? DisplayStyle.Flex : DisplayStyle.None;
+            m_RightClipIn.style.display = (Clip.ClipInFrame + WidthFrame) < Clip.Length? DisplayStyle.Flex : DisplayStyle.None;
+
+            if (Clip.Invalid)
+            {
+                AddToClassList("invalid");
+            }
+            else
+            {
+                RemoveFromClassList("invalid");
+            }
+
+            if (EaseInFrame > 0)
+            {
+                AddToClassList("mixLeft");
+            }
+            else
+            {
+                RemoveFromClassList("mixLeft");
+            }
+
+            if (EaseOutFrame > 0)
+            {
+                AddToClassList("mixRight");
+            }
+            else
+            {
+                RemoveFromClassList("mixRight");
+            }
+
+            if (OtherEaseInFrame > 0)
+            {
+                SelfEaseIn = false;
+            }
+
+            if (OtherEaseOutFrame > 0)
+            {
+                SelfEaseOut = false;
+            }
+
+            if (Clip.Invalid)
+            {
+                m_Content.style.left = 0;
+                m_Content.style.width = m_Title.style.width = (WidthFrame * FieldView.OneFrameWidth);
+                m_LeftMixer.style.width = m_RightMixer.style.width = 0;
+            }
+            else
+            {
+                int offset = OtherEaseInFrame > 0? (OtherEaseOutFrame > 0? 0 : -2) : 0;
+
+                float left = OtherEaseInFrame > 0? (float)OtherEaseInFrame / 2 * FieldView.OneFrameWidth * offset : 0;
+                m_Content.style.left = left;
+
+                m_Title.style.width = (WidthFrame - EaseInFrame - EaseOutFrame) * FieldView.OneFrameWidth;
+
+                float leftWidth = (OtherEaseInFrame > 0? (float)OtherEaseInFrame / 2 : Clip.SelfEaseInFrame) * FieldView.OneFrameWidth;
+                m_LeftMixer.style.width = leftWidth;
+
+                float rightWidth = (OtherEaseOutFrame > 0? (float)OtherEaseOutFrame / 2 : Clip.SelfEaseOutFrame) * FieldView.OneFrameWidth;
+                m_RightMixer.style.width = rightWidth;
+            }
         }
 
-        public void Select()
-        {
-            throw new NotImplementedException();
-        }
+        #region Selectable
 
-        public void UnSelect()
+        public virtual bool IsSelectable()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool IsSelected()
         {
-            throw new NotImplementedException();
+            return Selected;
         }
 
-        public bool HitTest(Vector2 localPoint)
+        public void Select()
         {
-            throw new System.NotImplementedException();
+            Selected = true;
+            BringToFront();
+            AddToClassList("selected");
+            
+            OnHover(false);
+            m_DrawBox.MarkDirtyRepaint();
+        }
+        
+        public void UnSelect()
+        {
+            Selected = false;
+            RemoveFromClassList("selected");
+            m_DrawBox.MarkDirtyRepaint();
+            m_MoveDrag.enabled = false;
+        }
+        #endregion
+
+        public bool InMiddle(Vector2 worldPosition)
+        {
+            return m_Content.worldBound.Contains(worldPosition);
         }
 
-        public void Select(VisualElement selectionContainer, bool additive)
+        public void OnPointerDown(PointerDownEvent evt)
         {
-            throw new System.NotImplementedException();
+            if (evt.button == 0)
+            {
+                if (!IsSelected())
+                {
+                    if (evt.actionKey)
+                    {
+                        SelectionContainer.AddToSelection(this);
+                    }
+                    else
+                    {
+                        SelectionContainer.ClearSelection();
+                        SelectionContainer.AddToSelection(this);
+                    }
+                }
+                else
+                {
+                    if (evt.actionKey)
+                    {
+                        SelectionContainer.RemoveFromSelection(this);
+                    }
+                }
+
+                m_MoveDrag.enabled = true;
+                m_MoveDrag.DragBeginForce(evt,this.WorldToLocal(evt.position));
+            }
+            else if (evt.button == 1)
+            {
+                m_MenuHandle.ShowMenu(evt);
+                evt.StopImmediatePropagation();
+            }
+        }
+        
+        public void OnHover(bool value)
+        {
+            if (value && !Hoverd && !Selected)
+            {
+                Hoverd = true;
+                parent.Add(m_DrawBox);
+                m_DrawBox.style.left = style.left;
+                m_DrawBox.style.width = style.width;
+                m_DrawBox.MarkDirtyRepaint();
+            }
+            else if(!value && Hoverd)
+            {
+                Hoverd = false;
+                Add(m_DrawBox);
+                m_DrawBox.MarkDirtyRepaint();
+            }
         }
 
-        public void Unselect(VisualElement selectionContainer)
+        private void MenuBuilder(DropdownMenu menu)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public bool IsSelected(VisualElement selectionContainer)
-        {
-            throw new System.NotImplementedException();
+            menu.AppendAction("Adjust Self Ease In", (e) =>
+            {
+                SelfEaseIn = !SelfEaseIn;
+            }, (e) =>
+            {
+                if (!Clip.IsMixable())
+                {
+                    return DropdownMenuAction.Status.None;
+                }
+                else if (OtherEaseInFrame > 0)
+                {
+                    return DropdownMenuAction.Status.Disabled;
+                }
+                else if (SelfEaseIn)
+                {
+                    return DropdownMenuAction.Status.Checked;
+                }
+                else
+                {
+                    return DropdownMenuAction.Status.Normal;
+                }
+            });
+            
+            menu.AppendAction("Adjust Self Ease Out", (e) =>
+            {
+                SelfEaseOut = !SelfEaseOut;
+            }, (e) =>
+            {
+                if (!Clip.IsMixable())
+                {
+                    return DropdownMenuAction.Status.None;
+                }
+                else if (OtherEaseOutFrame > 0)
+                {
+                    return DropdownMenuAction.Status.Disabled;
+                }
+                else if (SelfEaseOut)
+                {
+                    return DropdownMenuAction.Status.Checked;
+                }
+                else
+                {
+                    return DropdownMenuAction.Status.Normal;
+                }
+            });
+            
+            menu.AppendAction("Remove Clip", (e) =>
+            {
+                Timeline.ApplyModify(() =>
+                {
+                    Timeline.RemoveClip(Clip);
+                },"Remove Clip");
+            });
+            menu.AppendAction("Open Script", (e) =>
+            {
+                //TODO Open Script
+            });
+            menu.AppendAction("Paste Properties", (e) =>
+            {
+                foreach (var fieldInfo in Clip.GetAllFields())
+                {
+                    if (fieldInfo.GetCustomAttribute<ShowInInspectorAttribute>() != null && CopyValueMap.TryGetValue(fieldInfo, out object value))
+                    {
+                        CopyValueMap.Add(fieldInfo,fieldInfo.GetValue(Clip));
+                    }
+                }
+            }, (e) =>
+            {
+                if (CopyType == null)
+                {
+                    return DropdownMenuAction.Status.None;
+                }
+                else if(CopyType != Clip.GetType())
+                {
+                    return DropdownMenuAction.Status.Disabled;
+                }
+                else
+                {
+                    return DropdownMenuAction.Status.Normal;
+                }
+            });
         }
 
         private void OnStartDrag(PointerDownEvent evt)
         {
             Clip.Invalid = false;
+            FieldView.StartMove(this);
         }
 
         private void OnStopDrag()
         {
             Clip.Invalid = false;
+            FieldView.ApplyMove();
         }
 
         private void OnDragMove(Vector2 deltaPosition)
         {
-            
+            FieldView.MoveClips(deltaPosition.x);
         }
 
-        //TODO 2021没有这个方法
-        // private void OnDrawBoxGenerateVisualContent(MeshGenerationContext)
-        // {
-        //     if (Hoverd)
-        //     {
-        //         var paint2D = mgc.
-        //     }
-        // }
+        private void OnDrawBoxGenerateVisualContent(MeshGenerationContext mgc)
+        {
+            if (Hoverd)
+            {
+                var paint2D = mgc.painter2D;
+                paint2D.strokeColor = new Color(68, 192, 255, 255);
+                paint2D.BeginPath();
+                paint2D.MoveTo(new Vector2(0,0));
+                paint2D.LineTo(new Vector2(worldBound.width,0));
+                paint2D.LineTo(new Vector2(worldBound.width,worldBound.height));
+                paint2D.LineTo(new Vector2(0,worldBound.height));
+                paint2D.Stroke();
+            }
+        }
+        
         private static Type CopyType;
         private static Dictionary<FieldInfo, object> CopyValueMap = new();
     }

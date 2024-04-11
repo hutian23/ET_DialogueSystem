@@ -74,7 +74,7 @@ namespace Timeline.Editor
 
         private int CurrentMinFrame => GetClosestCeilFrame(ScrollViewContentOffset);
         private int CurrentMaxFrame => GetClosestCeilFrame(ScrollViewContentWidth + ScrollViewContentOffset);
-        private float OneFrameWidth => m_MarkerWidth + m_FieldScale;
+        public float OneFrameWidth => m_MarkerWidth + m_FieldScale;
         private float ScrollViewContentWidth => TrackScrollView.contentContainer.worldBound.width;
         private float ScrollViewContentOffset => TrackScrollView.scrollOffset.x;
         public float ContentWidth => FieldContent.worldBound.width;
