@@ -897,7 +897,7 @@ namespace Timeline.Editor
 
                 foreach (var moveClip in moveClips)
                 {
-                    //TODO
+                    
                 }
             }
         }
