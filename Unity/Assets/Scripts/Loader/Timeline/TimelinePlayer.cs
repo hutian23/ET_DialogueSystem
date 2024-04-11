@@ -98,8 +98,10 @@ namespace Timeline
         public virtual void Init()
         {
             PlayableGraph = PlayableGraph.Create("Blazblue.Timeline.PlayableGraph");
+            //混合
             AnimationRootPlayable = AnimationLayerMixerPlayable.Create(this.PlayableGraph);
-
+            AudioRootPlayable = AudioMixerPlayable.Create(PlayableGraph);    
+            
             Animator = GetComponent<Animator>();
             var playableOutput = AnimationPlayableOutput.Create(PlayableGraph, "Animation", Animator);
             playableOutput.SetSourcePlayable(AnimationRootPlayable);
@@ -127,10 +129,8 @@ namespace Timeline
                 {
                     RemoveTimeline(RunningTimelines[i]);
                 }
-
                 PlayableGraph.Destroy();
             }
-
             RunningTimelines = null;
             IsPlaying = false;
             PlaySpeed = 1;

@@ -43,16 +43,16 @@ namespace Timeline
 
         public bool Binding
         {
-            get => this.m_Binding;
-            protected set => this.m_Binding = value;
+            get => m_Binding;
+            protected set => m_Binding = value;
         }
 
         private TimelinePlayer m_TimelinePlayer;
 
         public TimelinePlayer TimelinePlayer
         {
-            get => this.m_TimelinePlayer;
-            protected set => this.m_TimelinePlayer = value;
+            get => m_TimelinePlayer;
+            protected set => m_TimelinePlayer = value;
         }
 
         public PlayableGraph PlayableGraph { get; protected set; }
@@ -62,14 +62,14 @@ namespace Timeline
         public void Init()
         {
             #region UnBind
-
-            bool isBinding = this.Binding;
+            
+            bool isBinding = Binding;
             TimelinePlayer timelinePlayer = TimelinePlayer;
             if (isBinding)
             {
                 timelinePlayer.Dispose();
             }
-
+            
             #endregion
 
             #region Init
@@ -84,10 +84,10 @@ namespace Timeline
                     MaxFrame = track.MaxFrame;
                 }
             }
-
+            
             Duration = (float)MaxFrame / TimelineUtility.FrameRate;
             OnValueChanged?.Invoke();
-
+            
             #endregion
 
             #region Bind
@@ -95,7 +95,8 @@ namespace Timeline
             if (isBinding)
             {
                 timelinePlayer.Init();
-                timelinePlayer.AddTimeline(this);
+                //TODO 这里不会很容易递归调用吗...
+                // timelinePlayer.AddTimeline(this);
             }
 
             #endregion
@@ -114,18 +115,18 @@ namespace Timeline
 
         public void Bind(TimelinePlayer timelinePlayer)
         {
-            this.Time = 0;
-            this.TimelinePlayer = timelinePlayer;
-            this.PlayableGraph = timelinePlayer.PlayableGraph;
-            this.AnimationRootPlayable = timelinePlayer.AnimationRootPlayable;
-            this.AudioRootPlayable = timelinePlayer.AudioRootPlayable;
+            Time = 0;
+            TimelinePlayer = timelinePlayer;
+            PlayableGraph = timelinePlayer.PlayableGraph;
+            AnimationRootPlayable = timelinePlayer.AnimationRootPlayable;
+            AudioRootPlayable = timelinePlayer.AudioRootPlayable;
+            
+            Binding = true;
+            OnRebind = null;
+            OnValueChanged += RebindAll;
 
-            this.Binding = true;
-            this.OnRebind = null;
-            this.OnValueChanged += this.RebindAll;
-
-            this.m_Tracks.ForEach(t => t.Bind());
-            this.OnBindStateChanged?.Invoke();
+            m_Tracks.ForEach(t => t.Bind());
+            OnBindStateChanged?.Invoke();
         }
 
         public void UnBind()
@@ -237,9 +238,9 @@ namespace Timeline
         public int MaxFrame { get; protected set; }
 
         public virtual void Init(Timeline timeline)
-        {
-            this.Timeline = timeline;
-            this.MaxFrame = 0;
+        { 
+            Timeline = timeline; 
+            MaxFrame = 0;
             foreach (var clip in m_Clips)
             {
                 clip.Init(this);
@@ -248,8 +249,7 @@ namespace Timeline
                     MaxFrame = clip.EndFrame;
                 }
             }
-
-            this.RuntimeMuted = false;
+            RuntimeMuted = false;
         }
 
         public virtual void Bind()

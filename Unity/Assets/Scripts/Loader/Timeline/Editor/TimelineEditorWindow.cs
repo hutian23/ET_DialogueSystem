@@ -44,7 +44,6 @@ namespace Timeline.Editor
             {
                 //对象是否为持久化对象 
                 //what is 持久化对象? 在 Scene 保存的 gameObject
-                Debug.LogWarning(e.newValue);
                 //不是scene中的gameObject
                 if (!EditorUtility.IsPersistent(e.newValue) && e.newValue is TimelinePlayer timelinePlayer && Timeline.TimelinePlayer != timelinePlayer)
                 {
@@ -79,7 +78,6 @@ namespace Timeline.Editor
             m_PlayButton = root.Q<Button>("play-button");
             m_PlayButton.clicked += () =>
             {
-                Debug.LogWarning("clicked");
                 Timeline.TimelinePlayer.IsPlaying = true; 
             };
             return;
@@ -205,10 +203,11 @@ namespace Timeline.Editor
                 timeline.Init();
             }
 
+            return;
             Timeline = timeline;
             Timeline.UpdateSerializedTimeline();
 
-            //Timeline.OnValueChanged += m_TimelineField.PopulateView;
+            Timeline.OnValueChanged += m_TimelineField.PopulateView;
             // Timeline.OnEvaluated += m_TimelineField.UpdateTimeLocator;
             // Timeline.OnBindStateChanged += m_TimelineField.UpdateBindState;
             // Timeline.OnBindStateChanged += UpdateBindState;
@@ -218,7 +217,7 @@ namespace Timeline.Editor
             m_TimelineField.SetEnabled(true);
             UpdateBindState();
             
-            // EditorCoroutineHelper.WaitWhile(m_TimelineField.PopulateView, () => m_TimelineField.ContentWidth == 0);
+            EditorCoroutineHelper.WaitWhile(m_TimelineField.PopulateView, () => m_TimelineField.ContentWidth == 0);
         }
         
         public void Dispose()

@@ -36,29 +36,25 @@ namespace Timeline.Editor
         public VisualElement ClipInspector { get; private set; }
 
         #region Param
-
         public float m_MaxFieldScale = 10;
         private readonly float m_FieldOffsetX = 6;
         private readonly float m_MarkerWidth = 50;
         public float m_WheelLerpSpeed = 0.2f;
         private readonly int m_TimeTextFontSize = 14;
-
         #endregion
 
         #region Style
-
         private static readonly CustomStyleProperty<Color> s_FieldLineColor = new("--field-line-color");
         private Color m_FieldLineColor;
         private static readonly CustomStyleProperty<Color> s_LocatorLineColor = new("--locator-line-color");
         protected Color m_LocatorLineColor;
         private static readonly CustomStyleProperty<Font> s_MarkerTextFont = new("--marker-text-font");
         private Font m_MarkerTextFont;
-
         #endregion
 
-        protected float m_FieldScale = 1;
-        protected int m_MaxFrame = 60;
-        protected bool m_DrawTimeText;
+        private float m_FieldScale = 1;
+        private int m_MaxFrame = 60;
+        private bool m_DrawTimeText;
         protected bool m_ScrollViewPan;
         protected float m_ScrollViewPanDelta;
 
@@ -85,20 +81,19 @@ namespace Timeline.Editor
             visualTree.CloneTree(this);
             AddToClassList("timelineField");
             
-            return;
             m_MarkerTextFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             
             TrackScrollView = this.Q<ScrollView>("track-scroll");
-            // TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
-            // {
-            //     //鼠标滚轮按下
-            //     if (e.button == 2)
-            //     {
-            //         m_ScrollViewPan = true;
-            //         m_ScrollViewPanDelta = e.localPosition.x;
-            //         TrackField.AddToClassList("pan");
-            //     }
-            // });
+            TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
+            {
+                //鼠标滚轮按下
+                if (e.button != 2)
+                {
+                    m_ScrollViewPan = true;
+                    m_ScrollViewPanDelta = e.localPosition.x;
+                    TrackField.AddToClassList("pan");
+                }
+            });
             // TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
             // {
             //     if (m_ScrollViewPan)
@@ -127,15 +122,15 @@ namespace Timeline.Editor
             //
             //     DrawTimeField();
             // };
-            //
+            
             FieldContent = this.Q("field-content");
             FieldContent.RegisterCallback<GeometryChangedEvent>(OnTrackFieldGeometryChanged);
 
             TrackField = this.Q("track-field");
             TrackField.generateVisualContent += OnTrackFieldGenerateVisualContent;
 
-            MarkerField = this.Q("marker-field");
-            // MarkerField.AddToClassList("droppable");
+            MarkerField = this.Q("marker-field"); 
+            MarkerField.AddToClassList("droppable");
             // MarkerField.generateVisualContent += OnMarkerFieldGenerateVisualContent;
             // MarkerField.RegisterCallback<PointerDownEvent>((e) =>
             // {
@@ -230,6 +225,7 @@ namespace Timeline.Editor
 
         public void PopulateView()
         {
+            Debug.LogWarning("PopulateView");
             TrackField.Clear();
             m_Selections.Clear();
             m_Elements.Clear();
@@ -948,7 +944,8 @@ namespace Timeline.Editor
         private void OnGeometryChanged(GeometryChangedEvent evt)
         {
         }
-
+        
+        //进行布局计算后当元素的位置或尺寸发生变化时发送的事件。此事件无法取消，不发生涓滴，也不发生冒泡。
         private void OnTrackFieldGeometryChanged(GeometryChangedEvent evt)
         {
             float delta = evt.newRect.width - evt.oldRect.width;
@@ -1052,7 +1049,6 @@ namespace Timeline.Editor
                     frame = framePosPair.Key;
                 }
             }
-
             return frame;
         }
 
