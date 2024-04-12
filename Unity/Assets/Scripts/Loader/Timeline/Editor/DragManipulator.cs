@@ -19,15 +19,30 @@ namespace Timeline.Editor
                     {
                         return;
                     }
-                    // _target.UnregisterCallback<PointerDownEvent>();
+
+                    _target.UnregisterCallback<PointerDownEvent>(DragBegin);
+                    _target.UnregisterCallback<PointerUpEvent>(DragEnd);
+                    _target.UnregisterCallback<PointerMoveEvent>(PointerMove);
+                    _target.UnregisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
+                    _target.RemoveFromClassList("draggable");
+                    lastDroppable?.RemoveFromClassList("droppable--can-drop");
+                    lastDroppable = null;
                 }
+
+                _target = value;
+
+                _target.RegisterCallback<PointerDownEvent>(DragBegin);
+                _target.RegisterCallback<PointerUpEvent>(DragEnd);
+                _target.RegisterCallback<PointerMoveEvent>(PointerMove);
+                _target.RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
+                _target.AddToClassList("draggable");
             }
         }
 
-        protected static readonly CustomStyleProperty<bool> draggableEnableProperty = new CustomStyleProperty<bool>("--draggable-enabled");
+        protected static readonly CustomStyleProperty<bool> draggableEnableProperty = new("--draggable-enabled");
         protected Vector3 offset;
         private bool isDragging;
-        private VisualElement lastDroppable = null;
+        private VisualElement lastDroppable;
         private string _droppabled = "droppable";
 
         public string droppableId
@@ -128,7 +143,7 @@ namespace Timeline.Editor
             OnDrag?.Invoke(evt);
         }
 
-        public void DragBegin(PointerDownEvent evt)
+        private void DragBegin(PointerDownEvent evt)
         {
             if (!enabled)
             {
@@ -160,7 +175,7 @@ namespace Timeline.Editor
             OnDrag?.Invoke(evt);
         }
 
-        public void DragEnd(IPointerEvent evt)
+        private void DragEnd(IPointerEvent evt)
         {
             if (!isDragging)
             {
@@ -173,9 +188,85 @@ namespace Timeline.Editor
             }
 
             VisualElement droppable;
-            // bool canDrop = CanDro
+            bool canDrop = CanDrop(evt.position, out droppable) || !m_CheckDroppable;
+            if (canDrop && droppable != null)
+            {
+                droppable.RemoveFromClassList("droppable--can-drop");
+            }
+
+            target.RemoveFromClassList("draggable--dragging");
+            target.RemoveFromClassList("draggable--can-drop");
+
+            lastDroppable?.RemoveFromClassList("droppable--can-drop");
+            lastDroppable = null;
+
+            target.ReleasePointer(evt.pointerId);
+            target.pickingMode = lastPickingMode;
+            isDragging = false;
+            if (canDrop)
+            {
+                Drop(droppable);
+            }
+            else
+            {
+                ResetPosition();   
+            }
+
+            if (removeClassOnDrag != null && removeClass)
+            {
+                target.AddToClassList(removeClassOnDrag);
+            }
+            OnDrop?.Invoke();
         }
 
+        protected virtual void Drop(VisualElement droppable)
+        {
+            var evt = DropEvent.GetPooled(this, droppable);
+            evt.target = target;
+            //下一帧改变class list
+            target.schedule.Execute(() => evt.target.SendEvent(evt));
+        }
+
+        /** Change parent while preserving position via `transform.position`.
+        Usage: While dragging-and-dropping an element, if the dropped element were
+        to change its parent in the hierarchy, but preserve its position on
+        screen, which can be done with `transform.position`. Then one can lerp
+        that position to zero for a nice clean transition.
+        Notes: The algorithm isn't difficult. It's find position wrt new parent,
+        zero out the `transform.position`, add it to the parent, find position wrt
+        new parent, set `transform.position` such that its screen position will be
+        the same as before.
+        The tricky part is when you add this element to a newParent, you can't
+        query for its position (at least not in a way I could find). You have to
+        wait a beat. Then whatever was necessary to update will update.
+        */
+        public static IVisualElementScheduledItem ChangeParent(VisualElement target, VisualElement newParent)
+        {
+            var position_parent = target.ChangeCoordinatesTo(newParent, Vector2.zero);
+            target.RemoveFromHierarchy();
+            target.transform.position = Vector3.zero;
+            newParent.Add(target);
+            // ChangeCoordinatesTo will not be correct unless you wait a tick. #hardwon
+            // target.transform.position = position_parent - target.ChangeCoordinatesTo(newParent,
+            //                                                                      Vector2.zero);
+            return target.schedule.Execute(() =>
+            {
+                var newPosition = position_parent - target.ChangeCoordinatesTo(newParent, Vector2.zero);
+                target.RemoveFromHierarchy();
+                target.transform.position = newPosition;
+                newParent.Add(target);
+            });
+        }
+
+        /** Reset the target's position to zero.
+        Note: Schedules the change so that the USS classes will be restored when
+        run. (Helps when a "transitions" USS class is used.)
+        */
+        public virtual void ResetPosition()
+        {
+            target.transform.position = Vector3.zero;
+        }
+        
         protected virtual bool CanDrop(Vector3 position, out VisualElement droppable)
         {
             //返回此位置的顶部元素。不会返回选择模式设置为 PickingMode.Ignore 的元素。
@@ -192,9 +283,10 @@ namespace Timeline.Editor
                 droppable = element;
                 return true;
             }
+
             return false;
         }
-
+        
         private void PointerMove(PointerMoveEvent evt)
         {
             if (!isDragging)

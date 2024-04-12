@@ -137,13 +137,9 @@ namespace Timeline.Editor
             MarkerField = this.Q("marker-field");
             MarkerField.AddToClassList("droppable");
             MarkerField.generateVisualContent += OnMarkerFieldGenerateVisualContent;
-            MarkerField.RegisterCallback<MouseMoveEvent>((e) =>
-            {
-                Debug.LogWarning(e.localMousePosition);
-            });
             MarkerField.RegisterCallback<PointerDownEvent>((e) =>
             {
-                Debug.LogWarning("Marker point");
+                Debug.LogWarning("Pointer Down");
                 if (e.button == 0)
                 {
                     SettimeLocator(GetClosestFrame(e.localPosition.x));
@@ -154,8 +150,8 @@ namespace Timeline.Editor
             
             LocatorDragManipulator = new DragManipulator(OnTimeLocatorStartMove, OnTimeLocatorStopMove, OnTimeLocatorMove);
             TimeLocator = this.Q("time-locater");
-            // TimeLocator.AddManipulator(LocatorDragManipulator);
-            // TimeLocator.generateVisualContent += OnTimeLocatorGenerateVisualContent;
+            TimeLocator.AddManipulator(LocatorDragManipulator);
+            TimeLocator.generateVisualContent += OnTimeLocatorGenerateVisualContent;
             // TimeLocator.SetEnabled(false);
             
             DrawFrameLineField = this.Q("draw-frame-line-field");
