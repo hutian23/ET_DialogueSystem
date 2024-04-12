@@ -34,12 +34,12 @@
     width: 100%;
 }
 
-#time-locater{
+#time-locater {
     position: absolute;
     left: 6px;
 }
 
-#time-locater-icon{
+#time-locater-icon {
     width: 12px;
     height: 28px;
     background-image: resource('Icon/SignalAsset Icon');

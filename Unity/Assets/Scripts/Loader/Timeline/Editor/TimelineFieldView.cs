@@ -71,7 +71,7 @@ namespace Timeline.Editor
 
         public Action OnPopulatedCallback;
         public Action OnGeometryChangedCallback;
-        
+
         //注意，是当前滑动窗口显示的最小帧和最大帧
         private int CurrentMinFrame => GetClosestCeilFrame(ScrollViewContentOffset);
         private int CurrentMaxFrame => GetClosestCeilFrame(ScrollViewContentWidth + ScrollViewContentOffset);
@@ -118,12 +118,13 @@ namespace Timeline.Editor
             //     TrackField.RemoveFromClassList("pan");
             // });
             TrackScrollView.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
-            TrackScrollView.horizontalScroller.valueChanged += (e) =>
+            TrackScrollView.horizontalScroller.valueChanged += _ =>
             {
                 if (FieldContent.worldBound.width < ScrollViewContentWidth + ScrollViewContentOffset)
                 {
                     FieldContent.style.width = ScrollViewContentWidth + ScrollViewContentOffset;
                 }
+
                 DrawTimeField();
             };
 
@@ -132,35 +133,42 @@ namespace Timeline.Editor
 
             TrackField = this.Q("track-field");
             TrackField.generateVisualContent += OnTrackFieldGenerateVisualContent;
-
+            
             MarkerField = this.Q("marker-field");
             MarkerField.AddToClassList("droppable");
             MarkerField.generateVisualContent += OnMarkerFieldGenerateVisualContent;
-            // MarkerField.RegisterCallback<PointerDownEvent>((e) =>
-            // {
-            //     //鼠标左键
-            //     if (e.button == 0)
-            //     {
-            //         SettimeLocator(GetClosestFrame(e.localPosition.x));
-            //         LocatorDragManipulator.DragBeginForce(e);
-            //     }
-            // });
+            MarkerField.RegisterCallback<MouseMoveEvent>((e) =>
+            {
+                Debug.LogWarning(e.localMousePosition);
+            });
+            MarkerField.RegisterCallback<PointerDownEvent>((e) =>
+            {
+                Debug.LogWarning("Marker point");
+                if (e.button == 0)
+                {
+                    SettimeLocator(GetClosestFrame(e.localPosition.x));
+                    LocatorDragManipulator.DragBeginForce(e);
+                }
+            });
             // MarkerField.SetEnabled(false);
-            //
-            // LocatorDragManipulator = new DragManipulator(OnTimeLocatorStartMove, OnTimeLocatorStopMove, OnTimeLocatorMove);
+            
+            LocatorDragManipulator = new DragManipulator(OnTimeLocatorStartMove, OnTimeLocatorStopMove, OnTimeLocatorMove);
             TimeLocator = this.Q("time-locater");
             // TimeLocator.AddManipulator(LocatorDragManipulator);
             // TimeLocator.generateVisualContent += OnTimeLocatorGenerateVisualContent;
             // TimeLocator.SetEnabled(false);
-            //
+            
             DrawFrameLineField = this.Q("draw-frame-line-field");
             // DrawFrameLineField.generateVisualContent += OnDrawFrameLineFieldGenerateVisualContent;
             //
             LocaterFrameLabel = this.Q<Label>("time-locater-frame-label");
-            //
             InspectorScrollView = this.Q<ScrollView>("inspector-scroll");
             InspectorScrollView.RegisterCallback<WheelEvent>((e) => e.StopImmediatePropagation());
             ClipInspector = this.Q("clip-inspector");
+            // ClipInspector.RegisterCallback<MouseMoveEvent>((e) =>
+            // {
+            //     Debug.LogWarning("Hello world");
+            // });
             // ClipInspector.RegisterCallback<KeyDownEvent>((e) =>
             // {
             //     if (!e.ctrlKey)
@@ -511,7 +519,7 @@ namespace Timeline.Editor
             {
                 var fakeOldRect = Rect.zero;
                 var fakeNewRect = view.layout;
-                
+
                 using var evt = GeometryChangedEvent.GetPooled(fakeOldRect, fakeNewRect);
                 evt.target = view.contentContainer;
                 view.contentContainer.SendEvent(evt);
@@ -567,14 +575,14 @@ namespace Timeline.Editor
             {
                 FieldContent.style.width = ScrollViewContentWidth + ScrollViewContentOffset;
             }
-            
+
             //总帧数
             int interval = Mathf.CeilToInt(Mathf.Max(FieldContent.worldBound.width, worldBound.width) / OneFrameWidth);
             if (m_MaxFrame < interval)
             {
                 m_MaxFrame = interval;
             }
-            
+
             for (int i = 0; i < m_MaxFrame; i++)
             {
                 FramePosMap.Add(i, OneFrameWidth * i + m_FieldOffsetX);
@@ -607,7 +615,6 @@ namespace Timeline.Editor
                 {
                     paint2D.MoveTo(new Vector2(FramePosMap[i], 10));
                     paint2D.LineTo(new Vector2(FramePosMap[i], 25));
-
                     mgc.DrawText(i.ToString(), new Vector2(FramePosMap[i] + 5, 5), m_TimeTextFontSize, Color.white);
                 }
                 //小刻度
@@ -621,9 +628,8 @@ namespace Timeline.Editor
                         mgc.DrawText(i.ToString(), new Vector2(FramePosMap[i] + 5, 5), m_TimeTextFontSize, Color.white);
                     }
                 }
-
-                paint2D.Stroke();
             }
+            paint2D.Stroke();
         }
 
         private void OnTrackFieldGenerateVisualContent(MeshGenerationContext mgc)
@@ -651,7 +657,7 @@ namespace Timeline.Editor
 
         #region TimeLocator
 
-        public void SettimeLocator(int targetFrame)
+        private void SettimeLocator(int targetFrame)
         {
             Timeline.TimelinePlayer.IsPlaying = false;
             float deltaTime = targetFrame / 60f - Timeline.Time;
@@ -970,7 +976,7 @@ namespace Timeline.Editor
             Timeline.Scale = m_FieldScale;
 
             float targetWidth = Mathf.Max(FieldContent.worldBound.width * (1 - wheelEvent.delta.y / 100), ScrollViewContentWidth);
-            
+
             // if (FieldContent.style.width == targetWidth)
             // {
             //     ResizeTimeField();
@@ -989,15 +995,15 @@ namespace Timeline.Editor
             //     ResizeTimeField();
             //     ForceScrollViewUpdate(TrackScrollView);
             // }
-            
+
             FieldContent.style.width = targetWidth;
             int ratioInt = Mathf.RoundToInt(wheelEvent.localMousePosition.x / worldBound.width);
             ratioInt = (int)Mathf.Clamp01(ratioInt); //限制在0 - 1之间
-            
+
             float targetOffset = -(ScrollViewContentWidth - targetWidth) * ratioInt;
             targetOffset = Mathf.Lerp(ScrollViewContentOffset, targetOffset, m_WheelLerpSpeed);
             TrackScrollView.scrollOffset = new Vector2(targetOffset, TrackScrollView.scrollOffset.y);
-            
+
             ResizeTimeField();
             ForceScrollViewUpdate(TrackScrollView);
             OnGeometryChangedCallback?.Invoke();
@@ -1062,6 +1068,7 @@ namespace Timeline.Editor
                     frame = framePosPair.Key;
                 }
             }
+
             return frame;
         }
 
@@ -1162,7 +1169,7 @@ namespace Timeline.Editor
             return null;
         }
 
-        public int TextWidth(string s, Font font, int fontSize, FontStyle fontStyle = FontStyle.Normal)
+        private int TextWidth(string s, Font font, int fontSize, FontStyle fontStyle = FontStyle.Normal)
         {
             if (string.IsNullOrEmpty(s))
             {
