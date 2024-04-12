@@ -36,20 +36,24 @@ namespace Timeline.Editor
         public VisualElement ClipInspector { get; private set; }
 
         #region Param
+
         public float m_MaxFieldScale = 10;
         private readonly float m_FieldOffsetX = 6;
         private readonly float m_MarkerWidth = 50;
         public float m_WheelLerpSpeed = 0.2f;
         private readonly int m_TimeTextFontSize = 14;
+
         #endregion
 
         #region Style
+
         private static readonly CustomStyleProperty<Color> s_FieldLineColor = new("--field-line-color");
         private Color m_FieldLineColor;
         private static readonly CustomStyleProperty<Color> s_LocatorLineColor = new("--locator-line-color");
         protected Color m_LocatorLineColor;
         private static readonly CustomStyleProperty<Font> s_MarkerTextFont = new("--marker-text-font");
         private Font m_MarkerTextFont;
+
         #endregion
 
         private float m_FieldScale = 1;
@@ -67,7 +71,8 @@ namespace Timeline.Editor
 
         public Action OnPopulatedCallback;
         public Action OnGeometryChangedCallback;
-
+        
+        //注意，是当前滑动窗口显示的最小帧和最大帧
         private int CurrentMinFrame => GetClosestCeilFrame(ScrollViewContentOffset);
         private int CurrentMaxFrame => GetClosestCeilFrame(ScrollViewContentWidth + ScrollViewContentOffset);
         public float OneFrameWidth => m_MarkerWidth + m_FieldScale;
@@ -80,9 +85,9 @@ namespace Timeline.Editor
             VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>($"VisualTree/TimelineFieldView");
             visualTree.CloneTree(this);
             AddToClassList("timelineField");
-            
+
             m_MarkerTextFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            
+
             TrackScrollView = this.Q<ScrollView>("track-scroll");
             TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
             {
@@ -112,24 +117,24 @@ namespace Timeline.Editor
             //     m_ScrollViewPan = false;
             //     TrackField.RemoveFromClassList("pan");
             // });
-            // TrackScrollView.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
-            // TrackScrollView.horizontalScroller.valueChanged += (e) =>
-            // {
-            //     if (FieldContent.worldBound.width < ScrollViewContentWidth + ScrollViewContentOffset)
-            //     {
-            //         FieldContent.style.width = ScrollViewContentWidth + ScrollViewContentOffset;
-            //     }
-            //
-            //     DrawTimeField();
-            // };
+            TrackScrollView.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+            TrackScrollView.horizontalScroller.valueChanged += (e) =>
+            {
+                if (FieldContent.worldBound.width < ScrollViewContentWidth + ScrollViewContentOffset)
+                {
+                    FieldContent.style.width = ScrollViewContentWidth + ScrollViewContentOffset;
+                }
             
+                DrawTimeField();
+            };
+
             FieldContent = this.Q("field-content");
             FieldContent.RegisterCallback<GeometryChangedEvent>(OnTrackFieldGeometryChanged);
 
             TrackField = this.Q("track-field");
             TrackField.generateVisualContent += OnTrackFieldGenerateVisualContent;
 
-            MarkerField = this.Q("marker-field"); 
+            MarkerField = this.Q("marker-field");
             MarkerField.AddToClassList("droppable");
             // MarkerField.generateVisualContent += OnMarkerFieldGenerateVisualContent;
             // MarkerField.RegisterCallback<PointerDownEvent>((e) =>
@@ -155,7 +160,7 @@ namespace Timeline.Editor
             LocaterFrameLabel = this.Q<Label>("time-locater-frame-label");
             //
             InspectorScrollView = this.Q<ScrollView>("inspector-scroll");
-            // InspectorScrollView.RegisterCallback<WheelEvent>((e) => e.StopImmediatePropagation());
+            InspectorScrollView.RegisterCallback<WheelEvent>((e) => e.StopImmediatePropagation());
             ClipInspector = this.Q("clip-inspector");
             // ClipInspector.RegisterCallback<KeyDownEvent>((e) =>
             // {
@@ -167,7 +172,7 @@ namespace Timeline.Editor
             // ClipInspector.RegisterCallback<PointerDownEvent>((e) => e.StopImmediatePropagation());
             //
             RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
-            // RegisterCallback<WheelEvent>(OnWheelEvent);
+            RegisterCallback<WheelEvent>(OnWheelEvent);
             // RegisterCallback<KeyDownEvent>((e) =>
             // {
             //     switch (e.keyCode)
@@ -225,7 +230,6 @@ namespace Timeline.Editor
 
         public void PopulateView()
         {
-            Debug.LogWarning("PopulateView");
             TrackField.Clear();
             m_Selections.Clear();
             m_Elements.Clear();
@@ -238,6 +242,7 @@ namespace Timeline.Editor
             {
                 Timeline.UpdateSerializedTimeline();
 
+                //计算最大帧长
                 int maxFrame = 0;
                 foreach (var track in Timeline.Tracks)
                 {
@@ -251,10 +256,8 @@ namespace Timeline.Editor
                 }
 
                 maxFrame++;
-
                 m_MaxFrame = Mathf.Max(m_MaxFrame, maxFrame);
                 m_FieldScale = Timeline.Scale;
-
                 ResizeTimeField();
                 DrawTimeField();
 
@@ -503,14 +506,13 @@ namespace Timeline.Editor
             PopulateInspector(Timeline);
         }
 
-        public void ForceScrollViewUpdate(ScrollView view)
+        private void ForceScrollViewUpdate(ScrollView view)
         {
             view.schedule.Execute(() =>
             {
                 var fakeOldRect = Rect.zero;
                 var fakeNewRect = view.layout;
-
-                //调用滚动事件?
+                
                 using var evt = GeometryChangedEvent.GetPooled(fakeOldRect, fakeNewRect);
                 evt.target = view.contentContainer;
                 view.contentContainer.SendEvent(evt);
@@ -558,7 +560,7 @@ namespace Timeline.Editor
 
         #region TimelineField
 
-        public void ResizeTimeField()
+        private void ResizeTimeField()
         {
             FramePosMap.Clear();
 
@@ -567,24 +569,24 @@ namespace Timeline.Editor
                 FieldContent.style.width = ScrollViewContentWidth + ScrollViewContentOffset;
             }
             
+            //总帧数
             int interval = Mathf.CeilToInt(Mathf.Max(FieldContent.worldBound.width, worldBound.width) / OneFrameWidth);
             if (m_MaxFrame < interval)
             {
                 m_MaxFrame = interval;
             }
-
+            
             for (int i = 0; i < m_MaxFrame; i++)
             {
-                FramePosMap.Add(i, OneFrameWidth * i * m_FieldOffsetX);
+                FramePosMap.Add(i, OneFrameWidth * i + m_FieldOffsetX);
             }
 
             float maxTextWidth = TextWidth(m_MaxFrame.ToString(), m_MarkerTextFont, m_TimeTextFontSize);
             m_DrawTimeText = OneFrameWidth > maxTextWidth * 1.5f;
         }
 
-        public void DrawTimeField()
+        private void DrawTimeField()
         {
-            //重绘
             TrackField.MarkDirtyRepaint();
             MarkerField.MarkDirtyRepaint();
         }
@@ -893,7 +895,6 @@ namespace Timeline.Editor
 
                 foreach (var moveClip in moveClips)
                 {
-                    
                 }
             }
         }
@@ -943,8 +944,11 @@ namespace Timeline.Editor
 
         private void OnGeometryChanged(GeometryChangedEvent evt)
         {
+            ResizeTimeField();
+            DrawTimeField();
+            OnGeometryChangedCallback?.Invoke();
         }
-        
+
         //进行布局计算后当元素的位置或尺寸发生变化时发送的事件。此事件无法取消，不发生涓滴，也不发生冒泡。
         private void OnTrackFieldGeometryChanged(GeometryChangedEvent evt)
         {
@@ -963,38 +967,48 @@ namespace Timeline.Editor
         private void OnWheelEvent(WheelEvent wheelEvent)
         {
             m_FieldScale *= (1 - wheelEvent.delta.y / 100);
-            m_FieldScale = Mathf.Min(m_MaxFieldScale, m_FieldScale);
+            m_FieldScale = Mathf.Clamp(0.01f, m_MaxFieldScale, m_FieldScale);
             Timeline.Scale = m_FieldScale;
 
             float targetWidth = Mathf.Max(FieldContent.worldBound.width * (1 - wheelEvent.delta.y / 100), ScrollViewContentWidth);
-            if (FieldContent.style.width == targetWidth)
-            {
-                ResizeTimeField();
-                DrawTimeField();
-            }
-            else
-            {
-                FieldContent.style.width = targetWidth;
-
-                int ratioInt = Mathf.RoundToInt(wheelEvent.localMousePosition.x / worldBound.width);
-                if (ratioInt < .1f)
-                {
-                    ratioInt = 0;
-                }
-                else if(ratioInt > .9f)
-                {
-                    ratioInt = 1;
-                }
-
-                float targetOffset = -(ScrollViewContentWidth - targetWidth) * ratioInt;
-            }
+            
+            // if (FieldContent.style.width == targetWidth)
+            // {
+            //     ResizeTimeField();
+            //     DrawTimeField();
+            // }
+            // else
+            // {
+            //     FieldContent.style.width = targetWidth;
+            //     int ratioInt = Mathf.RoundToInt(wheelEvent.localMousePosition.x / worldBound.width);
+            //     ratioInt = (int)Mathf.Clamp01(ratioInt); //限制在0 - 1之间
+            //     
+            //     float targetOffset = -(ScrollViewContentWidth - targetWidth) * ratioInt;
+            //     targetOffset = Mathf.Lerp(ScrollViewContentOffset, targetOffset, m_WheelLerpSpeed);
+            //     TrackScrollView.scrollOffset = new Vector2(targetOffset, TrackScrollView.scrollOffset.y);
+            //
+            //     ResizeTimeField();
+            //     ForceScrollViewUpdate(TrackScrollView);
+            // }
+            
+            FieldContent.style.width = targetWidth;
+            int ratioInt = Mathf.RoundToInt(wheelEvent.localMousePosition.x / worldBound.width);
+            ratioInt = (int)Mathf.Clamp01(ratioInt); //限制在0 - 1之间
+            
+            float targetOffset = -(ScrollViewContentWidth - targetWidth) * ratioInt;
+            targetOffset = Mathf.Lerp(ScrollViewContentOffset, targetOffset, m_WheelLerpSpeed);
+            TrackScrollView.scrollOffset = new Vector2(targetOffset, TrackScrollView.scrollOffset.y);
+            
+            ResizeTimeField();
+            ForceScrollViewUpdate(TrackScrollView);
+            OnGeometryChangedCallback?.Invoke();
         }
 
         #endregion
 
         #region Helper
 
-        public int GetClosestFrame(float position)
+        private int GetClosestFrame(float position)
         {
             int frame = 0;
             foreach (var framePosPair in FramePosMap)

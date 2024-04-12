@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using UnityEngine;
 
 // 定义语法树节点的类型
 public enum NodeType
@@ -45,6 +46,7 @@ class Program
 {
     static void Main(string[] args)
     {
+        Console.WriteLine((int)Mathf.Clamp01(0.2f));
         // SortedSet<int> set = new();
         // set.Add(2);
         // set.Add(1);

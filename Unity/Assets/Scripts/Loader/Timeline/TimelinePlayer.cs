@@ -191,7 +191,7 @@ namespace Timeline
 
         public virtual void AddTimeline(Timeline timeline)
         {
-            timeline.Init();
+            // timeline.Init();
             timeline.Bind(this);
             RunningTimelines.Add(timeline);
             Evaluate(0);

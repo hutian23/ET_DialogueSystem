@@ -80,102 +80,102 @@ namespace Timeline.Editor
             {
                 Timeline.TimelinePlayer.IsPlaying = true; 
             };
-            return;
             
             m_PauseButton = root.Q<Button>("pause-button");
-            m_PauseButton.clicked += () => { Timeline.TimelinePlayer.IsPlaying = false; };
+            // m_PauseButton.clicked += () => { Timeline.TimelinePlayer.IsPlaying = false; };
 
             m_PlaySpeedField = root.Q<FloatField>("play-speed-field");
-            m_PlaySpeedField.RegisterValueChangedCallback((e) => { Timeline.TimelinePlayer.PlaySpeed = e.newValue; });
+            // m_PlaySpeedField.RegisterValueChangedCallback((e) => { Timeline.TimelinePlayer.PlaySpeed = e.newValue; });
 
             m_LeftPanel = root.Q("left-panel");
-            m_LeftPanel.SetEnabled(false);
+            // m_LeftPanel.SetEnabled(false);
 
             m_TrackHierachy = root.Q("track-hierachy");
             m_Toolbar = root.Q("tool-bar");
             m_TrackHandleContainer = root.Q("track-handle-container");
             m_TrackHandleContainer.focusable = true;
-            m_TrackHandleContainer.RegisterCallback<KeyDownEvent>((e) =>
-            {
-                switch (e.keyCode)
-                {
-                    case KeyCode.Delete:
-                    {
-                        //删除轨道
-                        Timeline.ApplyModify(() =>
-                        {
-                            var selectableToRemove = Selections.ToList();
-                            foreach (var selectable in selectableToRemove)
-                            {
-                                if (selectable is TimelineTrackHandle trackHandle)
-                                {
-                                    Timeline.RemoveTrack(trackHandle.Track);
-                                }
-                            }
-                        }, "Remove");
-                        break;
-                    }
-                }
-            });
-            m_TrackHandleContainer.RegisterCallback<PointerDownEvent>((e) =>
-            {
-                foreach (var timelineTrackHandle in m_TrackHandleContainer.Query<TimelineTrackHandle>().ToList())
-                {
-                    if (timelineTrackHandle.worldBound.Contains(e.position))
-                    {
-                        timelineTrackHandle.OnPointerDown(e);
-                        e.StopImmediatePropagation();
-                        return;
-                    }
-                }
-
-                if (e.button == 0)
-                {
-                    m_TimelineField.ClearSelection();
-                    e.StopImmediatePropagation();
-                }
-            });
+            // m_TrackHandleContainer.RegisterCallback<KeyDownEvent>((e) =>
+            // {
+            //     switch (e.keyCode)
+            //     {
+            //         case KeyCode.Delete:
+            //         {
+            //             //删除轨道
+            //             Timeline.ApplyModify(() =>
+            //             {
+            //                 var selectableToRemove = Selections.ToList();
+            //                 foreach (var selectable in selectableToRemove)
+            //                 {
+            //                     if (selectable is TimelineTrackHandle trackHandle)
+            //                     {
+            //                         Timeline.RemoveTrack(trackHandle.Track);
+            //                     }
+            //                 }
+            //             }, "Remove");
+            //             break;
+            //         }
+            //     }
+            // });
+            // m_TrackHandleContainer.RegisterCallback<PointerDownEvent>((e) =>
+            // {
+            //     foreach (var timelineTrackHandle in m_TrackHandleContainer.Query<TimelineTrackHandle>().ToList())
+            //     {
+            //         if (timelineTrackHandle.worldBound.Contains(e.position))
+            //         {
+            //             timelineTrackHandle.OnPointerDown(e);
+            //             e.StopImmediatePropagation();
+            //             return;
+            //         }
+            //     }
+            //
+            //     if (e.button == 0)
+            //     {
+            //         m_TimelineField.ClearSelection();
+            //         e.StopImmediatePropagation();
+            //     }
+            // });
 
             m_AddTrackButton = root.Q("add-track-button");
-            m_AddTrackButton.AddManipulator(new DropdownMenuManipulator((menu) =>
-            {
-                string[] acceptableTrackGroups = Timeline.GetAttribute<AcceptableTrackGroups>()?.Groups;
-                List<(Type, float)> types = new List<(Type, float)>();
-                foreach (var trackScriptPair in TimelineEditorUtility.TrackScriptMap)
-                {
-                    string trackGroup = trackScriptPair.Key.GetAttribute<TrackGroup>()?.Group ?? string.Empty;
-                    if (!acceptableTrackGroups.Contains(trackGroup))
-                    {
-                        continue;
-                    }
-
-                    float index = trackScriptPair.Key.GetAttribute<OrderedAttribute>()?.Index ?? 0;
-                    types = types.OrderBy(i => i.Item2).ToList();
-                    foreach (var type in types.OrderBy(i => i.Item2))
-                    {
-                        menu.AppendAction(type.Item1.Name, (e) =>
-                        {
-                            AddTrack(type.Item1);
-                        });
-                    }
-                }
-            }, MouseButton.LeftMouse));
+            // m_AddTrackButton.AddManipulator(new DropdownMenuManipulator((menu) =>
+            // {
+            //     string[] acceptableTrackGroups = Timeline.GetAttribute<AcceptableTrackGroups>()?.Groups;
+            //     List<(Type, float)> types = new List<(Type, float)>();
+            //     foreach (var trackScriptPair in TimelineEditorUtility.TrackScriptMap)
+            //     {
+            //         string trackGroup = trackScriptPair.Key.GetAttribute<TrackGroup>()?.Group ?? string.Empty;
+            //         if (!acceptableTrackGroups.Contains(trackGroup))
+            //         {
+            //             continue;
+            //         }
+            //
+            //         float index = trackScriptPair.Key.GetAttribute<OrderedAttribute>()?.Index ?? 0;
+            //         types = types.OrderBy(i => i.Item2).ToList();
+            //         foreach (var type in types.OrderBy(i => i.Item2))
+            //         {
+            //             menu.AppendAction(type.Item1.Name, (e) =>
+            //             {
+            //                 AddTrack(type.Item1);
+            //             });
+            //         }
+            //     }
+            // }, MouseButton.LeftMouse));
 
             m_TimelineField = root.Q<TimelineFieldView>();
             m_TimelineField.SetEnabled(false);
             m_TimelineField.EditorWindow = this;
-            m_TimelineField.OnPopulatedCallback += () =>
-            {
-                m_Toolbar.style.top = m_TimelineField.MarkerField.worldBound.yMin - 47;
-            };
+            m_TimelineField.OnPopulatedCallback += PopulateView;
+            // m_TimelineField.OnPopulatedCallback += () =>
+            // {
+            //     m_Toolbar.style.top = m_TimelineField.MarkerField.worldBound.yMin - 47;
+            // };
+            //
+            // EditorApplication.playModeStateChanged += (e) =>
+            // {
+            //     m_TargetField.SetEnabled(!Application.isPlaying);
+            //     Dispose();
+            // };
 
-            EditorApplication.playModeStateChanged += (e) =>
-            {
-                m_TargetField.SetEnabled(!Application.isPlaying);
-                Dispose();
-            };
-
-            Undo.undoRedoEvent += OnUndoRedoEvent;
+            // Undo.undoRedoEvent += OnUndoRedoEvent;
             UpdateBindState();
         }
 
@@ -202,12 +202,11 @@ namespace Timeline.Editor
             {
                 timeline.Init();
             }
-
-            return;
+            
             Timeline = timeline;
             Timeline.UpdateSerializedTimeline();
 
-            Timeline.OnValueChanged += m_TimelineField.PopulateView;
+            // Timeline.OnValueChanged += m_TimelineField.PopulateView;
             // Timeline.OnEvaluated += m_TimelineField.UpdateTimeLocator;
             // Timeline.OnBindStateChanged += m_TimelineField.UpdateBindState;
             // Timeline.OnBindStateChanged += UpdateBindState;
@@ -216,7 +215,6 @@ namespace Timeline.Editor
             m_LeftPanel.SetEnabled(true);
             m_TimelineField.SetEnabled(true);
             UpdateBindState();
-            
             EditorCoroutineHelper.WaitWhile(m_TimelineField.PopulateView, () => m_TimelineField.ContentWidth == 0);
         }
         
@@ -248,9 +246,9 @@ namespace Timeline.Editor
 
             if (Timeline != null)
             {
-                foreach (var trackView in m_TimelineField.TrackViews)
+                foreach (TimelineTrackView trackView in m_TimelineField.TrackViews)
                 {
-                    TimelineTrackHandle trackHandle = new TimelineTrackHandle(trackView);
+                    TimelineTrackHandle trackHandle = new(trackView);
                     trackHandle.SelectionContainer = this;
                     m_TrackHandleContainer.Add(trackHandle);
                     m_Elements.Add(trackHandle);

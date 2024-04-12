@@ -95,8 +95,7 @@ namespace Timeline
             if (isBinding)
             {
                 timelinePlayer.Init();
-                //TODO 这里不会很容易递归调用吗...
-                // timelinePlayer.AddTimeline(this);
+                timelinePlayer.AddTimeline(this);
             }
 
             #endregion
