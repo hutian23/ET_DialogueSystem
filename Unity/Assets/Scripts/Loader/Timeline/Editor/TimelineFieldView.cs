@@ -124,7 +124,6 @@ namespace Timeline.Editor
                 {
                     FieldContent.style.width = ScrollViewContentWidth + ScrollViewContentOffset;
                 }
-            
                 DrawTimeField();
             };
 
@@ -136,7 +135,7 @@ namespace Timeline.Editor
 
             MarkerField = this.Q("marker-field");
             MarkerField.AddToClassList("droppable");
-            // MarkerField.generateVisualContent += OnMarkerFieldGenerateVisualContent;
+            MarkerField.generateVisualContent += OnMarkerFieldGenerateVisualContent;
             // MarkerField.RegisterCallback<PointerDownEvent>((e) =>
             // {
             //     //鼠标左键
