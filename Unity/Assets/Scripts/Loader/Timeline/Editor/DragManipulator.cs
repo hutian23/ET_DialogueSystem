@@ -4,9 +4,9 @@ using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
-    public class DragManipulator: IManipulator
+    public sealed class DragManipulator: IManipulator
     {
-        public VisualElement _target;
+        private VisualElement _target;
 
         public VisualElement target
         {
@@ -39,12 +39,13 @@ namespace Timeline.Editor
             }
         }
 
-        protected static readonly CustomStyleProperty<bool> draggableEnableProperty = new("--draggable-enabled");
-        protected Vector3 offset;
+        private static readonly CustomStyleProperty<bool> draggableEnableProperty = new("--draggable-enabled");
+        private Vector3 offset;
         private bool isDragging;
         private VisualElement lastDroppable;
         private string _droppabled = "droppable";
 
+        /** This is the USS class that is determines whether the target can be dropped on it. It is "droppable" by default. */
         public string droppableId
         {
             get => _droppabled;
@@ -53,24 +54,24 @@ namespace Timeline.Editor
 
         /** This manipulator can be disabled. */
         public bool enabled { get; set; } = true;
-
         private PickingMode lastPickingMode;
         private string _removeClassOnDrag;
-
+        /** Optional. Remove the given class from the target element during the drag. If removed, replace when drag ends. */
         public string removeClassOnDrag
         {
             get => _removeClassOnDrag;
             set => _removeClassOnDrag = value;
         }
 
-        private bool removeClass = false;
-        protected bool m_CheckDroppable;
-        protected int m_Button;
-        public Action<PointerDownEvent> OnDrag;
-        public Action OnDrop;
-        public Action<Vector2> OnMove;
+        private bool removeClass;
+        private readonly bool m_CheckDroppable;
+        private readonly int m_Button;
+        
+        private readonly Action<PointerDownEvent> OnDrag;
+        private readonly Action OnDrop;
+        private readonly Action<Vector2> OnMove;
 
-        public DragManipulator(bool checkDroppable, int button = 0)
+        private DragManipulator(bool checkDroppable, int button = 0)
         {
             m_Button = button;
             m_CheckDroppable = checkDroppable;
@@ -138,7 +139,7 @@ namespace Timeline.Editor
             lastPickingMode = target.pickingMode;
             target.pickingMode = PickingMode.Ignore;
             isDragging = true;
-            offset = (Vector3)localPosition;
+            offset = localPosition;
             target.CapturePointer(evt.pointerId);
             OnDrag?.Invoke(evt);
         }
@@ -219,7 +220,7 @@ namespace Timeline.Editor
             OnDrop?.Invoke();
         }
 
-        protected virtual void Drop(VisualElement droppable)
+        private void Drop(VisualElement droppable)
         {
             var evt = DropEvent.GetPooled(this, droppable);
             evt.target = target;
@@ -262,12 +263,12 @@ namespace Timeline.Editor
         Note: Schedules the change so that the USS classes will be restored when
         run. (Helps when a "transitions" USS class is used.)
         */
-        public virtual void ResetPosition()
+        private void ResetPosition()
         {
             target.transform.position = Vector3.zero;
         }
-        
-        protected virtual bool CanDrop(Vector3 position, out VisualElement droppable)
+
+        private bool CanDrop(Vector3 position, out VisualElement droppable)
         {
             //返回此位置的顶部元素。不会返回选择模式设置为 PickingMode.Ignore 的元素。
             droppable = target.panel.Pick(position);
@@ -300,7 +301,7 @@ namespace Timeline.Editor
                 return;
             }
 
-            Vector3 delta = evt.localPosition - (Vector3)offset;
+            Vector3 delta = evt.localPosition - offset;
             OnMove?.Invoke(delta);
 
             if (CanDrop(evt.localPosition, out var droppable))

@@ -89,16 +89,16 @@ namespace Timeline.Editor
             m_MarkerTextFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
 
             TrackScrollView = this.Q<ScrollView>("track-scroll");
-            TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
-            {
-                //鼠标滚轮按下
-                if (e.button != 2)
-                {
-                    m_ScrollViewPan = true;
-                    m_ScrollViewPanDelta = e.localPosition.x;
-                    TrackField.AddToClassList("pan");
-                }
-            });
+            // TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
+            // {
+            //     //鼠标滚轮按下
+            //     if (e.button != 2)
+            //     {
+            //         m_ScrollViewPan = true;
+            //         m_ScrollViewPanDelta = e.localPosition.x;
+            //         TrackField.AddToClassList("pan");
+            //     }
+            // });
             // TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
             // {
             //     if (m_ScrollViewPan)
@@ -139,27 +139,27 @@ namespace Timeline.Editor
             MarkerField.generateVisualContent += OnMarkerFieldGenerateVisualContent;
             MarkerField.RegisterCallback<PointerDownEvent>((e) =>
             {
-                Debug.LogWarning("Pointer Down");
                 if (e.button == 0)
                 {
+                    Debug.LogWarning("MarkerField Pointer Down...");
                     SettimeLocator(GetClosestFrame(e.localPosition.x));
                     LocatorDragManipulator.DragBeginForce(e);
                 }
             });
-            // MarkerField.SetEnabled(false);
+            MarkerField.SetEnabled(false);
             
             LocatorDragManipulator = new DragManipulator(OnTimeLocatorStartMove, OnTimeLocatorStopMove, OnTimeLocatorMove);
             TimeLocator = this.Q("time-locater");
             TimeLocator.AddManipulator(LocatorDragManipulator);
             TimeLocator.generateVisualContent += OnTimeLocatorGenerateVisualContent;
-            // TimeLocator.SetEnabled(false);
+            TimeLocator.SetEnabled(false);
             
             DrawFrameLineField = this.Q("draw-frame-line-field");
             // DrawFrameLineField.generateVisualContent += OnDrawFrameLineFieldGenerateVisualContent;
-            //
+            
             LocaterFrameLabel = this.Q<Label>("time-locater-frame-label");
             InspectorScrollView = this.Q<ScrollView>("inspector-scroll");
-            InspectorScrollView.RegisterCallback<WheelEvent>((e) => e.StopImmediatePropagation());
+            // InspectorScrollView.RegisterCallback<WheelEvent>((e) => e.StopImmediatePropagation());
             ClipInspector = this.Q("clip-inspector");
             // ClipInspector.RegisterCallback<MouseMoveEvent>((e) =>
             // {
@@ -663,7 +663,7 @@ namespace Timeline.Editor
         public void UpdateTimeLocator()
         {
             if (EditorWindow == null) return;
-
+            Debug.LogWarning("UpdateTimelocator");
             if (Timeline != null && Timeline.Binding)
             {
                 TimeLocator.style.left = Timeline.Time * TimelineUtility.FrameRate * OneFrameWidth + m_FieldOffsetX;
@@ -698,7 +698,7 @@ namespace Timeline.Editor
 
         private void OnTimeLocatorGenerateVisualContent(MeshGenerationContext mgc)
         {
-            var paint2D = mgc.painter2D;
+            Painter2D paint2D = mgc.painter2D;
             paint2D.strokeColor = Color.white;
             paint2D.BeginPath();
             paint2D.MoveTo(new Vector2(0, 25));
@@ -1105,7 +1105,7 @@ namespace Timeline.Editor
             return clipView.TrackView.ClipViews.ToArray();
         }
 
-        public Clip GetClosestLeftClip(Clip targetClip)
+        private Clip GetClosestLeftClip(Clip targetClip)
         {
             int targetFrame = int.MinValue;
             Clip closestClip = null;

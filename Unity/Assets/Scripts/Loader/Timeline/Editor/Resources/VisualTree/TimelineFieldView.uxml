@@ -4,13 +4,13 @@
         <ui:ScrollView name="track-scroll">
             <ui:VisualElement name="field-content">
                 <ui:VisualElement name="track-field" style="flex-grow: 1;" />
-                <ui:VisualElement name="draw-frame-line-field" />
                 <ui:VisualElement name="marker-field">
                     <ui:VisualElement name="time-locater">
                         <ui:VisualElement name="time-locater-icon" style="flex-grow: 1;" />
                         <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="time-locater-frame-label" />
                     </ui:VisualElement>
                 </ui:VisualElement>
+                <ui:VisualElement name="draw-frame-line-field" picking-mode="Ignore" />
             </ui:VisualElement>
         </ui:ScrollView>
         <ui:ScrollView name="inspector-scroll">

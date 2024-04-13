@@ -206,10 +206,10 @@ namespace Timeline.Editor
             Timeline = timeline;
             Timeline.UpdateSerializedTimeline();
 
-            // Timeline.OnValueChanged += m_TimelineField.PopulateView;
-            // Timeline.OnEvaluated += m_TimelineField.UpdateTimeLocator;
-            // Timeline.OnBindStateChanged += m_TimelineField.UpdateBindState;
-            // Timeline.OnBindStateChanged += UpdateBindState;
+            Timeline.OnValueChanged += m_TimelineField.PopulateView;
+            Timeline.OnEvaluated += m_TimelineField.UpdateTimeLocator;
+            //Timeline.OnBindStateChanged += m_TimelineField.UpdateBindState;
+            Timeline.OnBindStateChanged += UpdateBindState;
             
             m_Top.SetEnabled(true);
             m_LeftPanel.SetEnabled(true);
