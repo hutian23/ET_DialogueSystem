@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
 
 namespace Timeline.Editor
@@ -12,25 +11,25 @@ namespace Timeline.Editor
     //从这里开始看
     public class TimelineEditorWindow: EditorWindow, ISelection
     {
-        protected VisualElement m_Top;
-        protected VisualElement m_LeftPanel;
+        private VisualElement m_Top;
+        private VisualElement m_LeftPanel;
         protected VisualElement m_TrackHierachy;
         protected VisualElement m_Toolbar;
-        protected VisualElement m_TrackHandleContainer;
-        protected VisualElement m_AddTrackButton;
+        private VisualElement m_TrackHandleContainer;
+        private VisualElement m_AddTrackButton;
 
-        protected ObjectField m_TargetField;
-        protected Button m_PlayButton;
-        protected Button m_PauseButton;
-        protected FloatField m_PlaySpeedField;
+        private ObjectField m_TargetField;
+        private Button m_PlayButton;
+        private Button m_PauseButton;
+        private FloatField m_PlaySpeedField;
 
-        protected TimelineFieldView m_TimelineField;
+        private TimelineFieldView m_TimelineField;
         public Timeline Timeline { get; private set; }
 
         public void CreateGUI()
         {
             VisualElement root = rootVisualElement;
-            var visualTree = Resources.Load<VisualTreeAsset>("VisualTree/TimelineEditorWindow");
+            VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>($"VisualTree/TimelineEditorWindow");
             visualTree.CloneTree(root);
             root.AddToClassList("timelineEditorWindow");
 

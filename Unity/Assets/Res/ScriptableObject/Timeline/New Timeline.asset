@@ -12,8 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3f6f3318231cf41be1c782aff50f96, type: 3}
   m_Name: New Timeline
   m_EditorClassIdentifier: 
-  m_Tracks: []
+  m_Tracks:
+  - rid: 5553358680141070340
+  - rid: 5553358680141070341
   Scale: 10
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5553358680141070340
+      type: {class: AudioTrack, ns: Timeline, asm: Unity.Loader}
+      data:
+        Name: Audio
+        m_PersistentMuted: 0
+        m_Clips: []
+        m_ExecutedCount: 0
+    - rid: 5553358680141070341
+      type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
+      data:
+        Name: Animation
+        m_PersistentMuted: 0
+        m_Clips: []
+        AvatarMask: {fileID: 0}
+        EaseOutTime: 0
+        PlayWhenEaseOut: 0
+        m_ExecutedCount: 0

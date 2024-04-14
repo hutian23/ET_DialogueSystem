@@ -91,11 +91,9 @@ namespace Timeline
         {
             if (TrackPlayable != null)
             {
-                if (!Application.isPlaying || EaseOutTime == 0)
-                {
-                    Timeline.AnimationRootPlayable.DisconnectInput(PlayableIndex);
-                    TrackPlayable.Handle.Destroy();
-                }
+                if (Application.isPlaying && EaseOutTime != 0) return;
+                Timeline.AnimationRootPlayable.DisconnectInput(PlayableIndex);
+                TrackPlayable.Handle.Destroy();
             }
             else if (Timeline.Time < Timeline.Duration)
             {
