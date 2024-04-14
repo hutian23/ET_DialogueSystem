@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/Loader/Timeline/Editor/Resources/Style/TimelineFieldView.uss?fileID=7433441132597879392&amp;guid=7c4a5769bd2819c48b0ae431405fa9e1&amp;type=3#TimelineFieldView" />
-    <ET.Client.SplitView>
+    <ET.Client.SplitView fixed-pane-index="1">
         <ui:ScrollView name="track-scroll">
             <ui:VisualElement name="field-content">
                 <ui:VisualElement name="track-field" style="flex-grow: 1;" />

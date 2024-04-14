@@ -163,15 +163,15 @@ namespace Timeline.Editor
             InspectorScrollView.RegisterCallback<WheelEvent>((e) => e.StopImmediatePropagation());
             ClipInspector = this.Q("clip-inspector");
             ClipInspector.focusable = true;
-            // ClipInspector.RegisterCallback<KeyDownEvent>((e) =>
-            // {
-            //     if (!e.ctrlKey)
-            //     {
-            //         e.StopImmediatePropagation();
-            //     }
-            // });
-            // ClipInspector.RegisterCallback<PointerDownEvent>((e) => e.StopImmediatePropagation());
-            //
+            ClipInspector.RegisterCallback<KeyDownEvent>((e) =>
+            {
+                if (!e.ctrlKey)
+                {
+                    e.StopImmediatePropagation();
+                }
+            });
+            ClipInspector.RegisterCallback<PointerDownEvent>((e) => e.StopImmediatePropagation());
+            
             RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
             RegisterCallback<WheelEvent>(OnWheelEvent);
             // RegisterCallback<KeyDownEvent>((e) =>
@@ -226,8 +226,7 @@ namespace Timeline.Editor
             //     }
             // });
             //
-            // this.AddManipulator(new RectangleSelecter(() => -localBound.position));
-            this.AddManipulator(new RectangleSelector());
+            this.AddManipulator(new RectangleSelecter(() => -localBound.position));
         }
 
         public void PopulateView()

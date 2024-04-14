@@ -160,12 +160,10 @@ namespace Timeline.Editor
                 m_Rectangle.RemoveFromHierarchy();
                 m_Active = false;
             }
-            Debug.LogWarning("OnMouseCaptureOut");
         }
 
         private void OnMouseDown(MouseDownEvent evt)
         {
-            Debug.LogWarning("OnMouseDown");
             if (m_Active)
             {
                 evt.StopImmediatePropagation();
@@ -192,8 +190,8 @@ namespace Timeline.Editor
 
         private void OnMouseUp(MouseUpEvent evt)
         {
-            Debug.LogWarning("OnMouseUp");
-            if (m_Active)
+            //不知道为什么调整track scrollView的时候这里会触发一次
+            if (!m_Active)
             {
                 return;
             }
@@ -204,42 +202,40 @@ namespace Timeline.Editor
                 return;
             }
             
-            // target.Remove(m_Rectangle);
-            // m_Rectangle.end = evt.localMousePosition;
-            // Rect selectionRect = new()
-            // {
-            //     min = new Vector2(Math.Min(m_Rectangle.start.x, m_Rectangle.end.x), Math.Min(m_Rectangle.start.y, m_Rectangle.end.y)),
-            //     max = new Vector2(Math.Max(m_Rectangle.start.x, m_Rectangle.end.x), Math.Max(m_Rectangle.start.y, m_Rectangle.end.y))
-            // };
-            // selectionRect = ComputeAxisAlignBound(selectionRect, selection.ContentContainer.transform.matrix.inverse);
-            //
-            // List<ISelectable> newSelection = new List<ISelectable>();
-            // selection.Elements.ForEach(child =>
-            // {
-            //     Rect rectangle = target.ChangeCoordinatesTo(child as VisualElement, selectionRect);
-            //     if (child.IsSelectable() && child.Overlaps(rectangle))
-            //     {
-            //         newSelection.Add(child);
-            //     }
-            // });
-            // foreach (ISelectable item in newSelection)
-            // {
-            //     if (selection.Selections.Contains(item))
-            //     {
-            //         //ctrl
-            //         if (evt.actionKey)
-            //         {
-            //             selection.RemoveFromSelection(item);
-            //         }
-            //     }
-            //     else
-            //     {
-            //         selection.AddToSelection(item);
-            //     }
-            // }
-
-            m_Active = false;
             target.Remove(m_Rectangle);
+            m_Rectangle.end = evt.localMousePosition;
+            Rect selectionRect = new()
+            {
+                min = new Vector2(Math.Min(m_Rectangle.start.x, m_Rectangle.end.x), Math.Min(m_Rectangle.start.y, m_Rectangle.end.y)),
+                max = new Vector2(Math.Max(m_Rectangle.start.x, m_Rectangle.end.x), Math.Max(m_Rectangle.start.y, m_Rectangle.end.y))
+            };
+            selectionRect = ComputeAxisAlignBound(selectionRect, selection.ContentContainer.transform.matrix.inverse);
+            
+            List<ISelectable> newSelection = new List<ISelectable>();
+            selection.Elements.ForEach(child =>
+            {
+                Rect rectangle = target.ChangeCoordinatesTo(child as VisualElement, selectionRect);
+                if (child.IsSelectable() && child.Overlaps(rectangle))
+                {
+                    newSelection.Add(child);
+                }
+            });
+            foreach (ISelectable item in newSelection)
+            {
+                if (selection.Selections.Contains(item))
+                {
+                    //ctrl
+                    if (evt.actionKey)
+                    {
+                        selection.RemoveFromSelection(item);
+                    }
+                }
+                else
+                {
+                    selection.AddToSelection(item);
+                }
+            }
+            m_Active = false;
             target.ReleaseMouse();
             evt.StopPropagation();
         }
