@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using ET;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -89,16 +90,16 @@ namespace Timeline.Editor
             m_MarkerTextFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
 
             TrackScrollView = this.Q<ScrollView>("track-scroll");
-            // TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
-            // {
-            //     //鼠标滚轮按下
-            //     if (e.button != 2)
-            //     {
-            //         m_ScrollViewPan = true;
-            //         m_ScrollViewPanDelta = e.localPosition.x;
-            //         TrackField.AddToClassList("pan");
-            //     }
-            // });
+            TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
+            {
+                //鼠标滚轮按下
+                if (e.button != 2)
+                {
+                    m_ScrollViewPan = true;
+                    m_ScrollViewPanDelta = e.localPosition.x;
+                    TrackField.AddToClassList("pan");
+                }
+            });
             // TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
             // {
             //     if (m_ScrollViewPan)
@@ -133,7 +134,7 @@ namespace Timeline.Editor
 
             TrackField = this.Q("track-field");
             TrackField.generateVisualContent += OnTrackFieldGenerateVisualContent;
-            
+
             MarkerField = this.Q("marker-field");
             MarkerField.AddToClassList("droppable");
             MarkerField.generateVisualContent += OnMarkerFieldGenerateVisualContent;
@@ -141,30 +142,27 @@ namespace Timeline.Editor
             {
                 if (e.button == 0)
                 {
-                    Debug.LogWarning("MarkerField Pointer Down...");
                     SettimeLocator(GetClosestFrame(e.localPosition.x));
                     LocatorDragManipulator.DragBeginForce(e);
                 }
             });
             MarkerField.SetEnabled(false);
-            
+
             LocatorDragManipulator = new DragManipulator(OnTimeLocatorStartMove, OnTimeLocatorStopMove, OnTimeLocatorMove);
             TimeLocator = this.Q("time-locater");
             TimeLocator.AddManipulator(LocatorDragManipulator);
             TimeLocator.generateVisualContent += OnTimeLocatorGenerateVisualContent;
             TimeLocator.SetEnabled(false);
-            
+
             DrawFrameLineField = this.Q("draw-frame-line-field");
-            // DrawFrameLineField.generateVisualContent += OnDrawFrameLineFieldGenerateVisualContent;
-            
+            DrawFrameLineField.generateVisualContent += OnDrawFrameLineFieldGenerateVisualContent;
+
             LocaterFrameLabel = this.Q<Label>("time-locater-frame-label");
+
             InspectorScrollView = this.Q<ScrollView>("inspector-scroll");
-            // InspectorScrollView.RegisterCallback<WheelEvent>((e) => e.StopImmediatePropagation());
+            InspectorScrollView.RegisterCallback<WheelEvent>((e) => e.StopImmediatePropagation());
             ClipInspector = this.Q("clip-inspector");
-            // ClipInspector.RegisterCallback<MouseMoveEvent>((e) =>
-            // {
-            //     Debug.LogWarning("Hello world");
-            // });
+            ClipInspector.focusable = true;
             // ClipInspector.RegisterCallback<KeyDownEvent>((e) =>
             // {
             //     if (!e.ctrlKey)
@@ -229,6 +227,7 @@ namespace Timeline.Editor
             // });
             //
             // this.AddManipulator(new RectangleSelecter(() => -localBound.position));
+            this.AddManipulator(new RectangleSelector());
         }
 
         public void PopulateView()
@@ -625,6 +624,7 @@ namespace Timeline.Editor
                     }
                 }
             }
+
             paint2D.Stroke();
         }
 
@@ -663,7 +663,6 @@ namespace Timeline.Editor
         public void UpdateTimeLocator()
         {
             if (EditorWindow == null) return;
-            Debug.LogWarning("UpdateTimelocator");
             if (Timeline != null && Timeline.Binding)
             {
                 TimeLocator.style.left = Timeline.Time * TimelineUtility.FrameRate * OneFrameWidth + m_FieldOffsetX;
