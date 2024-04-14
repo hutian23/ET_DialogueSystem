@@ -76,7 +76,7 @@ namespace Timeline
 
             m_Tracks.ForEach(t => t.Init(this));
             MaxFrame = 0;
-            foreach (var track in m_Tracks)
+            foreach (Track track in m_Tracks)
             {
                 track.Init(this);
                 if (track.MaxFrame > MaxFrame)
@@ -240,7 +240,7 @@ namespace Timeline
         { 
             Timeline = timeline; 
             MaxFrame = 0;
-            foreach (var clip in m_Clips)
+            foreach (Clip clip in m_Clips)
             {
                 clip.Init(this);
                 if (clip.EndFrame > MaxFrame)

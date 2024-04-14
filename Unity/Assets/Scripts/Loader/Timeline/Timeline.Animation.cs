@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Timeline.Editor;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
@@ -9,6 +10,7 @@ namespace Timeline
     [TrackGroup("Base")]
     [Ordered]
     [Color(127,253,228)]
+    [IconGuid("e6435fa591ae4414eb0f26dc6410086e")]
     public sealed class AnimationTrack: Track
     {
         private static AvatarMask s_FullBodyMask;

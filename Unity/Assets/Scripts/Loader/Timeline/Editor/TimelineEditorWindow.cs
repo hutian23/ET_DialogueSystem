@@ -264,7 +264,7 @@ namespace Timeline.Editor
         {
             if (info.undoName.Split(':')[0] == "Timeline")
             {
-                Timeline?.Init();
+                Timeline.Init();
             }
         }
 

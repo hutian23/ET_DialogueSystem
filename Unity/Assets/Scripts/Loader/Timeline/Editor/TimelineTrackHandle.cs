@@ -9,23 +9,24 @@ namespace Timeline.Editor
     public class TimelineTrackHandle: VisualElement, ISelectable
     {
         public new class UxmlFactory: UxmlFactory<TimelineTrackHandle, UxmlTraits> { }
-        public TextField NameField { get; private set; }
-        public VisualElement Icon { get; private set; }
 
-        public TimelineTrackView TrackView { get; private set; }
+        private TextField NameField { get; set; }
+        private VisualElement Icon { get; set; }
+
+        private TimelineTrackView TrackView { get; set; }
         public TimelineEditorWindow EditorWindow => TrackView.EditorWindow;
-        public TimelineFieldView FieldView => TrackView.FieldView;
-        public Track Track => TrackView.Track;
-        public Timeline Timeline => Track.Timeline;
+        private TimelineFieldView FieldView => TrackView.FieldView;
+        private Track Track => TrackView.Track;
+        private Timeline Timeline => Track.Timeline;
 
-        private DropdownMenuHandler MenuHandler;
-        private float TopOffset = 5;
-        private float YminOffset = -77;
-        private float Interval = 40;
+        private readonly DropdownMenuHandler MenuHandler;
+        private readonly float TopOffset = 5;
+        private readonly float YminOffset = -77;
+        private readonly float Interval = 40;
 
         public TimelineTrackHandle()
         {
-            var visualTree = Resources.Load<VisualTreeAsset>("VisualTree/TimelineTrackHandle");
+            VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>($"VisualTree/TimelineTrackHandle");
             visualTree.CloneTree(this);
             AddToClassList("timelineTrackHandle");
             pickingMode = PickingMode.Ignore;
