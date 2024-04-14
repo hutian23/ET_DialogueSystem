@@ -9,23 +9,21 @@ namespace Timeline.Editor
 {
     public class TimelineTrackView: VisualElement, ISelectable
     {
-        public new class UxmlFactory: UxmlFactory<TimelineTrackView, UxmlTraits>
-        {
-        }
+        public new class UxmlFactory: UxmlFactory<TimelineTrackView, UxmlTraits> { }
 
-        protected bool m_Selected;
+        private bool m_Selected;
         public ISelection SelectionContainer { get; set; }
         public TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
         public TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
-        public Timeline Timeline => EditorWindow.Timeline;
+        private Timeline Timeline => EditorWindow.Timeline;
         public Track Track { get; private set; }
         public DoubleMap<Clip, TimelineClipView> ClipViewMap { get; private set; }
-        public List<TimelineClipView> ClipViews { get; set; }
+        public List<TimelineClipView> ClipViews { get; private set; }
 
         public Action OnSelected;
         public Action OnUnSelected;
 
-        private DropdownMenuHandler m_MenuHandler;
+        private readonly DropdownMenuHandler m_MenuHandler;
         private Vector2 m_localMousePosition;
 
         public TimelineTrackView()
@@ -77,9 +75,9 @@ namespace Timeline.Editor
             OnMutedStateChanged();
         }
 
-        public void Refreh()
+        private void Refreh()
         {
-            foreach (var clipViewValue in ClipViewMap.Values)
+            foreach (TimelineClipView clipViewValue in ClipViewMap.Values)
             {
                 clipViewValue.Refresh();
             }
@@ -125,7 +123,7 @@ namespace Timeline.Editor
             int startFrame = FieldView.GetClosestFloorFrame(m_localMousePosition.x);
             if (Track.Clips.Find(i => i.StartFrame == startFrame) == null)
             {
-                menu.AppendAction("Add Clip", (e) =>
+                menu.AppendAction("Add Clip", _ =>
                 {
                     Timeline.ApplyModify(() =>
                     {
@@ -133,14 +131,14 @@ namespace Timeline.Editor
                     },"Add Clip");
                 });
             }
-            menu.AppendAction("Remove Track", (e) =>
+            menu.AppendAction("Remove Track", _ =>
             {
                 Timeline.ApplyModify(() =>
                 {
                     Timeline.RemoveTrack(Track);
                 },"Remove Track");
             });
-            menu.AppendAction("Open Script", (e) =>
+            menu.AppendAction("Open Script", _ =>
             {
                 Track.OpenTrackScript();
             });
@@ -148,14 +146,13 @@ namespace Timeline.Editor
 
         private void OnPointerDown(PointerDownEvent evt)
         {
-            foreach (var v in ClipViewMap.Values)
+            foreach (TimelineClipView v in ClipViewMap.Values)
             {
-                if (v.InMiddle(evt.position))
-                {
-                    v.OnPointerDown(evt);
-                    evt.StopImmediatePropagation();
-                    return;
-                }
+                if (!v.InMiddle(evt.position)) continue;
+
+                v.OnPointerDown(evt);
+                evt.StopImmediatePropagation();
+                return;
             }
 
             if (evt.button == 0 && IsSelectable())
@@ -282,10 +279,10 @@ namespace Timeline.Editor
             //this method run when a user drops a dragged object onto the target
             private void OnDragPerform(DragPerformEvent _)
             {
-                var draggedName = string.Empty;
+                // var draggedName = string.Empty;
                 if (DragAndDrop.objectReferences.Length > 0)
                 {
-                    draggedName = DragAndDrop.objectReferences[0].name;
+                    // draggedName = DragAndDrop.objectReferences[0].name;
                     DragPerform?.Invoke(DragAndDrop.objectReferences[0], _.localMousePosition);
                 }
 

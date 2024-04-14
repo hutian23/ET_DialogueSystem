@@ -277,7 +277,7 @@ namespace Timeline.Editor
             OnPopulatedCallback?.Invoke();
         }
 
-        public void PopulateInspector(object target)
+        private void PopulateInspector(object target)
         {
             ClipInspector.Clear();
             if (target != null)

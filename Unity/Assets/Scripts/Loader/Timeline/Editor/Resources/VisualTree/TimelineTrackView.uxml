@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/Loader/Timeline/Editor/Resources/Style/TimelineTrackView.uss?fileID=7433441132597879392&amp;guid=d9bf0bbb90fd09e46a6e6e3f28e2f931&amp;type=3#TimelineTrackView" />
+</ui:UXML>

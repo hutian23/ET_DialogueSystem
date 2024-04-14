@@ -502,7 +502,12 @@ namespace Timeline
         {
             OnValueChanged?.Invoke();
         }
-
+        
+        /// <summary>
+        /// undo redo
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="_name">Undo Redo 记录名 </param>
         public void ApplyModify(Action action, string _name)
         {
             UnityEditor.Undo.RegisterCompleteObjectUndo(this, $"Timeline: {_name}");
