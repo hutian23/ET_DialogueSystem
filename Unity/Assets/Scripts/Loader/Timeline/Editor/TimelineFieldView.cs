@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using ET;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -26,22 +25,22 @@ namespace Timeline.Editor
             }
         }
 
-        public ScrollView TrackScrollView { get; private set; }
-        public VisualElement FieldContent { get; private set; }
-        public VisualElement TrackField { get; private set; }
-        public VisualElement MarkerField { get; private set; }
-        public VisualElement DrawFrameLineField { get; private set; }
-        public VisualElement TimeLocator { get; private set; }
-        public Label LocaterFrameLabel { get; private set; }
-        public ScrollView InspectorScrollView { get; private set; }
-        public VisualElement ClipInspector { get; private set; }
+        private ScrollView TrackScrollView { get; set; }
+        private VisualElement FieldContent { get; set; }
+        private VisualElement TrackField { get; set; }
+        private VisualElement MarkerField { get; set; }
+        private VisualElement DrawFrameLineField { get; set; }
+        private VisualElement TimeLocator { get; set; }
+        private Label LocaterFrameLabel { get; set; }
+        private ScrollView InspectorScrollView { get; set; }
+        private VisualElement ClipInspector { get; set; }
 
         #region Param
 
-        public float m_MaxFieldScale = 10;
+        private readonly float m_MaxFieldScale = 10;
         private readonly float m_FieldOffsetX = 6;
         private readonly float m_MarkerWidth = 50;
-        public float m_WheelLerpSpeed = 0.2f;
+        private readonly float m_WheelLerpSpeed = 0.2f;
         private readonly int m_TimeTextFontSize = 14;
 
         #endregion
@@ -65,10 +64,10 @@ namespace Timeline.Editor
 
         public TimelineEditorWindow EditorWindow;
         public Timeline Timeline => EditorWindow.Timeline;
-        public DoubleMap<Track, TimelineTrackView> TrackViewMap { get; private set; } = new();
+        private DoubleMap<Track, TimelineTrackView> TrackViewMap { get; set; } = new();
         public List<TimelineTrackView> TrackViews { get; set; } = new();
         public Dictionary<int, float> FramePosMap { get; set; } = new();
-        public DragManipulator LocatorDragManipulator { get; set; }
+        private DragManipulator LocatorDragManipulator { get; set; }
 
         public Action OnPopulatedCallback;
         public Action OnGeometryChangedCallback;

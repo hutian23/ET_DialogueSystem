@@ -7,11 +7,13 @@ using UnityEngine.Playables;
 namespace Timeline
 {
     [TrackGroup("Base")]
-    public class AnimationTrack: Track
+    [Ordered]
+    [Color(127,253,228)]
+    public sealed class AnimationTrack: Track
     {
-        public static AvatarMask s_FullBodyMask;
+        private static AvatarMask s_FullBodyMask;
 
-        public static AvatarMask FullBodyMask
+        private static AvatarMask FullBodyMask
         {
             get
             {

@@ -25,7 +25,7 @@ namespace Timeline
         }
     }
 
-    [AttributeUsage(AttributeTargets.Field,AllowMultiple = false,Inherited = true)]
+    [AttributeUsage(AttributeTargets.All,AllowMultiple = false,Inherited = true)]
     public class OrderedAttribute: Attribute
     {
         public float Index;

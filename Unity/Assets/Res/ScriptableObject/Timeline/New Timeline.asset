@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: New Timeline
   m_EditorClassIdentifier: 
   m_Tracks: []
-  Scale: 1
+  Scale: 10
   references:
     version: 2
     RefIds: []

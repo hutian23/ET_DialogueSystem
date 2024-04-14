@@ -14,13 +14,15 @@ namespace Timeline.Editor
             public Vector2 end { get; set; }
             public Func<Vector2> offset { get; set; }
 
-            #region  Shader
+            #region Shader
+
             private static readonly int SrcBlend = Shader.PropertyToID("_SrcBlend");
             private static readonly int DstBlend = Shader.PropertyToID("_DstBlend");
             private static readonly int Cull = Shader.PropertyToID("_Cull");
             private static readonly int ZWrite = Shader.PropertyToID("_ZWrite");
+
             #endregion
-            
+
             public RectangleSelect()
             {
                 if (lineMaterial != null) return;
@@ -38,7 +40,7 @@ namespace Timeline.Editor
 
             protected override void ImmediateRepaint()
             {
-                VisualElement visualElement = parent; 
+                VisualElement visualElement = parent;
                 Vector2 vector_1 = start;
                 Vector2 vector_2 = end;
                 if (!(start == end))
@@ -57,9 +59,7 @@ namespace Timeline.Editor
                     float segmentsLength = 5f; //虚线长度
                     Vector3[] array =
                     {
-                        new(rect2.xMin, rect2.yMin, 0f), 
-                        new(rect2.xMax, rect2.yMin, 0f), 
-                        new(rect2.xMax, rect2.yMax, 0f),
+                        new(rect2.xMin, rect2.yMin, 0f), new(rect2.xMax, rect2.yMin, 0f), new(rect2.xMax, rect2.yMax, 0f),
                         new(rect2.xMin, rect2.yMax, 0f)
                     };
 
@@ -73,9 +73,10 @@ namespace Timeline.Editor
                 }
             }
 
-            private void DrawDottedLine(Vector3 p1, Vector3 p2, float segmentsLength, Color col)
+            private static void DrawDottedLine(Vector3 p1, Vector3 p2, float segmentsLength, Color col)
             {
-                GL.Begin(1);
+                //https://docs.unity3d.com/cn/2021.3/ScriptReference/GL.Begin.html
+                GL.Begin(GL.LINES);
                 GL.Color(col);
                 float num = Vector3.Distance(p1, p2);
                 int num2 = Mathf.CeilToInt(num / segmentsLength);
@@ -84,6 +85,7 @@ namespace Timeline.Editor
                     GL.Vertex(Vector3.Lerp(p1, p2, i * segmentsLength / num));
                     GL.Vertex(Vector3.Lerp(p1, p2, (i + 1) * segmentsLength / num));
                 }
+
                 GL.End();
             }
         }
@@ -98,10 +100,7 @@ namespace Timeline.Editor
         /// </summary>
         public RectangleSelecter(Func<Vector2> offset = null)
         {
-            activators.Add(new ManipulatorActivationFilter()
-            {
-                button = MouseButton.LeftMouse
-            });
+            activators.Add(new ManipulatorActivationFilter() { button = MouseButton.LeftMouse });
             if (Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.OSXPlayer)
             {
                 activators.Add(new ManipulatorActivationFilter() { button = MouseButton.LeftMouse, modifiers = EventModifiers.Command });
@@ -132,7 +131,7 @@ namespace Timeline.Editor
             Vector3 vector = transform.MultiplyPoint3x4(position.min);
             Vector3 vector2 = transform.MultiplyPoint3x4(position.max);
             return Rect.MinMaxRect(Math.Min(vector.x, vector2.x),
-                Math.Min(vector.y, vector2.y), 
+                Math.Min(vector.y, vector2.y),
                 Math.Max(vector.x, vector2.x),
                 Math.Max(vector.y, vector2.y));
         }
@@ -170,7 +169,7 @@ namespace Timeline.Editor
                 return;
             }
 
-            if (target is ISelection selection 
+            if (target is ISelection selection
                 && target.panel?.GetCapturingElement(PointerId.mousePointerId) == null
                 && CanStartManipulation(evt))
             {
@@ -201,16 +200,17 @@ namespace Timeline.Editor
             {
                 return;
             }
-            
+
             target.Remove(m_Rectangle);
             m_Rectangle.end = evt.localMousePosition;
+            //TODO
             Rect selectionRect = new()
             {
                 min = new Vector2(Math.Min(m_Rectangle.start.x, m_Rectangle.end.x), Math.Min(m_Rectangle.start.y, m_Rectangle.end.y)),
                 max = new Vector2(Math.Max(m_Rectangle.start.x, m_Rectangle.end.x), Math.Max(m_Rectangle.start.y, m_Rectangle.end.y))
             };
             selectionRect = ComputeAxisAlignBound(selectionRect, selection.ContentContainer.transform.matrix.inverse);
-            
+
             List<ISelectable> newSelection = new List<ISelectable>();
             selection.Elements.ForEach(child =>
             {
@@ -235,6 +235,7 @@ namespace Timeline.Editor
                     selection.AddToSelection(item);
                 }
             }
+
             m_Active = false;
             target.ReleaseMouse();
             evt.StopPropagation();

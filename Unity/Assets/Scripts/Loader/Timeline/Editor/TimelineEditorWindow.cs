@@ -36,7 +36,7 @@ namespace Timeline.Editor
 
             m_Top = root.Q("top");
             m_Top.SetEnabled(false);
-            
+
             m_TargetField = root.Q<ObjectField>("target-field");
             m_TargetField.objectType = typeof (TimelinePlayer);
             m_TargetField.allowSceneObjects = true;
@@ -45,7 +45,8 @@ namespace Timeline.Editor
                 //对象是否为持久化对象 
                 //what is 持久化对象? 在 Scene 保存的 gameObject
                 //不是scene中的gameObject
-                if (!EditorUtility.IsPersistent(e.newValue) && e.newValue is TimelinePlayer timelinePlayer && Timeline.TimelinePlayer != timelinePlayer)
+                if (!EditorUtility.IsPersistent(e.newValue) && e.newValue is TimelinePlayer timelinePlayer &&
+                    Timeline.TimelinePlayer != timelinePlayer)
                 {
                     if (Timeline.TimelinePlayer)
                     {
@@ -70,17 +71,13 @@ namespace Timeline.Editor
                     m_TargetField.SetValueWithoutNotify(null);
                 }
             });
-            
             //运行时不可用
             //TODO 热重载之后改成运行时支持修改
             m_TargetField.SetEnabled(!Application.isPlaying);
-            
+
             m_PlayButton = root.Q<Button>("play-button");
-            m_PlayButton.clicked += () =>
-            {
-                Timeline.TimelinePlayer.IsPlaying = true; 
-            };
-            
+            m_PlayButton.clicked += () => { Timeline.TimelinePlayer.IsPlaying = true; };
+
             m_PauseButton = root.Q<Button>("pause-button");
             // m_PauseButton.clicked += () => { Timeline.TimelinePlayer.IsPlaying = false; };
 
@@ -88,7 +85,7 @@ namespace Timeline.Editor
             // m_PlaySpeedField.RegisterValueChangedCallback((e) => { Timeline.TimelinePlayer.PlaySpeed = e.newValue; });
 
             m_LeftPanel = root.Q("left-panel");
-            // m_LeftPanel.SetEnabled(false);
+            m_LeftPanel.SetEnabled(false);
 
             m_TrackHierachy = root.Q("track-hierachy");
             m_Toolbar = root.Q("tool-bar");
@@ -136,29 +133,31 @@ namespace Timeline.Editor
             // });
 
             m_AddTrackButton = root.Q("add-track-button");
-            // m_AddTrackButton.AddManipulator(new DropdownMenuManipulator((menu) =>
-            // {
-            //     string[] acceptableTrackGroups = Timeline.GetAttribute<AcceptableTrackGroups>()?.Groups;
-            //     List<(Type, float)> types = new List<(Type, float)>();
-            //     foreach (var trackScriptPair in TimelineEditorUtility.TrackScriptMap)
-            //     {
-            //         string trackGroup = trackScriptPair.Key.GetAttribute<TrackGroup>()?.Group ?? string.Empty;
-            //         if (!acceptableTrackGroups.Contains(trackGroup))
-            //         {
-            //             continue;
-            //         }
-            //
-            //         float index = trackScriptPair.Key.GetAttribute<OrderedAttribute>()?.Index ?? 0;
-            //         types = types.OrderBy(i => i.Item2).ToList();
-            //         foreach (var type in types.OrderBy(i => i.Item2))
-            //         {
-            //             menu.AppendAction(type.Item1.Name, (e) =>
-            //             {
-            //                 AddTrack(type.Item1);
-            //             });
-            //         }
-            //     }
-            // }, MouseButton.LeftMouse));
+            m_AddTrackButton.AddManipulator(new DropdownMenuManipulator((menu) =>
+            {
+                string[] acceptableTrackGroups = Timeline.GetAttribute<AcceptableTrackGroups>()?.Groups;
+                List<(Type, float)> types = new List<(Type, float)>();
+                foreach (var trackScriptPair in TimelineEditorUtility.TrackScriptMap)
+                {
+                    string trackGroup = trackScriptPair.Key.GetAttribute<TrackGroup>()?.Group ?? string.Empty;
+                    if (acceptableTrackGroups != null && !acceptableTrackGroups.Contains(trackGroup))
+                    {
+                        continue;
+                    }
+
+                    float index = trackScriptPair.Key.GetAttribute<OrderedAttribute>()?.Index ?? 0;
+                    types.Add((trackScriptPair.Key, index));
+                }
+
+                types = types.OrderBy(i => i.Item2).ToList();
+                foreach (var type in types.OrderBy(i=> i.Item2))
+                {
+                    menu.AppendAction(type.Item1.Name, _ =>
+                    {
+                        AddTrack(type.Item1);
+                    });
+                }
+            }, MouseButton.LeftMouse));
 
             m_TimelineField = root.Q<TimelineFieldView>();
             m_TimelineField.SetEnabled(false);
@@ -196,13 +195,13 @@ namespace Timeline.Editor
 
         public void Init(Timeline timeline, bool initTime = true)
         {
-            if(Timeline == timeline) return;
+            if (Timeline == timeline) return;
 
             if (initTime)
             {
                 timeline.Init();
             }
-            
+
             Timeline = timeline;
             Timeline.UpdateSerializedTimeline();
 
@@ -210,14 +209,14 @@ namespace Timeline.Editor
             Timeline.OnEvaluated += m_TimelineField.UpdateTimeLocator;
             //Timeline.OnBindStateChanged += m_TimelineField.UpdateBindState;
             Timeline.OnBindStateChanged += UpdateBindState;
-            
+
             m_Top.SetEnabled(true);
             m_LeftPanel.SetEnabled(true);
             m_TimelineField.SetEnabled(true);
             UpdateBindState();
             EditorCoroutineHelper.WaitWhile(m_TimelineField.PopulateView, () => m_TimelineField.ContentWidth == 0);
         }
-        
+
         public void Dispose()
         {
             if (Timeline)
@@ -232,12 +231,13 @@ namespace Timeline.Editor
                 Timeline.OnBindStateChanged -= m_TimelineField.UpdateBindState;
                 Timeline = null;
             }
+
             m_Top.SetEnabled(false);
             m_LeftPanel.SetEnabled(false);
             m_TimelineField.SetEnabled(false);
             UpdateBindState();
         }
-        
+
         public void PopulateView()
         {
             m_TrackHandleContainer.Clear();
@@ -258,10 +258,7 @@ namespace Timeline.Editor
 
         private void AddTrack(Type type)
         {
-            Timeline.ApplyModify(() =>
-            {
-                Timeline.AddTrack(type);
-            },"Add Track");
+            Timeline.ApplyModify(() => { Timeline.AddTrack(type); }, "Add Track");
         }
 
         private void OnUndoRedoEvent(in UndoRedoInfo info)
@@ -271,7 +268,7 @@ namespace Timeline.Editor
                 Timeline?.Init();
             }
         }
-        
+
         private void UpdateBindState()
         {
             if (Timeline && Timeline.TimelinePlayer)
@@ -294,7 +291,7 @@ namespace Timeline.Editor
         #region Selection
 
         public VisualElement ContentContainer => m_TrackHandleContainer;
-      
+
         protected List<ISelectable> m_Elements = new();
         public List<ISelectable> Elements => m_Elements;
 
@@ -321,7 +318,7 @@ namespace Timeline.Editor
 
         #endregion
 
-        [MenuItem("Tools/TimelineEditor",false,0)]
+        [MenuItem("Tools/TimelineEditor", false, 0)]
         public static void OpenTimelineEditorWindow()
         {
             GetWindow<TimelineEditorWindow>();
