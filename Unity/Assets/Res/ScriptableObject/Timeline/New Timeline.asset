@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Tracks:
   - rid: 5553358696003141634
-  - rid: 5553358696003141632
   - rid: 5553358696003141636
+  - rid: 5553358696003141632
   Scale: 10
   references:
     version: 2
