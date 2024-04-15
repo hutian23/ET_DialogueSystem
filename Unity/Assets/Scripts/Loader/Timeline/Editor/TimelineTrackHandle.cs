@@ -16,13 +16,13 @@ namespace Timeline.Editor
         private TimelineTrackView TrackView { get; set; }
         public TimelineEditorWindow EditorWindow => TrackView.EditorWindow;
         private TimelineFieldView FieldView => TrackView.FieldView;
-        private Track Track => TrackView.Track;
+        public Track Track => TrackView.Track;
         private Timeline Timeline => Track.Timeline;
 
         private readonly DropdownMenuHandler MenuHandler;
         private readonly float TopOffset = 5;
         private readonly float YminOffset = -77;
-        private readonly float Interval = 40;
+        private readonly float Interval = 40; //TrackHandle_Height + margin_Top + margin_Bottom
 
         public TimelineTrackHandle()
         {
@@ -41,11 +41,13 @@ namespace Timeline.Editor
             style.borderLeftColor = Track.Color();
 
             NameField = this.Q<TextField>();
+            //binding track name
             SerializedProperty serializedProperty = Timeline.SerializedTimeline.FindProperty("m_Tracks");
             serializedProperty = serializedProperty.GetArrayElementAtIndex(Timeline.Tracks.IndexOf(Track));
             NameField.bindingPath = serializedProperty.FindPropertyRelative("Name").propertyPath;
             NameField.Bind(Timeline.SerializedTimeline);
 
+            //track Icon
             Icon = this.Q("icon");
             Texture2D texture2D = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(IconGuidAttribute.Guid(Track.GetType())));
             if (texture2D)
@@ -60,19 +62,21 @@ namespace Timeline.Editor
             MenuHandler = new DropdownMenuHandler(MenuBuilder);
             DragManipulator = new DragManipulator((e) =>
             {
+                //OnDrag
                 Dragging = true;
-                OriginalIndex = Timeline.Tracks.IndexOf(Track);
+                OriginalIndex = Timeline.Tracks.IndexOf(Track); //交换前的Index
                 e.StopImmediatePropagation();
             }, () =>
             {
+                //OnDrop
                 Dragging = false;
                 Tweening = false;
                 EditorApplication.update -= TweenTrackHandles;
-
+                
                 int currentIndex = Timeline.Tracks.IndexOf(Track);
                 Timeline.Tracks.Remove(Track);
                 Timeline.Tracks.Insert(OriginalIndex,Track);
-
+                
                 if (OriginalIndex != currentIndex)
                 {
                     Timeline.ApplyModify(() =>
@@ -84,11 +88,12 @@ namespace Timeline.Editor
                 }
             }, (e) =>
             {
+                //OnMove
                 float targetY = transform.position.y + e.y;
                 targetY = Mathf.Clamp(targetY, TopOffset, (Timeline.Tracks.Count - 1) * Interval + TopOffset);
                 transform.position = new Vector3(0, targetY, 0);
-                TrackView.transform.position = new Vector3(0, targetY - TopOffset, 0);
-
+                TrackView.transform.position = new Vector3(0, targetY - TopOffset, 0); //<---TrackView的联动效果
+                
                 int index = Timeline.Tracks.IndexOf(Track);
                 int targetIndex = Mathf.FloorToInt(targetY / Interval);
                 if (index != targetIndex)
@@ -101,20 +106,19 @@ namespace Timeline.Editor
                 {
                     EditorApplication.update += TweenTrackHandles;
                 }
-
-                this.AddManipulator(DragManipulator);
             });
+            this.AddManipulator(DragManipulator);
         }
 
         private void OnGeometryChanged()
         {
             transform.position = new Vector3(0, TrackView.worldBound.yMin + YminOffset, 0);
+            Debug.LogWarning(transform.position);
         }
 
         private void MenuBuilder(DropdownMenu menu)
         {
-            menu.AppendAction("Add Clip",
-                _ => { Timeline.ApplyModify(() => { FieldView.AddClip(Track, FieldView.GetRightEdgeFrame(Track)); }, "Add Clip"); });
+            menu.AppendAction("Add Clip", _ => { Timeline.ApplyModify(() => { FieldView.AddClip(Track, FieldView.GetRightEdgeFrame(Track)); }, "Add Clip"); });
             menu.AppendAction("Remove Track", _ => { Timeline.ApplyModify(() => { Timeline.RemoveTrack(Track); }, "Remove Track"); });
             menu.AppendAction("Mute Track", _ =>
             {
@@ -128,8 +132,7 @@ namespace Timeline.Editor
         {
             if (evt.button == 0 && IsSelectable())
             {
-                //不可选中
-                if (!IsSelectable())
+                if (!IsSelected())
                 {
                     if (evt.actionKey)
                     {
@@ -164,13 +167,15 @@ namespace Timeline.Editor
 
         private bool Dragging;
         private int OriginalIndex;
-        private DragManipulator DragManipulator;
+        private readonly DragManipulator DragManipulator;
         private static bool Tweening;
 
         private void TweenTrackHandles()
         {
             Tweening = false;
             EditorApplication.update -= TweenTrackHandles;
+            
+            //交换之后每个trackHandle都要重新绑定一次
             var trackHandles = parent.Query<TimelineTrackHandle>().ToList();
             foreach (var trackHandle in trackHandles)
             {

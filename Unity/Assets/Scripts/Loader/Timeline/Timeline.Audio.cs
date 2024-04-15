@@ -6,7 +6,7 @@ using UnityEngine.Playables;
 
 namespace Timeline
 {
-    [TrackGroup("Base")]
+    // [TrackGroup("Base")]
     [Ordered(1)]
     [Color(255,193,7)]
     public class AudioTrack: Track

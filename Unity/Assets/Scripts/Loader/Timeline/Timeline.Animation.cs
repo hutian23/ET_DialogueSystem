@@ -10,7 +10,7 @@ namespace Timeline
     [TrackGroup("Base")]
     [Ordered]
     [Color(127,253,228)]
-    [IconGuid("e6435fa591ae4414eb0f26dc6410086e")]
+    [IconGuid("46d1be470ea7f7945b52ec8511f9a419")]
     public sealed class AnimationTrack: Track
     {
         private static AvatarMask s_FullBodyMask;

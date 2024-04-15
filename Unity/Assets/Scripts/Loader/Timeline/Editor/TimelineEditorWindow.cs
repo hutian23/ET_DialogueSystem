@@ -88,48 +88,50 @@ namespace Timeline.Editor
 
             m_TrackHierachy = root.Q("track-hierachy");
             m_Toolbar = root.Q("tool-bar");
+            
+            //TrackHandler
             m_TrackHandleContainer = root.Q("track-handle-container");
             m_TrackHandleContainer.focusable = true;
-            // m_TrackHandleContainer.RegisterCallback<KeyDownEvent>((e) =>
-            // {
-            //     switch (e.keyCode)
-            //     {
-            //         case KeyCode.Delete:
-            //         {
-            //             //删除轨道
-            //             Timeline.ApplyModify(() =>
-            //             {
-            //                 var selectableToRemove = Selections.ToList();
-            //                 foreach (var selectable in selectableToRemove)
-            //                 {
-            //                     if (selectable is TimelineTrackHandle trackHandle)
-            //                     {
-            //                         Timeline.RemoveTrack(trackHandle.Track);
-            //                     }
-            //                 }
-            //             }, "Remove");
-            //             break;
-            //         }
-            //     }
-            // });
-            // m_TrackHandleContainer.RegisterCallback<PointerDownEvent>((e) =>
-            // {
-            //     foreach (var timelineTrackHandle in m_TrackHandleContainer.Query<TimelineTrackHandle>().ToList())
-            //     {
-            //         if (timelineTrackHandle.worldBound.Contains(e.position))
-            //         {
-            //             timelineTrackHandle.OnPointerDown(e);
-            //             e.StopImmediatePropagation();
-            //             return;
-            //         }
-            //     }
-            //
-            //     if (e.button == 0)
-            //     {
-            //         m_TimelineField.ClearSelection();
-            //         e.StopImmediatePropagation();
-            //     }
-            // });
+            m_TrackHandleContainer.RegisterCallback<KeyDownEvent>((e) =>
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.Delete:
+                    {
+                        //删除轨道
+                        Timeline.ApplyModify(() =>
+                        {
+                            var selectableToRemove = Selections.ToList();
+                            foreach (ISelectable selectable in selectableToRemove)
+                            {
+                                if (selectable is TimelineTrackHandle trackHandle)
+                                {
+                                    Timeline.RemoveTrack(trackHandle.Track);
+                                }
+                            }
+                        }, "Remove");
+                        break;
+                    }
+                }
+            });
+            m_TrackHandleContainer.RegisterCallback<PointerDownEvent>((e) =>
+            {
+                foreach (TimelineTrackHandle timelineTrackHandle in m_TrackHandleContainer.Query<TimelineTrackHandle>().ToList())
+                {
+                    if (timelineTrackHandle.worldBound.Contains(e.position))
+                    {
+                        timelineTrackHandle.OnPointerDown(e);
+                        e.StopImmediatePropagation();
+                        return;
+                    }
+                }
+            
+                if (e.button == 0)
+                {
+                    m_TimelineField.ClearSelection();
+                    e.StopImmediatePropagation();
+                }
+            });
 
             m_AddTrackButton = root.Q("add-track-button");
             m_AddTrackButton.AddManipulator(new DropdownMenuManipulator((menu) =>

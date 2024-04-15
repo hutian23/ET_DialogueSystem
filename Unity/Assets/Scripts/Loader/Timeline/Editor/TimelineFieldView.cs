@@ -522,9 +522,9 @@ namespace Timeline.Editor
         #region Selection
 
         public VisualElement ContentContainer => TrackField;
-        protected List<ISelectable> m_Elements = new();
+        private readonly List<ISelectable> m_Elements = new();
         public List<ISelectable> Elements => m_Elements;
-        protected List<ISelectable> m_Selections = new();
+        private readonly List<ISelectable> m_Selections = new();
         public List<ISelectable> Selections => m_Selections;
 
         public void AddToSelection(ISelectable selectable)
@@ -532,14 +532,14 @@ namespace Timeline.Editor
             m_Selections.Add(selectable);
             selectable.Select();
 
-            if (selectable is TimelineTrackView trackView)
+            switch (selectable)
             {
-                PopulateInspector(trackView.Track);
-            }
-
-            if (selectable is TimelineClipView clipView)
-            {
-                PopulateInspector(clipView.Clip);
+                case TimelineTrackView trackView:
+                    PopulateInspector(trackView.Track);
+                    break;
+                case TimelineClipView clipView:
+                    PopulateInspector(clipView.Clip);
+                    break;
             }
         }
 

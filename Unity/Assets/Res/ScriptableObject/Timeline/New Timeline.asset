@@ -13,20 +13,34 @@ MonoBehaviour:
   m_Name: New Timeline
   m_EditorClassIdentifier: 
   m_Tracks:
-  - rid: 5553358680141070340
-  - rid: 5553358680141070341
+  - rid: 5553358696003141634
+  - rid: 5553358696003141632
+  - rid: 5553358696003141636
   Scale: 10
   references:
     version: 2
     RefIds:
-    - rid: 5553358680141070340
-      type: {class: AudioTrack, ns: Timeline, asm: Unity.Loader}
+    - rid: 5553358696003141632
+      type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
       data:
-        Name: Audio
+        Name: Test2
         m_PersistentMuted: 0
         m_Clips: []
+        AvatarMask: {fileID: 0}
+        EaseOutTime: 0
+        PlayWhenEaseOut: 0
         m_ExecutedCount: 0
-    - rid: 5553358680141070341
+    - rid: 5553358696003141634
+      type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
+      data:
+        Name: Hello world
+        m_PersistentMuted: 0
+        m_Clips: []
+        AvatarMask: {fileID: 0}
+        EaseOutTime: 0
+        PlayWhenEaseOut: 1
+        m_ExecutedCount: 0
+    - rid: 5553358696003141636
       type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
       data:
         Name: Animation

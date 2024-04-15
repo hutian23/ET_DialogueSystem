@@ -98,7 +98,8 @@ namespace Timeline.Editor
             {
                 return;
             }
-
+            
+            Debug.LogWarning(target.ClassListContains("draggable--dragging"));
             target.AddToClassList("draggable--dragging");
 
             if (removeClassOnDrag != null)
@@ -124,7 +125,7 @@ namespace Timeline.Editor
             {
                 return;
             }
-
+            
             target.AddToClassList("draggable--dragging");
 
             if (removeClassOnDrag != null)
