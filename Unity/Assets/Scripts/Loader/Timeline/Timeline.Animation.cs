@@ -91,16 +91,16 @@ namespace Timeline
 
         public override void UnBind()
         {
-            if (TrackPlayable != null)
-            {
-                if (Application.isPlaying && EaseOutTime != 0) return;
-                Timeline.AnimationRootPlayable.DisconnectInput(PlayableIndex);
-                TrackPlayable.Handle.Destroy();
-            }
-            else if (Timeline.Time < Timeline.Duration)
-            {
-                Timeline.TimelinePlayer.AddAnimationEaseOut(this);
-            }
+            // if (TrackPlayable != null)
+            // {
+            //     if (Application.isPlaying && EaseOutTime != 0) return;
+            //     Timeline.AnimationRootPlayable.DisconnectInput(PlayableIndex);
+            //     TrackPlayable.Handle.Destroy();
+            // }
+            // else if (Timeline.Time < Timeline.Duration)
+            // {
+            //     Timeline.TimelinePlayer.AddAnimationEaseOut(this);
+            // }
         }
 
         public override void SetTime(float time)

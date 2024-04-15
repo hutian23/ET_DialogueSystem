@@ -92,6 +92,7 @@ namespace Timeline.Editor
             //TrackHandler
             m_TrackHandleContainer = root.Q("track-handle-container");
             m_TrackHandleContainer.focusable = true;
+            
             m_TrackHandleContainer.RegisterCallback<KeyDownEvent>((e) =>
             {
                 switch (e.keyCode)
@@ -118,6 +119,7 @@ namespace Timeline.Editor
             {
                 foreach (TimelineTrackHandle timelineTrackHandle in m_TrackHandleContainer.Query<TimelineTrackHandle>().ToList())
                 {
+                    //选中trackHandle
                     if (timelineTrackHandle.worldBound.Contains(e.position))
                     {
                         timelineTrackHandle.OnPointerDown(e);
@@ -175,7 +177,7 @@ namespace Timeline.Editor
             //     Dispose();
             // };
 
-            // Undo.undoRedoEvent += OnUndoRedoEvent;
+            Undo.undoRedoEvent += OnUndoRedoEvent;
             UpdateBindState();
         }
 
@@ -208,7 +210,7 @@ namespace Timeline.Editor
 
             Timeline.OnValueChanged += m_TimelineField.PopulateView;
             Timeline.OnEvaluated += m_TimelineField.UpdateTimeLocator;
-            //Timeline.OnBindStateChanged += m_TimelineField.UpdateBindState;
+            Timeline.OnBindStateChanged += m_TimelineField.UpdateBindState;
             Timeline.OnBindStateChanged += UpdateBindState;
 
             m_Top.SetEnabled(true);
@@ -264,7 +266,7 @@ namespace Timeline.Editor
 
         private void OnUndoRedoEvent(in UndoRedoInfo info)
         {
-            if (info.undoName.Split(':')[0] == "Timeline")
+            if (info.undoName.Split(':')[0] == "Timeline" && Timeline != null)
             {
                 Timeline.Init();
             }

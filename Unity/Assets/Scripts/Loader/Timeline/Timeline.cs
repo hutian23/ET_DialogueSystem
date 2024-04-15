@@ -130,17 +130,17 @@ namespace Timeline
 
         public void UnBind()
         {
-            this.m_Tracks.ForEach(t => t.UnBind());
-            this.Binding = false;
-            this.OnRebind = null;
-            this.OnValueChanged -= this.RebindAll;
+            m_Tracks.ForEach(t => t.UnBind());
+            Binding = false;
+            OnRebind = null;
+            OnValueChanged -= RebindAll;
 
-            this.AnimationRootPlayable = AnimationLayerMixerPlayable.Null;
-            this.AudioRootPlayable = default;
-            this.PlayableGraph = default;
-            this.TimelinePlayer = null;
-
-            this.OnBindStateChanged?.Invoke();
+            AnimationRootPlayable = AnimationLayerMixerPlayable.Null;
+            AudioRootPlayable = default;
+            PlayableGraph = default;
+            TimelinePlayer = null;
+            
+            OnBindStateChanged?.Invoke();
         }
 
         public void JumpTo(float targetTime)
