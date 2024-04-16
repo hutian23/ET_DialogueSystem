@@ -13,29 +13,96 @@ MonoBehaviour:
   m_Name: New Timeline
   m_EditorClassIdentifier: 
   m_Tracks:
-  - rid: 5553358698617241603
-  - rid: 5553358698617241606
+  - rid: 5553358718264934409
+  - rid: 5553358718264934411
+  - rid: 5553358718264934413
   Scale: 1
   references:
     version: 2
     RefIds:
-    - rid: 5553358698617241603
+    - rid: 5553358718264934409
       type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
       data:
-        Name: Hello world
+        Name: Animation
         m_PersistentMuted: 0
-        m_Clips: []
+        m_Clips:
+        - rid: 5553358718264934410
+        - rid: 5553358718264934415
         AvatarMask: {fileID: 0}
         EaseOutTime: 0
         PlayWhenEaseOut: 0
         m_ExecutedCount: 0
-    - rid: 5553358698617241606
+    - rid: 5553358718264934410
+      type: {class: AnimationClip, ns: Timeline, asm: Unity.Loader}
+      data:
+        StartFrame: 0
+        EndFrame: 3
+        OtherEaseInFrame: 0
+        OtherEaseOutFrame: 0
+        SelfEaseInFrame: 0
+        SelfEaseOutFrame: 0
+        ClipInFrame: 0
+        CanSkip: 0
+        Clip: {fileID: 0}
+        ExtraPolationMode: 0
+    - rid: 5553358718264934411
       type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
       data:
-        Name: Test
+        Name: Animation
         m_PersistentMuted: 0
-        m_Clips: []
+        m_Clips:
+        - rid: 5553358718264934412
         AvatarMask: {fileID: 0}
         EaseOutTime: 0
-        PlayWhenEaseOut: 1
+        PlayWhenEaseOut: 0
         m_ExecutedCount: 0
+    - rid: 5553358718264934412
+      type: {class: AnimationClip, ns: Timeline, asm: Unity.Loader}
+      data:
+        StartFrame: 1
+        EndFrame: 4
+        OtherEaseInFrame: 0
+        OtherEaseOutFrame: 0
+        SelfEaseInFrame: 0
+        SelfEaseOutFrame: 0
+        ClipInFrame: 0
+        CanSkip: 0
+        Clip: {fileID: 0}
+        ExtraPolationMode: 0
+    - rid: 5553358718264934413
+      type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
+      data:
+        Name: Animation
+        m_PersistentMuted: 0
+        m_Clips:
+        - rid: 5553358718264934414
+        AvatarMask: {fileID: 0}
+        EaseOutTime: 0
+        PlayWhenEaseOut: 0
+        m_ExecutedCount: 0
+    - rid: 5553358718264934414
+      type: {class: AnimationClip, ns: Timeline, asm: Unity.Loader}
+      data:
+        StartFrame: 0
+        EndFrame: 3
+        OtherEaseInFrame: 0
+        OtherEaseOutFrame: 0
+        SelfEaseInFrame: 0
+        SelfEaseOutFrame: 0
+        ClipInFrame: 0
+        CanSkip: 0
+        Clip: {fileID: 0}
+        ExtraPolationMode: 0
+    - rid: 5553358718264934415
+      type: {class: AnimationClip, ns: Timeline, asm: Unity.Loader}
+      data:
+        StartFrame: 1
+        EndFrame: 4
+        OtherEaseInFrame: 0
+        OtherEaseOutFrame: 0
+        SelfEaseInFrame: 0
+        SelfEaseOutFrame: 0
+        ClipInFrame: 0
+        CanSkip: 0
+        Clip: {fileID: 0}
+        ExtraPolationMode: 0

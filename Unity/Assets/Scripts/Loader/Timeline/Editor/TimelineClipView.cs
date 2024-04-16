@@ -12,10 +12,7 @@ namespace Timeline.Editor
         public new class UxmlFactory: UxmlFactory<TimelineClipView, UxmlTraits>
         {
         }
-
-        protected string m_DefaultVisualTreeGuid = "";
-        protected virtual string VisualTreeGuid => m_DefaultVisualTreeGuid;
-
+        
         public bool Selected { get; private set; }
         public bool Hoverd { get; private set; }
         public ISelection SelectionContainer { get; set; }
@@ -90,14 +87,14 @@ namespace Timeline.Editor
 
         public TimelineClipView()
         {
-            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(AssetDatabase.GUIDToAssetPath(m_DefaultVisualTreeGuid));
+            VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>($"VisualTree/TimelineClipView");
             visualTree.CloneTree(this);
             AddToClassList("timelineClip");
-
+            
             m_Content = this.Q("content");
             m_LeftMixer = this.Q("left-mixer");
             m_RightMixer = this.Q("right-mixer");
-
+            
             m_Title = this.Q("title");
             m_ClipName = this.Q<Label>("clip-name");
             m_LeftClipIn = this.Q("left-clip-in");
@@ -105,9 +102,9 @@ namespace Timeline.Editor
             m_BottomLine = this.Q("bottom-line");
             m_DrawBox = this.Q("draw-box");
 
-            m_MoveDrag = new DragManipulator(OnStartDrag, OnStopDrag, OnDragMove);
-            m_MoveDrag.enabled = false;
-            this.AddManipulator(m_MoveDrag);
+            // m_MoveDrag = new DragManipulator(OnStartDrag, OnStopDrag, OnDragMove);
+            // m_MoveDrag.enabled = false;
+            // this.AddManipulator(m_MoveDrag);
 
             // m_MenuHandle = new DropdownMenuHandler(MenuBu)
             // m_DrawBox.generateVisualContent += O
@@ -115,6 +112,7 @@ namespace Timeline.Editor
 
         public void Init(Clip clip, TimelineTrackView trackView)
         {
+            return;
             Clip = clip;
             Clip.OnNameChanged = () => m_ClipName.text = clip.Name;
             m_ClipName.text = clip.Name;

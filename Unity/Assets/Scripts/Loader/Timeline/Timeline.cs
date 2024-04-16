@@ -356,7 +356,7 @@ namespace Timeline
 
         public virtual void Init(Track track)
         {
-            this.Track = track;
+            Track = track;
         }
 
         public virtual void Bind()

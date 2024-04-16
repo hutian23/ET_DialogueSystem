@@ -127,7 +127,10 @@ namespace Timeline.Editor
 
         private void MenuBuilder(DropdownMenu menu)
         {
-            menu.AppendAction("Add Clip", _ => { Timeline.ApplyModify(() => { FieldView.AddClip(Track, FieldView.GetRightEdgeFrame(Track)); }, "Add Clip"); });
+            menu.AppendAction("Add Clip", _ => { Timeline.ApplyModify(() =>
+            {
+                // FieldView.AddClip(Track, FieldView.GetRightEdgeFrame(Track));
+            }, "Add Clip"); });
             menu.AppendAction("Remove Track", _ => { Timeline.ApplyModify(() => { Timeline.RemoveTrack(Track); }, "Remove Track"); });
             menu.AppendAction("Mute Track", _ =>
             {

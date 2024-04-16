@@ -9,7 +9,9 @@ namespace Timeline.Editor
 {
     public class TimelineTrackView: VisualElement, ISelectable
     {
-        public new class UxmlFactory: UxmlFactory<TimelineTrackView, UxmlTraits> { }
+        public new class UxmlFactory: UxmlFactory<TimelineTrackView, UxmlTraits>
+        {
+        }
 
         private bool m_Selected;
         public ISelection SelectionContainer { get; set; }
@@ -50,13 +52,13 @@ namespace Timeline.Editor
             {
                 TimelineClipView clipView = new();
                 clipView.SelectionContainer = FieldView;
-                clipView.Init(clip, this);
+                // clipView.Init(clip, this);
 
                 Add(clipView);
-                FieldView.Elements.Add(clipView);
-                ClipViewMap.Add(clip, clipView);
-                clipView.Add(clipView);
-                ClipViews.Add(clipView);
+                // FieldView.Elements.Add(clipView); // IsSelectable
+                // ClipViewMap.Add(clip, clipView);
+                // clipView.Add(clipView);
+                // ClipViews.Add(clipView);
             }
 
             DragAndDropManipulator dragAndDropManipulator = new(this);
@@ -71,7 +73,7 @@ namespace Timeline.Editor
             };
             this.AddManipulator(dragAndDropManipulator);
             transform.position = new Vector3(0, Timeline.Tracks.IndexOf(track) * 40, 0);
-            
+
             OnMutedStateChanged();
         }
 
@@ -112,7 +114,7 @@ namespace Timeline.Editor
         {
             m_Selected = false;
             RemoveFromClassList("selected");
-            
+
             OnUnSelected?.Invoke();
         }
 
@@ -120,28 +122,9 @@ namespace Timeline.Editor
 
         private void MenuBuilder(DropdownMenu menu)
         {
-            int startFrame = FieldView.GetClosestFloorFrame(m_localMousePosition.x);
-            if (Track.Clips.Find(i => i.StartFrame == startFrame) == null)
-            {
-                menu.AppendAction("Add Clip", _ =>
-                {
-                    Timeline.ApplyModify(() =>
-                    {
-                        FieldView.AddClip(Track,startFrame);
-                    },"Add Clip");
-                });
-            }
-            menu.AppendAction("Remove Track", _ =>
-            {
-                Timeline.ApplyModify(() =>
-                {
-                    Timeline.RemoveTrack(Track);
-                },"Remove Track");
-            });
-            menu.AppendAction("Open Script", _ =>
-            {
-                Track.OpenTrackScript();
-            });
+            menu.AppendAction("Add Clip", _ => { Timeline.ApplyModify(() => { FieldView.AddClip(Track); }, "Add Clip"); });
+            menu.AppendAction("Remove Track", _ => { Timeline.ApplyModify(() => { Timeline.RemoveTrack(Track); }, "Remove Track"); });
+            menu.AppendAction("Open Script", _ => { Track.OpenTrackScript(); });
         }
 
         private void OnPointerDown(PointerDownEvent evt)
@@ -176,6 +159,7 @@ namespace Timeline.Editor
                         SelectionContainer.RemoveFromSelection(this);
                     }
                 }
+
                 evt.StopImmediatePropagation();
             }
             else if (evt.button == 1)
@@ -247,11 +231,11 @@ namespace Timeline.Editor
             private void OnDragEnter(DragEnterEvent _)
             {
                 //Get the name of the object the user is dragging
-                var draggerName = string.Empty;
-                if (DragAndDrop.objectReferences.Length > 0)
-                {
-                    draggerName = DragAndDrop.objectReferences[0].name;
-                }
+                // var draggerName = string.Empty;
+                // if (DragAndDrop.objectReferences.Length > 0)
+                // {
+                //     draggerName = DragAndDrop.objectReferences[0].name;
+                // }
 
                 //Change the appearance of the drop area if the user is dragging
                 target.AddToClassList("drop-area--dropping");
@@ -266,14 +250,7 @@ namespace Timeline.Editor
             //this method runs every frame while a drag is in progress
             private void OnDragUpdate(DragUpdatedEvent _)
             {
-                if (DragValid())
-                {
-                    DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
-                }
-                else
-                {
-                    DragAndDrop.visualMode = DragAndDropVisualMode.None;
-                }
+                DragAndDrop.visualMode = DragValid()? DragAndDropVisualMode.Generic : DragAndDropVisualMode.None;
             }
 
             //this method run when a user drops a dragged object onto the target

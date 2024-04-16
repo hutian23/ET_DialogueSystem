@@ -88,11 +88,11 @@ namespace Timeline.Editor
 
             m_TrackHierachy = root.Q("track-hierachy");
             m_Toolbar = root.Q("tool-bar");
-            
+
             //TrackHandler
             m_TrackHandleContainer = root.Q("track-handle-container");
             m_TrackHandleContainer.focusable = true;
-            
+
             m_TrackHandleContainer.RegisterCallback<KeyDownEvent>((e) =>
             {
                 switch (e.keyCode)
@@ -127,7 +127,7 @@ namespace Timeline.Editor
                         return;
                     }
                 }
-            
+
                 if (e.button == 0)
                 {
                     m_TimelineField.ClearSelection();
@@ -153,12 +153,9 @@ namespace Timeline.Editor
                 }
 
                 types = types.OrderBy(i => i.Item2).ToList();
-                foreach (var type in types.OrderBy(i=> i.Item2))
+                foreach (var type in types.OrderBy(i => i.Item2))
                 {
-                    menu.AppendAction(type.Item1.Name, _ =>
-                    {
-                        AddTrack(type.Item1);
-                    });
+                    menu.AppendAction(type.Item1.Name, _ => { AddTrack(type.Item1); });
                 }
             }, MouseButton.LeftMouse));
 
@@ -295,10 +292,10 @@ namespace Timeline.Editor
 
         public VisualElement ContentContainer => m_TrackHandleContainer;
 
-        protected List<ISelectable> m_Elements = new();
+        private readonly List<ISelectable> m_Elements = new();
         public List<ISelectable> Elements => m_Elements;
 
-        protected List<ISelectable> m_Selections = new();
+        private readonly List<ISelectable> m_Selections = new();
         public List<ISelectable> Selections => m_Selections;
 
         public void AddToSelection(ISelectable selectable)

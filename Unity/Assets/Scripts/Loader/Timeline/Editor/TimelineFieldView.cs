@@ -78,7 +78,11 @@ namespace Timeline.Editor
         public float OneFrameWidth => m_MarkerWidth + m_FieldScale;
         private float ScrollViewContentWidth => TrackScrollView.contentContainer.worldBound.width;
         private float ScrollViewContentOffset => TrackScrollView.scrollOffset.x;
+
         public float ContentWidth => FieldContent.worldBound.width;
+
+        //当前Locator所在帧数
+        public int currentTimeLocator;
 
         public TimelineFieldView()
         {
@@ -141,7 +145,7 @@ namespace Timeline.Editor
             {
                 if (e.button == 0)
                 {
-                    SettimeLocator(GetClosestFrame(e.localPosition.x));
+                    SetTimeLocator(GetClosestFrame(e.localPosition.x));
                     LocatorDragManipulator.DragBeginForce(e);
                 }
             });
@@ -170,7 +174,7 @@ namespace Timeline.Editor
                 }
             });
             ClipInspector.RegisterCallback<PointerDownEvent>((e) => e.StopImmediatePropagation());
-            
+
             RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
             RegisterCallback<WheelEvent>(OnWheelEvent);
             // RegisterCallback<KeyDownEvent>((e) =>
@@ -224,7 +228,6 @@ namespace Timeline.Editor
             //         }
             //     }
             // });
-            //
             this.AddManipulator(new RectangleSelecter(() => -localBound.position));
         }
 
@@ -372,8 +375,9 @@ namespace Timeline.Editor
             //blackboard中显示成员
             foreach (var fieldInfo in target.GetAllFields())
             {
-                if (fieldInfo.GetCustomAttribute<ShowInInspectorAttribute>() is ShowInInspectorAttribute showInInspectorAttribute)
+                if (fieldInfo.GetCustomAttribute<ShowInInspectorAttribute>() != null)
                 {
+                    var showInInspectorAttribute = fieldInfo.GetCustomAttribute<ShowInInspectorAttribute>();
                     if (!fieldInfo.ShowIf(target))
                     {
                         continue;
@@ -398,8 +402,9 @@ namespace Timeline.Editor
                             propertyField.SetEnabled(false);
                         }
 
-                        if (fieldInfo.GetCustomAttribute<OnValueChangedAttribute>() is OnValueChangedAttribute onValueChanged)
+                        if (fieldInfo.GetCustomAttribute<OnValueChangedAttribute>() != null)
                         {
+                            OnValueChangedAttribute onValueChanged = fieldInfo.GetCustomAttribute<OnValueChangedAttribute>();
                             EditorCoroutineHelper.Delay(() =>
                             {
                                 propertyField.RegisterValueChangeCallback((e) =>
@@ -651,8 +656,10 @@ namespace Timeline.Editor
 
         #region TimeLocator
 
-        private void SettimeLocator(int targetFrame)
+        private void SetTimeLocator(int targetFrame)
         {
+            currentTimeLocator = targetFrame;
+            Debug.LogWarning("CurrentTimeLocator: "+currentTimeLocator);
             Timeline.TimelinePlayer.IsPlaying = false;
             float deltaTime = targetFrame / 60f - Timeline.Time;
             Timeline.TimelinePlayer.Evaluate(deltaTime);
@@ -685,7 +692,7 @@ namespace Timeline.Editor
             int targetFrame = GetClosestFrame(FramePosMap[Timeline.Frame] + deltaPosition.x);
             targetFrame = Mathf.Clamp(targetFrame, CurrentMinFrame, CurrentMaxFrame);
 
-            SettimeLocator(targetFrame);
+            SetTimeLocator(targetFrame);
         }
 
         private void OnTimeLocatorStopMove()
@@ -910,16 +917,28 @@ namespace Timeline.Editor
 
         #region Add Clip
 
-        public void AddClip(Track track, int startFrame)
+        public void AddClip(Track track)
         {
+            
+            // AdjustClip(Timeline.AddClip(track, startFrame));
         }
 
         public void AddClip(UnityEngine.Object referenceObject, Track track, int startFrame)
         {
+            AdjustClip(Timeline.AddClip(referenceObject, track, startFrame));
         }
 
+        /// <summary>
+        /// 不能和下一个Clip重合
+        /// </summary>
         private void AdjustClip(Clip clip)
         {
+            Clip closetRightClip = GetClosestRightClip(clip.Track, clip.StartFrame);
+            if (closetRightClip != null && clip.StartFrame + clip.Length > closetRightClip.StartFrame)
+            {
+                clip.EndFrame = closetRightClip.StartFrame;
+                GetClipView(clip).Refresh();
+            }
         }
 
         #endregion
@@ -1092,7 +1111,7 @@ namespace Timeline.Editor
             return frame;
         }
 
-        public TimelineClipView GetClipView(Clip clip)
+        private TimelineClipView GetClipView(Clip clip)
         {
             return TrackViewMap.GetValueByKey(clip.Track).ClipViewMap.GetValueByKey(clip);
         }
@@ -1118,7 +1137,7 @@ namespace Timeline.Editor
             return closestClip;
         }
 
-        public Clip GetClosestRightClip(Clip targetClip)
+        private Clip GetClosestRightClip(Clip targetClip)
         {
             int targetFrame = int.MaxValue;
             Clip cloestClip = null;
@@ -1134,7 +1153,7 @@ namespace Timeline.Editor
             return cloestClip;
         }
 
-        public Clip GetClosestRightClip(Track track, int startFrame)
+        private Clip GetClosestRightClip(Track track, int startFrame)
         {
             List<Clip> rightClips = new();
             foreach (var clip in track.Clips)
@@ -1149,7 +1168,7 @@ namespace Timeline.Editor
             return rightClips.Count > 0? rightClips[0] : null;
         }
 
-        public Clip GetOverlapClip(Clip targetClip)
+        private Clip GetOverlapClip(Clip targetClip)
         {
             foreach (var clip in targetClip.Track.Clips)
             {
