@@ -112,64 +112,64 @@ namespace Timeline.Editor
 
         public void Init(Clip clip, TimelineTrackView trackView)
         {
-            return;
             Clip = clip;
             Clip.OnNameChanged = () => m_ClipName.text = clip.Name;
             m_ClipName.text = clip.Name;
+            
             TrackView = trackView;
             m_BottomLine.style.backgroundColor = clip.Color();
 
-            if (clip.IsResizeable())
-            {
-                m_LeftResizeDragLine = new DragLineManipulator(DraglineDirection.Left, (e) =>
-                {
-                    FieldView.ResizeClip(this, 0, e.x);
-                    if (!IsSelected())
-                    {
-                        SelectionContainer.ClearSelection();
-                        SelectionContainer.AddToSelection(this);
-                    }
-
-                    FieldView.DrawFrameLine(StartFrame);
-                }, (e) => { FieldView.DrawFrameLine(StartFrame); }, () => { FieldView.DrawFrameLine(); });
-                m_LeftResizeDragLine.Size = 4;
-                this.AddManipulator(m_LeftResizeDragLine);
-
-                m_RightResizeDragLine = new DragLineManipulator(DraglineDirection.Right, (e) =>
-                {
-                    FieldView.ResizeClip(this, 1, e.x);
-                    if (!IsSelected())
-                    {
-                        SelectionContainer.ClearSelection();
-                        SelectionContainer.AddToSelection(this);
-                    }
-
-                    FieldView.DrawFrameLine(StartFrame);
-                }, (e) => { FieldView.DrawFrameLine(StartFrame); }, () => { FieldView.DrawFrameLine(); });
-                m_RightResizeDragLine.Size = 4;
-                this.AddManipulator(m_RightResizeDragLine);
-            }
-
-            if (clip.IsMixable())
-            {
-                m_SelfEaseInDragLine = new DragLineManipulator(DraglineDirection.Right, (e) =>
-                {
-                    FieldView.AdjustSelfEase(this, 0, e.x);
-                    FieldView.DrawFrameLine(StartFrame + SelfEaseInFrame);
-                }, (e) => { FieldView.DrawFrameLine(StartFrame + SelfEaseInFrame); }, () => { FieldView.DrawFrameLine(); });
-                m_SelfEaseInDragLine.Size = 4;
-                m_LeftMixer.AddManipulator(m_SelfEaseInDragLine);
-                SelfEaseIn = false;
-
-                m_SelfEaseOutDragLine = new DragLineManipulator(DraglineDirection.Left, (e) =>
-                {
-                    FieldView.AdjustSelfEase(this, 1, e.x);
-                    FieldView.DrawFrameLine(EndFrame - SelfEaseOutFrame);
-                }, (e) => { FieldView.DrawFrameLine(EndFrame - SelfEaseOutFrame); }, () => { FieldView.DrawFrameLine(); });
-                m_SelfEaseOutDragLine.Size = 4;
-                m_RightMixer.AddManipulator(m_SelfEaseOutDragLine);
-                SelfEaseOut = false;
-            }
+            // if (clip.IsResizeable())
+            // {
+            //     m_LeftResizeDragLine = new DragLineManipulator(DraglineDirection.Left, (e) =>
+            //     {
+            //         FieldView.ResizeClip(this, 0, e.x);
+            //         if (!IsSelected())
+            //         {
+            //             SelectionContainer.ClearSelection();
+            //             SelectionContainer.AddToSelection(this);
+            //         }
+            //
+            //         FieldView.DrawFrameLine(StartFrame);
+            //     }, (e) => { FieldView.DrawFrameLine(StartFrame); }, () => { FieldView.DrawFrameLine(); });
+            //     m_LeftResizeDragLine.Size = 4;
+            //     this.AddManipulator(m_LeftResizeDragLine);
+            //
+            //     m_RightResizeDragLine = new DragLineManipulator(DraglineDirection.Right, (e) =>
+            //     {
+            //         FieldView.ResizeClip(this, 1, e.x);
+            //         if (!IsSelected())
+            //         {
+            //             SelectionContainer.ClearSelection();
+            //             SelectionContainer.AddToSelection(this);
+            //         }
+            //
+            //         FieldView.DrawFrameLine(StartFrame);
+            //     }, (e) => { FieldView.DrawFrameLine(StartFrame); }, () => { FieldView.DrawFrameLine(); });
+            //     m_RightResizeDragLine.Size = 4;
+            //     this.AddManipulator(m_RightResizeDragLine);
+            // }
+            //
+            // if (clip.IsMixable())
+            // {
+            //     m_SelfEaseInDragLine = new DragLineManipulator(DraglineDirection.Right, (e) =>
+            //     {
+            //         FieldView.AdjustSelfEase(this, 0, e.x);
+            //         FieldView.DrawFrameLine(StartFrame + SelfEaseInFrame);
+            //     }, (e) => { FieldView.DrawFrameLine(StartFrame + SelfEaseInFrame); }, () => { FieldView.DrawFrameLine(); });
+            //     m_SelfEaseInDragLine.Size = 4;
+            //     m_LeftMixer.AddManipulator(m_SelfEaseInDragLine);
+            //     SelfEaseIn = false;
+            //
+            //     m_SelfEaseOutDragLine = new DragLineManipulator(DraglineDirection.Left, (e) =>
+            //     {
+            //         FieldView.AdjustSelfEase(this, 1, e.x);
+            //         FieldView.DrawFrameLine(EndFrame - SelfEaseOutFrame);
+            //     }, (e) => { FieldView.DrawFrameLine(EndFrame - SelfEaseOutFrame); }, () => { FieldView.DrawFrameLine(); });
+            //     m_SelfEaseOutDragLine.Size = 4;
+            //     m_RightMixer.AddManipulator(m_SelfEaseOutDragLine);
+            //     SelfEaseOut = false;
+            // }
 
             Refresh();
         }

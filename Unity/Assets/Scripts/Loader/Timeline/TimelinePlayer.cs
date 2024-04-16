@@ -144,7 +144,7 @@ namespace Timeline
                 runningTimelines.Evaluate(deltaTime);
             }
 
-            PlayableGraph.Evaluate(deltaTime);
+            // PlayableGraph.Evaluate(deltaTime);
         }
 
         protected virtual void OnRootMotion()

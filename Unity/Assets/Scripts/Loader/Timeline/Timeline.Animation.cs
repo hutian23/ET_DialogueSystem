@@ -9,7 +9,7 @@ namespace Timeline
 {
     [TrackGroup("Base")]
     [Ordered]
-    [Color(127,253,228)]
+    [Color(127, 253, 228)]
     [IconGuid("46d1be470ea7f7945b52ec8511f9a419")]
     public sealed class AnimationTrack: Track
     {
@@ -210,6 +210,7 @@ namespace Timeline
         }
     }
 
+    [Color(127, 253, 228)]
     public class AnimationClip: Clip
     {
         [ShowInInspector, OnValueChanged("OnClipChanged", "RebindTimeline")]

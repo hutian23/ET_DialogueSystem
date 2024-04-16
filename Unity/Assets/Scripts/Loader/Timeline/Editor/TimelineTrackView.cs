@@ -52,13 +52,12 @@ namespace Timeline.Editor
             {
                 TimelineClipView clipView = new();
                 clipView.SelectionContainer = FieldView;
-                // clipView.Init(clip, this);
+                clipView.Init(clip, this);
 
                 Add(clipView);
-                // FieldView.Elements.Add(clipView); // IsSelectable
-                // ClipViewMap.Add(clip, clipView);
-                // clipView.Add(clipView);
-                // ClipViews.Add(clipView);
+                FieldView.Elements.Add(clipView); // IsSelectable
+                ClipViewMap.Add(clip, clipView);
+                ClipViews.Add(clipView);
             }
 
             DragAndDropManipulator dragAndDropManipulator = new(this);

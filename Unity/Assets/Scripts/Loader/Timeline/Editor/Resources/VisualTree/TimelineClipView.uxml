@@ -6,7 +6,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="title" style="flex-grow: 1;">
             <ui:VisualElement name="left-clip-in" style="flex-grow: 1;" />
-            <ui:VisualElement name="clip-name" style="flex-grow: 1;" />
+            <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="clip-name" />
             <ui:VisualElement name="right-clip-in" style="flex-grow: 1;" />
         </ui:VisualElement>
         <ui:VisualElement name="right-mixer" style="flex-grow: 1;">

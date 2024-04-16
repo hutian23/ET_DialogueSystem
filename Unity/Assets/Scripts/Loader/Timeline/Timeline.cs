@@ -62,14 +62,14 @@ namespace Timeline
         public void Init()
         {
             #region UnBind
-            
+
             bool isBinding = Binding;
             TimelinePlayer timelinePlayer = TimelinePlayer;
             if (isBinding)
             {
                 timelinePlayer.Dispose();
             }
-            
+
             #endregion
 
             #region Init
@@ -84,10 +84,10 @@ namespace Timeline
                     MaxFrame = track.MaxFrame;
                 }
             }
-            
+
             Duration = (float)MaxFrame / TimelineUtility.FrameRate;
             OnValueChanged?.Invoke();
-            
+
             #endregion
 
             #region Bind
@@ -119,7 +119,7 @@ namespace Timeline
             PlayableGraph = timelinePlayer.PlayableGraph;
             AnimationRootPlayable = timelinePlayer.AnimationRootPlayable;
             AudioRootPlayable = timelinePlayer.AudioRootPlayable;
-            
+
             Binding = true;
             OnRebind = null;
             OnValueChanged += RebindAll;
@@ -139,7 +139,7 @@ namespace Timeline
             AudioRootPlayable = default;
             PlayableGraph = default;
             TimelinePlayer = null;
-            
+
             OnBindStateChanged?.Invoke();
         }
 
@@ -237,8 +237,8 @@ namespace Timeline
         public int MaxFrame { get; protected set; }
 
         public virtual void Init(Timeline timeline)
-        { 
-            Timeline = timeline; 
+        {
+            Timeline = timeline;
             MaxFrame = 0;
             foreach (Clip clip in m_Clips)
             {
@@ -248,6 +248,7 @@ namespace Timeline
                     MaxFrame = clip.EndFrame;
                 }
             }
+
             RuntimeMuted = false;
         }
 
@@ -443,7 +444,7 @@ namespace Timeline
                 Active = true;
                 OnEnable();
             }
-            else if(Active && TargetTime < StartTime)
+            else if (Active && TargetTime < StartTime)
             {
                 Active = false;
                 OnDisable();
@@ -452,7 +453,7 @@ namespace Timeline
             Time = TargetTime;
         }
     }
-    
+
 #if UNITY_EDITOR
     public partial class Timeline
     {
@@ -475,6 +476,16 @@ namespace Timeline
 
         public Clip AddClip(Track track, int frame)
         {
+            //和其他clip重合
+            foreach (Clip _clip in track.Clips)
+            {
+                if (frame > _clip.StartFrame && frame < _clip.EndFrame)
+                {
+                    Debug.LogError("overlap with other clip!!!");
+                    return null;
+                }
+            }
+
             Clip clip = track.AddClip(frame);
             Init();
             return clip;
@@ -502,7 +513,7 @@ namespace Timeline
         {
             OnValueChanged?.Invoke();
         }
-        
+
         /// <summary>
         /// undo redo
         /// </summary>
@@ -527,7 +538,7 @@ namespace Timeline
             Timeline timeline = CreateInstance<Timeline>();
             string path = UnityEditor.AssetDatabase.GetAssetPath(UnityEditor.Selection.activeObject);
             string assetPathAndName = UnityEditor.AssetDatabase.GenerateUniqueAssetPath(path + "/New Timeline.asset");
-            UnityEditor.AssetDatabase.CreateAsset(timeline,assetPathAndName);
+            UnityEditor.AssetDatabase.CreateAsset(timeline, assetPathAndName);
             UnityEditor.AssetDatabase.SaveAssets();
             UnityEditor.AssetDatabase.Refresh();
             UnityEditor.Selection.activeObject = timeline;
@@ -656,7 +667,6 @@ namespace Timeline
             return StartFrame < halfFrame && halfFrame < EndFrame;
         }
 
-        //最后一个color标签的颜色
         public Color Color()
         {
             var colorAttribute = GetType().GetCustomAttributes<ColorAttribute>().ToArray();
@@ -665,17 +675,17 @@ namespace Timeline
 
         public string StartTimeText()
         {
-            return $"StartTime: {StartTime.ToString("0.00")}S / StartFrame: {StartFrame}";
+            return $"StartTime: {StartTime:0.00}S / StartFrame: {StartFrame}";
         }
 
         public string EndTimeText()
         {
-            return $"EndTime: {EndTime.ToString("0.00")}S / StartFrame: {EndFrame}";
+            return $"EndTime: {EndTime:0.00}S / StartFrame: {EndFrame}";
         }
 
         public string DurationText()
         {
-            return $"Duration: {DurationTime.ToString("0.00")}S / {Duration}";
+            return $"Duration: {DurationTime:0.00}S / {Duration}";
         }
 
         public virtual void RebindTimeline()
@@ -703,7 +713,7 @@ namespace Timeline
             return (Capabilities & ClipCapabilities.ClipInable) == ClipCapabilities.ClipInable;
         }
     }
-    
+
     public abstract partial class SignalClip
     {
         protected SignalClip(Track track, int frame): base(track, frame)

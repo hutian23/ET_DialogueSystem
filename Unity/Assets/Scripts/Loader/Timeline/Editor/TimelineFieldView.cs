@@ -659,7 +659,6 @@ namespace Timeline.Editor
         private void SetTimeLocator(int targetFrame)
         {
             currentTimeLocator = targetFrame;
-            Debug.LogWarning("CurrentTimeLocator: "+currentTimeLocator);
             Timeline.TimelinePlayer.IsPlaying = false;
             float deltaTime = targetFrame / 60f - Timeline.Time;
             Timeline.TimelinePlayer.Evaluate(deltaTime);
@@ -919,8 +918,9 @@ namespace Timeline.Editor
 
         public void AddClip(Track track)
         {
-            
-            // AdjustClip(Timeline.AddClip(track, startFrame));
+            Clip clip = Timeline.AddClip(track, currentTimeLocator);
+            if (clip == null) return;
+            AdjustClip(clip);
         }
 
         public void AddClip(UnityEngine.Object referenceObject, Track track, int startFrame)
