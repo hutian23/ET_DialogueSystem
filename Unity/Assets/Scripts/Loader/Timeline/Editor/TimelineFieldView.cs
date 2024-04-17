@@ -884,7 +884,7 @@ namespace Timeline.Editor
 
             int targetStartFrame = GetClosestFrame(FramePosMap[startFrame] + deltaPosition);
             targetStartFrame = Mathf.Clamp(targetStartFrame, CurrentMinFrame, CurrentMaxFrame);
-            
+
             int deltaFrame = targetStartFrame - startFrame;
             //新的帧添加到map中
             if (deltaFrame + endFrame >= m_MaxFrame)
@@ -901,7 +901,7 @@ namespace Timeline.Editor
             {
                 moveClip.Move(deltaFrame);
             }
-            
+
             foreach (TimelineClipView moveClip in moveClips)
             {
                 moveClip.Clip.Invalid = !GetMoveValid(moveClip);
@@ -930,6 +930,7 @@ namespace Timeline.Editor
             int deltaFrame = m_MoveLeader.StartFrame - m_MoveStartFrame;
             if (deltaFrame != 0)
             {
+                //OnDragStop,移动失败之后会复位
                 foreach (var clipView in moveClips)
                 {
                     clipView.ResetMove(deltaFrame);
@@ -944,6 +945,7 @@ namespace Timeline.Editor
                         {
                             clipView.Move(deltaFrame);
                         }
+
                         Timeline.UpdateMix();
                     }, "Move Clip");
                 }
@@ -956,55 +958,11 @@ namespace Timeline.Editor
 
         private bool GetMoveValid(TimelineClipView clipView)
         {
-            if (!clipView.Clip.IsMixable())
+            foreach (Clip clip in clipView.Clip.Track.Clips)
             {
-                foreach (Clip clip in clipView.Clip.Track.Clips)
-                {
-                    //overlap
-                    if (clip != clipView.Clip && clip.EndFrame > clipView.StartFrame && clip.StartFrame < clipView.EndFrame)
-                    {
-                        return false;
-                    }
-                }
+                if (clip == clipView.Clip) continue;
+                if (clipView.Clip.Overlap(clip)) return false;
             }
-            else
-            {
-                foreach (Clip clip in clipView.Clip.Track.Clips)
-                {
-                    if (clip != clipView.Clip)
-                    {
-                        if (clip.StartFrame < clipView.StartFrame && clip.EndFrame > clipView.EndFrame)
-                        {
-                            return false;
-                        }
-                        else if (clip.StartFrame > clipView.StartFrame && clip.EndFrame < clipView.EndFrame)
-                        {
-                            return false;
-                        }
-                    }
-                }
-
-                for (float i = clipView.StartFrame; i <= clipView.EndFrame; i += 0.5f)
-                {
-                    int overlapCount = 0;
-                    foreach (Clip clip in clipView.Clip.Track.Clips)
-                    {
-                        if (clip != clipView.Clip)
-                        {
-                            if (clip.Contains(i))
-                            {
-                                overlapCount++;
-                            }
-                        }
-
-                        if (overlapCount > 1)
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-
             return true;
         }
 

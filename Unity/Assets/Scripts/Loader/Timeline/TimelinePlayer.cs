@@ -123,17 +123,17 @@ namespace Timeline
 
         public virtual void Dispose()
         {
-            if (this.IsValid)
-            {
-                for (int i = RunningTimelines.Count - 1; i >= 0; i--)
-                {
-                    RemoveTimeline(RunningTimelines[i]);
-                }
-                PlayableGraph.Destroy();
-            }
-            RunningTimelines = null;
-            IsPlaying = false;
-            PlaySpeed = 1;
+            // if (this.IsValid)
+            // {
+            //     for (int i = RunningTimelines.Count - 1; i >= 0; i--)
+            //     {
+            //         RemoveTimeline(RunningTimelines[i]);
+            //     }
+            //     PlayableGraph.Destroy();
+            // }
+            // RunningTimelines = null;
+            // IsPlaying = false;
+            // PlaySpeed = 1;
         }
 
         public virtual void Evaluate(float deltaTime)

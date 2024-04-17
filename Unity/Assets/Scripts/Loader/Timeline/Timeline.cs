@@ -479,7 +479,7 @@ namespace Timeline
             //和其他clip重合
             foreach (Clip _clip in track.Clips)
             {
-                if (frame >= _clip.StartFrame && frame < _clip.EndFrame)
+                if (_clip.Contains(frame))
                 {
                     Debug.LogError("overlap with other clip!!!");
                     return null;
@@ -625,7 +625,7 @@ namespace Timeline
             }
 
             foreach (var clip in Track.Clips)
-            { 
+            {
                 if (clip == this || clip.Invalid) continue;
 
                 //包含
@@ -638,7 +638,7 @@ namespace Timeline
                 {
                     return;
                 }
-                
+
                 if (clip.StartFrame < StartFrame && clip.EndFrame > StartFrame)
                 {
                     OtherEaseInFrame = clip.EndFrame - StartFrame;
@@ -648,7 +648,7 @@ namespace Timeline
                 {
                     OtherEaseOutFrame = EndFrame - clip.StartFrame;
                 }
-                
+
                 if (clip.StartFrame == StartFrame)
                 {
                     if (clip.EndFrame < EndFrame)
@@ -669,6 +669,18 @@ namespace Timeline
         public bool Contains(float halfFrame)
         {
             return StartFrame < halfFrame && halfFrame < EndFrame;
+        }
+
+        /// <summary>
+        /// 和其他clip重叠
+        /// </summary>
+        public bool Overlap(Clip clip)
+        {
+            for (int i = clip.StartFrame; i <= clip.EndFrame; i++)
+            {
+                if (Contains(i)) return true;
+            }
+            return false;
         }
 
         public Color Color()
