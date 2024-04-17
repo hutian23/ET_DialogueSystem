@@ -12,16 +12,16 @@ namespace Timeline.Editor
         public new class UxmlFactory: UxmlFactory<TimelineClipView, UxmlTraits>
         {
         }
-        
-        public bool Selected { get; private set; }
-        public bool Hoverd { get; private set; }
+
+        private bool Selected { get; set; }
+        private bool Hoverd { get; set; }
         public ISelection SelectionContainer { get; set; }
         public ClipCapabilities Capabilities => Clip.Capabilities;
 
-        public TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
-        public TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
-        public Timeline Timeline => EditorWindow.Timeline;
-        public Dictionary<int, float> FramePosMap => FieldView.FramePosMap;
+        private TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
+        private TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
+        private Timeline Timeline => EditorWindow.Timeline;
+        private Dictionary<int, float> FramePosMap => FieldView.FramePosMap;
         public Clip Clip { get; private set; }
         public TimelineTrackView TrackView { get; private set; }
 
@@ -102,12 +102,12 @@ namespace Timeline.Editor
             m_BottomLine = this.Q("bottom-line");
             m_DrawBox = this.Q("draw-box");
 
-            // m_MoveDrag = new DragManipulator(OnStartDrag, OnStopDrag, OnDragMove);
-            // m_MoveDrag.enabled = false;
-            // this.AddManipulator(m_MoveDrag);
+            m_MoveDrag = new DragManipulator(OnStartDrag, OnStopDrag, OnDragMove);
+            m_MoveDrag.enabled = true;
+            this.AddManipulator(m_MoveDrag);
 
-            // m_MenuHandle = new DropdownMenuHandler(MenuBu)
-            // m_DrawBox.generateVisualContent += O
+            m_MenuHandle = new DropdownMenuHandler(MenuBuilder);
+            m_DrawBox.generateVisualContent += OnDrawBoxGenerateVisualContent;
         }
 
         public void Init(Clip clip, TimelineTrackView trackView)
@@ -149,7 +149,7 @@ namespace Timeline.Editor
             //     m_RightResizeDragLine.Size = 4;
             //     this.AddManipulator(m_RightResizeDragLine);
             // }
-            //
+            
             // if (clip.IsMixable())
             // {
             //     m_SelfEaseInDragLine = new DragLineManipulator(DraglineDirection.Right, (e) =>

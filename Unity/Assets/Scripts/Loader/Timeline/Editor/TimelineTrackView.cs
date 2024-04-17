@@ -62,13 +62,14 @@ namespace Timeline.Editor
 
             DragAndDropManipulator dragAndDropManipulator = new(this);
             dragAndDropManipulator.DragValid = Track.DragValid;
-            dragAndDropManipulator.DragPerform += (e1, e2) =>
+            dragAndDropManipulator.DragPerform += (_, _) =>
             {
-                int startFrame = FieldView.GetClosestFloorFrame(e2.x);
-                if (Track.Clips.Find(i => i.StartFrame == startFrame) == null)
-                {
-                    Timeline.ApplyModify(() => { FieldView.AddClip(e1, Track, startFrame); }, "Add Clip");
-                }
+                // int startFrame = FieldView.GetClosestFloorFrame(e2.x);
+                // if (Track.Clips.Find(i => i.StartFrame == startFrame) == null)
+                // {
+                //     Timeline.ApplyModify(() => { FieldView.AddClip(e1, Track, startFrame); }, "Add Clip");
+                // }
+                Timeline.ApplyModify(() => { FieldView.AddClip(track); }, "AddClip");
             };
             this.AddManipulator(dragAndDropManipulator);
             transform.position = new Vector3(0, Timeline.Tracks.IndexOf(track) * 40, 0);

@@ -669,7 +669,8 @@ namespace Timeline.Editor
             if (EditorWindow == null) return;
             if (Timeline != null && Timeline.Binding)
             {
-                TimeLocator.style.left = Timeline.Time * TimelineUtility.FrameRate * OneFrameWidth + m_FieldOffsetX;
+                // TimeLocator.style.left = Timeline.Time * TimelineUtility.FrameRate * OneFrameWidth + m_FieldOffsetX;
+                TimeLocator.style.left = currentTimeLocator * OneFrameWidth + m_FieldOffsetX;
                 TimeLocator.MarkDirtyRepaint();
                 LocaterFrameLabel.text = Timeline.Frame.ToString();
             }
@@ -715,10 +716,10 @@ namespace Timeline.Editor
 
         private int[] m_DrawFrameLine = new int[0];
 
-        public void DrawFrameLine(params int[] frames)
+        private void DrawFrameLine(params int[] frames)
         {
-            this.m_DrawFrameLine = frames;
-            this.DrawFrameLineField.MarkDirtyRepaint();
+            m_DrawFrameLine = frames;
+            DrawFrameLineField.MarkDirtyRepaint();
         }
 
         private void OnDrawFrameLineFieldGenerateVisualContent(MeshGenerationContext mgc)
@@ -864,7 +865,7 @@ namespace Timeline.Editor
             int startFrame = int.MaxValue;
             int endFrame = int.MinValue;
             List<TimelineClipView> moveClips = new List<TimelineClipView>();
-            foreach (var selectable in Selections)
+            foreach (ISelectable selectable in Selections)
             {
                 if (selectable is TimelineClipView clipView)
                 {
@@ -883,33 +884,128 @@ namespace Timeline.Editor
 
             int targetStartFrame = GetClosestFrame(FramePosMap[startFrame] + deltaPosition);
             targetStartFrame = Mathf.Clamp(targetStartFrame, CurrentMinFrame, CurrentMaxFrame);
-
-            if (targetStartFrame != startFrame)
+            
+            int deltaFrame = targetStartFrame - startFrame;
+            //新的帧添加到map中
+            if (deltaFrame + endFrame >= m_MaxFrame)
             {
-                int deltaFrame = targetStartFrame - startFrame;
-                if (deltaFrame + endFrame >= m_MaxFrame)
+                for (int i = m_MaxFrame; i <= deltaFrame + endFrame; i++)
                 {
-                    for (int i = m_MaxFrame; i <= deltaFrame + endFrame; i++)
-                    {
-                        FramePosMap.Add(i, OneFrameWidth * i * m_FieldOffsetX);
-                    }
-
-                    m_MaxFrame = deltaFrame + endFrame + 1;
+                    FramePosMap.Add(i, OneFrameWidth * i * m_FieldOffsetX);
                 }
 
-                foreach (var moveClip in moveClips)
-                {
-                }
+                m_MaxFrame = deltaFrame + endFrame + 1;
             }
+
+            foreach (var moveClip in moveClips)
+            {
+                moveClip.Move(deltaFrame);
+            }
+            
+            foreach (TimelineClipView moveClip in moveClips)
+            {
+                moveClip.Clip.Invalid = !GetMoveValid(moveClip);
+            }
+
+            Timeline.UpdateMix();
+            DrawFrameLine(startFrame + deltaFrame, endFrame + deltaFrame);
         }
 
         public void ApplyMove()
         {
+            bool valid = true;
+            List<TimelineClipView> moveClips = new List<TimelineClipView>();
+            foreach (var selectable in Selections)
+            {
+                if (selectable is TimelineClipView clipView)
+                {
+                    moveClips.Add(clipView);
+                    if (!GetMoveValid(clipView))
+                    {
+                        valid = false;
+                    }
+                }
+            }
+
+            int deltaFrame = m_MoveLeader.StartFrame - m_MoveStartFrame;
+            if (deltaFrame != 0)
+            {
+                foreach (var clipView in moveClips)
+                {
+                    clipView.ResetMove(deltaFrame);
+                }
+
+                Timeline.UpdateMix();
+                if (valid)
+                {
+                    Timeline.ApplyModify(() =>
+                    {
+                        foreach (var clipView in moveClips)
+                        {
+                            clipView.Move(deltaFrame);
+                        }
+                        Timeline.UpdateMix();
+                    }, "Move Clip");
+                }
+
+                Timeline.RebindAll();
+            }
+
+            DrawFrameLine();
         }
 
-        public bool GetMoveValid(TimelineClipView clipView)
+        private bool GetMoveValid(TimelineClipView clipView)
         {
-            return false;
+            if (!clipView.Clip.IsMixable())
+            {
+                foreach (Clip clip in clipView.Clip.Track.Clips)
+                {
+                    //overlap
+                    if (clip != clipView.Clip && clip.EndFrame > clipView.StartFrame && clip.StartFrame < clipView.EndFrame)
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                foreach (Clip clip in clipView.Clip.Track.Clips)
+                {
+                    if (clip != clipView.Clip)
+                    {
+                        if (clip.StartFrame < clipView.StartFrame && clip.EndFrame > clipView.EndFrame)
+                        {
+                            return false;
+                        }
+                        else if (clip.StartFrame > clipView.StartFrame && clip.EndFrame < clipView.EndFrame)
+                        {
+                            return false;
+                        }
+                    }
+                }
+
+                for (float i = clipView.StartFrame; i <= clipView.EndFrame; i += 0.5f)
+                {
+                    int overlapCount = 0;
+                    foreach (Clip clip in clipView.Clip.Track.Clips)
+                    {
+                        if (clip != clipView.Clip)
+                        {
+                            if (clip.Contains(i))
+                            {
+                                overlapCount++;
+                            }
+                        }
+
+                        if (overlapCount > 1)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            return true;
         }
 
         #endregion

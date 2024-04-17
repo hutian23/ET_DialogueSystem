@@ -479,7 +479,7 @@ namespace Timeline
             //和其他clip重合
             foreach (Clip _clip in track.Clips)
             {
-                if (frame > _clip.StartFrame && frame < _clip.EndFrame)
+                if (frame >= _clip.StartFrame && frame < _clip.EndFrame)
                 {
                     Debug.LogError("overlap with other clip!!!");
                     return null;
@@ -569,11 +569,12 @@ namespace Timeline
 
         public void UpdateMix()
         {
-            this.Clips.ForEach(c =>
+            Clips.ForEach(c =>
             {
                 c.UpdateMix();
                 c.FrameToTime();
             });
+            OnUpdateMix?.Invoke();
         }
 
         public Color Color()
@@ -624,41 +625,44 @@ namespace Timeline
             }
 
             foreach (var clip in Track.Clips)
-            {
-                if (clip != this && !clip.Invalid)
-                {
-                    //包含
-                    if (clip.StartFrame < StartFrame && clip.EndFrame > EndFrame)
-                    {
-                        return;
-                    }
-                    //被包含
-                    else if (clip.StartFrame > StartFrame && clip.EndFrame < EndFrame)
-                    {
-                        return;
-                    }
+            { 
+                if (clip == this || clip.Invalid) continue;
 
-                    //在当前段前面
-                    if (clip.StartFrame < StartFrame && clip.EndFrame > StartFrame)
+                //包含
+                if (clip.StartFrame < StartFrame && clip.EndFrame > EndFrame)
+                {
+                    return;
+                }
+                //被包含
+                else if (clip.StartFrame > StartFrame && clip.EndFrame < EndFrame)
+                {
+                    return;
+                }
+                
+                if (clip.StartFrame < StartFrame && clip.EndFrame > StartFrame)
+                {
+                    OtherEaseInFrame = clip.EndFrame - StartFrame;
+                }
+
+                if (clip.StartFrame > StartFrame && clip.StartFrame < EndFrame)
+                {
+                    OtherEaseOutFrame = EndFrame - clip.StartFrame;
+                }
+                
+                if (clip.StartFrame == StartFrame)
+                {
+                    if (clip.EndFrame < EndFrame)
                     {
                         OtherEaseInFrame = clip.EndFrame - StartFrame;
                     }
-
-                    if (clip.StartFrame == StartFrame)
+                    else if (clip.EndFrame > EndFrame)
                     {
-                        if (clip.EndFrame < EndFrame)
-                        {
-                            OtherEaseInFrame = clip.EndFrame - StartFrame;
-                        }
-                        else if (clip.EndFrame > EndFrame)
-                        {
-                            OtherEaseOutFrame = EndFrame - StartFrame;
-                        }
+                        OtherEaseOutFrame = EndFrame - StartFrame;
                     }
-
-                    SelfEaseInFrame = Mathf.Min(SelfEaseInFrame, Duration - OtherEaseOutFrame);
-                    SelfEaseOutFrame = Mathf.Min(SelfEaseOutFrame, Duration - OtherEaseInFrame);
                 }
+
+                SelfEaseInFrame = Mathf.Min(SelfEaseInFrame, Duration - OtherEaseOutFrame);
+                SelfEaseOutFrame = Mathf.Min(SelfEaseOutFrame, Duration - OtherEaseInFrame);
             }
         }
 
