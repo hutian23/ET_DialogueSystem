@@ -1,18 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/Loader/Timeline/Editor/Resources/Style/TimelineClipView.uss?fileID=7433441132597879392&amp;guid=c33f16aa0afab9645887742c11b4755e&amp;type=3#TimelineClipView" />
     <ui:VisualElement name="content" style="flex-grow: 1;">
-        <ui:VisualElement name="left-mixer" style="flex-grow: 1;">
-            <ui:VisualElement name="ease-in-handler" style="flex-grow: 1;" />
-        </ui:VisualElement>
         <ui:VisualElement name="title" style="flex-grow: 1;">
-            <ui:VisualElement name="left-clip-in" style="flex-grow: 1;" />
             <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="clip-name" />
-            <ui:VisualElement name="right-clip-in" style="flex-grow: 1;" />
-        </ui:VisualElement>
-        <ui:VisualElement name="right-mixer" style="flex-grow: 1;">
-            <ui:VisualElement name="ease-out-handler" style="flex-grow: 1;" />
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="bottom-line" style="flex-grow: 1;" />
-    <ui:VisualElement name="draw-box" style="flex-grow: 1;" />
+    <ui:VisualElement name="draw-box" picking-mode="Ignore" style="flex-grow: 1;" />
 </ui:UXML>

@@ -9,19 +9,19 @@ namespace Timeline.Editor
     
     public class DragLineManipulator : PointerManipulator
     {
-        private DraglineDirection m_Direction;
+        private readonly DraglineDirection m_Direction;
         private Action<PointerDownEvent> m_OnDragStart;
-        private Action m_OnDragStop;
-        private Action<Vector2> m_OnDragMove;
-        
-        public bool Active { get; private set; }
-        public IMGUIContainer Handle { get; private set; }
+        private readonly Action m_OnDragStop;
+        private readonly Action<Vector2> m_OnDragMove;
+
+        private bool Active { get; set; }
+        private IMGUIContainer Handle { get; set; }
 
         private Vector3 m_Start;
 
         public float Size = 4;
-        public float Offset = 0;
-        public bool Enable = true;
+        private readonly float Offset = 0;
+        private readonly bool Enable = true;
 
         public DragLineManipulator(DraglineDirection draglineDirection, Action<Vector2> OnDragMove)
         {
@@ -93,7 +93,7 @@ namespace Timeline.Editor
             Handle.RegisterCallback<PointerDownEvent>(OnPointerDown);
             Handle.RegisterCallback<PointerMoveEvent>(OnPointerMove);
             Handle.RegisterCallback<PointerUpEvent>(OnPointerUp);
-            
+            Handle.style.backgroundColor = Color.red;
             target.Add(Handle);
         }
         
@@ -107,19 +107,26 @@ namespace Timeline.Editor
             Handle = null;
         }
 
-        protected void OnPointerDown(PointerDownEvent e)
+        private void OnPointerDown(PointerDownEvent e)
         {
             if (!Enable) return;
-
-            if (Active && Handle.HasPointerCapture(e.pointerId))
+            if (Active)
             {
-                Vector2 delta = e.localPosition - m_Start;
-                ApplyDelta(delta);
+                //阻止其他Pointer事件,比如moveClip
+                e.StopImmediatePropagation();
+            }
+            else if (CanStartManipulation(e))
+            {
+                m_Start = e.localPosition;
+                Active = true;
+                Handle.CapturePointer(e.pointerId);
                 e.StopPropagation();
+                
+                m_OnDragStart?.Invoke(e);
             }
         }
 
-        protected void OnPointerMove(PointerMoveEvent e)
+        private void OnPointerMove(PointerMoveEvent e)
         {
             if (!Enable) return;
 
@@ -131,7 +138,7 @@ namespace Timeline.Editor
             }
         }
         
-        protected void OnPointerUp(PointerUpEvent e)
+        private void OnPointerUp(PointerUpEvent e)
         {
             if (!Enable) return;
 
@@ -145,7 +152,7 @@ namespace Timeline.Editor
             }
         }
         
-        protected void ApplyDelta(Vector2 delta)
+        private void ApplyDelta(Vector2 delta)
         {
             m_OnDragMove?.Invoke(delta);
         }

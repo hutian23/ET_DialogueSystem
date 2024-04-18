@@ -716,7 +716,7 @@ namespace Timeline.Editor
 
         private int[] m_DrawFrameLine = new int[0];
 
-        private void DrawFrameLine(params int[] frames)
+        public void DrawFrameLine(params int[] frames)
         {
             m_DrawFrameLine = frames;
             DrawFrameLineField.MarkDirtyRepaint();
@@ -746,108 +746,69 @@ namespace Timeline.Editor
 
         #region AdjustClip
 
-        public void ResizeClip(TimelineClipView clipView, int border, float deltaPosition)
+        public void ResizeClip(TimelineClipView clipView, DraglineDirection direction, float deltaPosition)
         {
-            if (border == 0)
+            switch (direction)
             {
-                int targetFrame = GetClosestFrame(FramePosMap[clipView.StartFrame] + deltaPosition);
-                if (clipView.Clip.IsClipInable())
+                case DraglineDirection.Left:
                 {
-                    targetFrame = Mathf.Clamp(targetFrame, Mathf.Max(CurrentMinFrame, clipView.StartFrame - clipView.ClipInFrame),
-                        Mathf.Min(clipView.EndFrame - 1, CurrentMaxFrame));
-                }
-                else
-                {
-                    targetFrame = Mathf.Clamp(targetFrame, CurrentMinFrame, Mathf.Min(clipView.EndFrame - 1, CurrentMaxFrame));
-                }
+                    int targetFrame = GetClosestFrame(FramePosMap[clipView.StartFrame] + deltaPosition);
+                    targetFrame = Mathf.Clamp(targetFrame, CurrentMinFrame, Mathf.Max(clipView.Clip.EndFrame - 1, CurrentMaxFrame));
 
-                if (!clipView.Clip.IsMixable())
-                {
-                    Clip closetLeftClip = GetClosestLeftClip(clipView.Clip);
-                    if (closetLeftClip != null)
+                    int preFrame = clipView.Clip.StartFrame;
+                    clipView.Clip.StartFrame = preFrame;
+                    bool overlap = false;
+                    foreach (var clip in clipView.Clip.Track.Clips)
                     {
-                        targetFrame = Mathf.Max(targetFrame, closetLeftClip.EndFrame);
-                    }
-                }
-                else
-                {
-                    targetFrame = Mathf.Min(targetFrame, clipView.EndFrame - clipView.OtherEaseOutFrame);
-                    Clip overlapClip = GetOverlapClip(clipView.Clip);
-                    if (overlapClip != null && targetFrame <= overlapClip.StartFrame)
-                    {
-                        return;
+                        if (clip == clipView.Clip) continue;
+                        if (clip.Overlap(clipView.Clip))
+                        {
+                            overlap = true;
+                            break;
+                        }
                     }
 
-                    Clip closetLeftClip = GetClosestLeftClip(clipView.Clip);
-                    if (closetLeftClip != null)
+                    clipView.Clip.StartFrame = preFrame;
+                    if(overlap) return;
+                    
+                    Timeline.ApplyModify(() =>
                     {
-                        targetFrame = Mathf.Max(targetFrame, closetLeftClip.StartFrame + closetLeftClip.OtherEaseInFrame);
-                    }
+                        clipView.Clip.StartFrame = targetFrame;
+                        clipView.Refresh();
+                    }, "Resize Clip");
+                    break;
                 }
-
-                if (targetFrame != clipView.StartFrame)
+                case DraglineDirection.Right:
                 {
-                    Timeline.ApplyModify(() => { clipView.Resize(targetFrame, clipView.EndFrame); }, "Resize Clip");
-                    Timeline.RebindTrack(clipView.TrackView.Track);
-                }
-            }
-            else
-            {
-                int targetFrame = GetClosestFrame(FramePosMap[clipView.EndFrame] + deltaPosition);
-                targetFrame = Mathf.Clamp(targetFrame, Mathf.Max(clipView.StartFrame + 1, CurrentMinFrame), CurrentMaxFrame);
+                    int targetFrame = GetClosestFrame(FramePosMap[clipView.EndFrame] + deltaPosition);
+                    targetFrame = Mathf.Clamp(targetFrame, Mathf.Max(clipView.StartFrame + 1, CurrentMinFrame), CurrentMaxFrame);
 
-                if (!clipView.Clip.IsMixable())
-                {
-                    Clip closestRightClip = GetClosestRightClip(clipView.Clip);
-                    if (closestRightClip != null)
+                    if (clipView.EndFrame == targetFrame) return;
+
+                    //检查resize后是否和其他clip重合
+                    int preFrame = clipView.Clip.EndFrame;
+                    clipView.Clip.EndFrame = targetFrame;
+                    bool overlap = false;
+                    foreach (var clip in clipView.Clip.Track.Clips)
                     {
-                        targetFrame = Mathf.Min(targetFrame, closestRightClip.StartFrame);
+                        if (clip == clipView.Clip) continue;
+                        if (clip.Overlap(clipView.Clip))
+                        {
+                            overlap = true;
+                            break;
+                        }
                     }
-                }
-                else
-                {
-                    targetFrame = Mathf.Max(targetFrame, clipView.StartFrame + clipView.OtherEaseInFrame);
 
-                    Clip closestRightClip = GetClosestRightClip(clipView.Clip);
-                    if (closestRightClip != null)
+                    clipView.Clip.EndFrame = preFrame;
+                    if (overlap) return;
+
+                    Timeline.ApplyModify(() =>
                     {
-                        targetFrame = Mathf.Min(targetFrame, closestRightClip.EndFrame - closestRightClip.OtherEaseOutFrame);
-                    }
+                        clipView.Clip.EndFrame = targetFrame;
+                        clipView.Refresh();
+                    }, "Resize Clip");
+                    return;
                 }
-
-                if (targetFrame != clipView.EndFrame)
-                {
-                    Timeline.ApplyModify(() => { clipView.Resize(clipView.StartFrame, targetFrame); }, "Resize Clip");
-                    Timeline.RebindTrack(clipView.TrackView.Track);
-                }
-            }
-        }
-
-        public void AdjustSelfEase(TimelineClipView clipView, int border, float deltaPosition)
-        {
-            int deltaFrame = 0;
-            if (border == 0)
-            {
-                int targetFrame = GetClosestFrame(FramePosMap[clipView.StartFrame + clipView.SelfEaseInFrame] + deltaPosition);
-                targetFrame = Mathf.Clamp(targetFrame, Mathf.Max(clipView.StartFrame, CurrentMinFrame),
-                    Mathf.Min(clipView.EndFrame - clipView.EaseOutFrame, CurrentMaxFrame));
-                deltaFrame = targetFrame - (clipView.StartFrame + clipView.SelfEaseInFrame);
-            }
-            else
-            {
-                int targetFrame = GetClosestFrame(FramePosMap[clipView.EndFrame - clipView.SelfEaseOutFrame] + deltaPosition);
-                targetFrame = Mathf.Clamp(targetFrame, Mathf.Max(clipView.StartFrame + clipView.EaseInFrame, CurrentMinFrame),
-                    Mathf.Min(clipView.EndFrame, CurrentMaxFrame));
-                deltaFrame = targetFrame - (clipView.EndFrame - clipView.SelfEaseOutFrame);
-            }
-
-            if (deltaFrame != 0)
-            {
-                Timeline.ApplyModify(() =>
-                {
-                    //TODO 
-                }, "Resize Clip");
-                Timeline.RebindTrack(clipView.TrackView.Track);
             }
         }
 
@@ -963,6 +924,7 @@ namespace Timeline.Editor
                 if (clip == clipView.Clip) continue;
                 if (clipView.Clip.Overlap(clip)) return false;
             }
+
             return true;
         }
 
