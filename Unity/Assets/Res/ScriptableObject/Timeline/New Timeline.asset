@@ -13,99 +13,18 @@ MonoBehaviour:
   m_Name: New Timeline
   m_EditorClassIdentifier: 
   m_Tracks:
-  - rid: 5553358740799619112
-  - rid: 5553358740799619115
+  - rid: 5553358772607647760
   Scale: 10
   references:
     version: 2
     RefIds:
-    - rid: 5553358740799619112
+    - rid: 5553358772607647760
       type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
       data:
-        Name: Hello world
+        Name: Animation
         m_PersistentMuted: 0
-        m_Clips:
-        - rid: 5553358740799619114
-        - rid: 5553358750818238467
-        - rid: 5553358772607647744
+        m_Clips: []
         AvatarMask: {fileID: 0}
         EaseOutTime: 0
         PlayWhenEaseOut: 0
         m_ExecutedCount: 0
-    - rid: 5553358740799619114
-      type: {class: AnimationClip, ns: Timeline, asm: Unity.Loader}
-      data:
-        StartFrame: 8
-        EndFrame: 11
-        OtherEaseInFrame: 0
-        OtherEaseOutFrame: 0
-        SelfEaseInFrame: 0
-        SelfEaseOutFrame: 0
-        ClipInFrame: 0
-        CanSkip: 0
-        Clip: {fileID: 0}
-        ExtraPolationMode: 0
-    - rid: 5553358740799619115
-      type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: Test2
-        m_PersistentMuted: 0
-        m_Clips:
-        - rid: 5553358750818238464
-        - rid: 5553358750818238465
-        AvatarMask: {fileID: 0}
-        EaseOutTime: 0
-        PlayWhenEaseOut: 0
-        m_ExecutedCount: 0
-    - rid: 5553358750818238464
-      type: {class: AnimationClip, ns: Timeline, asm: Unity.Loader}
-      data:
-        StartFrame: 7
-        EndFrame: 10
-        OtherEaseInFrame: 0
-        OtherEaseOutFrame: 0
-        SelfEaseInFrame: 0
-        SelfEaseOutFrame: 0
-        ClipInFrame: 0
-        CanSkip: 0
-        Clip: {fileID: 0}
-        ExtraPolationMode: 0
-    - rid: 5553358750818238465
-      type: {class: AnimationClip, ns: Timeline, asm: Unity.Loader}
-      data:
-        StartFrame: 0
-        EndFrame: 7
-        OtherEaseInFrame: 0
-        OtherEaseOutFrame: 0
-        SelfEaseInFrame: 0
-        SelfEaseOutFrame: 0
-        ClipInFrame: 0
-        CanSkip: 0
-        Clip: {fileID: 0}
-        ExtraPolationMode: 0
-    - rid: 5553358750818238467
-      type: {class: AnimationClip, ns: Timeline, asm: Unity.Loader}
-      data:
-        StartFrame: 4
-        EndFrame: 5
-        OtherEaseInFrame: 0
-        OtherEaseOutFrame: 0
-        SelfEaseInFrame: 0
-        SelfEaseOutFrame: 0
-        ClipInFrame: 0
-        CanSkip: 0
-        Clip: {fileID: 0}
-        ExtraPolationMode: 0
-    - rid: 5553358772607647744
-      type: {class: AnimationClip, ns: Timeline, asm: Unity.Loader}
-      data:
-        StartFrame: 11
-        EndFrame: 13
-        OtherEaseInFrame: 0
-        OtherEaseOutFrame: 0
-        SelfEaseInFrame: 0
-        SelfEaseOutFrame: 0
-        ClipInFrame: 0
-        CanSkip: 0
-        Clip: {fileID: 0}
-        ExtraPolationMode: 0

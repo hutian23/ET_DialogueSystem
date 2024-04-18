@@ -166,25 +166,25 @@ namespace Timeline
                     return;
                 }
 
-                float sumWeight = 0;
-                foreach (var clipPlayable in Track.ClipPlayables)
-                {
-                    sumWeight += clipPlayable.TargetWeight;
-                }
-
-                // float weight = Mathf.Clamp01(sumWeight);
-                if (sumWeight == 0)
-                {
-                    Output.SetInputWeight(Track.PlayableIndex, 0);
-                }
-                else if (0 < sumWeight && sumWeight < 1)
-                {
-                    Output.SetInputWeight(Track.PlayableIndex, sumWeight);
-                }
-                else
-                {
-                    Output.SetInputWeight(Track.PlayableIndex, 1);
-                }
+                // float sumWeight = 0;
+                // foreach (var clipPlayable in Track.ClipPlayables)
+                // {
+                //     sumWeight += clipPlayable.TargetWeight;
+                // }
+                //
+                // // float weight = Mathf.Clamp01(sumWeight);
+                // if (sumWeight == 0)
+                // {
+                //     Output.SetInputWeight(Track.PlayableIndex, 0);
+                // }
+                // else if (0 < sumWeight && sumWeight < 1)
+                // {
+                //     Output.SetInputWeight(Track.PlayableIndex, sumWeight);
+                // }
+                // else
+                // {
+                //     Output.SetInputWeight(Track.PlayableIndex, 1);
+                // }
             };
         }
 

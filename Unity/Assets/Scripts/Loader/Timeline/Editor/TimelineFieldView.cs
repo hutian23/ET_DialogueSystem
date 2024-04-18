@@ -96,31 +96,31 @@ namespace Timeline.Editor
             TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
             {
                 //鼠标滚轮按下
-                if (e.button != 2)
+                if (e.button == 2)
                 {
                     m_ScrollViewPan = true;
                     m_ScrollViewPanDelta = e.localPosition.x;
                     TrackField.AddToClassList("pan");
                 }
             });
-            // TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
-            // {
-            //     if (m_ScrollViewPan)
-            //     {
-            //         TrackScrollView.scrollOffset = new Vector2(TrackScrollView.scrollOffset.x + m_ScrollViewPanDelta - e.localPosition.x, TrackScrollView.scrollOffset.y);
-            //         m_ScrollViewPanDelta = e.localPosition.x;
-            //     }
-            // });
-            // TrackScrollView.RegisterCallback<PointerOutEvent>((e) =>
-            // {
-            //     m_ScrollViewPan = false;
-            //     TrackField.RemoveFromClassList("pan");
-            // });
-            // TrackScrollView.RegisterCallback<PointerUpEvent>((e) =>
-            // {
-            //     m_ScrollViewPan = false;
-            //     TrackField.RemoveFromClassList("pan");
-            // });
+            TrackScrollView.RegisterCallback<PointerMoveEvent>((e) =>
+            {
+                if (m_ScrollViewPan)
+                {
+                    TrackScrollView.scrollOffset = new Vector2(TrackScrollView.scrollOffset.x + m_ScrollViewPanDelta - e.localPosition.x, TrackScrollView.scrollOffset.y);
+                    m_ScrollViewPanDelta = e.localPosition.x;
+                }
+            });
+            TrackScrollView.RegisterCallback<PointerOutEvent>((e) =>
+            {
+                m_ScrollViewPan = false;
+                TrackField.RemoveFromClassList("pan");
+            });
+            TrackScrollView.RegisterCallback<PointerUpEvent>((e) =>
+            {
+                m_ScrollViewPan = false;
+                TrackField.RemoveFromClassList("pan");
+            });
             TrackScrollView.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
             TrackScrollView.horizontalScroller.valueChanged += _ =>
             {
@@ -176,7 +176,7 @@ namespace Timeline.Editor
             ClipInspector.RegisterCallback<PointerDownEvent>((e) => e.StopImmediatePropagation());
 
             RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
-            RegisterCallback<WheelEvent>(OnWheelEvent);
+            // RegisterCallback<WheelEvent>(OnWheelEvent);
             // RegisterCallback<KeyDownEvent>((e) =>
             // {
             //     switch (e.keyCode)
@@ -756,7 +756,7 @@ namespace Timeline.Editor
                     targetFrame = Mathf.Clamp(targetFrame, CurrentMinFrame, Mathf.Max(clipView.Clip.EndFrame - 1, CurrentMaxFrame));
 
                     int preFrame = clipView.Clip.StartFrame;
-                    clipView.Clip.StartFrame = preFrame;
+                    clipView.Clip.StartFrame = targetFrame;
                     bool overlap = false;
                     foreach (var clip in clipView.Clip.Track.Clips)
                     {
@@ -999,6 +999,7 @@ namespace Timeline.Editor
 
         private void OnWheelEvent(WheelEvent wheelEvent)
         {
+            Debug.LogWarning("Wheel");
             m_FieldScale *= (1 - wheelEvent.delta.y / 100);
             m_FieldScale = Mathf.Clamp(0.01f, m_MaxFieldScale, m_FieldScale);
             Timeline.Scale = m_FieldScale;

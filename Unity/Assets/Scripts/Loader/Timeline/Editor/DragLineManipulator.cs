@@ -93,7 +93,6 @@ namespace Timeline.Editor
             Handle.RegisterCallback<PointerDownEvent>(OnPointerDown);
             Handle.RegisterCallback<PointerMoveEvent>(OnPointerMove);
             Handle.RegisterCallback<PointerUpEvent>(OnPointerUp);
-            Handle.style.backgroundColor = Color.red;
             target.Add(Handle);
         }
         
