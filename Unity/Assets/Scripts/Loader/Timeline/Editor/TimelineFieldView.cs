@@ -107,7 +107,8 @@ namespace Timeline.Editor
             {
                 if (m_ScrollViewPan)
                 {
-                    TrackScrollView.scrollOffset = new Vector2(TrackScrollView.scrollOffset.x + m_ScrollViewPanDelta - e.localPosition.x, TrackScrollView.scrollOffset.y);
+                    TrackScrollView.scrollOffset = new Vector2(TrackScrollView.scrollOffset.x + m_ScrollViewPanDelta - e.localPosition.x,
+                        TrackScrollView.scrollOffset.y);
                     m_ScrollViewPanDelta = e.localPosition.x;
                 }
             });
@@ -131,13 +132,28 @@ namespace Timeline.Editor
 
                 DrawTimeField();
             };
-
+            TrackScrollView.RegisterCallback<WheelEvent>((evt) =>
+            {
+                foreach (var child in TrackField.Children())
+                {
+                    if(child is not TimelineTrackView) continue;
+                    ScrollView scrollView = EditorWindow.rootVisualElement.Q<ScrollView>("track-handle-container");
+                    scrollView.scrollOffset = new Vector2(scrollView.scrollOffset.x, TrackScrollView.scrollOffset.y);
+                    return;
+                }
+            });
+            
             FieldContent = this.Q("field-content");
             FieldContent.RegisterCallback<GeometryChangedEvent>(OnTrackFieldGeometryChanged);
-
+            
+            
             TrackField = this.Q("track-field");
             TrackField.generateVisualContent += OnTrackFieldGenerateVisualContent;
-
+            OnGeometryChangedCallback += () =>
+            {
+                TrackField.MarkDirtyRepaint();
+            };
+            
             MarkerField = this.Q("marker-field");
             MarkerField.AddToClassList("droppable");
             MarkerField.generateVisualContent += OnMarkerFieldGenerateVisualContent;
@@ -357,7 +373,7 @@ namespace Timeline.Editor
                 GUILayout.BeginHorizontal();
                 GUILayout.Label($"{title}", GUILayout.Width(100));
                 GUILayout.FlexibleSpace();
-                GUILayout.Label($"{(frame / (float)TimelineUtility.FrameRate).ToString("0.00")}S / {frame}F", GUILayout.ExpandWidth(true));
+                GUILayout.Label($"{(frame / (float)TimelineUtility.FrameRate):0.00}S / {frame}F", GUILayout.ExpandWidth(true));
                 GUILayout.EndHorizontal();
             }
 
@@ -598,6 +614,7 @@ namespace Timeline.Editor
 
         private void OnMarkerFieldGenerateVisualContent(MeshGenerationContext mgc)
         {
+            Debug.LogWarning("DrawMarker");
             var paint2D = mgc.painter2D;
             paint2D.strokeColor = Color.white;
             paint2D.BeginPath();
@@ -611,19 +628,19 @@ namespace Timeline.Editor
                 //大刻度
                 if (i % (showInterval * 5) == 0)
                 {
-                    paint2D.MoveTo(new Vector2(FramePosMap[i], 10));
-                    paint2D.LineTo(new Vector2(FramePosMap[i], 25));
-                    mgc.DrawText(i.ToString(), new Vector2(FramePosMap[i] + 5, 5), m_TimeTextFontSize, Color.white);
+                    paint2D.MoveTo(new Vector2(i * OneFrameWidth + m_FieldOffsetX, 10));
+                    paint2D.LineTo(new Vector2(i * OneFrameWidth + m_FieldOffsetX, 25));
+                    mgc.DrawText(i.ToString(), new Vector2(i * OneFrameWidth + m_FieldOffsetX + 5, 5), m_TimeTextFontSize, Color.white);
                 }
                 //小刻度
                 else if (i % showInterval == 0)
                 {
-                    paint2D.MoveTo(new Vector2(FramePosMap[i], 20));
-                    paint2D.LineTo(new Vector2(FramePosMap[i], 25));
+                    paint2D.MoveTo(new Vector2(i * OneFrameWidth + m_FieldOffsetX, 20));
+                    paint2D.LineTo(new Vector2(i * OneFrameWidth + m_FieldOffsetX, 25));
 
                     if (m_DrawTimeText)
                     {
-                        mgc.DrawText(i.ToString(), new Vector2(FramePosMap[i] + 5, 5), m_TimeTextFontSize, Color.white);
+                        mgc.DrawText(i.ToString(), new Vector2(i * OneFrameWidth + m_FieldOffsetX + 5, 5), m_TimeTextFontSize, Color.white);
                     }
                 }
             }
@@ -645,7 +662,7 @@ namespace Timeline.Editor
                 if (i % (showInterval * 5) == 0)
                 {
                     paint2D.MoveTo(new Vector2(FramePosMap[i], 0));
-                    paint2D.LineTo(new Vector2(FramePosMap[i], TrackScrollView.worldBound.height));
+                    paint2D.LineTo(new Vector2(FramePosMap[i], 1000));
                 }
             }
 
@@ -706,7 +723,7 @@ namespace Timeline.Editor
             paint2D.strokeColor = Color.white;
             paint2D.BeginPath();
             paint2D.MoveTo(new Vector2(0, 25));
-            paint2D.LineTo(new Vector2(0, TrackScrollView.worldBound.height));
+            paint2D.LineTo(new Vector2(0, 1000));
             paint2D.Stroke();
         }
 
@@ -769,8 +786,8 @@ namespace Timeline.Editor
                     }
 
                     clipView.Clip.StartFrame = preFrame;
-                    if(overlap) return;
-                    
+                    if (overlap) return;
+
                     Timeline.ApplyModify(() =>
                     {
                         clipView.Clip.StartFrame = targetFrame;
@@ -995,47 +1012,6 @@ namespace Timeline.Editor
                     m_MaxFrame++;
                 }
             }
-        }
-
-        private void OnWheelEvent(WheelEvent wheelEvent)
-        {
-            Debug.LogWarning("Wheel");
-            m_FieldScale *= (1 - wheelEvent.delta.y / 100);
-            m_FieldScale = Mathf.Clamp(0.01f, m_MaxFieldScale, m_FieldScale);
-            Timeline.Scale = m_FieldScale;
-
-            float targetWidth = Mathf.Max(FieldContent.worldBound.width * (1 - wheelEvent.delta.y / 100), ScrollViewContentWidth);
-
-            // if (FieldContent.style.width == targetWidth)
-            // {
-            //     ResizeTimeField();
-            //     DrawTimeField();
-            // }
-            // else
-            // {
-            //     FieldContent.style.width = targetWidth;
-            //     int ratioInt = Mathf.RoundToInt(wheelEvent.localMousePosition.x / worldBound.width);
-            //     ratioInt = (int)Mathf.Clamp01(ratioInt); //限制在0 - 1之间
-            //     
-            //     float targetOffset = -(ScrollViewContentWidth - targetWidth) * ratioInt;
-            //     targetOffset = Mathf.Lerp(ScrollViewContentOffset, targetOffset, m_WheelLerpSpeed);
-            //     TrackScrollView.scrollOffset = new Vector2(targetOffset, TrackScrollView.scrollOffset.y);
-            //
-            //     ResizeTimeField();
-            //     ForceScrollViewUpdate(TrackScrollView);
-            // }
-
-            FieldContent.style.width = targetWidth;
-            int ratioInt = Mathf.RoundToInt(wheelEvent.localMousePosition.x / worldBound.width);
-            ratioInt = (int)Mathf.Clamp01(ratioInt); //限制在0 - 1之间
-
-            float targetOffset = -(ScrollViewContentWidth - targetWidth) * ratioInt;
-            targetOffset = Mathf.Lerp(ScrollViewContentOffset, targetOffset, m_WheelLerpSpeed);
-            TrackScrollView.scrollOffset = new Vector2(targetOffset, TrackScrollView.scrollOffset.y);
-
-            ResizeTimeField();
-            ForceScrollViewUpdate(TrackScrollView);
-            OnGeometryChangedCallback?.Invoke();
         }
 
         #endregion

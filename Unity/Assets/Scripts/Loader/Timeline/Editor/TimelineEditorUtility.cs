@@ -184,5 +184,18 @@ namespace Timeline.Editor
                 }
             }
         }
+
+        public static void ForceScrollViewUpdate(this ScrollView view)
+        {
+            view.schedule.Execute(() =>
+            {
+                var fakeOldRect = Rect.zero;
+                var fakeNewRect = view.layout;
+
+                using var evt = GeometryChangedEvent.GetPooled(fakeOldRect, fakeNewRect);
+                evt.target = view.contentContainer;
+                view.contentContainer.SendEvent(evt);
+            });
+        }
     }
 }

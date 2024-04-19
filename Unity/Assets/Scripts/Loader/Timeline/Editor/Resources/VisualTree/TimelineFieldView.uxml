@@ -1,18 +1,20 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/Loader/Timeline/Editor/Resources/Style/TimelineFieldView.uss?fileID=7433441132597879392&amp;guid=7c4a5769bd2819c48b0ae431405fa9e1&amp;type=3#TimelineFieldView" />
     <ET.Client.SplitView fixed-pane-index="1">
-        <ui:ScrollView name="track-scroll">
-            <ui:VisualElement name="field-content">
-                <ui:VisualElement name="track-field" style="flex-grow: 1;" />
-                <ui:VisualElement name="marker-field">
-                    <ui:VisualElement name="time-locater">
-                        <ui:VisualElement name="time-locater-icon" style="flex-grow: 1;" />
-                        <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="time-locater-frame-label" />
-                    </ui:VisualElement>
+        <ui:VisualElement name="Group" style="flex-grow: 1;">
+            <ui:VisualElement name="marker-field">
+                <ui:VisualElement name="time-locater">
+                    <ui:VisualElement name="time-locater-icon" style="flex-grow: 1;" />
+                    <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="time-locater-frame-label" />
                 </ui:VisualElement>
-                <ui:VisualElement name="draw-frame-line-field" picking-mode="Ignore" />
             </ui:VisualElement>
-        </ui:ScrollView>
+            <ui:ScrollView name="track-scroll">
+                <ui:VisualElement name="field-content">
+                    <ui:VisualElement name="track-field" style="flex-grow: 1;" />
+                    <ui:VisualElement name="draw-frame-line-field" picking-mode="Ignore" />
+                </ui:VisualElement>
+            </ui:ScrollView>
+        </ui:VisualElement>
         <ui:ScrollView name="inspector-scroll">
             <ui:VisualElement name="clip-inspector" style="flex-grow: 1;" />
         </ui:ScrollView>

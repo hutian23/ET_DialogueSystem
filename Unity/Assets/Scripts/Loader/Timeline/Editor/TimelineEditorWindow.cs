@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.Utilities;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace Timeline.Editor
         private VisualElement m_LeftPanel;
         protected VisualElement m_TrackHierachy;
         protected VisualElement m_Toolbar;
-        private VisualElement m_TrackHandleContainer;
+        public ScrollView m_TrackHandleContainer;
         private VisualElement m_AddTrackButton;
 
         private ObjectField m_TargetField;
@@ -90,8 +91,21 @@ namespace Timeline.Editor
             m_Toolbar = root.Q("tool-bar");
 
             //TrackHandler
-            m_TrackHandleContainer = root.Q("track-handle-container");
+            m_TrackHandleContainer = root.Q<ScrollView>("track-handle-container");
             m_TrackHandleContainer.focusable = true;
+            m_TrackHandleContainer.verticalScrollerVisibility = ScrollerVisibility.Hidden;
+            m_TrackHandleContainer.RegisterCallback<WheelEvent>(_ =>
+            {
+                Debug.LogWarning("Wheel");
+                foreach (var child in m_TrackHandleContainer.Children())
+                {
+                    if (child is not TimelineTrackHandle) continue;
+                    ScrollView trackScroll = root.Q<ScrollView>("track-scroll");
+                    trackScroll.scrollOffset = new Vector2(trackScroll.scrollOffset.x, m_TrackHandleContainer.scrollOffset.y);
+
+                    return;
+                }
+            });
 
             m_TrackHandleContainer.RegisterCallback<KeyDownEvent>((e) =>
             {
@@ -155,7 +169,11 @@ namespace Timeline.Editor
                 types = types.OrderBy(i => i.Item2).ToList();
                 foreach (var type in types.OrderBy(i => i.Item2))
                 {
-                    menu.AppendAction(type.Item1.Name, _ => { AddTrack(type.Item1); });
+                    menu.AppendAction(type.Item1.Name, _ =>
+                    {
+                        AddTrack(type.Item1);
+                        m_TrackHandleContainer.ForceScrollViewUpdate();
+                    });
                 }
             }, MouseButton.LeftMouse));
 

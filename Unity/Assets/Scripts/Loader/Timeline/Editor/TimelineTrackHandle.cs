@@ -49,6 +49,9 @@ namespace Timeline.Editor
             NameField.bindingPath = serializedProperty.FindPropertyRelative("Name").propertyPath;
             NameField.Bind(Timeline.SerializedTimeline);
 
+            //position
+            transform.position = new Vector3(0, GetTrackOrder() * 30 + (GetTrackOrder() * 2 + 1) * 5);
+
             //track Icon
             Icon = this.Q("icon");
             Texture2D texture2D = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(IconGuidAttribute.Guid(Track.GetType())));
@@ -56,10 +59,6 @@ namespace Timeline.Editor
             {
                 Icon.style.backgroundImage = texture2D;
             }
-
-            FieldView.OnGeometryChangedCallback += OnGeometryChanged;
-            RegisterCallback<GeometryChangedEvent>(_ => OnGeometryChanged());
-            RegisterCallback<DetachFromPanelEvent>(_ => FieldView.OnGeometryChangedCallback -= OnGeometryChanged);
 
             MenuHandler = new DropdownMenuHandler(MenuBuilder);
             DragManipulator = new DragManipulator((e) =>
@@ -117,20 +116,23 @@ namespace Timeline.Editor
                     EditorApplication.update += TweenTrackHandles;
                 }
             });
-            this.AddManipulator(DragManipulator);
+            // this.AddManipulator(DragManipulator);
         }
 
-        private void OnGeometryChanged()
+        private int GetTrackOrder()
         {
-            transform.position = new Vector3(0, TrackView.worldBound.yMin + YminOffset, 0);
+            return Timeline.Tracks.IndexOf(Track);
         }
-
+        
         private void MenuBuilder(DropdownMenu menu)
         {
-            menu.AppendAction("Add Clip", _ => { Timeline.ApplyModify(() =>
+            menu.AppendAction("Add Clip", _ =>
             {
-                // FieldView.AddClip(Track, FieldView.GetRightEdgeFrame(Track));
-            }, "Add Clip"); });
+                Timeline.ApplyModify(() =>
+                {
+                    // FieldView.AddClip(Track, FieldView.GetRightEdgeFrame(Track));
+                }, "Add Clip");
+            });
             menu.AppendAction("Remove Track", _ => { Timeline.ApplyModify(() => { Timeline.RemoveTrack(Track); }, "Remove Track"); });
             menu.AppendAction("Mute Track", _ =>
             {
