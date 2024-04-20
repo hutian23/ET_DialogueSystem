@@ -77,7 +77,7 @@ namespace Timeline.Editor
             OnMutedStateChanged();
         }
 
-        private void Refreh()
+        public void Refreh()
         {
             foreach (TimelineClipView clipViewValue in ClipViewMap.Values)
             {

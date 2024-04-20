@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sirenix.Utilities;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -16,13 +15,13 @@ namespace Timeline.Editor
         private VisualElement m_LeftPanel;
         protected VisualElement m_TrackHierachy;
         protected VisualElement m_Toolbar;
-        public ScrollView m_TrackHandleContainer;
+        private ScrollView m_TrackHandleContainer;
         private VisualElement m_AddTrackButton;
 
+        private SliderInt fieldScaleBar; 
         private ObjectField m_TargetField;
         private Button m_PlayButton;
         private Button m_PauseButton;
-        private FloatField m_PlaySpeedField;
 
         private TimelineFieldView m_TimelineField;
         public Timeline Timeline { get; private set; }
@@ -80,9 +79,6 @@ namespace Timeline.Editor
 
             m_PauseButton = root.Q<Button>("pause-button");
             // m_PauseButton.clicked += () => { Timeline.TimelinePlayer.IsPlaying = false; };
-
-            m_PlaySpeedField = root.Q<FloatField>("play-speed-field");
-            // m_PlaySpeedField.RegisterValueChangedCallback((e) => { Timeline.TimelinePlayer.PlaySpeed = e.newValue; });
 
             m_LeftPanel = root.Q("left-panel");
             m_LeftPanel.SetEnabled(false);
@@ -192,10 +188,14 @@ namespace Timeline.Editor
             //     Dispose();
             // };
 
+            fieldScaleBar = root.Q<SliderInt>("field-scale-bar");
+            fieldScaleBar.RegisterValueChangedCallback(m_TimelineField.SliderUpdate);
+            
             Undo.undoRedoEvent += OnUndoRedoEvent;
             UpdateBindState();
         }
-
+        
+        
         private void OnDestroy()
         {
             Dispose();
@@ -294,15 +294,12 @@ namespace Timeline.Editor
                 m_TargetField.SetValueWithoutNotify(Timeline.TimelinePlayer);
                 m_PlayButton.SetEnabled(true);
                 m_PauseButton.SetEnabled(true);
-                m_PlaySpeedField.SetEnabled(true);
             }
             else
             {
                 m_TargetField.SetValueWithoutNotify(null);
                 m_PlayButton.SetEnabled(false);
                 m_PauseButton.SetEnabled(false);
-                m_PlaySpeedField.SetEnabled(false);
-                m_PlaySpeedField.SetValueWithoutNotify(1);
             }
         }
 

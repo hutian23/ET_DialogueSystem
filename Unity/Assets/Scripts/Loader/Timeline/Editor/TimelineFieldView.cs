@@ -37,10 +37,10 @@ namespace Timeline.Editor
 
         #region Param
 
-        private readonly float m_MaxFieldScale = 10;
+        public readonly float m_MaxFieldScale = 10;
         private readonly float m_FieldOffsetX = 6;
         private readonly float m_MarkerWidth = 50;
-        private readonly float m_WheelLerpSpeed = 0.2f;
+        public readonly float m_WheelLerpSpeed = 0.2f;
         private readonly int m_TimeTextFontSize = 14;
 
         #endregion
@@ -63,7 +63,7 @@ namespace Timeline.Editor
         protected float m_ScrollViewPanDelta;
 
         public TimelineEditorWindow EditorWindow;
-        public Timeline Timeline => EditorWindow.Timeline;
+        private Timeline Timeline => EditorWindow.Timeline;
         private DoubleMap<Track, TimelineTrackView> TrackViewMap { get; set; } = new();
         public List<TimelineTrackView> TrackViews { get; set; } = new();
         public Dictionary<int, float> FramePosMap { get; set; } = new();
@@ -75,14 +75,14 @@ namespace Timeline.Editor
         //注意，是当前滑动窗口显示的最小帧和最大帧
         private int CurrentMinFrame => GetClosestCeilFrame(ScrollViewContentOffset);
         private int CurrentMaxFrame => GetClosestCeilFrame(ScrollViewContentWidth + ScrollViewContentOffset);
-        public float OneFrameWidth => m_MarkerWidth + m_FieldScale;
+        public float OneFrameWidth => m_MarkerWidth * m_FieldScale;
         private float ScrollViewContentWidth => TrackScrollView.contentContainer.worldBound.width;
         private float ScrollViewContentOffset => TrackScrollView.scrollOffset.x;
 
         public float ContentWidth => FieldContent.worldBound.width;
 
         //当前Locator所在帧数
-        public int currentTimeLocator;
+        private int currentTimeLocator;
 
         public TimelineFieldView()
         {
@@ -93,35 +93,6 @@ namespace Timeline.Editor
             m_MarkerTextFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
 
             TrackScrollView = this.Q<ScrollView>("track-scroll");
-            TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
-            {
-                //鼠标滚轮按下
-                if (e.button == 2)
-                {
-                    m_ScrollViewPan = true;
-                    m_ScrollViewPanDelta = e.localPosition.x;
-                    TrackField.AddToClassList("pan");
-                }
-            });
-            TrackScrollView.RegisterCallback<PointerMoveEvent>((e) =>
-            {
-                if (m_ScrollViewPan)
-                {
-                    TrackScrollView.scrollOffset = new Vector2(TrackScrollView.scrollOffset.x + m_ScrollViewPanDelta - e.localPosition.x,
-                        TrackScrollView.scrollOffset.y);
-                    m_ScrollViewPanDelta = e.localPosition.x;
-                }
-            });
-            TrackScrollView.RegisterCallback<PointerOutEvent>((e) =>
-            {
-                m_ScrollViewPan = false;
-                TrackField.RemoveFromClassList("pan");
-            });
-            TrackScrollView.RegisterCallback<PointerUpEvent>((e) =>
-            {
-                m_ScrollViewPan = false;
-                TrackField.RemoveFromClassList("pan");
-            });
             TrackScrollView.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
             TrackScrollView.horizontalScroller.valueChanged += _ =>
             {
@@ -132,7 +103,7 @@ namespace Timeline.Editor
 
                 DrawTimeField();
             };
-            TrackScrollView.RegisterCallback<WheelEvent>((evt) =>
+            TrackScrollView.RegisterCallback<WheelEvent>((_) =>
             {
                 foreach (var child in TrackField.Children())
                 {
@@ -142,6 +113,29 @@ namespace Timeline.Editor
                     return;
                 }
             });
+            TrackScrollView.RegisterCallback<PointerDownEvent>((e) =>
+            {
+                if (e.button == 2)
+                {
+                    m_ScrollViewPan = true;
+                }
+            });
+            TrackScrollView.RegisterCallback<PointerMoveEvent>((e) =>
+            {
+                // if (m_ScrollViewPan)
+                // {
+                //     TrackScrollView.scrollOffset = new Vector2(30, TrackScrollView.scrollOffset.y);
+                // }
+            });
+            TrackScrollView.RegisterCallback<PointerOutEvent>((e) =>
+            {
+                m_ScrollViewPan = false;
+            });
+            TrackScrollView.RegisterCallback<PointerUpEvent>((e) =>
+            {
+                m_ScrollViewPan = false;
+            });
+            
             
             FieldContent = this.Q("field-content");
             FieldContent.RegisterCallback<GeometryChangedEvent>(OnTrackFieldGeometryChanged);
@@ -276,7 +270,6 @@ namespace Timeline.Editor
 
                 maxFrame++;
                 m_MaxFrame = Mathf.Max(m_MaxFrame, maxFrame);
-                m_FieldScale = Timeline.Scale;
                 ResizeTimeField();
                 DrawTimeField();
 
@@ -505,6 +498,8 @@ namespace Timeline.Editor
             #endregion
         }
 
+        
+        
         public void UpdateBindState()
         {
             if (EditorWindow == null)
@@ -581,6 +576,15 @@ namespace Timeline.Editor
 
         #region TimelineField
 
+        public void SliderUpdate(ChangeEvent<int> evt)
+        {
+            m_FieldScale = evt.newValue / 100f;
+            ResizeTimeField();
+            DrawTimeField();
+            TrackScrollView.ForceScrollViewUpdate();
+            OnGeometryChangedCallback?.Invoke();
+        }
+        
         private void ResizeTimeField()
         {
             FramePosMap.Clear();
@@ -604,6 +608,15 @@ namespace Timeline.Editor
 
             float maxTextWidth = TextWidth(m_MaxFrame.ToString(), m_MarkerTextFont, m_TimeTextFontSize);
             m_DrawTimeText = OneFrameWidth > maxTextWidth * 1.5f;
+            
+            // 更新timelocator位置
+            UpdateTimeLocator();
+        
+            // resize track 
+            foreach (var trackView in TrackViewMap.Values)
+            {
+                trackView.Refreh();
+            }
         }
 
         private void DrawTimeField()
@@ -614,7 +627,6 @@ namespace Timeline.Editor
 
         private void OnMarkerFieldGenerateVisualContent(MeshGenerationContext mgc)
         {
-            Debug.LogWarning("DrawMarker");
             var paint2D = mgc.painter2D;
             paint2D.strokeColor = Color.white;
             paint2D.BeginPath();
