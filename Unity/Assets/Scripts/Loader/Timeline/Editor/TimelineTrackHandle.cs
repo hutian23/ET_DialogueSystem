@@ -23,7 +23,7 @@ namespace Timeline.Editor
 
         private readonly DropdownMenuHandler MenuHandler;
         private readonly float TopOffset = 5;
-        private readonly float YminOffset = -77;
+        // private readonly float YminOffset = -77;
         private readonly float Interval = 40; //TrackHandle_Height + margin_Top + margin_Bottom
 
         public TimelineTrackHandle()
@@ -116,7 +116,7 @@ namespace Timeline.Editor
                     EditorApplication.update += TweenTrackHandles;
                 }
             });
-            // this.AddManipulator(DragManipulator);
+            this.AddManipulator(DragManipulator);
         }
 
         private int GetTrackOrder()
@@ -126,13 +126,6 @@ namespace Timeline.Editor
         
         private void MenuBuilder(DropdownMenu menu)
         {
-            menu.AppendAction("Add Clip", _ =>
-            {
-                Timeline.ApplyModify(() =>
-                {
-                    // FieldView.AddClip(Track, FieldView.GetRightEdgeFrame(Track));
-                }, "Add Clip");
-            });
             menu.AppendAction("Remove Track", _ => { Timeline.ApplyModify(() => { Timeline.RemoveTrack(Track); }, "Remove Track"); });
             menu.AppendAction("Mute Track", _ =>
             {
