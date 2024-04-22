@@ -39,7 +39,7 @@ namespace Timeline.Editor
 
         public readonly float m_MaxFieldScale = 10;
         private readonly float m_FieldOffsetX = 6;
-        private readonly float m_MarkerWidth = 50;
+        private readonly float m_MarkerWidth = 30;
         public readonly float m_WheelLerpSpeed = 0.2f;
         private readonly int m_TimeTextFontSize = 14;
 
@@ -82,11 +82,11 @@ namespace Timeline.Editor
         //当前Locator所在帧数
         private int currentTimeLocator;
 
-        #region scroll
+        #region Scroll
 
         protected bool m_ScrollViewPan;
-        protected float m_ScrollViewPanDelta;
-        protected float scrollSpeed = 3;
+        private float m_ScrollViewPanDelta;
+        private readonly float scrollSpeed = 3;
 
         #endregion
 
@@ -133,7 +133,7 @@ namespace Timeline.Editor
                 (int)MouseButton.MiddleMouse));
             TrackScrollView.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
             TrackScrollView.verticalScrollerVisibility = ScrollerVisibility.Hidden;
-            
+
             FieldContent = this.Q("field-content");
             FieldContent.RegisterCallback<GeometryChangedEvent>(OnTrackFieldGeometryChanged);
 
@@ -179,58 +179,7 @@ namespace Timeline.Editor
             ClipInspector.RegisterCallback<PointerDownEvent>((e) => e.StopImmediatePropagation());
 
             RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
-            // RegisterCallback<WheelEvent>(OnWheelEvent);
-            // RegisterCallback<KeyDownEvent>((e) =>
-            // {
-            //     switch (e.keyCode)
-            //     {
-            //         case KeyCode.Delete:
-            //         {
-            //             Timeline.ApplyModify(() =>
-            //             {
-            //                 var selectableToRemove = Selections.ToList();
-            //                 foreach (var selectable in selectableToRemove)
-            //                 {
-            //                     if (selectable is TimelineTrackView trackView)
-            //                     {
-            //                         Timeline.RemoveTrack(trackView.Track);
-            //                     }
-            //
-            //                     if (selectable is TimelineClipView clipView)
-            //                     {
-            //                         Timeline.RemoveClip(clipView.Clip);
-            //                     }
-            //                 }
-            //             }, "Remove");
-            //             break;
-            //         }
-            //         case KeyCode.F:
-            //         {
-            //             int startFrame = int.MaxValue;
-            //             int endFrame = int.MinValue;
-            //             foreach (var track in Timeline.Tracks)
-            //             {
-            //                 foreach (var clip in track.Clips)
-            //                 {
-            //                     if (clip.StartFrame < startFrame)
-            //                     {
-            //                         startFrame = clip.StartFrame;
-            //                     }
-            //
-            //                     if (clip.EndFrame >= endFrame)
-            //                     {
-            //                         endFrame = clip.EndFrame;
-            //                     }
-            //                 }
-            //
-            //                 int middleFrame = (startFrame + endFrame) / 2;
-            //                 TrackScrollView.scrollOffset = new Vector2(middleFrame * OneFrameWidth, TrackScrollView.scrollOffset.y);
-            //             }
-            //
-            //             break;
-            //         }
-            //     }
-            // });
+
             this.AddManipulator(new RectangleSelecter(() => -localBound.position));
         }
 
@@ -329,7 +278,7 @@ namespace Timeline.Editor
             }
         }
 
-        public void DrawProperties(SerializedProperty serializedProperty, object target)
+        private void DrawProperties(SerializedProperty serializedProperty, object target)
         {
             #region Base
 
@@ -409,7 +358,7 @@ namespace Timeline.Editor
                             OnValueChangedAttribute onValueChanged = fieldInfo.GetCustomAttribute<OnValueChangedAttribute>();
                             EditorCoroutineHelper.Delay(() =>
                             {
-                                propertyField.RegisterValueChangeCallback((e) =>
+                                propertyField.RegisterValueChangeCallback(_ =>
                                 {
                                     foreach (var method in onValueChanged.Methods)
                                     {

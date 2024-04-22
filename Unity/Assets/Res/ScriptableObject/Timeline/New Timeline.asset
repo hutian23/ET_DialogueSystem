@@ -14,30 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Tracks:
   - rid: 5553358819204268074
-  - rid: 5553358819204268068
-  - rid: 5553358819204268082
-  - rid: 5553358819204268081
-  - rid: 5553358819204268084
-  - rid: 5553358819204268083
-  - rid: 5553358819204268085
-  - rid: 5553358819204268099
-  - rid: 5553358819204268100
-  - rid: 5553358819204268103
-  - rid: 5553358819204268104
-  Scale: 10
+  Scale: 1
   references:
     version: 2
     RefIds:
-    - rid: 5553358819204268068
-      type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 2
-        m_PersistentMuted: 0
-        m_Clips: []
-        AvatarMask: {fileID: 0}
-        EaseOutTime: 0
-        PlayWhenEaseOut: 0
-        m_ExecutedCount: 0
     - rid: 5553358819204268074
       type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
       data:
@@ -46,109 +26,17 @@ MonoBehaviour:
         m_Clips:
         - rid: 5553358819204268102
         AvatarMask: {fileID: 0}
-        EaseOutTime: 0
-        PlayWhenEaseOut: 0
-        m_ExecutedCount: 0
-    - rid: 5553358819204268081
-      type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 5
-        m_PersistentMuted: 0
-        m_Clips: []
-        AvatarMask: {fileID: 0}
-        EaseOutTime: 0
-        PlayWhenEaseOut: 0
-        m_ExecutedCount: 0
-    - rid: 5553358819204268082
-      type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 3
-        m_PersistentMuted: 0
-        m_Clips: []
-        AvatarMask: {fileID: 0}
-        EaseOutTime: 0
-        PlayWhenEaseOut: 0
-        m_ExecutedCount: 0
-    - rid: 5553358819204268083
-      type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 7
-        m_PersistentMuted: 0
-        m_Clips: []
-        AvatarMask: {fileID: 0}
-        EaseOutTime: 0
-        PlayWhenEaseOut: 0
-        m_ExecutedCount: 0
-    - rid: 5553358819204268084
-      type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 6
-        m_PersistentMuted: 0
-        m_Clips: []
-        AvatarMask: {fileID: 0}
-        EaseOutTime: 0
-        PlayWhenEaseOut: 0
-        m_ExecutedCount: 0
-    - rid: 5553358819204268085
-      type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 8
-        m_PersistentMuted: 0
-        m_Clips: []
-        AvatarMask: {fileID: 0}
-        EaseOutTime: 0
-        PlayWhenEaseOut: 0
-        m_ExecutedCount: 0
-    - rid: 5553358819204268099
-      type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 10
-        m_PersistentMuted: 0
-        m_Clips: []
-        AvatarMask: {fileID: 0}
-        EaseOutTime: 0
-        PlayWhenEaseOut: 0
-        m_ExecutedCount: 0
-    - rid: 5553358819204268100
-      type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 9
-        m_PersistentMuted: 0
-        m_Clips: []
-        AvatarMask: {fileID: 0}
-        EaseOutTime: 0
-        PlayWhenEaseOut: 0
         m_ExecutedCount: 0
     - rid: 5553358819204268102
       type: {class: AnimationClip, ns: Timeline, asm: Unity.Loader}
       data:
-        StartFrame: 4
-        EndFrame: 7
+        StartFrame: 0
+        EndFrame: 80
         OtherEaseInFrame: 0
         OtherEaseOutFrame: 0
         SelfEaseInFrame: 0
         SelfEaseOutFrame: 0
         ClipInFrame: 0
         CanSkip: 0
-        Clip: {fileID: 0}
+        Clip: {fileID: 7400000, guid: 94db68f347b82d34080aa1642e206005, type: 2}
         ExtraPolationMode: 0
-    - rid: 5553358819204268103
-      type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 11
-        m_PersistentMuted: 0
-        m_Clips: []
-        AvatarMask: {fileID: 0}
-        EaseOutTime: 0
-        PlayWhenEaseOut: 0
-        m_ExecutedCount: 0
-    - rid: 5553358819204268104
-      type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 12
-        m_PersistentMuted: 0
-        m_Clips: []
-        AvatarMask: {fileID: 0}
-        EaseOutTime: 0
-        PlayWhenEaseOut: 0
-        m_ExecutedCount: 0

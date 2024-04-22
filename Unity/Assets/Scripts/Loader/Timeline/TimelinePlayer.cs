@@ -45,11 +45,11 @@ namespace Timeline
 
         public double PlaySpeed
         {
-            get => Math.Round(Math.Max(0.001f, this.m_PlaySpeed), 2);
-            set => this.m_PlaySpeed = value;
+            get => Math.Round(Math.Max(0.001f, m_PlaySpeed), 2);
+            set => m_PlaySpeed = value;
         }
 
-        public bool IsValid => this.PlayableGraph.IsValid();
+        public bool IsValid => PlayableGraph.IsValid();
         public Animator Animator { get; private set; }
         public AudioSource AudioSource { get; private set; }
         public PlayableGraph PlayableGraph { get; private set; }
@@ -84,11 +84,7 @@ namespace Timeline
                 }
             }
         }
-
-        protected virtual void Update()
-        {
-        }
-
+        
 #if UNITY_EDITOR
         public void EditorUpdate()
         {
@@ -97,7 +93,7 @@ namespace Timeline
 
         public virtual void Init()
         {
-            PlayableGraph = PlayableGraph.Create("Blazblue.Timeline.PlayableGraph");
+            PlayableGraph = PlayableGraph.Create("BBScript.Timeline.PlayableGraph");
             //混合
             AnimationRootPlayable = AnimationLayerMixerPlayable.Create(this.PlayableGraph);
             AudioRootPlayable = AudioMixerPlayable.Create(PlayableGraph);    
@@ -123,17 +119,17 @@ namespace Timeline
 
         public virtual void Dispose()
         {
-            // if (this.IsValid)
-            // {
-            //     for (int i = RunningTimelines.Count - 1; i >= 0; i--)
-            //     {
-            //         RemoveTimeline(RunningTimelines[i]);
-            //     }
-            //     PlayableGraph.Destroy();
-            // }
-            // RunningTimelines = null;
-            // IsPlaying = false;
-            // PlaySpeed = 1;
+            if (this.IsValid)
+            {
+                for (int i = RunningTimelines.Count - 1; i >= 0; i--)
+                {
+                    RemoveTimeline(RunningTimelines[i]);
+                }
+                PlayableGraph.Destroy();
+            }
+            RunningTimelines = null;
+            IsPlaying = false;
+            PlaySpeed = 1;
         }
 
         public virtual void Evaluate(float deltaTime)
@@ -143,8 +139,11 @@ namespace Timeline
                 Timeline runningTimelines = RunningTimelines[i];
                 runningTimelines.Evaluate(deltaTime);
             }
-
-            // PlayableGraph.Evaluate(deltaTime);
+            PlayableGraph.Evaluate(deltaTime);
+            
+            OnRootMotion();
+            
+            OnEvaluated?.Invoke();
         }
 
         protected virtual void OnRootMotion()
@@ -208,14 +207,14 @@ namespace Timeline
 
         public virtual void AddAnimationEaseOut(AnimationTrack animationTrack)
         {
-            RuntimeTrackEaseOut runtimeTrackEaseOut = new RuntimeTrackEaseOut(AnimationRootPlayable, animationTrack);
+            RuntimeTrackEaseOut runtimeTrackEaseOut = new(AnimationRootPlayable, animationTrack);
             RuntimeTrackEaseOuts.Add(runtimeTrackEaseOut);
         }
     }
 
     public class RuntimeTrackEaseOut
     {
-        public Playable Root;
+        private readonly Playable Root;
         public Playable Track;
         public int Index;
         public float EaseOutTime;
@@ -224,18 +223,18 @@ namespace Timeline
 
         public RuntimeTrackEaseOut(Playable root, AnimationTrack animationTrack)
         {
-            Root = root;
-            Track = animationTrack.TrackPlayable.Handle;
-            if (!animationTrack.PlayWhenEaseOut)
-            {
-                Track.Pause();
-            }
-
-            Index = animationTrack.PlayableIndex;
-            EaseOutTime = animationTrack.EaseOutTime;
-
-            OriginalWeight = Root.GetInputWeight(Index);
-            Timer = 0;
+            // Root = root;
+            // Track = animationTrack.TrackPlayable.Handle;
+            // if (!animationTrack.PlayWhenEaseOut)
+            // {
+            //     Track.Pause();
+            // }
+            //
+            // Index = animationTrack.PlayableIndex;
+            // EaseOutTime = animationTrack.EaseOutTime;
+            //
+            // OriginalWeight = Root.GetInputWeight(Index);
+            // Timer = 0;
         }
 
         public void Evaluate(float deltaTime)

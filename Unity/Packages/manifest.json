@@ -9,6 +9,7 @@
     "com.unity.ide.vscode": "1.2.5",
     "com.unity.inputsystem": "1.7.0",
     "com.unity.mathematics": "1.2.6",
+    "com.unity.playablegraph-visualizer": "https://github.com/Unity-Technologies/graph-visualizer.git",
     "com.unity.render-pipelines.universal": "14.0.9",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.7.6",

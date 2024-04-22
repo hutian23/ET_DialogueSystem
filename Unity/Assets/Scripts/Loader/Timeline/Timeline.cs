@@ -27,11 +27,11 @@ namespace Timeline
 
         public float Time
         {
-            get => this.m_Time;
+            get => m_Time;
             set
             {
-                this.m_Time = value;
-                this.OnEvaluated?.Invoke();
+                m_Time = value; 
+                OnEvaluated?.Invoke();
             }
         }
 
@@ -270,7 +270,7 @@ namespace Timeline
 
         public virtual void Evaluate(float deltaTime)
         {
-            if (this.m_PersistentMuted || this.m_RuntimeMuted)
+            if (m_PersistentMuted || m_RuntimeMuted)
             {
                 return;
             }
@@ -380,6 +380,7 @@ namespace Timeline
         public virtual void Evaluate(float deltaTime)
         {
             TargetTime = Time + deltaTime;
+            
             if (!Active && StartTime <= TargetTime && TargetTime <= EndTime)
             {
                 Active = true;

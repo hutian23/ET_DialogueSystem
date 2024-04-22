@@ -904,6 +904,9 @@
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
       <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.PlayableGraphVisualizer">
+      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.PlayableGraphVisualizer.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
     </Reference>
@@ -942,6 +945,9 @@
     </Reference>
     <Reference Include="Unity.AI.Navigation.Editor">
       <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.PlayableGraphVisualizer.Editor">
+      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.PlayableGraphVisualizer.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.SpriteShape.Editor">
       <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.SpriteShape.Editor.dll</HintPath>

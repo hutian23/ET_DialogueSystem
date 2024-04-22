@@ -26,7 +26,7 @@ namespace Timeline.Editor
 
         public int StartFrame => Clip.StartFrame;
         public int EndFrame => Clip.EndFrame;
-        public int WidthFrame => EndFrame - StartFrame;
+        private int WidthFrame => EndFrame - StartFrame;
 
         private DragLineManipulator m_LeftResizeDragLine;
         protected DragLineManipulator m_SelfEaseInDragLine;
@@ -239,12 +239,12 @@ namespace Timeline.Editor
 
         private void MenuBuilder(DropdownMenu menu)
         {
-            menu.AppendAction("Remove Clip", (e) => { Timeline.ApplyModify(() => { Timeline.RemoveClip(Clip); }, "Remove Clip"); });
-            menu.AppendAction("Open Script", (e) =>
+            menu.AppendAction("Remove Clip", _ => { Timeline.ApplyModify(() => { Timeline.RemoveClip(Clip); }, "Remove Clip"); });
+            menu.AppendAction("Open Script", _ =>
             {
                 //TODO Open Script
             });
-            menu.AppendAction("Paste Properties", (e) =>
+            menu.AppendAction("Paste Properties", _ =>
             {
                 foreach (var fieldInfo in Clip.GetAllFields())
                 {
@@ -253,7 +253,7 @@ namespace Timeline.Editor
                         CopyValueMap.Add(fieldInfo, fieldInfo.GetValue(Clip));
                     }
                 }
-            }, (e) =>
+            }, _ =>
             {
                 if (CopyType == null)
                 {
@@ -304,6 +304,6 @@ namespace Timeline.Editor
         }
 
         private static Type CopyType;
-        private static Dictionary<FieldInfo, object> CopyValueMap = new();
+        private static readonly Dictionary<FieldInfo, object> CopyValueMap = new();
     }
 }

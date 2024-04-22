@@ -35,15 +35,9 @@ namespace Timeline
         [ShowInInspector, OnValueChanged("ReBindTimeline")]
         public AvatarMask AvatarMask;
 
-        [ShowInInspector]
-        public float EaseOutTime;
-
-        [ShowInInspector]
-        public bool PlayWhenEaseOut;
-
-        public int PlayableIndex { get; protected set; }
-        public TimelineAnimationTrackPlayable TrackPlayable { get; protected set; }
-        public List<TimelineAnimationClipPlayable> ClipPlayables { get; protected set; }
+        public int PlayableIndex { get; private set; }
+        public TimelineAnimationTrackPlayable TrackPlayable { get; private set; }
+        public List<TimelineAnimationClipPlayable> ClipPlayables { get; private set; }
         public event Action Delay;
         public int m_ExecutedCount;
 
@@ -91,16 +85,21 @@ namespace Timeline
 
         public override void UnBind()
         {
-            // if (TrackPlayable != null)
-            // {
-            //     if (Application.isPlaying && EaseOutTime != 0) return;
-            //     Timeline.AnimationRootPlayable.DisconnectInput(PlayableIndex);
-            //     TrackPlayable.Handle.Destroy();
-            // }
-            // else if (Timeline.Time < Timeline.Duration)
-            // {
-            //     Timeline.TimelinePlayer.AddAnimationEaseOut(this);
-            // }
+            if (TrackPlayable != null)
+            {
+                if (!Application.isPlaying)
+                {
+                    Timeline.AnimationRootPlayable.DisconnectInput(PlayableIndex);
+                    TrackPlayable.Handle.Destroy();
+                }
+                else if (Timeline.Time < Timeline.Duration)
+                {
+                    Timeline.TimelinePlayer.AddAnimationEaseOut(this);
+                }
+
+                TrackPlayable = null;
+                Delay = null;
+            }
         }
 
         public override void SetTime(float time)
@@ -122,7 +121,7 @@ namespace Timeline
             {
                 m_OriginalWeight = Timeline.AnimationRootPlayable.GetInputWeight(PlayableIndex);
                 RuntimeMuted = true;
-                Timeline.AnimationRootPlayable.SetInputWeight(PlayableIndex, value? 0 : 1);
+                Timeline.AnimationRootPlayable.SetInputWeight(PlayableIndex, 0);
             }
             else if (!value && RuntimeMuted)
             {
@@ -136,7 +135,7 @@ namespace Timeline
 
         public override Clip AddClip(UnityEngine.Object referenceObject, int frame)
         {
-            AnimationClip clip = new AnimationClip(referenceObject as UnityEngine.AnimationClip, this, frame);
+            AnimationClip clip = new(referenceObject as UnityEngine.AnimationClip, this, frame);
             m_Clips.Add(clip);
             return clip;
         }
@@ -166,25 +165,14 @@ namespace Timeline
                     return;
                 }
 
-                // float sumWeight = 0;
-                // foreach (var clipPlayable in Track.ClipPlayables)
-                // {
-                //     sumWeight += clipPlayable.TargetWeight;
-                // }
-                //
-                // // float weight = Mathf.Clamp01(sumWeight);
-                // if (sumWeight == 0)
-                // {
-                //     Output.SetInputWeight(Track.PlayableIndex, 0);
-                // }
-                // else if (0 < sumWeight && sumWeight < 1)
-                // {
-                //     Output.SetInputWeight(Track.PlayableIndex, sumWeight);
-                // }
-                // else
-                // {
-                //     Output.SetInputWeight(Track.PlayableIndex, 1);
-                // }
+                float sumWeight = 0;
+                foreach (var clipPlayable in Track.ClipPlayables)
+                {
+                    sumWeight += clipPlayable.TargetWeight;
+                }
+
+                float weight = Mathf.Clamp01(sumWeight);
+                Output.SetInputWeight(Track.PlayableIndex, weight);
             };
         }
 
@@ -270,7 +258,7 @@ namespace Timeline
             Track.Executed();
         }
 
-        public void Evaluate(float deltaTime)
+        private void Evaluate(float deltaTime)
         {
             if (m_LastTime < Clip.StartTime)
             {
@@ -333,13 +321,14 @@ namespace Timeline
         public static TimelineAnimationClipPlayable Create(AnimationClip clip, Playable output, int index)
         {
             var handle = ScriptPlayable<TimelineAnimationClipPlayable>.Create(clip.Timeline.PlayableGraph);
-            var clipPlayable = handle.GetBehaviour();
+            TimelineAnimationClipPlayable clipPlayable = handle.GetBehaviour();
             clipPlayable.Clip = clip;
             clipPlayable.Handle = handle;
             clipPlayable.ClipPlayable = AnimationClipPlayable.Create(clip.Timeline.PlayableGraph, clip.Clip);
             clipPlayable.ClipPlayable.SetApplyFootIK(false);
             handle.AddInput(clipPlayable.ClipPlayable, 0, 1);
-
+     
+            
             clipPlayable.Output = output;
             clipPlayable.Index = index;
             output.ConnectInput(index, handle, 0, 0);
