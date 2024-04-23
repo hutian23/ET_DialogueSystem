@@ -901,11 +901,11 @@
     <Reference Include="Unity.2D.Common.Runtime">
       <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.2D.Common.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.PlayableGraphVisualizer">
       <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.PlayableGraphVisualizer.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
+      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
