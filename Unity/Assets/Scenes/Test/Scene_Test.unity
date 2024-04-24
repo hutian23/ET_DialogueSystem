@@ -833,6 +833,7 @@ MonoBehaviour:
   clipsToPlay:
   - {fileID: 7400000, guid: f5420f65636486a40bb486a2e0b65a8c, type: 2}
   - {fileID: 7400000, guid: 94db68f347b82d34080aa1642e206005, type: 2}
+  - {fileID: 7400000, guid: 6f5c973a1eca84d43a1c88908786d5cf, type: 2}
 --- !u!1 &1480187663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,20 +1318,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7468455045085988073, guid: cb941c738eff80e48a47613d914c2780,
+    - target: {fileID: 2327418106974255673, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
-      propertyPath: m_Controller
+      propertyPath: RunningTimelines.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327418106974255673, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
+      propertyPath: RunningTimelines.Array.data[0]
       value: 
-      objectReference: {fileID: 9100000, guid: c0cd7836fc6803b4f89e9d0e576a4510, type: 2}
+      objectReference: {fileID: 11400000, guid: dc3abe95fa0e130428e6aa0aadcb2aa3,
+        type: 2}
     - target: {fileID: 7728331812354445376, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
       propertyPath: m_Name
       value: Ragna
-      objectReference: {fileID: 0}
-    - target: {fileID: 7728331812354445376, guid: cb941c738eff80e48a47613d914c2780,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7728331812354445377, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}

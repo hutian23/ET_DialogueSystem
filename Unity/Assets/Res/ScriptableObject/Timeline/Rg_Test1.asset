@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab3f6f3318231cf41be1c782aff50f96, type: 3}
-  m_Name: New Timeline
+  m_Name: Rg_Test1
   m_EditorClassIdentifier: 
+  GraphName: "\u6D4B\u8BD51"
   m_Tracks:
   - rid: 5553358819204268074
   Scale: 1
@@ -24,14 +25,14 @@ MonoBehaviour:
         Name: 1
         m_PersistentMuted: 0
         m_Clips:
-        - rid: 5553358819204268102
+        - rid: 5553358898812420109
+        - rid: 5553358898812420110
         AvatarMask: {fileID: 0}
-        m_ExecutedCount: 0
-    - rid: 5553358819204268102
+    - rid: 5553358898812420109
       type: {class: AnimationClip, ns: Timeline, asm: Unity.Loader}
       data:
         StartFrame: 0
-        EndFrame: 80
+        EndFrame: 50
         OtherEaseInFrame: 0
         OtherEaseOutFrame: 0
         SelfEaseInFrame: 0
@@ -39,4 +40,17 @@ MonoBehaviour:
         ClipInFrame: 0
         CanSkip: 0
         Clip: {fileID: 7400000, guid: 94db68f347b82d34080aa1642e206005, type: 2}
+        ExtraPolationMode: 0
+    - rid: 5553358898812420110
+      type: {class: AnimationClip, ns: Timeline, asm: Unity.Loader}
+      data:
+        StartFrame: 50
+        EndFrame: 100
+        OtherEaseInFrame: 0
+        OtherEaseOutFrame: 0
+        SelfEaseInFrame: 0
+        SelfEaseOutFrame: 0
+        ClipInFrame: 0
+        CanSkip: 0
+        Clip: {fileID: 0}
         ExtraPolationMode: 0

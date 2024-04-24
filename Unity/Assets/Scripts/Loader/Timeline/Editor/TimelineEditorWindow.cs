@@ -18,7 +18,7 @@ namespace Timeline.Editor
         private ScrollView m_TrackHandleContainer;
         private VisualElement m_AddTrackButton;
 
-        private SliderInt fieldScaleBar; 
+        private SliderInt fieldScaleBar;
         private ObjectField m_TargetField;
         private Button m_PlayButton;
         private Button m_PauseButton;
@@ -54,8 +54,8 @@ namespace Timeline.Editor
 
                     if (!timelinePlayer.IsValid)
                     {
-                        timelinePlayer.Init();
-                        timelinePlayer.AddTimeline(Timeline);
+                        
+                        // timelinePlayer.AddTimeline(Timeline);
                     }
                 }
                 else if (e.newValue == null)
@@ -190,12 +190,11 @@ namespace Timeline.Editor
 
             fieldScaleBar = root.Q<SliderInt>("field-scale-bar");
             fieldScaleBar.RegisterValueChangedCallback(m_TimelineField.SliderUpdate);
-            
+
             Undo.undoRedoEvent += OnUndoRedoEvent;
             UpdateBindState();
         }
-        
-        
+
         private void OnDestroy()
         {
             Dispose();
@@ -213,7 +212,10 @@ namespace Timeline.Editor
 
         public void Init(Timeline timeline, bool initTime = true)
         {
-            if (Timeline == timeline) return;
+            if (Timeline == timeline)
+            {
+                return;
+            }
 
             if (initTime)
             {
@@ -239,10 +241,10 @@ namespace Timeline.Editor
         {
             if (Timeline)
             {
-                if (Timeline.TimelinePlayer && Timeline.TimelinePlayer.RunningTimelines.Count == 1 && !Application.isPlaying)
-                {
-                    Timeline.TimelinePlayer.Dispose();
-                }
+                // if (Timeline.TimelinePlayer && Timeline.TimelinePlayer.RunningTimelines.Count == 1 && !Application.isPlaying)
+                // {
+                //     Timeline.TimelinePlayer.Dispose();
+                // }
 
                 Timeline.OnValueChanged -= m_TimelineField.PopulateView;
                 Timeline.OnEvaluated -= m_TimelineField.UpdateTimeLocator;
@@ -345,7 +347,7 @@ namespace Timeline.Editor
             var obj = EditorUtility.InstanceIDToObject(instanceId);
             var timeline = obj as Timeline;
             if (timeline == null) return false;
-            GetWindow<TimelineEditorWindow>().Init(timeline);
+            GetWindow<TimelineEditorWindow>().Init(timeline, false);
             return true;
         }
     }

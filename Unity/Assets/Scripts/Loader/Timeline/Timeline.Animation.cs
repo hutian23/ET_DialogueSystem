@@ -36,10 +36,10 @@ namespace Timeline
         public AvatarMask AvatarMask;
 
         public int PlayableIndex { get; private set; }
-        public TimelineAnimationTrackPlayable TrackPlayable { get; private set; }
+        private TimelineAnimationTrackPlayable TrackPlayable { get; set; }
         public List<TimelineAnimationClipPlayable> ClipPlayables { get; private set; }
         public event Action Delay;
-        public int m_ExecutedCount;
+        private int m_ExecutedCount;
 
         public void Executed()
         {
@@ -85,21 +85,21 @@ namespace Timeline
 
         public override void UnBind()
         {
-            if (TrackPlayable != null)
-            {
-                if (!Application.isPlaying)
-                {
-                    Timeline.AnimationRootPlayable.DisconnectInput(PlayableIndex);
-                    TrackPlayable.Handle.Destroy();
-                }
-                else if (Timeline.Time < Timeline.Duration)
-                {
-                    Timeline.TimelinePlayer.AddAnimationEaseOut(this);
-                }
-
-                TrackPlayable = null;
-                Delay = null;
-            }
+            // if (TrackPlayable != null)
+            // {
+            //     if (!Application.isPlaying)
+            //     {
+            //         Timeline.AnimationRootPlayable.DisconnectInput(PlayableIndex);
+            //         TrackPlayable.Handle.Destroy();
+            //     }
+            //     else if (Timeline.Time < Timeline.Duration)
+            //     {
+            //         Timeline.TimelinePlayer.AddAnimationEaseOut(this);
+            //     }
+            //
+            //     TrackPlayable = null;
+            //     Delay = null;
+            // }
         }
 
         public override void SetTime(float time)
@@ -149,8 +149,8 @@ namespace Timeline
 
     public class TimelineAnimationTrackPlayable: PlayableBehaviour
     {
-        public AnimationTrack Track { get; private set; }
-        public Playable Output { get; private set; }
+        private AnimationTrack Track { get; set; }
+        private Playable Output { get; set; }
         public Playable Handle { get; private set; }
         public AnimationMixerPlayable MixerPlayable { get; private set; }
         public Timeline Timeline => Track.Timeline;
@@ -166,7 +166,7 @@ namespace Timeline
                 }
 
                 float sumWeight = 0;
-                foreach (var clipPlayable in Track.ClipPlayables)
+                foreach (TimelineAnimationClipPlayable clipPlayable in Track.ClipPlayables)
                 {
                     sumWeight += clipPlayable.TargetWeight;
                 }
@@ -231,16 +231,19 @@ namespace Timeline
 
     public class TimelineAnimationClipPlayable: PlayableBehaviour
     {
-        public AnimationClip Clip { get; private set; }
-        public AnimationTrack Track => Clip.Track as AnimationTrack;
-        public int Index { get; private set; }
+        private AnimationClip Clip { get; set; }
+        private AnimationTrack Track => Clip.Track as AnimationTrack;
+        private int Index { get; set; }
         public Playable Output { get; private set; }
-        public Playable Handle { get; private set; }
-        public AnimationClipPlayable ClipPlayable { get; private set; }
+        private Playable Handle { get; set; }
+        private AnimationClipPlayable ClipPlayable { get; set; }
         public float TargetWeight { get; private set; }
 
-        protected float m_LastTime;
-        protected float m_HandleTime;
+        private float m_LastTime;
+        private float m_HandleTime;
+
+        private float ClipStartTime => (float)Clip.StartFrame / TimelineUtility.FrameRate;
+        private float ClipEndTime => (float)Clip.EndFrame / TimelineUtility.FrameRate;
 
         public override void PrepareFrame(Playable playable, FrameData info)
         {
@@ -253,69 +256,70 @@ namespace Timeline
 
         public void SetTime(float time)
         {
-            Handle.SetTime(time);
-            TimelineUtility.Lerp(time, time, Evaluate, ref m_LastTime);
-            Track.Executed();
+            Debug.LogWarning(time);
+            // Handle.SetTime(time);
+            // TimelineUtility.Lerp(time, time, Evaluate, ref m_LastTime);
+            // Track.Executed();
         }
 
         private void Evaluate(float deltaTime)
         {
-            if (m_LastTime < Clip.StartTime)
-            {
-                TargetWeight = 0;
-                Output.SetInputWeight(Index, TargetWeight);
-                ClipPlayable.SetTime(0);
-            }
-            else if (Clip.StartTime <= m_LastTime && m_LastTime <= Clip.EndTime)
-            {
-                float selfTime = m_LastTime - Clip.StartTime;
-                float remainTime = Clip.EndTime - m_LastTime;
-                ClipPlayable.SetTime(selfTime + Clip.ClipInTime);
-
-                if (selfTime < Clip.EaseInTime)
-                {
-                    TargetWeight = selfTime / Clip.EaseInTime;
-                    if (Clip.OtherEaseInTime > 0)
-                    {
-                        Output.SetInputWeight(Index, TargetWeight);
-                    }
-                    else
-                    {
-                        Output.SetInputWeight(Index, 1);
-                    }
-                }
-                else if (remainTime < Clip.EaseOutTime)
-                {
-                    TargetWeight = remainTime / Clip.EaseOutTime;
-                    if (Clip.OtherEaseOutTime > 0)
-                    {
-                        Output.SetInputWeight(Index, TargetWeight);
-                    }
-                    else
-                    {
-                        Output.SetInputWeight(Index, 1);
-                    }
-                }
-                else
-                {
-                    TargetWeight = 1;
-                    Output.SetInputWeight(Index, TargetWeight);
-                }
-            }
-            else if (m_LastTime > Clip.EndTime)
-            {
-                ClipPlayable.SetTime(Clip.DurationTime + Clip.ClipInTime);
-                switch (Clip.ExtraPolationMode)
-                {
-                    case ExtraPolationMode.None:
-                        TargetWeight = 0;
-                        Output.SetInputWeight(Index, TargetWeight);
-                        break;
-                    case ExtraPolationMode.Hold:
-                        //Keep?
-                        break;
-                }
-            }
+            // if (m_LastTime < Clip.StartTime)
+            // {
+            //     TargetWeight = 0;
+            //     Output.SetInputWeight(Index, TargetWeight);
+            //     ClipPlayable.SetTime(0);
+            // }
+            // else if (Clip.StartTime <= m_LastTime && m_LastTime <= Clip.EndTime)
+            // {
+            //     float selfTime = m_LastTime - Clip.StartTime;
+            //     float remainTime = Clip.EndTime - m_LastTime;
+            //     ClipPlayable.SetTime(selfTime + Clip.ClipInTime);
+            //
+            //     if (selfTime < Clip.EaseInTime)
+            //     {
+            //         TargetWeight = selfTime / Clip.EaseInTime;
+            //         if (Clip.OtherEaseInTime > 0)
+            //         {
+            //             Output.SetInputWeight(Index, TargetWeight);
+            //         }
+            //         else
+            //         {
+            //             Output.SetInputWeight(Index, 1);
+            //         }
+            //     }
+            //     else if (remainTime < Clip.EaseOutTime)
+            //     {
+            //         TargetWeight = remainTime / Clip.EaseOutTime;
+            //         if (Clip.OtherEaseOutTime > 0)
+            //         {
+            //             Output.SetInputWeight(Index, TargetWeight);
+            //         }
+            //         else
+            //         {
+            //             Output.SetInputWeight(Index, 1);
+            //         }
+            //     }
+            //     else
+            //     {
+            //         TargetWeight = 1;
+            //         Output.SetInputWeight(Index, TargetWeight);
+            //     }
+            // }
+            // else if (m_LastTime > Clip.EndTime)
+            // {
+            //     ClipPlayable.SetTime(Clip.DurationTime + Clip.ClipInTime);
+            //     switch (Clip.ExtraPolationMode)
+            //     {
+            //         case ExtraPolationMode.None:
+            //             TargetWeight = 0;
+            //             Output.SetInputWeight(Index, TargetWeight);
+            //             break;
+            //         case ExtraPolationMode.Hold:
+            //             //Keep?
+            //             break;
+            //     }
+            // }
         }
 
         public static TimelineAnimationClipPlayable Create(AnimationClip clip, Playable output, int index)
@@ -327,8 +331,7 @@ namespace Timeline
             clipPlayable.ClipPlayable = AnimationClipPlayable.Create(clip.Timeline.PlayableGraph, clip.Clip);
             clipPlayable.ClipPlayable.SetApplyFootIK(false);
             handle.AddInput(clipPlayable.ClipPlayable, 0, 1);
-     
-            
+
             clipPlayable.Output = output;
             clipPlayable.Index = index;
             output.ConnectInput(index, handle, 0, 0);

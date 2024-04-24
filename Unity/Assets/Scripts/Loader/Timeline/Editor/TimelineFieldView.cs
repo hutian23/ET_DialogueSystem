@@ -76,7 +76,6 @@ namespace Timeline.Editor
         public float OneFrameWidth => m_MarkerWidth * m_FieldScale;
         private float ScrollViewContentWidth => TrackScrollView.contentContainer.worldBound.width;
         private float ScrollViewContentOffset => TrackScrollView.scrollOffset.x;
-
         public float ContentWidth => FieldContent.worldBound.width;
 
         //当前Locator所在帧数
@@ -461,20 +460,7 @@ namespace Timeline.Editor
             UpdateTimeLocator();
             PopulateInspector(Timeline);
         }
-
-        private void ForceScrollViewUpdate(ScrollView view)
-        {
-            view.schedule.Execute(() =>
-            {
-                var fakeOldRect = Rect.zero;
-                var fakeNewRect = view.layout;
-
-                using var evt = GeometryChangedEvent.GetPooled(fakeOldRect, fakeNewRect);
-                evt.target = view.contentContainer;
-                view.contentContainer.SendEvent(evt);
-            });
-        }
-
+        
         #region Selection
 
         public VisualElement ContentContainer => TrackField;
@@ -630,8 +616,8 @@ namespace Timeline.Editor
         {
             currentTimeLocator = targetFrame;
             Timeline.TimelinePlayer.IsPlaying = false;
-            float deltaTime = targetFrame / 60f - Timeline.Time;
-            Timeline.TimelinePlayer.Evaluate(deltaTime);
+            // float deltaTime = targetFrame / 60f - Timeline.Time;
+            // Timeline.TimelinePlayer.Evaluate(deltaTime);
         }
 
         public void UpdateTimeLocator()
@@ -641,7 +627,7 @@ namespace Timeline.Editor
             {
                 TimeLocator.style.left = FramePosMap[currentTimeLocator] - TrackScrollView.scrollOffset.x;
                 TimeLocator.MarkDirtyRepaint();
-                LocaterFrameLabel.text = Timeline.Frame.ToString();
+                // LocaterFrameLabel.text = Timeline.Frame.ToString();
             }
             else
             {
@@ -658,10 +644,10 @@ namespace Timeline.Editor
 
         private void OnTimeLocatorMove(Vector2 deltaPosition)
         {
-            int targetFrame = GetClosestFrame(FramePosMap[Timeline.Frame] + deltaPosition.x);
-            targetFrame = Mathf.Clamp(targetFrame, CurrentMinFrame, CurrentMaxFrame);
-
-            SetTimeLocator(targetFrame);
+            // int targetFrame = GetClosestFrame(FramePosMap[Timeline.Frame] + deltaPosition.x);
+            // targetFrame = Mathf.Clamp(targetFrame, CurrentMinFrame, CurrentMaxFrame);
+            //
+            // SetTimeLocator(targetFrame);
         }
 
         private void OnTimeLocatorStopMove()

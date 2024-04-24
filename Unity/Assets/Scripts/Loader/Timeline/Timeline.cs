@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Audio;
@@ -9,13 +10,44 @@ using UnityEngine.Playables;
 
 namespace Timeline
 {
+    //希望SO不保存运行时数据
+    public class RunningTimeline
+    {
+        public Action OnEvaluated;
+        public Action OnRebind;
+        public Action OnDone;
+        public Action OnBindStateChanged;
+        public Action OnValueChanged;
+
+        private int m_Frame;
+        public int Frame
+        {
+            get => m_Frame;
+            set
+            {
+                m_Frame = value;
+                OnEvaluated?.Invoke();
+            }
+        }
+        public int MaxFrame;
+
+        public TimelinePlayer timelinePlayer;
+        public PlayableGraph PlayableGraph { get; protected set; }
+        public AnimationLayerMixerPlayable AnimationRootPlayable { get; protected set; }
+        public AudioMixerPlayable AudioRootPlayable { get; protected set; }
+    }
+    
     [AcceptableTrackGroups("Base")]
     public partial class Timeline: ScriptableObject
     {
+        [LabelText("行为名")]
+        public string GraphName;
+
+        [Space(10)]
         [SerializeReference]
         protected List<Track> m_Tracks = new();
 
-        public List<Track> Tracks => this.m_Tracks;
+        public List<Track> Tracks => m_Tracks;
 
         public event Action OnEvaluated;
         public event Action OnRebind;
@@ -23,21 +55,33 @@ namespace Timeline
         public event Action OnBindStateChanged;
         public event Action OnValueChanged;
 
-        private float m_Time;
+        private int m_Frame;
 
-        public float Time
+        public int Frame
         {
-            get => m_Time;
+            get => m_Frame;
             set
             {
-                m_Time = value; 
+                m_Frame = value;
                 OnEvaluated?.Invoke();
             }
         }
 
-        public int Frame => Mathf.RoundToInt(this.Time * TimelineUtility.FrameRate);
+        // private float m_Time;
+        //
+        // public float Time
+        // {
+        //     get => m_Time;
+        //     set
+        //     {
+        //         m_Time = value; 
+        //         OnEvaluated?.Invoke();
+        //     }
+        // }
+
+        // public int Frame => Mathf.RoundToInt(Time * TimelineUtility.FrameRate);
         public int MaxFrame { get; protected set; }
-        public float Duration { get; protected set; }
+        // public float Duration { get; private set; }
 
         private bool m_Binding;
 
@@ -61,77 +105,59 @@ namespace Timeline
 
         public void Init()
         {
-            #region UnBind
-
-            bool isBinding = Binding;
-            TimelinePlayer timelinePlayer = TimelinePlayer;
-            if (isBinding)
+            if (TimelinePlayer != null)
             {
-                timelinePlayer.Dispose();
+                TimelinePlayer.Dispose();
             }
 
-            #endregion
-
-            #region Init
-
-            m_Tracks.ForEach(t => t.Init(this));
+            //1. Tracks
             MaxFrame = 0;
-            foreach (Track track in m_Tracks)
+            m_Tracks.ForEach(track =>
             {
                 track.Init(this);
                 if (track.MaxFrame > MaxFrame)
                 {
                     MaxFrame = track.MaxFrame;
                 }
-            }
+            });
 
-            Duration = (float)MaxFrame / TimelineUtility.FrameRate;
-            OnValueChanged?.Invoke();
-
-            #endregion
-
-            #region Bind
-
-            if (isBinding)
-            {
-                timelinePlayer.Init();
-                timelinePlayer.AddTimeline(this);
-            }
-
-            #endregion
+            //2. AddTimeline
+            TimelinePlayer.Init();
+            TimelinePlayer.BindTimeline(this);
         }
 
         public void Evaluate(float deltaTime)
         {
-            Time += deltaTime;
-            Tracks.ForEach(t => t.Evaluate(deltaTime));
-            if (Time > Duration)
-            {
-                OnDone?.Invoke();
-                OnDone = null;
-            }
+            // Time += deltaTime;
+            // Tracks.ForEach(t => { t.Evaluate(deltaTime); });
+            // if (Time > Duration)
+            // {
+            //     OnDone?.Invoke();
+            //     OnDone = null;
+            // }
+        }
+
+        public void Evaluate(int deltaFrame)
+        {
         }
 
         public void Bind(TimelinePlayer timelinePlayer)
         {
-            Time = 0;
-            TimelinePlayer = timelinePlayer;
+            Frame = 0;
             PlayableGraph = timelinePlayer.PlayableGraph;
             AnimationRootPlayable = timelinePlayer.AnimationRootPlayable;
             AudioRootPlayable = timelinePlayer.AudioRootPlayable;
 
-            Binding = true;
             OnRebind = null;
             OnValueChanged += RebindAll;
 
-            m_Tracks.ForEach(t => t.Bind());
-            OnBindStateChanged?.Invoke();
+            // m_Tracks.ForEach(t => t.Bind());
+            //OnBindStateChanged?.Invoke();
         }
 
         public void UnBind()
         {
             m_Tracks.ForEach(t => t.UnBind());
-            Binding = false;
             OnRebind = null;
             OnValueChanged -= RebindAll;
 
@@ -145,35 +171,35 @@ namespace Timeline
 
         public void JumpTo(float targetTime)
         {
-            float deltaTime = targetTime - Time;
-            TimelinePlayer.AddtionalDelta = deltaTime;
+            // float deltaTime = targetTime - Time;
+            // TimelinePlayer.AddtionalDelta = deltaTime;
         }
 
         public void RebindAll()
         {
-            if (this.Binding)
-            {
-                this.OnRebind?.Invoke();
-                this.OnRebind = null;
-
-                foreach (var track in this.m_Tracks)
-                {
-                    track.ReBind();
-                    track.SetTime(this.Time);
-                }
-
-                TimelinePlayer.Evaluate(0);
-            }
+            // if (Binding)
+            // {
+            //     OnRebind?.Invoke();
+            //     OnRebind = null;
+            //
+            //     foreach (var track in m_Tracks)
+            //     {
+            //         track.ReBind();
+            //         track.SetTime(Time);
+            //     }
+            //
+            //     TimelinePlayer.Evaluate(0);
+            // }
         }
 
         public void RebindTrack(Track track)
         {
-            if (this.Binding)
-            {
-                track.ReBind();
-                track.SetTime(this.Time);
-                this.TimelinePlayer.Evaluate(0);
-            }
+            // if (this.Binding)
+            // {
+            //     track.ReBind();
+            //     track.SetTime(this.Time);
+            //     this.TimelinePlayer.Evaluate(0);
+            // }
         }
 
         public void RuntimeMute(int index, bool value)
@@ -264,8 +290,8 @@ namespace Timeline
 
         public virtual void ReBind()
         {
-            this.UnBind();
-            this.Bind();
+            UnBind();
+            Bind();
         }
 
         public virtual void Evaluate(float deltaTime)
@@ -280,12 +306,12 @@ namespace Timeline
 
         public virtual void SetTime(float time)
         {
-            if (this.m_PersistentMuted || this.m_RuntimeMuted)
-            {
-                return;
-            }
-
-            this.m_Clips.ForEach(c => c.Evaluate(time));
+            // if (this.m_PersistentMuted || this.m_RuntimeMuted)
+            // {
+            //     return;
+            // }
+            //
+            // m_Clips.ForEach(c => c.Evaluate(time));
         }
 
         public virtual void RuntimeMute(bool value)
@@ -304,7 +330,7 @@ namespace Timeline
             {
                 RuntimeMuted = false;
                 Bind();
-                SetTime(Timeline.Time);
+                // SetTime(Timeline.Time);
             }
         }
     }
@@ -358,6 +384,7 @@ namespace Timeline
         public virtual void Init(Track track)
         {
             Track = track;
+            FrameToTime();
         }
 
         public virtual void Bind()
@@ -380,7 +407,7 @@ namespace Timeline
         public virtual void Evaluate(float deltaTime)
         {
             TargetTime = Time + deltaTime;
-            
+
             if (!Active && StartTime <= TargetTime && TargetTime <= EndTime)
             {
                 Active = true;
@@ -681,6 +708,7 @@ namespace Timeline
             {
                 if (Contains(i)) return true;
             }
+
             return false;
         }
 
