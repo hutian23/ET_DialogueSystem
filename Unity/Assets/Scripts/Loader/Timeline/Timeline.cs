@@ -20,6 +20,7 @@ namespace Timeline
         public Action OnValueChanged;
 
         private int m_Frame;
+
         public int Frame
         {
             get => m_Frame;
@@ -29,12 +30,75 @@ namespace Timeline
                 OnEvaluated?.Invoke();
             }
         }
+
         public int MaxFrame;
 
+        public Timeline timeline;
         public TimelinePlayer timelinePlayer;
-        public PlayableGraph PlayableGraph { get; protected set; }
-        public AnimationLayerMixerPlayable AnimationRootPlayable { get; protected set; }
-        public AudioMixerPlayable AudioRootPlayable { get; protected set; }
+        public PlayableGraph PlayableGraph => timelinePlayer.PlayableGraph;
+        public AnimationLayerMixerPlayable AnimationRootPlayable => timelinePlayer.AnimationRootPlayable;
+        public AudioMixerPlayable AudioRootPlayable => timelinePlayer.AudioRootPlayable;
+
+        public void Init(Timeline _timeline, TimelinePlayer _timelinePlayer)
+        {
+            //1. Init
+            timeline = _timeline;
+            timelinePlayer = _timelinePlayer;
+            //2. Play max length
+            MaxFrame = 0;
+            timeline.Tracks.ForEach(track =>
+            {
+                track.Init(timeline);
+                if (track.MaxFrame > MaxFrame)
+                {
+                    MaxFrame = track.MaxFrame;
+                }
+            });
+            //3. BindTimeline
+            UnBind();
+            Bind();
+        }
+        
+
+        public void Bind()
+        {
+            Frame = 0;
+            OnRebind = null;
+            OnValueChanged += RebindAll;
+
+            timeline.Tracks.ForEach(track => { track.Bind(); });
+            OnBindStateChanged?.Invoke();
+        }
+
+        public void UnBind()
+        {
+            timeline.Tracks.ForEach(track => track.UnBind());
+            OnBindStateChanged?.Invoke();
+        }
+
+        private void RebindAll()
+        {
+            OnRebind?.Invoke();
+            OnRebind = null;
+
+            timeline.Tracks.ForEach(track =>
+            {
+                track.ReBind();
+                track.SetTime(0);
+            });
+        }
+    }
+
+    public class RunningTrack
+    {
+        public Timeline Timeline;
+        public Track track;
+        
+        public int PlayableIndex;
+
+        public Action OnUpdateMix;
+        public Action OnMutedStateChanged;
+        
     }
     
     [AcceptableTrackGroups("Base")]
@@ -222,7 +286,7 @@ namespace Timeline
         public string Name;
 
         [SerializeField]
-        protected bool m_PersistentMuted; // 持续
+        protected bool m_PersistentMuted; 
 
         public bool PersistentMuted
         {

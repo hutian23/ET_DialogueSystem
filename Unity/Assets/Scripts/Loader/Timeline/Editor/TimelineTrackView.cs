@@ -44,8 +44,8 @@ namespace Timeline.Editor
         public void Init(Track track)
         {
             Track = track;
-            Track.OnUpdateMix = Refreh;
-            Track.OnMutedStateChanged = OnMutedStateChanged;
+            // Track.OnUpdateMix = Refreh;
+            // Track.OnMutedStateChanged = OnMutedStateChanged;
             ClipViewMap = new DoubleMap<Clip, TimelineClipView>();
             ClipViews = new List<TimelineClipView>();
             foreach (Clip clip in track.Clips)

@@ -13,44 +13,8 @@ MonoBehaviour:
   m_Name: Rg_Test1
   m_EditorClassIdentifier: 
   GraphName: "\u6D4B\u8BD51"
-  m_Tracks:
-  - rid: 5553358819204268074
+  m_Tracks: []
   Scale: 1
   references:
     version: 2
-    RefIds:
-    - rid: 5553358819204268074
-      type: {class: AnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 1
-        m_PersistentMuted: 0
-        m_Clips:
-        - rid: 5553358898812420109
-        - rid: 5553358898812420110
-        AvatarMask: {fileID: 0}
-    - rid: 5553358898812420109
-      type: {class: AnimationClip, ns: Timeline, asm: Unity.Loader}
-      data:
-        StartFrame: 0
-        EndFrame: 50
-        OtherEaseInFrame: 0
-        OtherEaseOutFrame: 0
-        SelfEaseInFrame: 0
-        SelfEaseOutFrame: 0
-        ClipInFrame: 0
-        CanSkip: 0
-        Clip: {fileID: 7400000, guid: 94db68f347b82d34080aa1642e206005, type: 2}
-        ExtraPolationMode: 0
-    - rid: 5553358898812420110
-      type: {class: AnimationClip, ns: Timeline, asm: Unity.Loader}
-      data:
-        StartFrame: 50
-        EndFrame: 100
-        OtherEaseInFrame: 0
-        OtherEaseOutFrame: 0
-        SelfEaseInFrame: 0
-        SelfEaseOutFrame: 0
-        ClipInFrame: 0
-        CanSkip: 0
-        Clip: {fileID: 0}
-        ExtraPolationMode: 0
+    RefIds: []

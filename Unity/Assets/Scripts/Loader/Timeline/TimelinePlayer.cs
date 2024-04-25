@@ -56,7 +56,8 @@ namespace Timeline
         public AnimationLayerMixerPlayable AnimationRootPlayable { get; private set; }
         public AudioMixerPlayable AudioRootPlayable { get; private set; }
 
-        public Timeline RunningTimeline;
+        [HideInInspector]
+        public RunningTimeline RunningTimeline;
 
         public float AddtionalDelta { get; set; }
         public event Action OnEvaluated;
@@ -91,6 +92,28 @@ namespace Timeline
         }
 #endif
 
+        public void Init(Timeline timeline)
+        {
+            #region Init PlayableGraph
+            PlayableGraph = PlayableGraph.Create(timeline.GraphName);
+            //混合
+            AnimationRootPlayable = AnimationLayerMixerPlayable.Create(PlayableGraph);
+            AudioRootPlayable = AudioMixerPlayable.Create(PlayableGraph);
+            
+            Animator = GetComponent<Animator>();
+            AnimationPlayableOutput playableOutput = AnimationPlayableOutput.Create(PlayableGraph, "Animation", Animator);
+            playableOutput.SetSourcePlayable(AnimationRootPlayable);
+
+            AudioSource = GetComponent<AudioSource>();
+            AudioPlayableOutput audioOutput = AudioPlayableOutput.Create(PlayableGraph, "Audio", GetComponent<AudioSource>());
+            audioOutput.SetSourcePlayable(AudioRootPlayable);
+            audioOutput.SetEvaluateOnSeek(true);
+            #endregion
+            
+            RunningTimeline = new RunningTimeline();
+            RunningTimeline.Init(timeline, this);
+        }
+
         public virtual void Init()
         {
             PlayableGraph = PlayableGraph.Create("BBScript");
@@ -110,8 +133,6 @@ namespace Timeline
             IsPlaying = false;
             PlaySpeed = 1;
         }
-
-
 
         public virtual void Dispose()
         {
@@ -162,10 +183,6 @@ namespace Timeline
 
         public virtual void BindTimeline(Timeline timeline)
         {
-            timeline.UnBind();
-            timeline.Bind(this);
-            RunningTimeline = timeline;
-            Evaluate(0);
         }
 
         public virtual void RemoveTimeline(Timeline timeline)
