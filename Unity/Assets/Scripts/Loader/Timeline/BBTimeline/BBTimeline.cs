@@ -11,9 +11,6 @@ namespace Timeline
     [CreateAssetMenu(menuName = "ScriptableObject/BBTimeline", fileName = "BBTimeline")]
     public class BBTimeline: SerializedScriptableObject
     {
-        [BsonIgnore]
-        public string GraphName;
-
         public List<BBTrack> Tracks = new();
 
 #if UNITY_EDITOR
@@ -23,10 +20,7 @@ namespace Timeline
         public void AddTrack(Type type)
         {
             BBTrack track = Activator.CreateInstance(type) as BBTrack;
-
             track.Name = type.Name.Replace("Track", string.Empty);
-            track.Timeline = this;
-
             Tracks.Add(track);
         }
 
@@ -57,13 +51,9 @@ namespace Timeline
 #endif
     }
 
-    public class BBTrack
+    public abstract class BBTrack
     {
         public string Name;
-
-        [HideInInspector, BsonIgnore]
-        public BBTimeline Timeline;
-
         public List<BBClip> Clips = new();
 
 #if UNITY_EDITOR
@@ -90,23 +80,19 @@ namespace Timeline
 #endif
     }
 
-    public class BBClip
+    public abstract class BBClip
     {
-        public BBTrack Track;
-        public BBTimeline Timeline => Track.Timeline;
-
         public bool InValid;
 
-        public virtual string Name => GetType().Name;
+        public string Name => GetType().Name;
 
         public int StartFrame;
         public int EndFrame;
         public virtual int Length => EndFrame - StartFrame;
         public ClipCapabilities Capabilities;
 
-        public BBClip(BBTrack track, int frame)
+        public BBClip(int frame)
         {
-            Track = track;
             StartFrame = frame;
             EndFrame = StartFrame + 3;
         }
@@ -133,12 +119,12 @@ namespace Timeline
             return colorAttributes[^1].Color / 255;
         }
 
-        public virtual bool IsResizeable()
+        public bool IsResizeable()
         {
             return (Capabilities & ClipCapabilities.Resizeable) == ClipCapabilities.Resizeable;
         }
 
-        public virtual bool IsMixable()
+        public bool IsMixable()
         {
             return (Capabilities & ClipCapabilities.Mixable) == ClipCapabilities.Mixable;
         }

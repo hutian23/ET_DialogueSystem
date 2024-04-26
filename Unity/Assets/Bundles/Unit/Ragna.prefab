@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 7728331812354445377}
   - component: {fileID: 7468455045085988073}
   - component: {fileID: 8035865075596228849}
-  - component: {fileID: 2327418106974255673}
+  - component: {fileID: 3208889037598439104}
   m_Layer: 0
   m_Name: Ragna
   m_TagString: Untagged
@@ -143,7 +143,7 @@ SpriteRenderer:
   m_SortingLayerID: 2016810935
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1331877821, guid: a714674fa1a745f47809580dd5aa27ef, type: 3}
+  m_Sprite: {fileID: -1505184845, guid: ace8a5ab09303194386cd45ad1e816b5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -271,7 +271,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2327418106974255673
+--- !u!114 &3208889037598439104
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -283,10 +283,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfd2cdf17bd9f32449b016861d3df3be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Controller: {fileID: 9100000, guid: c0cd7836fc6803b4f89e9d0e576a4510, type: 2}
-  ApplyRootMotion: 1
-  m_IsPlaying: 0
-  m_PlaySpeed: 1
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 5bb73b501c1d91e4cbe1b1accb828527, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Timelines
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Timeline.BBTimeline,
+        Unity.Loader]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Test1
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RunningTimeline
+      Entry: 6
+      Data: 
+  ApplyRootMotion: 0
 --- !u!1 &7728331812427471843
 GameObject:
   m_ObjectHideFlags: 0

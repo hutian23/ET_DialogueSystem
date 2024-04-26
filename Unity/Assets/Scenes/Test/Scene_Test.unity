@@ -1318,33 +1318,49 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2327418106974255673, guid: cb941c738eff80e48a47613d914c2780,
+    - target: {fileID: 3208889037598439104, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
-      propertyPath: hello.Array.size
-      value: 0
+      propertyPath: ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2327418106974255673, guid: cb941c738eff80e48a47613d914c2780,
+    - target: {fileID: 3208889037598439104, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
-      propertyPath: RunningTimelines.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2327418106974255673, guid: cb941c738eff80e48a47613d914c2780,
-        type: 3}
-      propertyPath: RunningTimelines.Array.data[0]
+      propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 11400000, guid: dc3abe95fa0e130428e6aa0aadcb2aa3,
+      objectReference: {fileID: 3208889037598439104, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
+    - target: {fileID: 3208889037598439104, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208889037598439104, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[0]
+      value: '"path":"Timelines","add_keys":{"$id":0,"$type":"System.Object[], mscorlib","$rlength":1,"$rcontent":[{"$id":1,"$type":"System.String,
+        mscorlib","Test2"}]},"remove_keys":null'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208889037598439104, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[1]
+      value: '"path":"Timelines.{\"Test2\"}","value":$eref:0'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208889037598439104, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208889037598439104, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3db21ea503a2acf41a86a07c8518ad0d,
         type: 2}
     - target: {fileID: 7728331812354445376, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
       propertyPath: m_Name
       value: Ragna
       objectReference: {fileID: 0}
-    - target: {fileID: 7728331812354445377, guid: cb941c738eff80e48a47613d914c2780,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1505184845, guid: ace8a5ab09303194386cd45ad1e816b5,
-        type: 3}
     - target: {fileID: 7728331812354445378, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
       propertyPath: m_LocalPosition.x

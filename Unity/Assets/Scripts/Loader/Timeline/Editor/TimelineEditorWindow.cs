@@ -4,11 +4,9 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Object = UnityEngine.Object;
 
 namespace Timeline.Editor
 {
-    //从这里开始看
     public class TimelineEditorWindow: EditorWindow, ISelection
     {
         private VisualElement m_Top;
@@ -26,6 +24,8 @@ namespace Timeline.Editor
         private TimelineFieldView m_TimelineField;
         public Timeline Timeline { get; private set; }
         private TimelinePlayer TimelinePlayer { get; set; }
+
+        public BBTimeline _timeline { get; private set; }
 
         public void CreateGUI()
         {
@@ -50,9 +50,8 @@ namespace Timeline.Editor
                     {
                         TimelinePlayer.Dispose();
                     }
-
                     TimelinePlayer = timelinePlayer;
-                    TimelinePlayer.Init(Timeline);
+                    TimelinePlayer.Init();
                 }
                 else if (e.newValue == null && TimelinePlayer != null)
                 {
@@ -63,41 +62,11 @@ namespace Timeline.Editor
                     m_TargetField.SetValueWithoutNotify(null);
                 }
             });
-            // m_TargetField.objectType = typeof (TimelinePlayer);
-            // m_TargetField.allowSceneObjects = true;
-            // m_TargetField.RegisterValueChangedCallback(e =>
-            // {
-            //     //对象是否为持久化对象 
-            //     //what is 持久化对象? 在 Scene 保存的 gameObject
-            //     //不是scene中的gameObject
-            //     if (!EditorUtility.IsPersistent(e.newValue) && e.newValue is TimelinePlayer timelinePlayer)
-            //     {
-            //         // if (Timeline.TimelinePlayer)
-            //         // {
-            //         //     Timeline.TimelinePlayer.Dispose();
-            //         // }
-            //         //
-            //         // if (!timelinePlayer.IsValid)
-            //         // {
-            //         //     // timelinePlayer.AddTimeline(Timeline);
-            //         // }
-            //     }
-            //     else if (e.newValue == null)
-            //     {
-            //         if (Timeline.TimelinePlayer)
-            //         {
-            //             Timeline.TimelinePlayer.Dispose();
-            //         }
-            //     }
-            //     else
-            //     {
-            //         m_TargetField.SetValueWithoutNotify(null);
-            //     }
-            // });
+
             //运行时不可用
             //TODO 热重载之后改成运行时支持修改
             // m_TargetField.SetEnabled(!Application.isPlaying);
-            //
+
             m_PlayButton = root.Q<Button>("play-button");
             m_PlayButton.SetEnabled(false);
             // m_PlayButton.clicked += () => { Timeline.TimelinePlayer.IsPlaying = true; };
@@ -105,7 +74,10 @@ namespace Timeline.Editor
             m_PauseButton = root.Q<Button>("pause-button");
             m_PauseButton.SetEnabled(false);
             // // m_PauseButton.clicked += () => { Timeline.TimelinePlayer.IsPlaying = false; };
-            //
+
+            fieldScaleBar = root.Q<SliderInt>("field-scale-bar");
+            fieldScaleBar.SetEnabled(false);
+
             // m_LeftPanel = root.Q("left-panel");
             // m_LeftPanel.SetEnabled(false);
             //
@@ -371,22 +343,10 @@ namespace Timeline.Editor
 
         #endregion
 
-        [MenuItem("Tools/TimelineEditor", false, 0)]
-        public static void OpenTimelineEditorWindow()
+        public static void OpenWindow(TimelinePlayer timelinePlayer)
         {
-            GetWindow<TimelineEditorWindow>();
-        }
-
-        [UnityEditor.Callbacks.OnOpenAsset]
-        public static bool OnOpenAsset(int instanceId, int line)
-        {
-            Object obj = EditorUtility.InstanceIDToObject(instanceId);
-            Timeline timeline = obj as Timeline;
-            if (timeline == null) return false;
-            TimelineEditorWindow editorWindow = GetWindow<TimelineEditorWindow>();
-
-            editorWindow.Timeline = timeline;
-            return true;
+            TimelineEditorWindow window = GetWindow<TimelineEditorWindow>();
+            window.TimelinePlayer = timelinePlayer;
         }
     }
 }

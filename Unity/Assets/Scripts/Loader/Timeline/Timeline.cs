@@ -10,7 +10,48 @@ using UnityEngine.Playables;
 
 namespace Timeline
 {
-    //希望SO不保存运行时数据
+    public class BBRuntimePlayable
+    {
+        public BBTimeline Timeline;
+        public TimelinePlayer TimelinePlayer;
+
+        #region Component
+
+        public Animator Animator => TimelinePlayer.GetComponent<Animator>();
+        public AudioSource AudioSource => TimelinePlayer.GetComponent<AudioSource>();
+        public PlayableGraph PlayableGraph => TimelinePlayer.PlayableGraph;
+        public AnimationLayerMixerPlayable AnimationRootPlayable => TimelinePlayer.AnimationRootPlayable;
+        public AudioMixerPlayable AudioRootPlayable => TimelinePlayer.AudioRootPlayable;
+
+        #endregion
+
+        public List<RuntimeTrack> RuntimeTracks = new();
+
+        public static BBRuntimePlayable Create(BBTimeline _timeline, TimelinePlayer _timelinePlayer)
+        {
+            BBRuntimePlayable runtimePlayable = new();
+            runtimePlayable.Timeline = _timeline;
+            runtimePlayable.TimelinePlayer = _timelinePlayer;
+            return runtimePlayable;
+        }
+
+        private void Init()
+        {
+            
+        }
+    }
+
+    public abstract class RuntimeTrack
+    {
+        public BBRuntimePlayable RuntimePlayable;
+        public int PlayableIndex;
+        public abstract void Bind();
+        public abstract void UnBind();
+        public abstract void SetTime();
+        public abstract void RuntimMute(bool value);
+    }
+
+    // //希望SO不保存运行时数据
     public class RunningTimeline
     {
         public Action OnEvaluated;
@@ -33,32 +74,24 @@ namespace Timeline
 
         public int MaxFrame;
 
-        public Timeline timeline;
+        public BBTimeline timeline;
         public TimelinePlayer timelinePlayer;
         public PlayableGraph PlayableGraph => timelinePlayer.PlayableGraph;
         public AnimationLayerMixerPlayable AnimationRootPlayable => timelinePlayer.AnimationRootPlayable;
         public AudioMixerPlayable AudioRootPlayable => timelinePlayer.AudioRootPlayable;
 
-        public void Init(Timeline _timeline, TimelinePlayer _timelinePlayer)
+        public void Init(BBTimeline _timeline, TimelinePlayer _timelinePlayer)
         {
             //1. Init
             timeline = _timeline;
             timelinePlayer = _timelinePlayer;
             //2. Play max length
             MaxFrame = 0;
-            timeline.Tracks.ForEach(track =>
-            {
-                track.Init(timeline);
-                if (track.MaxFrame > MaxFrame)
-                {
-                    MaxFrame = track.MaxFrame;
-                }
-            });
+            timeline.Tracks.ForEach(track => { });
             //3. BindTimeline
             UnBind();
             Bind();
         }
-        
 
         public void Bind()
         {
@@ -66,13 +99,13 @@ namespace Timeline
             OnRebind = null;
             OnValueChanged += RebindAll;
 
-            timeline.Tracks.ForEach(track => { track.Bind(); });
+            // timeline.Tracks.ForEach(track => { track.Bind(); });
             OnBindStateChanged?.Invoke();
         }
 
         public void UnBind()
         {
-            timeline.Tracks.ForEach(track => track.UnBind());
+            // timeline.Tracks.ForEach(track => track.UnBind());
             OnBindStateChanged?.Invoke();
         }
 
@@ -81,26 +114,22 @@ namespace Timeline
             OnRebind?.Invoke();
             OnRebind = null;
 
-            timeline.Tracks.ForEach(track =>
-            {
-                track.ReBind();
-                track.SetTime(0);
-            });
+            timeline.Tracks.ForEach(track => { });
         }
     }
+    //
+    // public class RunningTrack
+    // {
+    //     public Timeline Timeline;
+    //     public Track track;
+    //     
+    //     public int PlayableIndex;
+    //
+    //     public Action OnUpdateMix;
+    //     public Action OnMutedStateChanged;
+    //     
+    // }
 
-    public class RunningTrack
-    {
-        public Timeline Timeline;
-        public Track track;
-        
-        public int PlayableIndex;
-
-        public Action OnUpdateMix;
-        public Action OnMutedStateChanged;
-        
-    }
-    
     [AcceptableTrackGroups("Base")]
     public partial class Timeline: ScriptableObject
     {
@@ -286,7 +315,7 @@ namespace Timeline
         public string Name;
 
         [SerializeField]
-        protected bool m_PersistentMuted; 
+        protected bool m_PersistentMuted;
 
         public bool PersistentMuted
         {

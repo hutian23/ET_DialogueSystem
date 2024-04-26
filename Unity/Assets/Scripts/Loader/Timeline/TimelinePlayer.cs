@@ -1,5 +1,6 @@
-using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using Timeline.Editor;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -8,7 +9,7 @@ using UnityEngine.Playables;
 
 namespace Timeline
 {
-    public class TimelinePlayer: MonoBehaviour
+    public sealed class TimelinePlayer: SerializedMonoBehaviour
     {
         public bool ApplyRootMotion;
 
@@ -41,14 +42,6 @@ namespace Timeline
             }
         }
 
-        public double m_PlaySpeed;
-
-        public double PlaySpeed
-        {
-            get => Math.Round(Math.Max(0.001f, m_PlaySpeed), 2);
-            set => m_PlaySpeed = value;
-        }
-
         public bool IsValid => PlayableGraph.IsValid();
         private Animator Animator { get; set; }
         public AudioSource AudioSource { get; private set; }
@@ -56,50 +49,35 @@ namespace Timeline
         public AnimationLayerMixerPlayable AnimationRootPlayable { get; private set; }
         public AudioMixerPlayable AudioRootPlayable { get; private set; }
 
-        [HideInInspector]
-        public RunningTimeline RunningTimeline;
+        [HideReferenceObjectPicker]
+        [DictionaryDrawerSettings(KeyLabel = "Name", ValueLabel = "Timeline")]
+        public Dictionary<string, BBTimeline> Timelines = new();
 
-        public float AddtionalDelta { get; set; }
-        public event Action OnEvaluated;
-
-        protected virtual void OnEnable()
-        {
-            // Init();
-            // IsPlaying = true;
-        }
-
-        protected void OnDisable()
-        {
-            // Dispose();
-        }
-
-        // protected void FixedUpdate()
-        // {
-        //     if (IsPlaying)
-        //     {
-        //         Evaluate(Time.deltaTime * (float)PlaySpeed);
-        //         if (AddtionalDelta != 0)
-        //         {
-        //             Evaluate(AddtionalDelta);
-        //             AddtionalDelta = 0;
-        //         }
-        //     }
-        // }
+        public BBRuntimePlayable RuntimeimePlayable;
 
 #if UNITY_EDITOR
+        [ButtonGroup("技能编辑器")]
+        public void OpenWindow()
+        {
+            TimelineEditorWindow.OpenWindow(this);
+        }
+
         public void EditorUpdate()
         {
         }
 #endif
 
-        public void Init(Timeline timeline)
+        public void Init()
         {
-            #region Init PlayableGraph
-            PlayableGraph = PlayableGraph.Create(timeline.GraphName);
+            BBTimeline timeline = Timelines["Test1"];
+
+            #region PlayableGraph
+
+            PlayableGraph = PlayableGraph.Create("Test1");
             //混合
             AnimationRootPlayable = AnimationLayerMixerPlayable.Create(PlayableGraph);
             AudioRootPlayable = AudioMixerPlayable.Create(PlayableGraph);
-            
+
             Animator = GetComponent<Animator>();
             AnimationPlayableOutput playableOutput = AnimationPlayableOutput.Create(PlayableGraph, "Animation", Animator);
             playableOutput.SetSourcePlayable(AnimationRootPlayable);
@@ -108,62 +86,27 @@ namespace Timeline
             AudioPlayableOutput audioOutput = AudioPlayableOutput.Create(PlayableGraph, "Audio", GetComponent<AudioSource>());
             audioOutput.SetSourcePlayable(AudioRootPlayable);
             audioOutput.SetEvaluateOnSeek(true);
+
             #endregion
-            
-            RunningTimeline = new RunningTimeline();
-            RunningTimeline.Init(timeline, this);
-        }
-
-        public virtual void Init()
-        {
-            PlayableGraph = PlayableGraph.Create("BBScript");
-            //混合
-            AnimationRootPlayable = AnimationLayerMixerPlayable.Create(PlayableGraph);
-            AudioRootPlayable = AudioMixerPlayable.Create(PlayableGraph);
-
-            Animator = GetComponent<Animator>();
-            AnimationPlayableOutput playableOutput = AnimationPlayableOutput.Create(PlayableGraph, "Animation", Animator);
-            playableOutput.SetSourcePlayable(AnimationRootPlayable);
-
-            AudioSource = GetComponent<AudioSource>();
-            AudioPlayableOutput audioOutput = AudioPlayableOutput.Create(PlayableGraph, "Audio", GetComponent<AudioSource>());
-            audioOutput.SetSourcePlayable(AudioRootPlayable);
-            audioOutput.SetEvaluateOnSeek(true);
 
             IsPlaying = false;
-            PlaySpeed = 1;
+
+            #region RuntimeTimeline
+
+            RuntimeimePlayable = BBRuntimePlayable.Create(timeline, this);
+
+            #endregion
         }
 
-        public virtual void Dispose()
+        public void Dispose()
         {
-            // if (IsValid)
-            // {
-            //     for (int i = RunningTimelines.Count - 1; i >= 0; i--)
-            //     {
-            //         // RemoveTimeline(RunningTimelines[i]);
-            //     }
-            //     PlayableGraph.Destroy();
-            // }
-            // RunningTimelines = null;
-            // IsPlaying = false;
-            // PlaySpeed = 1;
         }
 
-        public virtual void Evaluate(float deltaTime)
+        public void Evaluate(float deltaTime)
         {
-            // for (int i = RunningTimelines.Count - 1; i >= 0; i--)
-            // {
-            //     // Timeline runningTimelines = RunningTimelines[i];
-            //     // runningTimelines.Evaluate(deltaTime);
-            // }
-            // PlayableGraph.Evaluate(deltaTime);
-            //
-            // OnRootMotion();
-            //
-            // OnEvaluated?.Invoke();
         }
 
-        protected virtual void OnRootMotion()
+        private void OnRootMotion()
         {
             if (ApplyRootMotion)
             {
@@ -171,66 +114,12 @@ namespace Timeline
             }
         }
 
-        // public virtual void AddTimeline(Timeline timeline)
-        // {
-        //     timeline.UnBind();
-        //     timeline.Bind(this);
-        //
-        //     // RunningTimelines.Remove(timeline);
-        //     // RunningTimelines.Add(timeline);
-        //     Evaluate(0);
-        // }
-
-        public virtual void BindTimeline(Timeline timeline)
+        public void BindTimeline(Timeline timeline)
         {
         }
 
-        public virtual void RemoveTimeline(Timeline timeline)
+        public void RemoveTimeline(Timeline timeline)
         {
-            timeline.UnBind();
-            // RunningTimelines.Remove(timeline);
-            // if (RunningTimelines.Count == 0)
-            // {
-            //     AnimationRootPlayable.SetInputCount(1);
-            // }
-        }
-
-        // public virtual void AddAnimationEaseOut(AnimationTrack animationTrack)
-        // {
-        //     RuntimeTrackEaseOut runtimeTrackEaseOut = new(AnimationRootPlayable, animationTrack);
-        //     RuntimeTrackEaseOuts.Add(runtimeTrackEaseOut);
-        // }
-    }
-
-    public class RuntimeTrackEaseOut
-    {
-        private readonly Playable Root;
-        public Playable Track;
-        public int Index;
-        public float EaseOutTime;
-        public float Timer;
-        public float OriginalWeight;
-
-        public RuntimeTrackEaseOut(Playable root, AnimationTrack animationTrack)
-        {
-            // Root = root;
-            // Track = animationTrack.TrackPlayable.Handle;
-            // if (!animationTrack.PlayWhenEaseOut)
-            // {
-            //     Track.Pause();
-            // }
-            //
-            // Index = animationTrack.PlayableIndex;
-            // EaseOutTime = animationTrack.EaseOutTime;
-            //
-            // OriginalWeight = Root.GetInputWeight(Index);
-            // Timer = 0;
-        }
-
-        public void Evaluate(float deltaTime)
-        {
-            Timer += deltaTime;
-            Root.SetInputWeight(Index, Mathf.Lerp(OriginalWeight, 0, Timer / EaseOutTime));
         }
     }
 }

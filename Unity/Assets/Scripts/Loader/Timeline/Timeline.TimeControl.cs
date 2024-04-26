@@ -25,7 +25,6 @@ namespace Timeline
         public override void UnBind()
         {
             base.UnBind();
-            Timeline.TimelinePlayer.PlaySpeed -= m_ChangedValue;
         }
 
         public override void Evaluate(float deltaTime)
@@ -64,7 +63,6 @@ namespace Timeline
             targetSpeed = Math.Round(targetSpeed, 2);
 
             double deltaSpeed = targetSpeed - m_ChangedValue;
-            Timeline.TimelinePlayer.PlaySpeed += deltaSpeed;
             m_ChangedValue += deltaSpeed;
         }
 
