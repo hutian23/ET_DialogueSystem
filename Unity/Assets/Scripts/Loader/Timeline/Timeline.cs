@@ -10,7 +10,7 @@ using UnityEngine.Playables;
 
 namespace Timeline
 {
-    public class BBRuntimePlayable
+    public class RuntimePlayable
     {
         public BBTimeline Timeline;
         public TimelinePlayer TimelinePlayer;
@@ -27,108 +27,73 @@ namespace Timeline
 
         public List<RuntimeTrack> RuntimeTracks = new();
 
-        public static BBRuntimePlayable Create(BBTimeline _timeline, TimelinePlayer _timelinePlayer)
+        public static RuntimePlayable Create(BBTimeline _timeline, TimelinePlayer _timelinePlayer)
         {
-            BBRuntimePlayable runtimePlayable = new();
+            RuntimePlayable runtimePlayable = new();
             runtimePlayable.Timeline = _timeline;
             runtimePlayable.TimelinePlayer = _timelinePlayer;
+            runtimePlayable.Init();
+
             return runtimePlayable;
         }
 
         private void Init()
         {
-            
+            Timeline.Tracks.ForEach(track =>
+            {
+                Type trackType = track.RuntimeTrackType;
+                RuntimeTrack runtimeTrack = Activator.CreateInstance(trackType, this, track) as RuntimeTrack;
+                runtimeTrack.Bind();
+            });
+        }
+
+        public void Dispose()
+        {
+            foreach (var runtimeTrack in RuntimeTracks)
+            {
+                runtimeTrack.UnBind();
+            }
         }
     }
 
     public abstract class RuntimeTrack
     {
-        public BBRuntimePlayable RuntimePlayable;
-        public int PlayableIndex;
+        protected RuntimeTrack(RuntimePlayable runtimePlayable, BBTrack track)
+        {
+            RuntimePlayable = runtimePlayable;
+            Track = track;
+        }
+
+        protected RuntimePlayable RuntimePlayable;
+        protected BBTrack Track;
+
+        protected int PlayableIndex;
         public abstract void Bind();
         public abstract void UnBind();
         public abstract void SetTime();
         public abstract void RuntimMute(bool value);
+
+        public int ClipCount => Track.Clips.Count;
     }
 
-    // //希望SO不保存运行时数据
-    public class RunningTimeline
+    public abstract class RuntimeClip
     {
-        public Action OnEvaluated;
-        public Action OnRebind;
-        public Action OnDone;
-        public Action OnBindStateChanged;
-        public Action OnValueChanged;
+        public BBClip Clip;
 
-        private int m_Frame;
+        public RuntimePlayable RuntimePlayable;
+        public RuntimeTrack RuntimeTrack;
 
-        public int Frame
+        public RuntimeClip(RuntimePlayable runtimePlayable, RuntimeTrack runtimeTrack, BBClip clip)
         {
-            get => m_Frame;
-            set
-            {
-                m_Frame = value;
-                OnEvaluated?.Invoke();
-            }
+            RuntimePlayable = runtimePlayable;
+            RuntimeTrack = runtimeTrack;
+            Clip = clip;
         }
 
-        public int MaxFrame;
-
-        public BBTimeline timeline;
-        public TimelinePlayer timelinePlayer;
-        public PlayableGraph PlayableGraph => timelinePlayer.PlayableGraph;
-        public AnimationLayerMixerPlayable AnimationRootPlayable => timelinePlayer.AnimationRootPlayable;
-        public AudioMixerPlayable AudioRootPlayable => timelinePlayer.AudioRootPlayable;
-
-        public void Init(BBTimeline _timeline, TimelinePlayer _timelinePlayer)
-        {
-            //1. Init
-            timeline = _timeline;
-            timelinePlayer = _timelinePlayer;
-            //2. Play max length
-            MaxFrame = 0;
-            timeline.Tracks.ForEach(track => { });
-            //3. BindTimeline
-            UnBind();
-            Bind();
-        }
-
-        public void Bind()
-        {
-            Frame = 0;
-            OnRebind = null;
-            OnValueChanged += RebindAll;
-
-            // timeline.Tracks.ForEach(track => { track.Bind(); });
-            OnBindStateChanged?.Invoke();
-        }
-
-        public void UnBind()
-        {
-            // timeline.Tracks.ForEach(track => track.UnBind());
-            OnBindStateChanged?.Invoke();
-        }
-
-        private void RebindAll()
-        {
-            OnRebind?.Invoke();
-            OnRebind = null;
-
-            timeline.Tracks.ForEach(track => { });
-        }
+        public abstract void Bind();
+        public abstract void UnBind();
+        public abstract void Evaluate(float deltaTime);
     }
-    //
-    // public class RunningTrack
-    // {
-    //     public Timeline Timeline;
-    //     public Track track;
-    //     
-    //     public int PlayableIndex;
-    //
-    //     public Action OnUpdateMix;
-    //     public Action OnMutedStateChanged;
-    //     
-    // }
 
     [AcceptableTrackGroups("Base")]
     public partial class Timeline: ScriptableObject

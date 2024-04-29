@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using MongoDB.Bson.Serialization.Attributes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -56,12 +55,14 @@ namespace Timeline
         public string Name;
         public List<BBClip> Clips = new();
 
+        public virtual Type RuntimeTrackType => typeof (RuntimeTrack);
+        
 #if UNITY_EDITOR
         protected virtual Type ClipType => typeof (Clip);
 
         public BBClip AddClip(int frame)
         {
-            BBClip clip = Activator.CreateInstance(ClipType, this, frame) as BBClip;
+            BBClip clip = Activator.CreateInstance(ClipType, frame) as BBClip;
             Clips.Add(clip);
             return clip;
         }
@@ -88,7 +89,7 @@ namespace Timeline
 
         public int StartFrame;
         public int EndFrame;
-        public virtual int Length => EndFrame - StartFrame;
+        public int Length => EndFrame - StartFrame;
         public ClipCapabilities Capabilities;
 
         public BBClip(int frame)
@@ -96,7 +97,6 @@ namespace Timeline
             StartFrame = frame;
             EndFrame = StartFrame + 3;
         }
-
 #if UNITY_EDITOR
         public bool Contain(float halfFrame)
         {

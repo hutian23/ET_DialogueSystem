@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Timeline.Editor;
@@ -53,7 +54,12 @@ namespace Timeline
         [DictionaryDrawerSettings(KeyLabel = "Name", ValueLabel = "Timeline")]
         public Dictionary<string, BBTimeline> Timelines = new();
 
-        public BBRuntimePlayable RuntimeimePlayable;
+        public RuntimePlayable RuntimeimePlayable;
+
+        public void OnDisable()
+        {
+            Dispose();
+        }
 
 #if UNITY_EDITOR
         [ButtonGroup("技能编辑器")]
@@ -93,13 +99,14 @@ namespace Timeline
 
             #region RuntimeTimeline
 
-            RuntimeimePlayable = BBRuntimePlayable.Create(timeline, this);
+            RuntimeimePlayable = RuntimePlayable.Create(timeline, this);
 
             #endregion
         }
 
         public void Dispose()
         {
+            if(PlayableGraph.IsValid()) PlayableGraph.Destroy();
         }
 
         public void Evaluate(float deltaTime)

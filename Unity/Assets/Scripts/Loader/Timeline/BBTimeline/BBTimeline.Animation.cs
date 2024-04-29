@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
 
@@ -6,7 +7,10 @@ namespace Timeline
 {
     public class BBAnimationTrack: BBTrack
     {
+#if UNITY_EDITOR
         protected override Type ClipType => typeof (BBAnimationClip);
+        public override Type RuntimeTrackType => typeof (RuntimeAnimationTrack);  
+#endif
     }
 
     public class BBAnimationClip: BBClip
@@ -17,47 +21,76 @@ namespace Timeline
         {
         }
     }
-    
+
     #region Runtime
 
     public class RuntimeAnimationTrack: RuntimeTrack
     {
+        public BBAnimationTrack AnimationTrack => Track as BBAnimationTrack;
+     
+        private BBTimelineAnimationTrackPlayable TrackPlayable;
+        private AnimationMixerPlayable MixerPlayable => TrackPlayable.MixerPlayable;
+        private readonly List<BBTimelineAnimationClipPlayable> ClipPlayables = new();
+
         public override void Bind()
         {
-            
+            TrackPlayable = BBTimelineAnimationTrackPlayable.Create(RuntimePlayable, this, RuntimePlayable.AnimationRootPlayable);
+            PlayableIndex = RuntimePlayable.AnimationRootPlayable.GetInputCount() - 1;
+
+            ClipPlayables.Clear();
+            for (int i = 0; i < AnimationTrack.Clips.Count; i++)
+            {
+                var clipPlayable = BBTimelineAnimationClipPlayable.Create(RuntimePlayable, AnimationTrack.Clips[i] as BBAnimationClip, MixerPlayable, i);
+                ClipPlayables.Add(clipPlayable);
+            }
         }
 
         public override void UnBind()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < ClipPlayables.Count; i++)
+            {
+                BBTimelineAnimationClipPlayable clipPlayable = ClipPlayables[i];
+                MixerPlayable.DisconnectInput(i);
+                clipPlayable.Handle.Destroy();
+            }
+
+            // 取消连接关系并且销毁
+            RuntimePlayable.AnimationRootPlayable.DisconnectInput(PlayableIndex);
+            TrackPlayable.Handle.Destroy();
         }
 
         public override void SetTime()
         {
-            throw new NotImplementedException();
         }
 
         public override void RuntimMute(bool value)
         {
-            throw new NotImplementedException();
+        }
+
+        public RuntimeAnimationTrack(RuntimePlayable runtimePlayable, BBTrack track): base(runtimePlayable, track)
+        {
         }
     }
-    
+
     public class BBTimelineAnimationTrackPlayable: PlayableBehaviour
     {
-        private BBRuntimePlayable runtimePlayable;
+        private RuntimePlayable runtimePlayable;
         private BBAnimationTrack Track { get; set; }
         private Playable Output { get; set; }
-        private Playable Handle { get; set; }
-        private AnimationMixerPlayable MixerPlayable { get; set; }
+        public Playable Handle { get; set; }
+        public AnimationMixerPlayable MixerPlayable { get; set; }
 
-        public static BBTimelineAnimationTrackPlayable Create(BBRuntimePlayable runtimePlayable, BBAnimationTrack track, Playable output)
+        public override void PrepareFrame(Playable playable, FrameData info)
+        {
+        }
+
+        public static BBTimelineAnimationTrackPlayable Create(RuntimePlayable runtimePlayable, RuntimeAnimationTrack runtimeAnimationTrack, Playable output)
         {
             var handle = ScriptPlayable<BBTimelineAnimationTrackPlayable>.Create(runtimePlayable.PlayableGraph);
             var trackPlayable = handle.GetBehaviour();
-            trackPlayable.Track = track;
+            trackPlayable.Track = runtimeAnimationTrack.AnimationTrack;
             trackPlayable.Handle = handle;
-            trackPlayable.MixerPlayable = AnimationMixerPlayable.Create(runtimePlayable.PlayableGraph, track.Clips.Count);
+            trackPlayable.MixerPlayable = AnimationMixerPlayable.Create(runtimePlayable.PlayableGraph, runtimeAnimationTrack.ClipCount);
             handle.AddInput(trackPlayable.MixerPlayable, 0, 1);
 
             trackPlayable.Output = output;
@@ -65,7 +98,46 @@ namespace Timeline
             return trackPlayable;
         }
     }
-    
-    
+
+    public class BBTimelineAnimationClipPlayable: PlayableBehaviour
+    {
+        private BBAnimationTrack Track { get; set; }
+        private BBClip Clip { get; set; }
+
+        public int Index { get; private set; }
+
+        public Playable Output { get; private set; }
+        public Playable Handle { get; private set; }
+        private AnimationClipPlayable ClipPlayable { get; set; }
+
+        public override void PrepareFrame(Playable playable, FrameData info)
+        {
+        }
+
+        public void SetTime(float time)
+        {
+        }
+
+        public void Evaluate(float deltaTime)
+        {
+        }
+
+        public static BBTimelineAnimationClipPlayable Create(RuntimePlayable runtimePlayable, BBAnimationClip clip, Playable output, int index)
+        {
+            var handle = ScriptPlayable<BBTimelineAnimationClipPlayable>.Create(runtimePlayable.PlayableGraph);
+            var clipPlayable = handle.GetBehaviour();
+            clipPlayable.Clip = clip;
+            clipPlayable.Handle = handle;
+            clipPlayable.ClipPlayable = AnimationClipPlayable.Create(runtimePlayable.PlayableGraph, clip.animationClip);
+            handle.AddInput(clipPlayable.ClipPlayable, 0, 1);
+
+            clipPlayable.Output = output;
+            clipPlayable.Index = index;
+            output.ConnectInput(index, handle, 0, 0);
+
+            return clipPlayable;
+        }
+    }
+
     #endregion
 }
