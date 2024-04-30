@@ -81,6 +81,15 @@ namespace Timeline.Editor
         //当前Locator所在帧数
         private int currentTimeLocator;
 
+        public RuntimePlayable RuntimePlayable
+        {
+            get
+            {
+                if (EditorWindow == null || EditorWindow.TimelinePlayer == null) return null;
+                return EditorWindow.TimelinePlayer.RuntimeimePlayable;
+            }
+        }
+
         #region Scroll
 
         protected bool m_ScrollViewPan;
@@ -184,50 +193,51 @@ namespace Timeline.Editor
 
         public void PopulateView()
         {
-            TrackField.Clear();
-            m_Selections.Clear();
-            m_Elements.Clear();
-            TrackViewMap.Clear();
-            TrackViews.Clear();
-            PopulateInspector(null);
+            // TrackField.Clear();
+            // m_Selections.Clear();
+            // m_Elements.Clear();
+            // TrackViewMap.Clear();
+            // TrackViews.Clear();
+
+            ResizeTimeField();
+            // PopulateInspector(null);
             UpdateBindState();
-
-            if (Timeline)
-            {
-                Timeline.UpdateSerializedTimeline();
-
-                //计算最大帧长
-                int maxFrame = 0;
-                foreach (var track in Timeline.Tracks)
-                {
-                    foreach (var clip in track.Clips)
-                    {
-                        if (clip.EndFrame >= maxFrame)
-                        {
-                            maxFrame = clip.EndFrame;
-                        }
-                    }
-                }
-
-                maxFrame++;
-                m_MaxFrame = Mathf.Max(m_MaxFrame, maxFrame);
-                ResizeTimeField();
-                DrawTimeField();
-
-                foreach (var track in Timeline.Tracks)
-                {
-                    TimelineTrackView trackView = new();
-                    trackView.SelectionContainer = this;
-                    trackView.Init(track);
-
-                    Elements.Add(trackView);
-                    TrackField.Add(trackView);
-                    TrackViewMap.Add(track, trackView);
-                    TrackViews.Add(trackView);
-                }
-            }
-
-            OnPopulatedCallback?.Invoke();
+            // if (Timeline)
+            // {
+            //     Timeline.UpdateSerializedTimeline();
+            //
+            //     //计算最大帧长
+            //     int maxFrame = 0;
+            //     foreach (var track in Timeline.Tracks)
+            //     {
+            //         foreach (var clip in track.Clips)
+            //         {
+            //             if (clip.EndFrame >= maxFrame)
+            //             {
+            //                 maxFrame = clip.EndFrame;
+            //             }
+            //         }
+            //     }
+            //
+            //     maxFrame++;
+            //     m_MaxFrame = Mathf.Max(m_MaxFrame, maxFrame);
+            //     ResizeTimeField();
+            //     DrawTimeField();
+            //
+            //     foreach (var track in Timeline.Tracks)
+            //     {
+            //         TimelineTrackView trackView = new();
+            //         trackView.SelectionContainer = this;
+            //         trackView.Init(track);
+            //
+            //         Elements.Add(trackView);
+            //         TrackField.Add(trackView);
+            //         TrackViewMap.Add(track, trackView);
+            //         TrackViews.Add(trackView);
+            //     }
+            // }
+            //
+            // OnPopulatedCallback?.Invoke();
         }
 
         private void PopulateInspector(object target)
@@ -441,26 +451,14 @@ namespace Timeline.Editor
 
         public void UpdateBindState()
         {
-            if (EditorWindow == null)
-            {
-                return;
-            }
+            if (EditorWindow == null) return;
 
-            if (Timeline && Timeline.TimelinePlayer)
-            {
-                MarkerField.SetEnabled(true);
-                TimeLocator.SetEnabled(true);
-            }
-            else
-            {
-                MarkerField.SetEnabled(false);
-                TimeLocator.SetEnabled(false);
-            }
-
-            UpdateTimeLocator();
-            PopulateInspector(Timeline);
+            bool binding = (RuntimePlayable != null);
+            MarkerField.SetEnabled(binding);
+            TimeLocator.SetEnabled(binding);
+            // PopulateInspector(Timeline);
         }
-        
+
         #region Selection
 
         public VisualElement ContentContainer => TrackField;
@@ -615,26 +613,31 @@ namespace Timeline.Editor
         private void SetTimeLocator(int targetFrame)
         {
             currentTimeLocator = targetFrame;
-            Timeline.TimelinePlayer.IsPlaying = false;
+            UpdateTimeLocator();
+            // Timeline.TimelinePlayer.IsPlaying = false;
             // float deltaTime = targetFrame / 60f - Timeline.Time;
             // Timeline.TimelinePlayer.Evaluate(deltaTime);
         }
 
         public void UpdateTimeLocator()
         {
-            if (EditorWindow == null) return;
-            if (Timeline != null && Timeline.Binding)
-            {
-                TimeLocator.style.left = FramePosMap[currentTimeLocator] - TrackScrollView.scrollOffset.x;
-                TimeLocator.MarkDirtyRepaint();
-                // LocaterFrameLabel.text = Timeline.Frame.ToString();
-            }
-            else
-            {
-                TimeLocator.style.left = m_FieldOffsetX;
-                TimeLocator.MarkDirtyRepaint();
-                LocaterFrameLabel.text = string.Empty;
-            }
+            //没有进行绑定
+            if (RuntimePlayable == null) return;
+            TimeLocator.style.left = FramePosMap[currentTimeLocator] - TrackScrollView.scrollOffset.x;
+            TimeLocator.MarkDirtyRepaint();
+            LocaterFrameLabel.text = currentTimeLocator.ToString();
+            // if (Timeline != null && Timeline.Binding)
+            // {
+            //     TimeLocator.style.left = FramePosMap[currentTimeLocator] - TrackScrollView.scrollOffset.x;
+            //     TimeLocator.MarkDirtyRepaint();
+            //     // LocaterFrameLabel.text = Timeline.Frame.ToString();
+            // }
+            // else
+            // {
+            //     TimeLocator.style.left = m_FieldOffsetX;
+            //     TimeLocator.MarkDirtyRepaint();
+            //     LocaterFrameLabel.text = string.Empty;
+            // }
         }
 
         private void OnTimeLocatorStartMove(PointerDownEvent evt)
@@ -644,10 +647,11 @@ namespace Timeline.Editor
 
         private void OnTimeLocatorMove(Vector2 deltaPosition)
         {
-            // int targetFrame = GetClosestFrame(FramePosMap[Timeline.Frame] + deltaPosition.x);
-            // targetFrame = Mathf.Clamp(targetFrame, CurrentMinFrame, CurrentMaxFrame);
-            //
-            // SetTimeLocator(targetFrame);
+            int targetFrame = GetClosestFrame(FramePosMap[currentTimeLocator] + deltaPosition.x);
+            targetFrame = Mathf.Clamp(targetFrame, CurrentMinFrame, CurrentMaxFrame);
+
+            currentTimeLocator = targetFrame;
+            SetTimeLocator(currentTimeLocator);
         }
 
         private void OnTimeLocatorStopMove()

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Timeline.Editor;
@@ -54,6 +53,9 @@ namespace Timeline
         [DictionaryDrawerSettings(KeyLabel = "Name", ValueLabel = "Timeline")]
         public Dictionary<string, BBTimeline> Timelines = new();
 
+        public BBTimeline Test => Timelines["Test1"];
+
+        [HideInInspector]
         public RuntimePlayable RuntimeimePlayable;
 
         public void OnDisable()
@@ -75,8 +77,6 @@ namespace Timeline
 
         public void Init()
         {
-            BBTimeline timeline = Timelines["Test1"];
-
             #region PlayableGraph
 
             PlayableGraph = PlayableGraph.Create("Test1");
@@ -99,14 +99,14 @@ namespace Timeline
 
             #region RuntimeTimeline
 
-            RuntimeimePlayable = RuntimePlayable.Create(timeline, this);
+            RuntimeimePlayable = RuntimePlayable.Create(Test, this);
 
             #endregion
         }
 
         public void Dispose()
         {
-            if(PlayableGraph.IsValid()) PlayableGraph.Destroy();
+            if (PlayableGraph.IsValid()) PlayableGraph.Destroy();
         }
 
         public void Evaluate(float deltaTime)

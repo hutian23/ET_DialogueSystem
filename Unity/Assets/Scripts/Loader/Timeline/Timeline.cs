@@ -27,6 +27,10 @@ namespace Timeline
 
         public List<RuntimeTrack> RuntimeTracks = new();
 
+        public float Time;
+        
+        public int Frame => (int)Time / TimelineUtility.FrameRate;
+
         public static RuntimePlayable Create(BBTimeline _timeline, TimelinePlayer _timelinePlayer)
         {
             RuntimePlayable runtimePlayable = new();

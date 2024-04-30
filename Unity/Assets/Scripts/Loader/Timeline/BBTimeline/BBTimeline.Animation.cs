@@ -5,6 +5,7 @@ using UnityEngine.Playables;
 
 namespace Timeline
 {
+    [BBTrack("Animation")]
     public class BBAnimationTrack: BBTrack
     {
 #if UNITY_EDITOR

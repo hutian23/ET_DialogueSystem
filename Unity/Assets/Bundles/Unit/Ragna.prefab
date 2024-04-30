@@ -288,6 +288,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 5bb73b501c1d91e4cbe1b1accb828527, type: 2}
+    - {fileID: 11400000, guid: 3db21ea503a2acf41a86a07c8518ad0d, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -306,7 +307,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 
@@ -320,15 +321,27 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Test2
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: RunningTimeline
+    - Name: RuntimeimePlayable
       Entry: 6
       Data: 
-  ApplyRootMotion: 0
+  ApplyRootMotion: 1
 --- !u!1 &7728331812427471843
 GameObject:
   m_ObjectHideFlags: 0

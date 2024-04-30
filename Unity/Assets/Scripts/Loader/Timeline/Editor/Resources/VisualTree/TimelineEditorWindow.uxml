@@ -1,7 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/Loader/Timeline/Editor/Resources/Style/TimelineEditorWindow.uss?fileID=7433441132597879392&amp;guid=dd412e76b6520e14cb2532733bbe8e3c&amp;type=3#TimelineEditorWindow" />
     <ui:VisualElement name="top">
-        <uie:ObjectField name="target-field" style="height: 25px; width: 158px;" />
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="play-button" />
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="pause-button" />
         <ui:SliderInt picking-mode="Ignore" value="100" high-value="500" name="field-scale-bar" low-value="10" style="width: 72px; height: 24px; margin-top: 3px; margin-bottom: 3px; padding-left: 0; margin-left: 10px;" />
