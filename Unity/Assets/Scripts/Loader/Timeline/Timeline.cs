@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -59,6 +57,16 @@ namespace Timeline
                 runtimeTrack.UnBind();
             }
         }
+
+#if UNITY_EDITOR
+        public void AddTrack(Type type)
+        {
+            BBTrack track = Timeline.AddTrack(type);
+            RuntimeTrack runtimeTrack = Activator.CreateInstance(track.RuntimeTrackType, this, track) as RuntimeTrack;
+            runtimeTrack.Bind();
+            RuntimeTracks.Add(runtimeTrack);
+        }
+#endif
     }
 
     public abstract class RuntimeTrack
@@ -667,7 +675,7 @@ namespace Timeline
             });
             OnUpdateMix?.Invoke();
         }
-        
+
         public virtual bool DragValid()
         {
             return false;
@@ -768,7 +776,7 @@ namespace Timeline
 
             return false;
         }
-        
+
         public string StartTimeText()
         {
             return $"StartTime: {StartTime:0.00}S / StartFrame: {StartFrame}";

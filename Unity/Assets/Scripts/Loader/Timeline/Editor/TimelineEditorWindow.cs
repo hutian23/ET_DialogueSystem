@@ -135,7 +135,12 @@ namespace Timeline.Editor
                 // }
                 foreach (var type in BBTimelineEditorUtility.BBTrackTypeDic)
                 {
-                    menu.AppendAction(type.Key, _ => { Debug.LogWarning(type.Key); });
+                    menu.AppendAction(type.Key, _ =>
+                    {
+                        RuntimePlayable.AddTrack(type.Value);
+                        //更新视图
+                        PopulateView();
+                    });
                 }
             }, MouseButton.LeftMouse));
 
@@ -263,7 +268,7 @@ namespace Timeline.Editor
             m_PauseButton.SetEnabled(binding);
             fieldScaleBar.SetEnabled(binding);
             m_TimelineField.SetEnabled(binding);
-            
+
             RuntimePlayable.Timeline.UpdateSerializeTimeline();
         }
 

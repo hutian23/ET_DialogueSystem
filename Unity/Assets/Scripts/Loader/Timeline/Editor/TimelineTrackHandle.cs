@@ -47,18 +47,13 @@ namespace Timeline.Editor
 
             style.borderLeftColor = ColorAttribute.GetColor(BBTrack.GetType());
 
+            //bind track name
             NameField = this.Q<TextField>();
-            //binding track name
             SerializedProperty serializedProperty = EditorWindow.SerializedTimeline.FindProperty("Tracks");
             serializedProperty = serializedProperty.GetArrayElementAtIndex(EditorWindow.BBTimeline.Tracks.IndexOf(BBTrack));
             NameField.bindingPath = serializedProperty.FindPropertyRelative("Name").propertyPath;
             NameField.Bind(EditorWindow.SerializedTimeline);
-
-            // SerializedProperty serializedProperty = Timeline.SerializedTimeline.FindProperty("m_Tracks");
-            // serializedProperty = serializedProperty.GetArrayElementAtIndex(Timeline.Tracks.IndexOf(Track));
-            // NameField.bindingPath = serializedProperty.FindPropertyRelative("Name").propertyPath;
-            // NameField.Bind(Timeline.SerializedTimeline);
-
+            
             transform.position = new Vector3(0, GetTrackOrder() * 40, 0);
             
             //track Icon

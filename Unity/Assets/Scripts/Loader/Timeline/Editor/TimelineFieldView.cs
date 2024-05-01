@@ -194,10 +194,10 @@ namespace Timeline.Editor
 
         public void PopulateView()
         {
-            // TrackField.Clear();
-            // m_Selections.Clear();
-            // m_Elements.Clear();
-            // TrackViewMap.Clear();
+            TrackField.Clear();
+            m_Selections.Clear();
+            m_Elements.Clear();
+            TrackViewMap.Clear();
             TrackViews.Clear();
 
             ResizeTimeField();

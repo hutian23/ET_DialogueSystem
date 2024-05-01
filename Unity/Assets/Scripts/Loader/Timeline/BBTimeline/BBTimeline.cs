@@ -22,11 +22,12 @@ namespace Timeline
             SerializedTimeline = new SerializedObject(this);
         }
         
-        public void AddTrack(Type type)
+        public BBTrack AddTrack(Type type)
         {
             BBTrack track = Activator.CreateInstance(type) as BBTrack;
             track.Name = type.Name.Replace("Track", string.Empty);
             Tracks.Add(track);
+            return track;
         }
 
         public void RemoveTrack(BBTrack track)

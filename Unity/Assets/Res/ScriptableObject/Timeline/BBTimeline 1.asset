@@ -22,27 +22,12 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   Tracks:
-  - rid: 7600336776045264901
-  - rid: 7600336776045264902
+  - rid: 7600336776045264910
   references:
     version: 2
     RefIds:
-    - rid: 7600336776045264901
+    - rid: 7600336776045264910
       type: {class: BBAnimationTrack, ns: Timeline, asm: Unity.Loader}
       data:
-        Name: hutian
-        Clips:
-        - rid: 7600336776045264903
-    - rid: 7600336776045264902
-      type: {class: BBAnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: errer
+        Name: BBAnimation
         Clips: []
-    - rid: 7600336776045264903
-      type: {class: BBAnimationClip, ns: Timeline, asm: Unity.Loader}
-      data:
-        InValid: 0
-        StartFrame: 0
-        EndFrame: 0
-        Capabilities: 0
-        animationClip: {fileID: 0}
