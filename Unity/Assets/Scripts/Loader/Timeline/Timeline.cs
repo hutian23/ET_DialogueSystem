@@ -28,7 +28,6 @@ namespace Timeline
         public List<RuntimeTrack> RuntimeTracks = new();
 
         public float Time;
-        
         public int Frame => (int)Time / TimelineUtility.FrameRate;
 
         public static RuntimePlayable Create(BBTimeline _timeline, TimelinePlayer _timelinePlayer)
@@ -43,11 +42,13 @@ namespace Timeline
 
         private void Init()
         {
+            Time = 0f;
             Timeline.Tracks.ForEach(track =>
             {
                 Type trackType = track.RuntimeTrackType;
                 RuntimeTrack runtimeTrack = Activator.CreateInstance(trackType, this, track) as RuntimeTrack;
                 runtimeTrack.Bind();
+                RuntimeTracks.Add(runtimeTrack);
             });
         }
 
@@ -69,7 +70,7 @@ namespace Timeline
         }
 
         protected RuntimePlayable RuntimePlayable;
-        protected BBTrack Track;
+        public BBTrack Track;
 
         protected int PlayableIndex;
         public abstract void Bind();
@@ -666,13 +667,7 @@ namespace Timeline
             });
             OnUpdateMix?.Invoke();
         }
-
-        public Color Color()
-        {
-            var colorAttributes = GetType().GetCustomAttributes<ColorAttribute>().ToArray();
-            return colorAttributes[^1].Color / 255;
-        }
-
+        
         public virtual bool DragValid()
         {
             return false;
@@ -773,13 +768,7 @@ namespace Timeline
 
             return false;
         }
-
-        public Color Color()
-        {
-            var colorAttribute = GetType().GetCustomAttributes<ColorAttribute>().ToArray();
-            return colorAttribute[^1].Color / 255;
-        }
-
+        
         public string StartTimeText()
         {
             return $"StartTime: {StartTime:0.00}S / StartFrame: {StartFrame}";

@@ -34,6 +34,7 @@ namespace Timeline.Editor
         private Label LocaterFrameLabel { get; set; }
         private ScrollView InspectorScrollView { get; set; }
         private VisualElement ClipInspector { get; set; }
+        private ScrollView TrackHandleContainer { get; set; }
 
         #region Param
 
@@ -197,14 +198,31 @@ namespace Timeline.Editor
             // m_Selections.Clear();
             // m_Elements.Clear();
             // TrackViewMap.Clear();
-            // TrackViews.Clear();
+            TrackViews.Clear();
 
             ResizeTimeField();
             // PopulateInspector(null);
             UpdateBindState();
+
+            foreach (var runtimeTrack in RuntimePlayable.RuntimeTracks)
+            {
+                // TrackView
+                TimelineTrackView trackView = new();
+                trackView.SelectionContainer = this;
+                trackView.Init(runtimeTrack);
+                TrackField.Add(trackView);
+                TrackViews.Add(trackView);
+            }
+
+            foreach (var trackView in TrackViews)
+            {
+                TimelineTrackHandle trackHandle = new(trackView);
+                trackHandle.SelectionContainer = this;
+                EditorWindow.TrackHandleContainer.Add(trackHandle);
+            }
             // if (Timeline)
             // {
-            //     Timeline.UpdateSerializedTimeline();
+            // Timeline.UpdateSerializedTimeline();
             //
             //     //计算最大帧长
             //     int maxFrame = 0;
@@ -237,7 +255,7 @@ namespace Timeline.Editor
             //     }
             // }
             //
-            // OnPopulatedCallback?.Invoke();
+            //OnPopulatedCallback?.Invoke();
         }
 
         private void PopulateInspector(object target)

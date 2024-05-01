@@ -12,7 +12,7 @@ namespace Timeline.Editor
         private VisualElement m_LeftPanel;
         protected VisualElement m_TrackHierachy;
         protected VisualElement m_Toolbar;
-        private ScrollView m_TrackHandleContainer;
+        public ScrollView TrackHandleContainer;
         private VisualElement m_AddTrackButton;
 
         private SliderInt fieldScaleBar;
@@ -22,8 +22,10 @@ namespace Timeline.Editor
         private TimelineFieldView m_TimelineField;
         public Timeline Timeline { get; private set; }
         public TimelinePlayer TimelinePlayer { get; set; }
-        public BBTimeline _timeline { get; private set; }
+
+        public BBTimeline BBTimeline => TimelinePlayer.RuntimeimePlayable.Timeline;
         public RuntimePlayable RuntimePlayable => TimelinePlayer.RuntimeimePlayable;
+        public SerializedObject SerializedTimeline => TimelinePlayer.RuntimeimePlayable.Timeline.SerializedTimeline;
 
         public void CreateGUI()
         {
@@ -49,19 +51,19 @@ namespace Timeline.Editor
             m_Toolbar = root.Q("tool-bar");
 
             //TrackHandler
-            m_TrackHandleContainer = root.Q<ScrollView>("track-handle-container");
-            m_TrackHandleContainer.focusable = true;
-            m_TrackHandleContainer.verticalScrollerVisibility = ScrollerVisibility.Hidden;
-            m_TrackHandleContainer.RegisterCallback<WheelEvent>(_ =>
-            {
-                foreach (var child in m_TrackHandleContainer.Children())
-                {
-                    if (child is not TimelineTrackHandle) continue;
-                    ScrollView trackScroll = root.Q<ScrollView>("track-scroll");
-                    trackScroll.scrollOffset = new Vector2(trackScroll.scrollOffset.x, m_TrackHandleContainer.scrollOffset.y);
-                    return;
-                }
-            });
+            TrackHandleContainer = root.Q<ScrollView>("track-handle-container");
+            TrackHandleContainer.focusable = true;
+            TrackHandleContainer.verticalScrollerVisibility = ScrollerVisibility.Hidden;
+            // TrackHandleContainer.RegisterCallback<WheelEvent>(_ =>
+            // {
+            //     foreach (var child in TrackHandleContainer.Children())
+            //     {
+            //         if (child is not TimelineTrackHandle) continue;
+            //         ScrollView trackScroll = root.Q<ScrollView>("track-scroll");
+            //         trackScroll.scrollOffset = new Vector2(trackScroll.scrollOffset.x, TrackHandleContainer.scrollOffset.y);
+            //         return;
+            //     }
+            // });
 
             // m_TrackHandleContainer.RegisterCallback<KeyDownEvent>((e) =>
             // {
@@ -138,7 +140,6 @@ namespace Timeline.Editor
             }, MouseButton.LeftMouse));
 
             m_TimelineField = root.Q<TimelineFieldView>();
-            m_TimelineField.PopulateView();
             m_TimelineField.EditorWindow = this;
             // m_TimelineField.OnPopulatedCallback += PopulateView;
             // // m_TimelineField.OnPopulatedCallback += () =>
@@ -224,10 +225,10 @@ namespace Timeline.Editor
 
         public void PopulateView()
         {
-            m_TrackHandleContainer.Clear();
+            TrackHandleContainer.Clear();
             m_Elements.Clear();
             m_Selections.Clear();
-            
+
             UpdateBindState();
             m_TimelineField.PopulateView();
             // if (Timeline != null)
@@ -262,11 +263,13 @@ namespace Timeline.Editor
             m_PauseButton.SetEnabled(binding);
             fieldScaleBar.SetEnabled(binding);
             m_TimelineField.SetEnabled(binding);
+            
+            RuntimePlayable.Timeline.UpdateSerializeTimeline();
         }
 
         #region Selection
 
-        public VisualElement ContentContainer => m_TrackHandleContainer;
+        public VisualElement ContentContainer => TrackHandleContainer;
 
         private readonly List<ISelectable> m_Elements = new();
         public List<ISelectable> Elements => m_Elements;

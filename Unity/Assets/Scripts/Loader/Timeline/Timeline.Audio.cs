@@ -8,7 +8,7 @@ namespace Timeline
 {
     // [TrackGroup("Base")]
     [Ordered(1)]
-    [Color(255,193,7)]
+    // [Color(255,193,7)]
     public class AudioTrack: Track
     {
         public int PlayableIndex { get; protected set; }

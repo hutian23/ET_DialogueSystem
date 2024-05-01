@@ -20,57 +20,29 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: Tracks
-      Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[Timeline.BBTrack, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 1|Timeline.BBAnimationTrack, Unity.Loader
-    - Name: Name
-      Entry: 6
-      Data: 
-    - Name: Clips
-      Entry: 7
-      Data: 2|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 3|Timeline.BBAnimationClip, Unity.Loader
-    - Name: InValid
-      Entry: 5
-      Data: false
-    - Name: StartFrame
-      Entry: 3
-      Data: 0
-    - Name: EndFrame
-      Entry: 3
-      Data: 0
-    - Name: Capabilities
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
+  Tracks:
+  - rid: 7600336776045264901
+  - rid: 7600336776045264902
+  references:
+    version: 2
+    RefIds:
+    - rid: 7600336776045264901
+      type: {class: BBAnimationTrack, ns: Timeline, asm: Unity.Loader}
+      data:
+        Name: hutian
+        Clips:
+        - rid: 7600336776045264903
+    - rid: 7600336776045264902
+      type: {class: BBAnimationTrack, ns: Timeline, asm: Unity.Loader}
+      data:
+        Name: errer
+        Clips: []
+    - rid: 7600336776045264903
+      type: {class: BBAnimationClip, ns: Timeline, asm: Unity.Loader}
+      data:
+        InValid: 0
+        StartFrame: 0
+        EndFrame: 0
+        Capabilities: 0
+        animationClip: {fileID: 0}

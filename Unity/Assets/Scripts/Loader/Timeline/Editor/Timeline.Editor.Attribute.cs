@@ -171,6 +171,28 @@ namespace Timeline.Editor
         }
     }
 
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    public class ColorAttribute: Attribute
+    {
+        private readonly Color Color;
+
+        public ColorAttribute(float r, float g, float b)
+        {
+            Color = new Color(r, g, b, 255);
+        }
+
+        public static Color GetColor(Type type)
+        {
+            var ColorAttribute = type.GetAttribute<ColorAttribute>();
+            if (ColorAttribute != null)
+            {
+                return ColorAttribute.Color / 255;
+            }
+
+            return default;
+        }
+    }
+
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
     public class ObjectFieldAttribute: PropertyAttribute
     {

@@ -1,21 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 namespace Timeline
 {
+
     [CreateAssetMenu(menuName = "ScriptableObject/BBTimeline", fileName = "BBTimeline")]
     public class BBTimeline: SerializedScriptableObject
     {
+        [SerializeReference]
         public List<BBTrack> Tracks = new();
-
+        
 #if UNITY_EDITOR
         [HideInInspector]
-        public UnityEditor.SerializedObject SerializedTimeline;
+        public SerializedObject SerializedTimeline;
 
+        public void UpdateSerializeTimeline()
+        {
+            SerializedTimeline = new SerializedObject(this);
+        }
+        
         public void AddTrack(Type type)
         {
             BBTrack track = Activator.CreateInstance(type) as BBTrack;
@@ -50,9 +56,11 @@ namespace Timeline
 #endif
     }
 
+    [Serializable]
     public abstract class BBTrack
     {
         public string Name;
+        [SerializeReference]
         public List<BBClip> Clips = new();
 
         public virtual Type RuntimeTrackType => typeof (RuntimeTrack);
@@ -71,16 +79,10 @@ namespace Timeline
         {
             Clips.Remove(clip);
         }
-
-        public Color Color()
-        {
-            var colorAttributes = GetType().GetCustomAttributes<ColorAttribute>().ToArray();
-            return colorAttributes[^1].Color / 255;
-        }
-
 #endif
     }
 
+    [Serializable]
     public abstract class BBClip
     {
         public bool InValid;
@@ -112,13 +114,7 @@ namespace Timeline
 
             return false;
         }
-
-        public Color Color()
-        {
-            var colorAttributes = GetType().GetCustomAttributes<ColorAttribute>().ToArray();
-            return colorAttributes[^1].Color / 255;
-        }
-
+        
         public bool IsResizeable()
         {
             return (Capabilities & ClipCapabilities.Resizeable) == ClipCapabilities.Resizeable;

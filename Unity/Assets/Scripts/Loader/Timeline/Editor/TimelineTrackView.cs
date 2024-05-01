@@ -28,6 +28,8 @@ namespace Timeline.Editor
         private readonly DropdownMenuHandler m_MenuHandler;
         private Vector2 m_localMousePosition;
 
+        public RuntimeTrack RuntimeTrack;
+        
         public TimelineTrackView()
         {
             VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>($"VisualTree/TimelineTrackView");
@@ -37,10 +39,19 @@ namespace Timeline.Editor
             RegisterCallback<PointerDownEvent>(OnPointerDown);
             RegisterCallback<PointerMoveEvent>(OnPointerMove);
             RegisterCallback<PointerOutEvent>(OnPointerOut);
-
+            
             m_MenuHandler = new DropdownMenuHandler(MenuBuilder);
         }
 
+        public void Init(RuntimeTrack track)
+        {
+            RuntimeTrack = track;
+            int index = EditorWindow.RuntimePlayable.RuntimeTracks.IndexOf(track);
+            transform.position = new Vector3(0, index * 40, 0);
+            // DragAndDropManipulator dragAndDropManipulator = new(this);
+            // this.AddManipulator(dragAndDropManipulator);
+        }
+        
         public void Init(Track track)
         {
             Track = track;
@@ -129,68 +140,68 @@ namespace Timeline.Editor
 
         private void OnPointerDown(PointerDownEvent evt)
         {
-            foreach (TimelineClipView v in ClipViewMap.Values)
-            {
-                if (!v.InMiddle(evt.position)) continue;
-
-                v.OnPointerDown(evt);
-                evt.StopImmediatePropagation();
-                return;
-            }
-
-            if (evt.button == 0 && IsSelectable())
-            {
-                if (!IsSelected())
-                {
-                    if (evt.actionKey)
-                    {
-                        SelectionContainer.AddToSelection(this);
-                    }
-                    else
-                    {
-                        SelectionContainer.ClearSelection();
-                        SelectionContainer.AddToSelection(this);
-                    }
-                }
-                else
-                {
-                    if (evt.actionKey)
-                    {
-                        SelectionContainer.RemoveFromSelection(this);
-                    }
-                }
-
-                evt.StopImmediatePropagation();
-            }
-            else if (evt.button == 1)
-            {
-                m_localMousePosition = evt.localPosition;
-                m_MenuHandler.ShowMenu(evt);
-                SelectionContainer.ClearSelection();
-                SelectionContainer.AddToSelection(this);
-                evt.StopImmediatePropagation();
-            }
+            // foreach (TimelineClipView v in ClipViewMap.Values)
+            // {
+            //     if (!v.InMiddle(evt.position)) continue;
+            //
+            //     v.OnPointerDown(evt);
+            //     evt.StopImmediatePropagation();
+            //     return;
+            // }
+            //
+            // if (evt.button == 0 && IsSelectable())
+            // {
+            //     if (!IsSelected())
+            //     {
+            //         if (evt.actionKey)
+            //         {
+            //             SelectionContainer.AddToSelection(this);
+            //         }
+            //         else
+            //         {
+            //             SelectionContainer.ClearSelection();
+            //             SelectionContainer.AddToSelection(this);
+            //         }
+            //     }
+            //     else
+            //     {
+            //         if (evt.actionKey)
+            //         {
+            //             SelectionContainer.RemoveFromSelection(this);
+            //         }
+            //     }
+            //
+            //     evt.StopImmediatePropagation();
+            // }
+            // else if (evt.button == 1)
+            // {
+            //     m_localMousePosition = evt.localPosition;
+            //     m_MenuHandler.ShowMenu(evt);
+            //     SelectionContainer.ClearSelection();
+            //     SelectionContainer.AddToSelection(this);
+            //     evt.StopImmediatePropagation();
+            // }
         }
 
         private void OnPointerMove(PointerMoveEvent evt)
         {
-            foreach (TimelineClipView clipViewValue in ClipViewMap.Values)
-            {
-                clipViewValue.OnHover(false);
-                if (clipViewValue.InMiddle(evt.position))
-                {
-                    clipViewValue.OnHover(true);
-                    evt.StopImmediatePropagation();
-                }
-            }
+            // foreach (TimelineClipView clipViewValue in ClipViewMap.Values)
+            // {
+            //     clipViewValue.OnHover(false);
+            //     if (clipViewValue.InMiddle(evt.position))
+            //     {
+            //         clipViewValue.OnHover(true);
+            //         evt.StopImmediatePropagation();
+            //     }
+            // }
         }
 
         private void OnPointerOut(PointerOutEvent evt)
         {
-            foreach (TimelineClipView clipViewValue in ClipViewMap.Values)
-            {
-                clipViewValue.OnHover(false);
-            }
+            // foreach (TimelineClipView clipViewValue in ClipViewMap.Values)
+            // {
+            //     clipViewValue.OnHover(false);
+            // }
         }
 
         private void OnMutedStateChanged()

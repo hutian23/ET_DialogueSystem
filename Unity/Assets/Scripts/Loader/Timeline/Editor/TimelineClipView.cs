@@ -68,7 +68,7 @@ namespace Timeline.Editor
             Clip.OnNameChanged = () => m_ClipName.text = clip.Name;
             m_ClipName.text = clip.Name;
             TrackView = trackView;
-            m_BottomLine.style.backgroundColor = clip.Color();
+            // m_BottomLine.style.backgroundColor = clip.Color();
 
             //Resize
             m_LeftResizeDragLine = new DragLineManipulator(DraglineDirection.Left, (e) =>

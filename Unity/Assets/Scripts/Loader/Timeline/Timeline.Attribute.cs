@@ -4,17 +4,6 @@ using UnityEngine;
 namespace Timeline
 {
     [AttributeUsage(AttributeTargets.Class,AllowMultiple = false,Inherited = true)]
-    public class ColorAttribute: Attribute
-    {
-        public Color Color;
-
-        public ColorAttribute(float r, float g, float b)
-        {
-            Color = new Color(r, g, b, 255);
-        }
-    }
-
-    [AttributeUsage(AttributeTargets.Class,AllowMultiple = false,Inherited = true)]
     public class ClipViewAttribute: Attribute
     {
         public string ViewType;

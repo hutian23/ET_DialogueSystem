@@ -1,11 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+
+#if UNITY_EDITOR
+using Timeline.Editor;
+#endif
 using UnityEngine.Animations;
 using UnityEngine.Playables;
 
 namespace Timeline
 {
+    [Serializable]
     [BBTrack("Animation")]
+#if UNITY_EDITOR
+    [Color(127, 253, 228)]
+    [IconGuid("46d1be470ea7f7945b52ec8511f9a419")]
+#endif
     public class BBAnimationTrack: BBTrack
     {
 #if UNITY_EDITOR

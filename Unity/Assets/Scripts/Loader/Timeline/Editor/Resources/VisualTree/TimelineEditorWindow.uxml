@@ -6,11 +6,11 @@
         <ui:SliderInt picking-mode="Ignore" value="100" high-value="500" name="field-scale-bar" low-value="10" style="width: 72px; height: 24px; margin-top: 3px; margin-bottom: 3px; padding-left: 0; margin-left: 10px;" />
     </ui:VisualElement>
     <ET.Client.SplitView fixed-pane-initial-dimension="225" name="track-container">
-        <ui:VisualElement name="left-panel" style="flex-grow: 1;">
-            <ui:VisualElement name="track-hirerachy" style="flex-grow: 1;">
-                <ui:VisualElement name="tool-bar" style="flex-grow: 0; flex-shrink: 1;">
-                    <ui:VisualElement name="add-track-button" style="flex-grow: 0; width: 100px;">
-                        <ui:VisualElement name="add-track-button-Icon" style="flex-grow: 1; background-image: resource(&apos;Icon/d_Toolbar Plus More@2x&apos;); -unity-background-scale-mode: scale-to-fit; padding-left: 0; margin-left: 50px;" />
+        <ui:VisualElement name="left-panel" style="flex-grow: 1; height: 100%;">
+            <ui:VisualElement name="track-hirerachy" style="height: 100%; width: 100%;">
+                <ui:VisualElement name="tool-bar" style="height: 25px; flex-shrink: 0;">
+                    <ui:VisualElement name="add-track-button" style="width: 100px;">
+                        <ui:VisualElement name="add-track-button-Icon" style="flex-grow: 1; background-image: resource(&apos;Icon/d_Toolbar Plus More@2x&apos;); -unity-background-scale-mode: scale-to-fit; padding-left: 0; margin-left: 50px; height: 100%; width: 100px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:ScrollView name="track-handle-container" style="height: 100%; width: 100%;" />
