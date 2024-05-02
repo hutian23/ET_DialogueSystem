@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 #if UNITY_EDITOR
 using Timeline.Editor;
@@ -60,13 +61,14 @@ namespace Timeline
             for (int i = 0; i < ClipPlayables.Count; i++)
             {
                 BBTimelineAnimationClipPlayable clipPlayable = ClipPlayables[i];
-                MixerPlayable.DisconnectInput(i);
-                clipPlayable.Handle.Destroy();
+                Debug.LogWarning(clipPlayable);
+                // MixerPlayable.DisconnectInput(i);
+                // clipPlayable.Handle.Destroy();
             }
 
             // 取消连接关系并且销毁
             RuntimePlayable.AnimationRootPlayable.DisconnectInput(PlayableIndex);
-            TrackPlayable.Handle.Destroy();
+            // TrackPlayable.Handle.Destroy();
         }
 
         public override void SetTime()

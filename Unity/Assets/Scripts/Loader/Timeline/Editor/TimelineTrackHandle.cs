@@ -18,17 +18,14 @@ namespace Timeline.Editor
         private TimelineTrackView TrackView { get; set; }
         private RuntimeTrack RuntimeTrack => TrackView.RuntimeTrack;
         private BBTrack BBTrack => RuntimeTrack.Track;
+        private BBTimeline BBTimeline => EditorWindow.BBTimeline;
+        private RuntimePlayable RuntimePlayable => EditorWindow.RuntimePlayable;
 
         public TimelineEditorWindow EditorWindow => TrackView.EditorWindow;
         private TimelineFieldView FieldView => TrackView.FieldView;
-        public Track Track => TrackView.Track;
-        private Timeline Timeline => Track.Timeline;
 
         private readonly DropdownMenuHandler MenuHandler;
 
-        private readonly float TopOffset = 5;
-
-        // private readonly float YminOffset = -77;
         private readonly float Interval = 40; //TrackHandle_Height + margin_Top + margin_Bottom
 
         public TimelineTrackHandle()
@@ -53,9 +50,9 @@ namespace Timeline.Editor
             serializedProperty = serializedProperty.GetArrayElementAtIndex(EditorWindow.BBTimeline.Tracks.IndexOf(BBTrack));
             NameField.bindingPath = serializedProperty.FindPropertyRelative("Name").propertyPath;
             NameField.Bind(EditorWindow.SerializedTimeline);
-            
+
             transform.position = new Vector3(0, GetTrackOrder() * 40, 0);
-            
+
             //track Icon
             Icon = this.Q("icon");
             Texture2D texture2D = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(IconGuidAttribute.Guid(BBTrack.GetType())));
@@ -63,81 +60,80 @@ namespace Timeline.Editor
             {
                 Icon.style.backgroundImage = texture2D;
             }
-            //
-            // MenuHandler = new DropdownMenuHandler(MenuBuilder);
-            // DragManipulator = new DragManipulator((e) =>
-            // {
-            //     //OnDrag
-            //     Dragging = true;
-            //     OriginalIndex = Timeline.Tracks.IndexOf(Track); //交换前的Index
-            //     e.StopImmediatePropagation();
-            // }, () =>
-            // {
-            //     //OnDrop
-            //     Dragging = false;
-            //     Tweening = false;
-            //     EditorApplication.update -= TweenTrackHandles;
-            //
-            //     int currentIndex = Timeline.Tracks.IndexOf(Track);
-            //     Timeline.Tracks.Remove(Track);
-            //     Timeline.Tracks.Insert(OriginalIndex, Track);
-            //
-            //     if (OriginalIndex != currentIndex)
-            //     {
-            //         //Undo
-            //         Timeline.ApplyModify(() =>
-            //         {
-            //             Timeline.Tracks.Remove(Track);
-            //             Timeline.Tracks.Insert(currentIndex, Track);
-            //             Timeline.Resort();
-            //         }, "Resort");
-            //     }
-            //     //移动了但是没有完全移动
-            //     else
-            //     {
-            //         float targetY = Interval * currentIndex + TopOffset;
-            //         transform.position = new Vector3(0, targetY, 0);
-            //         TrackView.transform.position = new Vector3(0, targetY - TopOffset, 0);
-            //     }
-            // }, (e) =>
-            // {
-            //     //OnMove
-            //     float targetY = transform.position.y + e.y;
-            //     targetY = Mathf.Clamp(targetY, TopOffset, (Timeline.Tracks.Count - 1) * Interval + TopOffset);
-            //     transform.position = new Vector3(0, targetY, 0);
-            //     TrackView.transform.position = new Vector3(0, targetY - TopOffset, 0); //<---TrackView的联动效果
-            //
-            //     int index = Timeline.Tracks.IndexOf(Track);
-            //     int targetIndex = Mathf.FloorToInt(targetY / Interval);
-            //     if (index != targetIndex)
-            //     {
-            //         Timeline.Tracks.Remove(Track);
-            //         Timeline.Tracks.Insert(targetIndex, Track);
-            //     }
-            //
-            //     if (!Tweening)
-            //     {
-            //         EditorApplication.update += TweenTrackHandles;
-            //     }
-            // });
-            // this.AddManipulator(DragManipulator);
+
+            MenuHandler = new DropdownMenuHandler(MenuBuilder);
+            
+            DragManipulator = new DragManipulator((e) =>
+            {
+                //OnDrag
+                Dragging = true;
+                OriginalIndex = GetTrackIndex(); //交换前的Index
+                e.StopImmediatePropagation();
+            }, () =>
+            {
+                //OnDrop
+                Dragging = false;
+                Tweening = false;
+                EditorApplication.update -= TweenTrackHandles;
+
+                int currentIndex = GetTrackIndex();
+                BBTimeline.Tracks.Remove(BBTrack);
+                BBTimeline.Tracks.Insert(OriginalIndex, BBTrack);
+
+                if (OriginalIndex != currentIndex)
+                {
+                    //Undo
+                    EditorWindow.ApplyModify(() =>
+                    {
+                        BBTimeline.Tracks.Remove(BBTrack);
+                        BBTimeline.Tracks.Insert(currentIndex, BBTrack);
+                    }, "Resort");
+                }
+                //移动了但是没有完全移动
+                else
+                {
+                    float targetY = Interval * currentIndex;
+                    transform.position = new Vector3(0, targetY, 0);
+                    TrackView.transform.position = new Vector3(0, targetY, 0);
+                }
+            }, (e) =>
+            {
+                //OnMove
+                float targetY = transform.position.y + e.y;
+                targetY = Mathf.Clamp(targetY, 0, (BBTimeline.Tracks.Count - 1) * Interval);
+                transform.position = new Vector3(0, targetY, 0);
+                TrackView.transform.position = new Vector3(0, targetY, 0); //<---TrackView的联动效果
+
+                int index = GetTrackIndex();
+                int targetIndex = Mathf.RoundToInt(targetY / Interval);
+                if (index != targetIndex)
+                {
+                    BBTimeline.Tracks.Remove(BBTrack);
+                    BBTimeline.Tracks.Insert(targetIndex, BBTrack);
+                }
+
+                if (!Tweening)
+                {
+                    EditorApplication.update += TweenTrackHandles;
+                }
+            });
+            this.AddManipulator(DragManipulator);
+        }
+
+        //下面这两个其实一样
+        private int GetTrackIndex()
+        {
+            return EditorWindow.BBTimeline.Tracks.IndexOf(BBTrack);
         }
 
         private int GetTrackOrder()
         {
-            // return Timeline.Tracks.IndexOf(Track);
             return FieldView.TrackViews.IndexOf(TrackView);
         }
 
         private void MenuBuilder(DropdownMenu menu)
         {
-            menu.AppendAction("Remove Track", _ => { Timeline.ApplyModify(() => { Timeline.RemoveTrack(Track); }, "Remove Track"); });
-            menu.AppendAction("Mute Track", _ =>
-            {
-                Timeline.ApplyModify(() => { Track.PersistentMuted = !Track.PersistentMuted; }, "Mute Track");
-                Timeline.RebindAll();
-            }, _ => Track.PersistentMuted? DropdownMenuAction.Status.Checked : DropdownMenuAction.Status.Normal);
-            menu.AppendAction("Open Script", _ => { Track.OpenTrackScript(); });
+            menu.AppendAction("Remove Track", _ => { EditorWindow.ApplyModify(() => { RuntimePlayable.RemoveTrack(BBTrack); }, "Remove Track"); });
         }
 
         public void OnPointerDown(PointerDownEvent evt)
@@ -193,14 +189,14 @@ namespace Timeline.Editor
             foreach (var trackHandle in trackHandles)
             {
                 var bindingPath = Regex.Replace(trackHandle.NameField.bindingPath,
-                    @"(m_Tracks.Array.data\[)(\d+)(\].Name)",
-                    "m_Tracks.Array.data[" + Timeline.Tracks.IndexOf(trackHandle.Track) + "].Name");
+                    @"(Tracks.Array.data\[)(\d+)(\].Name)",
+                    "Tracks.Array.data[" + trackHandle.GetTrackIndex() + "].Name");
                 trackHandle.NameField.bindingPath = bindingPath;
-                trackHandle.NameField.Bind(Timeline.SerializedTimeline);
+                trackHandle.NameField.Bind(EditorWindow.SerializedTimeline);
 
                 if (!trackHandle.Dragging)
                 {
-                    float targetY = Timeline.Tracks.IndexOf(trackHandle.Track) * Interval + TopOffset;
+                    float targetY = trackHandle.GetTrackIndex() * Interval;
                     float currentY = trackHandle.transform.position.y;
                     if (Mathf.Abs(currentY - targetY) > 1f)
                     {
@@ -209,7 +205,7 @@ namespace Timeline.Editor
                     }
 
                     trackHandle.transform.position = new Vector3(0, targetY, 0);
-                    trackHandle.TrackView.transform.position = new Vector3(0, targetY - TopOffset, 0);
+                    trackHandle.TrackView.transform.position = new Vector3(0, targetY, 0);
                 }
             }
 

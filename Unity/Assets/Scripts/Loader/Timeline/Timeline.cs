@@ -34,13 +34,13 @@ namespace Timeline
             runtimePlayable.Timeline = _timeline;
             runtimePlayable.TimelinePlayer = _timelinePlayer;
             runtimePlayable.Init();
+            runtimePlayable.RebindCallback += runtimePlayable.Rebind;
 
             return runtimePlayable;
         }
 
         private void Init()
         {
-            Time = 0f;
             Timeline.Tracks.ForEach(track =>
             {
                 Type trackType = track.RuntimeTrackType;
@@ -52,21 +52,37 @@ namespace Timeline
 
         public void Dispose()
         {
+            Time = 0f;
             foreach (var runtimeTrack in RuntimeTracks)
             {
                 runtimeTrack.UnBind();
             }
+
+            RuntimeTracks.Clear();
         }
 
 #if UNITY_EDITOR
-        public void AddTrack(Type type)
+        public BBTrack AddTrack(Type type)
         {
             BBTrack track = Timeline.AddTrack(type);
-            RuntimeTrack runtimeTrack = Activator.CreateInstance(track.RuntimeTrackType, this, track) as RuntimeTrack;
-            runtimeTrack.Bind();
-            RuntimeTracks.Add(runtimeTrack);
+            return track;
+        }
+
+        public void RemoveTrack(BBTrack track)
+        {
+            Timeline.RemoveTrack(track);
         }
 #endif
+
+        //TODO Rebind -- 对应Undo Redo
+        public Action RebindCallback;
+
+        private void Rebind()
+        {
+            Debug.LogWarning("Rebind......");
+            Dispose();
+            Init();
+        }
     }
 
     public abstract class RuntimeTrack
