@@ -29,7 +29,7 @@ namespace Timeline.Editor
         private Vector2 m_localMousePosition;
 
         public RuntimeTrack RuntimeTrack;
-        
+
         public TimelineTrackView()
         {
             VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>($"VisualTree/TimelineTrackView");
@@ -39,7 +39,7 @@ namespace Timeline.Editor
             RegisterCallback<PointerDownEvent>(OnPointerDown);
             RegisterCallback<PointerMoveEvent>(OnPointerMove);
             RegisterCallback<PointerOutEvent>(OnPointerOut);
-            
+
             m_MenuHandler = new DropdownMenuHandler(MenuBuilder);
         }
 
@@ -48,10 +48,17 @@ namespace Timeline.Editor
             RuntimeTrack = track;
             int index = EditorWindow.RuntimePlayable.RuntimeTracks.IndexOf(track);
             transform.position = new Vector3(0, index * 40, 0);
-            // DragAndDropManipulator dragAndDropManipulator = new(this);
-            // this.AddManipulator(dragAndDropManipulator);
+
+            //Init ClipView
+            foreach (var clip in RuntimeTrack.Track.Clips)
+            {
+                TimelineClipView clipView = new();
+                clipView.SelectionContainer = FieldView;
+                clipView.Init(clip, this);
+                Add(clipView);
+            }
         }
-        
+
         public void Init(Track track)
         {
             Track = track;
@@ -133,9 +140,13 @@ namespace Timeline.Editor
 
         private void MenuBuilder(DropdownMenu menu)
         {
-            menu.AppendAction("Add Clip", _ => { Timeline.ApplyModify(() => { FieldView.AddClip(Track); }, "Add Clip"); });
-            menu.AppendAction("Remove Track", _ => { Timeline.ApplyModify(() => { Timeline.RemoveTrack(Track); }, "Remove Track"); });
-            menu.AppendAction("Open Script", _ => { Track.OpenTrackScript(); });
+            // menu.AppendAction("Add Clip", _ => { Timeline.ApplyModify(() => { FieldView.AddClip(Track); }, "Add Clip"); });
+            // menu.AppendAction("Remove Track", _ => { Timeline.ApplyModify(() => { Timeline.RemoveTrack(Track); }, "Remove Track"); });
+            // menu.AppendAction("Open Script", _ => { Track.OpenTrackScript(); });
+            menu.AppendAction("Add Clip", _ =>
+            {
+                //TODO AddClip
+            });
         }
 
         private void OnPointerDown(PointerDownEvent evt)
@@ -149,38 +160,12 @@ namespace Timeline.Editor
             //     return;
             // }
             //
-            // if (evt.button == 0 && IsSelectable())
-            // {
-            //     if (!IsSelected())
-            //     {
-            //         if (evt.actionKey)
-            //         {
-            //             SelectionContainer.AddToSelection(this);
-            //         }
-            //         else
-            //         {
-            //             SelectionContainer.ClearSelection();
-            //             SelectionContainer.AddToSelection(this);
-            //         }
-            //     }
-            //     else
-            //     {
-            //         if (evt.actionKey)
-            //         {
-            //             SelectionContainer.RemoveFromSelection(this);
-            //         }
-            //     }
-            //
-            //     evt.StopImmediatePropagation();
-            // }
-            // else if (evt.button == 1)
-            // {
-            //     m_localMousePosition = evt.localPosition;
-            //     m_MenuHandler.ShowMenu(evt);
-            //     SelectionContainer.ClearSelection();
-            //     SelectionContainer.AddToSelection(this);
-            //     evt.StopImmediatePropagation();
-            // }
+            if (evt.button == 1)
+            {
+                m_localMousePosition = evt.localPosition;
+                m_MenuHandler.ShowMenu(evt);
+                evt.StopImmediatePropagation();
+            }
         }
 
         private void OnPointerMove(PointerMoveEvent evt)

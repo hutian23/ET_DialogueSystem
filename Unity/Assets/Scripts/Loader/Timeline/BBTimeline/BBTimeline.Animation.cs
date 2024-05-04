@@ -24,6 +24,7 @@ namespace Timeline
 #endif
     }
 
+    [Color(127, 253, 228)]
     public class BBAnimationClip: BBClip
     {
         public UnityEngine.AnimationClip animationClip;

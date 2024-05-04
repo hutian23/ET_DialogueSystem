@@ -79,7 +79,6 @@ namespace Timeline
 
         private void Rebind()
         {
-            Debug.LogWarning("Rebind......");
             Dispose();
             Init();
         }

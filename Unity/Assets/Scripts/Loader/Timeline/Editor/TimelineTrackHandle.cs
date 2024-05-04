@@ -21,7 +21,7 @@ namespace Timeline.Editor
         private BBTimeline BBTimeline => EditorWindow.BBTimeline;
         private RuntimePlayable RuntimePlayable => EditorWindow.RuntimePlayable;
 
-        public TimelineEditorWindow EditorWindow => TrackView.EditorWindow;
+        private TimelineEditorWindow EditorWindow => TrackView.EditorWindow;
         private TimelineFieldView FieldView => TrackView.FieldView;
 
         private readonly DropdownMenuHandler MenuHandler;
@@ -62,7 +62,7 @@ namespace Timeline.Editor
             }
 
             MenuHandler = new DropdownMenuHandler(MenuBuilder);
-            
+
             DragManipulator = new DragManipulator((e) =>
             {
                 //OnDrag

@@ -19,13 +19,15 @@ namespace Timeline.Editor
 
         private TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
         private TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
+        private BBClip BBClip;
+
         private Timeline Timeline => EditorWindow.Timeline;
         private Dictionary<int, float> FramePosMap => FieldView.FramePosMap;
         public Clip Clip { get; private set; }
         public TimelineTrackView TrackView { get; private set; }
 
-        public int StartFrame => Clip.StartFrame;
-        public int EndFrame => Clip.EndFrame;
+        public int StartFrame => BBClip.StartFrame;
+        public int EndFrame => BBClip.EndFrame;
         private int WidthFrame => EndFrame - StartFrame;
 
         private DragLineManipulator m_LeftResizeDragLine;
@@ -54,57 +56,68 @@ namespace Timeline.Editor
             m_BottomLine = this.Q("bottom-line");
             m_DrawBox = this.Q("draw-box");
 
-            m_MoveDrag = new DragManipulator(OnStartDrag, OnStopDrag, OnDragMove);
-            m_MoveDrag.enabled = true;
-            this.AddManipulator(m_MoveDrag);
-
-            m_MenuHandle = new DropdownMenuHandler(MenuBuilder);
+            // m_MoveDrag = new DragManipulator(OnStartDrag, OnStopDrag, OnDragMove);
+            // m_MoveDrag.enabled = true;
+            // this.AddManipulator(m_MoveDrag);
+            //
+            // m_MenuHandle = new DropdownMenuHandler(MenuBuilder);
             m_DrawBox.generateVisualContent += OnDrawBoxGenerateVisualContent;
+        }
+
+        public void Init(BBClip clip, TimelineTrackView trackView)
+        {
+            BBClip = clip;
+            TrackView = trackView;
+
+            m_ClipName.text = clip.Name;
+            m_BottomLine.style.backgroundColor = ColorAttribute.GetColor(clip.GetType());
+
+            Refresh();
         }
 
         public void Init(Clip clip, TimelineTrackView trackView)
         {
-            Clip = clip;
-            Clip.OnNameChanged = () => m_ClipName.text = clip.Name;
-            m_ClipName.text = clip.Name;
-            TrackView = trackView;
-            // m_BottomLine.style.backgroundColor = clip.Color();
-
-            //Resize
-            m_LeftResizeDragLine = new DragLineManipulator(DraglineDirection.Left, (e) =>
-            {
-                FieldView.ResizeClip(this, DraglineDirection.Left, e.x);
-                FieldView.DrawFrameLine(EndFrame);
-            }, _ =>
-            {
-                FieldView.DrawFrameLine(EndFrame);
-            }, () =>
-            {
-                FieldView.DrawFrameLine();
-            });
-            m_LeftResizeDragLine.Size = 8;
-            this.AddManipulator(m_LeftResizeDragLine);
-            
-            m_RightResizeDragLine = new DragLineManipulator(DraglineDirection.Right, (e) =>
-            {
-                FieldView.ResizeClip(this, DraglineDirection.Right, e.x);
-                // if (!IsSelected())
-                // {
-                //     SelectionContainer.ClearSelection();
-                //     SelectionContainer.AddToSelection(this);
-                // }
-                FieldView.DrawFrameLine(StartFrame);
-            }, _ =>
-            {
-                FieldView.DrawFrameLine(StartFrame);
-            }, () =>
-            {
-                FieldView.DrawFrameLine();
-            });
-            m_RightResizeDragLine.Size = 8;
-            this.AddManipulator(m_RightResizeDragLine);
-
-            Refresh();
+            // Clip = clip;
+            // Clip.OnNameChanged = () => m_ClipName.text = clip.Name;
+            // m_ClipName.text = clip.Name;
+            // TrackView = trackView;
+            // // m_BottomLine.style.backgroundColor = clip.Color();
+            //
+            // //Resize
+            // m_LeftResizeDragLine = new DragLineManipulator(DraglineDirection.Left, (e) =>
+            // {
+            //     FieldView.ResizeClip(this, DraglineDirection.Left, e.x);
+            //     FieldView.DrawFrameLine(EndFrame);
+            // }, _ =>
+            // {
+            //     FieldView.DrawFrameLine(EndFrame);
+            // }, () =>
+            // {
+            //     FieldView.DrawFrameLine();
+            // });
+            // m_LeftResizeDragLine.Size = 8;
+            // this.AddManipulator(m_LeftResizeDragLine);
+            //
+            // m_RightResizeDragLine = new DragLineManipulator(DraglineDirection.Right, (e) =>
+            // {
+            //     FieldView.ResizeClip(this, DraglineDirection.Right, e.x);
+            //     // if (!IsSelected())
+            //     // {
+            //     //     SelectionContainer.ClearSelection();
+            //     //     SelectionContainer.AddToSelection(this);
+            //     // }
+            //     FieldView.DrawFrameLine(StartFrame);
+            // }, _ =>
+            // {
+            //     FieldView.DrawFrameLine(StartFrame);
+            // }, () =>
+            // {
+            //     FieldView.DrawFrameLine();
+            // });
+            // m_RightResizeDragLine.Size = 8;
+            // this.AddManipulator(m_RightResizeDragLine);
+            //
+            // Refresh();
         }
 
         public void Resize(int startFrame, int endFrame)
@@ -132,20 +145,20 @@ namespace Timeline.Editor
         {
             style.left = FramePosMap[StartFrame];
             style.width = FramePosMap[EndFrame] - FramePosMap[StartFrame];
-            if (Clip.Invalid)
-            {
-                AddToClassList("invalid");
-            }
-            else
-            {
-                RemoveFromClassList("invalid");
-            }
-
-            if (Clip.Invalid)
-            {
-                m_Content.style.left = 0;
-                m_Content.style.width = m_Title.style.width = (WidthFrame * FieldView.OneFrameWidth);
-            }
+            // if (Clip.Invalid)
+            // {
+            //     AddToClassList("invalid");
+            // }
+            // else
+            // {
+            //     RemoveFromClassList("invalid");
+            // }
+            //
+            // if (Clip.Invalid)
+            // {
+            //     m_Content.style.left = 0;
+            //     m_Content.style.width = m_Title.style.width = (WidthFrame * FieldView.OneFrameWidth);
+            // }
         }
 
         #region Selectable

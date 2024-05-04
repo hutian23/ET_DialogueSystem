@@ -21,49 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  Tracks:
-  - rid: 7600336795023966288
-  - rid: 7600336795023966289
-  - rid: 7600336795023966290
-  - rid: 7600336795023966291
-  - rid: 7600336795023966292
-  - rid: 7600336795023966293
-  - rid: 7600336795023966294
+  Tracks: []
   references:
     version: 2
-    RefIds:
-    - rid: 7600336795023966288
-      type: {class: BBAnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 4
-        Clips: []
-    - rid: 7600336795023966289
-      type: {class: BBAnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 5
-        Clips: []
-    - rid: 7600336795023966290
-      type: {class: BBAnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 6
-        Clips: []
-    - rid: 7600336795023966291
-      type: {class: BBAnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 7
-        Clips: []
-    - rid: 7600336795023966292
-      type: {class: BBAnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 8
-        Clips: []
-    - rid: 7600336795023966293
-      type: {class: BBAnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 9
-        Clips: []
-    - rid: 7600336795023966294
-      type: {class: BBAnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: BBAnimation
-        Clips: []
+    RefIds: []
