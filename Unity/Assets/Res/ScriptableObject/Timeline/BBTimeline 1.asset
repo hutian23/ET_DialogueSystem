@@ -21,7 +21,79 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  Tracks: []
+  Tracks:
+  - rid: 7600336846715879426
+  - rid: 7600336846715879425
+  - rid: 7600336846715879432
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7600336846715879425
+      type: {class: BBAnimationTrack, ns: Timeline, asm: Unity.Loader}
+      data:
+        Name: hutian
+        Clips:
+        - rid: 7600336846715879429
+        - rid: 7600336846715879430
+        - rid: 7600336846715879431
+    - rid: 7600336846715879426
+      type: {class: BBAnimationTrack, ns: Timeline, asm: Unity.Loader}
+      data:
+        Name: 4444
+        Clips:
+        - rid: 7600336846715879427
+        - rid: 7600336846715879428
+    - rid: 7600336846715879427
+      type: {class: BBAnimationClip, ns: Timeline, asm: Unity.Loader}
+      data:
+        InValid: 0
+        StartFrame: 2
+        EndFrame: 5
+        Capabilities: 0
+        animationClip: {fileID: 0}
+    - rid: 7600336846715879428
+      type: {class: BBAnimationClip, ns: Timeline, asm: Unity.Loader}
+      data:
+        InValid: 0
+        StartFrame: 10
+        EndFrame: 13
+        Capabilities: 0
+        animationClip: {fileID: 0}
+    - rid: 7600336846715879429
+      type: {class: BBAnimationClip, ns: Timeline, asm: Unity.Loader}
+      data:
+        InValid: 0
+        StartFrame: 10
+        EndFrame: 13
+        Capabilities: 0
+        animationClip: {fileID: 0}
+    - rid: 7600336846715879430
+      type: {class: BBAnimationClip, ns: Timeline, asm: Unity.Loader}
+      data:
+        InValid: 0
+        StartFrame: 4
+        EndFrame: 7
+        Capabilities: 0
+        animationClip: {fileID: 0}
+    - rid: 7600336846715879431
+      type: {class: BBAnimationClip, ns: Timeline, asm: Unity.Loader}
+      data:
+        InValid: 0
+        StartFrame: 1
+        EndFrame: 4
+        Capabilities: 0
+        animationClip: {fileID: 0}
+    - rid: 7600336846715879432
+      type: {class: BBAnimationTrack, ns: Timeline, asm: Unity.Loader}
+      data:
+        Name: BBAnimation
+        Clips:
+        - rid: 7600336846715879433
+    - rid: 7600336846715879433
+      type: {class: BBAnimationClip, ns: Timeline, asm: Unity.Loader}
+      data:
+        InValid: 0
+        StartFrame: 16
+        EndFrame: 19
+        Capabilities: 0
+        animationClip: {fileID: 0}

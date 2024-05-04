@@ -29,6 +29,8 @@ namespace Timeline.Editor
         private Vector2 m_localMousePosition;
 
         public RuntimeTrack RuntimeTrack;
+        private BBTrack BBTrack => RuntimeTrack.Track;
+        public DoubleMap<BBClip, TimelineClipView> BBClipViewMap = new();
 
         public TimelineTrackView()
         {
@@ -56,6 +58,8 @@ namespace Timeline.Editor
                 clipView.SelectionContainer = FieldView;
                 clipView.Init(clip, this);
                 Add(clipView);
+
+                BBClipViewMap.Add(clip, clipView);
             }
         }
 
@@ -146,20 +150,22 @@ namespace Timeline.Editor
             menu.AppendAction("Add Clip", _ =>
             {
                 //TODO AddClip
+                EditorWindow.ApplyModify(() => { BBTrack.AddClip(FieldView.GetCurrentTimeLocator()); }, "Add Clip");
             });
         }
 
         private void OnPointerDown(PointerDownEvent evt)
         {
-            // foreach (TimelineClipView v in ClipViewMap.Values)
-            // {
-            //     if (!v.InMiddle(evt.position)) continue;
-            //
-            //     v.OnPointerDown(evt);
-            //     evt.StopImmediatePropagation();
-            //     return;
-            // }
-            //
+            //当前选中了Clip
+            foreach (TimelineClipView v in BBClipViewMap.Values)
+            {
+                if(!v.InMiddle(evt.position)) continue;
+                
+                v.OnPointerDown(evt);
+                evt.StopImmediatePropagation();
+                return;
+            }
+            
             if (evt.button == 1)
             {
                 m_localMousePosition = evt.localPosition;

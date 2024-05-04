@@ -812,40 +812,40 @@ namespace Timeline.Editor
                     {
                         startFrame = clipView.StartFrame;
                     }
-
+            
                     if (clipView.EndFrame > endFrame)
                     {
                         endFrame = clipView.EndFrame;
                     }
                 }
             }
-
+            
             int targetStartFrame = GetClosestFrame(FramePosMap[startFrame] + deltaPosition);
             targetStartFrame = Mathf.Clamp(targetStartFrame, CurrentMinFrame, CurrentMaxFrame);
-
+            
             int deltaFrame = targetStartFrame - startFrame;
-            //新的帧添加到map中
+            // //新的帧添加到map中
             if (deltaFrame + endFrame >= m_MaxFrame)
             {
-                for (int i = m_MaxFrame; i <= deltaFrame + endFrame; i++)
-                {
-                    FramePosMap.Add(i, OneFrameWidth * i * m_FieldOffsetX);
-                }
-
-                m_MaxFrame = deltaFrame + endFrame + 1;
+                 for (int i = m_MaxFrame; i <= deltaFrame + endFrame; i++)
+                 {
+                     FramePosMap.Add(i, OneFrameWidth * i * m_FieldOffsetX);
+                 }
+            
+                 m_MaxFrame = deltaFrame + endFrame + 1;
             }
-
+            
             foreach (var moveClip in moveClips)
             {
                 moveClip.Move(deltaFrame);
             }
-
-            foreach (TimelineClipView moveClip in moveClips)
-            {
-                moveClip.Clip.Invalid = !GetMoveValid(moveClip);
-            }
-
-            Timeline.UpdateMix();
+            
+            // foreach (TimelineClipView moveClip in moveClips)
+            // {
+            //     moveClip.Clip.Invalid = !GetMoveValid(moveClip);
+            // }
+            //
+            // Timeline.UpdateMix();
             DrawFrameLine(startFrame + deltaFrame, endFrame + deltaFrame);
         }
 
@@ -1153,6 +1153,11 @@ namespace Timeline.Editor
             return w;
         }
 
+        public int GetCurrentTimeLocator()
+        {
+            return currentTimeLocator;
+        }
+        
         #endregion
     }
 }

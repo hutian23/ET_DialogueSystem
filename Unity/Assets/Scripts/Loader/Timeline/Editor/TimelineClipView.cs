@@ -17,14 +17,14 @@ namespace Timeline.Editor
         public ISelection SelectionContainer { get; set; }
         public ClipCapabilities Capabilities => Clip.Capabilities;
 
+        public TimelineTrackView TrackView { get; private set; }
         private TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
         private TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
         private BBClip BBClip;
+        private BBTrack BBTrack => TrackView.RuntimeTrack.Track;
 
-        private Timeline Timeline => EditorWindow.Timeline;
         private Dictionary<int, float> FramePosMap => FieldView.FramePosMap;
         public Clip Clip { get; private set; }
-        public TimelineTrackView TrackView { get; private set; }
 
         public int StartFrame => BBClip.StartFrame;
         public int EndFrame => BBClip.EndFrame;
@@ -56,11 +56,11 @@ namespace Timeline.Editor
             m_BottomLine = this.Q("bottom-line");
             m_DrawBox = this.Q("draw-box");
 
-            // m_MoveDrag = new DragManipulator(OnStartDrag, OnStopDrag, OnDragMove);
-            // m_MoveDrag.enabled = true;
-            // this.AddManipulator(m_MoveDrag);
-            //
-            // m_MenuHandle = new DropdownMenuHandler(MenuBuilder);
+            m_MoveDrag = new DragManipulator(OnStartDrag, OnStopDrag, OnDragMove);
+            m_MoveDrag.enabled = true;
+            this.AddManipulator(m_MoveDrag);
+
+            m_MenuHandle = new DropdownMenuHandler(MenuBuilder);
             m_DrawBox.generateVisualContent += OnDrawBoxGenerateVisualContent;
         }
 
@@ -130,8 +130,10 @@ namespace Timeline.Editor
 
         public void Move(int deltaFrame)
         {
-            Clip.StartFrame += deltaFrame;
-            Clip.EndFrame += deltaFrame;
+            // Clip.StartFrame += deltaFrame;
+            // Clip.EndFrame += deltaFrame;
+            BBClip.StartFrame += deltaFrame;
+            BBClip.EndFrame += deltaFrame;
         }
 
         public void ResetMove(int deltaFrame)
@@ -200,7 +202,12 @@ namespace Timeline.Editor
 
         public void OnPointerDown(PointerDownEvent evt)
         {
-            if (evt.button == 0)
+            if (evt.button == 1)
+            {
+                m_MenuHandle.ShowMenu(evt);
+                evt.StopImmediatePropagation();
+            }
+            else if (evt.button == 0)
             {
                 if (!IsSelected())
                 {
@@ -214,21 +221,6 @@ namespace Timeline.Editor
                         SelectionContainer.AddToSelection(this);
                     }
                 }
-                else
-                {
-                    if (evt.actionKey)
-                    {
-                        SelectionContainer.RemoveFromSelection(this);
-                    }
-                }
-
-                m_MoveDrag.enabled = true;
-                m_MoveDrag.DragBeginForce(evt, this.WorldToLocal(evt.position));
-            }
-            else if (evt.button == 1)
-            {
-                m_MenuHandle.ShowMenu(evt);
-                evt.StopImmediatePropagation();
             }
         }
 
@@ -252,46 +244,45 @@ namespace Timeline.Editor
 
         private void MenuBuilder(DropdownMenu menu)
         {
-            menu.AppendAction("Remove Clip", _ => { Timeline.ApplyModify(() => { Timeline.RemoveClip(Clip); }, "Remove Clip"); });
-            menu.AppendAction("Open Script", _ =>
-            {
-                //TODO Open Script
-            });
-            menu.AppendAction("Paste Properties", _ =>
-            {
-                foreach (var fieldInfo in Clip.GetAllFields())
-                {
-                    if (fieldInfo.GetCustomAttribute<ShowInInspectorAttribute>() != null && CopyValueMap.TryGetValue(fieldInfo, out object value))
-                    {
-                        CopyValueMap.Add(fieldInfo, fieldInfo.GetValue(Clip));
-                    }
-                }
-            }, _ =>
-            {
-                if (CopyType == null)
-                {
-                    return DropdownMenuAction.Status.None;
-                }
-                else if (CopyType != Clip.GetType())
-                {
-                    return DropdownMenuAction.Status.Disabled;
-                }
-                else
-                {
-                    return DropdownMenuAction.Status.Normal;
-                }
-            });
+            // menu.AppendAction("Remove Clip", _ => { Timeline.ApplyModify(() => { Timeline.RemoveClip(Clip); }, "Remove Clip"); });
+            // menu.AppendAction("Open Script", _ =>
+            // {
+            //     //TODO Open Script
+            // });
+            // menu.AppendAction("Paste Properties", _ =>
+            // {
+            //     foreach (var fieldInfo in Clip.GetAllFields())
+            //     {
+            //         if (fieldInfo.GetCustomAttribute<ShowInInspectorAttribute>() != null && CopyValueMap.TryGetValue(fieldInfo, out object value))
+            //         {
+            //             CopyValueMap.Add(fieldInfo, fieldInfo.GetValue(Clip));
+            //         }
+            //     }
+            // }, _ =>
+            // {
+            //     if (CopyType == null)
+            //     {
+            //         return DropdownMenuAction.Status.None;
+            //     }
+            //     else if (CopyType != Clip.GetType())
+            //     {
+            //         return DropdownMenuAction.Status.Disabled;
+            //     }
+            //     else
+            //     {
+            //         return DropdownMenuAction.Status.Normal;
+            //     }
+            // });
+            menu.AppendAction("Remove Clip", _ => { EditorWindow.ApplyModify(() => { BBTrack.RemoveClip(BBClip); }, "Remove Clip"); });
         }
 
         private void OnStartDrag(PointerDownEvent evt)
         {
-            Clip.Invalid = false;
             FieldView.StartMove(this);
         }
 
         private void OnStopDrag()
         {
-            Clip.Invalid = false;
             FieldView.ApplyMove();
         }
 

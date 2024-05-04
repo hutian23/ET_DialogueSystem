@@ -236,6 +236,11 @@ namespace Timeline.Editor
                 }
             }
 
+            foreach (var s in selection.Selections)
+            {
+                Debug.LogWarning(s);
+            }
+            
             m_Active = false;
             target.ReleaseMouse();
             evt.StopPropagation();
