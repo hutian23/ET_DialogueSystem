@@ -99,7 +99,7 @@ namespace Timeline.Editor
                         return;
                     }
                 }
-            
+
                 if (e.button == 0)
                 {
                     m_TimelineField.ClearSelection();
@@ -130,7 +130,7 @@ namespace Timeline.Editor
                 //     menu.AppendAction(type.Item1.Name, _ =>
                 //     {
                 //         AddTrack(type.Item1);
-                //         m_TrackHandleContainer.ForceScrollViewUpdate();
+                //         m_TrackHandleContainer.ForceScrollViewUpdate()A;
                 //     });
                 // }
                 foreach (var type in BBTimelineEditorUtility.BBTrackTypeDic)
@@ -155,7 +155,7 @@ namespace Timeline.Editor
             //
             fieldScaleBar = root.Q<SliderInt>("field-scale-bar");
             fieldScaleBar.RegisterValueChangedCallback(m_TimelineField.SliderUpdate);
-            
+
             Undo.undoRedoEvent += OnUndoRedoEvent;
         }
 
@@ -202,12 +202,13 @@ namespace Timeline.Editor
             // EditorCoroutineHelper.WaitWhile(m_TimelineField.PopulateView, () => m_TimelineField.ContentWidth == 0);
         }
 
-        public void ApplyModify(Action action, string _name)
+        public void ApplyModify(Action action, string _name, bool rebind = true)
         {
             Undo.RegisterCompleteObjectUndo(BBTimeline, $"Timeline: {_name}");
             SerializedTimeline.Update();
             action?.Invoke();
-            RuntimePlayable.RebindCallback?.Invoke();
+
+            if (rebind) RuntimePlayable.RebindCallback?.Invoke();
             EditorUtility.SetDirty(BBTimeline);
         }
 
@@ -238,7 +239,7 @@ namespace Timeline.Editor
             TrackHandleContainer.ForceScrollViewUpdate();
             m_Elements.Clear();
             m_Selections.Clear();
-            
+
             UpdateBindState();
             m_TimelineField.PopulateView();
         }

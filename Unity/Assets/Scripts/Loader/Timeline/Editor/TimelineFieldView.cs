@@ -754,8 +754,11 @@ namespace Timeline.Editor
                     clipView.BBClip.StartFrame = preFrame;
                     if (overlap) return;
 
-                    clipView.BBClip.StartFrame = targetFrame;
-                    clipView.Refresh();
+                    EditorWindow.ApplyModify(() =>
+                    {
+                        clipView.BBClip.StartFrame = targetFrame;
+                        clipView.Refresh();
+                    }, "Resize Clip", false);
                     break;
                 }
                 case DraglineDirection.Right:
@@ -782,8 +785,11 @@ namespace Timeline.Editor
                     clipView.BBClip.EndFrame = preFrame;
                     if (overlap) return;
 
-                    clipView.BBClip.EndFrame = targetFrame;
-                    clipView.Refresh();
+                    EditorWindow.ApplyModify(() =>
+                    {
+                        clipView.BBClip.EndFrame = targetFrame;
+                        clipView.Refresh();
+                    }, "Resize Clip", false);
                     return;
                 }
             }

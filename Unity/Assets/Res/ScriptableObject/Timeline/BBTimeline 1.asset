@@ -67,15 +67,15 @@ MonoBehaviour:
       data:
         InValid: 0
         StartFrame: 4
-        EndFrame: 16
+        EndFrame: 10
         Capabilities: 0
         animationClip: {fileID: 0}
     - rid: 7600336859851128837
       type: {class: BBAnimationClip, ns: Timeline, asm: Unity.Loader}
       data:
         InValid: 0
-        StartFrame: 17
-        EndFrame: 20
+        StartFrame: 11
+        EndFrame: 14
         Capabilities: 0
         animationClip: {fileID: 0}
     - rid: 7600336859851128838
@@ -89,29 +89,20 @@ MonoBehaviour:
       type: {class: BBAnimationTrack, ns: Timeline, asm: Unity.Loader}
       data:
         Name: BBAnimation
-        Clips:
-        - rid: 7600336866842247168
+        Clips: []
     - rid: 7600336864512835584
       type: {class: BBAnimationClip, ns: Timeline, asm: Unity.Loader}
       data:
         InValid: 0
         StartFrame: 5
-        EndFrame: 20
+        EndFrame: 8
         Capabilities: 0
         animationClip: {fileID: 0}
     - rid: 7600336864512835585
       type: {class: BBAnimationClip, ns: Timeline, asm: Unity.Loader}
       data:
         InValid: 0
-        StartFrame: 2
-        EndFrame: 5
-        Capabilities: 0
-        animationClip: {fileID: 0}
-    - rid: 7600336866842247168
-      type: {class: BBAnimationClip, ns: Timeline, asm: Unity.Loader}
-      data:
-        InValid: 0
         StartFrame: 0
-        EndFrame: 15
+        EndFrame: 3
         Capabilities: 0
         animationClip: {fileID: 0}
