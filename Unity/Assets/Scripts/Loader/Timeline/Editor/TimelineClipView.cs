@@ -20,8 +20,8 @@ namespace Timeline.Editor
         public TimelineTrackView TrackView { get; private set; }
         private TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
         private TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
-        private BBClip BBClip;
-        private BBTrack BBTrack => TrackView.RuntimeTrack.Track;
+        public BBClip BBClip;
+        public BBTrack BBTrack => TrackView.RuntimeTrack.Track;
 
         private Dictionary<int, float> FramePosMap => FieldView.FramePosMap;
         public Clip Clip { get; private set; }
@@ -72,6 +72,40 @@ namespace Timeline.Editor
             m_ClipName.text = clip.Name;
             m_BottomLine.style.backgroundColor = ColorAttribute.GetColor(clip.GetType());
 
+            // Resize left
+            m_LeftResizeDragLine = new DragLineManipulator(DraglineDirection.Left,
+                (e) =>
+                {
+                    FieldView.ResizeClip(this, DraglineDirection.Left, e.x);
+                    FieldView.DrawFrameLine(EndFrame);
+                }, 
+                _ =>
+                {
+                    FieldView.DrawFrameLine(EndFrame);
+                },
+                () =>
+                {
+                    FieldView.DrawFrameLine();
+                });
+            m_LeftResizeDragLine.Size = 8;
+            this.AddManipulator(m_LeftResizeDragLine);
+            
+            //Resize Right
+            m_RightResizeDragLine = new DragLineManipulator(DraglineDirection.Right, (e) =>
+                {
+                    FieldView.ResizeClip(this, DraglineDirection.Right, e.x);
+                    FieldView.DrawFrameLine(StartFrame);
+                },
+                _ =>
+                {
+                    FieldView.DrawFrameLine(StartFrame);
+                }, () =>
+                {
+                    FieldView.DrawFrameLine();
+                });
+            m_RightResizeDragLine.Size = 8;
+            this.AddManipulator(m_RightResizeDragLine);
+            
             Refresh();
         }
 
@@ -122,40 +156,37 @@ namespace Timeline.Editor
 
         public void Resize(int startFrame, int endFrame)
         {
-            int deltaStartFrame = startFrame - Clip.StartFrame;
-            Clip.StartFrame += deltaStartFrame;
-            Clip.EndFrame = endFrame;
-            Clip.Track.UpdateMix();
+            int deltaStartFrame = startFrame - BBClip.StartFrame;
+            BBClip.StartFrame += deltaStartFrame;
+            BBClip.EndFrame = endFrame;
         }
 
         public void Move(int deltaFrame)
         {
-            // Clip.StartFrame += deltaFrame;
-            // Clip.EndFrame += deltaFrame;
             BBClip.StartFrame += deltaFrame;
             BBClip.EndFrame += deltaFrame;
         }
 
         public void ResetMove(int deltaFrame)
         {
-            Clip.Invalid = false;
-            Clip.StartFrame -= deltaFrame;
-            Clip.EndFrame -= deltaFrame;
+            BBClip.InValid = false;
+            BBClip.StartFrame -= deltaFrame;
+            BBClip.EndFrame -= deltaFrame;
         }
 
         public void Refresh()
         {
             style.left = FramePosMap[StartFrame];
             style.width = FramePosMap[EndFrame] - FramePosMap[StartFrame];
-            // if (Clip.Invalid)
-            // {
-            //     AddToClassList("invalid");
-            // }
-            // else
-            // {
-            //     RemoveFromClassList("invalid");
-            // }
-            //
+            if (BBClip.InValid)
+            {
+                AddToClassList("invalid");
+            }
+            else
+            {
+                RemoveFromClassList("invalid");
+            }
+
             // if (Clip.Invalid)
             // {
             //     m_Content.style.left = 0;
@@ -190,7 +221,6 @@ namespace Timeline.Editor
             Selected = false;
             RemoveFromClassList("selected");
             m_DrawBox.MarkDirtyRepaint();
-            m_MoveDrag.enabled = false;
         }
 
         #endregion
@@ -219,6 +249,13 @@ namespace Timeline.Editor
                     {
                         SelectionContainer.ClearSelection();
                         SelectionContainer.AddToSelection(this);
+                    }
+                }
+                else
+                {
+                    if (evt.actionKey)
+                    {
+                        SelectionContainer.RemoveFromSelection(this);
                     }
                 }
             }

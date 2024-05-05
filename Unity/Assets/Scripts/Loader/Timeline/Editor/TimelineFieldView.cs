@@ -495,15 +495,15 @@ namespace Timeline.Editor
             m_Selections.Add(selectable);
             selectable.Select();
 
-            switch (selectable)
-            {
-                case TimelineTrackView trackView:
-                    PopulateInspector(trackView.Track);
-                    break;
-                case TimelineClipView clipView:
-                    PopulateInspector(clipView.Clip);
-                    break;
-            }
+            // switch (selectable)
+            // {
+            //     case TimelineTrackView trackView:
+            //         PopulateInspector(trackView.Track);
+            //         break;
+            //     case TimelineClipView clipView:
+            //         PopulateInspector(clipView.Clip);
+            //         break;
+            // }
         }
 
         public void RemoveFromSelection(ISelectable selectable)
@@ -735,29 +735,27 @@ namespace Timeline.Editor
                 case DraglineDirection.Left:
                 {
                     int targetFrame = GetClosestFrame(FramePosMap[clipView.StartFrame] + deltaPosition);
-                    targetFrame = Mathf.Clamp(targetFrame, CurrentMinFrame, Mathf.Max(clipView.Clip.EndFrame - 1, CurrentMaxFrame));
+                    targetFrame = Mathf.Clamp(targetFrame, CurrentMinFrame, Mathf.Min(clipView.EndFrame - 1, CurrentMaxFrame));
 
-                    int preFrame = clipView.Clip.StartFrame;
-                    clipView.Clip.StartFrame = targetFrame;
+                    int preFrame = clipView.StartFrame;
+                    clipView.BBClip.StartFrame = targetFrame;
                     bool overlap = false;
-                    foreach (var clip in clipView.Clip.Track.Clips)
+
+                    foreach (var clip in clipView.BBTrack.Clips)
                     {
-                        if (clip == clipView.Clip) continue;
-                        if (clip.Overlap(clipView.Clip))
+                        if (clip == clipView.BBClip) continue;
+                        if (clip.Overlap(clipView.BBClip))
                         {
                             overlap = true;
                             break;
                         }
                     }
 
-                    clipView.Clip.StartFrame = preFrame;
+                    clipView.BBClip.StartFrame = preFrame;
                     if (overlap) return;
 
-                    Timeline.ApplyModify(() =>
-                    {
-                        clipView.Clip.StartFrame = targetFrame;
-                        clipView.Refresh();
-                    }, "Resize Clip");
+                    clipView.BBClip.StartFrame = targetFrame;
+                    clipView.Refresh();
                     break;
                 }
                 case DraglineDirection.Right:
@@ -768,27 +766,24 @@ namespace Timeline.Editor
                     if (clipView.EndFrame == targetFrame) return;
 
                     //检查resize后是否和其他clip重合
-                    int preFrame = clipView.Clip.EndFrame;
-                    clipView.Clip.EndFrame = targetFrame;
+                    int preFrame = clipView.EndFrame;
+                    clipView.BBClip.EndFrame = targetFrame;
                     bool overlap = false;
-                    foreach (var clip in clipView.Clip.Track.Clips)
+                    foreach (var clip in clipView.BBTrack.Clips)
                     {
-                        if (clip == clipView.Clip) continue;
-                        if (clip.Overlap(clipView.Clip))
+                        if (clip == clipView.BBClip) continue;
+                        if (clip.Overlap(clipView.BBClip))
                         {
                             overlap = true;
                             break;
                         }
                     }
 
-                    clipView.Clip.EndFrame = preFrame;
+                    clipView.BBClip.EndFrame = preFrame;
                     if (overlap) return;
 
-                    Timeline.ApplyModify(() =>
-                    {
-                        clipView.Clip.EndFrame = targetFrame;
-                        clipView.Refresh();
-                    }, "Resize Clip");
+                    clipView.BBClip.EndFrame = targetFrame;
+                    clipView.Refresh();
                     return;
                 }
             }
@@ -825,11 +820,18 @@ namespace Timeline.Editor
                 }
             }
 
+            //没有需要移动的clip
+            if (moveClips.Count == 0)
+            {
+                return;
+            }
+
             int targetStartFrame = GetClosestFrame(FramePosMap[startFrame] + deltaPosition);
             targetStartFrame = Mathf.Clamp(targetStartFrame, CurrentMinFrame, CurrentMaxFrame);
 
             int deltaFrame = targetStartFrame - startFrame;
-            // //新的帧添加到map中
+
+            //新的帧添加到map中
             if (deltaFrame + endFrame >= m_MaxFrame)
             {
                 for (int i = m_MaxFrame; i <= deltaFrame + endFrame; i++)
@@ -845,12 +847,14 @@ namespace Timeline.Editor
                 moveClip.Move(deltaFrame);
             }
 
-            // foreach (TimelineClipView moveClip in moveClips)
-            // {
-            //     moveClip.Clip.Invalid = !GetMoveValid(moveClip);
-            // }
-            //
-            // Timeline.UpdateMix();
+            //判断产生重叠
+            foreach (var moveClip in moveClips)
+            {
+                moveClip.BBClip.InValid = !GetMoveValid(moveClip);
+            }
+
+            //刷新视图
+            UpdateMix();
             DrawFrameLine(startFrame + deltaFrame, endFrame + deltaFrame);
         }
 
@@ -879,65 +883,73 @@ namespace Timeline.Editor
                     clipView.ResetMove(deltaFrame);
                 }
 
-                Timeline.UpdateMix();
                 if (valid)
                 {
-                    Timeline.ApplyModify(() =>
+                    EditorWindow.ApplyModify(() =>
                     {
                         foreach (var clipView in moveClips)
                         {
                             clipView.Move(deltaFrame);
                         }
-
-                        Timeline.UpdateMix();
                     }, "Move Clip");
                 }
-
-                Timeline.RebindAll();
             }
 
+            //刷新TrackView
+            UpdateMix();
             DrawFrameLine();
         }
 
         private bool GetMoveValid(TimelineClipView clipView)
         {
-            foreach (Clip clip in clipView.Clip.Track.Clips)
+            foreach (BBClip clip in clipView.BBTrack.Clips)
             {
-                if (clip == clipView.Clip) continue;
-                if (clipView.Clip.Overlap(clip)) return false;
+                if (clip == clipView.BBClip) continue;
+                if (clipView.BBClip.Overlap(clip)) return false;
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// 刷新所有TrackView
+        /// </summary>
+        private void UpdateMix()
+        {
+            foreach (var trackView in TrackViews)
+            {
+                trackView.Refreh();
+            }
         }
 
         #endregion
 
         #region Add Clip
 
-        public void AddClip(Track track)
-        {
-            Clip clip = Timeline.AddClip(track, currentTimeLocator);
-            if (clip == null) return;
-            AdjustClip(clip);
-        }
+        // public void AddClip(Track track)
+        // {
+        //     Clip clip = Timeline.AddClip(track, currentTimeLocator);
+        //     if (clip == null) return;
+        //     AdjustClip(clip);
+        // }
 
-        public void AddClip(UnityEngine.Object referenceObject, Track track, int startFrame)
-        {
-            AdjustClip(Timeline.AddClip(referenceObject, track, startFrame));
-        }
+        // public void AddClip(UnityEngine.Object referenceObject, Track track, int startFrame)
+        // {
+        //     AdjustClip(Timeline.AddClip(referenceObject, track, startFrame));
+        // }
 
         /// <summary>
         /// 不能和下一个Clip重合
         /// </summary>
-        private void AdjustClip(Clip clip)
-        {
-            Clip closetRightClip = GetClosestRightClip(clip.Track, clip.StartFrame);
-            if (closetRightClip != null && clip.StartFrame + clip.Length > closetRightClip.StartFrame)
-            {
-                clip.EndFrame = closetRightClip.StartFrame;
-                GetClipView(clip).Refresh();
-            }
-        }
+        // private void AdjustClip(Clip clip)
+        // {
+        //     Clip closetRightClip = GetClosestRightClip(clip.Track, clip.StartFrame);
+        //     if (closetRightClip != null && clip.StartFrame + clip.Length > closetRightClip.StartFrame)
+        //     {
+        //         clip.EndFrame = closetRightClip.StartFrame;
+        //         GetClipView(clip).Refresh();
+        //     }
+        // }
 
         #endregion
 
@@ -1069,10 +1081,10 @@ namespace Timeline.Editor
             return frame;
         }
 
-        private TimelineClipView GetClipView(Clip clip)
-        {
-            return TrackViewMap.GetValueByKey(clip.Track).ClipViewMap.GetValueByKey(clip);
-        }
+        // private TimelineClipView GetClipView(Clip clip)
+        // {
+        //     return TrackViewMap.GetValueByKey(clip.Track).ClipViewMap.GetValueByKey(clip);
+        // }
 
         public TimelineClipView[] GetSameTrackClipViews(TimelineClipView clipView)
         {

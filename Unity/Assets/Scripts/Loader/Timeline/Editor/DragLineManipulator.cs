@@ -90,6 +90,7 @@ namespace Timeline.Editor
                     Handle.style.height = Length.Percent(100);
                     break;
             }
+            
             Handle.RegisterCallback<PointerDownEvent>(OnPointerDown);
             Handle.RegisterCallback<PointerMoveEvent>(OnPointerMove);
             Handle.RegisterCallback<PointerUpEvent>(OnPointerUp);

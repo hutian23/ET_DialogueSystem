@@ -62,7 +62,6 @@ namespace Timeline
             for (int i = 0; i < ClipPlayables.Count; i++)
             {
                 BBTimelineAnimationClipPlayable clipPlayable = ClipPlayables[i];
-                Debug.LogWarning(clipPlayable);
                 // MixerPlayable.DisconnectInput(i);
                 // clipPlayable.Handle.Destroy();
             }

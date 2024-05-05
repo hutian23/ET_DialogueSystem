@@ -17,11 +17,9 @@ namespace Timeline.Editor
         public ISelection SelectionContainer { get; set; }
         public TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
         public TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
-        private Timeline Timeline => EditorWindow.Timeline;
-        public Track Track { get; private set; }
-        public DoubleMap<Clip, TimelineClipView> ClipViewMap { get; private set; }
         public List<TimelineClipView> ClipViews { get; private set; }
-
+        public DoubleMap<BBClip, TimelineClipView> ClipViewMap = new();
+        
         public Action OnSelected;
         public Action OnUnSelected;
 
@@ -30,7 +28,6 @@ namespace Timeline.Editor
 
         public RuntimeTrack RuntimeTrack;
         private BBTrack BBTrack => RuntimeTrack.Track;
-        public DoubleMap<BBClip, TimelineClipView> BBClipViewMap = new();
 
         public TimelineTrackView()
         {
@@ -52,6 +49,7 @@ namespace Timeline.Editor
             transform.position = new Vector3(0, index * 40, 0);
 
             //Init ClipView
+            ClipViewMap.Clear();
             foreach (var clip in RuntimeTrack.Track.Clips)
             {
                 TimelineClipView clipView = new();
@@ -59,46 +57,46 @@ namespace Timeline.Editor
                 clipView.Init(clip, this);
 
                 Add(clipView);
-                BBClipViewMap.Add(clip, clipView);
+                ClipViewMap.Add(clip, clipView);
                 FieldView.SelectionElements.Add(clipView);
             }
         }
 
-        public void Init(Track track)
-        {
-            Track = track;
-            // Track.OnUpdateMix = Refreh;
-            // Track.OnMutedStateChanged = OnMutedStateChanged;
-            ClipViewMap = new DoubleMap<Clip, TimelineClipView>();
-            ClipViews = new List<TimelineClipView>();
-            foreach (Clip clip in track.Clips)
-            {
-                TimelineClipView clipView = new();
-                clipView.SelectionContainer = FieldView;
-                clipView.Init(clip, this);
-
-                Add(clipView);
-                FieldView.SelectionElements.Add(clipView); // IsSelectable
-                ClipViewMap.Add(clip, clipView);
-                ClipViews.Add(clipView);
-            }
-
-            DragAndDropManipulator dragAndDropManipulator = new(this);
-            dragAndDropManipulator.DragValid = Track.DragValid;
-            dragAndDropManipulator.DragPerform += (_, _) =>
-            {
-                // int startFrame = FieldView.GetClosestFloorFrame(e2.x);
-                // if (Track.Clips.Find(i => i.StartFrame == startFrame) == null)
-                // {
-                //     Timeline.ApplyModify(() => { FieldView.AddClip(e1, Track, startFrame); }, "Add Clip");
-                // }
-                Timeline.ApplyModify(() => { FieldView.AddClip(track); }, "AddClip");
-            };
-            this.AddManipulator(dragAndDropManipulator);
-            transform.position = new Vector3(0, Timeline.Tracks.IndexOf(track) * 40, 0);
-
-            OnMutedStateChanged();
-        }
+        // public void Init(Track track)
+        // {
+        //     Track = track;
+        //     // Track.OnUpdateMix = Refreh;
+        //     // Track.OnMutedStateChanged = OnMutedStateChanged;
+        //     ClipViewMap = new DoubleMap<Clip, TimelineClipView>();
+        //     ClipViews = new List<TimelineClipView>();
+        //     foreach (Clip clip in track.Clips)
+        //     {
+        //         TimelineClipView clipView = new();
+        //         clipView.SelectionContainer = FieldView;
+        //         clipView.Init(clip, this);
+        //
+        //         Add(clipView);
+        //         FieldView.SelectionElements.Add(clipView); // IsSelectable
+        //         ClipViewMap.Add(clip, clipView);
+        //         ClipViews.Add(clipView);
+        //     }
+        //
+        //     DragAndDropManipulator dragAndDropManipulator = new(this);
+        //     dragAndDropManipulator.DragValid = Track.DragValid;
+        //     dragAndDropManipulator.DragPerform += (_, _) =>
+        //     {
+        //         // int startFrame = FieldView.GetClosestFloorFrame(e2.x);
+        //         // if (Track.Clips.Find(i => i.StartFrame == startFrame) == null)
+        //         // {
+        //         //     Timeline.ApplyModify(() => { FieldView.AddClip(e1, Track, startFrame); }, "Add Clip");
+        //         // }
+        //         // Timeline.ApplyModify(() => { FieldView.AddClip(track); }, "AddClip");
+        //     };
+        //     this.AddManipulator(dragAndDropManipulator);
+        //     transform.position = new Vector3(0, Timeline.Tracks.IndexOf(track) * 40, 0);
+        //
+        //     OnMutedStateChanged();
+        // }
 
         public void Refreh()
         {
@@ -158,7 +156,7 @@ namespace Timeline.Editor
         private void OnPointerDown(PointerDownEvent evt)
         {
             //当前选中了Clip
-            foreach (TimelineClipView v in BBClipViewMap.Values)
+            foreach (TimelineClipView v in ClipViewMap.Values)
             {
                 if (!v.InMiddle(evt.position)) continue;
 
@@ -177,29 +175,29 @@ namespace Timeline.Editor
 
         private void OnPointerMove(PointerMoveEvent evt)
         {
-            // foreach (TimelineClipView clipViewValue in ClipViewMap.Values)
-            // {
-            //     clipViewValue.OnHover(false);
-            //     if (clipViewValue.InMiddle(evt.position))
-            //     {
-            //         clipViewValue.OnHover(true);
-            //         evt.StopImmediatePropagation();
-            //     }
-            // }
+            foreach (TimelineClipView clipViewValue in ClipViewMap.Values)
+            {
+                clipViewValue.OnHover(false);
+                if (clipViewValue.InMiddle(evt.position))
+                {
+                    clipViewValue.OnHover(true);
+                    evt.StopImmediatePropagation();
+                }
+            }
         }
 
         private void OnPointerOut(PointerOutEvent evt)
         {
-            // foreach (TimelineClipView clipViewValue in ClipViewMap.Values)
-            // {
-            //     clipViewValue.OnHover(false);
-            // }
+            foreach (TimelineClipView clipViewValue in ClipViewMap.Values)
+            {
+                clipViewValue.OnHover(false);
+            }
         }
 
-        private void OnMutedStateChanged()
-        {
-            SetEnabled(!Track.PersistentMuted && !Track.RuntimeMuted);
-        }
+        // private void OnMutedStateChanged()
+        // {
+        //     SetEnabled(!Track.PersistentMuted && !Track.RuntimeMuted);
+        // }
 
         private class DragAndDropManipulator: PointerManipulator
         {
