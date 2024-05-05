@@ -6,7 +6,7 @@ namespace Timeline.Editor
     public interface ISelection
     {
         public VisualElement ContentContainer { get; }
-        public List<ISelectable> Elements { get; }
+        public List<ISelectable> SelectionElements { get; }
         public List<ISelectable> Selections { get; }
 
         public void AddToSelection(ISelectable selectable);

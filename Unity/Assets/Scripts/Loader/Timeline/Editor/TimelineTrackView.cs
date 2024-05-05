@@ -57,9 +57,10 @@ namespace Timeline.Editor
                 TimelineClipView clipView = new();
                 clipView.SelectionContainer = FieldView;
                 clipView.Init(clip, this);
-                Add(clipView);
 
+                Add(clipView);
                 BBClipViewMap.Add(clip, clipView);
+                FieldView.SelectionElements.Add(clipView);
             }
         }
 
@@ -77,7 +78,7 @@ namespace Timeline.Editor
                 clipView.Init(clip, this);
 
                 Add(clipView);
-                FieldView.Elements.Add(clipView); // IsSelectable
+                FieldView.SelectionElements.Add(clipView); // IsSelectable
                 ClipViewMap.Add(clip, clipView);
                 ClipViews.Add(clipView);
             }
@@ -159,13 +160,13 @@ namespace Timeline.Editor
             //当前选中了Clip
             foreach (TimelineClipView v in BBClipViewMap.Values)
             {
-                if(!v.InMiddle(evt.position)) continue;
-                
+                if (!v.InMiddle(evt.position)) continue;
+
                 v.OnPointerDown(evt);
                 evt.StopImmediatePropagation();
                 return;
             }
-            
+
             if (evt.button == 1)
             {
                 m_localMousePosition = evt.localPosition;

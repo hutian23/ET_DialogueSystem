@@ -212,7 +212,7 @@ namespace Timeline.Editor
             selectionRect = ComputeAxisAlignBound(selectionRect, selection.ContentContainer.transform.matrix.inverse);
 
             List<ISelectable> newSelection = new List<ISelectable>();
-            selection.Elements.ForEach(child =>
+            selection.SelectionElements.ForEach(child =>
             {
                 Rect rectangle = target.ChangeCoordinatesTo(child as VisualElement, selectionRect);
                 if (child.IsSelectable() && child.Overlaps(rectangle))
@@ -234,11 +234,6 @@ namespace Timeline.Editor
                 {
                     selection.AddToSelection(item);
                 }
-            }
-
-            foreach (var s in selection.Selections)
-            {
-                Debug.LogWarning(s);
             }
             
             m_Active = false;

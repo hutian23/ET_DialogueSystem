@@ -269,7 +269,7 @@ namespace Timeline.Editor
         public VisualElement ContentContainer => TrackHandleContainer;
 
         private readonly List<ISelectable> m_Elements = new();
-        public List<ISelectable> Elements => m_Elements;
+        public List<ISelectable> SelectionElements => m_Elements;
 
         private readonly List<ISelectable> m_Selections = new();
         public List<ISelectable> Selections => m_Selections;

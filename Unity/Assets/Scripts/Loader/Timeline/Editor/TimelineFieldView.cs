@@ -210,6 +210,9 @@ namespace Timeline.Editor
                 TimelineTrackView trackView = new();
                 trackView.SelectionContainer = this;
                 trackView.Init(runtimeTrack);
+
+                //可以被选中
+                SelectionElements.Add(trackView);
                 TrackField.Add(trackView);
                 TrackViews.Add(trackView);
             }
@@ -218,7 +221,9 @@ namespace Timeline.Editor
             {
                 TimelineTrackHandle trackHandle = new(trackView);
                 trackHandle.SelectionContainer = this;
+
                 EditorWindow.TrackHandleContainer.Add(trackHandle);
+                SelectionElements.Add(trackHandle);
             }
             // if (Timeline)
             // {
@@ -481,7 +486,7 @@ namespace Timeline.Editor
 
         public VisualElement ContentContainer => TrackField;
         private readonly List<ISelectable> m_Elements = new();
-        public List<ISelectable> Elements => m_Elements;
+        public List<ISelectable> SelectionElements => m_Elements;
         private readonly List<ISelectable> m_Selections = new();
         public List<ISelectable> Selections => m_Selections;
 
@@ -812,34 +817,34 @@ namespace Timeline.Editor
                     {
                         startFrame = clipView.StartFrame;
                     }
-            
+
                     if (clipView.EndFrame > endFrame)
                     {
                         endFrame = clipView.EndFrame;
                     }
                 }
             }
-            
+
             int targetStartFrame = GetClosestFrame(FramePosMap[startFrame] + deltaPosition);
             targetStartFrame = Mathf.Clamp(targetStartFrame, CurrentMinFrame, CurrentMaxFrame);
-            
+
             int deltaFrame = targetStartFrame - startFrame;
             // //新的帧添加到map中
             if (deltaFrame + endFrame >= m_MaxFrame)
             {
-                 for (int i = m_MaxFrame; i <= deltaFrame + endFrame; i++)
-                 {
-                     FramePosMap.Add(i, OneFrameWidth * i * m_FieldOffsetX);
-                 }
-            
-                 m_MaxFrame = deltaFrame + endFrame + 1;
+                for (int i = m_MaxFrame; i <= deltaFrame + endFrame; i++)
+                {
+                    FramePosMap.Add(i, OneFrameWidth * i * m_FieldOffsetX);
+                }
+
+                m_MaxFrame = deltaFrame + endFrame + 1;
             }
-            
+
             foreach (var moveClip in moveClips)
             {
                 moveClip.Move(deltaFrame);
             }
-            
+
             // foreach (TimelineClipView moveClip in moveClips)
             // {
             //     moveClip.Clip.Invalid = !GetMoveValid(moveClip);
@@ -1157,7 +1162,7 @@ namespace Timeline.Editor
         {
             return currentTimeLocator;
         }
-        
+
         #endregion
     }
 }
