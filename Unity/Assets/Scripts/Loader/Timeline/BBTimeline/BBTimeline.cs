@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Timeline.Editor;
 using UnityEditor;
 using UnityEngine;
 
 namespace Timeline
 {
-
     [CreateAssetMenu(menuName = "ScriptableObject/BBTimeline", fileName = "BBTimeline")]
     public class BBTimeline: SerializedScriptableObject
     {
@@ -68,7 +68,8 @@ namespace Timeline
         
 #if UNITY_EDITOR
         protected virtual Type ClipType => typeof (Clip);
-
+        public virtual Type ClipViewType => typeof (TimelineClipView);
+        
         public BBClip AddClip(int frame)
         {
             BBClip clip = Activator.CreateInstance(ClipType, frame) as BBClip;

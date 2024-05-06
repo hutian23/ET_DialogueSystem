@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -28,13 +27,11 @@ namespace Timeline.Editor
 
         public int StartFrame => BBClip.StartFrame;
         public int EndFrame => BBClip.EndFrame;
-        private int WidthFrame => EndFrame - StartFrame;
 
         private DragLineManipulator m_LeftResizeDragLine;
         protected DragLineManipulator m_SelfEaseInDragLine;
         private DragLineManipulator m_RightResizeDragLine;
         protected DragLineManipulator m_SelfEaseOutDragLine;
-        private readonly DragManipulator m_MoveDrag;
         private readonly DropdownMenuHandler m_MenuHandle;
 
         private readonly VisualElement m_Content;
@@ -51,14 +48,14 @@ namespace Timeline.Editor
 
             m_Content = this.Q("content");
 
-            m_Title = this.Q("title");
+            // m_Title = this.Q("title");
             m_ClipName = this.Q<Label>("clip-name");
             m_BottomLine = this.Q("bottom-line");
             m_DrawBox = this.Q("draw-box");
 
-            m_MoveDrag = new DragManipulator(OnStartDrag, OnStopDrag, OnDragMove);
-            m_MoveDrag.enabled = true;
-            this.AddManipulator(m_MoveDrag);
+            DragManipulator mMoveDrag = new(OnStartDrag, OnStopDrag, OnDragMove);
+            mMoveDrag.enabled = true;
+            this.AddManipulator(mMoveDrag);
 
             m_MenuHandle = new DropdownMenuHandler(MenuBuilder);
             m_DrawBox.generateVisualContent += OnDrawBoxGenerateVisualContent;
@@ -108,52 +105,7 @@ namespace Timeline.Editor
             
             Refresh();
         }
-
-        public void Init(Clip clip, TimelineTrackView trackView)
-        {
-            // Clip = clip;
-            // Clip.OnNameChanged = () => m_ClipName.text = clip.Name;
-            // m_ClipName.text = clip.Name;
-            // TrackView = trackView;
-            // // m_BottomLine.style.backgroundColor = clip.Color();
-            //
-            // //Resize
-            // m_LeftResizeDragLine = new DragLineManipulator(DraglineDirection.Left, (e) =>
-            // {
-            //     FieldView.ResizeClip(this, DraglineDirection.Left, e.x);
-            //     FieldView.DrawFrameLine(EndFrame);
-            // }, _ =>
-            // {
-            //     FieldView.DrawFrameLine(EndFrame);
-            // }, () =>
-            // {
-            //     FieldView.DrawFrameLine();
-            // });
-            // m_LeftResizeDragLine.Size = 8;
-            // this.AddManipulator(m_LeftResizeDragLine);
-            //
-            // m_RightResizeDragLine = new DragLineManipulator(DraglineDirection.Right, (e) =>
-            // {
-            //     FieldView.ResizeClip(this, DraglineDirection.Right, e.x);
-            //     // if (!IsSelected())
-            //     // {
-            //     //     SelectionContainer.ClearSelection();
-            //     //     SelectionContainer.AddToSelection(this);
-            //     // }
-            //     FieldView.DrawFrameLine(StartFrame);
-            // }, _ =>
-            // {
-            //     FieldView.DrawFrameLine(StartFrame);
-            // }, () =>
-            // {
-            //     FieldView.DrawFrameLine();
-            // });
-            // m_RightResizeDragLine.Size = 8;
-            // this.AddManipulator(m_RightResizeDragLine);
-            //
-            // Refresh();
-        }
-
+        
         public void Resize(int startFrame, int endFrame)
         {
             int deltaStartFrame = startFrame - BBClip.StartFrame;
@@ -223,6 +175,11 @@ namespace Timeline.Editor
             m_DrawBox.MarkDirtyRepaint();
         }
 
+        public virtual void PopulateInspector()
+        {
+            Debug.LogWarning("Populate Inspector");
+        }
+        
         #endregion
 
         public bool InMiddle(Vector2 worldPosition)
@@ -279,37 +236,8 @@ namespace Timeline.Editor
             }
         }
 
-        private void MenuBuilder(DropdownMenu menu)
+        protected virtual void MenuBuilder(DropdownMenu menu)
         {
-            // menu.AppendAction("Remove Clip", _ => { Timeline.ApplyModify(() => { Timeline.RemoveClip(Clip); }, "Remove Clip"); });
-            // menu.AppendAction("Open Script", _ =>
-            // {
-            //     //TODO Open Script
-            // });
-            // menu.AppendAction("Paste Properties", _ =>
-            // {
-            //     foreach (var fieldInfo in Clip.GetAllFields())
-            //     {
-            //         if (fieldInfo.GetCustomAttribute<ShowInInspectorAttribute>() != null && CopyValueMap.TryGetValue(fieldInfo, out object value))
-            //         {
-            //             CopyValueMap.Add(fieldInfo, fieldInfo.GetValue(Clip));
-            //         }
-            //     }
-            // }, _ =>
-            // {
-            //     if (CopyType == null)
-            //     {
-            //         return DropdownMenuAction.Status.None;
-            //     }
-            //     else if (CopyType != Clip.GetType())
-            //     {
-            //         return DropdownMenuAction.Status.Disabled;
-            //     }
-            //     else
-            //     {
-            //         return DropdownMenuAction.Status.Normal;
-            //     }
-            // });
             menu.AppendAction("Remove Clip", _ => { EditorWindow.ApplyModify(() => { BBTrack.RemoveClip(BBClip); }, "Remove Clip"); });
         }
 
@@ -345,6 +273,5 @@ namespace Timeline.Editor
         }
 
         private static Type CopyType;
-        private static readonly Dictionary<FieldInfo, object> CopyValueMap = new();
     }
 }

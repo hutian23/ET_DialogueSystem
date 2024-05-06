@@ -270,44 +270,53 @@ namespace Timeline.Editor
             {
                 switch (target)
                 {
-                    case Track track:
-                    {
-                        SerializedProperty serializedProperty = Timeline.SerializedTimeline.FindProperty("m_Tracks");
-                        serializedProperty = serializedProperty.GetArrayElementAtIndex(Timeline.Tracks.IndexOf(track));
-
-                        DrawProperties(serializedProperty, target);
+                    case TimelineClipView clipView:
+                        clipView.PopulateInspector();
                         break;
-                    }
-                    case Clip clip:
-                    {
-                        clip.OnInspectorRepaint = () => PopulateInspector(clip);
-
-                        SerializedProperty serializedProperty = Timeline.SerializedTimeline.FindProperty("m_Tracks");
-                        serializedProperty = serializedProperty.GetArrayElementAtIndex(Timeline.Tracks.IndexOf(clip.Track));
-                        serializedProperty = serializedProperty.FindPropertyRelative("m_Clips");
-                        serializedProperty = serializedProperty.GetArrayElementAtIndex(clip.Track.Clips.IndexOf(clip));
-
-                        DrawProperties(serializedProperty, target);
-
-                        ClipInspectorView clipViewName = clip.GetAttribute<ClipInspectorView>();
-                        if (clipViewName != null)
-                        {
-                            foreach (var clipInspectorViewScriptPair in TimelineEditorUtility.ClipInspectorViewScriptMap)
-                            {
-                                if (clipInspectorViewScriptPair.Key.Name == clipViewName.Name)
-                                {
-                                    TimelineClipInspectorView clipInspectorView =
-                                            Activator.CreateInstance(clipInspectorViewScriptPair.Key, clip) as TimelineClipInspectorView;
-                                    ClipInspector.Add(clipInspectorView);
-                                    return;
-                                }
-                            }
-                        }
-
-                        break;
-                    }
                 }
             }
+            // if (target != null)
+            // {
+            //     switch (target)
+            //     {
+            //         case Track track:
+            //         {
+            //             SerializedProperty serializedProperty = Timeline.SerializedTimeline.FindProperty("m_Tracks");
+            //             serializedProperty = serializedProperty.GetArrayElementAtIndex(Timeline.Tracks.IndexOf(track));
+            //
+            //             DrawProperties(serializedProperty, target);
+            //             break;
+            //         }
+            //         case Clip clip:
+            //         {
+            //             clip.OnInspectorRepaint = () => PopulateInspector(clip);
+            //
+            //             SerializedProperty serializedProperty = Timeline.SerializedTimeline.FindProperty("m_Tracks");
+            //             serializedProperty = serializedProperty.GetArrayElementAtIndex(Timeline.Tracks.IndexOf(clip.Track));
+            //             serializedProperty = serializedProperty.FindPropertyRelative("m_Clips");
+            //             serializedProperty = serializedProperty.GetArrayElementAtIndex(clip.Track.Clips.IndexOf(clip));
+            //
+            //             DrawProperties(serializedProperty, target);
+            //
+            //             ClipInspectorView clipViewName = clip.GetAttribute<ClipInspectorView>();
+            //             if (clipViewName != null)
+            //             {
+            //                 foreach (var clipInspectorViewScriptPair in TimelineEditorUtility.ClipInspectorViewScriptMap)
+            //                 {
+            //                     if (clipInspectorViewScriptPair.Key.Name == clipViewName.Name)
+            //                     {
+            //                         TimelineClipInspectorView clipInspectorView =
+            //                                 Activator.CreateInstance(clipInspectorViewScriptPair.Key, clip) as TimelineClipInspectorView;
+            //                         ClipInspector.Add(clipInspectorView);
+            //                         return;
+            //                     }
+            //                 }
+            //             }
+            //
+            //             break;
+            //         }
+            //     }
+            // }
         }
 
         private void DrawProperties(SerializedProperty serializedProperty, object target)
@@ -494,16 +503,7 @@ namespace Timeline.Editor
         {
             m_Selections.Add(selectable);
             selectable.Select();
-
-            // switch (selectable)
-            // {
-            //     case TimelineTrackView trackView:
-            //         PopulateInspector(trackView.Track);
-            //         break;
-            //     case TimelineClipView clipView:
-            //         PopulateInspector(clipView.Clip);
-            //         break;
-            // }
+            PopulateInspector(selectable);
         }
 
         public void RemoveFromSelection(ISelectable selectable)
@@ -527,6 +527,7 @@ namespace Timeline.Editor
         {
             m_FieldScale = evt.newValue / 100f;
             ResizeTimeField();
+            UpdateMix();
             DrawTimeField();
             TrackScrollView.ForceScrollViewUpdate();
             OnGeometryChangedCallback?.Invoke();

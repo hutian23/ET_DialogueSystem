@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 #if UNITY_EDITOR
 using Timeline.Editor;
@@ -18,9 +17,10 @@ namespace Timeline
 #endif
     public class BBAnimationTrack: BBTrack
     {
+        public override Type RuntimeTrackType => typeof (RuntimeAnimationTrack);
 #if UNITY_EDITOR
         protected override Type ClipType => typeof (BBAnimationClip);
-        public override Type RuntimeTrackType => typeof (RuntimeAnimationTrack);  
+        public override Type ClipViewType => typeof (TimelineClipView);
 #endif
     }
 
@@ -39,7 +39,7 @@ namespace Timeline
     public class RuntimeAnimationTrack: RuntimeTrack
     {
         public BBAnimationTrack AnimationTrack => Track as BBAnimationTrack;
-     
+
         private BBTimelineAnimationTrackPlayable TrackPlayable;
         private AnimationMixerPlayable MixerPlayable => TrackPlayable.MixerPlayable;
         private readonly List<BBTimelineAnimationClipPlayable> ClipPlayables = new();
@@ -52,7 +52,8 @@ namespace Timeline
             ClipPlayables.Clear();
             for (int i = 0; i < AnimationTrack.Clips.Count; i++)
             {
-                var clipPlayable = BBTimelineAnimationClipPlayable.Create(RuntimePlayable, AnimationTrack.Clips[i] as BBAnimationClip, MixerPlayable, i);
+                var clipPlayable =
+                        BBTimelineAnimationClipPlayable.Create(RuntimePlayable, AnimationTrack.Clips[i] as BBAnimationClip, MixerPlayable, i);
                 ClipPlayables.Add(clipPlayable);
             }
         }
@@ -96,7 +97,8 @@ namespace Timeline
         {
         }
 
-        public static BBTimelineAnimationTrackPlayable Create(RuntimePlayable runtimePlayable, RuntimeAnimationTrack runtimeAnimationTrack, Playable output)
+        public static BBTimelineAnimationTrackPlayable Create(RuntimePlayable runtimePlayable, RuntimeAnimationTrack runtimeAnimationTrack,
+        Playable output)
         {
             var handle = ScriptPlayable<BBTimelineAnimationTrackPlayable>.Create(runtimePlayable.PlayableGraph);
             var trackPlayable = handle.GetBehaviour();

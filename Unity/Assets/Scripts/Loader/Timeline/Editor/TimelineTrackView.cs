@@ -18,8 +18,8 @@ namespace Timeline.Editor
         public TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
         public TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
         public List<TimelineClipView> ClipViews { get; private set; }
-        public DoubleMap<BBClip, TimelineClipView> ClipViewMap = new();
-        
+        private readonly DoubleMap<BBClip, TimelineClipView> ClipViewMap = new();
+
         public Action OnSelected;
         public Action OnUnSelected;
 
@@ -52,7 +52,7 @@ namespace Timeline.Editor
             ClipViewMap.Clear();
             foreach (var clip in RuntimeTrack.Track.Clips)
             {
-                TimelineClipView clipView = new();
+                TimelineClipView clipView = Activator.CreateInstance(RuntimeTrack.Track.ClipViewType) as TimelineClipView;
                 clipView.SelectionContainer = FieldView;
                 clipView.Init(clip, this);
 
@@ -61,42 +61,6 @@ namespace Timeline.Editor
                 FieldView.SelectionElements.Add(clipView);
             }
         }
-
-        // public void Init(Track track)
-        // {
-        //     Track = track;
-        //     // Track.OnUpdateMix = Refreh;
-        //     // Track.OnMutedStateChanged = OnMutedStateChanged;
-        //     ClipViewMap = new DoubleMap<Clip, TimelineClipView>();
-        //     ClipViews = new List<TimelineClipView>();
-        //     foreach (Clip clip in track.Clips)
-        //     {
-        //         TimelineClipView clipView = new();
-        //         clipView.SelectionContainer = FieldView;
-        //         clipView.Init(clip, this);
-        //
-        //         Add(clipView);
-        //         FieldView.SelectionElements.Add(clipView); // IsSelectable
-        //         ClipViewMap.Add(clip, clipView);
-        //         ClipViews.Add(clipView);
-        //     }
-        //
-        //     DragAndDropManipulator dragAndDropManipulator = new(this);
-        //     dragAndDropManipulator.DragValid = Track.DragValid;
-        //     dragAndDropManipulator.DragPerform += (_, _) =>
-        //     {
-        //         // int startFrame = FieldView.GetClosestFloorFrame(e2.x);
-        //         // if (Track.Clips.Find(i => i.StartFrame == startFrame) == null)
-        //         // {
-        //         //     Timeline.ApplyModify(() => { FieldView.AddClip(e1, Track, startFrame); }, "Add Clip");
-        //         // }
-        //         // Timeline.ApplyModify(() => { FieldView.AddClip(track); }, "AddClip");
-        //     };
-        //     this.AddManipulator(dragAndDropManipulator);
-        //     transform.position = new Vector3(0, Timeline.Tracks.IndexOf(track) * 40, 0);
-        //
-        //     OnMutedStateChanged();
-        // }
 
         public void Refreh()
         {
@@ -143,9 +107,6 @@ namespace Timeline.Editor
 
         private void MenuBuilder(DropdownMenu menu)
         {
-            // menu.AppendAction("Add Clip", _ => { Timeline.ApplyModify(() => { FieldView.AddClip(Track); }, "Add Clip"); });
-            // menu.AppendAction("Remove Track", _ => { Timeline.ApplyModify(() => { Timeline.RemoveTrack(Track); }, "Remove Track"); });
-            // menu.AppendAction("Open Script", _ => { Track.OpenTrackScript(); });
             menu.AppendAction("Add Clip", _ =>
             {
                 //TODO AddClip
@@ -193,12 +154,7 @@ namespace Timeline.Editor
                 clipViewValue.OnHover(false);
             }
         }
-
-        // private void OnMutedStateChanged()
-        // {
-        //     SetEnabled(!Track.PersistentMuted && !Track.RuntimeMuted);
-        // }
-
+        
         private class DragAndDropManipulator: PointerManipulator
         {
             private Label dropLabel;
