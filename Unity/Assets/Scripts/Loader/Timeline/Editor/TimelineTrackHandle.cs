@@ -39,10 +39,8 @@ namespace Timeline.Editor
         public TimelineTrackHandle(TimelineTrackView trackView): this()
         {
             TrackView = trackView;
-            // TrackView.OnSelected = () => { SelectionContainer.AddToSelection(this); };
-            // TrackView.OnUnSelected = () => { SelectionContainer.RemoveFromSelection(this); };
 
-            style.borderLeftColor = ColorAttribute.GetColor(BBTrack.GetType());
+            style.borderLeftColor = Color.gray;
 
             //bind track name
             NameField = this.Q<TextField>();
@@ -52,7 +50,7 @@ namespace Timeline.Editor
             NameField.Bind(EditorWindow.SerializedTimeline);
 
             transform.position = new Vector3(0, GetTrackOrder() * 40, 0);
-
+            
             //track Icon
             Icon = this.Q("icon");
             Texture2D texture2D = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(IconGuidAttribute.Guid(BBTrack.GetType())));
@@ -134,6 +132,8 @@ namespace Timeline.Editor
         private void MenuBuilder(DropdownMenu menu)
         {
             menu.AppendAction("Remove Track", _ => { EditorWindow.ApplyModify(() => { RuntimePlayable.RemoveTrack(BBTrack); }, "Remove Track"); });
+            menu.AppendAction("Record", _ => { FieldView.SelectAsRecord(BBTrack); });
+            menu.AppendAction("UnRecord", _ => { FieldView.UnSelectRecord(BBTrack); });
         }
 
         public void OnPointerDown(PointerDownEvent evt)
@@ -246,6 +246,20 @@ namespace Timeline.Editor
         public void UnSelect()
         {
             RemoveFromClassList("selected");
+        }
+
+        #endregion
+
+        #region Record
+
+        public bool EqualTrack(BBTrack track)
+        {
+            return BBTrack == track;
+        }
+
+        public void IsRecord(bool record)
+        {
+            style.borderLeftColor = record? Color.red : Color.gray;
         }
 
         #endregion

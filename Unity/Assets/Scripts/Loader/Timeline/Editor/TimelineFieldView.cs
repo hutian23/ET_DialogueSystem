@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ET;
+using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -10,6 +11,23 @@ using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
+    public class TimelineInspectorView: SerializedScriptableObject
+    {
+        [HideReferenceObjectPicker]
+        public System.Object obj;
+
+        public static void CreateView(VisualElement parent, System.Object _obj)
+        {
+            TimelineInspectorView inspectorView = CreateInstance<TimelineInspectorView>();
+            inspectorView.obj = _obj;
+
+            var editor = UnityEditor.Editor.CreateEditor(inspectorView);
+            IMGUIContainer container = new(() => { editor.OnInspectorGUI(); });
+            parent.Clear();
+            parent.Add(container);
+        }
+    }
+
     public class TimelineFieldView: VisualElement, ISelection
     {
         public new class UxmlFactory: UxmlFactory<TimelineFieldView, UxmlTraits>
@@ -33,7 +51,7 @@ namespace Timeline.Editor
         private VisualElement TimeLocator { get; set; }
         private Label LocaterFrameLabel { get; set; }
         private ScrollView InspectorScrollView { get; set; }
-        private VisualElement ClipInspector { get; set; }
+        public VisualElement ClipInspector { get; set; }
         private ScrollView TrackHandleContainer { get; set; }
 
         #region Param
@@ -81,6 +99,12 @@ namespace Timeline.Editor
 
         //当前Locator所在帧数
         private int currentTimeLocator;
+
+        #region Record
+
+        public BBTrack RecordTrack;
+
+        #endregion
 
         public RuntimePlayable RuntimePlayable
         {
@@ -192,6 +216,16 @@ namespace Timeline.Editor
             this.AddManipulator(new RectangleSelecter(() => -localBound.position));
         }
 
+        public void Dispose()
+        {
+            TrackField.Clear();
+            m_Selections.Clear();
+            m_Elements.Clear();
+            TrackViewMap.Clear();
+            TrackViews.Clear();
+            RecordTrack = null;
+        }
+
         public void PopulateView()
         {
             TrackField.Clear();
@@ -201,7 +235,6 @@ namespace Timeline.Editor
             TrackViews.Clear();
 
             ResizeTimeField();
-            // PopulateInspector(null);
             UpdateBindState();
 
             foreach (var runtimeTrack in RuntimePlayable.RuntimeTracks)
@@ -221,51 +254,19 @@ namespace Timeline.Editor
             {
                 TimelineTrackHandle trackHandle = new(trackView);
                 trackHandle.SelectionContainer = this;
+                //record mode
+                trackHandle.IsRecord(trackHandle.EqualTrack(RecordTrack));
 
                 EditorWindow.TrackHandleContainer.Add(trackHandle);
                 SelectionElements.Add(trackHandle);
             }
-            // if (Timeline)
-            // {
-            // Timeline.UpdateSerializedTimeline();
-            //
-            //     //计算最大帧长
-            //     int maxFrame = 0;
-            //     foreach (var track in Timeline.Tracks)
-            //     {
-            //         foreach (var clip in track.Clips)
-            //         {
-            //             if (clip.EndFrame >= maxFrame)
-            //             {
-            //                 maxFrame = clip.EndFrame;
-            //             }
-            //         }
-            //     }
-            //
-            //     maxFrame++;
-            //     m_MaxFrame = Mathf.Max(m_MaxFrame, maxFrame);
-            //     ResizeTimeField();
-            //     DrawTimeField();
-            //
-            //     foreach (var track in Timeline.Tracks)
-            //     {
-            //         TimelineTrackView trackView = new();
-            //         trackView.SelectionContainer = this;
-            //         trackView.Init(track);
-            //
-            //         Elements.Add(trackView);
-            //         TrackField.Add(trackView);
-            //         TrackViewMap.Add(track, trackView);
-            //         TrackViews.Add(trackView);
-            //     }
-            // }
-            //
-            //OnPopulatedCallback?.Invoke();
+
+            // PopulateInspector(RecordTrack);
+            TimelineInspectorView.CreateView(ClipInspector, RecordTrack);
         }
 
         private void PopulateInspector(object target)
         {
-            ClipInspector.Clear();
             if (target != null)
             {
                 switch (target)
@@ -489,6 +490,7 @@ namespace Timeline.Editor
             MarkerField.SetEnabled(binding);
             TimeLocator.SetEnabled(binding);
             // PopulateInspector(Timeline);
+            // PopulateInspector(RecordClipView);
         }
 
         #region Selection
@@ -503,7 +505,6 @@ namespace Timeline.Editor
         {
             m_Selections.Add(selectable);
             selectable.Select();
-            PopulateInspector(selectable);
         }
 
         public void RemoveFromSelection(ISelectable selectable)
@@ -1180,6 +1181,23 @@ namespace Timeline.Editor
         public int GetCurrentTimeLocator()
         {
             return currentTimeLocator;
+        }
+
+        #endregion
+
+        #region Record
+
+        public void SelectAsRecord(BBTrack track)
+        {
+            RecordTrack = track;
+            PopulateView();
+        }
+
+        public void UnSelectRecord(BBTrack track)
+        {
+            if (RecordTrack != track) return;
+            RecordTrack = null;
+            PopulateView();
         }
 
         #endregion

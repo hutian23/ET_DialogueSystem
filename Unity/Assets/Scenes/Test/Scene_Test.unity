@@ -1320,6 +1320,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2801466458652767405, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
+      propertyPath: color.b
+      value: 0.14402027
+      objectReference: {fileID: 0}
+    - target: {fileID: 2801466458652767405, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
+      propertyPath: color.g
+      value: 0.5943396
+      objectReference: {fileID: 0}
+    - target: {fileID: 2801466458652767405, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
+      propertyPath: color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2801466458652767405, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
       propertyPath: ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
@@ -1350,6 +1365,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 3db21ea503a2acf41a86a07c8518ad0d,
         type: 2}
+    - target: {fileID: 7468455045085988073, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7728331812354445376, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
       propertyPath: m_Name

@@ -36,6 +36,13 @@
     border-bottom-color: rgb(234, 62, 76);
 }
 
+/*.record.timelineClip{*/
+/*    border-left-color: rgba(0,152,37,255);*/
+/*    border-right-color: rgba(0,152,37,255);*/
+/*    border-top-color: rgba(0,152,37,255);*/
+/*    border-bottom-color: rgba(0,152,37,255);*/
+/*}*/
+
 #content {
     background-color: rgb(88, 88, 88);
     height: 100%;

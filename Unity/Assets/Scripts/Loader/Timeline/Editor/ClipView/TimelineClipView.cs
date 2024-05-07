@@ -17,7 +17,7 @@ namespace Timeline.Editor
         public ClipCapabilities Capabilities => Clip.Capabilities;
 
         public TimelineTrackView TrackView { get; private set; }
-        private TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
+        protected TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
         private TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
         public BBClip BBClip;
         public BBTrack BBTrack => TrackView.RuntimeTrack.Track;
@@ -75,37 +75,25 @@ namespace Timeline.Editor
                 {
                     FieldView.ResizeClip(this, DraglineDirection.Left, e.x);
                     FieldView.DrawFrameLine(EndFrame);
-                }, 
-                _ =>
-                {
-                    FieldView.DrawFrameLine(EndFrame);
                 },
-                () =>
-                {
-                    FieldView.DrawFrameLine();
-                });
+                _ => { FieldView.DrawFrameLine(EndFrame); },
+                () => { FieldView.DrawFrameLine(); });
             m_LeftResizeDragLine.Size = 8;
             this.AddManipulator(m_LeftResizeDragLine);
-            
+
             //Resize Right
             m_RightResizeDragLine = new DragLineManipulator(DraglineDirection.Right, (e) =>
                 {
                     FieldView.ResizeClip(this, DraglineDirection.Right, e.x);
                     FieldView.DrawFrameLine(StartFrame);
                 },
-                _ =>
-                {
-                    FieldView.DrawFrameLine(StartFrame);
-                }, () =>
-                {
-                    FieldView.DrawFrameLine();
-                });
+                _ => { FieldView.DrawFrameLine(StartFrame); }, () => { FieldView.DrawFrameLine(); });
             m_RightResizeDragLine.Size = 8;
             this.AddManipulator(m_RightResizeDragLine);
-            
+
             Refresh();
         }
-        
+
         public void Resize(int startFrame, int endFrame)
         {
             int deltaStartFrame = startFrame - BBClip.StartFrame;
@@ -179,7 +167,7 @@ namespace Timeline.Editor
         {
             Debug.LogWarning("Populate Inspector");
         }
-        
+
         #endregion
 
         public bool InMiddle(Vector2 worldPosition)

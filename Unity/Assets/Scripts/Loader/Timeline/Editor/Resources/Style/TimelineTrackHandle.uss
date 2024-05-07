@@ -17,6 +17,9 @@
 .selected.timelineTrackHandle{
     background-color: rgba(68,192,255,0.29);
 }
+.preview.timelineTrackHandle{
+    background-color: forestgreen;
+}
 
 #name-field{
     flex-grow: 1;

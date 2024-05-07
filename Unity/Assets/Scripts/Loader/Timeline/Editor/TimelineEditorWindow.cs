@@ -155,53 +155,15 @@ namespace Timeline.Editor
             //
             fieldScaleBar = root.Q<SliderInt>("field-scale-bar");
             fieldScaleBar.RegisterValueChangedCallback(m_TimelineField.SliderUpdate);
-
             Undo.undoRedoEvent += OnUndoRedoEvent;
         }
 
         private void OnDestroy()
         {
-            // Dispose();
             Undo.undoRedoEvent -= OnUndoRedoEvent;
+            Dispose();
         }
-
-        public void Init(Timeline timeline, bool initTime = true)
-        {
-            // if (Timeline == timeline)
-            // {
-            //     return;
-            // }
-            //
-            // if (initTime)
-            // {
-            //     timeline.Init();
-            // }
-            // else
-            // {
-            //     RunningTimeline = new RunningTimeline();
-            //     RunningTimeline.timeline = timeline;
-            // }
-            //
-            // Timeline = timeline;
-            // Timeline.UpdateSerializedTimeline();
-            //
-            // RunningTimeline.OnValueChanged += m_TimelineField.PopulateView;
-            // RunningTimeline.OnEvaluated += m_TimelineField.UpdateTimeLocator;
-            // RunningTimeline.OnBindStateChanged += m_TimelineField.UpdateBindState;
-            // RunningTimeline.OnBindStateChanged += UpdateBindState;
-
-            // Timeline.OnValueChanged += m_TimelineField.PopulateView;
-            // Timeline.OnEvaluated += m_TimelineField.UpdateTimeLocator;
-            // Timeline.OnBindStateChanged += m_TimelineField.UpdateBindState;
-            // Timeline.OnBindStateChanged += UpdateBindState;
-            //
-            // m_Top.SetEnabled(true);
-            // m_LeftPanel.SetEnabled(true);
-            // m_TimelineField.SetEnabled(true);
-            // UpdateBindState();
-            // EditorCoroutineHelper.WaitWhile(m_TimelineField.PopulateView, () => m_TimelineField.ContentWidth == 0);
-        }
-
+        
         public void ApplyModify(Action action, string _name, bool rebind = true)
         {
             Undo.RegisterCompleteObjectUndo(BBTimeline, $"Timeline: {_name}");
@@ -214,23 +176,7 @@ namespace Timeline.Editor
 
         public void Dispose()
         {
-            if (Timeline)
-            {
-                // if (Timeline.TimelinePlayer && Timeline.TimelinePlayer.RunningTimelines.Count == 1 && !Application.isPlaying)
-                // {
-                //     Timeline.TimelinePlayer.Dispose();
-                // }
-
-                Timeline.OnValueChanged -= m_TimelineField.PopulateView;
-                Timeline.OnEvaluated -= m_TimelineField.UpdateTimeLocator;
-                Timeline.OnBindStateChanged -= m_TimelineField.UpdateBindState;
-                Timeline = null;
-            }
-
-            m_Top.SetEnabled(false);
-            m_LeftPanel.SetEnabled(false);
-            m_TimelineField.SetEnabled(false);
-            UpdateBindState();
+            m_TimelineField.Dispose();
         }
 
         public void PopulateView()
@@ -239,7 +185,7 @@ namespace Timeline.Editor
             TrackHandleContainer.ForceScrollViewUpdate();
             m_Elements.Clear();
             m_Selections.Clear();
-
+            
             UpdateBindState();
             m_TimelineField.PopulateView();
         }
@@ -298,6 +244,7 @@ namespace Timeline.Editor
         public static void OpenWindow(TimelinePlayer timelinePlayer)
         {
             TimelineEditorWindow window = GetWindow<TimelineEditorWindow>();
+            window.Dispose();
             window.TimelinePlayer = timelinePlayer;
             window.TimelinePlayer.Dispose();
             window.TimelinePlayer.Init();
