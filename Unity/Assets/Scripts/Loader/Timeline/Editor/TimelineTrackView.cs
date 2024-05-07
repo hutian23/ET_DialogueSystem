@@ -155,7 +155,7 @@ namespace Timeline.Editor
                 clipViewValue.OnHover(false);
             }
         }
-
+        
         private class DragAndDropManipulator: PointerManipulator
         {
             private Label dropLabel;

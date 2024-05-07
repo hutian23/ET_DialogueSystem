@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using Timeline.Editor;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Timeline
 {
@@ -12,7 +13,7 @@ namespace Timeline
     {
         [SerializeReference]
         public List<BBTrack> Tracks = new();
-        
+
 #if UNITY_EDITOR
         [HideInInspector]
         public SerializedObject SerializedTimeline;
@@ -21,7 +22,7 @@ namespace Timeline
         {
             SerializedTimeline = new SerializedObject(this);
         }
-        
+
         public BBTrack AddTrack(Type type)
         {
             BBTrack track = Activator.CreateInstance(type) as BBTrack;
@@ -61,15 +62,16 @@ namespace Timeline
     public abstract class BBTrack
     {
         public string Name;
+
         [SerializeReference]
         public List<BBClip> Clips = new();
 
         public virtual Type RuntimeTrackType => typeof (RuntimeTrack);
-        
+
 #if UNITY_EDITOR
         protected virtual Type ClipType => typeof (Clip);
         public virtual Type ClipViewType => typeof (TimelineClipView);
-        
+
         public BBClip AddClip(int frame)
         {
             BBClip clip = Activator.CreateInstance(ClipType, frame) as BBClip;
@@ -107,6 +109,11 @@ namespace Timeline
             return StartFrame < halfFrame && halfFrame < EndFrame;
         }
 
+        public bool InMiddle(int frame)
+        {
+            return StartFrame <= frame && frame <= EndFrame;
+        }
+
         public bool Overlap(BBClip clip)
         {
             for (int i = clip.StartFrame; i <= clip.EndFrame; i++)
@@ -116,7 +123,7 @@ namespace Timeline
 
             return false;
         }
-        
+
         public bool IsResizeable()
         {
             return (Capabilities & ClipCapabilities.Resizeable) == ClipCapabilities.Resizeable;

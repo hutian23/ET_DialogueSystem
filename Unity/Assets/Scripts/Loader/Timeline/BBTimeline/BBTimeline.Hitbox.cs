@@ -29,11 +29,10 @@ namespace Timeline
     public class BBHitboxClip: BBClip
     {
         [DictionaryDrawerSettings(KeyLabel = "Frame", ValueLabel = "HitboxInfo")]
-        public Dictionary<int, HitboxInfo> hitboxInfos;
-
+        public Dictionary<int, HitboxInfo> hitboxInfos = new();
+        
         public BBHitboxClip(int frame): base(frame)
         {
-            hitboxInfos = new Dictionary<int, HitboxInfo>();
         }
     }
 

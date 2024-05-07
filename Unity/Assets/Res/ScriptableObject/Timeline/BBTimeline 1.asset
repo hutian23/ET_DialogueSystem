@@ -22,49 +22,34 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   Tracks:
-  - rid: 7600336884421885958
-  - rid: 7600336904360034305
-  - rid: 7600336904360034304
+  - rid: 7600336910524612614
+  - rid: 7600336910524612616
   references:
     version: 2
     RefIds:
-    - rid: 7600336884421885958
+    - rid: 7600336910524612614
       type: {class: BBHitboxTrack, ns: Timeline, asm: Unity.Loader}
       data:
-        Name: hurtBox
+        Name: 
         Clips:
-        - rid: 7600336884421885959
-        - rid: 7600336884421885960
-    - rid: 7600336884421885959
+        - rid: 7600336910524612615
+    - rid: 7600336910524612615
       type: {class: BBHitboxClip, ns: Timeline, asm: Unity.Loader}
       data:
         InValid: 0
         StartFrame: 0
-        EndFrame: 10
+        EndFrame: 0
         Capabilities: 0
-    - rid: 7600336884421885960
-      type: {class: BBHitboxClip, ns: Timeline, asm: Unity.Loader}
-      data:
-        InValid: 0
-        StartFrame: 11
-        EndFrame: 16
-        Capabilities: 0
-    - rid: 7600336904360034304
+    - rid: 7600336910524612616
       type: {class: BBHitboxTrack, ns: Timeline, asm: Unity.Loader}
       data:
         Name: BBHitbox
-        Clips: []
-    - rid: 7600336904360034305
-      type: {class: BBAnimationTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: hello world
         Clips:
-        - rid: 7600336904360034306
-    - rid: 7600336904360034306
-      type: {class: BBAnimationClip, ns: Timeline, asm: Unity.Loader}
+        - rid: 7600336910524612617
+    - rid: 7600336910524612617
+      type: {class: BBHitboxClip, ns: Timeline, asm: Unity.Loader}
       data:
         InValid: 0
-        StartFrame: 8
-        EndFrame: 11
+        StartFrame: 0
+        EndFrame: 16
         Capabilities: 0
-        animationClip: {fileID: 0}
