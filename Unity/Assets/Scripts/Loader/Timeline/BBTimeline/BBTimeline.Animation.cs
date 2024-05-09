@@ -72,7 +72,7 @@ namespace Timeline
             // TrackPlayable.Handle.Destroy();
         }
 
-        public override void SetTime()
+        public override void SetTime(int targetFrame)
         {
         }
 

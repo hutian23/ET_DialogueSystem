@@ -123,6 +123,74 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &217664639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 217664642}
+  - component: {fileID: 217664641}
+  - component: {fileID: 217664640}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &217664640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217664639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &217664641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217664639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &217664642
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217664639}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &367696287
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,8 +1007,8 @@ GameObject:
   - component: {fileID: 1357804245}
   - component: {fileID: 929365078086624893}
   - component: {fileID: 343870490730027621}
-  - component: {fileID: 5593543514667996729}
   - component: {fileID: 5593543514667996730}
+  - component: {fileID: 5593543514667996729}
   m_Layer: 0
   m_Name: Ragna
   m_TagString: Untagged
@@ -989,7 +1057,7 @@ SpriteRenderer:
   m_SortingLayerID: 2016810935
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1505184845, guid: ace8a5ab09303194386cd45ad1e816b5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c55aa847614bcb241b7aebdb592ddafa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1009,7 +1077,7 @@ Transform:
   m_GameObject: {fileID: 1357804244}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.2, y: 0.51, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1536,7 +1604,6 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 3db21ea503a2acf41a86a07c8518ad0d, type: 2}
-    - {fileID: 5593543514667996729}
     - {fileID: 0}
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -1581,16 +1648,13 @@ MonoBehaviour:
     - Name: Timeline
       Entry: 10
       Data: 0
-    - Name: TimelinePlayer
-      Entry: 10
-      Data: 1
     - Name: RuntimeTracks
       Entry: 7
       Data: 3|System.Collections.Generic.List`1[[Timeline.RuntimeTrack, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
       Data: 4|Timeline.RuntimeHitboxTrack, Unity.Loader
@@ -1599,7 +1663,7 @@ MonoBehaviour:
       Data: 5|Timeline.BBHitboxTrack, Unity.Loader
     - Name: Name
       Entry: 1
-      Data: 
+      Data: BBHitbox
     - Name: Clips
       Entry: 7
       Data: 6|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
@@ -1615,107 +1679,156 @@ MonoBehaviour:
       Data: false
     - Name: StartFrame
       Entry: 3
-      Data: 0
-    - Name: EndFrame
-      Entry: 3
-      Data: 0
-    - Name: Capabilities
-      Entry: 3
-      Data: 0
-    - Name: hitboxInfos
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 8|Timeline.RuntimeHitboxTrack, Unity.Loader
-    - Name: Track
-      Entry: 7
-      Data: 9|Timeline.BBHitboxTrack, Unity.Loader
-    - Name: Name
-      Entry: 1
-      Data: BBHitbox
-    - Name: Clips
-      Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
       Data: 1
-    - Name: 
-      Entry: 7
-      Data: 11|Timeline.BBHitboxClip, Unity.Loader
-    - Name: InValid
-      Entry: 5
-      Data: false
-    - Name: StartFrame
-      Entry: 3
-      Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 16
+      Data: 14
     - Name: Capabilities
       Entry: 3
       Data: 0
-    - Name: hitboxInfos
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Time
-      Entry: 4
-      Data: 0
-    - Name: RebindCallback
+    - Name: hitboxDictionary
       Entry: 7
-      Data: 12|System.Action, mscorlib
-    - Name: invocationList
+      Data: 8|Timeline.BBHitboxClip+HitboxDictionary, Unity.Loader
+    - Name: comparer
       Entry: 7
-      Data: 13|System.Delegate[], mscorlib
+      Data: 9|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 14|System.Action, mscorlib
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: 10|Timeline.HitboxInfo, Unity.Loader
+    - Name: hitBoxRect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: referName
+      Entry: 1
+      Data: HitBox
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 11|Timeline.HitboxInfo, Unity.Loader
+    - Name: hitBoxRect
+      Entry: 7
+      Data: UnityEngine.Rect, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: referName
+      Entry: 1
+      Data: ProximityBox
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: HitboxGameObjects
+      Entry: 7
+      Data: 12|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RebindCallback
+      Entry: 7
+      Data: 13|System.Action, mscorlib
+    - Name: invocationList
+      Entry: 7
+      Data: 14|System.Delegate[], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 15|System.Action, mscorlib
     - Name: target
       Entry: 9
       Data: 2
     - Name: declaringType
       Entry: 7
-      Data: 15|System.RuntimeType, mscorlib
+      Data: 16|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
       Data: Timeline.RuntimePlayable, Unity.Loader
@@ -1727,7 +1840,7 @@ MonoBehaviour:
       Data: Rebind
     - Name: delegateType
       Entry: 7
-      Data: 16|System.RuntimeType, mscorlib
+      Data: 17|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
       Data: System.Action, mscorlib
@@ -1736,7 +1849,7 @@ MonoBehaviour:
       Data: 
     - Name: signature
       Entry: 7
-      Data: 17|System.Type[], mscorlib
+      Data: 18|System.Type[], mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -1751,13 +1864,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 18|System.Action, mscorlib
+      Data: 19|System.Action, mscorlib
     - Name: target
       Entry: 10
-      Data: 2
+      Data: 1
     - Name: declaringType
       Entry: 7
-      Data: 19|System.RuntimeType, mscorlib
+      Data: 20|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
       Data: Timeline.Editor.TimelineEditorWindow, Unity.Loader
@@ -1769,10 +1882,10 @@ MonoBehaviour:
       Data: PopulateView
     - Name: delegateType
       Entry: 9
-      Data: 16
+      Data: 17
     - Name: signature
       Entry: 7
-      Data: 20|System.Type[], mscorlib
+      Data: 21|System.Type[], mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -1811,14 +1924,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-  - key: HitBox
-    gameObject: {fileID: 793098615}
   - key: HurtBox
     gameObject: {fileID: 695436959}
-  - key: ThrowBox
-    gameObject: {fileID: 1584159892}
-  - key: SquashBox
-    gameObject: {fileID: 428165395}
+  - key: HitBox
+    gameObject: {fileID: 793098615}
   - key: ProximityBox
     gameObject: {fileID: 2003809422}
 --- !u!1001 &5799860490732322955
@@ -2074,3 +2183,4 @@ SceneRoots:
   - {fileID: 1974695022}
   - {fileID: 1357804246}
   - {fileID: 1315335854}
+  - {fileID: 217664642}

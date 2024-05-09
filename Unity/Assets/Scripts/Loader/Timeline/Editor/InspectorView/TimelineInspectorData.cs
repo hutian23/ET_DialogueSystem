@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine.UIElements;
 
 namespace Timeline.Editor
@@ -7,9 +8,9 @@ namespace Timeline.Editor
     {
         [HideLabel]
         [HideReferenceObjectPicker]
-        public IShowInInspector obj;
+        public System.Object obj;
 
-        public static TimelineInspectorData CreateView(VisualElement parent, IShowInInspector _obj)
+        public static TimelineInspectorData CreateView(VisualElement parent, System.Object _obj)
         {
             if (_obj == null) return null;
             TimelineInspectorData inspectorData = CreateInstance<TimelineInspectorData>();
@@ -24,8 +25,15 @@ namespace Timeline.Editor
         }
     }
 
-    public interface IShowInInspector
+    public abstract class IShowInInspector
     {
-        public void InspectorUpdate(TimelineFieldView fieldView);
+        public IShowInInspector(Object target)
+        {
+        }
+        
+        public abstract void InspectorAwake(TimelineFieldView fieldView);
+        public abstract void InspectorUpdate(TimelineFieldView fieldView);
+        public abstract void InspectorDestroy(TimelineFieldView fieldView);
+        public abstract bool Equal(System.Object target);
     }
 }

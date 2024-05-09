@@ -11,7 +11,7 @@ namespace Timeline
     public class RuntimePlayable
     {
         public BBTimeline Timeline;
-        public TimelinePlayer TimelinePlayer;
+        private TimelinePlayer TimelinePlayer;
 
         #region Component
 
@@ -25,7 +25,7 @@ namespace Timeline
 
         public List<RuntimeTrack> RuntimeTracks = new();
 
-        public float Time;
+        private float Time;
         public int Frame => (int)Time / TimelineUtility.FrameRate;
 
         public static RuntimePlayable Create(BBTimeline _timeline, TimelinePlayer _timelinePlayer)
@@ -50,7 +50,7 @@ namespace Timeline
             });
         }
 
-        public void Dispose()
+        private void Dispose()
         {
             Time = 0f;
             foreach (var runtimeTrack in RuntimeTracks)
@@ -59,6 +59,20 @@ namespace Timeline
             }
 
             RuntimeTracks.Clear();
+        }
+
+        public void Evaluate(int targetFrame)
+        {
+            float targetTime = targetFrame * TimelineUtility.FrameRate;
+            float deltaTime = Time - targetTime;
+            
+            for (int i = RuntimeTracks.Count - 1; i >= 0; i--)
+            {
+                RuntimeTrack runtimeTrack = RuntimeTracks[i];
+                runtimeTrack.SetTime(targetFrame);
+            }
+            
+            // PlayableGraph.Evaluate(deltaTime);
         }
 
 #if UNITY_EDITOR
@@ -98,7 +112,7 @@ namespace Timeline
         protected int PlayableIndex;
         public abstract void Bind();
         public abstract void UnBind();
-        public abstract void SetTime();
+        public abstract void SetTime(int targetFrame);
         public abstract void RuntimMute(bool value);
 
         public int ClipCount => Track.Clips.Count;

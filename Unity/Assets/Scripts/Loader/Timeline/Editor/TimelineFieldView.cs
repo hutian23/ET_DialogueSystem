@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using ET;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -86,20 +85,7 @@ namespace Timeline.Editor
 
         private BBTrack RecordTrack;
         private BBClip CurrentRecordClip;
-        private TimelineInspectorData inspectorData;
-
-        public TimelineTrackView RecordTrackView
-        {
-            get
-            {
-                foreach (var trackView in TrackViews)
-                {
-                    if (trackView.RuntimeTrack.Track == RecordTrack) return trackView;
-                }
-
-                return null;
-            }
-        }
+        private IShowInInspector InspectorData;
 
         #endregion
 
@@ -644,6 +630,8 @@ namespace Timeline.Editor
             TimeLocator.MarkDirtyRepaint();
             LocaterFrameLabel.text = currentTimeLocator.ToString();
 
+            RuntimePlayable.Evaluate(currentTimeLocator);
+
             RecordTrackUpdate();
         }
 
@@ -1096,39 +1084,41 @@ namespace Timeline.Editor
         {
             if (RecordTrack != track) return;
             RecordTrack = null;
+            InspectorData?.InspectorDestroy(this);
+            InspectorData = null;
             PopulateView();
         }
 
         private void RecordTrackUpdate()
         {
-            // if (RecordTrack == null) return;
-            // foreach (var clip in RecordTrack.Clips)
-            // {
-            //     if (clip.InMiddle(currentTimeLocator))
-            //     {
-            //         //相同Clip，更新frame
-            //         if (CurrentRecordClip == clip)
-            //         {
-            //           
-            //         }
-            //
-            //         CurrentRecordClip = clip;
-            //         inspectorData = TimelineInspectorData.CreateView(ClipInspector, new HitboxClipInfo());
-            //         return;
-            //     }
-            // }
-            //
-            // //当前Locator位置没有Clip
-            // CurrentRecordClip = null;
-            // ClearInspector();
+            if (RecordTrack == null) return;
+            foreach (BBClip clip in RecordTrack.Clips)
+            {
+                //当前时间轴所处的clip
+                if (clip.InMiddle(currentTimeLocator))
+                {
+                    //仍在同一clip中，更新时间
+                    if (InspectorData != null && InspectorData.Equal(clip))
+                    {
+                        InspectorData.InspectorUpdate(this);
+                        return;
+                    }
+
+                    InspectorData?.InspectorDestroy(this);
+                    InspectorData = Activator.CreateInstance(clip.ShowInInpsectorType, clip) as IShowInInspector;
+                    InspectorData.InspectorAwake(this);
+                    InspectorData.InspectorUpdate(this);
+                    return;
+                }
+            }
+
+            if (InspectorData != null)
+            {
+                InspectorData.InspectorDestroy(this);
+                InspectorData = null;
+            }
         }
 
-        private void ClearInspector()
-        {
-            ClipInspector.Clear();
-            inspectorData = null;
-        }
-        
         #endregion
     }
 }

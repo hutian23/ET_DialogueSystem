@@ -4,7 +4,6 @@ using Sirenix.OdinInspector;
 using Timeline.Editor;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Timeline
 {
@@ -98,7 +97,12 @@ namespace Timeline
         public int Length => EndFrame - StartFrame;
         public ClipCapabilities Capabilities;
 
-        public BBClip(int frame)
+        protected BBClip()
+        {
+            
+        }
+
+        protected BBClip(int frame)
         {
             StartFrame = frame;
             EndFrame = StartFrame + 3;
@@ -133,6 +137,8 @@ namespace Timeline
         {
             return (Capabilities & ClipCapabilities.Mixable) == ClipCapabilities.Mixable;
         }
+
+        public virtual Type ShowInInpsectorType => typeof (IShowInInspector);
 #endif
     }
 }

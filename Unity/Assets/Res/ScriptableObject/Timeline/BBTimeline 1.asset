@@ -22,34 +22,37 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   Tracks:
-  - rid: 7600336910524612614
-  - rid: 7600336910524612616
+  - rid: 7600336929991163913
   references:
     version: 2
     RefIds:
-    - rid: 7600336910524612614
-      type: {class: BBHitboxTrack, ns: Timeline, asm: Unity.Loader}
-      data:
-        Name: 
-        Clips:
-        - rid: 7600336910524612615
-    - rid: 7600336910524612615
-      type: {class: BBHitboxClip, ns: Timeline, asm: Unity.Loader}
-      data:
-        InValid: 0
-        StartFrame: 0
-        EndFrame: 0
-        Capabilities: 0
-    - rid: 7600336910524612616
+    - rid: 7600336929991163913
       type: {class: BBHitboxTrack, ns: Timeline, asm: Unity.Loader}
       data:
         Name: BBHitbox
         Clips:
-        - rid: 7600336910524612617
-    - rid: 7600336910524612617
+        - rid: 7600336929991163914
+    - rid: 7600336929991163914
       type: {class: BBHitboxClip, ns: Timeline, asm: Unity.Loader}
       data:
         InValid: 0
-        StartFrame: 0
-        EndFrame: 16
+        StartFrame: 1
+        EndFrame: 14
         Capabilities: 0
+        hitboxDictionary:
+          keyData: 0200000000000000
+          valueData:
+          - hitBoxRect:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            referName: HitBox
+          - hitBoxRect:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            referName: ProximityBox
