@@ -11,7 +11,7 @@ namespace Timeline
     public class RuntimePlayable
     {
         public BBTimeline Timeline;
-        private TimelinePlayer TimelinePlayer;
+        public TimelinePlayer TimelinePlayer;
 
         #region Component
 

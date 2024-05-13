@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using ET;
 using ET.Client;
 using Sirenix.OdinInspector;
@@ -66,6 +65,7 @@ namespace Timeline
     public class BoxInfo
     {
         public string boxName;
+        public string bindParent;
         public HitboxType hitboxType;
         public Vector2 center;
         public Vector2 size;
@@ -86,7 +86,7 @@ namespace Timeline
         [LabelText("当前帧: ")]
         [Sirenix.OdinInspector.ReadOnly]
         public int frame;
-        
+
         #region Create
 
         [FoldoutGroup(groupName: "创建判定框")]
@@ -105,11 +105,28 @@ namespace Timeline
         [Sirenix.OdinInspector.Button("创建")]
         public void CreateHitbox()
         {
+            //refer
+            ReferenceCollector refer = timelinePlayer.GetComponent<ReferenceCollector>();
+            if (refer == null)
+            {
+                refer = timelinePlayer.gameObject.AddComponent<ReferenceCollector>();
+            }
+
+            refer.Remove(bindParent.name);
+            refer.Add(bindParent.name, bindParent);
+
             GameObject go = Object.Instantiate(BBTimelineSettings.GetSettings().hitboxPrefab, bindParent.transform);
             go.name = boxName;
 
             CastBox castBox = go.GetComponent<CastBox>();
-            BoxInfo info = new() { boxName = boxName, hitboxType = HitBoxType, center = Vector2.zero, size = Vector3.one };
+            BoxInfo info = new()
+            {
+                boxName = boxName,
+                hitboxType = HitBoxType,
+                center = Vector2.zero,
+                size = Vector3.one,
+                bindParent = bindParent.name
+            };
             castBox.info = info;
         }
 
@@ -121,7 +138,7 @@ namespace Timeline
             {
                 Clip.hitboxDictionary.Remove(frame);
             }
-            
+
             var castBoxes = timelinePlayer.GetComponentsInChildren<CastBox>();
             if (castBoxes.Length == 0) return;
 
@@ -205,8 +222,8 @@ namespace Timeline
 
     public class RuntimeHitboxTrack: RuntimeTrack
     {
-        public List<GameObject> HitboxGameObjects = new();
-
+        public int currentFrame;
+        
         public RuntimeHitboxTrack(RuntimePlayable runtimePlayable, BBTrack track): base(runtimePlayable, track)
         {
         }
@@ -221,6 +238,39 @@ namespace Timeline
 
         public override void SetTime(int targetFrame)
         {
+            //帧更新
+            if (currentFrame == targetFrame) return;
+            currentFrame = targetFrame;
+            
+            foreach (BBClip clip in Track.Clips)
+            {
+                if (clip.InMiddle(targetFrame))
+                {
+                    BBHitboxClip hitboxClip = clip as BBHitboxClip;
+                    TimelinePlayer timelinePlayer = RuntimePlayable.TimelinePlayer;
+
+                    int clipFrame = targetFrame - clip.StartFrame;
+                    if (!hitboxClip.hitboxDictionary.TryGetValue(clipFrame, out List<BoxInfo> boxInfos)) return;
+
+                    //Clear hitboxes
+                    foreach (CastBox castBox in timelinePlayer.GetComponentsInChildren<CastBox>())
+                    {
+                        Object.DestroyImmediate(castBox.gameObject);
+                    }
+
+                    //Create hitboxes
+                    ReferenceCollector refer = timelinePlayer.GetComponent<ReferenceCollector>();
+                    foreach (BoxInfo boxInfo in boxInfos)
+                    {
+                        GameObject parent = refer.Get<GameObject>(boxInfo.bindParent);
+                        GameObject go = Object.Instantiate(BBTimelineSettings.GetSettings().hitboxPrefab, parent.transform);
+                        go.name = boxInfo.boxName;
+                        go.GetComponent<CastBox>().info = boxInfo;
+                    }
+
+                    return;
+                }
+            }
         }
 
         public override void RuntimMute(bool value)

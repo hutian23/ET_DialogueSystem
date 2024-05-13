@@ -36,8 +36,8 @@ MonoBehaviour:
       type: {class: BBHitboxClip, ns: Timeline, asm: Unity.Loader}
       data:
         InValid: 0
-        StartFrame: 2
-        EndFrame: 15
+        StartFrame: 0
+        EndFrame: 13
         Capabilities: 0
         hitboxDictionary:
-          keyData: 
+          keyData: 0000000002000000
