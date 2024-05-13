@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Timeline
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/BBTimeline", fileName = "BBTimeline")]
+    [CreateAssetMenu(menuName = "ScriptableObject/BBTimeline/Timeline", fileName = "BBTimeline")]
     public class BBTimeline: SerializedScriptableObject
     {
         [SerializeReference]

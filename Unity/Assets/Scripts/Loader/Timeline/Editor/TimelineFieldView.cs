@@ -84,7 +84,7 @@ namespace Timeline.Editor
         #region Record
 
         private BBTrack RecordTrack;
-        private BBClip CurrentRecordClip;
+        public BBClip CurrentRecordClip;
         private IShowInInspector InspectorData;
 
         #endregion

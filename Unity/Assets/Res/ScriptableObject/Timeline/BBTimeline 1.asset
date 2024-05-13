@@ -36,23 +36,8 @@ MonoBehaviour:
       type: {class: BBHitboxClip, ns: Timeline, asm: Unity.Loader}
       data:
         InValid: 0
-        StartFrame: 1
-        EndFrame: 14
+        StartFrame: 2
+        EndFrame: 15
         Capabilities: 0
         hitboxDictionary:
-          keyData: 0200000000000000
-          valueData:
-          - hitBoxRect:
-              serializedVersion: 2
-              x: 0
-              y: 0
-              width: 0
-              height: 0
-            referName: HitBox
-          - hitBoxRect:
-              serializedVersion: 2
-              x: 0
-              y: 0
-              width: 0
-              height: 0
-            referName: ProximityBox
+          keyData: 

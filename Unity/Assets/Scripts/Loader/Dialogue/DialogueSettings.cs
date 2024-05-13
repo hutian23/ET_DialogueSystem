@@ -19,7 +19,7 @@ namespace ET.Client
 
         public static DialogueSettings GetSettings()
         {
-            return Resources.Load<DialogueSettings>("DialogueTreeSettings");
+            return Resources.Load<DialogueSettings>($"DialogueTreeSettings");
         }
 
         public string ExportPath => $"{Application.dataPath}/Config/Localization";

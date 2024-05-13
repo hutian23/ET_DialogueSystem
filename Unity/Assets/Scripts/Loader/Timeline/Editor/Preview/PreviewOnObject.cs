@@ -1,13 +1,10 @@
-using UnityEditor;
+using System;
 using UnityEngine;
 
 namespace ET
 {
     public class PreviewOnObject : MonoBehaviour
     {
-        public void Awake()
-        {
-        }
         
     }
 }

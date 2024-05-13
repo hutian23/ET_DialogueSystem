@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using ET;
+using ET.Client;
 using Sirenix.OdinInspector;
 using Timeline.Editor;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Object = UnityEngine.Object;
 
 namespace Timeline
 {
@@ -32,7 +37,7 @@ namespace Timeline
     public class BBHitboxClip: BBClip
     {
         [Serializable]
-        public class HitboxDictionary: UnitySerializedDictionary<int, HitboxInfo>
+        public class HitboxDictionary: UnitySerializedDictionary<int, List<BoxInfo>>
         {
         }
 
@@ -58,80 +63,96 @@ namespace Timeline
     }
 
     [Serializable]
-    public class TestHitboxInfo
+    public class BoxInfo
     {
+        public string boxName;
+        public HitboxType hitboxType;
+        public Vector2 center;
+        public Vector2 size;
+    }
+
+    [Serializable]
+    public class HitboxInfoInspector
+    {
+        [HideInInspector]
+        public TimelineFieldView FieldView;
+
+        [HideInInspector]
+        public BBHitboxClip Clip;
+
+        private TimelinePlayer timelinePlayer => FieldView.EditorWindow.TimelinePlayer;
+        private BBTimeline timeline => timelinePlayer.RuntimeimePlayable.Timeline;
+
+        [LabelText("当前帧: ")]
+        [Sirenix.OdinInspector.ReadOnly]
+        public int frame;
+        
+        #region Create
+
+        [FoldoutGroup(groupName: "创建判定框")]
         [LabelText("判定框名: ")]
         public string boxName;
 
+        [FoldoutGroup(groupName: "创建判定框")]
         [LabelText("判定框类型: ")]
-        public HitboxType HitboxType;
+        public HitboxType HitBoxType;
 
-        public Vector2 localPosition;
-        public Vector2 scale;
-    }
+        [FoldoutGroup(groupName: "创建判定框")]
+        [LabelText("绑定对象: ")]
+        public GameObject bindParent;
 
-    public class BBHitboxInfo
-    {
-        [HideInInspector]
-        public BBHitboxInspectorData inspectorData;
-
-        private BBHitboxClip clip => inspectorData.hitboxClip;
-        private TimelineFieldView FieldView => inspectorData.FieldView;
-        private TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
-        private TimelinePlayer timelinePlayer => FieldView.EditorWindow.TimelinePlayer;
-
-        [LabelText("当前帧: ")]
-        [DisableInEditorMode]
-        public int frame;
-
-        [Space(5)]
-        [LabelText("对象: ")]
-        public GameObject parent;
-
-        [ButtonGroup]
-        public void Bind()
+        [FoldoutGroup(groupName: "创建判定框")]
+        [Sirenix.OdinInspector.Button("创建")]
+        public void CreateHitbox()
         {
-            ReferenceCollector refer = timelinePlayer.GetComponent<ReferenceCollector>();
-            refer.Remove(parent.name);
-            refer.Add(parent.name, parent);
+            GameObject go = Object.Instantiate(BBTimelineSettings.GetSettings().hitboxPrefab, bindParent.transform);
+            go.name = boxName;
 
-            if (!clip.hitboxDictionary.TryGetValue(frame, out HitboxInfo info))
-            {
-                info = new HitboxInfo();
-                clip.hitboxDictionary.Add(frame, info);
-            }
-
-            info.referName = parent.name;
+            CastBox castBox = go.GetComponent<CastBox>();
+            BoxInfo info = new() { boxName = boxName, hitboxType = HitBoxType, center = Vector2.zero, size = Vector3.one };
+            castBox.info = info;
         }
 
-        [HideReferenceObjectPicker]
-        public TestHitboxInfo hitboxInfo = new();
-
-        public void Awake()
+        [FoldoutGroup(groupName: "创建判定框")]
+        [Sirenix.OdinInspector.Button("保存当前判定框")]
+        public void SaveHitbox()
         {
-            var refer = timelinePlayer.GetComponent<ReferenceCollector>();
-            if (refer == null)
+            if (Clip.hitboxDictionary.ContainsKey(frame))
             {
-                timelinePlayer.gameObject.AddComponent<ReferenceCollector>();
+                Clip.hitboxDictionary.Remove(frame);
+            }
+            
+            var castBoxes = timelinePlayer.GetComponentsInChildren<CastBox>();
+            if (castBoxes.Length == 0) return;
+
+            List<BoxInfo> boxInfos = new();
+            foreach (CastBox castBox in castBoxes)
+            {
+                BoxInfo boxInfo = MongoHelper.Clone(castBox.info);
+                boxInfos.Add(boxInfo);
+            }
+
+            Clip.hitboxDictionary.TryAdd(frame, boxInfos);
+        }
+
+        [FoldoutGroup(groupName: "创建判定框")]
+        [Sirenix.OdinInspector.Button("清空判定框")]
+        public void ClearHitbox()
+        {
+            foreach (var castBox in timelinePlayer.GetComponentsInChildren<CastBox>())
+            {
+                Object.DestroyImmediate(castBox.gameObject);
             }
         }
 
-        public void Update()
+        [FoldoutGroup(groupName: "创建判定框")]
+        [Sirenix.OdinInspector.Button("更新判定框")]
+        public void UpdateHitbox()
         {
-            //当前帧
-            int currentFrame = FieldView.GetCurrentTimeLocator() - inspectorData.hitboxClip.StartFrame;
-            frame = currentFrame;
-
-            if (!clip.hitboxDictionary.TryGetValue(currentFrame, out HitboxInfo info))
-            {
-                parent = null;
-                return;
-            }
-
-            ReferenceCollector refer = timelinePlayer.GetComponent<ReferenceCollector>();
-            GameObject go = refer.Get<GameObject>(info.referName);
-            parent = go;
+            ClearHitbox();
         }
+
+        #endregion
     }
 
     [Serializable]
@@ -139,7 +160,9 @@ namespace Timeline
     {
         public BBHitboxClip hitboxClip;
         public TimelineInspectorData inspectorData;
-        public BBHitboxInfo hitboxInfo;
+
+        [FormerlySerializedAs("hitboxInfo")]
+        public HitboxInfoInspector hitboxInfoInspector;
 
         public TimelineFieldView FieldView;
 
@@ -147,16 +170,16 @@ namespace Timeline
         {
             FieldView = fieldView;
             fieldView.ClipInspector.Clear();
-            hitboxInfo = new BBHitboxInfo();
-            inspectorData = TimelineInspectorData.CreateView(fieldView.ClipInspector, hitboxInfo);
-
-            hitboxInfo.inspectorData = this;
-            hitboxInfo.Awake();
+            hitboxInfoInspector = new HitboxInfoInspector();
+            inspectorData = TimelineInspectorData.CreateView(fieldView.ClipInspector, hitboxInfoInspector);
         }
 
         public override void InspectorUpdate(TimelineFieldView fieldView)
         {
-            hitboxInfo.Update();
+            var inspector = hitboxInfoInspector;
+            inspector.FieldView = fieldView;
+            inspector.Clip = hitboxClip;
+            inspector.frame = fieldView.GetCurrentTimeLocator() - hitboxClip.StartFrame;
         }
 
         public override void InspectorDestroy(TimelineFieldView fieldView)

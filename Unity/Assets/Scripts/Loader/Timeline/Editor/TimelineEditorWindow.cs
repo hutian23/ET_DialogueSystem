@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -158,12 +159,28 @@ namespace Timeline.Editor
             Undo.undoRedoEvent += OnUndoRedoEvent;
         }
 
+        private void OnEnable()
+        {
+            AssemblyReloadEvents.afterAssemblyReload += PreviewHandle;
+        }
+
+        private void OnDisable()
+        {
+            AssemblyReloadEvents.afterAssemblyReload -= PreviewHandle;
+        }
+        
+        private void PreviewHandle()
+        {
+        }
+        
+
         private void OnDestroy()
         {
             Undo.undoRedoEvent -= OnUndoRedoEvent;
             Dispose();
+            OnDisable();
         }
-        
+
         public void ApplyModify(Action action, string _name, bool rebind = true)
         {
             Undo.RegisterCompleteObjectUndo(BBTimeline, $"Timeline: {_name}");
@@ -185,7 +202,7 @@ namespace Timeline.Editor
             TrackHandleContainer.ForceScrollViewUpdate();
             m_Elements.Clear();
             m_Selections.Clear();
-            
+
             UpdateBindState();
             m_TimelineField.PopulateView();
         }
