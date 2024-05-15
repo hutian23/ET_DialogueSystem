@@ -49,6 +49,7 @@ namespace Timeline
         {
             TrackPlayable = BBTimelineAnimationTrackPlayable.Create(RuntimePlayable, this, RuntimePlayable.AnimationRootPlayable);
             PlayableIndex = RuntimePlayable.AnimationRootPlayable.GetInputCount() - 1;
+            RuntimePlayable.AnimationRootPlayable.SetInputWeight(PlayableIndex, 1);
 
             ClipPlayables.Clear();
             for (int i = 0; i < AnimationTrack.Clips.Count; i++)
@@ -63,14 +64,15 @@ namespace Timeline
         {
             for (int i = 0; i < ClipPlayables.Count; i++)
             {
+                //Destroy clipPlayable
                 BBTimelineAnimationClipPlayable clipPlayable = ClipPlayables[i];
-                // MixerPlayable.DisconnectInput(i);
-                // clipPlayable.Handle.Destroy();
+                MixerPlayable.DisconnectInput(i);
+                clipPlayable.Handle.Destroy();
             }
 
-            // 取消连接关系并且销毁
+            // Destroy trackPlayable
             RuntimePlayable.AnimationRootPlayable.DisconnectInput(PlayableIndex);
-            // TrackPlayable.Handle.Destroy();
+            TrackPlayable.Handle.Destroy();
         }
 
         public override void SetTime(int targetFrame)
@@ -78,15 +80,12 @@ namespace Timeline
             if (currentFrame == targetFrame) return;
             currentFrame = targetFrame;
 
-            // Set Input Weight
             for (int i = 0; i < ClipPlayables.Count; i++)
             {
-                var clipPlayable = ClipPlayables[i];
+                BBTimelineAnimationClipPlayable clipPlayable = ClipPlayables[i];
                 clipPlayable.SetInputWeight((clipPlayable.Clip.Contain(targetFrame))? 1 : 0);
+                clipPlayable.SetTime(currentFrame);
             }
-            
-            //refresh playablegraph
-            TrackPlayable.PrepareFrame(default, default);
         }
 
         public override void RuntimMute(bool value)
@@ -149,6 +148,13 @@ namespace Timeline
         public float GetInputWeight()
         {
             return Output.GetInputWeight(Index);
+        }
+
+        public void SetTime(int targetFrame)
+        {
+            int clipInFrame = Mathf.Max(0, targetFrame - Clip.StartFrame);
+            ClipPlayable.SetTime((float)clipInFrame / TimelineUtility.FrameRate);
+            PrepareFrame(default, default);
         }
 
         public static BBTimelineAnimationClipPlayable Create(RuntimePlayable runtimePlayable, BBAnimationClip clip, Playable output, int index)

@@ -746,7 +746,7 @@ SpriteRenderer:
   m_SortingLayerID: 2016810935
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 03c4763a7f4b27a42b81b12d230c3a6c, type: 3}
+  m_Sprite: {fileID: 1633333993, guid: 5bff696bc646bc24da588afc6c65f285, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1218,7 +1218,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3db21ea503a2acf41a86a07c8518ad0d, type: 2}
     - {fileID: 5593543514667996731}
     - {fileID: 7400000, guid: 7f9b1ae1993417d45bf7a7d7fccf1ac8, type: 2}
-    - {fileID: 7400000, guid: f5420f65636486a40bb486a2e0b65a8c, type: 2}
     - {fileID: 0}
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -1288,7 +1287,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
       Data: 7|Timeline.BBAnimationClip, Unity.Loader
@@ -1297,37 +1296,16 @@ MonoBehaviour:
       Data: false
     - Name: StartFrame
       Entry: 3
-      Data: 0
+      Data: 39
     - Name: EndFrame
       Entry: 3
-      Data: 50
+      Data: 112
     - Name: Capabilities
       Entry: 3
       Data: 0
     - Name: animationClip
       Entry: 10
       Data: 2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 8|Timeline.BBAnimationClip, Unity.Loader
-    - Name: InValid
-      Entry: 5
-      Data: false
-    - Name: StartFrame
-      Entry: 3
-      Data: 50
-    - Name: EndFrame
-      Entry: 3
-      Data: 104
-    - Name: Capabilities
-      Entry: 3
-      Data: 0
-    - Name: animationClip
-      Entry: 10
-      Data: 3
     - Name: 
       Entry: 8
       Data: 
@@ -1345,23 +1323,23 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 9|Timeline.RuntimeHitboxTrack, Unity.Loader
+      Data: 8|Timeline.RuntimeHitboxTrack, Unity.Loader
     - Name: Track
       Entry: 7
-      Data: 10|Timeline.BBHitboxTrack, Unity.Loader
+      Data: 9|Timeline.BBHitboxTrack, Unity.Loader
     - Name: Name
       Entry: 1
       Data: BBHitbox
     - Name: Clips
       Entry: 7
-      Data: 11|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
+      Data: 10|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 12|Timeline.BBHitboxClip, Unity.Loader
+      Data: 11|Timeline.BBHitboxClip, Unity.Loader
     - Name: InValid
       Entry: 5
       Data: false
@@ -1370,17 +1348,17 @@ MonoBehaviour:
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 60
+      Data: 80
     - Name: Capabilities
       Entry: 3
       Data: 0
     - Name: boxInfoDict
       Entry: 7
-      Data: 13|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[System.Collections.Generic.List`1[[Timeline.BoxInfo,
+      Data: 12|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[System.Collections.Generic.List`1[[Timeline.BoxInfo,
         Unity.Loader]], mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 14|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
+      Data: 13|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -1396,14 +1374,14 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: 15|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
+      Data: 14|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 16|Timeline.BoxInfo, Unity.Loader
+      Data: 15|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: hutian2501
@@ -1442,7 +1420,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 17|Timeline.BoxInfo, Unity.Loader
+      Data: 16|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: hutian2502
@@ -1481,7 +1459,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 18|Timeline.BoxInfo, Unity.Loader
+      Data: 17|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: hutian2503
@@ -1535,14 +1513,14 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: 19|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
+      Data: 18|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 20|Timeline.BoxInfo, Unity.Loader
+      Data: 19|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: hit1
@@ -1581,7 +1559,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 21|Timeline.BoxInfo, Unity.Loader
+      Data: 20|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: hutian2501
@@ -1620,7 +1598,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 22|Timeline.BoxInfo, Unity.Loader
+      Data: 21|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: hutian2502
@@ -1659,7 +1637,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 23|Timeline.BoxInfo, Unity.Loader
+      Data: 22|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: hutian2503
@@ -1713,14 +1691,14 @@ MonoBehaviour:
       Data: 10
     - Name: $v
       Entry: 7
-      Data: 24|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
+      Data: 23|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 25|Timeline.BoxInfo, Unity.Loader
+      Data: 24|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: hit1
@@ -1759,7 +1737,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 26|Timeline.BoxInfo, Unity.Loader
+      Data: 25|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: hutian2501
@@ -1798,7 +1776,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 27|Timeline.BoxInfo, Unity.Loader
+      Data: 26|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: hutian2502
@@ -1837,7 +1815,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 28|Timeline.BoxInfo, Unity.Loader
+      Data: 27|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: hutian2503
@@ -1891,14 +1869,14 @@ MonoBehaviour:
       Data: 13
     - Name: $v
       Entry: 7
-      Data: 29|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
+      Data: 28|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 30|Timeline.BoxInfo, Unity.Loader
+      Data: 29|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: hit1
@@ -1937,7 +1915,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 31|Timeline.BoxInfo, Unity.Loader
+      Data: 30|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: hutian2501
@@ -1976,7 +1954,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 32|Timeline.BoxInfo, Unity.Loader
+      Data: 31|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: hutian2502
@@ -2015,7 +1993,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 33|Timeline.BoxInfo, Unity.Loader
+      Data: 32|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: hutian2503
@@ -2090,22 +2068,22 @@ MonoBehaviour:
       Data: 
     - Name: RebindCallback
       Entry: 7
-      Data: 34|System.Action, mscorlib
+      Data: 33|System.Action, mscorlib
     - Name: invocationList
       Entry: 7
-      Data: 35|System.Delegate[], mscorlib
+      Data: 34|System.Delegate[], mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 36|System.Action, mscorlib
+      Data: 35|System.Action, mscorlib
     - Name: target
       Entry: 9
       Data: 2
     - Name: declaringType
       Entry: 7
-      Data: 37|System.RuntimeType, mscorlib
+      Data: 36|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
       Data: Timeline.RuntimePlayable, Unity.Loader
@@ -2117,7 +2095,7 @@ MonoBehaviour:
       Data: Rebind
     - Name: delegateType
       Entry: 7
-      Data: 38|System.RuntimeType, mscorlib
+      Data: 37|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
       Data: System.Action, mscorlib
@@ -2126,7 +2104,7 @@ MonoBehaviour:
       Data: 
     - Name: signature
       Entry: 7
-      Data: 39|System.Type[], mscorlib
+      Data: 38|System.Type[], mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -2141,13 +2119,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 40|System.Action, mscorlib
+      Data: 39|System.Action, mscorlib
     - Name: target
       Entry: 10
-      Data: 4
+      Data: 3
     - Name: declaringType
       Entry: 7
-      Data: 41|System.RuntimeType, mscorlib
+      Data: 40|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
       Data: Timeline.Editor.TimelineEditorWindow, Unity.Loader
@@ -2159,10 +2137,10 @@ MonoBehaviour:
       Data: PopulateView
     - Name: delegateType
       Entry: 9
-      Data: 38
+      Data: 37
     - Name: signature
       Entry: 7
-      Data: 42|System.Type[], mscorlib
+      Data: 41|System.Type[], mscorlib
     - Name: 
       Entry: 12
       Data: 0

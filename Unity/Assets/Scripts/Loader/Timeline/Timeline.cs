@@ -57,14 +57,11 @@ namespace Timeline
             {
                 runtimeTrack.UnBind();
             }
-
             RuntimeTracks.Clear();
         }
 
         public void Evaluate(int targetFrame)
         {
-            float targetTime = (float)targetFrame / TimelineUtility.FrameRate;
-            float deltaTime = targetTime - Time;
             CurrentFrame = targetFrame;
 
             for (int i = RuntimeTracks.Count - 1; i >= 0; i--)
@@ -73,7 +70,7 @@ namespace Timeline
                 runtimeTrack.SetTime(targetFrame);
             }
 
-            PlayableGraph.Evaluate(deltaTime);
+            PlayableGraph.Evaluate();
         }
 
 #if UNITY_EDITOR
@@ -117,25 +114,6 @@ namespace Timeline
         public abstract void RuntimMute(bool value);
 
         public int ClipCount => Track.Clips.Count;
-    }
-
-    public abstract class RuntimeClip
-    {
-        public BBClip Clip;
-
-        public RuntimePlayable RuntimePlayable;
-        public RuntimeTrack RuntimeTrack;
-
-        public RuntimeClip(RuntimePlayable runtimePlayable, RuntimeTrack runtimeTrack, BBClip clip)
-        {
-            RuntimePlayable = runtimePlayable;
-            RuntimeTrack = runtimeTrack;
-            Clip = clip;
-        }
-
-        public abstract void Bind();
-        public abstract void UnBind();
-        public abstract void Evaluate(float deltaTime);
     }
 
     [AcceptableTrackGroups("Base")]
