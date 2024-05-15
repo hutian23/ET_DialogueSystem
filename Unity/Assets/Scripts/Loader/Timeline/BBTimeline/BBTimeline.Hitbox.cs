@@ -5,12 +5,10 @@ using ET.Client;
 using Sirenix.OdinInspector;
 using Timeline.Editor;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 
 namespace Timeline
 {
-    [Serializable]
     [BBTrack("Hitbox")]
     [Color(165, 032, 025)]
     [IconGuid("1dc9e96059838334696fb81dfec22393")]
@@ -23,24 +21,10 @@ namespace Timeline
 #endif
     }
 
-    [Serializable]
-    public class HitboxInfo
-    {
-        public Rect hitBoxRect;
-
-        //绑定对象 对应referenceCollector
-        public string referName;
-    }
-
     [Color(165, 032, 025)]
     public class BBHitboxClip: BBClip
     {
-        [Serializable]
-        public class HitboxDictionary: UnitySerializedDictionary<int, List<BoxInfo>>
-        {
-        }
-
-        public HitboxDictionary hitboxDictionary = new();
+        public Dictionary<int, List<BoxInfo>> boxInfoDict = new();
 
         public BBHitboxClip(int frame): base(frame)
         {
@@ -134,22 +118,42 @@ namespace Timeline
         [Sirenix.OdinInspector.Button("保存当前判定框")]
         public void SaveHitbox()
         {
-            if (Clip.hitboxDictionary.ContainsKey(frame))
+            if (Clip.boxInfoDict.ContainsKey(frame))
             {
-                Clip.hitboxDictionary.Remove(frame);
+                Clip.boxInfoDict.Remove(frame);
             }
 
             var castBoxes = timelinePlayer.GetComponentsInChildren<CastBox>();
             if (castBoxes.Length == 0) return;
 
-            List<BoxInfo> boxInfos = new();
-            foreach (CastBox castBox in castBoxes)
+            List<BoxInfo> boxInfos = new List<BoxInfo>();
+            foreach (var castBox in castBoxes)
             {
                 BoxInfo boxInfo = MongoHelper.Clone(castBox.info);
                 boxInfos.Add(boxInfo);
             }
 
-            Clip.hitboxDictionary.TryAdd(frame, boxInfos);
+            Clip.boxInfoDict.TryAdd(frame, boxInfos);
+
+            // FieldView.EditorWindow.ApplyModify(() =>
+            // {
+            //     if (Clip.hitboxDictionary.ContainsKey(frame))
+            //     {
+            //         Clip.hitboxDictionary.Remove(frame);
+            //     }
+            //
+            //     var castBoxes = timelinePlayer.GetComponentsInChildren<CastBox>();
+            //     if (castBoxes.Length == 0) return;
+            //
+            //     List<BoxInfo> boxInfos = new();
+            //     foreach (CastBox castBox in castBoxes)
+            //     {
+            //         BoxInfo boxInfo = MongoHelper.Clone(castBox.info);
+            //         boxInfos.Add(boxInfo);
+            //     }
+            //
+            //     Clip.hitboxDictionary.TryAdd(frame, boxInfos); 
+            // },"Save Hitbox");
         }
 
         [FoldoutGroup(groupName: "创建判定框")]
@@ -177,10 +181,7 @@ namespace Timeline
     {
         public BBHitboxClip hitboxClip;
         public TimelineInspectorData inspectorData;
-
-        [FormerlySerializedAs("hitboxInfo")]
         public HitboxInfoInspector hitboxInfoInspector;
-
         public TimelineFieldView FieldView;
 
         public override void InspectorAwake(TimelineFieldView fieldView)
@@ -222,7 +223,8 @@ namespace Timeline
 
     public class RuntimeHitboxTrack: RuntimeTrack
     {
-        public int currentFrame;
+        private int currentFrame;
+        private TimelinePlayer timelinePlayer => RuntimePlayable.TimelinePlayer;
         
         public RuntimeHitboxTrack(RuntimePlayable runtimePlayable, BBTrack track): base(runtimePlayable, track)
         {
@@ -234,6 +236,11 @@ namespace Timeline
 
         public override void UnBind()
         {
+            //Clear hitboxes
+            foreach (CastBox castBox in timelinePlayer.GetComponentsInChildren<CastBox>())
+            {
+                Object.DestroyImmediate(castBox.gameObject);
+            }
         }
 
         public override void SetTime(int targetFrame)
@@ -241,35 +248,38 @@ namespace Timeline
             //帧更新
             if (currentFrame == targetFrame) return;
             currentFrame = targetFrame;
-            
-            foreach (BBClip clip in Track.Clips)
+
+            foreach (var clip in Track.Clips)
             {
                 if (clip.InMiddle(targetFrame))
                 {
                     BBHitboxClip hitboxClip = clip as BBHitboxClip;
-                    TimelinePlayer timelinePlayer = RuntimePlayable.TimelinePlayer;
-
                     int clipFrame = targetFrame - clip.StartFrame;
-                    if (!hitboxClip.hitboxDictionary.TryGetValue(clipFrame, out List<BoxInfo> boxInfos)) return;
-
+                    if (!hitboxClip.boxInfoDict.TryGetValue(clipFrame, out List<BoxInfo> boxInfos)) return;
+                    
                     //Clear hitboxes
                     foreach (CastBox castBox in timelinePlayer.GetComponentsInChildren<CastBox>())
                     {
                         Object.DestroyImmediate(castBox.gameObject);
                     }
-
-                    //Create hitboxes
+                    
+                    //Create hitbox
                     ReferenceCollector refer = timelinePlayer.GetComponent<ReferenceCollector>();
-                    foreach (BoxInfo boxInfo in boxInfos)
+                    foreach (var boxInfo in boxInfos)
                     {
                         GameObject parent = refer.Get<GameObject>(boxInfo.bindParent);
                         GameObject go = Object.Instantiate(BBTimelineSettings.GetSettings().hitboxPrefab, parent.transform);
                         go.name = boxInfo.boxName;
                         go.GetComponent<CastBox>().info = boxInfo;
                     }
-
                     return;
                 }
+            }
+            
+            //Clear hitboxes
+            foreach (CastBox castBox in timelinePlayer.GetComponentsInChildren<CastBox>())
+            {
+                Object.DestroyImmediate(castBox.gameObject);
             }
         }
 

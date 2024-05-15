@@ -44,13 +44,16 @@ namespace Timeline.Editor
 
             //bind track name
             NameField = this.Q<TextField>();
-            SerializedProperty serializedProperty = EditorWindow.SerializedTimeline.FindProperty("Tracks");
-            serializedProperty = serializedProperty.GetArrayElementAtIndex(EditorWindow.BBTimeline.Tracks.IndexOf(BBTrack));
-            NameField.bindingPath = serializedProperty.FindPropertyRelative("Name").propertyPath;
-            NameField.Bind(EditorWindow.SerializedTimeline);
+            //因为用了odinSerialized 这里无法反射获取属性
+            // SerializedProperty serializedProperty = EditorWindow.SerializedTimeline.FindProperty("Tracks");
+            // serializedProperty = serializedProperty.GetArrayElementAtIndex(EditorWindow.BBTimeline.Tracks.IndexOf(BBTrack));
+            // NameField.bindingPath = serializedProperty.FindPropertyRelative("Name").propertyPath;
+            // NameField.Bind(EditorWindow.SerializedTimeline);
+            NameField.value = BBTrack.Name;
+            NameField.RegisterValueChangedCallback(_ => { BBTrack.Name = NameField.value; });
 
             transform.position = new Vector3(0, GetTrackOrder() * 40, 0);
-            
+
             //track Icon
             Icon = this.Q("icon");
             Texture2D texture2D = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(IconGuidAttribute.Guid(BBTrack.GetType())));
@@ -178,7 +181,7 @@ namespace Timeline.Editor
         private int OriginalIndex;
         private readonly DragManipulator DragManipulator;
         private static bool Tweening;
-
+        
         private void TweenTrackHandles()
         {
             Tweening = false;
@@ -188,12 +191,12 @@ namespace Timeline.Editor
             var trackHandles = parent.Query<TimelineTrackHandle>().ToList();
             foreach (var trackHandle in trackHandles)
             {
-                var bindingPath = Regex.Replace(trackHandle.NameField.bindingPath,
-                    @"(Tracks.Array.data\[)(\d+)(\].Name)",
-                    "Tracks.Array.data[" + trackHandle.GetTrackIndex() + "].Name");
-                trackHandle.NameField.bindingPath = bindingPath;
-                trackHandle.NameField.Bind(EditorWindow.SerializedTimeline);
-
+                // var bindingPath = Regex.Replace(trackHandle.NameField.bindingPath,
+                //     @"(Tracks.Array.data\[)(\d+)(\].Name)",
+                //     "Tracks.Array.data[" + trackHandle.GetTrackIndex() + "].Name");
+                // trackHandle.NameField.bindingPath = bindingPath;
+                // trackHandle.NameField.Bind(EditorWindow.SerializedTimeline);
+                
                 if (!trackHandle.Dragging)
                 {
                     float targetY = trackHandle.GetTrackIndex() * Interval;

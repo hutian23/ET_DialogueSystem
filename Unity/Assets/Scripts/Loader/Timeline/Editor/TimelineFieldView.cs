@@ -216,7 +216,19 @@ namespace Timeline.Editor
             m_Elements.Clear();
             TrackViewMap.Clear();
             TrackViews.Clear();
-
+            
+            int maxFrame = 0;
+            foreach (var runtimeTrack in RuntimePlayable.RuntimeTracks)
+            {
+                foreach (BBClip clip in runtimeTrack.Track.Clips)
+                {
+                    if (clip.EndFrame > maxFrame)
+                    {
+                        maxFrame = clip.EndFrame;
+                    }
+                }
+            }
+            m_MaxFrame = maxFrame + 1;
             ResizeTimeField();
             UpdateBindState();
 

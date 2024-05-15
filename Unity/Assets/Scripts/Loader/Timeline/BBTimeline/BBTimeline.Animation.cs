@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 #if UNITY_EDITOR
 using Timeline.Editor;
@@ -39,10 +40,10 @@ namespace Timeline
     public class RuntimeAnimationTrack: RuntimeTrack
     {
         public BBAnimationTrack AnimationTrack => Track as BBAnimationTrack;
-
         private BBTimelineAnimationTrackPlayable TrackPlayable;
         private AnimationMixerPlayable MixerPlayable => TrackPlayable.MixerPlayable;
         private readonly List<BBTimelineAnimationClipPlayable> ClipPlayables = new();
+        private int currentFrame;
 
         public override void Bind()
         {
@@ -74,6 +75,18 @@ namespace Timeline
 
         public override void SetTime(int targetFrame)
         {
+            if (currentFrame == targetFrame) return;
+            currentFrame = targetFrame;
+
+            // Set Input Weight
+            for (int i = 0; i < ClipPlayables.Count; i++)
+            {
+                var clipPlayable = ClipPlayables[i];
+                clipPlayable.SetInputWeight((clipPlayable.Clip.Contain(targetFrame))? 1 : 0);
+            }
+            
+            //refresh playablegraph
+            TrackPlayable.PrepareFrame(default, default);
         }
 
         public override void RuntimMute(bool value)
@@ -88,6 +101,7 @@ namespace Timeline
     public class BBTimelineAnimationTrackPlayable: PlayableBehaviour
     {
         private RuntimePlayable runtimePlayable;
+        private RuntimeAnimationTrack runtimeTrack;
         private BBAnimationTrack Track { get; set; }
         private Playable Output { get; set; }
         public Playable Handle { get; set; }
@@ -102,6 +116,7 @@ namespace Timeline
         {
             var handle = ScriptPlayable<BBTimelineAnimationTrackPlayable>.Create(runtimePlayable.PlayableGraph);
             var trackPlayable = handle.GetBehaviour();
+            trackPlayable.runtimeTrack = runtimeAnimationTrack;
             trackPlayable.Track = runtimeAnimationTrack.AnimationTrack;
             trackPlayable.Handle = handle;
             trackPlayable.MixerPlayable = AnimationMixerPlayable.Create(runtimePlayable.PlayableGraph, runtimeAnimationTrack.ClipCount);
@@ -116,11 +131,9 @@ namespace Timeline
     public class BBTimelineAnimationClipPlayable: PlayableBehaviour
     {
         private BBAnimationTrack Track { get; set; }
-        private BBClip Clip { get; set; }
-
-        public int Index { get; private set; }
-
-        public Playable Output { get; private set; }
+        public BBClip Clip { get; set; }
+        private int Index { get; set; }
+        private Playable Output { get; set; }
         public Playable Handle { get; private set; }
         private AnimationClipPlayable ClipPlayable { get; set; }
 
@@ -128,12 +141,14 @@ namespace Timeline
         {
         }
 
-        public void SetTime(float time)
+        public void SetInputWeight(float weight)
         {
+            Output.SetInputWeight(Index, weight);
         }
 
-        public void Evaluate(float deltaTime)
+        public float GetInputWeight()
         {
+            return Output.GetInputWeight(Index);
         }
 
         public static BBTimelineAnimationClipPlayable Create(RuntimePlayable runtimePlayable, BBAnimationClip clip, Playable output, int index)

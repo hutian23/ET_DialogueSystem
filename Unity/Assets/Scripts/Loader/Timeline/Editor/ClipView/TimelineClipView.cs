@@ -118,6 +118,7 @@ namespace Timeline.Editor
         {
             style.left = FramePosMap[StartFrame];
             style.width = FramePosMap[EndFrame] - FramePosMap[StartFrame];
+            
             if (BBClip.InValid)
             {
                 AddToClassList("invalid");

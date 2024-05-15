@@ -25,8 +25,8 @@ namespace Timeline
 
         public List<RuntimeTrack> RuntimeTracks = new();
 
-        private float Time;
-        public int Frame => (int)Time / TimelineUtility.FrameRate;
+        private float Time => (float)CurrentFrame / TimelineUtility.FrameRate;
+        private int CurrentFrame;
 
         public static RuntimePlayable Create(BBTimeline _timeline, TimelinePlayer _timelinePlayer)
         {
@@ -52,7 +52,7 @@ namespace Timeline
 
         private void Dispose()
         {
-            Time = 0f;
+            CurrentFrame = 0;
             foreach (var runtimeTrack in RuntimeTracks)
             {
                 runtimeTrack.UnBind();
@@ -63,16 +63,17 @@ namespace Timeline
 
         public void Evaluate(int targetFrame)
         {
-            float targetTime = targetFrame * TimelineUtility.FrameRate;
-            float deltaTime = Time - targetTime;
-            
+            float targetTime = (float)targetFrame / TimelineUtility.FrameRate;
+            float deltaTime = targetTime - Time;
+            CurrentFrame = targetFrame;
+
             for (int i = RuntimeTracks.Count - 1; i >= 0; i--)
             {
                 RuntimeTrack runtimeTrack = RuntimeTracks[i];
                 runtimeTrack.SetTime(targetFrame);
             }
-            
-            // PlayableGraph.Evaluate(deltaTime);
+
+            PlayableGraph.Evaluate(deltaTime);
         }
 
 #if UNITY_EDITOR

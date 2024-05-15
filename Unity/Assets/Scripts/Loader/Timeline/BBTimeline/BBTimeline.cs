@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using Timeline.Editor;
 using UnityEditor;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace Timeline
     [CreateAssetMenu(menuName = "ScriptableObject/BBTimeline/Timeline", fileName = "BBTimeline")]
     public class BBTimeline: SerializedScriptableObject
     {
-        [SerializeReference]
+        [NonSerialized, OdinSerialize]
         public List<BBTrack> Tracks = new();
 
 #if UNITY_EDITOR
@@ -57,12 +58,10 @@ namespace Timeline
 #endif
     }
 
-    [Serializable]
     public abstract class BBTrack
     {
         public string Name;
-
-        [SerializeReference]
+        [OdinSerialize,NonSerialized]
         public List<BBClip> Clips = new();
 
         public virtual Type RuntimeTrackType => typeof (RuntimeTrack);
@@ -85,7 +84,6 @@ namespace Timeline
 #endif
     }
 
-    [Serializable]
     public abstract class BBClip
     {
         public bool InValid;
@@ -99,7 +97,6 @@ namespace Timeline
 
         protected BBClip()
         {
-            
         }
 
         protected BBClip(int frame)
