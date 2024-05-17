@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
-    public class TimelineClipView: VisualElement, ISelectable
+    public class TimelineClipView: VisualElement, ISelectable, IShowInspector
     {
         public new class UxmlFactory: UxmlFactory<TimelineClipView, UxmlTraits>
         {
@@ -14,17 +14,14 @@ namespace Timeline.Editor
         private bool Selected { get; set; }
         private bool Hoverd { get; set; }
         public ISelection SelectionContainer { get; set; }
-        public ClipCapabilities Capabilities => Clip.Capabilities;
 
-        public TimelineTrackView TrackView { get; private set; }
-        protected TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
+        private TimelineTrackView TrackView { get; set; }
+        private TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
         private TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
         public BBClip BBClip;
         public BBTrack BBTrack => TrackView.RuntimeTrack.Track;
 
         private Dictionary<int, float> FramePosMap => FieldView.FramePosMap;
-        public Clip Clip { get; private set; }
-
         public int StartFrame => BBClip.StartFrame;
         public int EndFrame => BBClip.EndFrame;
 
@@ -39,6 +36,8 @@ namespace Timeline.Editor
         private readonly Label m_ClipName;
         private readonly VisualElement m_BottomLine;
         private readonly VisualElement m_DrawBox;
+
+        private ShowInspectorData inspectorData;
 
         public TimelineClipView()
         {
@@ -118,7 +117,7 @@ namespace Timeline.Editor
         {
             style.left = FramePosMap[StartFrame];
             style.width = FramePosMap[EndFrame] - FramePosMap[StartFrame];
-            
+
             if (BBClip.InValid)
             {
                 AddToClassList("invalid");
@@ -162,11 +161,6 @@ namespace Timeline.Editor
             Selected = false;
             RemoveFromClassList("selected");
             m_DrawBox.MarkDirtyRepaint();
-        }
-
-        public virtual void PopulateInspector()
-        {
-            Debug.LogWarning("Populate Inspector");
         }
 
         #endregion
@@ -261,6 +255,22 @@ namespace Timeline.Editor
             }
         }
 
-        private static Type CopyType;
+        public void InspectorAwake()
+        {
+            inspectorData = Activator.CreateInstance(BBClip.ShowInInpsectorType, BBClip) as ShowInspectorData;
+            inspectorData.InspectorAwake(FieldView);
+            TimelineInspectorData.CreateView(FieldView.ClipInspector, inspectorData);
+        }
+
+        public void InsepctorUpdate()
+        {
+            inspectorData.InspectorUpdate(FieldView);
+        }
+
+        public void InspectorDestroy()
+        {
+            inspectorData.InspectorDestroy(FieldView);
+            FieldView.ClipInspector.Clear();
+        }
     }
 }

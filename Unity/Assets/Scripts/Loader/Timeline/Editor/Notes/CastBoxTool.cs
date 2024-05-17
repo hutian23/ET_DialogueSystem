@@ -89,7 +89,7 @@ namespace ET.Client
         private SerializedProperty m_size;
         private SerializedProperty m_hitboxType;
         private SerializedProperty m_hitboxName;
-
+        
         private void OnEnable()
         {
             m_center = serializedObject.FindProperty("info.center");

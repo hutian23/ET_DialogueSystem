@@ -1,10 +1,10 @@
-.timelineTrackHandle{
+.timelineTrackHandle {
     height: 30px;
-    background-color: rgb(56,56,56);
+    background-color: rgb(56, 56, 56);
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     border-left-width: 5px;
-    border-left-color: rgb(255,255,255);
+    border-left-color: rgb(255, 255, 255);
     margin-top: 10px;
     margin-bottom: 10px;
     margin-right: 0;
@@ -14,14 +14,15 @@
     flex-direction: row; /*水平布局*/
 }
 
-.selected.timelineTrackHandle{
-    background-color: rgba(68,192,255,0.29);
+.selected.timelineTrackHandle {
+    background-color: rgba(68, 192, 255, 0.29);
 }
-.preview.timelineTrackHandle{
+
+.preview.timelineTrackHandle {
     background-color: forestgreen;
 }
 
-#name-field{
+#name-field {
     flex-grow: 1;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -33,11 +34,11 @@
     margin-left: 28px;
 }
 
-.unity-text-element{
+.unity-text-element {
     font-size: 16px;
 }
 
-#icon{
+#icon {
     width: 20px;
     height: 20px;
     margin-top: 5px;

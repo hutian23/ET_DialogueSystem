@@ -8,9 +8,9 @@ namespace Timeline.Editor
     {
         [HideLabel]
         [HideReferenceObjectPicker]
-        public System.Object obj;
+        public Object obj;
 
-        public static TimelineInspectorData CreateView(VisualElement parent, System.Object _obj)
+        public static TimelineInspectorData CreateView(VisualElement parent, Object _obj)
         {
             if (_obj == null) return null;
             TimelineInspectorData inspectorData = CreateInstance<TimelineInspectorData>();
@@ -24,16 +24,15 @@ namespace Timeline.Editor
             return inspectorData;
         }
     }
-
-    public abstract class IShowInInspector
+    
+    public abstract class ShowInspectorData
     {
-        public IShowInInspector(Object target)
+        protected ShowInspectorData(Object target)
         {
         }
-        
+
         public abstract void InspectorAwake(TimelineFieldView fieldView);
         public abstract void InspectorUpdate(TimelineFieldView fieldView);
         public abstract void InspectorDestroy(TimelineFieldView fieldView);
-        public abstract bool Equal(System.Object target);
     }
 }

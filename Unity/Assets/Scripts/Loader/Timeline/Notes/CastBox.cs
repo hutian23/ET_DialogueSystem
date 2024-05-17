@@ -6,7 +6,6 @@ namespace ET.Client
     public class CastBox: CastShapeBase
     {
         public BoxInfo info;
-
 #if UNITY_EDITOR
         protected override void Reset()
         {
@@ -25,6 +24,9 @@ namespace ET.Client
                     Gizmos.color = Color.red;
                     break;
                 case HitboxType.Hurt:
+                    Gizmos.color = Color.green;
+                    break;
+                case HitboxType.CounterHurt:
                     Gizmos.color = Color.cyan;
                     break;
                 case HitboxType.Squash:

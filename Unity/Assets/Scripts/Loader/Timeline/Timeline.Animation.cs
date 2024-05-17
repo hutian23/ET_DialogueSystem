@@ -108,7 +108,7 @@ namespace Timeline
             ClipPlayables.ForEach(x => x.SetTime(time));
         }
 
-        protected float m_OriginalWeight;
+        private float m_OriginalWeight;
 
         public override void RuntimeMute(bool value)
         {

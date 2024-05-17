@@ -135,7 +135,7 @@ namespace Timeline
             return (Capabilities & ClipCapabilities.Mixable) == ClipCapabilities.Mixable;
         }
 
-        public virtual Type ShowInInpsectorType => typeof (IShowInInspector);
+        public virtual Type ShowInInpsectorType => typeof (ShowInspectorData);
 #endif
     }
 }

@@ -20,9 +20,16 @@ namespace Timeline.Editor
         /// Select element
         /// </summary>
         public void Select();
-        
+
         public void UnSelect();
 
         public bool IsSelected();
+    }
+
+    public interface IShowInspector
+    {
+        public void InspectorAwake();
+        public void InsepctorUpdate();
+        public void InspectorDestroy();
     }
 }

@@ -99,7 +99,6 @@ namespace Timeline.Editor
         {
             m_Selected = false;
             RemoveFromClassList("selected");
-
             OnUnSelected?.Invoke();
         }
 

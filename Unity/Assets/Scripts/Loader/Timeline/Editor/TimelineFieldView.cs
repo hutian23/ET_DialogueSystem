@@ -30,7 +30,6 @@ namespace Timeline.Editor
         private Label LocaterFrameLabel { get; set; }
         private ScrollView InspectorScrollView { get; set; }
         public VisualElement ClipInspector { get; set; }
-        // private ScrollView TrackHandleContainer { get; set; }
 
         #region Param
 
@@ -45,10 +44,7 @@ namespace Timeline.Editor
         #region Style
 
         private static readonly CustomStyleProperty<Color> s_FieldLineColor = new("--field-line-color");
-
         private Color m_FieldLineColor;
-
-        // private static readonly CustomStyleProperty<Color> s_LocatorLineColor = new("--locator-line-color");
         protected Color m_LocatorLineColor;
         private static readonly CustomStyleProperty<Font> s_MarkerTextFont = new("--marker-text-font");
         private Font m_MarkerTextFont;
@@ -60,34 +56,25 @@ namespace Timeline.Editor
         private bool m_DrawTimeText;
 
         public TimelineEditorWindow EditorWindow;
-
-        // private Timeline Timeline => EditorWindow.Timeline;
         private DoubleMap<Track, TimelineTrackView> TrackViewMap { get; set; } = new();
         public List<TimelineTrackView> TrackViews { get; set; } = new();
         public Dictionary<int, float> FramePosMap { get; set; } = new();
         private DragManipulator LocatorDragManipulator { get; set; }
 
         public Action OnPopulatedCallback;
-        public Action OnGeometryChangedCallback;
+        private readonly Action OnGeometryChangedCallback;
 
         //注意，是当前滑动窗口显示的最小帧和最大帧
         private int CurrentMinFrame => GetClosestCeilFrame(ScrollViewContentOffset);
         private int CurrentMaxFrame => GetClosestCeilFrame(ScrollViewContentWidth + ScrollViewContentOffset);
-        public float OneFrameWidth => m_MarkerWidth * m_FieldScale;
+        private float OneFrameWidth => m_MarkerWidth * m_FieldScale;
         private float ScrollViewContentWidth => TrackScrollView.contentContainer.worldBound.width;
         private float ScrollViewContentOffset => TrackScrollView.scrollOffset.x;
+
         public float ContentWidth => FieldContent.worldBound.width;
 
         //当前Locator所在帧数
         private int currentTimeLocator;
-
-        #region Record
-
-        private BBTrack RecordTrack;
-        public BBClip CurrentRecordClip;
-        private IShowInInspector InspectorData;
-
-        #endregion
 
         private RuntimePlayable RuntimePlayable
         {
@@ -105,6 +92,8 @@ namespace Timeline.Editor
         private readonly float scrollSpeed = 3;
 
         #endregion
+
+        private IShowInspector currentInspector;
 
         public TimelineFieldView()
         {
@@ -201,22 +190,21 @@ namespace Timeline.Editor
 
         public void Dispose()
         {
+            //Destroy inspectorData
+            currentInspector?.InspectorDestroy();
+            currentInspector = null;
+            
             TrackField.Clear();
             m_Selections.Clear();
             m_Elements.Clear();
             TrackViewMap.Clear();
             TrackViews.Clear();
-            RecordTrack = null;
         }
 
         public void PopulateView()
         {
-            TrackField.Clear();
-            m_Selections.Clear();
-            m_Elements.Clear();
-            TrackViewMap.Clear();
-            TrackViews.Clear();
-            
+            Dispose();
+
             int maxFrame = 0;
             foreach (var runtimeTrack in RuntimePlayable.RuntimeTracks)
             {
@@ -228,6 +216,7 @@ namespace Timeline.Editor
                     }
                 }
             }
+
             m_MaxFrame = maxFrame + 1;
             ResizeTimeField();
             UpdateBindState();
@@ -249,235 +238,13 @@ namespace Timeline.Editor
             {
                 TimelineTrackHandle trackHandle = new(trackView);
                 trackHandle.SelectionContainer = this;
-                //record mode
-                trackHandle.IsRecord(trackHandle.EqualTrack(RecordTrack));
 
                 EditorWindow.TrackHandleContainer.Add(trackHandle);
                 SelectionElements.Add(trackHandle);
             }
-
-            // PopulateInspector(RecordTrack);
-            // TimelineInspectorView.CreateView(ClipInspector, RecordTrack);
         }
 
-        private void PopulateInspector(object target)
-        {
-            // if (target != null)
-            // {
-            //     switch (target)
-            //     {
-            //         case TimelineClipView clipView:
-            //             clipView.PopulateInspector();
-            //             break;
-            //     }
-            // }
-            // if (target != null)
-            // {
-            //     switch (target)
-            //     {
-            //         case Track track:
-            //         {
-            //             SerializedProperty serializedProperty = Timeline.SerializedTimeline.FindProperty("m_Tracks");
-            //             serializedProperty = serializedProperty.GetArrayElementAtIndex(Timeline.Tracks.IndexOf(track));
-            //
-            //             DrawProperties(serializedProperty, target);
-            //             break;
-            //         }
-            //         case Clip clip:
-            //         {
-            //             clip.OnInspectorRepaint = () => PopulateInspector(clip);
-            //
-            //             SerializedProperty serializedProperty = Timeline.SerializedTimeline.FindProperty("m_Tracks");
-            //             serializedProperty = serializedProperty.GetArrayElementAtIndex(Timeline.Tracks.IndexOf(clip.Track));
-            //             serializedProperty = serializedProperty.FindPropertyRelative("m_Clips");
-            //             serializedProperty = serializedProperty.GetArrayElementAtIndex(clip.Track.Clips.IndexOf(clip));
-            //
-            //             DrawProperties(serializedProperty, target);
-            //
-            //             ClipInspectorView clipViewName = clip.GetAttribute<ClipInspectorView>();
-            //             if (clipViewName != null)
-            //             {
-            //                 foreach (var clipInspectorViewScriptPair in TimelineEditorUtility.ClipInspectorViewScriptMap)
-            //                 {
-            //                     if (clipInspectorViewScriptPair.Key.Name == clipViewName.Name)
-            //                     {
-            //                         TimelineClipInspectorView clipInspectorView =
-            //                                 Activator.CreateInstance(clipInspectorViewScriptPair.Key, clip) as TimelineClipInspectorView;
-            //                         ClipInspector.Add(clipInspectorView);
-            //                         return;
-            //                     }
-            //                 }
-            //             }
-            //
-            //             break;
-            //         }
-            //     }
-            // }
-        }
-
-        // private void DrawProperties(SerializedProperty serializedProperty, object target)
-        // {
-        //     #region Base
-        //
-        //     if (target is Clip clip)
-        //     {
-        //         VisualElement baseInspector = new();
-        //         baseInspector.name = "base-inspector";
-        //         ClipInspector.Add(baseInspector);
-        //
-        //         IMGUIContainer baseIMGUIContainer = new(() =>
-        //         {
-        //             DrawGUI("Start", clip.StartFrame);
-        //             DrawGUI("End", clip.EndFrame);
-        //             if (clip.IsMixable())
-        //             {
-        //                 DrawGUI("Ease In", clip.EaseInFrame);
-        //                 DrawGUI("Ease Out", clip.EaseOutFrame);
-        //                 DrawGUI("ClipIn", clip.ClipInFrame);
-        //             }
-        //
-        //             DrawGUI("Duration", clip.Duration);
-        //         });
-        //     }
-        //
-        //     void DrawGUI(string title, int frame)
-        //     {
-        //         GUILayout.BeginHorizontal();
-        //         GUILayout.Label($"{title}", GUILayout.Width(100));
-        //         GUILayout.FlexibleSpace();
-        //         GUILayout.Label($"{(frame / (float)TimelineUtility.FrameRate):0.00}S / {frame}F", GUILayout.ExpandWidth(true));
-        //         GUILayout.EndHorizontal();
-        //     }
-        //
-        //     #endregion
-        //
-        //     #region Addition
-        //
-        //     VisualElement additionalInspector = new();
-        //     additionalInspector.name = "additional-inspector";
-        //     ClipInspector.Add(additionalInspector);
-        //
-        //     List<VisualElement> visualElements = new List<VisualElement>();
-        //     Dictionary<string, (VisualElement, List<VisualElement>)> groupMap = new Dictionary<string, (VisualElement, List<VisualElement>)>();
-        //
-        //     //blackboard中显示成员
-        //     foreach (var fieldInfo in target.GetAllFields())
-        //     {
-        //         if (fieldInfo.GetCustomAttribute<ShowInInspectorAttribute>() != null)
-        //         {
-        //             var showInInspectorAttribute = fieldInfo.GetCustomAttribute<ShowInInspectorAttribute>();
-        //             if (!fieldInfo.ShowIf(target))
-        //             {
-        //                 continue;
-        //             }
-        //
-        //             if (fieldInfo.HideIf(target))
-        //             {
-        //                 continue;
-        //             }
-        //
-        //             SerializedProperty sp = serializedProperty.FindPropertyRelative(fieldInfo.Name);
-        //             if (sp != null)
-        //             {
-        //                 PropertyField propertyField = new(sp);
-        //                 propertyField.name = showInInspectorAttribute.Index * 10 + visualElements.Count.ToString();
-        //                 propertyField.Bind(Timeline.SerializedTimeline);
-        //
-        //                 fieldInfo.Group(propertyField, showInInspectorAttribute.Index, ref visualElements, ref groupMap);
-        //
-        //                 if (fieldInfo.ReadOnly(target))
-        //                 {
-        //                     propertyField.SetEnabled(false);
-        //                 }
-        //
-        //                 if (fieldInfo.GetCustomAttribute<OnValueChangedAttribute>() != null)
-        //                 {
-        //                     OnValueChangedAttribute onValueChanged = fieldInfo.GetCustomAttribute<OnValueChangedAttribute>();
-        //                     EditorCoroutineHelper.Delay(() =>
-        //                     {
-        //                         propertyField.RegisterValueChangeCallback(_ =>
-        //                         {
-        //                             foreach (var method in onValueChanged.Methods)
-        //                             {
-        //                                 target.GetMethod(method)?.Invoke(target, null);
-        //                             }
-        //                         });
-        //                     }, 0.01f);
-        //                 }
-        //             }
-        //         }
-        //     }
-        //
-        //     //属性
-        //     foreach (var propertyInfo in target.GetAllProperties())
-        //     {
-        //         if (!propertyInfo.ShowIf(target))
-        //         {
-        //             continue;
-        //         }
-        //
-        //         if (propertyInfo.HideIf(target))
-        //         {
-        //             continue;
-        //         }
-        //
-        //         if (propertyInfo.GetCustomAttributes<ShowTextAttribute>() is ShowTextAttribute showTextAttribute)
-        //         {
-        //             IMGUIContainer container = new(() => { GUILayout.Label(propertyInfo.GetValue(target).ToString()); });
-        //             container.name = showTextAttribute.Index * 10 + visualElements.Count.ToString();
-        //             propertyInfo.Group(container, showTextAttribute.Index, ref visualElements, ref groupMap);
-        //         }
-        //     }
-        //
-        //     //成员
-        //     foreach (var methodInfo in target.GetAllMethods())
-        //     {
-        //         if (!methodInfo.ShowIf(target))
-        //         {
-        //             continue;
-        //         }
-        //
-        //         if (methodInfo.HideIf(target))
-        //         {
-        //             continue;
-        //         }
-        //
-        //         if (methodInfo.GetCustomAttribute<ShowTextAttribute>() is ShowTextAttribute showTextAttribute)
-        //         {
-        //             IMGUIContainer container = new IMGUIContainer(() => { GUILayout.Label(methodInfo.Invoke(target, null).ToString()); });
-        //             container.name = showTextAttribute.Index * 10 + visualElements.Count.ToString();
-        //             methodInfo.Group(container, showTextAttribute.Index, ref visualElements, ref groupMap);
-        //         }
-        //
-        //         if (methodInfo.GetCustomAttributes<ButtonAttribute>() is ButtonAttribute buttonAttribute)
-        //         {
-        //             Button button = new Button();
-        //             button.name = buttonAttribute.Index * 10 + visualElements.Count.ToString();
-        //             button.text = string.IsNullOrEmpty(buttonAttribute.Label)? methodInfo.Name : buttonAttribute.Label;
-        //             button.clicked += () => methodInfo.Invoke(target, null);
-        //             methodInfo.Group(button, buttonAttribute.Index, ref visualElements, ref groupMap);
-        //         }
-        //     }
-        //
-        //     foreach (var visualElement in visualElements.OrderBy(i => float.Parse(i.name)))
-        //     {
-        //         visualElement.AddToClassList("inspectorElement");
-        //         additionalInspector.Add(visualElement);
-        //     }
-        //
-        //     foreach (var groupPair in groupMap)
-        //     {
-        //         foreach (var groupElement in groupPair.Value.Item2.OrderBy(i => float.Parse(i.name)))
-        //         {
-        //             groupElement.AddToClassList("inspectorElement");
-        //             groupPair.Value.Item1.Add(groupElement);
-        //         }
-        //     }
-        //
-        //     #endregion
-        // }
-
-        public void UpdateBindState()
+        private void UpdateBindState()
         {
             if (EditorWindow == null) return;
 
@@ -498,19 +265,36 @@ namespace Timeline.Editor
         {
             m_Selections.Add(selectable);
             selectable.Select();
+
+            //can show in inspector
+            if (selectable is not IShowInspector _showInspector) return;
+            currentInspector?.InspectorDestroy();
+            currentInspector = _showInspector;
+            currentInspector?.InspectorAwake();
         }
 
         public void RemoveFromSelection(ISelectable selectable)
         {
             m_Selections.Remove(selectable);
+            if (selectable.Equals(currentInspector))
+            {
+                currentInspector.InspectorDestroy();
+                currentInspector = null;
+            }
         }
 
         public void ClearSelection()
         {
-            m_Selections.ForEach(i => i.UnSelect());
+            m_Selections.ForEach(i =>
+            {
+                i.UnSelect();
+                if (i.Equals(currentInspector))
+                {
+                    currentInspector.InspectorDestroy();
+                    currentInspector = null;
+                }
+            });
             Selections.Clear();
-
-            PopulateInspector(null);
         }
 
         #endregion
@@ -642,9 +426,11 @@ namespace Timeline.Editor
             TimeLocator.MarkDirtyRepaint();
             LocaterFrameLabel.text = currentTimeLocator.ToString();
 
-            RuntimePlayable.Evaluate(currentTimeLocator);
+            //更新Inspector
+            currentInspector?.InsepctorUpdate();
 
-            RecordTrackUpdate();
+            //更新playableGraph
+            RuntimePlayable.Evaluate(currentTimeLocator);
         }
 
         private void OnTimeLocatorStartMove(PointerDownEvent evt)
@@ -680,7 +466,7 @@ namespace Timeline.Editor
 
         #region DragFrameLine
 
-        private int[] m_DrawFrameLine = new int[0];
+        private int[] m_DrawFrameLine = Array.Empty<int>();
 
         public void DrawFrameLine(params int[] frames)
         {
@@ -914,35 +700,6 @@ namespace Timeline.Editor
 
         #endregion
 
-        #region Add Clip
-
-        // public void AddClip(Track track)
-        // {
-        //     Clip clip = Timeline.AddClip(track, currentTimeLocator);
-        //     if (clip == null) return;
-        //     AdjustClip(clip);
-        // }
-
-        // public void AddClip(UnityEngine.Object referenceObject, Track track, int startFrame)
-        // {
-        //     AdjustClip(Timeline.AddClip(referenceObject, track, startFrame));
-        // }
-
-        /// <summary>
-        /// 不能和下一个Clip重合
-        /// </summary>
-        // private void AdjustClip(Clip clip)
-        // {
-        //     Clip closetRightClip = GetClosestRightClip(clip.Track, clip.StartFrame);
-        //     if (closetRightClip != null && clip.StartFrame + clip.Length > closetRightClip.StartFrame)
-        //     {
-        //         clip.EndFrame = closetRightClip.StartFrame;
-        //         GetClipView(clip).Refresh();
-        //     }
-        // }
-
-        #endregion
-
         #region Callback
 
         //获取uss中定义的变量
@@ -1080,55 +837,6 @@ namespace Timeline.Editor
         public int GetCurrentTimeLocator()
         {
             return currentTimeLocator;
-        }
-
-        #endregion
-
-        #region Record
-
-        public void SelectAsRecord(BBTrack track)
-        {
-            RecordTrack = track;
-            PopulateView();
-        }
-
-        public void UnSelectRecord(BBTrack track)
-        {
-            if (RecordTrack != track) return;
-            RecordTrack = null;
-            InspectorData?.InspectorDestroy(this);
-            InspectorData = null;
-            PopulateView();
-        }
-
-        private void RecordTrackUpdate()
-        {
-            if (RecordTrack == null) return;
-            foreach (BBClip clip in RecordTrack.Clips)
-            {
-                //当前时间轴所处的clip
-                if (clip.InMiddle(currentTimeLocator))
-                {
-                    //仍在同一clip中，更新时间
-                    if (InspectorData != null && InspectorData.Equal(clip))
-                    {
-                        InspectorData.InspectorUpdate(this);
-                        return;
-                    }
-
-                    InspectorData?.InspectorDestroy(this);
-                    InspectorData = Activator.CreateInstance(clip.ShowInInpsectorType, clip) as IShowInInspector;
-                    InspectorData.InspectorAwake(this);
-                    InspectorData.InspectorUpdate(this);
-                    return;
-                }
-            }
-
-            if (InspectorData != null)
-            {
-                InspectorData.InspectorDestroy(this);
-                InspectorData = null;
-            }
         }
 
         #endregion

@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using UnityEditor;
-using UnityEditor.UIElements;
+﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -40,7 +38,7 @@ namespace Timeline.Editor
         {
             TrackView = trackView;
 
-            style.borderLeftColor = Color.gray;
+            style.borderLeftColor = ColorAttribute.GetColor(BBTrack.GetType());
 
             //bind track name
             NameField = this.Q<TextField>();
@@ -135,8 +133,6 @@ namespace Timeline.Editor
         private void MenuBuilder(DropdownMenu menu)
         {
             menu.AppendAction("Remove Track", _ => { EditorWindow.ApplyModify(() => { RuntimePlayable.RemoveTrack(BBTrack); }, "Remove Track"); });
-            menu.AppendAction("Record", _ => { FieldView.SelectAsRecord(BBTrack); });
-            menu.AppendAction("UnRecord", _ => { FieldView.UnSelectRecord(BBTrack); });
         }
 
         public void OnPointerDown(PointerDownEvent evt)
@@ -153,6 +149,7 @@ namespace Timeline.Editor
                     {
                         FieldView.ClearSelection();
                         FieldView.AddToSelection(TrackView);
+                        FieldView.AddToSelection(this);
                     }
                 }
                 else
@@ -160,6 +157,7 @@ namespace Timeline.Editor
                     if (evt.actionKey)
                     {
                         FieldView.RemoveFromSelection(this);
+                        FieldView.RemoveFromSelection(TrackView);
                     }
                 }
 
@@ -181,7 +179,7 @@ namespace Timeline.Editor
         private int OriginalIndex;
         private readonly DragManipulator DragManipulator;
         private static bool Tweening;
-        
+
         private void TweenTrackHandles()
         {
             Tweening = false;
@@ -196,7 +194,7 @@ namespace Timeline.Editor
                 //     "Tracks.Array.data[" + trackHandle.GetTrackIndex() + "].Name");
                 // trackHandle.NameField.bindingPath = bindingPath;
                 // trackHandle.NameField.Bind(EditorWindow.SerializedTimeline);
-                
+
                 if (!trackHandle.Dragging)
                 {
                     float targetY = trackHandle.GetTrackIndex() * Interval;
@@ -262,7 +260,7 @@ namespace Timeline.Editor
 
         public void IsRecord(bool record)
         {
-            style.borderLeftColor = record? Color.red : Color.gray;
+            // style.borderLeftColor = record? Color.red : Color.gray;
         }
 
         #endregion

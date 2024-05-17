@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -33,7 +34,53 @@ namespace Timeline
         public BBAnimationClip(int frame): base(frame)
         {
         }
+
+#if UNITY_EDITOR
+        public override Type ShowInInpsectorType => typeof (AnimationClipInspectorData);
+#endif
     }
+
+    #region Editor
+
+    [Serializable]
+    public class AnimationClipInspectorData: ShowInspectorData
+    {
+        private BBAnimationClip Clip;
+        private TimelineFieldView FieldView;
+
+        [LabelText("Clip: ")]
+        [Sirenix.OdinInspector.OnValueChanged("Rebind")]
+        public UnityEngine.AnimationClip AnimationClip;
+
+        public void Rebind()
+        {
+            FieldView.EditorWindow.ApplyModify(() =>
+            {
+                Clip.animationClip = AnimationClip;
+            },"rebind animationClip");
+        }
+
+        public AnimationClipInspectorData(object target): base(target)
+        {
+            Clip = target as BBAnimationClip;
+            AnimationClip = Clip.animationClip;
+        }
+
+        public override void InspectorAwake(TimelineFieldView fieldView)
+        {
+            FieldView = fieldView;
+        }
+
+        public override void InspectorUpdate(TimelineFieldView fieldView)
+        {
+        }
+
+        public override void InspectorDestroy(TimelineFieldView fieldView)
+        {
+        }
+    }
+
+    #endregion
 
     #region Runtime
 
@@ -54,7 +101,7 @@ namespace Timeline
             ClipPlayables.Clear();
             for (int i = 0; i < AnimationTrack.Clips.Count; i++)
             {
-                var clipPlayable =
+                BBTimelineAnimationClipPlayable clipPlayable =
                         BBTimelineAnimationClipPlayable.Create(RuntimePlayable, AnimationTrack.Clips[i] as BBAnimationClip, MixerPlayable, i);
                 ClipPlayables.Add(clipPlayable);
             }
@@ -103,7 +150,7 @@ namespace Timeline
         private RuntimeAnimationTrack runtimeTrack;
         private BBAnimationTrack Track { get; set; }
         private Playable Output { get; set; }
-        public Playable Handle { get; set; }
+        public Playable Handle { get; private set; }
         public AnimationMixerPlayable MixerPlayable { get; set; }
 
         public override void PrepareFrame(Playable playable, FrameData info)
@@ -130,7 +177,7 @@ namespace Timeline
     public class BBTimelineAnimationClipPlayable: PlayableBehaviour
     {
         private BBAnimationTrack Track { get; set; }
-        public BBClip Clip { get; set; }
+        public BBClip Clip { get; private set; }
         private int Index { get; set; }
         private Playable Output { get; set; }
         public Playable Handle { get; private set; }
