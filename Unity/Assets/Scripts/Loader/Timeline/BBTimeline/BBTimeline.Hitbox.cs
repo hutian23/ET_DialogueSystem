@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using ET;
 using ET.Client;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using Timeline.Editor;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
 namespace Timeline
@@ -33,7 +33,7 @@ namespace Timeline
         }
 
 #if UNITY_EDITOR
-        public override Type ShowInInpsectorType => typeof (BbHitboxInspectorDataData);
+        public override Type ShowInInpsectorType => typeof (BBHitboxInspectorDataData);
 #endif
     }
 
@@ -55,6 +55,7 @@ namespace Timeline
         public string boxName;
 
         [LabelText("绑定对象: ")]
+        [Sirenix.OdinInspector.ReadOnly]
         public string bindParent;
 
         [LabelText("判定框类型: ")]
@@ -68,121 +69,73 @@ namespace Timeline
     }
 
     [Serializable]
-    public class HitboxInfoInspector
+    public class CastBoxInfo
     {
-        [HideInInspector]
-        public TimelineFieldView FieldView;
+        [HideLabel]
+        [HideReferenceObjectPicker]
+        public BoxInfo info;
 
         [HideInInspector]
-        public BBHitboxClip Clip;
+        public CastBox castBox;
 
-        private TimelinePlayer timelinePlayer => FieldView.EditorWindow.TimelinePlayer;
+        [HideInInspector]
+        public BBHitboxInspectorDataData InspectorData;
 
-        [LabelText("当前帧: ")]
-        [Sirenix.OdinInspector.ReadOnly]
-        public int frame;
-
-        #region Create
-
-        [FoldoutGroup(groupName: "创建判定框")]
-        [LabelText("判定框名: ")]
-        public string boxName;
-
-        [FoldoutGroup(groupName: "创建判定框")]
-        [LabelText("判定框类型: ")]
-        public HitboxType HitBoxType;
-
-        [FoldoutGroup(groupName: "创建判定框")]
+        [Space(8)]
         [LabelText("绑定对象: ")]
-        public GameObject bindParent;
+        public GameObject go;
 
-        [FoldoutGroup(groupName: "创建判定框")]
-        [Sirenix.OdinInspector.Button("创建")]
-        public void CreateHitbox()
+        public string boxName => info.boxName;
+
+        public CastBoxInfo(CastBox _castBox, BBHitboxInspectorDataData inspectorDataData)
         {
-            //refer
-            ReferenceCollector refer = timelinePlayer.GetComponent<ReferenceCollector>();
-            if (refer == null)
-            {
-                refer = timelinePlayer.gameObject.AddComponent<ReferenceCollector>();
-            }
+            castBox = _castBox;
+            InspectorData = inspectorDataData;
 
-            refer.Remove(bindParent.name);
-            refer.Add(bindParent.name, bindParent);
-
-            GameObject go = Object.Instantiate(BBTimelineSettings.GetSettings().hitboxPrefab, bindParent.transform);
-            go.name = boxName;
-
-            CastBox castBox = go.GetComponent<CastBox>();
-            BoxInfo info = new()
-            {
-                boxName = boxName,
-                hitboxType = HitBoxType,
-                center = Vector2.zero,
-                size = Vector3.one,
-                bindParent = bindParent.name
-            };
-            castBox.info = info;
+            info = castBox.info;
+            go = castBox.gameObject;
         }
 
-        [FoldoutGroup(groupName: "创建判定框")]
-        [Sirenix.OdinInspector.Button("保存当前判定框")]
-        public void SaveHitbox()
+        [Sirenix.OdinInspector.Button("复制")]
+        public void Copy()
         {
-            if (Clip.boxInfoDict.ContainsKey(frame))
-            {
-                Clip.boxInfoDict.Remove(frame);
-            }
-
-            var castBoxes = timelinePlayer.GetComponentsInChildren<CastBox>();
-            if (castBoxes.Length == 0) return;
-
-            List<BoxInfo> boxInfos = new List<BoxInfo>();
-            foreach (var castBox in castBoxes)
-            {
-                BoxInfo boxInfo = MongoHelper.Clone(castBox.info);
-                boxInfos.Add(boxInfo);
-            }
-
-            Clip.boxInfoDict.TryAdd(frame, boxInfos);
+            var boxCopy = MongoHelper.Clone(info);
+            BBTimelineSettings.GetSettings().CopyTarget = boxCopy;
         }
 
-        [FoldoutGroup(groupName: "创建判定框")]
-        [Sirenix.OdinInspector.Button("清空判定框")]
-        public void ClearHitbox()
+        [Sirenix.OdinInspector.Button("黏贴")]
+        public void Paste()
         {
-            foreach (var castBox in timelinePlayer.GetComponentsInChildren<CastBox>())
-            {
-                Object.DestroyImmediate(castBox.gameObject);
-            }
+            if (BBTimelineSettings.GetSettings().CopyTarget is not BoxInfo infoCopy) return;
+            info.size = infoCopy.size;
+            info.center = infoCopy.center;
+            BBTimelineSettings.GetSettings().CopyTarget = null;
         }
 
-        [FoldoutGroup(groupName: "创建判定框")]
-        [Sirenix.OdinInspector.Button("更新判定框")]
-        public void UpdateHitbox()
+        [Sirenix.OdinInspector.Button("删除")]
+        public void Delete()
         {
-            ClearHitbox();
+            Object.DestroyImmediate(castBox.gameObject);
+            InspectorData.UpdateCastBoxInspector();
         }
-
-        #endregion
     }
 
     [Serializable]
-    public class BbHitboxInspectorDataData: ShowInspectorData
+    public class BBHitboxInspectorDataData: ShowInspectorData
     {
         [Sirenix.OdinInspector.ReadOnly]
         [LabelText("当前帧: ")]
         public int ClipInFrame;
 
-        // [LabelText("判定框信息: ")]
-        // [HideReferenceObjectPicker]
-        // [ListDrawerSettings(ShowFoldout = true, ShowIndexLabels = true, ListElementLabelName = "boxName", IsReadOnly = true)]
-        // public List<BoxInfo> BoxInfos = new();
+        [HideReferenceObjectPicker]
+        [ListDrawerSettings(ShowFoldout = true, ShowIndexLabels = true, ListElementLabelName = "boxName", IsReadOnly = true)]
+        public List<CastBoxInfo> CastBoxInfos = new();
 
         #region Create
 
         private TimelineFieldView FieldView;
         private TimelinePlayer timelinePlayer => FieldView.EditorWindow.TimelinePlayer;
+        private BBHitboxClip hitboxClip;
 
         [FoldoutGroup(groupName: "创建判定框")]
         [LabelText("判定框名: ")]
@@ -224,6 +177,8 @@ namespace Timeline
                 bindParent = bindParent.name
             };
             castBox.info = info;
+
+            UpdateCastBoxInspector();
         }
 
         [Sirenix.OdinInspector.Button("清空")]
@@ -234,63 +189,30 @@ namespace Timeline
             {
                 Object.DestroyImmediate(castBox.gameObject);
             }
+
+            UpdateCastBoxInspector();
         }
 
         [Sirenix.OdinInspector.Button("保存")]
         public void SaveHitbox()
         {
-            List<BoxInfo> boxInfos = new List<BoxInfo>();
-            foreach (var castBox in timelinePlayer.GetComponentsInChildren<CastBox>())
+            if (!hitboxClip.boxInfoDict.TryGetValue(ClipInFrame, out List<BoxInfo> infos))
             {
-                BoxInfo info = MongoHelper.Clone(castBox.info);
-                boxInfos.Add(info);
+                Debug.LogError("not exist hibox key frame " + ClipInFrame);
+                return;
             }
 
-            if (hitboxClip.boxInfoDict.TryGetValue(ClipInFrame, out List<BoxInfo> infos))
+            infos.Clear();
+            foreach (CastBox castBox in timelinePlayer.GetComponentsInChildren<CastBox>())
             {
-                hitboxClip.boxInfoDict.Remove(ClipInFrame);
-            }
-
-            if (boxInfos.Count == 0) return;
-            hitboxClip.boxInfoDict.TryAdd(ClipInFrame, boxInfos);
-        }
-
-        [Sirenix.OdinInspector.Button("复制判定框信息")]
-        public void CopyCurrentHitbox()
-        {
-            List<BoxInfo> infos = new List<BoxInfo>();
-            foreach (var castBox in timelinePlayer.GetComponentsInChildren<CastBox>())
-            {
-                BoxInfo info = MongoHelper.Clone(castBox.info);
-                infos.Add(info);
-            }
-
-            BBTimelineSettings.GetSettings().CopyTarget = infos;
-        }
-
-        [Sirenix.OdinInspector.Button("黏贴判定框信息")]
-        public void PasteCurrentHitbox()
-        {
-            if (BBTimelineSettings.GetSettings().CopyTarget is not List<BoxInfo> infos) return;
-
-            ClearHitbox();
-
-            //Create hitbox
-            ReferenceCollector refer = timelinePlayer.GetComponent<ReferenceCollector>();
-            foreach (var boxInfo in infos)
-            {
-                GameObject parent = refer.Get<GameObject>(boxInfo.bindParent);
-                GameObject go = Object.Instantiate(BBTimelineSettings.GetSettings().hitboxPrefab, parent.transform);
-                go.name = boxInfo.boxName;
-                go.GetComponent<CastBox>().info = boxInfo;
+                var copyInfo = MongoHelper.Clone(castBox.info);
+                infos.Add(copyInfo);
             }
         }
 
         #endregion
 
-        private BBHitboxClip hitboxClip;
-
-        public BbHitboxInspectorDataData(object target): base(target)
+        public BBHitboxInspectorDataData(object target): base(target)
         {
             hitboxClip = target as BBHitboxClip;
         }
@@ -298,11 +220,23 @@ namespace Timeline
         public override void InspectorAwake(TimelineFieldView fieldView)
         {
             FieldView = fieldView;
+            UpdateCastBoxInspector();
+        }
+
+        public void UpdateCastBoxInspector()
+        {
+            CastBoxInfos.Clear();
+            foreach (var castBox in timelinePlayer.GetComponentsInChildren<CastBox>())
+            {
+                CastBoxInfo castBoxInfo = new(castBox, this);
+                CastBoxInfos.Add(castBoxInfo);
+            }
         }
 
         public override void InspectorUpdate(TimelineFieldView fieldView)
         {
-            ClipInFrame = fieldView.GetCurrentTimeLocator() - hitboxClip.StartFrame;
+            ClipInFrame = FieldView.GetCurrentTimeLocator() - hitboxClip.StartFrame;
+            UpdateCastBoxInspector();
         }
 
         public override void InspectorDestroy(TimelineFieldView fieldView)

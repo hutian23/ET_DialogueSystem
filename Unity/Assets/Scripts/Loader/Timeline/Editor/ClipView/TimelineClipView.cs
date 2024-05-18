@@ -16,12 +16,12 @@ namespace Timeline.Editor
         public ISelection SelectionContainer { get; set; }
 
         private TimelineTrackView TrackView { get; set; }
-        private TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
-        private TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
+        protected TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
+        protected TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
         public BBClip BBClip;
         public BBTrack BBTrack => TrackView.RuntimeTrack.Track;
 
-        private Dictionary<int, float> FramePosMap => FieldView.FramePosMap;
+        protected Dictionary<int, float> FramePosMap => FieldView.FramePosMap;
         public int StartFrame => BBClip.StartFrame;
         public int EndFrame => BBClip.EndFrame;
 
@@ -31,7 +31,7 @@ namespace Timeline.Editor
         protected DragLineManipulator m_SelfEaseOutDragLine;
         private readonly DropdownMenuHandler m_MenuHandle;
 
-        private readonly VisualElement m_Content;
+        protected readonly VisualElement m_Content;
         private readonly VisualElement m_Title;
         private readonly Label m_ClipName;
         private readonly VisualElement m_BottomLine;
@@ -113,7 +113,7 @@ namespace Timeline.Editor
             BBClip.EndFrame -= deltaFrame;
         }
 
-        public void Refresh()
+        public virtual void Refresh()
         {
             style.left = FramePosMap[StartFrame];
             style.width = FramePosMap[EndFrame] - FramePosMap[StartFrame];
@@ -126,12 +126,6 @@ namespace Timeline.Editor
             {
                 RemoveFromClassList("invalid");
             }
-
-            // if (Clip.Invalid)
-            // {
-            //     m_Content.style.left = 0;
-            //     m_Content.style.width = m_Title.style.width = (WidthFrame * FieldView.OneFrameWidth);
-            // }
         }
 
         #region Selectable

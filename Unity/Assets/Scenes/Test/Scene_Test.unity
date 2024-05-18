@@ -123,56 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &189753809
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 189753810}
-  - component: {fileID: 189753811}
-  m_Layer: 0
-  m_Name: Hurt_Body
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &189753810
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 189753809}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 695436960}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &189753811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 189753809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d5433d2e43a30f4ca903fa50ba399c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  info:
-    boxName: Hurt_Body
-    bindParent: HurtBox
-    hitboxType: 1
-    center: {x: -0.14946651, y: -0.58884394}
-    size: {x: 1.5952911, y: 3.340006}
 --- !u!1 &217664639
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,8 +337,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1757362130}
+  m_Children: []
   m_Father: {fileID: 1357804246}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &695436959
@@ -419,9 +368,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1374134207}
-  - {fileID: 189753810}
+  m_Children: []
   m_Father: {fileID: 1357804246}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &793098615
@@ -799,7 +746,7 @@ SpriteRenderer:
   m_SortingLayerID: 2016810935
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 23751286099bcf8418972b777259042f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cff3e225bc69f0946b3d462e6fa67f25, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -830,56 +777,6 @@ Transform:
   - {fileID: 2003809423}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1374134206
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1374134207}
-  - component: {fileID: 1374134208}
-  m_Layer: 0
-  m_Name: Hurt_Head
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1374134207
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1374134206}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 695436960}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1374134208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1374134206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d5433d2e43a30f4ca903fa50ba399c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  info:
-    boxName: Hurt_Head
-    bindParent: HurtBox
-    hitboxType: 1
-    center: {x: -0.19, y: 1.4139397}
-    size: {x: 0.89011717, y: 0.66530895}
 --- !u!1 &1480187663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,56 +1003,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1357804246}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1757362129
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1757362130}
-  - component: {fileID: 1757362131}
-  m_Layer: 0
-  m_Name: Squash
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1757362130
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1757362129}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 428165396}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1757362131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1757362129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d5433d2e43a30f4ca903fa50ba399c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  info:
-    boxName: Squash
-    bindParent: SquashBox
-    hitboxType: 4
-    center: {x: -0.14147997, y: -0.5972351}
-    size: {x: 1.1267161, y: 2.9305742}
 --- !u!1 &1933091648 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8709501950557400508, guid: e09f0e83a77735945bd0655567e360bd,
@@ -1322,7 +1169,7 @@ Animator:
   m_GameObject: {fileID: 1357804244}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c0cd7836fc6803b4f89e9d0e576a4510, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1350,12 +1197,12 @@ MonoBehaviour:
     gameObject: {fileID: 2003809422}
   - key: ThrowBox
     gameObject: {fileID: 1584159892}
-  - key: HitBox
-    gameObject: {fileID: 793098615}
   - key: SquashBox
     gameObject: {fileID: 428165395}
   - key: HurtBox
     gameObject: {fileID: 695436959}
+  - key: HitBox
+    gameObject: {fileID: 793098615}
 --- !u!114 &5593543514667996731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1456,7 +1303,7 @@ MonoBehaviour:
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 80
+      Data: 100
     - Name: Capabilities
       Entry: 3
       Data: 0
@@ -1473,7 +1320,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 4
     - Name: 
       Entry: 7
       Data: 
@@ -1486,151 +1333,34 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
-      Data: 11|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: Hurt_Head
-    - Name: bindParent
-      Entry: 1
-      Data: HurtBox
-    - Name: hitboxType
+      Data: 
+    - Name: $k
       Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: 11|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
       Data: 1
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -0.19
-    - Name: 
-      Entry: 4
-      Data: 1.41393971
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0.890117168
-    - Name: 
-      Entry: 4
-      Data: 0.665308952
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 7
       Data: 12|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
-      Data: Hurt_Body
-    - Name: bindParent
-      Entry: 1
-      Data: HurtBox
-    - Name: hitboxType
-      Entry: 3
-      Data: 1
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -0.149466515
-    - Name: 
-      Entry: 4
-      Data: -0.588843942
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.59529114
-    - Name: 
-      Entry: 4
-      Data: 3.340006
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 13|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: Squash
-    - Name: bindParent
-      Entry: 1
-      Data: SquashBox
-    - Name: hitboxType
-      Entry: 3
-      Data: 4
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -0.141479969
-    - Name: 
-      Entry: 4
-      Data: -0.5972351
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.12671614
-    - Name: 
-      Entry: 4
-      Data: 2.93057418
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 7
-      Data: 14|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 4
-    - Name: 
-      Entry: 7
-      Data: 15|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
       Data: hit1
     - Name: bindParent
       Entry: 1
@@ -1643,366 +1373,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -1.77598512
-    - Name: 
-      Entry: 4
-      Data: 0.7290887
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.46736455
-    - Name: 
-      Entry: 4
-      Data: 0.383078933
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 16|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: hutian2501
-    - Name: bindParent
-      Entry: 1
-      Data: HurtBox
-    - Name: hitboxType
-      Entry: 3
-      Data: 1
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -0.1531657
-    - Name: 
-      Entry: 4
-      Data: -0.853953838
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.75683761
-    - Name: 
-      Entry: 4
-      Data: 2.7079072
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 17|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: hutian2502
-    - Name: bindParent
-      Entry: 1
-      Data: HurtBox
-    - Name: hitboxType
-      Entry: 3
-      Data: 1
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -0.353416443
-    - Name: 
-      Entry: 4
-      Data: 1.15597129
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.20564032
-    - Name: 
-      Entry: 4
-      Data: 1.28976572
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 18|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: hutian2503
-    - Name: bindParent
-      Entry: 1
-      Data: HurtBox
-    - Name: hitboxType
-      Entry: 3
-      Data: 1
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -1.82028568
-    - Name: 
-      Entry: 4
-      Data: 0.749425769
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.74696326
-    - Name: 
-      Entry: 4
-      Data: 0.5078337
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 10
-    - Name: $v
-      Entry: 7
-      Data: 19|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 4
-    - Name: 
-      Entry: 7
-      Data: 20|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: hit1
-    - Name: bindParent
-      Entry: 1
-      Data: HitBox
-    - Name: hitboxType
-      Entry: 3
-      Data: 2
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -1.82085991
-    - Name: 
-      Entry: 4
-      Data: 0.7290887
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.55711412
-    - Name: 
-      Entry: 4
-      Data: 0.383078933
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 21|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: hutian2501
-    - Name: bindParent
-      Entry: 1
-      Data: HurtBox
-    - Name: hitboxType
-      Entry: 3
-      Data: 1
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -0.1531657
-    - Name: 
-      Entry: 4
-      Data: -0.853953838
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.75683761
-    - Name: 
-      Entry: 4
-      Data: 2.7079072
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 22|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: hutian2502
-    - Name: bindParent
-      Entry: 1
-      Data: HurtBox
-    - Name: hitboxType
-      Entry: 3
-      Data: 1
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -0.353416443
-    - Name: 
-      Entry: 4
-      Data: 1.15597129
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.20564032
-    - Name: 
-      Entry: 4
-      Data: 1.28976572
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 23|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: hutian2503
-    - Name: bindParent
-      Entry: 1
-      Data: HurtBox
-    - Name: hitboxType
-      Entry: 3
-      Data: 1
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -1.82028568
-    - Name: 
-      Entry: 4
-      Data: 0.749425769
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.74696326
-    - Name: 
-      Entry: 4
-      Data: 0.5078337
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 13
-    - Name: $v
-      Entry: 7
-      Data: 24|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 4
-    - Name: 
-      Entry: 7
-      Data: 25|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: hit1
-    - Name: bindParent
-      Entry: 1
-      Data: HitBox
-    - Name: hitboxType
-      Entry: 3
       Data: 0
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -1.77598512
-    - Name: 
-      Entry: 4
-      Data: 0.7290887
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -2011,127 +1385,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 1.46736455
-    - Name: 
-      Entry: 4
-      Data: 0.383078933
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 26|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: hutian2501
-    - Name: bindParent
-      Entry: 1
-      Data: HurtBox
-    - Name: hitboxType
-      Entry: 3
       Data: 1
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -0.1531657
-    - Name: 
-      Entry: 4
-      Data: -0.853953838
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.75683761
-    - Name: 
-      Entry: 4
-      Data: 2.7079072
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 27|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: hutian2502
-    - Name: bindParent
-      Entry: 1
-      Data: HurtBox
-    - Name: hitboxType
-      Entry: 3
       Data: 1
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -0.353416443
-    - Name: 
-      Entry: 4
-      Data: 1.15597129
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.20564032
-    - Name: 
-      Entry: 4
-      Data: 1.28976572
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 28|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: hutian2503
-    - Name: bindParent
-      Entry: 1
-      Data: HurtBox
-    - Name: hitboxType
-      Entry: 3
-      Data: 1
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -1.82028568
-    - Name: 
-      Entry: 4
-      Data: 0.749425769
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.74696326
-    - Name: 
-      Entry: 4
-      Data: 0.5078337
     - Name: 
       Entry: 8
       Data: 
@@ -2152,23 +1409,23 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 22
+      Data: 4
     - Name: $v
       Entry: 7
-      Data: 29|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
+      Data: 13|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 1
     - Name: 
       Entry: 7
-      Data: 30|Timeline.BoxInfo, Unity.Loader
+      Data: 14|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
-      Data: Hurt_Head
+      Data: hit1
     - Name: bindParent
       Entry: 1
-      Data: HurtBox
+      Data: HitBox
     - Name: hitboxType
       Entry: 3
       Data: 1
@@ -2177,10 +1434,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -0.19
+      Data: -0.378217936
     - Name: 
       Entry: 4
-      Data: 1.41393971
+      Data: 1.20792484
     - Name: 
       Entry: 8
       Data: 
@@ -2189,49 +1446,19 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.890117168
-    - Name: 
-      Entry: 4
-      Data: 0.665308952
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 31|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: Hurt_Body
-    - Name: bindParent
-      Entry: 1
-      Data: HurtBox
-    - Name: hitboxType
-      Entry: 3
       Data: 1
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -0.149466515
-    - Name: 
-      Entry: 4
-      Data: -0.588843942
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
-      Entry: 4
-      Data: 1.59529114
+      Entry: 8
+      Data: 
     - Name: 
-      Entry: 4
-      Data: 3.340006
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -2240,43 +1467,17 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 32|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: Squash
-    - Name: bindParent
-      Entry: 1
-      Data: SquashBox
-    - Name: hitboxType
+      Data: 
+    - Name: $k
       Entry: 3
-      Data: 4
-    - Name: center
+      Data: 7
+    - Name: $v
       Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+      Data: 15|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
+        mscorlib
     - Name: 
-      Entry: 4
-      Data: -0.141479969
-    - Name: 
-      Entry: 4
-      Data: -0.5972351
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.12671614
-    - Name: 
-      Entry: 4
-      Data: 2.93057418
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+      Entry: 12
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -2309,23 +1510,23 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 33|Timeline.RuntimeAnimationTrack, Unity.Loader
+      Data: 16|Timeline.RuntimeAnimationTrack, Unity.Loader
     - Name: Track
       Entry: 7
-      Data: 34|Timeline.BBAnimationTrack, Unity.Loader
+      Data: 17|Timeline.BBAnimationTrack, Unity.Loader
     - Name: Name
       Entry: 1
       Data: BBAnimation
     - Name: Clips
       Entry: 7
-      Data: 35|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
+      Data: 18|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 36|Timeline.BBAnimationClip, Unity.Loader
+      Data: 19|Timeline.BBAnimationClip, Unity.Loader
     - Name: InValid
       Entry: 5
       Data: false
@@ -2364,22 +1565,22 @@ MonoBehaviour:
       Data: 
     - Name: RebindCallback
       Entry: 7
-      Data: 37|System.Action, mscorlib
+      Data: 20|System.Action, mscorlib
     - Name: invocationList
       Entry: 7
-      Data: 38|System.Delegate[], mscorlib
+      Data: 21|System.Delegate[], mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 39|System.Action, mscorlib
+      Data: 22|System.Action, mscorlib
     - Name: target
       Entry: 9
       Data: 2
     - Name: declaringType
       Entry: 7
-      Data: 40|System.RuntimeType, mscorlib
+      Data: 23|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
       Data: Timeline.RuntimePlayable, Unity.Loader
@@ -2391,7 +1592,7 @@ MonoBehaviour:
       Data: Rebind
     - Name: delegateType
       Entry: 7
-      Data: 41|System.RuntimeType, mscorlib
+      Data: 24|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
       Data: System.Action, mscorlib
@@ -2400,7 +1601,7 @@ MonoBehaviour:
       Data: 
     - Name: signature
       Entry: 7
-      Data: 42|System.Type[], mscorlib
+      Data: 25|System.Type[], mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -2415,13 +1616,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 43|System.Action, mscorlib
+      Data: 26|System.Action, mscorlib
     - Name: target
       Entry: 10
       Data: 3
     - Name: declaringType
       Entry: 7
-      Data: 44|System.RuntimeType, mscorlib
+      Data: 27|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
       Data: Timeline.Editor.TimelineEditorWindow, Unity.Loader
@@ -2433,10 +1634,10 @@ MonoBehaviour:
       Data: PopulateView
     - Name: delegateType
       Entry: 9
-      Data: 41
+      Data: 24
     - Name: signature
       Entry: 7
-      Data: 45|System.Type[], mscorlib
+      Data: 28|System.Type[], mscorlib
     - Name: 
       Entry: 12
       Data: 0
