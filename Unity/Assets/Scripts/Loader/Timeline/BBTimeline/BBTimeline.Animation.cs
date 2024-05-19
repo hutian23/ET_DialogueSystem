@@ -26,7 +26,9 @@ namespace Timeline
 #endif
     }
 
+#if UNITY_EDITOR
     [Color(127, 253, 228)]
+#endif
     public class BBAnimationClip: BBClip
     {
         public UnityEngine.AnimationClip animationClip;
