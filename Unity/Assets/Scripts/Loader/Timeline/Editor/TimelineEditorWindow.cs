@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,6 +18,7 @@ namespace Timeline.Editor
         private SliderInt fieldScaleBar;
         private Button m_PlayButton;
         private Button m_PauseButton;
+        private Button m_LoopPlayButton;
 
         private TimelineFieldView m_TimelineField;
         public Timeline Timeline { get; private set; }
@@ -26,7 +26,7 @@ namespace Timeline.Editor
 
         public BBTimeline BBTimeline => TimelinePlayer.RuntimeimePlayable.Timeline;
         public RuntimePlayable RuntimePlayable => TimelinePlayer.RuntimeimePlayable;
-        public SerializedObject SerializedTimeline => TimelinePlayer.RuntimeimePlayable.Timeline.SerializedTimeline;
+        private SerializedObject SerializedTimeline => TimelinePlayer.RuntimeimePlayable.Timeline.SerializedTimeline;
 
         public void CreateGUI()
         {
@@ -40,10 +40,13 @@ namespace Timeline.Editor
             //TODO 热重载之后改成运行时支持修改
 
             m_PlayButton = root.Q<Button>("play-button");
-            // m_PlayButton.clicked += () => { Timeline.TimelinePlayer.IsPlaying = true; };
-            //
+            m_PlayButton.clicked += () => { m_TimelineField.PlayTimelineCor(); };
+
             m_PauseButton = root.Q<Button>("pause-button");
-            // // m_PauseButton.clicked += () => { Timeline.TimelinePlayer.IsPlaying = false; };
+            m_PauseButton.clicked += () => { m_TimelineField.StopPlayTimelineCor(); };
+
+            m_LoopPlayButton = root.Q<Button>("loop-button");
+            m_LoopPlayButton.clicked += () => { m_TimelineField.LoopPlayTimelineCor(); };
 
             fieldScaleBar = root.Q<SliderInt>("field-scale-bar");
 
@@ -65,29 +68,6 @@ namespace Timeline.Editor
                     return;
                 }
             });
-
-            // m_TrackHandleContainer.RegisterCallback<KeyDownEvent>((e) =>
-            // {
-            //     switch (e.keyCode)
-            //     {
-            //         case KeyCode.Delete:
-            //         {
-            //             //删除轨道
-            //             Timeline.ApplyModify(() =>
-            //             {
-            //                 var selectableToRemove = Selections.ToList();
-            //                 foreach (ISelectable selectable in selectableToRemove)
-            //                 {
-            //                     if (selectable is TimelineTrackHandle trackHandle)
-            //                     {
-            //                         Timeline.RemoveTrack(trackHandle.Track);
-            //                     }
-            //                 }
-            //             }, "Remove");
-            //             break;
-            //         }
-            //     }
-            // });
             TrackHandleContainer.RegisterCallback<PointerDownEvent>((e) =>
             {
                 foreach (TimelineTrackHandle timelineTrackHandle in TrackHandleContainer.Query<TimelineTrackHandle>().ToList())
@@ -111,29 +91,6 @@ namespace Timeline.Editor
             m_AddTrackButton = root.Q("add-track-button");
             m_AddTrackButton.AddManipulator(new DropdownMenuManipulator((menu) =>
             {
-                // string[] acceptableTrackGroups = Timeline.GetAttribute<AcceptableTrackGroups>()?.Groups;
-                // List<(Type, float)> types = new List<(Type, float)>();
-                // foreach (var trackScriptPair in TimelineEditorUtility.TrackScriptMap)
-                // {
-                //     string trackGroup = trackScriptPair.Key.GetAttribute<TrackGroup>()?.Group ?? string.Empty;
-                //     if (acceptableTrackGroups != null && !acceptableTrackGroups.Contains(trackGroup))
-                //     {
-                //         continue;
-                //     }
-                //
-                //     float index = trackScriptPair.Key.GetAttribute<OrderedAttribute>()?.Index ?? 0;
-                //     types.Add((trackScriptPair.Key, index));
-                // }
-                //
-                // types = types.OrderBy(i => i.Item2).ToList();
-                // foreach (var type in types.OrderBy(i => i.Item2))
-                // {
-                //     menu.AppendAction(type.Item1.Name, _ =>
-                //     {
-                //         AddTrack(type.Item1);
-                //         m_TrackHandleContainer.ForceScrollViewUpdate()A;
-                //     });
-                // }
                 foreach (var type in BBTimelineEditorUtility.BBTrackTypeDic)
                 {
                     menu.AppendAction(type.Key, _ => { ApplyModify(() => { RuntimePlayable.AddTrack(type.Value); }, "Add Track"); });
@@ -142,18 +99,7 @@ namespace Timeline.Editor
 
             m_TimelineField = root.Q<TimelineFieldView>();
             m_TimelineField.EditorWindow = this;
-            // m_TimelineField.OnPopulatedCallback += PopulateView;
-            // // m_TimelineField.OnPopulatedCallback += () =>
-            // // {
-            // //     m_Toolbar.style.top = m_TimelineField.MarkerField.worldBound.yMin - 47;
-            // // };
-            // //
-            // // EditorApplication.playModeStateChanged += (e) =>
-            // // {
-            // //     m_TargetField.SetEnabled(!Application.isPlaying);
-            // //     Dispose();
-            // // };
-            //
+
             fieldScaleBar = root.Q<SliderInt>("field-scale-bar");
             fieldScaleBar.RegisterValueChangedCallback(m_TimelineField.SliderUpdate);
             Undo.undoRedoEvent += OnUndoRedoEvent;
@@ -168,11 +114,10 @@ namespace Timeline.Editor
         {
             AssemblyReloadEvents.afterAssemblyReload -= PreviewHandle;
         }
-        
+
         private void PreviewHandle()
         {
         }
-        
 
         private void OnDestroy()
         {

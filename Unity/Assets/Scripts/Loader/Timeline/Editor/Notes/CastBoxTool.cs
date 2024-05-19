@@ -39,6 +39,9 @@ namespace ET.Client
                             boundsHandle.SetColor(Color.red);
                             break;
                         case HitboxType.Hurt:
+                            boundsHandle.SetColor(Color.green);
+                            break;
+                        case HitboxType.CounterHurt:
                             boundsHandle.SetColor(Color.cyan);
                             break;
                         case HitboxType.Squash:
@@ -89,7 +92,7 @@ namespace ET.Client
         private SerializedProperty m_size;
         private SerializedProperty m_hitboxType;
         private SerializedProperty m_hitboxName;
-        
+
         private void OnEnable()
         {
             m_center = serializedObject.FindProperty("info.center");

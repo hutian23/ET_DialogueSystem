@@ -3,6 +3,7 @@
     <ui:VisualElement name="top">
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="play-button" />
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="pause-button" />
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="loop-button" />
         <ui:SliderInt picking-mode="Ignore" value="100" high-value="500" name="field-scale-bar" low-value="10" style="width: 72px; height: 24px; margin-top: 3px; margin-bottom: 3px; padding-left: 0; margin-left: 10px;" />
     </ui:VisualElement>
     <ET.Client.SplitView fixed-pane-initial-dimension="225" name="track-container">

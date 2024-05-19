@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using ET;
 using ET.Client;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using Timeline.Editor;
 using UnityEditor;
 using UnityEngine;
@@ -231,6 +230,7 @@ namespace Timeline
                 CastBoxInfo castBoxInfo = new(castBox, this);
                 CastBoxInfos.Add(castBoxInfo);
             }
+            Undo.ClearAll();
         }
 
         public override void InspectorUpdate(TimelineFieldView fieldView)

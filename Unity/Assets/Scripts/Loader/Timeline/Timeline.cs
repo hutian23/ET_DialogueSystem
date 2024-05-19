@@ -63,7 +63,6 @@ namespace Timeline
         public void Evaluate(int targetFrame)
         {
             CurrentFrame = targetFrame;
-
             for (int i = RuntimeTracks.Count - 1; i >= 0; i--)
             {
                 RuntimeTrack runtimeTrack = RuntimeTracks[i];

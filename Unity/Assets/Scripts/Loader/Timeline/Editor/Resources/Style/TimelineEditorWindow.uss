@@ -76,6 +76,20 @@
     padding-left: 0;
 }
 
+#loop-button{
+    background-image: resource('Icon/loop_play');
+    width: 25px;
+    height: 25px;
+    border-top-width: 0;
+    border-right-width: 1px;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
 #play-speed {
     flex-direction: row;
     width: 76px;

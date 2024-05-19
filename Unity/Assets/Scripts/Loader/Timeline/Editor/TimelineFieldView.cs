@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using ET;
+using Unity.EditorCoroutines.Editor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -95,6 +97,12 @@ namespace Timeline.Editor
 
         private IShowInspector currentInspector;
 
+        #region Play
+
+        private EditorCoroutine PlayCor;
+
+        #endregion
+
         public TimelineFieldView()
         {
             VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>($"VisualTree/TimelineFieldView");
@@ -153,6 +161,7 @@ namespace Timeline.Editor
             {
                 if (e.button == 0)
                 {
+                    StopPlayTimelineCor();
                     SetTimeLocator(GetClosestFrame(e.localPosition.x + TrackScrollView.scrollOffset.x));
                     LocatorDragManipulator.DragBeginForce(e);
                 }
@@ -193,7 +202,13 @@ namespace Timeline.Editor
             //Destroy inspectorData
             currentInspector?.InspectorDestroy();
             currentInspector = null;
-            
+
+            //Stop play Cor
+            if (PlayCor != null)
+            {
+                EditorCoroutineUtility.StopCoroutine(PlayCor);
+            }
+
             TrackField.Clear();
             m_Selections.Clear();
             m_Elements.Clear();
@@ -837,6 +852,73 @@ namespace Timeline.Editor
         public int GetCurrentTimeLocator()
         {
             return currentTimeLocator;
+        }
+
+        #endregion
+
+        #region Play
+
+        public void StopPlayTimelineCor()
+        {
+            if (PlayCor != null) EditorCoroutineUtility.StopCoroutine(PlayCor);
+        }
+
+        public void PlayTimelineCor()
+        {
+            if (PlayCor != null)
+            {
+                EditorCoroutineUtility.StopCoroutine(PlayCor);
+            }
+
+            PlayCor = EditorCoroutineUtility.StartCoroutine(PlayTimelineCoroutine(), this);
+        }
+
+        public void LoopPlayTimelineCor()
+        {
+            if (PlayCor != null)
+            {
+                EditorCoroutineUtility.StopCoroutine(PlayCor);
+            }
+
+            PlayCor = EditorCoroutineUtility.StartCoroutine(LoopPlayCoroutine(), this);
+        }
+
+        private int ClipMaxFrame()
+        {
+            int maxFrame = 0;
+            foreach (var track in RuntimePlayable.Timeline.Tracks)
+            {
+                foreach (var clip in track.Clips)
+                {
+                    if (clip.EndFrame >= maxFrame)
+                    {
+                        maxFrame = clip.EndFrame;
+                    }
+                }
+            }
+
+            return maxFrame;
+        }
+
+        private IEnumerator PlayTimelineCoroutine()
+        {
+            float counter = 0f;
+            SetTimeLocator(0);
+            while (currentTimeLocator < ClipMaxFrame())
+            {
+                SetTimeLocator((int)(counter * TimelineUtility.FrameRate));
+                yield return new EditorWaitForSeconds(TimelineUtility.MinEvaluateDeltaTime);
+                counter += TimelineUtility.MinEvaluateDeltaTime;
+            }
+        }
+
+        private IEnumerator LoopPlayCoroutine()
+        {
+            while (true)
+            {
+                yield return PlayTimelineCoroutine();
+                yield return null;
+            }
         }
 
         #endregion

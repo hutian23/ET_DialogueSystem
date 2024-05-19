@@ -54,10 +54,7 @@ namespace Timeline
 
         public void Rebind()
         {
-            FieldView.EditorWindow.ApplyModify(() =>
-            {
-                Clip.animationClip = AnimationClip;
-            },"rebind animationClip");
+            FieldView.EditorWindow.ApplyModify(() => { Clip.animationClip = AnimationClip; }, "rebind animationClip");
         }
 
         public AnimationClipInspectorData(object target): base(target)
