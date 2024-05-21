@@ -64,10 +64,28 @@ namespace Timeline
         }
 
 #if UNITY_EDITOR
-        [ButtonGroup("技能编辑器")]
+        [Sirenix.OdinInspector.Button("技能编辑器")]
         public void OpenWindow()
         {
             TimelineEditorWindow.OpenWindow(this);
+        }
+
+        [Sirenix.OdinInspector.Button("清除运行时组件")]
+        public void ClearTimelineGenerate()
+        {
+            var goSet = new HashSet<GameObject>();
+            foreach (var component in GetComponentsInChildren<Component>())
+            {
+                if (component.GetAttribute<TimelineGenerateAttribute>() != null)
+                {
+                    goSet.Add(component.gameObject);
+                }
+            }
+
+            foreach (GameObject go in goSet)
+            {
+                DestroyImmediate(go);
+            }
         }
 
         public void EditorUpdate()

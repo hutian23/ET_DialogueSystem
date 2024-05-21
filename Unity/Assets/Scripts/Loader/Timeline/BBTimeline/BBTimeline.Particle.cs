@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using Timeline.Editor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Timeline
 {
-    [Serializable]
     [BBTrack("Particle")]
 #if UNITY_EDITOR
     [Color(127, 214, 253)]
@@ -16,7 +17,7 @@ namespace Timeline
         public override Type RuntimeTrackType => typeof (ParticleRuntimeTrack);
 #if UNITY_EDITOR
         protected override Type ClipType => typeof (BBParticleClip);
-        public override Type ClipViewType => typeof (TimelineClipView);
+        public override Type ClipViewType => typeof (ParticleClipView);
 #endif
     }
 
@@ -25,6 +26,7 @@ namespace Timeline
 #endif
     public class BBParticleClip: BBClip
     {
+        public string ParticleName;
         public ParticleSystem ParticlePrefab;
         public Dictionary<int, ParticleKeyframe> keyframeDict = new();
 
@@ -38,15 +40,20 @@ namespace Timeline
     }
 
     #region Runtime
-    [Serializable]
+
     public class ParticleKeyframe
     {
-        public Vector2 offset;
-        public Vector2 rotation;
+        public Vector3 offset;
+        public Vector3 rotation;
     }
 
     public class ParticleRuntimeTrack: RuntimeTrack
     {
+        private ParticleSystem particle;
+        private BBParticleClip currentClip;
+        private TimelinePlayer timelinePlayer => RuntimePlayable.TimelinePlayer;
+        private int currentFrame;
+
         public ParticleRuntimeTrack(RuntimePlayable runtimePlayable, BBTrack track): base(runtimePlayable, track)
         {
         }
@@ -57,10 +64,58 @@ namespace Timeline
 
         public override void UnBind()
         {
+            Dispose();
+        }
+
+        private void Dispose()
+        {
+            currentClip = null;
+            if (particle == null) return;
+            Object.DestroyImmediate(particle.gameObject);
+        }
+
+        private void UpdateParticle()
+        {
+            //当前帧在clip中的相对位置
+            int currentClipInFrame = Mathf.Max(0, currentFrame - currentClip.StartFrame);
+
+            particle.Simulate((float)currentClipInFrame / TimelineUtility.FrameRate);
+            if (!currentClip.keyframeDict.TryGetValue(currentClipInFrame, out var keyframe)) return;
+
+            var gameObject = particle.gameObject;
+            gameObject.transform.localPosition = keyframe.offset;
+            gameObject.transform.localEulerAngles = keyframe.rotation;
         }
 
         public override void SetTime(int targetFrame)
         {
+            if (currentFrame == targetFrame) return;
+            currentFrame = targetFrame;
+
+            foreach (BBClip clip in Track.Clips)
+            {
+                if (clip.InMiddle(targetFrame))
+                {
+                    BBParticleClip particleClip = clip as BBParticleClip;
+                    if (particleClip == currentClip)
+                    {
+                        UpdateParticle();
+                        return;
+                    }
+
+                    Dispose();
+
+                    currentClip = particleClip;
+                    particle = Object.Instantiate(particleClip.ParticlePrefab, timelinePlayer.transform);
+                    ParticleCollector collector = particle.gameObject.AddComponent<ParticleCollector>();
+                    collector.Init(particleClip);
+
+                    UpdateParticle();
+                    return;
+                }
+            }
+
+            Dispose();
         }
 
         public override void RuntimMute(bool value)
@@ -76,29 +131,105 @@ namespace Timeline
     {
         private BBParticleClip Clip;
         private TimelineFieldView FieldView;
+        private int currentClipFrame;
         private TimelinePlayer timelinePlayer => FieldView.EditorWindow.TimelinePlayer;
 
-        [Sirenix.OdinInspector.OnValueChanged("Rebind")]
+        [PropertyOrder(1)]
+        public string ParticleName;
+
+        [PropertyOrder(2)]
         public ParticleSystem ParticlePrefab;
 
+        [PropertySpace(3)]
+        [PropertyOrder(3), Sirenix.OdinInspector.Button("Rebind")]
         public void Rebind()
         {
-            FieldView.EditorWindow.ApplyModify(() => { Clip.ParticlePrefab = ParticlePrefab; }, "rebind particle");
+            FieldView.EditorWindow.ApplyModify(() =>
+            {
+                Clip.ParticleName = ParticleName;
+                Clip.ParticlePrefab = ParticlePrefab;
+            }, "rebind particle clip");
         }
+
+        [PropertySpace(10), PropertyOrder(4)]
+        public ParticleSystem ParticleObject;
+
+        [PropertyOrder(5)]
+        [Sirenix.OdinInspector.OnValueChanged("ResetParticleObject")]
+        public Vector3 Offset;
+
+        [PropertyOrder(6)]
+        [Sirenix.OdinInspector.OnValueChanged("ResetParticleObject")]
+        public Vector3 Rotation;
+
+        private void ResetParticleObject()
+        {
+            if (ParticleObject == null) return;
+            var transform = ParticleObject.transform;
+            transform.localPosition = Offset;
+            transform.localEulerAngles = Rotation;
+        }
+        
+        [PropertyOrder(7), Sirenix.OdinInspector.Button("Record")]
+        public void Record()
+        {
+            if (ParticleObject == null) return;
+
+            FieldView.EditorWindow.ApplyModify(() =>
+            {
+                Clip.keyframeDict.Remove(currentClipFrame);
+
+                var transform = ParticleObject.transform;
+                Clip.keyframeDict.Add(currentClipFrame,
+                    new ParticleKeyframe() { offset = transform.localPosition, rotation = transform.localEulerAngles });
+            }, "Record particle clip keyframe");
+        }
+
+        private bool HasKeyFrame => Clip.keyframeDict.ContainsKey(currentClipFrame);
 
         public ParticleClipInspectorData(object target): base(target)
         {
             Clip = target as BBParticleClip;
             ParticlePrefab = Clip.ParticlePrefab;
+            ParticleName = Clip.ParticleName;
         }
 
         public override void InspectorAwake(TimelineFieldView fieldView)
         {
             FieldView = fieldView;
+            UpdateParticleObject();
+        }
+
+        private void UpdateParticleObject()
+        {
+            bool found = false;
+            foreach (var ParticleCollector in timelinePlayer.GetComponentsInChildren<ParticleCollector>())
+            {
+                if (ParticleCollector.particleName == Clip.ParticleName)
+                {
+                    ParticleObject = ParticleCollector.gameObject.GetComponent<ParticleSystem>();
+                    var transform = ParticleObject.transform;
+                    Offset = transform.localPosition;
+                    Rotation = transform.localEulerAngles;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                ParticleObject = null;
+                Offset = Vector3.zero;
+                Rotation = Vector3.zero;
+            }
         }
 
         public override void InspectorUpdate(TimelineFieldView fieldView)
         {
+            if (currentClipFrame == fieldView.GetCurrentTimeLocator() - Clip.StartFrame) return;
+            currentClipFrame = fieldView.GetCurrentTimeLocator() - Clip.StartFrame;
+
+            UpdateParticleObject();
         }
 
         public override void InspectorDestroy(TimelineFieldView fieldView)

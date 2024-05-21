@@ -17,8 +17,7 @@ namespace Timeline.Editor
         public ISelection SelectionContainer { get; set; }
         public TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
         public TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
-        public List<TimelineClipView> ClipViews { get; private set; }
-        private readonly DoubleMap<BBClip, TimelineClipView> ClipViewMap = new();
+        public readonly DoubleMap<BBClip, TimelineClipView> ClipViewMap = new();
 
         public Action OnSelected;
         public Action OnUnSelected;

@@ -17,7 +17,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 7400000, guid: 3468e0aefe4c3d647aaa0ac6cee1e2eb, type: 2}
-    - {fileID: 3695001726267282493, guid: 07cd3b1c10afc234299851e5c8566d70, type: 3}
+    - {fileID: 1628416001474382187, guid: 07cd3b1c10afc234299851e5c8566d70, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -889,14 +889,14 @@ MonoBehaviour:
       Data: 30|Timeline.BBParticleTrack, Unity.Loader
     - Name: Name
       Entry: 1
-      Data: Particle1
+      Data: BBParticle
     - Name: Clips
       Entry: 7
       Data: 31|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
       Data: 32|Timeline.BBParticleClip, Unity.Loader
@@ -905,36 +905,128 @@ MonoBehaviour:
       Data: false
     - Name: StartFrame
       Entry: 3
-      Data: 4
+      Data: 6
     - Name: EndFrame
       Entry: 3
-      Data: 13
+      Data: 20
     - Name: Capabilities
       Entry: 3
       Data: 0
+    - Name: ParticleName
+      Entry: 1
+      Data: hutian2501
     - Name: ParticlePrefab
       Entry: 10
       Data: 1
+    - Name: keyframeDict
+      Entry: 7
+      Data: 33|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[Timeline.ParticleKeyframe,
+        Unity.Loader]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 34|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 35|Timeline.ParticleKeyframe, Unity.Loader
+    - Name: offset
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: -2.51
+    - Name: 
+      Entry: 4
+      Data: 0.85
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 33|Timeline.BBParticleClip, Unity.Loader
-    - Name: InValid
-      Entry: 5
-      Data: false
-    - Name: StartFrame
+      Data: 
+    - Name: $k
       Entry: 3
-      Data: 14
-    - Name: EndFrame
-      Entry: 3
-      Data: 22
-    - Name: Capabilities
-      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: 36|Timeline.ParticleKeyframe, Unity.Loader
+    - Name: offset
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: -2.64
+    - Name: 
+      Entry: 4
+      Data: 0.62
+    - Name: 
+      Entry: 4
       Data: 0
-    - Name: ParticlePrefab
-      Entry: 6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: 
       Entry: 8

@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace ET.Client
 {
+    [TimelineGenerate]
     public class CastBox: CastShapeBase
     {
         public BoxInfo info;

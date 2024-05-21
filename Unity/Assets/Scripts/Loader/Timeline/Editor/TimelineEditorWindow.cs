@@ -107,23 +107,21 @@ namespace Timeline.Editor
 
         private void OnEnable()
         {
-            AssemblyReloadEvents.afterAssemblyReload += PreviewHandle;
+            // AssemblyReloadEvents.afterAssemblyReload += OnDestroy;
         }
 
         private void OnDisable()
         {
-            AssemblyReloadEvents.afterAssemblyReload -= PreviewHandle;
+            // AssemblyReloadEvents.afterAssemblyReload -= OnDestroy;
         }
-
-        private void PreviewHandle()
-        {
-        }
-
+        
         private void OnDestroy()
         {
             Undo.undoRedoEvent -= OnUndoRedoEvent;
             Dispose();
             OnDisable();
+            
+            RuntimePlayable?.Dispose();
         }
 
         public void ApplyModify(Action action, string _name, bool rebind = true)

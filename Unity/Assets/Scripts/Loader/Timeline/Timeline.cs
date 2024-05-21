@@ -24,8 +24,6 @@ namespace Timeline
         #endregion
 
         public List<RuntimeTrack> RuntimeTracks = new();
-
-        private float Time => (float)CurrentFrame / TimelineUtility.FrameRate;
         private int CurrentFrame;
 
         public static RuntimePlayable Create(BBTimeline _timeline, TimelinePlayer _timelinePlayer)
@@ -50,19 +48,22 @@ namespace Timeline
             });
         }
 
-        private void Dispose()
+        public void Dispose()
         {
             CurrentFrame = 0;
             foreach (var runtimeTrack in RuntimeTracks)
             {
                 runtimeTrack.UnBind();
             }
+
             RuntimeTracks.Clear();
         }
 
         public void Evaluate(int targetFrame)
         {
+            if (CurrentFrame == targetFrame) return;
             CurrentFrame = targetFrame;
+            
             for (int i = RuntimeTracks.Count - 1; i >= 0; i--)
             {
                 RuntimeTrack runtimeTrack = RuntimeTracks[i];
@@ -126,10 +127,7 @@ namespace Timeline
         protected List<Track> m_Tracks = new();
 
         public List<Track> Tracks => m_Tracks;
-
-        public event Action OnEvaluated;
-        public event Action OnRebind;
-        public event Action OnDone;
+        
         public event Action OnBindStateChanged;
         public event Action OnValueChanged;
 
@@ -141,7 +139,6 @@ namespace Timeline
             set
             {
                 m_Frame = value;
-                OnEvaluated?.Invoke();
             }
         }
 
@@ -225,8 +222,7 @@ namespace Timeline
             PlayableGraph = timelinePlayer.PlayableGraph;
             AnimationRootPlayable = timelinePlayer.AnimationRootPlayable;
             AudioRootPlayable = timelinePlayer.AudioRootPlayable;
-
-            OnRebind = null;
+            
             OnValueChanged += RebindAll;
 
             // m_Tracks.ForEach(t => t.Bind());
@@ -235,8 +231,6 @@ namespace Timeline
 
         public void UnBind()
         {
-            m_Tracks.ForEach(t => t.UnBind());
-            OnRebind = null;
             OnValueChanged -= RebindAll;
 
             AnimationRootPlayable = AnimationLayerMixerPlayable.Null;
