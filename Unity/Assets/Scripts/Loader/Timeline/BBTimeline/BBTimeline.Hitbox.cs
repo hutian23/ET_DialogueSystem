@@ -32,7 +32,7 @@ namespace Timeline
         }
 
 #if UNITY_EDITOR
-        public override Type ShowInInpsectorType => typeof (BBHitboxInspectorDataData);
+        public override Type ShowInInpsectorType => typeof (BBHitboxInspectorData);
 #endif
     }
 
@@ -78,7 +78,7 @@ namespace Timeline
         public CastBox castBox;
 
         [HideInInspector]
-        public BBHitboxInspectorDataData InspectorData;
+        public BBHitboxInspectorData InspectorData;
 
         [Space(8)]
         [LabelText("绑定对象: ")]
@@ -86,10 +86,10 @@ namespace Timeline
 
         public string boxName => info.boxName;
 
-        public CastBoxInfo(CastBox _castBox, BBHitboxInspectorDataData inspectorDataData)
+        public CastBoxInfo(CastBox _castBox, BBHitboxInspectorData inspectorData)
         {
             castBox = _castBox;
-            InspectorData = inspectorDataData;
+            InspectorData = inspectorData;
 
             info = castBox.info;
             go = castBox.gameObject;
@@ -120,7 +120,7 @@ namespace Timeline
     }
 
     [Serializable]
-    public class BBHitboxInspectorDataData: ShowInspectorData
+    public class BBHitboxInspectorData: ShowInspectorData
     {
         [Sirenix.OdinInspector.ReadOnly]
         [LabelText("当前帧: ")]
@@ -211,7 +211,7 @@ namespace Timeline
 
         #endregion
 
-        public BBHitboxInspectorDataData(object target): base(target)
+        public BBHitboxInspectorData(object target): base(target)
         {
             hitboxClip = target as BBHitboxClip;
         }

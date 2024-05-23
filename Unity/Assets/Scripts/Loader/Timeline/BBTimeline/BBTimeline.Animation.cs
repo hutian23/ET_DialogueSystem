@@ -51,9 +51,13 @@ namespace Timeline
         private TimelineFieldView FieldView;
 
         [LabelText("Clip: ")]
-        [Sirenix.OdinInspector.OnValueChanged("Rebind")]
         public UnityEngine.AnimationClip AnimationClip;
 
+        [LabelText("AnimationLength: ")]
+        [Sirenix.OdinInspector.ShowInInspector]
+        public int animationLength => AnimationClip == null? 0 : (int)(AnimationClip.length * TimelineUtility.FrameRate);
+
+        [Sirenix.OdinInspector.Button("Rebind")]
         public void Rebind()
         {
             FieldView.EditorWindow.ApplyModify(() => { Clip.animationClip = AnimationClip; }, "rebind animationClip");

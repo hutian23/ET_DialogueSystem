@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Timeline.Editor;
+using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -79,6 +80,8 @@ namespace Timeline
             //当前帧在clip中的相对位置
             int currentClipInFrame = Mathf.Max(0, currentFrame - currentClip.StartFrame);
 
+            if (particle == null) return;
+
             particle.Simulate((float)currentClipInFrame / TimelineUtility.FrameRate);
             if (!currentClip.keyframeDict.TryGetValue(currentClipInFrame, out var keyframe)) return;
 
@@ -106,6 +109,9 @@ namespace Timeline
                     Dispose();
 
                     currentClip = particleClip;
+
+                    if (particleClip.ParticlePrefab == null) return;
+
                     particle = Object.Instantiate(particleClip.ParticlePrefab, timelinePlayer.transform);
                     ParticleCollector collector = particle.gameObject.AddComponent<ParticleCollector>();
                     collector.Init(particleClip);
@@ -151,26 +157,20 @@ namespace Timeline
             }, "rebind particle clip");
         }
 
-        [PropertySpace(10), PropertyOrder(4)]
+        private bool HasBind => ParticleObject != null;
+
+        [PropertySpace(10), PropertyOrder(4), Sirenix.OdinInspector.ShowIf("HasBind")]
         public ParticleSystem ParticleObject;
 
         [PropertyOrder(5)]
-        [Sirenix.OdinInspector.OnValueChanged("ResetParticleObject")]
+        [Sirenix.OdinInspector.ReadOnly, Sirenix.OdinInspector.ShowIf("HasBind")]
         public Vector3 Offset;
 
         [PropertyOrder(6)]
-        [Sirenix.OdinInspector.OnValueChanged("ResetParticleObject")]
+        [Sirenix.OdinInspector.ReadOnly, Sirenix.OdinInspector.ShowIf("HasBind")]
         public Vector3 Rotation;
 
-        private void ResetParticleObject()
-        {
-            if (ParticleObject == null) return;
-            var transform = ParticleObject.transform;
-            transform.localPosition = Offset;
-            transform.localEulerAngles = Rotation;
-        }
-        
-        [PropertyOrder(7), Sirenix.OdinInspector.Button("Record")]
+        [PropertyOrder(7), Sirenix.OdinInspector.Button("Record"),Sirenix.OdinInspector.ShowIf("HasBind")]
         public void Record()
         {
             if (ParticleObject == null) return;
@@ -185,7 +185,31 @@ namespace Timeline
             }, "Record particle clip keyframe");
         }
 
-        private bool HasKeyFrame => Clip.keyframeDict.ContainsKey(currentClipFrame);
+        private void UpdateParticleObject()
+        {
+            //Find particle system 
+            bool hasFound = false;
+            foreach (ParticleCollector collector in timelinePlayer.GetComponentsInChildren<ParticleCollector>())
+            {
+                if (collector.particleName != Clip.ParticleName) continue;
+
+                hasFound = true;
+                ParticleSystem par = collector.GetComponent<ParticleSystem>();
+                if (ParticleObject == par) break;
+                ParticleObject = par;
+            }
+
+            if (!hasFound)
+            {
+                ParticleObject = null;
+                return;
+            }
+            
+            //Update transform
+            var trans = ParticleObject.transform;
+            Offset = trans.localPosition;
+            Rotation = trans.localEulerAngles;
+        }
 
         public ParticleClipInspectorData(object target): base(target)
         {
@@ -197,43 +221,17 @@ namespace Timeline
         public override void InspectorAwake(TimelineFieldView fieldView)
         {
             FieldView = fieldView;
-            UpdateParticleObject();
-        }
-
-        private void UpdateParticleObject()
-        {
-            bool found = false;
-            foreach (var ParticleCollector in timelinePlayer.GetComponentsInChildren<ParticleCollector>())
-            {
-                if (ParticleCollector.particleName == Clip.ParticleName)
-                {
-                    ParticleObject = ParticleCollector.gameObject.GetComponent<ParticleSystem>();
-                    var transform = ParticleObject.transform;
-                    Offset = transform.localPosition;
-                    Rotation = transform.localEulerAngles;
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found)
-            {
-                ParticleObject = null;
-                Offset = Vector3.zero;
-                Rotation = Vector3.zero;
-            }
+            EditorApplication.update += UpdateParticleObject;
         }
 
         public override void InspectorUpdate(TimelineFieldView fieldView)
         {
-            if (currentClipFrame == fieldView.GetCurrentTimeLocator() - Clip.StartFrame) return;
             currentClipFrame = fieldView.GetCurrentTimeLocator() - Clip.StartFrame;
-
-            UpdateParticleObject();
         }
 
         public override void InspectorDestroy(TimelineFieldView fieldView)
         {
+            EditorApplication.update -= UpdateParticleObject;
         }
     }
 #endif

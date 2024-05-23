@@ -11,6 +11,8 @@ namespace Timeline
 {
     public sealed class TimelinePlayer: SerializedMonoBehaviour
     {
+        public Color Color;
+        
         public bool ApplyRootMotion;
 
         private bool m_IsPlaying;
