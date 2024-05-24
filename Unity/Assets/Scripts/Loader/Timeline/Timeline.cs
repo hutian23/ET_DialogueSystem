@@ -57,6 +57,7 @@ namespace Timeline
             }
 
             RuntimeTracks.Clear();
+            TimelinePlayer.ClearTimelineGenerate();
         }
 
         public void Evaluate(int targetFrame)
