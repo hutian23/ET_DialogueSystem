@@ -14,6 +14,9 @@ namespace Timeline
         [NonSerialized, OdinSerialize]
         public List<BBTrack> Tracks = new();
 
+        [NonSerialized, OdinSerialize]
+        public Dictionary<string, BBTimelineKeyframe> KeyframeDict = new();
+
 #if UNITY_EDITOR
         [HideInInspector]
         public SerializedObject SerializedTimeline;
@@ -58,10 +61,20 @@ namespace Timeline
 #endif
     }
 
+    [Serializable]
+    public class BBTimelineKeyframe
+    {
+#if UNITY_EDITOR
+        public int frame;  
+#endif
+        public int a = 10;
+    }
+
     public abstract class BBTrack
     {
         public string Name;
-        [OdinSerialize,NonSerialized]
+
+        [OdinSerialize, NonSerialized]
         public List<BBClip> Clips = new();
 
         public virtual Type RuntimeTrackType => typeof (RuntimeTrack);

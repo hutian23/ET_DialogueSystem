@@ -1,0 +1,25 @@
+{
+    "Keyframes":{
+        "0": [
+            {
+                "Sprite": "rg_300"
+            },
+            {
+                "Hit_1":{
+                    "HitboxType": 0,
+                    "position": "(0,0,0)",
+                    "rotation": "(0,30,30)"
+                },
+                "Hit_2":{
+                    "HitboxType": 1
+                }
+            },
+            {
+                "targetBind_Name": "hutian2501",
+                "keyframe": {
+                    "0": "(0,0,1）"
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,9 @@
+#tick-img{
+    width: 16px;
+    height: 18px;
+    background-image: resource('Icon/keyframetick');
+}
+
+.timelineTick{
+    position: relative;
+}

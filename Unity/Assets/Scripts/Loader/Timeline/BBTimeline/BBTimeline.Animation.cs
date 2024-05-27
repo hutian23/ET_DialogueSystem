@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -49,6 +50,7 @@ namespace Timeline
     {
         private BBAnimationClip Clip;
         private TimelineFieldView FieldView;
+        private TimelinePlayer timelinePlayer => FieldView.EditorWindow.TimelinePlayer;
 
         [LabelText("Clip: ")]
         public UnityEngine.AnimationClip AnimationClip;
@@ -56,6 +58,10 @@ namespace Timeline
         [LabelText("AnimationLength: ")]
         [Sirenix.OdinInspector.ShowInInspector]
         public int animationLength => AnimationClip == null? 0 : (int)(AnimationClip.length * TimelineUtility.FrameRate);
+
+        [HideLabel]
+        [PreviewField(140,ObjectFieldAlignment.Left), Sirenix.OdinInspector.ReadOnly]
+        public Sprite animationSprite;
 
         [Sirenix.OdinInspector.Button("Rebind")]
         public void Rebind()
@@ -69,9 +75,15 @@ namespace Timeline
             AnimationClip = Clip.animationClip;
         }
 
+        private void UpdateSprite()
+        {
+            animationSprite = timelinePlayer.GetComponent<SpriteRenderer>().sprite;
+        }
+
         public override void InspectorAwake(TimelineFieldView fieldView)
         {
             FieldView = fieldView;
+            EditorApplication.update += UpdateSprite;
         }
 
         public override void InspectorUpdate(TimelineFieldView fieldView)
@@ -80,6 +92,7 @@ namespace Timeline
 
         public override void InspectorDestroy(TimelineFieldView fieldView)
         {
+            EditorApplication.update -= UpdateSprite;
         }
     }
 
