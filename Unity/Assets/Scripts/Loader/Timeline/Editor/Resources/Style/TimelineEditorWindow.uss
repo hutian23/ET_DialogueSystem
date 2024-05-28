@@ -48,6 +48,20 @@
     border-right-color: rgb(32, 32, 32);
 }
 
+#select-timeline-button {
+    background-image: resource('Icon/d_icon dropdown@2x');
+    width: 25px;
+    height: 25px;
+    border-right-width: 1px;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
 #play-button {
     background-image: resource('Icon/PlayButton On@2x');
     width: 25px;
@@ -76,7 +90,7 @@
     padding-left: 0;
 }
 
-#loop-button{
+#loop-button {
     background-image: resource('Icon/loop_play');
     width: 25px;
     height: 25px;

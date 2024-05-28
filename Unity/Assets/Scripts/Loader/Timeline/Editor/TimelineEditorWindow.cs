@@ -16,9 +16,11 @@ namespace Timeline.Editor
         private VisualElement m_AddTrackButton;
 
         private SliderInt fieldScaleBar;
+        private Button m_select_timeline_Button;
         private Button m_PlayButton;
         private Button m_PauseButton;
         private Button m_LoopPlayButton;
+        private Label m_select_timeline_label;
 
         private TimelineFieldView m_TimelineField;
         public Timeline Timeline { get; private set; }
@@ -36,8 +38,6 @@ namespace Timeline.Editor
             root.AddToClassList("timelineEditorWindow");
 
             m_Top = root.Q("top");
-            //运行时不可用
-            //TODO 热重载之后改成运行时支持修改
 
             m_PlayButton = root.Q<Button>("play-button");
             m_PlayButton.clicked += () => { m_TimelineField.PlayTimelineCor(); };
@@ -97,6 +97,18 @@ namespace Timeline.Editor
                 }
             }, MouseButton.LeftMouse));
 
+            m_select_timeline_Button = root.Q<Button>("select-timeline-button");
+            m_select_timeline_Button.AddManipulator(new DropdownMenuManipulator((menu) =>
+            {
+                foreach (var pair in TimelinePlayer.Timelines)
+                {
+                    var actionName = $"{pair.Key} - {pair.Value.timelineName}";
+                    menu.AppendAction(actionName, _ => { });
+                }
+            }, MouseButton.RightMouse));
+
+            m_select_timeline_label = root.Q<Label>("select-timeline-label");
+            
             m_TimelineField = root.Q<TimelineFieldView>();
             m_TimelineField.EditorWindow = this;
 
@@ -114,13 +126,13 @@ namespace Timeline.Editor
         {
             // AssemblyReloadEvents.afterAssemblyReload -= OnDestroy;
         }
-        
+
         private void OnDestroy()
         {
             Undo.undoRedoEvent -= OnUndoRedoEvent;
             Dispose();
             OnDisable();
-            
+
             RuntimePlayable?.Dispose();
         }
 
@@ -207,8 +219,14 @@ namespace Timeline.Editor
             window.Dispose();
             window.TimelinePlayer = timelinePlayer;
             window.TimelinePlayer.Dispose();
-            window.TimelinePlayer.Init();
-            window.PopulateView();
+
+            //默认Dict第一个Timeline
+            foreach (var timeline in timelinePlayer.Timelines.Values)
+            {
+                window.TimelinePlayer.Init(timeline);
+                window.PopulateView();
+                break;
+            }
         }
     }
 }

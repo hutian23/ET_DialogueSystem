@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Reflection;
 using ET;
+using UnityEngine;
+using UnityEngine.UIElements;
 
-namespace Timeline
+namespace Timeline.Editor
 {
     public class BBTimelineEditorUtility
     {
@@ -21,6 +23,18 @@ namespace Timeline
                 if (attr == null) continue;
                 BBTrackTypeDic.TryAdd(attr.TrackName, type);
             }
+        }
+
+        public static void DrawDiamond(Painter2D paint2D, float pos)
+        {
+            paint2D.BeginPath();
+            paint2D.fillColor = Color.white;
+            paint2D.MoveTo(new Vector2(pos - 4, 8));
+            paint2D.LineTo(new Vector2(pos, 3));
+            paint2D.LineTo(new Vector2(pos + 4, 8));
+            paint2D.LineTo(new Vector2(pos, 13));
+            paint2D.ClosePath();
+            paint2D.Fill(FillRule.OddEven);
         }
     }
 }

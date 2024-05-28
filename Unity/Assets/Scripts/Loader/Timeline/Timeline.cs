@@ -198,7 +198,7 @@ namespace Timeline
             });
 
             //2. AddTimeline
-            TimelinePlayer.Init();
+            // TimelinePlayer.Init();
             TimelinePlayer.BindTimeline(this);
         }
 

@@ -11,8 +11,6 @@ namespace Timeline
 {
     public sealed class TimelinePlayer: SerializedMonoBehaviour
     {
-        public Color Color;
-        
         public bool ApplyRootMotion;
 
         private bool m_IsPlaying;
@@ -52,10 +50,11 @@ namespace Timeline
         public AudioMixerPlayable AudioRootPlayable { get; private set; }
 
         [HideReferenceObjectPicker]
-        [DictionaryDrawerSettings(KeyLabel = "Name", ValueLabel = "Timeline")]
-        public Dictionary<string, BBTimeline> Timelines = new();
+        [DictionaryDrawerSettings(KeyLabel = "BehaviorOrder", ValueLabel = "Timeline")]
+        public Dictionary<int, BBTimeline> Timelines = new();
 
-        public BBTimeline Test => Timelines["Test1"];
+        [HideInInspector]
+        public BBTimeline CurrentTimeline;
 
         [HideInInspector]
         public RuntimePlayable RuntimeimePlayable;
@@ -95,11 +94,11 @@ namespace Timeline
         }
 #endif
 
-        public void Init()
+        public void Init(BBTimeline _timeline)
         {
             #region PlayableGraph
 
-            PlayableGraph = PlayableGraph.Create("Test1");
+            PlayableGraph = PlayableGraph.Create(_timeline.timelineName);
             //混合
             AnimationRootPlayable = AnimationLayerMixerPlayable.Create(PlayableGraph);
             AudioRootPlayable = AudioMixerPlayable.Create(PlayableGraph);
@@ -119,7 +118,8 @@ namespace Timeline
 
             #region RuntimeTimeline
 
-            RuntimeimePlayable = RuntimePlayable.Create(Test, this);
+            CurrentTimeline = _timeline;
+            RuntimeimePlayable = RuntimePlayable.Create(CurrentTimeline, this);
 
             #endregion
         }
