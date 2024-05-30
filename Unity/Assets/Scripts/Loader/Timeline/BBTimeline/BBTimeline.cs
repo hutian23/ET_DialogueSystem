@@ -12,12 +12,12 @@ namespace Timeline
     public class BBTimeline: SerializedScriptableObject
     {
         public string timelineName;
-        
+
         [NonSerialized, OdinSerialize]
         public List<BBTrack> Tracks = new();
 
         [NonSerialized, OdinSerialize]
-        public Dictionary<string, BBTimelineKeyframe> KeyframeDict = new();
+        public Dictionary<string, int> MarkDict = new();
 
 #if UNITY_EDITOR
         [HideInInspector]
@@ -67,7 +67,7 @@ namespace Timeline
     public class BBTimelineKeyframe
     {
 #if UNITY_EDITOR
-        public int frame;  
+        public int frame;
 #endif
         public int a = 10;
     }

@@ -21,8 +21,9 @@ namespace Timeline.Editor
         private Button m_PauseButton;
         private Button m_LoopPlayButton;
         private Label m_select_timeline_label;
-
         private TimelineFieldView m_TimelineField;
+        public IntegerField m_currentFrameField;
+
         public Timeline Timeline { get; private set; }
         public TimelinePlayer TimelinePlayer { get; set; }
 
@@ -103,17 +104,25 @@ namespace Timeline.Editor
                 foreach (var pair in TimelinePlayer.Timelines)
                 {
                     var actionName = $"{pair.Key} - {pair.Value.timelineName}";
-                    menu.AppendAction(actionName, _ => { });
+                    menu.AppendAction(actionName, _ => { TimelinePlayer.OpenWindow(pair.Value); });
                 }
             }, MouseButton.RightMouse));
 
             m_select_timeline_label = root.Q<Label>("select-timeline-label");
-            
+
             m_TimelineField = root.Q<TimelineFieldView>();
             m_TimelineField.EditorWindow = this;
 
             fieldScaleBar = root.Q<SliderInt>("field-scale-bar");
             fieldScaleBar.RegisterValueChangedCallback(m_TimelineField.SliderUpdate);
+
+            m_currentFrameField = root.Q<IntegerField>("current-frame-field");
+            m_currentFrameField.RegisterCallback<BlurEvent>(evt =>
+            {
+                if (m_currentFrameField.value >= 500) m_currentFrameField.SetValueWithoutNotify(500);
+                m_TimelineField.CurrentFrameFieldUpdate(m_currentFrameField.value);
+            });
+
             Undo.undoRedoEvent += OnUndoRedoEvent;
         }
 
@@ -160,6 +169,7 @@ namespace Timeline.Editor
 
             UpdateBindState();
             m_TimelineField.PopulateView();
+            UpdateSelectTimeline();
         }
 
         private void OnUndoRedoEvent(in UndoRedoInfo info)
@@ -213,19 +223,22 @@ namespace Timeline.Editor
 
         #endregion
 
-        public static void OpenWindow(TimelinePlayer timelinePlayer)
+        public static void OpenWindow(TimelinePlayer timelinePlayer, BBTimeline timeline)
         {
             TimelineEditorWindow window = GetWindow<TimelineEditorWindow>();
             window.Dispose();
             window.TimelinePlayer = timelinePlayer;
             window.TimelinePlayer.Dispose();
+            window.TimelinePlayer.Init(timeline);
+            window.PopulateView();
+        }
 
-            //默认Dict第一个Timeline
-            foreach (var timeline in timelinePlayer.Timelines.Values)
+        private void UpdateSelectTimeline()
+        {
+            foreach (var pair in TimelinePlayer.Timelines)
             {
-                window.TimelinePlayer.Init(timeline);
-                window.PopulateView();
-                break;
+                if (pair.Value != TimelinePlayer.CurrentTimeline) continue;
+                m_select_timeline_label.text = $"{pair.Key} - {pair.Value.timelineName}";
             }
         }
     }

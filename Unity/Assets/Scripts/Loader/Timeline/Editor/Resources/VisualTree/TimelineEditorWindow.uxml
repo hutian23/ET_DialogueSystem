@@ -1,12 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/Loader/Timeline/Editor/Resources/Style/TimelineEditorWindow.uss?fileID=7433441132597879392&amp;guid=dd412e76b6520e14cb2532733bbe8e3c&amp;type=3#TimelineEditorWindow" />
-    <ui:VisualElement name="top">
-        <ui:Label tabindex="-1" text="300-Rg_Throw" parse-escape-sequences="true" display-tooltip-when-elided="true" name="select-timeline-label" style="color: rgb(255, 255, 255); -unity-text-align: middle-left; text-overflow: clip; height: 25px; width: 120px; padding-left: 10px; padding-top: 2px;" />
+    <ui:VisualElement name="top" style="height: 26px;">
+        <ui:Label tabindex="-1" text="300-Rg_Throw" parse-escape-sequences="true" display-tooltip-when-elided="true" name="select-timeline-label" style="color: rgb(255, 255, 255); -unity-text-align: middle-left; text-overflow: clip; height: 25px; width: 150px; padding-left: 10px; padding-top: 2px;" />
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="select-timeline-button" focusable="true" />
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="play-button" />
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="pause-button" />
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="loop-button" />
-        <ui:SliderInt picking-mode="Ignore" value="100" high-value="500" name="field-scale-bar" low-value="10" style="width: 72px; height: 24px; margin-top: 3px; margin-bottom: 3px; padding-left: 0; margin-left: 10px;" />
+        <ui:IntegerField value="0" name="current-frame-field" />
+        <ui:SliderInt picking-mode="Ignore" value="100" high-value="500" name="field-scale-bar" low-value="10" style="width: 80px; height: 25px; right: 10px; position: absolute; margin-top: 3px; margin-right: 0; margin-bottom: 0; margin-left: 0;" />
     </ui:VisualElement>
     <ET.Client.SplitView fixed-pane-initial-dimension="225" name="track-container">
         <ui:VisualElement name="left-panel" style="flex-grow: 1; height: 100%;">

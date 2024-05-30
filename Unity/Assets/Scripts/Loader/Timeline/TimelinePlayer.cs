@@ -68,7 +68,18 @@ namespace Timeline
         [Sirenix.OdinInspector.Button("技能编辑器")]
         public void OpenWindow()
         {
-            TimelineEditorWindow.OpenWindow(this);
+            //默认字典第一个元素为入口
+            foreach (var pair in Timelines)
+            {
+                OpenWindow(pair.Value);
+                break;
+            }
+        }
+
+        public void OpenWindow(BBTimeline timeline)
+        {
+            ClearTimelineGenerate();
+            TimelineEditorWindow.OpenWindow(this, timeline);
         }
 
         [Sirenix.OdinInspector.Button("清除运行时组件")]

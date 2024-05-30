@@ -46,8 +46,6 @@ namespace Timeline.Editor
             AddToClassList("timelineClip");
 
             m_Content = this.Q("content");
-
-            // m_Title = this.Q("title");
             m_ClipName = this.Q<Label>("clip-name");
             m_BottomLine = this.Q("bottom-line");
             m_DrawBox = this.Q("draw-box");

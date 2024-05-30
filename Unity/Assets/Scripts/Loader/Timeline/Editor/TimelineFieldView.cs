@@ -115,11 +115,10 @@ namespace Timeline.Editor
             TrackScrollView.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
             TrackScrollView.horizontalScroller.valueChanged += _ =>
             {
-                if (FieldContent.worldBound.width < ScrollViewContentWidth + ScrollViewContentOffset)
-                {
-                    FieldContent.style.width = ScrollViewContentWidth + ScrollViewContentOffset;
-                }
-
+                // if (FieldContent.worldBound.width < ScrollViewContentWidth + ScrollViewContentOffset)
+                // {
+                //     FieldContent.style.width = ScrollViewContentWidth + ScrollViewContentOffset;
+                // }
                 DrawTimeField();
             };
             TrackScrollView.RegisterCallback<WheelEvent>((_) =>
@@ -139,7 +138,14 @@ namespace Timeline.Editor
                 {
                     int direction = v.x - m_ScrollViewPanDelta > 0? -1 : 1;
                     m_ScrollViewPanDelta = v.x;
-                    TrackScrollView.scrollOffset += new Vector2(direction * scrollSpeed, 0);
+
+                    // Refill FieldContent
+                    Vector2 scrollOffset = TrackScrollView.scrollOffset + new Vector2(direction * scrollSpeed, 0);
+                    if (FieldContent.worldBound.width < scrollOffset.x + ScrollViewContentWidth)
+                    {
+                        FieldContent.style.width = scrollOffset.x + ScrollViewContentWidth;
+                    }
+                    TrackScrollView.scrollOffset = scrollOffset;
 
                     UpdateTimeLocator();
                 },
@@ -400,14 +406,6 @@ namespace Timeline.Editor
             }
 
             paint2D.Stroke();
-
-            //draw Keyframe
-            // var keyframeDict = EditorWindow.BBTimeline.KeyframeDict;
-            // foreach (var keyframe in keyframeDict.Values)
-            // {
-            //     float pos = FramePosMap[keyframe.frame] - TrackScrollView.scrollOffset.x;
-            //     BBTimelineEditorUtility.DrawDiamond(paint2D, pos);
-            // }
         }
 
         private void OnTrackFieldGenerateVisualContent(MeshGenerationContext mgc)
@@ -435,6 +433,25 @@ namespace Timeline.Editor
 
         #region TimeLocator
 
+        public void CurrentFrameFieldUpdate(int currentFrame)
+        {
+            bool InRange = currentFrame < CurrentMaxFrame && currentFrame > CurrentMinFrame;
+            float preMaxFramePos = FramePosMap[CurrentMaxFrame];
+
+            currentTimeLocator = currentFrame;
+            m_MaxFrame = Mathf.Max(currentFrame + 1, m_MaxFrame);
+            ResizeTimeField();
+
+            if (!InRange)
+            {
+                float currentLocatorPos = FramePosMap[currentTimeLocator];
+                TrackScrollView.scrollOffset += new Vector2(currentLocatorPos - preMaxFramePos + 50, 0);
+            }
+
+            ResizeTimeField();
+            DrawTimeField();
+        }
+
         private void SetTimeLocator(int targetFrame)
         {
             currentTimeLocator = targetFrame;
@@ -451,6 +468,8 @@ namespace Timeline.Editor
 
             //更新Inspector
             currentInspector?.InsepctorUpdate();
+            //更新frameField
+            EditorWindow.m_currentFrameField.SetValueWithoutNotify(currentTimeLocator);
 
             //更新playableGraph
             RuntimePlayable.Evaluate(currentTimeLocator);

@@ -10,9 +10,9 @@ namespace Timeline.Editor
 {
     public static class TimelineEditorUtility
     {
-        public static Dictionary<Type, MonoScript> TrackScriptMap = new();
-        public static Dictionary<Type, MonoScript> ClipScriptMap = new();
-        public static Dictionary<Type, MonoScript> ClipInspectorViewScriptMap = new();
+        private static Dictionary<Type, MonoScript> TrackScriptMap = new();
+        private static Dictionary<Type, MonoScript> ClipScriptMap = new();
+        private static Dictionary<Type, MonoScript> ClipInspectorViewScriptMap = new();
 
         static TimelineEditorUtility()
         {
@@ -76,115 +76,7 @@ namespace Timeline.Editor
             }
             return null;
         }
-
-        public class MonoScriptInfo
-        {
-            public MonoScript Mono;
-            public int lineNumber;
-            public int ColumnNumber;
-
-            public MonoScriptInfo(MonoScript mono, int ln = 0, int cn = 0)
-            {
-                Mono = mono;
-                lineNumber = ln;
-                ColumnNumber = cn;
-            }
-
-            public MonoScriptInfo()
-            {
-                
-            }
-        }
-
-        public static void SelectTrackScript<T>(this T target) where T : Track
-        {
-            if (TrackScriptMap.TryGetValue(target.GetType(), out MonoScript monoScript))
-            {
-                Selection.activeObject = monoScript;
-            }
-        }
-
-        public static void OpenTrackScript<T>(this T target) where T : Track
-        {
-            if (TrackScriptMap.TryGetValue(target.GetType(), out MonoScript monoScript))
-            {
-                AssetDatabase.OpenAsset(monoScript.GetInstanceID());
-            }
-        }
-
-        public static bool ShowIf(this MemberInfo memberInfo, object target)
-        {
-            if (memberInfo.GetCustomAttributes<ShowIfAttribute>() is ShowIfAttribute showIfAttribute && !showIfAttribute.Show(target))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        public static bool HideIf(this MemberInfo memberInfo, object target)
-        {
-            if (memberInfo.GetCustomAttribute<HideIfAttribute>() is HideIfAttribute hideIfAttribute && hideIfAttribute.Hide(target))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
         
-        public static bool ReadOnly(this MemberInfo memberInfo, object target)
-        {
-            if (memberInfo.GetCustomAttributes<ReadOnlyAttribute>() is ReadOnlyAttribute readOnlyAttribute && readOnlyAttribute.ReadOnly(target))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public static void Group(this MemberInfo memberInfo, VisualElement content, float index, ref List<VisualElement> visualElements, ref Dictionary<string, (VisualElement, List<VisualElement>)> groupMap)
-        {
-            string groupName = string.Empty;
-            if (memberInfo.GetCustomAttributes<HorizontalGroupAttribute>() is HorizontalGroupAttribute horizontalGroupAttribute)
-            {
-                groupName = horizontalGroupAttribute.GroupName;
-            }
-
-            Splitline splitline = memberInfo.GetCustomAttribute<Splitline>();
-            if (!string.IsNullOrEmpty(groupName))
-            {
-                VisualElement group = new();
-                group.style.flexDirection = FlexDirection.Row;
-                group.name = index * 10 + visualElements.Count.ToString();
-                visualElements.Add(group);
-                groupMap.Add(groupName,(group,new List<VisualElement>()));
-
-                if (splitline != null)
-                {
-                    group.style.paddingTop = splitline.Space;
-                    group.style.borderTopColor = new Color(88, 88, 88, 255) / 255;
-                    group.style.borderTopWidth = 1;
-                }
-                groupMap[groupName].Item2.Add(content);
-            }
-            else
-            {
-                visualElements.Add(content);
-                if (splitline != null)
-                {
-                    content.style.paddingTop = splitline.Space;
-                    content.style.borderTopColor = new Color(88, 88, 88, 255) / 255;
-                    content.style.borderTopWidth = 1;
-                }
-            }
-        }
-
         public static void ForceScrollViewUpdate(this ScrollView view)
         {
             view.schedule.Execute(() =>

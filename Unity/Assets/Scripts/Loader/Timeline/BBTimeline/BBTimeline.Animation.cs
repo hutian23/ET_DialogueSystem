@@ -23,7 +23,7 @@ namespace Timeline
         public override Type RuntimeTrackType => typeof (RuntimeAnimationTrack);
 #if UNITY_EDITOR
         protected override Type ClipType => typeof (BBAnimationClip);
-        public override Type ClipViewType => typeof (TimelineClipView);
+        public override Type ClipViewType => typeof (AnimationClipView);
 #endif
     }
 
@@ -59,10 +59,6 @@ namespace Timeline
         [Sirenix.OdinInspector.ShowInInspector]
         public int animationLength => AnimationClip == null? 0 : (int)(AnimationClip.length * TimelineUtility.FrameRate);
 
-        [HideLabel]
-        [PreviewField(140,ObjectFieldAlignment.Left), Sirenix.OdinInspector.ReadOnly]
-        public Sprite animationSprite;
-
         [Sirenix.OdinInspector.Button("Rebind")]
         public void Rebind()
         {
@@ -77,7 +73,6 @@ namespace Timeline
 
         private void UpdateSprite()
         {
-            animationSprite = timelinePlayer.GetComponent<SpriteRenderer>().sprite;
         }
 
         public override void InspectorAwake(TimelineFieldView fieldView)
@@ -106,7 +101,6 @@ namespace Timeline
         private BBTimelineAnimationTrackPlayable TrackPlayable;
         private AnimationMixerPlayable MixerPlayable => TrackPlayable.MixerPlayable;
         private readonly List<BBTimelineAnimationClipPlayable> ClipPlayables = new();
-        private int currentFrame;
 
         public override void Bind()
         {
@@ -140,14 +134,11 @@ namespace Timeline
 
         public override void SetTime(int targetFrame)
         {
-            if (currentFrame == targetFrame) return;
-            currentFrame = targetFrame;
-
             for (int i = 0; i < ClipPlayables.Count; i++)
             {
                 BBTimelineAnimationClipPlayable clipPlayable = ClipPlayables[i];
-                clipPlayable.SetInputWeight((clipPlayable.Clip.Contain(targetFrame))? 1 : 0);
-                clipPlayable.SetTime(currentFrame);
+                clipPlayable.SetInputWeight((clipPlayable.Clip.InMiddle(targetFrame))? 1 : 0);
+                clipPlayable.SetTime(targetFrame);
             }
         }
 
@@ -215,8 +206,8 @@ namespace Timeline
 
         public void SetTime(int targetFrame)
         {
-            int clipInFrame = Mathf.Max(0, targetFrame - Clip.StartFrame);
-            ClipPlayable.SetTime((float)clipInFrame / TimelineUtility.FrameRate);
+            float clipInFrame = Mathf.Max(0.01f, targetFrame - Clip.StartFrame);
+            ClipPlayable.SetTime(clipInFrame / TimelineUtility.FrameRate);
             PrepareFrame(default, default);
         }
 

@@ -104,6 +104,19 @@
     padding-left: 0;
 }
 
+#current-frame-field {
+    margin-top: 3px;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 4px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    width: 70px;
+    height: 20px;
+}
+
 #play-speed {
     flex-direction: row;
     width: 76px;

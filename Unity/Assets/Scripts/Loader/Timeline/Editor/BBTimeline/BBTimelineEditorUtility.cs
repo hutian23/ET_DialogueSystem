@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using ET;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -35,6 +36,35 @@ namespace Timeline.Editor
             paint2D.LineTo(new Vector2(pos, 13));
             paint2D.ClosePath();
             paint2D.Fill(FillRule.OddEven);
+        }
+
+        public static HashSet<int> GetAnimationKeyframes(UnityEngine.AnimationClip clip)
+        {
+            HashSet<int> keyframeSet = new();
+            // 获取所有绑定路径
+            EditorCurveBinding[] bindings = AnimationUtility.GetObjectReferenceCurveBindings(clip);
+
+            foreach (var binding in bindings)
+            {
+                ObjectReferenceKeyframe[] keyframes = AnimationUtility.GetObjectReferenceCurve(clip, binding);
+                foreach (var keyframe in keyframes)
+                {
+                    keyframeSet.Add(Mathf.RoundToInt(keyframe.time * 60));
+                }
+                // // 只处理SpriteRenderer的sprite属性
+                // if (binding.type == typeof (SpriteRenderer) && binding.propertyName == "m_Sprite")
+                // {
+                //     // 获取对应的关键帧
+                //     ObjectReferenceKeyframe[] keyframes = AnimationUtility.GetObjectReferenceCurve(clip, binding);
+                //
+                //     foreach (var keyframe in keyframes)
+                //     {
+                //         Sprite sprite = keyframe.value as Sprite;
+                //         Debug.Log($"Time: {Mathf.RoundToInt(keyframe.time * 60)}, Sprite: {sprite}");
+                //     }
+                // }
+            }
+            return keyframeSet;
         }
     }
 }
