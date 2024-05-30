@@ -104,7 +104,48 @@
     padding-left: 0;
 }
 
+#current-frame-label {
+    margin-top: 0;
+    margin-right: 4px;
+    margin-bottom: 0;
+    margin-left: 8px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-text-align: middle-center;
+    width: 50px;
+    height: 25px;
+}
+
 #current-frame-field {
+    margin-top: 3px;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 4px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    width: 70px;
+    height: 20px;
+}
+
+#current-marker-label {
+    margin-top: 0;
+    margin-right: 4px;
+    margin-bottom: 0;
+    margin-left: 8px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-text-align: middle-center;
+    width: 50px;
+    height: 25px;
+}
+
+#current-marker-field{
     margin-top: 3px;
     margin-right: 0;
     margin-bottom: 0;

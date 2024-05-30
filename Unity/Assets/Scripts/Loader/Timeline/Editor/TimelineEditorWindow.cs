@@ -23,6 +23,7 @@ namespace Timeline.Editor
         private Label m_select_timeline_label;
         private TimelineFieldView m_TimelineField;
         public IntegerField m_currentFrameField;
+        public TextField m_currentMarkerField;
 
         public Timeline Timeline { get; private set; }
         public TimelinePlayer TimelinePlayer { get; set; }
@@ -117,12 +118,20 @@ namespace Timeline.Editor
             fieldScaleBar.RegisterValueChangedCallback(m_TimelineField.SliderUpdate);
 
             m_currentFrameField = root.Q<IntegerField>("current-frame-field");
-            m_currentFrameField.RegisterCallback<BlurEvent>(evt =>
+            m_currentFrameField.RegisterCallback<BlurEvent>(_ =>
             {
                 if (m_currentFrameField.value >= 500) m_currentFrameField.SetValueWithoutNotify(500);
                 m_TimelineField.CurrentFrameFieldUpdate(m_currentFrameField.value);
             });
 
+            m_currentMarkerField = root.Q<TextField>("current-marker-field");
+            m_currentMarkerField.RegisterCallback<BlurEvent>(_ =>
+            {
+                if (!BBTimeline.MarkDict.ContainsKey(m_currentMarkerField.value)) return;
+                int frame = BBTimeline.MarkDict[m_currentMarkerField.value];
+                m_TimelineField.CurrentFrameFieldUpdate(frame);
+            });
+            
             Undo.undoRedoEvent += OnUndoRedoEvent;
         }
 

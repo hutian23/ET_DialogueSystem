@@ -8,6 +8,72 @@ using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
+    [Serializable]
+    public class MarkerInspectorData: ShowInspectorData
+    {
+        private TimelineFieldView fieldView;
+        private BBTimeline timeline;
+
+        [Sirenix.OdinInspector.ReadOnly]
+        public int frame;
+
+        public string MarkerName;
+
+        [Sirenix.OdinInspector.Button("Update Marker")]
+        public void CreateMarker()
+        {
+            fieldView.EditorWindow.ApplyModify(() =>
+            {
+                //存在同名marker
+                if (timeline.MarkDict.ContainsKey(MarkerName) && timeline.MarkDict[MarkerName] != frame)
+                {
+                    Debug.LogError($"already exist marker:{MarkerName}, {timeline.MarkDict[MarkerName]}!");
+                    return;
+                }
+
+                //移除同帧marker
+                string _key = "";
+                foreach (var pair in timeline.MarkDict)
+                {
+                    if (pair.Value != frame) continue;
+                    _key = pair.Key;
+                }
+
+                if (!string.IsNullOrEmpty(_key)) timeline.MarkDict.Remove(_key);
+
+                //添加marker
+                timeline.MarkDict.Add(MarkerName, frame);
+            }, "Update Marker");
+
+            InspectorDestroy(fieldView);
+        }
+
+        public MarkerInspectorData(object target): base(target)
+        {
+            timeline = target as BBTimeline;
+        }
+
+        public override void InspectorAwake(TimelineFieldView _fieldView)
+        {
+            fieldView = _fieldView;
+            frame = fieldView.GetCurrentTimeLocator();
+            foreach (var pair in timeline.MarkDict)
+            {
+                if (pair.Value != frame) continue;
+                MarkerName = pair.Key;
+            }
+        }
+
+        public override void InspectorUpdate(TimelineFieldView _fieldView)
+        {
+        }
+
+        public override void InspectorDestroy(TimelineFieldView _fieldView)
+        {
+            _fieldView.ClipInspector.Clear();
+        }
+    }
+
     public class TimelineFieldView: VisualElement, ISelection
     {
         public new class UxmlFactory: UxmlFactory<TimelineFieldView, UxmlTraits>
@@ -113,17 +179,10 @@ namespace Timeline.Editor
 
             TrackScrollView = this.Q<ScrollView>("track-scroll");
             TrackScrollView.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
-            TrackScrollView.horizontalScroller.valueChanged += _ =>
-            {
-                // if (FieldContent.worldBound.width < ScrollViewContentWidth + ScrollViewContentOffset)
-                // {
-                //     FieldContent.style.width = ScrollViewContentWidth + ScrollViewContentOffset;
-                // }
-                DrawTimeField();
-            };
+            TrackScrollView.horizontalScroller.valueChanged += _ => { DrawTimeField(); };
             TrackScrollView.RegisterCallback<WheelEvent>((_) =>
             {
-                foreach (var child in TrackField.Children())
+                foreach (VisualElement child in TrackField.Children())
                 {
                     if (child is not TimelineTrackView) continue;
                     ScrollView scrollView = EditorWindow.rootVisualElement.Q<ScrollView>("track-handle-container");
@@ -145,6 +204,7 @@ namespace Timeline.Editor
                     {
                         FieldContent.style.width = scrollOffset.x + ScrollViewContentWidth;
                     }
+
                     TrackScrollView.scrollOffset = scrollOffset;
 
                     UpdateTimeLocator();
@@ -179,6 +239,29 @@ namespace Timeline.Editor
             TimeLocator.AddManipulator(LocatorDragManipulator);
             TimeLocator.generateVisualContent += OnTimeLocatorGenerateVisualContent;
             TimeLocator.SetEnabled(false);
+            TimeLocator.AddManipulator(new DropdownMenuManipulator(menu =>
+            {
+                menu.AppendAction("Edit Marker", _ =>
+                {
+                    MarkerInspectorData inspectorData = new(EditorWindow.BBTimeline);
+                    inspectorData.InspectorAwake(this);
+                    TimelineInspectorData.CreateView(ClipInspector, inspectorData);
+                });
+                menu.AppendAction("Remove Marker", _ =>
+                {
+                    EditorWindow.ApplyModify(() =>
+                    {
+                        string _key = "";
+                        foreach (var pair in EditorWindow.BBTimeline.MarkDict)
+                        {
+                            if (pair.Value != currentTimeLocator) continue;
+                            _key = pair.Key;
+                        }
+
+                        if (!string.IsNullOrEmpty(_key)) EditorWindow.BBTimeline.MarkDict.Remove(_key);
+                    }, "Remove Marker");
+                });
+            }, MouseButton.RightMouse));
 
             DrawFrameLineField = this.Q("draw-frame-line-field");
             DrawFrameLineField.generateVisualContent += OnDrawFrameLineFieldGenerateVisualContent;
@@ -362,6 +445,9 @@ namespace Timeline.Editor
                 trackView.Refreh();
             }
 
+            //Repaint marker 
+            DrawTimeField();
+
             // 更新timelocator位置
             UpdateTimeLocator();
         }
@@ -406,6 +492,12 @@ namespace Timeline.Editor
             }
 
             paint2D.Stroke();
+
+            foreach (var pair in EditorWindow.BBTimeline.MarkDict)
+            {
+                float pos = FramePosMap[pair.Value] - TrackScrollView.scrollOffset.x;
+                BBTimelineEditorUtility.DrawDiamond(paint2D, pos);
+            }
         }
 
         private void OnTrackFieldGenerateVisualContent(MeshGenerationContext mgc)
@@ -470,6 +562,13 @@ namespace Timeline.Editor
             currentInspector?.InsepctorUpdate();
             //更新frameField
             EditorWindow.m_currentFrameField.SetValueWithoutNotify(currentTimeLocator);
+            string Marker = "_ _ _";
+            foreach (var pair in EditorWindow.BBTimeline.MarkDict)
+            {
+                if (pair.Value != currentTimeLocator) continue;
+                Marker = pair.Key;
+            }
+            EditorWindow.m_currentMarkerField.SetValueWithoutNotify(Marker);
 
             //更新playableGraph
             RuntimePlayable.Evaluate(currentTimeLocator);

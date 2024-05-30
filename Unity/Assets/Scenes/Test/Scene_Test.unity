@@ -717,7 +717,7 @@ SpriteRenderer:
   m_SortingLayerID: 2016810935
   m_SortingLayer: 1
   m_SortingOrder: 100
-  m_Sprite: {fileID: 21300000, guid: 131db83f28931ed418290d74d6528f64, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8d01c10d0cc4b0b4280487cc32f5e2be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1023,7 +1023,33 @@ PlayableDirector:
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
-  m_SceneBindings: []
+  m_SceneBindings:
+  - key: {fileID: -3940106168646770215, guid: f8f65ce3bf544c047b135740a4fc5963, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 8481521359328007276, guid: f8f65ce3bf544c047b135740a4fc5963, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -5433766148040043583, guid: f8f65ce3bf544c047b135740a4fc5963, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -6577571236381089641, guid: f8f65ce3bf544c047b135740a4fc5963, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 5830965931036104277, guid: f8f65ce3bf544c047b135740a4fc5963, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -2494411658281010414, guid: f8f65ce3bf544c047b135740a4fc5963, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -6228213234884463993, guid: f8f65ce3bf544c047b135740a4fc5963, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -6099325104267220162, guid: f8f65ce3bf544c047b135740a4fc5963, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -8036370044216771886, guid: f8f65ce3bf544c047b135740a4fc5963, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 8039394972225465919, guid: f8f65ce3bf544c047b135740a4fc5963, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -8172012310806909559, guid: f8f65ce3bf544c047b135740a4fc5963, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 5911554071011154557, guid: f8f65ce3bf544c047b135740a4fc5963, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 1589270949908190961, guid: f8f65ce3bf544c047b135740a4fc5963, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!1660057539 &9223372036854775807
