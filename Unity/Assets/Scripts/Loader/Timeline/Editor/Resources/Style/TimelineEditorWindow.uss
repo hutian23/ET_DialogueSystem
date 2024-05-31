@@ -154,7 +154,7 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    width: 70px;
+    width: 100px;
     height: 20px;
 }
 

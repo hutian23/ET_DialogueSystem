@@ -9,7 +9,7 @@ namespace Timeline.Editor
 
         public AnimationClipView()
         {
-            m_Content.generateVisualContent += OnKeyFrameGenerateContent;
+            // m_Content.generateVisualContent += OnKeyFrameGenerateContent;
         }
 
         protected override void MenuBuilder(DropdownMenu menu)
@@ -23,21 +23,21 @@ namespace Timeline.Editor
             });
         }
 
-        private void OnKeyFrameGenerateContent(MeshGenerationContext mgc)
-        {
-            var paint2D = mgc.painter2D;
-
-            float startFramePos = FramePosMap[BBClip.StartFrame];
-
-            if (AnimationClip == null) return;
-
-            var keyframeSet = BBTimelineEditorUtility.GetAnimationKeyframes(AnimationClip);
-            foreach (var keyframe in keyframeSet)
-            {
-                int currentFrame = BBClip.StartFrame + keyframe;
-                if (!FramePosMap.ContainsKey(currentFrame)) continue;
-                BBTimelineEditorUtility.DrawDiamond(paint2D, FramePosMap[currentFrame] - startFramePos - 1);
-            }
-        }
+        // private void OnKeyFrameGenerateContent(MeshGenerationContext mgc)
+        // {
+        //     var paint2D = mgc.painter2D;
+        //
+        //     float startFramePos = FramePosMap[BBClip.StartFrame];
+        //
+        //     if (AnimationClip == null) return;
+        //
+        //     var keyframeSet = BBTimelineEditorUtility.GetAnimationKeyframes(AnimationClip);
+        //     foreach (var keyframe in keyframeSet)
+        //     {
+        //         int currentFrame = BBClip.StartFrame + keyframe;
+        //         if (!FramePosMap.ContainsKey(currentFrame)) continue;
+        //         BBTimelineEditorUtility.DrawDiamond(paint2D, FramePosMap[currentFrame] - startFramePos - 1);
+        //     }
+        // }
     }
 }
