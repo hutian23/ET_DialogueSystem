@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using Timeline.Editor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Timeline
 {
@@ -43,8 +43,8 @@ namespace Timeline
 
     public class RuntimeTargetBindTrack: RuntimeTrack
     {
-        private int currentFrame;
-
+        private BBTargetBindClip currentClip;
+        private GameObject targetBindGo;
         private TimelinePlayer timelinePlayer => RuntimePlayable.TimelinePlayer;
 
         public RuntimeTargetBindTrack(RuntimePlayable runtimePlayable, BBTrack track): base(runtimePlayable, track)
@@ -61,21 +61,31 @@ namespace Timeline
 
         public override void SetTime(int targetFrame)
         {
-            if (currentFrame == targetFrame) return;
-            currentFrame = targetFrame;
-
             foreach (BBClip clip in Track.Clips)
             {
                 if (!clip.InMiddle(targetFrame)) continue;
+
                 BBTargetBindClip targetBindClip = clip as BBTargetBindClip;
+                if (currentClip != targetBindClip)
+                {
+                    //Editor阶段生成go 录制位置
+                    if (targetBindGo != null) Object.DestroyImmediate(targetBindGo);
+                    targetBindGo = new GameObject(targetBindClip.referName);
+                    TargetBindCollector collector = targetBindGo.AddComponent<TargetBindCollector>(); //Dispose时移除该子物体
+                    collector.targetBindName = targetBindClip.referName;
+                    targetBindGo.transform.SetParent(timelinePlayer.transform);
+                }
+
+                currentClip = targetBindClip;
 
                 //有无关键帧
-                int clipInFrame = currentFrame - targetBindClip.StartFrame;
-                if (!targetBindClip.TargetKeyframeDict.TryGetValue(clipInFrame, out var localPos)) return;
-
-                GameObject referGo = timelinePlayer.GetComponent<ReferenceCollector>().Get<GameObject>(targetBindClip.referName);
-                referGo.transform.localPosition = localPos;
+                // int clipInFrame = targetFrame - targetBindClip.StartFrame;
+                // if (!targetBindClip.TargetKeyframeDict.TryGetValue(clipInFrame, out var localPos)) return;
+                return;
             }
+
+            if (targetBindGo != null) Object.DestroyImmediate(targetBindGo);
+            currentClip = null;
         }
 
         public override void RuntimMute(bool value)
@@ -94,132 +104,41 @@ namespace Timeline
         private TimelineFieldView FieldView;
         private TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
         private TimelinePlayer timelinePlayer => EditorWindow.TimelinePlayer;
-        private bool BindGo => ReferGameObject != null;
 
-        [PropertyOrder(1)]
-        public GameObject ReferGameObject;
+        public GameObject targetBindGameObject;
+        public string targetBindName;
 
-        [PropertyOrder(2), Sirenix.OdinInspector.Button("Rebind"), Sirenix.OdinInspector.ShowIf("BindGo")]
+        [Sirenix.OdinInspector.Button("Rebind")]
         public void Rebind()
         {
-            EditorWindow.ApplyModify(() =>
-            {
-                ReferenceCollector refer = timelinePlayer.GetComponent<ReferenceCollector>() ??
-                        timelinePlayer.gameObject.AddComponent<ReferenceCollector>();
-                refer.Remove(ReferGameObject.name);
-                refer.Add(ReferGameObject.name, ReferGameObject);
-                targetBindClip.referName = ReferGameObject.name;
-            }, "");
+            EditorWindow.ApplyModify(() => { targetBindClip.referName = targetBindName; }, "Update Targetbind name");
         }
 
-        [PropertyOrder(3), Sirenix.OdinInspector.Button("Record"), Sirenix.OdinInspector.ShowIf("BindGo")]
+        private bool BindGo => targetBindGameObject != null;
+        [Sirenix.OdinInspector.Button("Record"), Sirenix.OdinInspector.ShowIf("BindGo")]
         public void Record()
         {
             EditorWindow.ApplyModify(() =>
             {
                 int clipInFrame = FieldView.GetCurrentTimeLocator() - targetBindClip.StartFrame;
-                Vector3 localPos = ReferGameObject.transform.localPosition;
+                Vector3 localPos = targetBindGameObject.transform.localPosition;
                 targetBindClip.TargetKeyframeDict.Remove(clipInFrame);
                 targetBindClip.TargetKeyframeDict.Add(clipInFrame, localPos);
-            }, "");
+            }, "Record keyframe");
         }
 
-        // [PropertyOrder(1)]
-        // public bool InSceneView;
-        //
-        // public bool IsRefer => InSceneView;
-        // public bool IsBundle => !InSceneView;
-        //
-        // [PropertyOrder(2)]
-        // [Sirenix.OdinInspector.ShowIf("IsRefer")]
-        // public GameObject referGameObject;
-        //
-        // [PropertyOrder(2)]
-        // [InfoBox("注意需要添加abundle标签")]
-        // [Sirenix.OdinInspector.ShowIf("IsBundle")]
-        // public GameObject Prefab;
-        //
-        // [PropertyOrder(3)]
-        // [Sirenix.OdinInspector.Button("Rebind Target")]
-        // public void Rebind()
-        // {
-        //     EditorWindow.ApplyModify(() =>
-        //     {
-        //         if (IsBundle)
-        //         {
-        //             if (Prefab == null) return;
-        //             string path = AssetDatabase.GetAssetPath(Prefab);
-        //             AssetImporter importer = AssetImporter.GetAtPath(path);
-        //             if (string.IsNullOrEmpty(importer.assetBundleName))
-        //             {
-        //                 Debug.LogError($"please add abundle tag to prefab: {Prefab.name}");
-        //                 return;
-        //             }
-        //
-        //             targetBindClip.referName = importer.assetBundleName;
-        //         }
-        //         else if (IsRefer)
-        //         {
-        //             if (referGameObject == null) return;
-        //             if (PrefabUtility.IsPartOfPrefabAsset(referGameObject))
-        //             {
-        //                 Debug.LogError("can not add prefab to refercollector");
-        //                 return;
-        //             }
-        //
-        //             ReferenceCollector refer = timelinePlayer.GetComponent<ReferenceCollector>();
-        //             refer.Remove(referGameObject.name);
-        //             refer.Add(referGameObject.name, referGameObject);
-        //             targetBindClip.referName = referGameObject.name;
-        //         }
-        //
-        //         targetBindClip.InSceneView = InSceneView;
-        //     }, "targetbind rebind");
-        // }
-        //
-        //
-        //
-        // [PropertyOrder(4)]
-        // [Sirenix.OdinInspector.ReadOnly]
-        // // [Sirenix.OdinInspector.ShowIf("")]
-        // public Vector3 Offset;
-        //
-        // [PropertyOrder(5)]
-        // [Sirenix.OdinInspector.ReadOnly]
-        // // [Sirenix.OdinInspector.ShowIf("")]
-        // public Vector3 Rotation;
-        //
-        // public BBTargetBindInspectorData(object target): base(target)
-        // {
-        //     targetBindClip = target as BBTargetBindClip;
-        //     // InSceneView = targetBindClip.InSceneView;
-        // }
-        //
-        // public override void InspectorAwake(TimelineFieldView fieldView)
-        // {
-        //     FieldView = fieldView;
-        //
-        //     //还没绑定gameobject
-        //     if (string.IsNullOrEmpty(targetBindClip.referName)) return;
-        //     if (IsRefer)
-        //     {
-        //         ReferenceCollector refer = timelinePlayer.GetComponent<ReferenceCollector>();
-        //         referGameObject = refer.Get<GameObject>(targetBindClip.referName);
-        //     }
-        //     else if (IsBundle)
-        //     {
-        //         string path = Define.GetAssetPathsFromAssetBundle(targetBindClip.referName)[0];
-        //         Prefab = Define.LoadAssetAtPath(path) as GameObject;
-        //     }
-        // }
-        //
-        // public override void InspectorUpdate(TimelineFieldView fieldView)
-        // {
-        // }
-        //
-        // public override void InspectorDestroy(TimelineFieldView fieldView)
-        // {
-        // }
+        private void UpdateGo()
+        {
+            foreach (var targetBindCollector in timelinePlayer.GetComponentsInChildren<TargetBindCollector>())
+            {
+                if (targetBindCollector.targetBindName != targetBindClip.referName) continue;
+                targetBindGameObject = targetBindCollector.gameObject;
+                return;
+            }
+
+            targetBindGameObject = null;
+        }
+
         public BBTargetBindInspectorData(object target): base(target)
         {
             targetBindClip = target as BBTargetBindClip;
@@ -228,11 +147,13 @@ namespace Timeline
         public override void InspectorAwake(TimelineFieldView fieldView)
         {
             FieldView = fieldView;
-            ReferGameObject = timelinePlayer.GetComponent<ReferenceCollector>().Get<GameObject>(targetBindClip.referName);
+            targetBindName = targetBindClip.referName;
+            UpdateGo();
         }
 
         public override void InspectorUpdate(TimelineFieldView fieldView)
         {
+            UpdateGo();
         }
 
         public override void InspectorDestroy(TimelineFieldView fieldView)

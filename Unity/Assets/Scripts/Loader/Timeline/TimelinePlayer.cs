@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Timeline.Editor;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Audio;
@@ -13,35 +12,6 @@ namespace Timeline
     {
         public bool ApplyRootMotion;
 
-        private bool m_IsPlaying;
-
-        public bool IsPlaying
-        {
-            get => m_IsPlaying;
-            set
-            {
-                if (m_IsPlaying == value)
-                {
-                    return;
-                }
-
-                m_IsPlaying = value;
-#if UNITY_EDITOR
-                if (!Application.isPlaying)
-                {
-                    if (m_IsPlaying)
-                    {
-                        EditorApplication.update += EditorUpdate;
-                    }
-                    else
-                    {
-                        EditorApplication.update -= EditorUpdate;
-                    }
-                }
-#endif
-            }
-        }
-
         public bool IsValid => PlayableGraph.IsValid();
         private Animator Animator { get; set; }
         public AudioSource AudioSource { get; private set; }
@@ -49,9 +19,7 @@ namespace Timeline
         public AnimationLayerMixerPlayable AnimationRootPlayable { get; private set; }
         public AudioMixerPlayable AudioRootPlayable { get; private set; }
 
-        [HideReferenceObjectPicker]
-        [DictionaryDrawerSettings(KeyLabel = "BehaviorOrder", ValueLabel = "Timeline")]
-        public Dictionary<int, BBTimeline> Timelines = new();
+        public BBPlayableGraph BBPlayable;
 
         [HideInInspector]
         public BBTimeline CurrentTimeline;
@@ -69,7 +37,7 @@ namespace Timeline
         public void OpenWindow()
         {
             //默认字典第一个元素为入口
-            foreach (var pair in Timelines)
+            foreach (var pair in BBPlayable.Timelines)
             {
                 OpenWindow(pair.Value);
                 break;
@@ -99,10 +67,6 @@ namespace Timeline
                 DestroyImmediate(go);
             }
         }
-
-        public void EditorUpdate()
-        {
-        }
 #endif
 
         public void Init(BBTimeline _timeline)
@@ -125,8 +89,6 @@ namespace Timeline
 
             #endregion
 
-            IsPlaying = false;
-
             #region RuntimeTimeline
 
             CurrentTimeline = _timeline;
@@ -144,13 +106,13 @@ namespace Timeline
         {
         }
 
-        private void OnRootMotion()
-        {
-            if (ApplyRootMotion)
-            {
-                transform.position += Animator.deltaPosition;
-            }
-        }
+        // private void OnRootMotion()
+        // {
+        //     if (ApplyRootMotion)
+        //     {
+        //         transform.position += Animator.deltaPosition;
+        //     }
+        // }
 
         public void BindTimeline(Timeline timeline)
         {
@@ -158,6 +120,18 @@ namespace Timeline
 
         public void RemoveTimeline(Timeline timeline)
         {
+        }
+
+        public BBTimeline GetByOrder(int order)
+        {
+            if (BBPlayable == null) return null;
+            if (!BBPlayable.Timelines.TryGetValue(order, out BBTimeline timeline))
+            {
+                Debug.LogError($"not exist timeline, order: {order}");
+                return null;
+            }
+
+            return timeline;
         }
     }
 }

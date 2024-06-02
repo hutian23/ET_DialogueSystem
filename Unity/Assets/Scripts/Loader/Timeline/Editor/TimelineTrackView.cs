@@ -110,7 +110,6 @@ namespace Timeline.Editor
                 //TODO AddClip
                 EditorWindow.ApplyModify(() => { BBTrack.AddClip(FieldView.GetCurrentTimeLocator()); }, "Add Clip");
             });
-            menu.AppendAction("Preview", _ => { Debug.LogWarning("Preview"); });
         }
 
         private void OnPointerDown(PointerDownEvent evt)

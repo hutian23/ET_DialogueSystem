@@ -17,7 +17,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 7400000, guid: 2f31b0d1d24f8344cac6be9837b7ea8f, type: 2}
-    - {fileID: 1628416001474382187, guid: 07cd3b1c10afc234299851e5c8566d70, type: 3}
+    - {fileID: 0}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -29,13 +29,13 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 3
     - Name: 
       Entry: 7
-      Data: 1|Timeline.BBAnimationTrack, Unity.Loader
+      Data: 1|Timeline.BBTargetBindTrack, Unity.Loader
     - Name: Name
       Entry: 1
-      Data: Rg_Throw
+      Data: BBTargetBind
     - Name: Clips
       Entry: 7
       Data: 2|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
@@ -45,19 +45,103 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 3|Timeline.BBAnimationClip, Unity.Loader
+      Data: 3|Timeline.BBTargetBindClip, Unity.Loader
     - Name: InValid
       Entry: 5
       Data: false
-    - Name: Name
-      Entry: 6
-      Data: 
     - Name: StartFrame
       Entry: 3
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 86
+      Data: 21
+    - Name: Capabilities
+      Entry: 3
+      Data: 0
+    - Name: referName
+      Entry: 1
+      Data: targetBind
+    - Name: TargetKeyframeDict
+      Entry: 7
+      Data: 4|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[UnityEngine.Vector3,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 5|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: -2.06
+    - Name: 
+      Entry: 4
+      Data: -0.09
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|Timeline.BBAnimationTrack, Unity.Loader
+    - Name: Name
+      Entry: 1
+      Data: Rg_Throw
+    - Name: Clips
+      Entry: 7
+      Data: 7|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 8|Timeline.BBAnimationClip, Unity.Loader
+    - Name: InValid
+      Entry: 5
+      Data: false
+    - Name: StartFrame
+      Entry: 3
+      Data: 0
+    - Name: EndFrame
+      Entry: 3
+      Data: 70
     - Name: Capabilities
       Entry: 3
       Data: 0
@@ -78,244 +162,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 4|Timeline.BBTargetBindTrack, Unity.Loader
+      Data: 9|Timeline.SubTimelineTrack, Unity.Loader
     - Name: Name
       Entry: 1
-      Data: Throw_PointBind
-    - Name: Clips
-      Entry: 7
-      Data: 5|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 6|Timeline.BBTargetBindClip, Unity.Loader
-    - Name: InValid
-      Entry: 5
-      Data: false
-    - Name: Name
-      Entry: 6
-      Data: 
-    - Name: StartFrame
-      Entry: 3
-      Data: 0
-    - Name: EndFrame
-      Entry: 3
-      Data: 86
-    - Name: Capabilities
-      Entry: 3
-      Data: 0
-    - Name: referName
-      Entry: 1
-      Data: targetbind
-    - Name: TargetKeyframeDict
-      Entry: 7
-      Data: 7|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[UnityEngine.Vector3,
-        UnityEngine.CoreModule]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 8|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 7
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 44
-    - Name: $v
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -1.604
-    - Name: 
-      Entry: 4
-      Data: 2.05
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 20
-    - Name: $v
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -2.192
-    - Name: 
-      Entry: 4
-      Data: 1.102
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 28
-    - Name: $v
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -1.99
-    - Name: 
-      Entry: 4
-      Data: 1.995
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 32
-    - Name: $v
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -1.623
-    - Name: 
-      Entry: 4
-      Data: 2.082
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 36
-    - Name: $v
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -1.327
-    - Name: 
-      Entry: 4
-      Data: 2.051
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 16
-    - Name: $v
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -1.44
-    - Name: 
-      Entry: 4
-      Data: 1.11
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 24
-    - Name: $v
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -2.231
-    - Name: 
-      Entry: 4
-      Data: 1.156
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 9|Timeline.BBHitboxTrack, Unity.Loader
-    - Name: Name
-      Entry: 1
-      Data: BBHitbox
+      Data: SubTimeline
     - Name: Clips
       Entry: 7
       Data: 10|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
@@ -325,348 +175,28 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 11|Timeline.BBHitboxClip, Unity.Loader
+      Data: 11|Timeline.SubTimelineClip, Unity.Loader
     - Name: InValid
       Entry: 5
       Data: false
-    - Name: Name
-      Entry: 6
-      Data: 
     - Name: StartFrame
       Entry: 3
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 86
+      Data: 3
     - Name: Capabilities
       Entry: 3
       Data: 0
-    - Name: boxInfoDict
-      Entry: 7
-      Data: 12|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[System.Collections.Generic.List`1[[Timeline.BoxInfo,
-        Unity.Loader]], mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 13|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
+    - Name: BehaviorOrder
       Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 7
-      Data: 14|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 15|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
+      Data: 800
+    - Name: targetBind
       Entry: 1
-      Data: hutian2501
-    - Name: bindParent
-      Entry: 1
-      Data: HitBox
-    - Name: hitboxType
-      Entry: 3
-      Data: 1
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -0.304432869
-    - Name: 
-      Entry: 4
-      Data: -0.414319336
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.58271
-    - Name: 
-      Entry: 4
-      Data: 3.89490414
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 14
-    - Name: $v
-      Entry: 7
-      Data: 16|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 17|Timeline.BBParticleTrack, Unity.Loader
-    - Name: Name
-      Entry: 1
-      Data: BBParticle
-    - Name: Clips
-      Entry: 7
-      Data: 18|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 19|Timeline.BBParticleClip, Unity.Loader
-    - Name: InValid
-      Entry: 5
-      Data: false
-    - Name: Name
-      Entry: 6
-      Data: 
-    - Name: StartFrame
-      Entry: 3
-      Data: 6
-    - Name: EndFrame
-      Entry: 3
-      Data: 14
-    - Name: Capabilities
-      Entry: 3
-      Data: 0
-    - Name: ParticleName
-      Entry: 1
-      Data: particle1
-    - Name: ParticlePrefab
+      Data: targetBind
+    - Name: testBinder
       Entry: 10
       Data: 1
-    - Name: keyframeDict
-      Entry: 7
-      Data: 20|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[Timeline.ParticleKeyframe,
-        Unity.Loader]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 21|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 7
-      Data: 22|Timeline.ParticleKeyframe, Unity.Loader
-    - Name: offset
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -1.67
-    - Name: 
-      Entry: 4
-      Data: 2.15
-    - Name: 
-      Entry: 4
-      Data: -1.86
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: rotation
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 293.3429
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 5
-    - Name: $v
-      Entry: 7
-      Data: 23|Timeline.ParticleKeyframe, Unity.Loader
-    - Name: offset
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: rotation
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 24|Timeline.SubTimelineTrack, Unity.Loader
-    - Name: Name
-      Entry: 1
-      Data: SubTimeline
-    - Name: Clips
-      Entry: 7
-      Data: 25|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 26|Timeline.SubTimelineClip, Unity.Loader
-    - Name: InValid
-      Entry: 5
-      Data: false
-    - Name: Name
-      Entry: 1
-      Data: R
-    - Name: StartFrame
-      Entry: 3
-      Data: 0
-    - Name: EndFrame
-      Entry: 3
-      Data: 8
-    - Name: Capabilities
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 27|Timeline.SubTimelineClip, Unity.Loader
-    - Name: InValid
-      Entry: 5
-      Data: false
-    - Name: Name
-      Entry: 6
-      Data: 
-    - Name: StartFrame
-      Entry: 3
-      Data: 19
-    - Name: EndFrame
-      Entry: 3
-      Data: 31
-    - Name: Capabilities
-      Entry: 3
-      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -687,11 +217,11 @@ MonoBehaviour:
       Data: 
     - Name: MarkDict
       Entry: 7
-      Data: 28|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Int32,
-        mscorlib]], mscorlib
+      Data: 12|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Timeline.MarkerInfo,
+        Unity.Loader]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 29|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      Data: 13|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -704,10 +234,19 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg_Throw_1
+      Data: Throw_Escape
     - Name: $v
+      Entry: 7
+      Data: 14|Timeline.MarkerInfo, Unity.Loader
+    - Name: frame
       Entry: 3
       Data: 3
+    - Name: description
+      Entry: 1
+      Data: "\u542F\u52A8\u524D3\u5E27\u53EF\u4EE5\u62C6\u6295"
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 

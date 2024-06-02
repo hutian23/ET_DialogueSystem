@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dad01b398c6f634c9e134265baa14a1, type: 3}
-  m_Name: Rg_rg_throw
+  m_Name: Rg_ThrowEscape
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 7400000, guid: f5420f65636486a40bb486a2e0b65a8c, type: 2}
+    - {fileID: 7400000, guid: 67e6fd9b92c93cf45a67b67ad036948e, type: 2}
+    - {fileID: 7400000, guid: bd97b431455383144ae85242062c5b13, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -34,14 +35,14 @@ MonoBehaviour:
       Data: 1|Timeline.BBAnimationTrack, Unity.Loader
     - Name: Name
       Entry: 1
-      Data: BBAnimation
+      Data: Rg_ThrowEscape
     - Name: Clips
       Entry: 7
       Data: 2|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 3|Timeline.BBAnimationClip, Unity.Loader
@@ -53,7 +54,7 @@ MonoBehaviour:
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 64
+      Data: 25
     - Name: Capabilities
       Entry: 3
       Data: 0
@@ -64,38 +65,80 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: KeyframeDict
       Entry: 7
-      Data: 4|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Timeline.BBTimelineKeyframe,
+      Data: 4|Timeline.BBAnimationClip, Unity.Loader
+    - Name: InValid
+      Entry: 5
+      Data: false
+    - Name: StartFrame
+      Entry: 3
+      Data: 25
+    - Name: EndFrame
+      Entry: 3
+      Data: 65
+    - Name: Capabilities
+      Entry: 3
+      Data: 0
+    - Name: animationClip
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: MarkDict
+      Entry: 7
+      Data: 5|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Timeline.MarkerInfo,
         Unity.Loader]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 5|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      Data: 6|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 12
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Throw_Escape
+    - Name: $v
+      Entry: 7
+      Data: 7|Timeline.MarkerInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 3
+    - Name: description
+      Entry: 1
+      Data: "\u6295\u6280\u542F\u52A8\uFF0C\u6B64\u540E\u67095frame\u7684hitstop\uFF0C\u53EF\u5728\u8BE5\u7A97\u53E3\u5185\u62C6\u6295"
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  timelineName: Rg_ThrowRg
+  timelineName: Rg_ThrowEscape

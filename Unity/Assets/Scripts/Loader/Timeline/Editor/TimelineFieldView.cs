@@ -19,15 +19,18 @@ namespace Timeline.Editor
 
         public string MarkerName;
 
+        [TextArea]
+        public string Description;
+
         [Sirenix.OdinInspector.Button("Update Marker")]
         public void CreateMarker()
         {
             fieldView.EditorWindow.ApplyModify(() =>
             {
                 //存在同名marker
-                if (timeline.MarkDict.ContainsKey(MarkerName) && timeline.MarkDict[MarkerName] != frame)
+                if (timeline.MarkDict.TryGetValue(MarkerName, out MarkerInfo info))
                 {
-                    Debug.LogError($"already exist marker:{MarkerName}, {timeline.MarkDict[MarkerName]}!");
+                    Debug.LogError($"already exist marker:{MarkerName}, {info.frame}!");
                     return;
                 }
 
@@ -35,14 +38,16 @@ namespace Timeline.Editor
                 string _key = "";
                 foreach (var pair in timeline.MarkDict)
                 {
-                    if (pair.Value != frame) continue;
+                    MarkerInfo _info = pair.Value;
+                    if (_info.frame != frame) continue;
                     _key = pair.Key;
                 }
 
                 if (!string.IsNullOrEmpty(_key)) timeline.MarkDict.Remove(_key);
 
                 //添加marker
-                timeline.MarkDict.Add(MarkerName, frame);
+                MarkerInfo markerInfo = new() { description = Description, frame = frame };
+                timeline.MarkDict.Add(MarkerName, markerInfo);
             }, "Update Marker");
 
             InspectorDestroy(fieldView);
@@ -56,11 +61,15 @@ namespace Timeline.Editor
         public override void InspectorAwake(TimelineFieldView _fieldView)
         {
             fieldView = _fieldView;
+
             frame = fieldView.GetCurrentTimeLocator();
             foreach (var pair in timeline.MarkDict)
             {
-                if (pair.Value != frame) continue;
+                MarkerInfo info = pair.Value;
+                if (info.frame != frame) continue;
                 MarkerName = pair.Key;
+                Description = info.description;
+                return;
             }
         }
 
@@ -254,7 +263,8 @@ namespace Timeline.Editor
                         string _key = "";
                         foreach (var pair in EditorWindow.BBTimeline.MarkDict)
                         {
-                            if (pair.Value != currentTimeLocator) continue;
+                            MarkerInfo info = pair.Value;
+                            if (info.frame != currentTimeLocator) continue;
                             _key = pair.Key;
                         }
 
@@ -495,7 +505,8 @@ namespace Timeline.Editor
 
             foreach (var pair in EditorWindow.BBTimeline.MarkDict)
             {
-                float pos = FramePosMap[pair.Value] - TrackScrollView.scrollOffset.x;
+                MarkerInfo info = pair.Value;
+                float pos = FramePosMap[info.frame] - TrackScrollView.scrollOffset.x;
                 BBTimelineEditorUtility.DrawDiamond(paint2D, pos);
             }
         }
@@ -565,9 +576,11 @@ namespace Timeline.Editor
             string Marker = "_ _ _";
             foreach (var pair in EditorWindow.BBTimeline.MarkDict)
             {
-                if (pair.Value != currentTimeLocator) continue;
+                MarkerInfo info = pair.Value;
+                if (info.frame != currentTimeLocator) continue;
                 Marker = pair.Key;
             }
+
             EditorWindow.m_currentMarkerField.SetValueWithoutNotify(Marker);
 
             //更新playableGraph

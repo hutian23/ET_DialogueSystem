@@ -24,8 +24,6 @@ namespace Timeline.Editor
         private TimelineFieldView m_TimelineField;
         public IntegerField m_currentFrameField;
         public TextField m_currentMarkerField;
-
-        public Timeline Timeline { get; private set; }
         public TimelinePlayer TimelinePlayer { get; set; }
 
         public BBTimeline BBTimeline => TimelinePlayer.RuntimeimePlayable.Timeline;
@@ -102,7 +100,7 @@ namespace Timeline.Editor
             m_select_timeline_Button = root.Q<Button>("select-timeline-button");
             m_select_timeline_Button.AddManipulator(new DropdownMenuManipulator((menu) =>
             {
-                foreach (var pair in TimelinePlayer.Timelines)
+                foreach (var pair in TimelinePlayer.BBPlayable.Timelines)
                 {
                     var actionName = $"{pair.Key} - {pair.Value.timelineName}";
                     menu.AppendAction(actionName, _ => { TimelinePlayer.OpenWindow(pair.Value); });
@@ -128,29 +126,17 @@ namespace Timeline.Editor
             m_currentMarkerField.RegisterCallback<BlurEvent>(_ =>
             {
                 if (!BBTimeline.MarkDict.ContainsKey(m_currentMarkerField.value)) return;
-                int frame = BBTimeline.MarkDict[m_currentMarkerField.value];
+                int frame = BBTimeline.MarkDict[m_currentMarkerField.value].frame;
                 m_TimelineField.CurrentFrameFieldUpdate(frame);
             });
-            
+
             Undo.undoRedoEvent += OnUndoRedoEvent;
-        }
-
-        private void OnEnable()
-        {
-            // AssemblyReloadEvents.afterAssemblyReload += OnDestroy;
-        }
-
-        private void OnDisable()
-        {
-            // AssemblyReloadEvents.afterAssemblyReload -= OnDestroy;
         }
 
         private void OnDestroy()
         {
             Undo.undoRedoEvent -= OnUndoRedoEvent;
             Dispose();
-            OnDisable();
-
             RuntimePlayable?.Dispose();
         }
 
@@ -183,10 +169,11 @@ namespace Timeline.Editor
 
         private void OnUndoRedoEvent(in UndoRedoInfo info)
         {
-            if (info.undoName.Split(':')[0] == "Timeline" && RuntimePlayable != null)
-            {
-                RuntimePlayable.RebindCallback?.Invoke();
-            }
+            // if (info.undoName.Split(':')[0] == "Timeline" && RuntimePlayable != null)
+            // {
+            //     RuntimePlayable.RebindCallback?.Invoke();
+            // }
+            RuntimePlayable.RebindCallback?.Invoke();
         }
 
         private void UpdateBindState()
@@ -244,7 +231,7 @@ namespace Timeline.Editor
 
         private void UpdateSelectTimeline()
         {
-            foreach (var pair in TimelinePlayer.Timelines)
+            foreach (var pair in TimelinePlayer.BBPlayable.Timelines)
             {
                 if (pair.Value != TimelinePlayer.CurrentTimeline) continue;
                 m_select_timeline_label.text = $"{pair.Key} - {pair.Value.timelineName}";

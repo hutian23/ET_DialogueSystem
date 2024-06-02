@@ -8,6 +8,13 @@ using UnityEngine;
 
 namespace Timeline
 {
+    [Serializable]
+    public class MarkerInfo
+    {
+        public int frame;
+        public string description;
+    }
+
     [CreateAssetMenu(menuName = "ScriptableObject/BBTimeline/Timeline", fileName = "BBTimeline")]
     public class BBTimeline: SerializedScriptableObject
     {
@@ -17,7 +24,7 @@ namespace Timeline
         public List<BBTrack> Tracks = new();
 
         [NonSerialized, OdinSerialize]
-        public Dictionary<string, int> MarkDict = new();
+        public Dictionary<string, MarkerInfo> MarkDict = new();
 
 #if UNITY_EDITOR
         [HideInInspector]
