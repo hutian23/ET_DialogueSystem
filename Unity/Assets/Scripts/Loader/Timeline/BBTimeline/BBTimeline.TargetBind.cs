@@ -79,8 +79,10 @@ namespace Timeline
                 currentClip = targetBindClip;
 
                 //有无关键帧
-                // int clipInFrame = targetFrame - targetBindClip.StartFrame;
-                // if (!targetBindClip.TargetKeyframeDict.TryGetValue(clipInFrame, out var localPos)) return;
+                int clipInFrame = targetFrame - targetBindClip.StartFrame;
+                if (!targetBindClip.TargetKeyframeDict.TryGetValue(clipInFrame, out var localPos)) return;
+                targetBindGo.transform.localPosition = localPos;
+                
                 return;
             }
 
@@ -115,6 +117,7 @@ namespace Timeline
         }
 
         private bool BindGo => targetBindGameObject != null;
+
         [Sirenix.OdinInspector.Button("Record"), Sirenix.OdinInspector.ShowIf("BindGo")]
         public void Record()
         {

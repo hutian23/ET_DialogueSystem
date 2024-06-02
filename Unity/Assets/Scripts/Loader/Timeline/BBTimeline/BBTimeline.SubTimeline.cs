@@ -1,6 +1,7 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using Timeline.Editor;
+using UnityEditor;
 using UnityEngine;
 
 namespace Timeline
@@ -32,7 +33,9 @@ namespace Timeline
 
 #if UNITY_EDITOR
         public override Type ShowInInpsectorType => typeof (BBSubTimelineInspectorData);
-        public TimelinePlayer testBinder;
+
+        //So不能保存对scene gameobject的引用，只记录gameobject name
+        public string testBinder;
 #endif
     }
 
@@ -55,8 +58,8 @@ namespace Timeline
             EditorWindow.ApplyModify(() =>
             {
                 subTimelineClip.BehaviorOrder = Order;
-                subTimelineClip.targetBind = targetBind.targetBindName;
-                subTimelineClip.testBinder = TestBinder;
+                subTimelineClip.targetBind = targetBind == null? string.Empty : targetBind.targetBindName;
+                subTimelineClip.testBinder = TestBinder == null? string.Empty : TestBinder.transform.gameObject.GetFullPath();
             }, "Update subTimelineClip");
         }
 
@@ -92,7 +95,13 @@ namespace Timeline
         private void UpdateProperty()
         {
             Order = subTimelineClip.BehaviorOrder;
-            TestBinder = subTimelineClip.testBinder;
+            //根据引用找到对应go
+            if (!string.IsNullOrEmpty(subTimelineClip.testBinder))
+            {
+                Transform referTrans = EditorWindow.TimelinePlayer.transform.root.Find(subTimelineClip.testBinder);
+                if (referTrans != null) TestBinder = referTrans.GetComponent<TimelinePlayer>();
+            }
+
             foreach (var collector in EditorWindow.TimelinePlayer.GetComponentsInChildren<TargetBindCollector>())
             {
                 if (collector.targetBindName != subTimelineClip.targetBind) continue;
@@ -177,22 +186,24 @@ namespace Timeline
         private readonly SubTimelineClip clip;
         private readonly TimelinePlayer testBinder;
         private readonly RuntimePlayable runtimePlayable;
-        private readonly Vector3 initPos;
 
         public RuntimeSubtimelineClip(SubTimelineClip subClip, RuntimePlayable _runtimePlayable)
         {
             clip = subClip;
+            runtimePlayable = _runtimePlayable;
+
             //未进行绑定
-            if (subClip.testBinder == null) return;
-            testBinder = subClip.testBinder;
+            Transform referTran = runtimePlayable.TimelinePlayer.transform.root.Find(subClip.testBinder);
+            if (referTran == null) return;
+            testBinder = referTran.GetComponent<TimelinePlayer>();
+            if (testBinder == null) return;
 
             BBTimeline currentTimeline = testBinder.GetByOrder(subClip.BehaviorOrder);
             if (currentTimeline == null) return;
             testBinder.Dispose();
             testBinder.Init(currentTimeline);
-            initPos = testBinder.transform.position;
 
-            runtimePlayable = _runtimePlayable;
+            EditorApplication.update += UpdatePos;
         }
 
         public void Evaluate(int targetFrame)
@@ -200,22 +211,25 @@ namespace Timeline
             if (testBinder == null) return;
             int clipInFrame = targetFrame - clip.StartFrame;
             testBinder.RuntimeimePlayable.Evaluate(clipInFrame);
-
-            Vector3 targetBindPos = testBinder.transform.position;
-            foreach (var collector in runtimePlayable.TimelinePlayer.GetComponentsInChildren<TargetBindCollector>())
-            {
-                if (collector.targetBindName != clip.targetBind) continue;
-                targetBindPos = collector.transform.position;
-            }
-
-            testBinder.transform.position = targetBindPos;
         }
 
         public void Dispose()
         {
             if (testBinder == null) return;
             testBinder.Dispose();
-            testBinder.transform.position = initPos;
+
+            EditorApplication.update -= UpdatePos;
+        }
+
+        private void UpdatePos()
+        {
+            if (testBinder == null) return;
+            foreach (var collector in runtimePlayable.TimelinePlayer.GetComponentsInChildren<TargetBindCollector>())
+            {
+                if (collector.targetBindName != clip.targetBind) continue;
+                testBinder.transform.position = collector.transform.position;
+                return;
+            }
         }
     }
 

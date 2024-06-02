@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
-    public class BBTimelineEditorUtility
+    public static class BBTimelineEditorUtility
     {
         public static Dictionary<string, Type> BBTrackTypeDic = new();
 
@@ -65,6 +65,20 @@ namespace Timeline.Editor
                 // }
             }
             return keyframeSet;
+        }
+
+        public static string GetFullPath(this GameObject go)
+        {
+            string path = "/" + go.name;
+            Transform current = go.transform;
+
+            while (current.parent != null)
+            {
+                current = current.parent;
+                path = "/" + current.name + path;
+            }
+
+            return path;
         }
     }
 }

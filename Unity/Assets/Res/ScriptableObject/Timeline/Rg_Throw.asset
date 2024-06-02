@@ -17,7 +17,6 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 7400000, guid: 2f31b0d1d24f8344cac6be9837b7ea8f, type: 2}
-    - {fileID: 0}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -86,10 +85,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -2.06
+      Data: -1.61
     - Name: 
       Entry: 4
-      Data: -0.09
+      Data: -0.22
     - Name: 
       Entry: 4
       Data: 0
@@ -195,8 +194,8 @@ MonoBehaviour:
       Entry: 1
       Data: targetBind
     - Name: testBinder
-      Entry: 10
-      Data: 1
+      Entry: 1
+      Data: /Ragna_Test
     - Name: 
       Entry: 8
       Data: 
