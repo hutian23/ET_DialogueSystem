@@ -71,10 +71,10 @@ namespace ET.Client
 
         public static void EnableBufferCheck(this BehaviorBufferComponent self, ETCancellationToken token)
         {
-            self.GetParent<DialogueComponent>()
-                    .GetComponent<BBInputComponent>()
-                    .GetComponent<BBTimerComponent>()
-                    .NewFrameTimer(BBTimerInvokeType.BehaviorBufferCheckTimer, self);
+            // self.GetParent<DialogueComponent>()
+            //         .GetComponent<BBInputComponent>()
+            //         .GetComponent<BBTimerComponent>()
+            //         .NewFrameTimer(BBTimerInvokeType.BehaviorBufferCheckTimer, self);
             self.inputCheckDict.Values.ForEach(inputCheck => { InputCheckCor(inputCheck, token).Coroutine(); });
         }
 

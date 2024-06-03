@@ -6,12 +6,18 @@ using UnityEngine;
 
 namespace ET.Client
 {
+    public struct BBTestManagerCallback
+    {
+        public long instanceId;
+        public int order;
+    }
+    
     public struct ViewComponentReloadCallback
     {
         public long instanceId;
         public int ReloadType;
         public uint preView_TargetID;
-        public string treeName;
+        public string treeName; 
         public Language language;
     }
 

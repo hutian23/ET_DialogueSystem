@@ -15,7 +15,7 @@ namespace ET.Client
             {
                 long ops = self.CheckInput();
                 self.GetComponent<BBWait>().Notify(ops);
-                self.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgFtg>().Refresh(ops);
+                // self.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgFtg>().Refresh(ops);
             }
         }
 
@@ -24,7 +24,7 @@ namespace ET.Client
         {
             protected override void Awake(BBInputComponent self)
             {
-                self.ClientScene().GetComponent<UIComponent>().ShowWindow<DlgFtg>();
+                // self.ClientScene().GetComponent<UIComponent>().ShowWindow<DlgFtg>();
 
                 BBTimerComponent timerComponent = self.AddComponent<BBTimerComponent>();
                 self.timer = timerComponent.NewFrameTimer(BBTimerInvokeType.CheckInput, self);
@@ -39,8 +39,8 @@ namespace ET.Client
         {
             protected override void Load(BBInputComponent self)
             {
-                self.ClientScene().GetComponent<UIComponent>().UnLoadWindow<DlgFtg>();
-                self.ClientScene().GetComponent<UIComponent>().ShowWindow<DlgFtg>();
+                // self.ClientScene().GetComponent<UIComponent>().UnLoadWindow<DlgFtg>();
+                // self.ClientScene().GetComponent<UIComponent>().ShowWindow<DlgFtg>();
 
                 self.RemoveComponent<BBTimerComponent>();
                 BBTimerComponent timerComponent = self.AddComponent<BBTimerComponent>();

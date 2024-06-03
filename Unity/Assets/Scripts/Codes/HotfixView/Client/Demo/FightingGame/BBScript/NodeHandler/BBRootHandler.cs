@@ -1,6 +1,21 @@
-﻿namespace ET.Client
+﻿using UnityEngine;
+
+namespace ET.Client
 {
+    [Invoke]
+    public class TimelineReloadCallback: AInvokeHandler<BBTestManagerCallback>
+    {
+        public override void Handle(BBTestManagerCallback args)
+        {
+            DialogueComponent dialogueComponent = Root.Instance.Get(args.instanceId) as DialogueComponent;
+            if (dialogueComponent == null) return;
+            dialogueComponent.GetComponent<ObjectWait>().Notify(new WaitNextBehavior() { order = args.order });
+        }
+    }
+
     [FriendOf(typeof (BBInputComponent))]
+    [FriendOf(typeof (BehaviorBufferComponent))]
+    [FriendOf(typeof (BehaviorInfo))]
     public class BBRootHandler: NodeHandler<BBRoot>
     {
         protected override async ETTask<Status> Run(Unit unit, BBRoot node, ETCancellationToken token)
@@ -21,8 +36,21 @@
             BehaviorBufferComponent bufferComponent = dialogueComponent.GetComponent<BehaviorBufferComponent>();
             bufferComponent.EnableBufferCheck(token);
 
-            //3. 执行行为
-            long currentOrder = FTGHelper.GetOrder(BehaviorOrder.Normal, 0);
+            //3. Loader层调试timeline
+            GameObject go = unit.GetComponent<GameObjectComponent>().GameObject;
+            token.Add(() => { UnityEngine.Object.DestroyImmediate(go.GetComponent<BBTestManager>()); });
+            UnityEngine.Object.DestroyImmediate(go.GetComponent<BBTestManager>());
+
+            BBTestManager testManager = go.AddComponent<BBTestManager>();
+            testManager.instanceId = dialogueComponent.InstanceId;
+            testManager.dropdownDict.Clear();
+            foreach (var behaviorInfo in bufferComponent.behaviorDict.Values)
+            {
+                testManager.dropdownDict.Add($"{behaviorInfo.order} --- {behaviorInfo.behaviorName}", (int)behaviorInfo.order);
+            }
+
+            //4. 执行行为
+            long currentOrder = 0;
             while (true)
             {
                 uint targetID = bufferComponent.GetTargetID(currentOrder);
@@ -31,12 +59,12 @@
                     Log.Error($"cannot node TargetID: {targetID} is not a BBNode");
                     return Status.Failed;
                 }
-                
+
                 dialogueComponent.SetNodeStatus(bbNode, Status.Pending);
                 await DialogueDispatcherComponent.Instance.Handle(unit, bbNode, token);
                 if (token.IsCancel()) return Status.Failed;
                 dialogueComponent.SetNodeStatus(bbNode, Status.None);
-                
+
                 //等待执行下一个行为
                 ObjectWait objectWait = dialogueComponent.GetComponent<ObjectWait>();
                 WaitNextBehavior wait = await objectWait.Wait<WaitNextBehavior>(token);
@@ -44,8 +72,9 @@
                 {
                     return Status.Failed;
                 }
+
                 currentOrder = wait.order;
-                
+
                 //这里是我怕死循环了，过一帧再执行
                 await TimerComponent.Instance.WaitFrameAsync(token);
                 if (token.IsCancel()) return Status.Failed;

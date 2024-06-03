@@ -85,10 +85,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -1.61
+      Data: -1.62
     - Name: 
       Entry: 4
-      Data: -0.22
+      Data: -0.3
     - Name: 
       Entry: 4
       Data: 0
@@ -171,7 +171,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 11|Timeline.SubTimelineClip, Unity.Loader
@@ -200,6 +200,33 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 12|Timeline.SubTimelineClip, Unity.Loader
+    - Name: InValid
+      Entry: 5
+      Data: false
+    - Name: StartFrame
+      Entry: 3
+      Data: 3
+    - Name: EndFrame
+      Entry: 3
+      Data: 20
+    - Name: Capabilities
+      Entry: 3
+      Data: 0
+    - Name: BehaviorOrder
+      Entry: 3
+      Data: 0
+    - Name: targetBind
+      Entry: 6
+      Data: 
+    - Name: testBinder
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -216,11 +243,11 @@ MonoBehaviour:
       Data: 
     - Name: MarkDict
       Entry: 7
-      Data: 12|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Timeline.MarkerInfo,
+      Data: 13|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Timeline.MarkerInfo,
         Unity.Loader]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 13|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      Data: 14|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -236,7 +263,7 @@ MonoBehaviour:
       Data: Throw_Escape
     - Name: $v
       Entry: 7
-      Data: 14|Timeline.MarkerInfo, Unity.Loader
+      Data: 15|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 3

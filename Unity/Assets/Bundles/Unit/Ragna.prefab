@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 7728331812354445377}
   - component: {fileID: 7468455045085988073}
   - component: {fileID: 8035865075596228849}
-  - component: {fileID: 2801466458652767405}
+  - component: {fileID: 8477314744438082376}
   m_Layer: 0
   m_Name: Ragna
   m_TagString: Untagged
@@ -271,7 +271,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2801466458652767405
+--- !u!114 &8477314744438082376
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -286,75 +286,18 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 5bb73b501c1d91e4cbe1b1accb828527, type: 2}
-    - {fileID: 2801466458652767405}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: Timelines
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Timeline.BBTimeline,
-        Unity.Loader]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Test1
-    - Name: $v
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: RuntimeimePlayable
-      Entry: 7
-      Data: 2|Timeline.RuntimePlayable, Unity.Loader
-    - Name: Timeline
-      Entry: 10
-      Data: 0
-    - Name: TimelinePlayer
-      Entry: 10
-      Data: 1
-    - Name: RuntimeTracks
-      Entry: 7
-      Data: 3|System.Collections.Generic.List`1[[Timeline.RuntimeTrack, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Time
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-  ApplyRootMotion: 0
+  ApplyRootMotion: 1
+  BBPlayable: {fileID: 11400000, guid: 94b58ded95a18bf49958a695850fae83, type: 2}
+  CurrentTimeline: {fileID: 0}
 --- !u!1 &7728331812427471843
 GameObject:
   m_ObjectHideFlags: 0

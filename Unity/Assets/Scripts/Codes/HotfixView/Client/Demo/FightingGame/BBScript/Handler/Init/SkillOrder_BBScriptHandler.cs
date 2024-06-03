@@ -12,46 +12,34 @@ namespace ET.Client
             return "SkillOrder";
         }
 
-        //SkillOrder: Normal,30;
+        //SkillOrder: 0;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"SkillOrder: (?<skill>\w+),(?<order>\w+);");
+            //Find node
+            DialogueComponent dialogueComponent = parser.GetParent<DialogueComponent>();
+            BBNode node = dialogueComponent.GetNode(data.targetID) as BBNode;
+
+            Match match = Regex.Match(data.opLine, @"SkillOrder: (?<order>\w+);");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
-            string skillType = match.Groups["skill"].Value;
-            uint skill = 0;
-            switch (skillType)
-            {
-                case "Move":
-                    skill = BehaviorOrder.Move;
-                    break;
-                case "Normal":
-                    skill = BehaviorOrder.Normal;
-                    break;
-                case "SpecialMove":
-                    skill = BehaviorOrder.SpecialMove;
-                    break;
-                case "SuperArt":
-                    skill = BehaviorOrder.SuperArt;
-                    break;
-            }
-
-            uint.TryParse(match.Groups["order"].Value, out uint order);
+            //update behavior info
+            string skillOrder = match.Groups["order"].Value;
+            uint.TryParse(skillOrder, out uint order);
             BehaviorInfo info = FTGHelper.GetBehaviorInfo(parser, data.targetID);
             info.order = order;
-            info.skillType = skill;
-            
+            info.behaviorName = node.behaviorName;
+
             BehaviorBufferComponent bufferComponent = parser.GetParent<DialogueComponent>().GetComponent<BehaviorBufferComponent>();
             if (!bufferComponent.orderDict.TryAdd(info.GetOrder(), info.targetID))
             {
                 Log.Error($"already contain order: {info.GetOrder()}");
                 return Status.Failed;
             }
-            
+
             await ETTask.CompletedTask;
             return Status.Success;
         }
