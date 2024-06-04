@@ -7,13 +7,13 @@ namespace ET.Client
     {
         public override string GetOPType()
         {
-            return "Marker";
+            return "BBSprite";
         }
 
-        //Marker: 'Rg00_1',3;
+        //BBSprite: 'Rg00_1',3;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, "Marker: '(?<Sprite>.*?)', (?<WaitFrame>.*?);");
+            Match match = Regex.Match(data.opLine, "BBSprite: '(?<Sprite>.*?)', (?<WaitFrame>.*?);");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(data.opLine);
@@ -21,13 +21,21 @@ namespace ET.Client
             }
 
             string marker = match.Groups["Sprite"].Value;
-
+            int.TryParse(match.Groups["WaitFrame"].Value, out int waitFrame);
+            
             Unit unit = parser.GetParent<DialogueComponent>().GetParent<Unit>();
+            
+            //Evaluate playableGraph
             TimelinePlayer timelinePlayer = unit.GetComponent<GameObjectComponent>().GameObject.GetComponent<TimelinePlayer>();
             BBTimeline timeline = timelinePlayer.CurrentTimeline;
-
             timeline.MarkDict.TryGetValue(marker, out MarkerInfo info);
-            Log.Warning(info.frame.ToString());
+            RuntimePlayable runtimePlayable = timelinePlayer.RuntimeimePlayable;
+            runtimePlayable.Evaluate(info.frame);
+            
+            //wait time
+            BBTimerComponent timerComponent = parser.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>();
+            await timerComponent.WaitAsync(waitFrame, token);
+            if (token.IsCancel()) return Status.Failed;
 
             await ETTask.CompletedTask;
             return Status.Success;

@@ -181,8 +181,42 @@ MonoBehaviour:
 
         @Main:
 
-        Marker:
-        ''Rg00_2'', 3;
+        SetMarker:
+        ''Loop'';
+
+        BBSprite: ''Rg00_1'', 4;
+
+        BBSprite: ''Rg00_2'',
+        4;
+
+        BBSprite: ''Rg00_3'', 4;
+
+        BBSprite: ''Rg00_4'', 4;
+
+        BBSprite:
+        ''Rg00_5'', 4;
+
+        BBSprite: ''Rg00_6'', 4;
+
+        BBSprite: ''Rg00_7'',
+        4;
+
+        BBSprite: ''Rg00_8'', 4;
+
+        BBSprite: ''Rg00_9'', 4;
+
+        BBSprite:
+        ''Rg00_10'', 4;
+
+        BBSprite: ''Rg00_11'', 4;
+
+        BBSprite: ''Rg00_12'',
+        4;
+
+        BBSprite: ''Rg00_13'', 4;
+
+        GotoMarker: ''Loop'';
+
 
         return;'
     - Name: 
@@ -508,99 +542,22 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: $v
       Entry: 7
-      Data: 22|ET.Client.BBRoot, Unity.Loader
+      Data: 22|ET.Client.BBNode, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 1
     - Name: TargetID
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: NeedCheck
       Entry: 5
       Data: false
     - Name: checkList
       Entry: 7
       Data: 23|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ShowScript
-      Entry: 5
-      Data: false
-    - Name: Script
-      Entry: 1
-      Data: 
-    - Name: text
-      Entry: 6
-      Data: 
-    - Name: Guid
-      Entry: 1
-      Data: 4a1ddc580c8276644bbca0e546f60d7b
-    - Name: position
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 218
-    - Name: 
-      Entry: 4
-      Data: 200
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Status
-      Entry: 3
-      Data: 0
-    - Name: LocalizationGroups
-      Entry: 7
-      Data: 24|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 7
-      Data: 25|ET.Client.BBNode, Unity.Loader
-    - Name: TreeID
-      Entry: 3
-      Data: 1
-    - Name: TargetID
-      Entry: 3
-      Data: 2
-    - Name: NeedCheck
-      Entry: 5
-      Data: false
-    - Name: checkList
-      Entry: 7
-      Data: 26|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -640,7 +597,7 @@ MonoBehaviour:
       Data: 0
     - Name: LocalizationGroups
       Entry: 7
-      Data: 27|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+      Data: 24|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -665,10 +622,121 @@ MonoBehaviour:
 
         @Main:
 
-        Marker:
-        ''Rg00_2'', 3;
+        SetMarker:
+        ''Loop'';
+
+        BBSprite: ''Rg00_1'', 4;
+
+        BBSprite: ''Rg00_2'',
+        4;
+
+        BBSprite: ''Rg00_3'', 4;
+
+        BBSprite: ''Rg00_4'', 4;
+
+        BBSprite:
+        ''Rg00_5'', 4;
+
+        BBSprite: ''Rg00_6'', 4;
+
+        BBSprite: ''Rg00_7'',
+        4;
+
+        BBSprite: ''Rg00_8'', 4;
+
+        BBSprite: ''Rg00_9'', 4;
+
+        BBSprite:
+        ''Rg00_10'', 4;
+
+        BBSprite: ''Rg00_11'', 4;
+
+        BBSprite: ''Rg00_12'',
+        4;
+
+        BBSprite: ''Rg00_13'', 4;
+
+        GotoMarker: ''Loop'';
+
 
         return;'
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: 25|ET.Client.BBRoot, Unity.Loader
+    - Name: TreeID
+      Entry: 3
+      Data: 1
+    - Name: TargetID
+      Entry: 3
+      Data: 1
+    - Name: NeedCheck
+      Entry: 5
+      Data: false
+    - Name: checkList
+      Entry: 7
+      Data: 26|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ShowScript
+      Entry: 5
+      Data: false
+    - Name: Script
+      Entry: 1
+      Data: 
+    - Name: text
+      Entry: 6
+      Data: 
+    - Name: Guid
+      Entry: 1
+      Data: 4a1ddc580c8276644bbca0e546f60d7b
+    - Name: position
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 218
+    - Name: 
+      Entry: 4
+      Data: 200
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Status
+      Entry: 3
+      Data: 0
+    - Name: LocalizationGroups
+      Entry: 7
+      Data: 27|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 

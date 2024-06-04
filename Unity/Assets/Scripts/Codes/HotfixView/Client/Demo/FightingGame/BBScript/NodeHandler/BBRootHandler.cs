@@ -8,8 +8,13 @@ namespace ET.Client
         public override void Handle(BBTestManagerCallback args)
         {
             DialogueComponent dialogueComponent = Root.Instance.Get(args.instanceId) as DialogueComponent;
-            if (dialogueComponent == null) return;
-            dialogueComponent.GetComponent<ObjectWait>().Notify(new WaitNextBehavior() { order = args.order });
+            if (dialogueComponent == null)
+            {
+                return;
+            }
+
+            ObjectWait objectWait = dialogueComponent.GetComponent<ObjectWait>();
+            objectWait.Notify(new WaitStopCurrentBehavior() { order = args.order });
         }
     }
 
@@ -53,6 +58,7 @@ namespace ET.Client
             long currentOrder = 0;
             while (true)
             {
+                //根据Order找到对应节点
                 uint targetID = bufferComponent.GetTargetID(currentOrder);
                 if (dialogueComponent.GetNode(targetID) is not BBNode bbNode)
                 {
@@ -60,13 +66,30 @@ namespace ET.Client
                     return Status.Failed;
                 }
 
-                dialogueComponent.SetNodeStatus(bbNode, Status.Pending);
-                await DialogueDispatcherComponent.Instance.Handle(unit, bbNode, token);
-                if (token.IsCancel()) return Status.Failed;
-                dialogueComponent.SetNodeStatus(bbNode, Status.None);
-
-                //等待执行下一个行为
                 ObjectWait objectWait = dialogueComponent.GetComponent<ObjectWait>();
+
+                //支持 TestManager 取消当前行为(比如一个loop的行为，这里就一直不会往下执行)，预览下一个行为
+                ETCancellationToken waitStopToken = new();
+
+                async ETTask WaitStopCurrentBehaviorCor()
+                {
+                    await objectWait.Wait<WaitStopCurrentBehavior>(token);
+                    waitStopToken.Cancel();
+                }
+
+                WaitStopCurrentBehaviorCor().Coroutine();
+
+                dialogueComponent.SetNodeStatus(bbNode, Status.Pending);
+                await DialogueDispatcherComponent.Instance.Handle(unit, bbNode, waitStopToken);
+                
+                if (token.IsCancel())
+                {
+                    return Status.Failed;
+                }
+
+                dialogueComponent.SetNodeStatus(bbNode, Status.None);
+                
+                //等待执行下一个行为
                 WaitNextBehavior wait = await objectWait.Wait<WaitNextBehavior>(token);
                 if (token.IsCancel())
                 {
@@ -74,10 +97,13 @@ namespace ET.Client
                 }
 
                 currentOrder = wait.order;
-
+                Log.Warning(currentOrder.ToString());
                 //这里是我怕死循环了，过一帧再执行
                 await TimerComponent.Instance.WaitFrameAsync(token);
-                if (token.IsCancel()) return Status.Failed;
+                if (token.IsCancel())
+                {
+                    return Status.Failed;
+                }
             }
         }
     }
