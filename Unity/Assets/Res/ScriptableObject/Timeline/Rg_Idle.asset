@@ -28,13 +28,13 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
-      Data: 1|Timeline.BBAnimationTrack, Unity.Loader
+      Data: 1|Timeline.BBHitboxTrack, Unity.Loader
     - Name: Name
       Entry: 1
-      Data: Rg_Idle
+      Data: BBHitbox
     - Name: Clips
       Entry: 7
       Data: 2|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
@@ -44,7 +44,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 3|Timeline.BBAnimationClip, Unity.Loader
+      Data: 3|Timeline.BBHitboxClip, Unity.Loader
     - Name: InValid
       Entry: 5
       Data: false
@@ -53,7 +53,67 @@ MonoBehaviour:
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 60
+      Data: 10
+    - Name: Capabilities
+      Entry: 3
+      Data: 0
+    - Name: boxInfoDict
+      Entry: 7
+      Data: 4|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[System.Collections.Generic.List`1[[Timeline.BoxInfo,
+        Unity.Loader]], mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 5|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|Timeline.BBAnimationTrack, Unity.Loader
+    - Name: Name
+      Entry: 1
+      Data: Rg_Idle
+    - Name: Clips
+      Entry: 7
+      Data: 7|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 8|Timeline.BBAnimationClip, Unity.Loader
+    - Name: InValid
+      Entry: 5
+      Data: false
+    - Name: StartFrame
+      Entry: 3
+      Data: 0
+    - Name: EndFrame
+      Entry: 3
+      Data: 48
     - Name: Capabilities
       Entry: 3
       Data: 0
@@ -80,11 +140,11 @@ MonoBehaviour:
       Data: 
     - Name: MarkDict
       Entry: 7
-      Data: 4|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Timeline.MarkerInfo,
+      Data: 9|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Timeline.MarkerInfo,
         Unity.Loader]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 5|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      Data: 10|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -100,7 +160,7 @@ MonoBehaviour:
       Data: Rg00_1
     - Name: $v
       Entry: 7
-      Data: 6|Timeline.MarkerInfo, Unity.Loader
+      Data: 11|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 0
@@ -121,10 +181,10 @@ MonoBehaviour:
       Data: Rg00_2
     - Name: $v
       Entry: 7
-      Data: 7|Timeline.MarkerInfo, Unity.Loader
+      Data: 12|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 5
+      Data: 4
     - Name: description
       Entry: 6
       Data: 
@@ -142,10 +202,10 @@ MonoBehaviour:
       Data: Rg00_3
     - Name: $v
       Entry: 7
-      Data: 8|Timeline.MarkerInfo, Unity.Loader
+      Data: 13|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 10
+      Data: 8
     - Name: description
       Entry: 6
       Data: 
@@ -163,10 +223,10 @@ MonoBehaviour:
       Data: Rg00_4
     - Name: $v
       Entry: 7
-      Data: 9|Timeline.MarkerInfo, Unity.Loader
+      Data: 14|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 15
+      Data: 12
     - Name: description
       Entry: 6
       Data: 
@@ -184,10 +244,10 @@ MonoBehaviour:
       Data: Rg00_5
     - Name: $v
       Entry: 7
-      Data: 10|Timeline.MarkerInfo, Unity.Loader
+      Data: 15|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 20
+      Data: 16
     - Name: description
       Entry: 6
       Data: 
@@ -205,10 +265,10 @@ MonoBehaviour:
       Data: Rg00_6
     - Name: $v
       Entry: 7
-      Data: 11|Timeline.MarkerInfo, Unity.Loader
+      Data: 16|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 25
+      Data: 20
     - Name: description
       Entry: 6
       Data: 
@@ -226,115 +286,10 @@ MonoBehaviour:
       Data: Rg00_7
     - Name: $v
       Entry: 7
-      Data: 12|Timeline.MarkerInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 30
-    - Name: description
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Rg00_8
-    - Name: $v
-      Entry: 7
-      Data: 13|Timeline.MarkerInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 35
-    - Name: description
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Rg00_9
-    - Name: $v
-      Entry: 7
-      Data: 14|Timeline.MarkerInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 40
-    - Name: description
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Rg00_10
-    - Name: $v
-      Entry: 7
-      Data: 15|Timeline.MarkerInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 45
-    - Name: description
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Rg00_11
-    - Name: $v
-      Entry: 7
-      Data: 16|Timeline.MarkerInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 50
-    - Name: description
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Rg00_12
-    - Name: $v
-      Entry: 7
       Data: 17|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 55
+      Data: 24
     - Name: description
       Entry: 6
       Data: 
@@ -355,7 +310,112 @@ MonoBehaviour:
       Data: 18|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 60
+      Data: 48
+    - Name: description
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Rg00_12
+    - Name: $v
+      Entry: 7
+      Data: 19|Timeline.MarkerInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 44
+    - Name: description
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Rg00_11
+    - Name: $v
+      Entry: 7
+      Data: 20|Timeline.MarkerInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 40
+    - Name: description
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Rg00_10
+    - Name: $v
+      Entry: 7
+      Data: 21|Timeline.MarkerInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 36
+    - Name: description
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Rg00_9
+    - Name: $v
+      Entry: 7
+      Data: 22|Timeline.MarkerInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 32
+    - Name: description
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Rg00_8
+    - Name: $v
+      Entry: 7
+      Data: 23|Timeline.MarkerInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 28
     - Name: description
       Entry: 6
       Data: 

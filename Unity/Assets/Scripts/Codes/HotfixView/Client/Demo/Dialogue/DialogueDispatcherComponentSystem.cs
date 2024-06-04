@@ -139,7 +139,10 @@ namespace ET.Client
             {
                 //执行脚本
                 await DialogueDispatcherComponent.Instance.ScriptHandles(unit, node as DialogueNode, token);
-                if (token.IsCancel()) return Status.Failed;
+                if (token.IsCancel())
+                {
+                    return Status.Failed;
+                }
                 return await handler.Handle(unit, node, token);
             }
 

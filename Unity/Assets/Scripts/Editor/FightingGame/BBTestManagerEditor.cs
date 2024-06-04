@@ -17,13 +17,34 @@ namespace ET.Client
                 testManager.dropdownDict.Keys.ToArray(),
                 testManager.dropdownDict.Values.ToArray());
 
-            if (EditorApplication.isPlaying && GUILayout.Button("测试"))
+            if (GUILayout.Button("Test Behavior"))
             {
-                EventSystem.Instance.Invoke(new BBTestManagerCallback()
+                if (EditorApplication.isPlaying)
                 {
-                    instanceId = testManager.instanceId, 
-                    order = testManager.currentOrder
-                });
+                    EventSystem.Instance.Invoke(new BBTestManagerCallback()
+                    {
+                        instanceId = testManager.instanceId, order = testManager.currentOrder, stop = 0
+                    });
+                }
+                else
+                {
+                    Debug.LogError("cannot editor in edit mode");
+                }
+            }
+
+            if (GUILayout.Button("Stop Behavior"))
+            {
+                if (EditorApplication.isPlaying)
+                {
+                    EventSystem.Instance.Invoke(new BBTestManagerCallback()
+                    {
+                        instanceId = testManager.instanceId, order = testManager.currentOrder, stop = 1
+                    });
+                }
+                else
+                {
+                    Debug.LogError("cannot edit in edit mode");
+                }
             }
         }
     }

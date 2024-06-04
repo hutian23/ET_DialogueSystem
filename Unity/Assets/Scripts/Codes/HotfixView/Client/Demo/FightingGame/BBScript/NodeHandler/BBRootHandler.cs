@@ -15,6 +15,10 @@ namespace ET.Client
 
             ObjectWait objectWait = dialogueComponent.GetComponent<ObjectWait>();
             objectWait.Notify(new WaitStopCurrentBehavior() { order = args.order });
+            if (args.stop == 0)
+            {
+                objectWait.Notify(new WaitNextBehavior() { order = args.order });   
+            }
         }
     }
 
@@ -69,26 +73,27 @@ namespace ET.Client
                 ObjectWait objectWait = dialogueComponent.GetComponent<ObjectWait>();
 
                 //支持 TestManager 取消当前行为(比如一个loop的行为，这里就一直不会往下执行)，预览下一个行为
-                ETCancellationToken waitStopToken = new();
-
                 async ETTask WaitStopCurrentBehaviorCor()
                 {
                     await objectWait.Wait<WaitStopCurrentBehavior>(token);
-                    waitStopToken.Cancel();
+                    if (token.IsCancel())
+                    {
+                        return;
+                    }
+                    dialogueComponent.GetComponent<BBParser>().Cancel();
                 }
-
                 WaitStopCurrentBehaviorCor().Coroutine();
 
                 dialogueComponent.SetNodeStatus(bbNode, Status.Pending);
-                await DialogueDispatcherComponent.Instance.Handle(unit, bbNode, waitStopToken);
-                
+                await DialogueDispatcherComponent.Instance.Handle(unit, bbNode, token);
+
                 if (token.IsCancel())
                 {
                     return Status.Failed;
                 }
 
                 dialogueComponent.SetNodeStatus(bbNode, Status.None);
-                
+
                 //等待执行下一个行为
                 WaitNextBehavior wait = await objectWait.Wait<WaitNextBehavior>(token);
                 if (token.IsCancel())
@@ -97,7 +102,6 @@ namespace ET.Client
                 }
 
                 currentOrder = wait.order;
-                Log.Warning(currentOrder.ToString());
                 //这里是我怕死循环了，过一帧再执行
                 await TimerComponent.Instance.WaitFrameAsync(token);
                 if (token.IsCancel())

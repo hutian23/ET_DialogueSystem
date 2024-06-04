@@ -10,6 +10,7 @@ namespace ET.Client
     {
         public long instanceId;
         public int order;
+        public int stop;
     }
     
     public struct ViewComponentReloadCallback

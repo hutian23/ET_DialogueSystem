@@ -19,23 +19,12 @@ namespace Timeline
     }
 
     public delegate void Evaluate(float deltaTime);
-    
+
     public static class TimelineUtility
     {
         public static int FrameRate = 60;
 
-        public static float MinEvaluateDeltaTime
-        {
-            get
-            {
-                if (Application.isPlaying)
-                {
-                    return Time.deltaTime;
-                }
-
-                return 1f / FrameRate;
-            }
-        }
+        public static float MinEvaluateDeltaTime => 1f / FrameRate;
 
         public static void Lerp(float targetTime, float deltaTime, Evaluate evaluateSplitDeltaTime, ref float lastTime)
         {
@@ -54,6 +43,7 @@ namespace Timeline
                     {
                         splitDeltaTime = Mathf.Max(splitDeltaTime, targetTime - lastTime);
                     }
+
                     evaluateSplitDeltaTime(splitDeltaTime);
                     lastTime += splitDeltaTime;
                 }
