@@ -62,7 +62,7 @@ namespace Timeline
         [Sirenix.OdinInspector.Button("Rebind")]
         public void Rebind()
         {
-            FieldView.EditorWindow.ApplyModify(() => { Clip.animationClip = AnimationClip; }, "rebind animationClip");
+            FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() => { Clip.animationClip = AnimationClip; }, "rebind animationClip");
         }
 
         public AnimationClipInspectorData(object target): base(target)

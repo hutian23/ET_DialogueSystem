@@ -192,21 +192,31 @@ namespace Timeline
             UpdateCastBoxInspector();
         }
 
+        [Sirenix.OdinInspector.Button("移除")]
+        public void DeleteHitbox()
+        {
+            FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() => { hitboxClip.boxInfoDict.Remove(ClipInFrame); }, "Delete Hitbox");
+        }
+
         [Sirenix.OdinInspector.Button("保存")]
         public void SaveHitbox()
         {
-            if (!hitboxClip.boxInfoDict.TryGetValue(ClipInFrame, out List<BoxInfo> infos))
+            FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() =>
             {
-                Debug.LogError("not exist hibox key frame " + ClipInFrame);
-                return;
-            }
+                if (!hitboxClip.boxInfoDict.ContainsKey(ClipInFrame))
+                {
+                    hitboxClip.boxInfoDict.TryAdd(ClipInFrame, new List<BoxInfo>());
+                }
 
-            infos.Clear();
-            foreach (CastBox castBox in timelinePlayer.GetComponentsInChildren<CastBox>())
-            {
-                var copyInfo = MongoHelper.Clone(castBox.info);
-                infos.Add(copyInfo);
-            }
+                hitboxClip.boxInfoDict.TryGetValue(ClipInFrame, out var infos);
+
+                infos.Clear();
+                foreach (CastBox castBox in timelinePlayer.GetComponentsInChildren<CastBox>())
+                {
+                    var copyInfo = MongoHelper.Clone(castBox.info);
+                    infos.Add(copyInfo);
+                }
+            }, "Save Hitbox");
         }
 
         #endregion
@@ -230,7 +240,6 @@ namespace Timeline
                 CastBoxInfo castBoxInfo = new(castBox, this);
                 CastBoxInfos.Add(castBoxInfo);
             }
-            Undo.ClearAll();
         }
 
         public override void InspectorUpdate(TimelineFieldView fieldView)

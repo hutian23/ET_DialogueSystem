@@ -150,6 +150,17 @@ namespace Timeline.Editor
             EditorUtility.SetDirty(BBTimeline);
         }
 
+        public void ApplyModifyWithoutButtonUndo(Action action, string _name, bool rebind = true)
+        {
+            //不希望按钮事件添加到undo中
+            Undo.IncrementCurrentGroup();
+            int undoGroup = Undo.GetCurrentGroup();
+
+            ApplyModify(action, _name, rebind);
+
+            Undo.CollapseUndoOperations(undoGroup);
+        }
+
         public void Dispose()
         {
             m_TimelineField.Dispose();
@@ -169,11 +180,11 @@ namespace Timeline.Editor
 
         private void OnUndoRedoEvent(in UndoRedoInfo info)
         {
-            // if (info.undoName.Split(':')[0] == "Timeline" && RuntimePlayable != null)
-            // {
-            //     RuntimePlayable.RebindCallback?.Invoke();
-            // }
-            RuntimePlayable.RebindCallback?.Invoke();
+            if (info.undoName.Split(':')[0] == "Timeline" && RuntimePlayable != null)
+            {
+                RuntimePlayable.RebindCallback?.Invoke();
+            }
+            // RuntimePlayable.RebindCallback?.Invoke();
         }
 
         private void UpdateBindState()
