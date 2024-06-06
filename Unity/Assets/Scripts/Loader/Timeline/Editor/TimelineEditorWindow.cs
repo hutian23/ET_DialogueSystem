@@ -184,7 +184,6 @@ namespace Timeline.Editor
             {
                 RuntimePlayable.RebindCallback?.Invoke();
             }
-            // RuntimePlayable.RebindCallback?.Invoke();
         }
 
         private void UpdateBindState()

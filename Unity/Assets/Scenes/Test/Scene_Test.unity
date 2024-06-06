@@ -421,7 +421,7 @@ Transform:
   m_GameObject: {fileID: 793098615}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.9, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -659,6 +659,9 @@ MonoBehaviour:
     - Name: animationClip
       Entry: 10
       Data: 2
+    - Name: rootMotionList
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -680,6 +683,9 @@ MonoBehaviour:
     - Name: animationClip
       Entry: 10
       Data: 3
+    - Name: rootMotionList
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -928,7 +934,7 @@ SpriteRenderer:
   m_SortingLayerID: 2016810935
   m_SortingLayer: 1
   m_SortingOrder: 100
-  m_Sprite: {fileID: 1633333993, guid: 5bff696bc646bc24da588afc6c65f285, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b15c13692ba3b5c479bba8c2bcc26881, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -948,7 +954,7 @@ Transform:
   m_GameObject: {fileID: 1357804244}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1096,7 +1102,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: c0cd7836fc6803b4f89e9d0e576a4510, type: 2}
   m_CullingMode: 2
   m_UpdateMode: 1
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1143,8 +1149,11 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 3db21ea503a2acf41a86a07c8518ad0d, type: 2}
+    - {fileID: 11400000, guid: e4a2b8e189ce639418bd1b29eae8f2e1, type: 2}
     - {fileID: 5593543514667996731}
+    - {fileID: 7400000, guid: 523da62edc93314409c7914a7ddd1d65, type: 2}
+    - {fileID: 7400000, guid: bd97b431455383144ae85242062c5b13, type: 2}
+    - {fileID: 0}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -1165,7 +1174,83 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 2|Timeline.RuntimeAnimationTrack, Unity.Loader
+    - Name: Track
+      Entry: 7
+      Data: 3|Timeline.BBAnimationTrack, Unity.Loader
+    - Name: Name
+      Entry: 1
+      Data: Rg_ThrowEscape
+    - Name: Clips
+      Entry: 7
+      Data: 4|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 5|Timeline.BBAnimationClip, Unity.Loader
+    - Name: InValid
+      Entry: 5
+      Data: false
+    - Name: StartFrame
+      Entry: 3
       Data: 0
+    - Name: EndFrame
+      Entry: 3
+      Data: 25
+    - Name: Capabilities
+      Entry: 3
+      Data: 0
+    - Name: animationClip
+      Entry: 10
+      Data: 2
+    - Name: rootMotionList
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|Timeline.BBAnimationClip, Unity.Loader
+    - Name: InValid
+      Entry: 5
+      Data: false
+    - Name: StartFrame
+      Entry: 3
+      Data: 25
+    - Name: EndFrame
+      Entry: 3
+      Data: 65
+    - Name: Capabilities
+      Entry: 3
+      Data: 0
+    - Name: animationClip
+      Entry: 10
+      Data: 3
+    - Name: rootMotionList
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -1174,13 +1259,22 @@ MonoBehaviour:
       Data: 
     - Name: RebindCallback
       Entry: 7
-      Data: 2|System.Action, mscorlib
+      Data: 7|System.Action, mscorlib
+    - Name: invocationList
+      Entry: 7
+      Data: 8|System.Delegate[], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 9|System.Action, mscorlib
     - Name: target
       Entry: 9
       Data: 0
     - Name: declaringType
       Entry: 7
-      Data: 3|System.RuntimeType, mscorlib
+      Data: 10|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
       Data: Timeline.RuntimePlayable, Unity.Loader
@@ -1192,7 +1286,7 @@ MonoBehaviour:
       Data: Rebind
     - Name: delegateType
       Entry: 7
-      Data: 4|System.RuntimeType, mscorlib
+      Data: 11|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
       Data: System.Action, mscorlib
@@ -1201,7 +1295,7 @@ MonoBehaviour:
       Data: 
     - Name: signature
       Entry: 7
-      Data: 5|System.Type[], mscorlib
+      Data: 12|System.Type[], mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -1215,11 +1309,56 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 13|System.Action, mscorlib
+    - Name: target
+      Entry: 10
+      Data: 4
+    - Name: declaringType
+      Entry: 7
+      Data: 14|System.RuntimeType, mscorlib
+    - Name: 
+      Entry: 1
+      Data: Timeline.Editor.TimelineEditorWindow, Unity.Loader
+    - Name: 
       Entry: 8
       Data: 
-  ApplyRootMotion: 0
+    - Name: methodName
+      Entry: 1
+      Data: PopulateView
+    - Name: delegateType
+      Entry: 9
+      Data: 11
+    - Name: signature
+      Entry: 7
+      Data: 15|System.Type[], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  ApplyRootMotion: 1
   BBPlayable: {fileID: 11400000, guid: 94b58ded95a18bf49958a695850fae83, type: 2}
-  CurrentTimeline: {fileID: 11400000, guid: 3db21ea503a2acf41a86a07c8518ad0d, type: 2}
+  CurrentTimeline: {fileID: 11400000, guid: e4a2b8e189ce639418bd1b29eae8f2e1, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -60,6 +60,18 @@ MonoBehaviour:
     - Name: animationClip
       Entry: 10
       Data: 0
+    - Name: rootMotionList
+      Entry: 7
+      Data: 4|ET.ListComponent`1[[Timeline.RootMotionData, Unity.Loader]], Unity.Core
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -80,11 +92,11 @@ MonoBehaviour:
       Data: 
     - Name: MarkDict
       Entry: 7
-      Data: 4|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Timeline.MarkerInfo,
+      Data: 5|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Timeline.MarkerInfo,
         Unity.Loader]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 5|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      Data: 6|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8

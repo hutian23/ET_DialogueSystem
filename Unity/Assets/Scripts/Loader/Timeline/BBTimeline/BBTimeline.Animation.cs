@@ -34,6 +34,9 @@ namespace Timeline
     {
         public UnityEngine.AnimationClip animationClip;
 
+        //rootmotion data
+        public Dictionary<string, RootMotionData> rootMotionList = new();
+
         public BBAnimationClip(int frame): base(frame)
         {
         }
@@ -41,6 +44,14 @@ namespace Timeline
 #if UNITY_EDITOR
         public override Type ShowInInpsectorType => typeof (AnimationClipInspectorData);
 #endif
+    }
+
+    [Serializable]
+    public class RootMotionData
+    {
+        public string propertyName;
+
+        public Dictionary<int, float> datas = new();
     }
 
     #region Editor
@@ -62,7 +73,34 @@ namespace Timeline
         [Sirenix.OdinInspector.Button("Rebind")]
         public void Rebind()
         {
-            FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() => { Clip.animationClip = AnimationClip; }, "rebind animationClip");
+            FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() =>
+            {
+                Clip.animationClip = AnimationClip;
+                Clip.rootMotionList.Clear();
+
+                foreach (var binding in AnimationUtility.GetCurveBindings(Clip.animationClip))
+                {
+                    AnimationCurve curve = AnimationUtility.GetEditorCurve(Clip.animationClip, binding);
+                    string propertyName = binding.propertyName;
+
+                    RootMotionData rootMotionData = new();
+                    rootMotionData.propertyName = propertyName;
+
+                    float currentValue = 0f;
+                    for (int i = 0; i < curve.keys.Length; i++)
+                    {
+                        Keyframe key = curve.keys[i];
+                        int targetFrame = Mathf.RoundToInt(key.time * TimelineUtility.FrameRate);
+
+                        float deltaValue = key.value - currentValue;
+                        currentValue = key.value;
+
+                        rootMotionData.datas.Add(targetFrame, deltaValue);
+                    }
+
+                    Clip.rootMotionList.Add(propertyName, rootMotionData);
+                }
+            }, "rebind animationClip");
         }
 
         public AnimationClipInspectorData(object target): base(target)

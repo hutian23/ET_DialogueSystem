@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Timeline.Editor;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Audio;
@@ -115,22 +116,20 @@ namespace Timeline
             if (PlayableGraph.IsValid()) PlayableGraph.Destroy();
         }
 
-        public void Evaluate(float deltaTime)
+        public void Evaluate()
         {
+            OnRootMotion();
         }
 
-        // private void OnRootMotion()
-        // {
-        //     if (ApplyRootMotion)
-        //     {
-        //         transform.position += Animator.deltaPosition;
-        //     }
-        // }
         public void OnRootMotion()
         {
+            UnityEngine.AnimationClip clip;
             if (ApplyRootMotion)
             {
-                transform.position += Animator.deltaPosition;
+                var transform1 = transform;
+                Debug.LogWarning(Animator.deltaPosition);
+                transform1.position += Animator.deltaPosition;
+                transform1.rotation *= Animator.deltaRotation;
             }
         }
 
