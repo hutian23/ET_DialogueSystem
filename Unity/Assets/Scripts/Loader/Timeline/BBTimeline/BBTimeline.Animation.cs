@@ -35,7 +35,30 @@ namespace Timeline
         public UnityEngine.AnimationClip animationClip;
 
         //rootmotion data
-        public Dictionary<string, RootMotionData> rootMotionList = new();
+        public Dictionary<string, RootMotionData> rootMotionDict = new();
+
+        public Vector3 DeltaPosition(int targetFrame)
+        {
+            float x = GetRootMotionData("m_LocalPosition.x", targetFrame);
+            float y = GetRootMotionData("m_LocalPosition.y", targetFrame);
+            float z = GetRootMotionData("m_LocalPosition.z", targetFrame);
+            return new Vector3(x, y, z);
+        }
+
+        public Vector3 DeltaRotation(int targetFrame)
+        {
+            float x = GetRootMotionData("localEulerAnglesRaw.x", targetFrame);
+            float y = GetRootMotionData("localEulerAnglesRaw.y", targetFrame);
+            float z = GetRootMotionData("localEulerAnglesRaw.z", targetFrame);
+            return new Vector3(x, y, z);
+        }
+
+        private float GetRootMotionData(string key, int targetFrame)
+        {
+            if (!rootMotionDict.TryGetValue(key, out RootMotionData rootMotionData)) return 0;
+            rootMotionData.datas.TryGetValue(targetFrame, out float value);
+            return value;
+        }
 
         public BBAnimationClip(int frame): base(frame)
         {
@@ -76,7 +99,7 @@ namespace Timeline
             FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() =>
             {
                 Clip.animationClip = AnimationClip;
-                Clip.rootMotionList.Clear();
+                Clip.rootMotionDict.Clear();
 
                 foreach (var binding in AnimationUtility.GetCurveBindings(Clip.animationClip))
                 {
@@ -98,7 +121,7 @@ namespace Timeline
                         rootMotionData.datas.Add(targetFrame, deltaValue);
                     }
 
-                    Clip.rootMotionList.Add(propertyName, rootMotionData);
+                    Clip.rootMotionDict.Add(propertyName, rootMotionData);
                 }
             }, "rebind animationClip");
         }
@@ -221,13 +244,15 @@ namespace Timeline
 
     public class BBTimelineAnimationClipPlayable: PlayableBehaviour
     {
-        private BBAnimationTrack Track { get; set; }
         public BBClip Clip { get; private set; }
         private int Index { get; set; }
         private Playable Output { get; set; }
         public Playable Handle { get; private set; }
         private AnimationClipPlayable ClipPlayable { get; set; }
-
+        private RuntimePlayable runtimePlayable;
+        private int currentFrame = -1;
+        
+        
         public override void PrepareFrame(Playable playable, FrameData info)
         {
         }
@@ -244,9 +269,25 @@ namespace Timeline
 
         public void SetTime(int targetFrame)
         {
-            float clipInFrame = Mathf.Max(0.01f, targetFrame - Clip.StartFrame);
-            ClipPlayable.SetTime(clipInFrame / TimelineUtility.FrameRate);
+            if (targetFrame == currentFrame) return;
+            currentFrame = targetFrame;
+            
+            int clipInFrame = targetFrame - Clip.StartFrame;
+            ClipPlayable.SetTime((float)clipInFrame / TimelineUtility.FrameRate);
             PrepareFrame(default, default);
+            
+            //Apply rootMotion
+            // if (!runtimePlayable.TimelinePlayer.ApplyRootMotion)
+            // {
+            //     return;
+            // }
+            //
+            // BBAnimationClip animationClip = Clip as BBAnimationClip;
+            // Transform trans = runtimePlayable.TimelinePlayer.transform;
+            //
+            // trans.localPosition += animationClip.DeltaPosition(clipInFrame);
+            //
+            // Debug.LogWarning(trans.localPosition);
         }
 
         public static BBTimelineAnimationClipPlayable Create(RuntimePlayable runtimePlayable, BBAnimationClip clip, Playable output, int index)
@@ -260,6 +301,7 @@ namespace Timeline
 
             clipPlayable.Output = output;
             clipPlayable.Index = index;
+            clipPlayable.runtimePlayable = runtimePlayable;
             output.ConnectInput(index, handle, 0, 0);
 
             return clipPlayable;

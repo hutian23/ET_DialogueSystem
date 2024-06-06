@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Timeline.Editor;
@@ -38,6 +39,11 @@ namespace Timeline
         public void Start()
         {
             initPos = transform.position;
+        }
+
+        private void OnAnimatorMove()
+        {
+            
         }
 
 #if UNITY_EDITOR
@@ -114,23 +120,6 @@ namespace Timeline
         public void Dispose()
         {
             if (PlayableGraph.IsValid()) PlayableGraph.Destroy();
-        }
-
-        public void Evaluate()
-        {
-            OnRootMotion();
-        }
-
-        public void OnRootMotion()
-        {
-            UnityEngine.AnimationClip clip;
-            if (ApplyRootMotion)
-            {
-                var transform1 = transform;
-                Debug.LogWarning(Animator.deltaPosition);
-                transform1.position += Animator.deltaPosition;
-                transform1.rotation *= Animator.deltaRotation;
-            }
         }
 
         public void BindTimeline(Timeline timeline)

@@ -72,7 +72,6 @@ namespace Timeline
             }
 
             PlayableGraph.Evaluate();
-            TimelinePlayer.Evaluate();
         }
 
 #if UNITY_EDITOR
