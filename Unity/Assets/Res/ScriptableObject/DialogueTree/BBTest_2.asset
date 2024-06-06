@@ -213,8 +213,6 @@ MonoBehaviour:
         BBSprite: ''Rg00_12'',
         4;
 
-        BBSprite: ''Rg00_13'', 4;
-
         GotoMarker: ''Loop'';
 
 
@@ -653,8 +651,6 @@ MonoBehaviour:
 
         BBSprite: ''Rg00_12'',
         4;
-
-        BBSprite: ''Rg00_13'', 4;
 
         GotoMarker: ''Loop'';
 

@@ -32,6 +32,13 @@ namespace Timeline
             Dispose();
         }
 
+        private Vector2 initPos;
+
+        public void Start()
+        {
+            initPos = transform.position;
+        }
+
 #if UNITY_EDITOR
         [Sirenix.OdinInspector.Button("技能编辑器")]
         public void OpenWindow()
@@ -66,6 +73,12 @@ namespace Timeline
             {
                 DestroyImmediate(go);
             }
+        }
+
+        [Sirenix.OdinInspector.Button("初始位置")]
+        public void ResetPosition()
+        {
+            transform.position = initPos;
         }
 #endif
 
@@ -113,6 +126,13 @@ namespace Timeline
         //         transform.position += Animator.deltaPosition;
         //     }
         // }
+        public void OnRootMotion()
+        {
+            if (ApplyRootMotion)
+            {
+                transform.position += Animator.deltaPosition;
+            }
+        }
 
         public void BindTimeline(Timeline timeline)
         {

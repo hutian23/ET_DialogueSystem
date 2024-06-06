@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 7468455045085988073}
   - component: {fileID: 8035865075596228849}
   - component: {fileID: 8477314744438082376}
+  - component: {fileID: 7237696647212242221}
   m_Layer: 0
   m_Name: Ragna
   m_TagString: Untagged
@@ -298,6 +299,29 @@ MonoBehaviour:
   ApplyRootMotion: 1
   BBPlayable: {fileID: 11400000, guid: 94b58ded95a18bf49958a695850fae83, type: 2}
   CurrentTimeline: {fileID: 0}
+--- !u!114 &7237696647212242221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7728331812354445376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 502d8cafd6a5a0447ab1db9a24cdcb10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+  - key: HitBox
+    gameObject: {fileID: 7728331812427471843}
+  - key: HurtBox
+    gameObject: {fileID: 7728331812461683723}
+  - key: ThrowBox
+    gameObject: {fileID: 7728331812178427392}
+  - key: SquashBox
+    gameObject: {fileID: 7728331813278968711}
+  - key: ProximityBox
+    gameObject: {fileID: 7728331811758872090}
 --- !u!1 &7728331812427471843
 GameObject:
   m_ObjectHideFlags: 0

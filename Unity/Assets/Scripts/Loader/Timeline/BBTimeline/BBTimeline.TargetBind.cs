@@ -113,7 +113,7 @@ namespace Timeline
         [Sirenix.OdinInspector.Button("Rebind")]
         public void Rebind()
         {
-            EditorWindow.ApplyModify(() => { targetBindClip.referName = targetBindName; }, "Update Targetbind name");
+            EditorWindow.ApplyModifyWithoutButtonUndo(() => { targetBindClip.referName = targetBindName; }, "Update Targetbind name");
         }
 
         private bool BindGo => targetBindGameObject != null;
@@ -121,7 +121,7 @@ namespace Timeline
         [Sirenix.OdinInspector.Button("Record"), Sirenix.OdinInspector.ShowIf("BindGo")]
         public void Record()
         {
-            EditorWindow.ApplyModify(() =>
+            EditorWindow.ApplyModifyWithoutButtonUndo(() =>
             {
                 int clipInFrame = FieldView.GetCurrentTimeLocator() - targetBindClip.StartFrame;
                 Vector3 localPos = targetBindGameObject.transform.localPosition;

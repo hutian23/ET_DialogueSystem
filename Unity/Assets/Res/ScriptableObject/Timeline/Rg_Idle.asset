@@ -28,7 +28,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: 1|Timeline.BBHitboxTrack, Unity.Loader
@@ -83,7 +83,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 5
     - Name: 
       Entry: 7
       Data: 7|Timeline.BoxInfo, Unity.Loader
@@ -101,7 +101,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -0.236037344
+      Data: -0.2067442
     - Name: 
       Entry: 4
       Data: 1.38535571
@@ -113,10 +113,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.9802175
+      Data: 0.921631336
     - Name: 
       Entry: 4
-      Data: 0.744370341
+      Data: 0.744370461
     - Name: 
       Entry: 8
       Data: 
@@ -202,6 +202,84 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 10|Timeline.BoxInfo, Unity.Loader
+    - Name: boxName
+      Entry: 1
+      Data: Throw_1
+    - Name: bindParent
+      Entry: 1
+      Data: ThrowBox
+    - Name: hitboxType
+      Entry: 3
+      Data: 3
+    - Name: center
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: -0.85443306
+    - Name: 
+      Entry: 4
+      Data: -0.8219273
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: size
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 2.29093647
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 11|Timeline.BoxInfo, Unity.Loader
+    - Name: boxName
+      Entry: 1
+      Data: Squash_body
+    - Name: bindParent
+      Entry: 1
+      Data: SquashBox
+    - Name: hitboxType
+      Entry: 3
+      Data: 4
+    - Name: center
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: -0.167257309
+    - Name: 
+      Entry: 4
+      Data: -0.6537844
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: size
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1.2022028
+    - Name: 
+      Entry: 4
+      Data: 3.00530076
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -218,14 +296,14 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
+      Data: 12|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 11|Timeline.BoxInfo, Unity.Loader
+      Data: 13|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_head
@@ -264,7 +342,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 12|Timeline.BoxInfo, Unity.Loader
+      Data: 14|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_Body
@@ -303,7 +381,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 13|Timeline.BoxInfo, Unity.Loader
+      Data: 15|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_Foot
@@ -357,14 +435,14 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 7
-      Data: 14|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
+      Data: 16|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
-      Data: 15|Timeline.BoxInfo, Unity.Loader
+      Data: 17|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_head
@@ -379,7 +457,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -0.236037344
+      Data: -0.163627744
     - Name: 
       Entry: 4
       Data: 1.38535571
@@ -391,10 +469,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.9802175
+      Data: 1.393986
     - Name: 
       Entry: 4
-      Data: 0.744370341
+      Data: 0.744370461
     - Name: 
       Entry: 8
       Data: 
@@ -403,7 +481,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 16|Timeline.BoxInfo, Unity.Loader
+      Data: 18|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_Body
@@ -442,7 +520,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 17|Timeline.BoxInfo, Unity.Loader
+      Data: 19|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_Foot
@@ -480,6 +558,45 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 20|Timeline.BoxInfo, Unity.Loader
+    - Name: boxName
+      Entry: 1
+      Data: Squash_Body
+    - Name: bindParent
+      Entry: 1
+      Data: SquashBox
+    - Name: hitboxType
+      Entry: 3
+      Data: 4
+    - Name: center
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: -0.1483531
+    - Name: 
+      Entry: 4
+      Data: -0.622257233
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: size
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1.23077106
+    - Name: 
+      Entry: 4
+      Data: 2.88737583
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -508,20 +625,20 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 18|Timeline.BBAnimationTrack, Unity.Loader
+      Data: 21|Timeline.BBAnimationTrack, Unity.Loader
     - Name: Name
       Entry: 1
       Data: Rg_Idle
     - Name: Clips
       Entry: 7
-      Data: 19|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
+      Data: 22|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 20|Timeline.BBAnimationClip, Unity.Loader
+      Data: 23|Timeline.BBAnimationClip, Unity.Loader
     - Name: InValid
       Entry: 5
       Data: false
@@ -550,6 +667,117 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 24|Timeline.BBTargetBindTrack, Unity.Loader
+    - Name: Name
+      Entry: 1
+      Data: BBTargetBind
+    - Name: Clips
+      Entry: 7
+      Data: 25|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 26|Timeline.BBTargetBindClip, Unity.Loader
+    - Name: InValid
+      Entry: 5
+      Data: false
+    - Name: StartFrame
+      Entry: 3
+      Data: 1
+    - Name: EndFrame
+      Entry: 3
+      Data: 20
+    - Name: Capabilities
+      Entry: 3
+      Data: 0
+    - Name: referName
+      Entry: 1
+      Data: targetBind
+    - Name: TargetKeyframeDict
+      Entry: 7
+      Data: 27|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[UnityEngine.Vector3,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 28|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: -1.018
+    - Name: 
+      Entry: 4
+      Data: 0.13
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -557,18 +785,18 @@ MonoBehaviour:
       Data: 
     - Name: MarkDict
       Entry: 7
-      Data: 21|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Timeline.MarkerInfo,
+      Data: 29|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Timeline.MarkerInfo,
         Unity.Loader]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 22|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      Data: 30|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 12
-      Data: 13
+      Data: 12
     - Name: 
       Entry: 7
       Data: 
@@ -577,7 +805,7 @@ MonoBehaviour:
       Data: Rg00_1
     - Name: $v
       Entry: 7
-      Data: 23|Timeline.MarkerInfo, Unity.Loader
+      Data: 31|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 0
@@ -598,7 +826,7 @@ MonoBehaviour:
       Data: Rg00_2
     - Name: $v
       Entry: 7
-      Data: 24|Timeline.MarkerInfo, Unity.Loader
+      Data: 32|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 4
@@ -619,7 +847,7 @@ MonoBehaviour:
       Data: Rg00_3
     - Name: $v
       Entry: 7
-      Data: 25|Timeline.MarkerInfo, Unity.Loader
+      Data: 33|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 8
@@ -640,7 +868,7 @@ MonoBehaviour:
       Data: Rg00_4
     - Name: $v
       Entry: 7
-      Data: 26|Timeline.MarkerInfo, Unity.Loader
+      Data: 34|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 12
@@ -661,7 +889,7 @@ MonoBehaviour:
       Data: Rg00_5
     - Name: $v
       Entry: 7
-      Data: 27|Timeline.MarkerInfo, Unity.Loader
+      Data: 35|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 16
@@ -682,7 +910,7 @@ MonoBehaviour:
       Data: Rg00_6
     - Name: $v
       Entry: 7
-      Data: 28|Timeline.MarkerInfo, Unity.Loader
+      Data: 36|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 20
@@ -703,7 +931,7 @@ MonoBehaviour:
       Data: Rg00_7
     - Name: $v
       Entry: 7
-      Data: 29|Timeline.MarkerInfo, Unity.Loader
+      Data: 37|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 24
@@ -721,31 +949,10 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg00_13
-    - Name: $v
-      Entry: 7
-      Data: 30|Timeline.MarkerInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 48
-    - Name: description
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
       Data: Rg00_12
     - Name: $v
       Entry: 7
-      Data: 31|Timeline.MarkerInfo, Unity.Loader
+      Data: 38|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 44
@@ -766,7 +973,7 @@ MonoBehaviour:
       Data: Rg00_11
     - Name: $v
       Entry: 7
-      Data: 32|Timeline.MarkerInfo, Unity.Loader
+      Data: 39|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 40
@@ -787,7 +994,7 @@ MonoBehaviour:
       Data: Rg00_10
     - Name: $v
       Entry: 7
-      Data: 33|Timeline.MarkerInfo, Unity.Loader
+      Data: 40|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 36
@@ -808,7 +1015,7 @@ MonoBehaviour:
       Data: Rg00_9
     - Name: $v
       Entry: 7
-      Data: 34|Timeline.MarkerInfo, Unity.Loader
+      Data: 41|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 32
@@ -829,7 +1036,7 @@ MonoBehaviour:
       Data: Rg00_8
     - Name: $v
       Entry: 7
-      Data: 35|Timeline.MarkerInfo, Unity.Loader
+      Data: 42|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 28
