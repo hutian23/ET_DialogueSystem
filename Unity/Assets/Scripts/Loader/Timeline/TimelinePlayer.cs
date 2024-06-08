@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Timeline.Editor;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Audio;
@@ -12,6 +10,7 @@ namespace Timeline
 {
     public sealed class TimelinePlayer: SerializedMonoBehaviour
     {
+        [Sirenix.OdinInspector.OnValueChanged("ResetPos")]
         public bool ApplyRootMotion;
 
         public bool IsValid => PlayableGraph.IsValid();
@@ -33,17 +32,24 @@ namespace Timeline
         {
             Dispose();
         }
+        
+        [HideInInspector]
+        //根运动的初始位置，跟animationCurve中的差值即为这一帧的移动距离
+        public Vector3 initPos;
 
-        private Vector2 initPos;
-
-        public void Start()
+        public void OnEnable()
         {
-            initPos = transform.position;
+            initPos = transform.localPosition;
         }
 
         private void OnAnimatorMove()
         {
-            
+            //禁用AnimationClip对transform的修改
+        }
+
+        public void ResetPos()
+        {
+            transform.localPosition = initPos;
         }
 
 #if UNITY_EDITOR
@@ -113,13 +119,14 @@ namespace Timeline
 
             CurrentTimeline = _timeline;
             RuntimeimePlayable = RuntimePlayable.Create(CurrentTimeline, this);
-
+            ResetPos();
             #endregion
         }
 
         public void Dispose()
         {
             if (PlayableGraph.IsValid()) PlayableGraph.Destroy();
+            ResetPos();
         }
 
         public void BindTimeline(Timeline timeline)
