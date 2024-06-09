@@ -132,7 +132,7 @@ namespace Timeline.Editor
 
             Undo.undoRedoEvent += OnUndoRedoEvent;
         }
-
+        
         private void OnDestroy()
         {
             Undo.undoRedoEvent -= OnUndoRedoEvent;

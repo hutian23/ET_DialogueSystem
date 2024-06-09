@@ -352,7 +352,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &475188992
 Transform:
   m_ObjectHideFlags: 0
@@ -1146,6 +1146,7 @@ GameObject:
   - component: {fileID: 929365078086624893}
   - component: {fileID: 5593543514667996730}
   - component: {fileID: 5593543514667996731}
+  - component: {fileID: 5593543514667996732}
   m_Layer: 0
   m_Name: Ragna
   m_TagString: Untagged
@@ -1194,7 +1195,7 @@ SpriteRenderer:
   m_SortingLayerID: 2016810935
   m_SortingLayer: 1
   m_SortingOrder: 100
-  m_Sprite: {fileID: 21300000, guid: b15c13692ba3b5c479bba8c2bcc26881, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3f1c4a552d6829840962b6ce1a12309c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1473,9 +1474,8 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: e4a2b8e189ce639418bd1b29eae8f2e1, type: 2}
+    - {fileID: 11400000, guid: f7e2a3955ac3b114e8ddec46da3de190, type: 2}
     - {fileID: 5593543514667996731}
-    - {fileID: 7400000, guid: 523da62edc93314409c7914a7ddd1d65, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -1496,76 +1496,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 2|Timeline.RuntimeAnimationTrack, Unity.Loader
-    - Name: Track
-      Entry: 7
-      Data: 3|Timeline.BBAnimationTrack, Unity.Loader
-    - Name: Name
-      Entry: 1
-      Data: Rg_ThrowEscape
-    - Name: Clips
-      Entry: 7
-      Data: 4|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 5|Timeline.BBAnimationClip, Unity.Loader
-    - Name: InValid
-      Entry: 5
-      Data: false
-    - Name: StartFrame
-      Entry: 3
       Data: 0
-    - Name: EndFrame
-      Entry: 3
-      Data: 22
-    - Name: Capabilities
-      Entry: 3
-      Data: 0
-    - Name: animationClip
-      Entry: 10
-      Data: 2
-    - Name: rootMotionDict
-      Entry: 7
-      Data: 6|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.AnimationCurve,
-        UnityEngine.CoreModule]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 7|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -1574,13 +1505,13 @@ MonoBehaviour:
       Data: 
     - Name: RebindCallback
       Entry: 7
-      Data: 8|System.Action, mscorlib
+      Data: 2|System.Action, mscorlib
     - Name: target
       Entry: 9
       Data: 0
     - Name: declaringType
       Entry: 7
-      Data: 9|System.RuntimeType, mscorlib
+      Data: 3|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
       Data: Timeline.RuntimePlayable, Unity.Loader
@@ -1592,7 +1523,7 @@ MonoBehaviour:
       Data: Rebind
     - Name: delegateType
       Entry: 7
-      Data: 10|System.RuntimeType, mscorlib
+      Data: 4|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
       Data: System.Action, mscorlib
@@ -1601,7 +1532,7 @@ MonoBehaviour:
       Data: 
     - Name: signature
       Entry: 7
-      Data: 11|System.Type[], mscorlib
+      Data: 5|System.Type[], mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -1619,8 +1550,52 @@ MonoBehaviour:
       Data: 
   ApplyRootMotion: 0
   BBPlayable: {fileID: 11400000, guid: 94b58ded95a18bf49958a695850fae83, type: 2}
-  CurrentTimeline: {fileID: 11400000, guid: e4a2b8e189ce639418bd1b29eae8f2e1, type: 2}
+  CurrentTimeline: {fileID: 11400000, guid: f7e2a3955ac3b114e8ddec46da3de190, type: 2}
   initPos: {x: 0, y: 0, z: 0}
+--- !u!114 &5593543514667996732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357804244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 103001d93cfeab84784e4d89e2cd3506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: curveDict
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.AnimationCurve,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  particle: {fileID: 0}
+  clip: {fileID: 0}
+  AnimationClip: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

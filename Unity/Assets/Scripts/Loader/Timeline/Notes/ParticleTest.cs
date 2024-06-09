@@ -15,6 +15,12 @@ namespace ET
 
         public AnimationClip clip;
 
+        [Sirenix.OdinInspector.Button("测试")]
+        public void TestEdtiorFrame()
+        {
+            Debug.LogWarning(TimelineUtility.MinEvaluateDeltaTime);
+        }
+
         public void Update()
         {
             Debug.LogWarning(GetComponent<Animator>().deltaPosition);

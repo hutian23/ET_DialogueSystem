@@ -1046,8 +1046,11 @@ namespace Timeline.Editor
             while (currentTimeLocator < ClipMaxFrame())
             {
                 SetTimeLocator((int)(counter * TimelineUtility.FrameRate));
-                yield return new EditorWaitForSeconds(TimelineUtility.MinEvaluateDeltaTime);
-                counter += TimelineUtility.MinEvaluateDeltaTime;
+                //AnimationClip 当前preview模式下会阻塞主线程?(preview中timeline更新速率变慢)
+                
+                float timer = Time.realtimeSinceStartup;
+                yield return null;
+                counter += Time.realtimeSinceStartup - timer;
             }
         }
 
