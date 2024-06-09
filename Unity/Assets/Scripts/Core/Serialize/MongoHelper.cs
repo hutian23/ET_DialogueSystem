@@ -143,6 +143,8 @@ namespace ET
             RegisterStruct<GradientColorKey>(); // Gradient
             RegisterStruct<Color>();
             RegisterStruct<GradientAlphaKey>();
+            
+            Debug.LogWarning("Regist struct");
 #endif
         }
 
@@ -185,7 +187,7 @@ namespace ET
 
         public static void Serialize(object message, MemoryStream stream)
         {
-            using (BsonBinaryWriter bsonWriter = new BsonBinaryWriter(stream, BsonBinaryWriterSettings.Defaults))
+            using (BsonBinaryWriter bsonWriter = new(stream, BsonBinaryWriterSettings.Defaults))
             {
                 BsonSerializationContext context = BsonSerializationContext.CreateRoot(bsonWriter);
                 BsonSerializationArgs args = default;
@@ -211,10 +213,8 @@ namespace ET
         {
             try
             {
-                using (MemoryStream memoryStream = new MemoryStream(bytes, index, count))
-                {
-                    return BsonSerializer.Deserialize(memoryStream, type);
-                }
+                using MemoryStream memoryStream = new(bytes, index, count);
+                return BsonSerializer.Deserialize(memoryStream, type);
             }
             catch (Exception e)
             {
@@ -238,10 +238,8 @@ namespace ET
         {
             try
             {
-                using (MemoryStream memoryStream = new MemoryStream(bytes))
-                {
-                    return (T)BsonSerializer.Deserialize(memoryStream, typeof (T));
-                }
+                using MemoryStream memoryStream = new(bytes);
+                return (T)BsonSerializer.Deserialize(memoryStream, typeof (T));
             }
             catch (Exception e)
             {

@@ -1,4 +1,5 @@
 ﻿using Timeline;
+using UnityEngine;
 
 namespace ET.Client
 {
@@ -14,19 +15,27 @@ namespace ET.Client
         {
             DialogueComponent dialogueComponent = parser.GetParent<DialogueComponent>();
             BBTimerComponent bbTimer = dialogueComponent.GetComponent<BBTimerComponent>();
-            Unit unit = dialogueComponent.GetParent<Unit>();
+            RootMotionComponent rootMotion = dialogueComponent.GetComponent<RootMotionComponent>();
+            PlayableManager playableManager = dialogueComponent.GetComponent<PlayableManager>();
 
-            TimelinePlayer timelinePlayer = unit.GetComponent<GameObjectComponent>().GameObject.GetComponent<TimelinePlayer>();
-            RuntimePlayable runtimePlayable = timelinePlayer.RuntimeimePlayable;
+            rootMotion.Init(data.targetID);
 
-            for (int i = 0; i <= runtimePlayable.ClipMaxFrame(); i++)
+            for (int i = 0; i <= playableManager.GetPlayable().ClipMaxFrame(); i++)
             {
-                Log.Warning(i.ToString());
+                playableManager.GetPlayable().Evaluate(i);
+                
+                //Update root motion
+                rootMotion.UpdatePos(i);
+                
                 await bbTimer.WaitAsync(1, token);
-                if (token.IsCancel()) return Status.Failed;
+                if (token.IsCancel())
+                {
+                    return Status.Failed;
+                }
             }
 
-            await ETTask.CompletedTask;
+            rootMotion.OnDone();
+            
             return Status.Success;
         }
     }

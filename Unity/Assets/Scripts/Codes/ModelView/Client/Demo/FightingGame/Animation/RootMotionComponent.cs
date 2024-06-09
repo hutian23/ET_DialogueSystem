@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Timeline;
+using UnityEngine;
 
 namespace ET.Client
 {
@@ -7,5 +8,10 @@ namespace ET.Client
     {
         // 当前behavior的初始位置
         public Vector3 initPos;
+
+        //当前帧总位移
+        public Vector3 moveCounter;
+
+        public BBAnimationClip currentClip;
     }
 }

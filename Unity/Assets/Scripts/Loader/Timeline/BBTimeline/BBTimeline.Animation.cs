@@ -135,6 +135,7 @@ namespace Timeline
         private BBTimelineAnimationTrackPlayable TrackPlayable;
         private AnimationMixerPlayable MixerPlayable => TrackPlayable.MixerPlayable;
         private readonly List<BBTimelineAnimationClipPlayable> ClipPlayables = new();
+
         public override void Bind()
         {
             TrackPlayable = BBTimelineAnimationTrackPlayable.Create(RuntimePlayable, this, RuntimePlayable.AnimationRootPlayable);
@@ -144,8 +145,7 @@ namespace Timeline
             ClipPlayables.Clear();
             for (int i = 0; i < AnimationTrack.Clips.Count; i++)
             {
-                BBTimelineAnimationClipPlayable clipPlayable =
-                        BBTimelineAnimationClipPlayable.Create(RuntimePlayable, AnimationTrack.Clips[i] as BBAnimationClip, MixerPlayable, i);
+                BBTimelineAnimationClipPlayable clipPlayable = BBTimelineAnimationClipPlayable.Create(RuntimePlayable, AnimationTrack.Clips[i] as BBAnimationClip, MixerPlayable, i);
                 ClipPlayables.Add(clipPlayable);
             }
         }
@@ -171,13 +171,10 @@ namespace Timeline
             {
                 BBTimelineAnimationClipPlayable clipPlayable = ClipPlayables[i];
                 clipPlayable.SetInputWeight(clipPlayable.Clip.InMiddle(targetFrame)? 1 : 0);
-                if (clipPlayable.GetInputWeight() >= 1f)
-                {
-                    clipPlayable.SetTime(targetFrame);
-                }
+                clipPlayable.SetTime(targetFrame);
             }
         }
-
+        
         public override void RuntimMute(bool value)
         {
         }
@@ -232,7 +229,7 @@ namespace Timeline
             Output.SetInputWeight(Index, weight);
         }
 
-        public float GetInputWeight()
+        private float GetInputWeight()
         {
             return Output.GetInputWeight(Index);
         }
@@ -243,6 +240,10 @@ namespace Timeline
             int clipInFrame = targetFrame - Clip.StartFrame;
             ClipPlayable.SetTime((float)clipInFrame / TimelineUtility.FrameRate);
             PrepareFrame(default, default);
+
+            //不混合rootmotion的位移量
+            if (GetInputWeight() <= 0f) return;
+            //TODO 怎么抛出事件...? 
         }
 
         public static BBTimelineAnimationClipPlayable Create(RuntimePlayable runtimePlayable, BBAnimationClip clip, Playable output, int index)
@@ -261,5 +262,6 @@ namespace Timeline
             return clipPlayable;
         }
     }
+
     #endregion
 }

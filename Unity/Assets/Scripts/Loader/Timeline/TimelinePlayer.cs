@@ -8,6 +8,16 @@ using UnityEngine.Playables;
 
 namespace Timeline
 {
+    #region RootMotion
+
+    public struct CalRootMotionCallback
+    {
+        public long instanceId; // entity dialogueComponent instanceid
+        public Vector3 deltaOffset;
+    }
+
+    #endregion
+
     public sealed class TimelinePlayer: SerializedMonoBehaviour
     {
         [Sirenix.OdinInspector.OnValueChanged("ResetPos")]
@@ -32,7 +42,7 @@ namespace Timeline
         {
             Dispose();
         }
-        
+
         [HideInInspector]
         //根运动的初始位置，跟animationCurve中的差值即为这一帧的移动距离
         public Vector3 initPos;
@@ -119,7 +129,12 @@ namespace Timeline
 
             CurrentTimeline = _timeline;
             RuntimeimePlayable = RuntimePlayable.Create(CurrentTimeline, this);
-            ResetPos();
+
+            if (!ApplyRootMotion)
+            {
+                ResetPos();
+            }
+
             #endregion
         }
 
