@@ -3,7 +3,7 @@ using Timeline;
 
 namespace ET.Client
 {
-    public class Timeline_Sprite_BBScriptHandler: BBScriptHandler
+    public class BBSprite_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
         {

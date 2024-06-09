@@ -95,6 +95,22 @@ namespace Timeline
             Dispose();
             Init();
         }
+        
+        public int ClipMaxFrame()
+        {
+            int maxFrame = 0;
+            foreach (var track in Timeline.Tracks)
+            {
+                foreach (var clip in track.Clips)
+                {
+                    if (clip.EndFrame >= maxFrame)
+                    {
+                        maxFrame = clip.EndFrame;
+                    }
+                }
+            }
+            return maxFrame;
+        }
     }
 
     public abstract class RuntimeTrack

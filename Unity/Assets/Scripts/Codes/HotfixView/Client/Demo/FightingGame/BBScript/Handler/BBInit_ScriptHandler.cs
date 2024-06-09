@@ -20,8 +20,11 @@ namespace ET.Client
                 dialogueComponent.RemoveComponent<BBParser>();
                 dialogueComponent.RemoveComponent<BBInputComponent>();
                 dialogueComponent.RemoveComponent<BehaviorBufferComponent>();
+                dialogueComponent.RemoveComponent<RootMotionComponent>();
+                dialogueComponent.RemoveComponent<PlayableManager>();
                 unit.RemoveComponent<NumericComponent>();
 
+                //Test
                 if (go != null)
                 {
                     BBTestManager testManager = go.GetComponent<BBTestManager>();
@@ -33,11 +36,14 @@ namespace ET.Client
             dialogueComponent.AddComponent<BBParser>();
             dialogueComponent.AddComponent<BBInputComponent>();
             dialogueComponent.AddComponent<BehaviorBufferComponent>();
+            dialogueComponent.AddComponent<PlayableManager>();
+            dialogueComponent.AddComponent<RootMotionComponent>();
             unit.AddComponent<NumericComponent>();
 
+            //Test
             BBTestManager testManager = go.AddComponent<BBTestManager>();
             testManager.instanceId = dialogueComponent.InstanceId;
-            
+
             await ETTask.CompletedTask;
         }
     }

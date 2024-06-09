@@ -135,8 +135,6 @@ namespace Timeline
         private BBTimelineAnimationTrackPlayable TrackPlayable;
         private AnimationMixerPlayable MixerPlayable => TrackPlayable.MixerPlayable;
         private readonly List<BBTimelineAnimationClipPlayable> ClipPlayables = new();
-        private RootMotionHandler rootMotionHandler;
-
         public override void Bind()
         {
             TrackPlayable = BBTimelineAnimationTrackPlayable.Create(RuntimePlayable, this, RuntimePlayable.AnimationRootPlayable);
@@ -150,8 +148,6 @@ namespace Timeline
                         BBTimelineAnimationClipPlayable.Create(RuntimePlayable, AnimationTrack.Clips[i] as BBAnimationClip, MixerPlayable, i);
                 ClipPlayables.Add(clipPlayable);
             }
-
-            rootMotionHandler = new RootMotionHandler(RuntimePlayable.TimelinePlayer);
         }
 
         public override void UnBind()
@@ -171,7 +167,6 @@ namespace Timeline
 
         public override void SetTime(int targetFrame)
         {
-            bool InClip = false;
             for (int i = 0; i < ClipPlayables.Count; i++)
             {
                 BBTimelineAnimationClipPlayable clipPlayable = ClipPlayables[i];
@@ -180,23 +175,6 @@ namespace Timeline
                 {
                     clipPlayable.SetTime(targetFrame);
                 }
-
-                //Root motion
-                if (clipPlayable.Clip.InMiddle(targetFrame))
-                {
-                    InClip = true;
-                    if (!rootMotionHandler.Equal(clipPlayable))
-                    {
-                        rootMotionHandler.Init(clipPlayable);
-                    }
-
-                    rootMotionHandler.SetTime(targetFrame);
-                }
-            }
-
-            if (!InClip)
-            {
-                rootMotionHandler.Dispose();
             }
         }
 
@@ -283,58 +261,5 @@ namespace Timeline
             return clipPlayable;
         }
     }
-
-    //控制当前Clip的一个播放周期内的位移
-    public class RootMotionHandler
-    {
-        private BBTimelineAnimationClipPlayable currentPlayable;
-        private BBAnimationClip Clip => currentPlayable.Clip as BBAnimationClip;
-
-        private readonly TimelinePlayer timelinePlayer;
-        private bool ApplyRootMotion => timelinePlayer.ApplyRootMotion;
-
-        private Vector3 InitPos; //当前运动周期，player的初始位置
-        private Vector3 curvePos; //运动曲线的参考坐标 
-
-        private int currentFrame;
-
-        public RootMotionHandler(TimelinePlayer _timelinePlayer)
-        {
-            timelinePlayer = _timelinePlayer;
-        }
-
-        public void Init(BBTimelineAnimationClipPlayable clipPlayable)
-        {
-            Dispose();
-            currentPlayable = clipPlayable;
-            InitPos = timelinePlayer.transform.position;
-            curvePos = Clip.CurrentPosition(0);
-        }
-
-        public void Dispose()
-        {
-            currentPlayable = null;
-            InitPos = Vector3.zero;
-            curvePos = Vector3.zero;
-            currentFrame = -1;
-        }
-
-        public void SetTime(int targetFrame)
-        {
-            if (targetFrame == currentFrame) return;
-            currentFrame = targetFrame;
-
-            //UpdatePosition 
-            // 以曲线的初始位置作为参考系
-            Vector3 deltaPos = Clip.CurrentPosition(targetFrame);
-            timelinePlayer.transform.position = InitPos + deltaPos;
-        }
-
-        public bool Equal(BBTimelineAnimationClipPlayable clipPlayable)
-        {
-            return currentPlayable == clipPlayable;
-        }
-    }
-
     #endregion
 }

@@ -358,19 +358,10 @@ MonoBehaviour:
       Data: Rg_Run
     - Name: BBScript
       Entry: 1
-      Data: '@Init:
-
-        SkillOrder: 1;
-
-        return;
-
-
-        @Main:
-
-        Log:
-        ''Rg_test2'';
-
-        return;'
+      Data: "@Init:\nSkillOrder: 1;\nreturn;\n\n@Main:\n\nStartTimelineCor;\n\n#
+        \u62C6\u6295\u7A97\u53E3\n# WaitMarker 'Rg_ThrowEscape';\n# PrcWindow: 8;\n\n\n\n\n\n#
+        \u9000\u51FA\u5F53\u524D\u884C\u4E3A\n# WaitMarker 'Exit';\n# RrcWindow:
+        9;\n\nreturn;"
     - Name: 
       Entry: 8
       Data: 
@@ -815,19 +806,10 @@ MonoBehaviour:
       Data: Rg_Run
     - Name: BBScript
       Entry: 1
-      Data: '@Init:
-
-        SkillOrder: 1;
-
-        return;
-
-
-        @Main:
-
-        Log:
-        ''Rg_test2'';
-
-        return;'
+      Data: "@Init:\nSkillOrder: 1;\nreturn;\n\n@Main:\n\nStartTimelineCor;\n\n#
+        \u62C6\u6295\u7A97\u53E3\n# WaitMarker 'Rg_ThrowEscape';\n# PrcWindow: 8;\n\n\n\n\n\n#
+        \u9000\u51FA\u5F53\u524D\u884C\u4E3A\n# WaitMarker 'Exit';\n# RrcWindow:
+        9;\n\nreturn;"
     - Name: 
       Entry: 8
       Data: 
