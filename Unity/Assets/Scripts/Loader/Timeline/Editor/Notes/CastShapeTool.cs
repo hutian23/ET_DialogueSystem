@@ -15,7 +15,8 @@ namespace ET.Client
         {
             get
             {
-                PropertyInfo propertyInfo = typeof (PrimitiveBoundsHandle).GetProperty("editModeButton", BindingFlags.NonPublic | BindingFlags.Static);
+                PropertyInfo propertyInfo =
+                        typeof (PrimitiveBoundsHandle).GetProperty("editModeButton", BindingFlags.NonPublic | BindingFlags.Static);
                 return (GUIContent)propertyInfo.GetValue(null);
             }
         }
@@ -47,14 +48,14 @@ namespace ET.Client
                 {
                     boundsHandle.SetColor(castShape.enabled? m_HandleEnableColor : m_HandleDisableColor);
                     CopyColliderPropertiesToCollider(castShape);
-                    
+
                     EditorGUI.BeginChangeCheck();
-                    
+
                     boundsHandle.DrawHandle();
 
                     if (EditorGUI.EndChangeCheck())
                     {
-                        Undo.RecordObject(castShape, string.Format("Modify {0}", ObjectNames.NicifyVariableName(target.GetType().Name)));
+                        Undo.RecordObject(castShape, $"Modify {ObjectNames.NicifyVariableName(target.GetType().Name)}");
                         CopyHandlePropertiesToCollider(castShape);
                     }
                 }
@@ -64,12 +65,12 @@ namespace ET.Client
         //TODO 需要深入学习
         protected static Vector3 TransformColliderCenterToHandleSpace(Transform colliderTransform, Vector3 colliderCenter)
         {
-            return Handles.inverseMatrix * (colliderTransform.localToWorldMatrix * colliderCenter);
+            return Handles.inverseMatrix * (Matrix4x4.TRS(colliderTransform.position, Quaternion.identity, Vector3.one) * colliderCenter);
         }
 
         protected static Vector3 TransformHandleCenterToColliderSpace(Transform colliderTransform, Vector3 handleCenter)
         {
-            return colliderTransform.localToWorldMatrix.inverse * (Handles.matrix * handleCenter);
+            return Matrix4x4.TRS(colliderTransform.position, Quaternion.identity, Vector3.one).inverse * (Handles.matrix * handleCenter);
         }
     }
 }

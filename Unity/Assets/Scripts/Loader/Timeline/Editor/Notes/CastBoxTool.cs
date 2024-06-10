@@ -29,7 +29,7 @@ namespace ET.Client
 
                 // collider matrix is center multiplied by transform's matrix with custom postmultiplied lossy scale matrix
                 var transform = castShape.transform;
-                using (new Handles.DrawingScope(Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one)))
+                using (new Handles.DrawingScope(Matrix4x4.TRS(transform.position, Quaternion.identity, Vector3.one)))
                 {
                     CopyColliderPropertiesToCollider(castShape);
 
@@ -53,7 +53,7 @@ namespace ET.Client
                     }
 
                     EditorGUI.BeginChangeCheck();
-
+                    
                     //移动handle
                     boundsHandle.center = Handles.PositionHandle(boundsHandle.center, Quaternion.identity);
                     boundsHandle.DrawHandle();

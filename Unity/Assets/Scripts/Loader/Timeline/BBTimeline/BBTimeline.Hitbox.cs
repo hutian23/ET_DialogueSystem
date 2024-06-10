@@ -297,7 +297,7 @@ namespace Timeline
                     {
                         Object.DestroyImmediate(castBox.gameObject);
                     }
-
+                    
                     //Create hitbox
                     ReferenceCollector refer = timelinePlayer.GetComponent<ReferenceCollector>();
                     foreach (var boxInfo in boxInfos)

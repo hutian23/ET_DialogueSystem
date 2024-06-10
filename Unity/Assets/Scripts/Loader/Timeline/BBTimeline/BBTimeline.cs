@@ -110,15 +110,15 @@ namespace Timeline
     {
         public bool InValid;
 
-        public string Name => GetType().Name;
+        public string Name;
 
         public int StartFrame;
         public int EndFrame;
         public int Length => EndFrame - StartFrame;
-        public ClipCapabilities Capabilities;
-
+        
         protected BBClip()
         {
+            Name = GetType().Name;
         }
 
         protected BBClip(int frame)
@@ -145,16 +145,6 @@ namespace Timeline
             }
 
             return false;
-        }
-
-        public bool IsResizeable()
-        {
-            return (Capabilities & ClipCapabilities.Resizeable) == ClipCapabilities.Resizeable;
-        }
-
-        public bool IsMixable()
-        {
-            return (Capabilities & ClipCapabilities.Mixable) == ClipCapabilities.Mixable;
         }
 
         public virtual Type ShowInInpsectorType => typeof (ShowInspectorData);

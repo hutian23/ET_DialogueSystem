@@ -38,7 +38,8 @@ namespace ET.Client
                     break;
             }
 
-            Gizmos.matrix = transform.localToWorldMatrix;
+            // Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.matrix = Matrix4x4.TRS(transform.position, Quaternion.identity, Vector3.one);
             Gizmos.DrawWireCube(info.center, info.size);
             Gizmos.color = gizmosColorRecord;
             Gizmos.matrix = gizmosMatrixRecord;

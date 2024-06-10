@@ -80,14 +80,23 @@ namespace Timeline
         private BBAnimationClip Clip;
         private TimelineFieldView FieldView;
 
-        [LabelText("Clip: ")]
+        [LabelText("ClipName: "), PropertyOrder(0)]
+        public string ClipName;
+
+        [Sirenix.OdinInspector.Button("ReName"), PropertyOrder(1)]
+        public void Rename()
+        {
+            FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() => { Clip.Name = ClipName; }, "Rename Clip");
+        }
+        
+        [LabelText("Clip: "),PropertyOrder(3)]
         public UnityEngine.AnimationClip AnimationClip;
 
-        [LabelText("AnimationLength: ")]
+        [LabelText("AnimationLength: "),PropertyOrder(4)]
         [Sirenix.OdinInspector.ShowInInspector]
         public int animationLength => AnimationClip == null? 0 : (int)(AnimationClip.length * TimelineUtility.FrameRate);
 
-        [Sirenix.OdinInspector.Button("Rebind")]
+        [Sirenix.OdinInspector.Button("Rebind"),PropertyOrder(5)]
         public void Rebind()
         {
             FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() =>
@@ -109,6 +118,7 @@ namespace Timeline
         {
             Clip = target as BBAnimationClip;
             AnimationClip = Clip.animationClip;
+            ClipName = Clip.Name;
         }
 
         public override void InspectorAwake(TimelineFieldView fieldView)
@@ -145,7 +155,8 @@ namespace Timeline
             ClipPlayables.Clear();
             for (int i = 0; i < AnimationTrack.Clips.Count; i++)
             {
-                BBTimelineAnimationClipPlayable clipPlayable = BBTimelineAnimationClipPlayable.Create(RuntimePlayable, AnimationTrack.Clips[i] as BBAnimationClip, MixerPlayable, i);
+                BBTimelineAnimationClipPlayable clipPlayable =
+                        BBTimelineAnimationClipPlayable.Create(RuntimePlayable, AnimationTrack.Clips[i] as BBAnimationClip, MixerPlayable, i);
                 ClipPlayables.Add(clipPlayable);
             }
         }
@@ -174,7 +185,7 @@ namespace Timeline
                 clipPlayable.SetTime(targetFrame);
             }
         }
-        
+
         public override void RuntimMute(bool value)
         {
         }
