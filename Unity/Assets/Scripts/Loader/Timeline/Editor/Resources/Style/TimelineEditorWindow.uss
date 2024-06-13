@@ -145,7 +145,7 @@
     height: 25px;
 }
 
-#current-marker-field{
+#current-marker-field {
     margin-top: 3px;
     margin-right: 0;
     margin-bottom: 0;
@@ -215,6 +215,14 @@
 
 #left-panel {
     min-width: 225px;
+    border-right-width: 1px;
+    border-right-color: rgb(32, 32, 32);
+}
+
+#track-hirerachy {
+    width: 100%;
+    height: 100%;
+    border-right-width: 0;
 }
 
 #tool-bar {
@@ -222,6 +230,8 @@
     background-color: rgb(56, 56, 56);
     height: 25px;
     overflow: hidden;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(32, 32, 32);
 }
 
 #add-track-button {
@@ -260,4 +270,13 @@
     border-bottom-color: rgb(89, 89, 89);
     border-left-width: 1px;
     display: none;
+}
+
+#marker-view-label {
+    width: 100%;
+    height: 20px;
+    flex-shrink: 0;
+    background-color: rgb(56, 56, 56);
+    border-bottom-color: rgb(32, 32, 32);
+    border-bottom-width: 1px;
 }

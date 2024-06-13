@@ -8,6 +8,7 @@
                     <ui:VisualElement name="draw-frame-line-field" picking-mode="Ignore" />
                 </ui:VisualElement>
             </ui:ScrollView>
+            <ui:VisualElement name="marker-view" style="flex-shrink: 0; flex-direction: row;" />
             <ui:VisualElement name="marker-field">
                 <ui:VisualElement name="time-locater">
                     <ui:VisualElement name="time-locater-icon" style="flex-grow: 1;" />

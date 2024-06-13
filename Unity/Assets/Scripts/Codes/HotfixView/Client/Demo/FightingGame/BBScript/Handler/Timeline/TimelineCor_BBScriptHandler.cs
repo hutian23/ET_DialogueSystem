@@ -1,7 +1,4 @@
-﻿using Timeline;
-using UnityEngine;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     public class TimelineCor_BBScriptHandler: BBScriptHandler
     {

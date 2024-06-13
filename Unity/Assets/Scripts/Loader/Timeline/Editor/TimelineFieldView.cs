@@ -8,81 +8,6 @@ using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
-    [Serializable]
-    public class MarkerInspectorData: ShowInspectorData
-    {
-        private TimelineFieldView fieldView;
-        private BBTimeline timeline;
-
-        [Sirenix.OdinInspector.ReadOnly]
-        public int frame;
-
-        public string MarkerName;
-
-        [TextArea]
-        public string Description;
-
-        [Sirenix.OdinInspector.Button("Update Marker")]
-        public void CreateMarker()
-        {
-            fieldView.EditorWindow.ApplyModify(() =>
-            {
-                //存在同名marker
-                if (timeline.MarkDict.TryGetValue(MarkerName, out MarkerInfo info))
-                {
-                    Debug.LogError($"already exist marker:{MarkerName}, {info.frame}!");
-                    return;
-                }
-
-                //移除同帧marker
-                string _key = "";
-                foreach (var pair in timeline.MarkDict)
-                {
-                    MarkerInfo _info = pair.Value;
-                    if (_info.frame != frame) continue;
-                    _key = pair.Key;
-                }
-
-                if (!string.IsNullOrEmpty(_key)) timeline.MarkDict.Remove(_key);
-
-                //添加marker
-                MarkerInfo markerInfo = new() { description = Description, frame = frame };
-                timeline.MarkDict.Add(MarkerName, markerInfo);
-            }, "Update Marker");
-
-            InspectorDestroy(fieldView);
-        }
-
-        public MarkerInspectorData(object target): base(target)
-        {
-            timeline = target as BBTimeline;
-        }
-
-        public override void InspectorAwake(TimelineFieldView _fieldView)
-        {
-            fieldView = _fieldView;
-
-            frame = fieldView.GetCurrentTimeLocator();
-            foreach (var pair in timeline.MarkDict)
-            {
-                MarkerInfo info = pair.Value;
-                if (info.frame != frame) continue;
-                MarkerName = pair.Key;
-                Description = info.description;
-                return;
-            }
-        }
-
-        public override void InspectorUpdate(TimelineFieldView _fieldView)
-        {
-        }
-
-        public override void InspectorDestroy(TimelineFieldView _fieldView)
-        {
-            _fieldView.ClipInspector.Clear();
-        }
-    }
-
     public class TimelineFieldView: VisualElement, ISelection
     {
         public new class UxmlFactory: UxmlFactory<TimelineFieldView, UxmlTraits>
@@ -107,14 +32,15 @@ namespace Timeline.Editor
         private Label LocaterFrameLabel { get; set; }
         private ScrollView InspectorScrollView { get; set; }
         public VisualElement ClipInspector { get; set; }
+        private VisualElement MarkerViewField { get; set; }
 
         #region Param
 
         public readonly float m_MaxFieldScale = 10;
-        private readonly float m_FieldOffsetX = 6;
+        private readonly float m_FieldOffsetX = 5;
         private readonly float m_MarkerWidth = 30;
         public readonly float m_WheelLerpSpeed = 0.2f;
-        private readonly int m_TimeTextFontSize = 14;
+        private readonly int m_TimeTextFontSize = 12;
 
         #endregion
 
@@ -135,6 +61,7 @@ namespace Timeline.Editor
         public TimelineEditorWindow EditorWindow;
         private DoubleMap<Track, TimelineTrackView> TrackViewMap { get; set; } = new();
         public List<TimelineTrackView> TrackViews { get; set; } = new();
+        private List<TimelineMarkerView> MarkerViews { get; set; } = new();
         public Dictionary<int, float> FramePosMap { get; set; } = new();
         private DragManipulator LocatorDragManipulator { get; set; }
 
@@ -162,21 +89,13 @@ namespace Timeline.Editor
             }
         }
 
-        #region Scroll
+        private IShowInspector currentInspector;
 
         protected bool m_ScrollViewPan;
         private float m_ScrollViewPanDelta;
         private readonly float scrollSpeed = 3;
 
-        #endregion
-
-        private IShowInspector currentInspector;
-
-        #region Play
-
         private EditorCoroutine PlayCor;
-
-        #endregion
 
         public TimelineFieldView()
         {
@@ -217,6 +136,7 @@ namespace Timeline.Editor
                     TrackScrollView.scrollOffset = scrollOffset;
 
                     UpdateTimeLocator();
+                    UpdateMix();
                 },
                 (int)MouseButton.MiddleMouse));
             TrackScrollView.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
@@ -248,30 +168,6 @@ namespace Timeline.Editor
             TimeLocator.AddManipulator(LocatorDragManipulator);
             TimeLocator.generateVisualContent += OnTimeLocatorGenerateVisualContent;
             TimeLocator.SetEnabled(false);
-            TimeLocator.AddManipulator(new DropdownMenuManipulator(menu =>
-            {
-                menu.AppendAction("Edit Marker", _ =>
-                {
-                    MarkerInspectorData inspectorData = new(EditorWindow.BBTimeline);
-                    inspectorData.InspectorAwake(this);
-                    TimelineInspectorData.CreateView(ClipInspector, inspectorData);
-                });
-                menu.AppendAction("Remove Marker", _ =>
-                {
-                    EditorWindow.ApplyModify(() =>
-                    {
-                        string _key = "";
-                        foreach (var pair in EditorWindow.BBTimeline.MarkDict)
-                        {
-                            MarkerInfo info = pair.Value;
-                            if (info.frame != currentTimeLocator) continue;
-                            _key = pair.Key;
-                        }
-
-                        if (!string.IsNullOrEmpty(_key)) EditorWindow.BBTimeline.MarkDict.Remove(_key);
-                    }, "Remove Marker");
-                });
-            }, MouseButton.RightMouse));
 
             DrawFrameLineField = this.Q("draw-frame-line-field");
             DrawFrameLineField.generateVisualContent += OnDrawFrameLineFieldGenerateVisualContent;
@@ -291,8 +187,13 @@ namespace Timeline.Editor
             });
             ClipInspector.RegisterCallback<PointerDownEvent>((e) => e.StopImmediatePropagation());
 
-            RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
+            //Marker
+            MarkerViewField = this.Q<VisualElement>("marker-view");
+            MarkerViewField.RegisterCallback<PointerDownEvent>(MarkerViewPointerDown);
+            // var dragHandle = new DragManipulator(OnMarkerDrag, OnMarkerDrop, OnMarkerMove);
+            // MarkerViewField.AddManipulator(dragHandle);
 
+            RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
             this.AddManipulator(new RectangleSelecter(() => -localBound.position));
         }
 
@@ -313,6 +214,9 @@ namespace Timeline.Editor
             m_Elements.Clear();
             TrackViewMap.Clear();
             TrackViews.Clear();
+
+            MarkerViews.Clear();
+            MarkerViewField.Clear();
         }
 
         public void PopulateView()
@@ -348,13 +252,24 @@ namespace Timeline.Editor
                 TrackViews.Add(trackView);
             }
 
-            foreach (var trackView in TrackViews)
+            foreach (TimelineTrackView trackView in TrackViews)
             {
                 TimelineTrackHandle trackHandle = new(trackView);
                 trackHandle.SelectionContainer = this;
 
                 EditorWindow.TrackHandleContainer.Add(trackHandle);
                 SelectionElements.Add(trackHandle);
+            }
+
+            foreach (MarkerInfo marker in RuntimePlayable.Timeline.Marks)
+            {
+                TimelineMarkerView markerView = new();
+                markerView.SelectionContainer = this;
+                markerView.Init(marker);
+
+                MarkerViewField.Add(markerView);
+                SelectionElements.Add(markerView);
+                MarkerViews.Add(markerView);
             }
         }
 
@@ -502,13 +417,6 @@ namespace Timeline.Editor
             }
 
             paint2D.Stroke();
-
-            foreach (var pair in EditorWindow.BBTimeline.MarkDict)
-            {
-                MarkerInfo info = pair.Value;
-                float pos = FramePosMap[info.frame] - TrackScrollView.scrollOffset.x;
-                BBTimelineEditorUtility.DrawDiamond(paint2D, pos);
-            }
         }
 
         private void OnTrackFieldGenerateVisualContent(MeshGenerationContext mgc)
@@ -574,11 +482,10 @@ namespace Timeline.Editor
             //更新frameField
             EditorWindow.m_currentFrameField.SetValueWithoutNotify(currentTimeLocator);
             string Marker = "_ _ _";
-            foreach (var pair in EditorWindow.BBTimeline.MarkDict)
+            foreach (MarkerInfo marker in EditorWindow.BBTimeline.Marks)
             {
-                MarkerInfo info = pair.Value;
-                if (info.frame != currentTimeLocator) continue;
-                Marker = pair.Key;
+                if (marker.frame != currentTimeLocator) continue;
+                Marker = marker.markerName;
             }
 
             EditorWindow.m_currentMarkerField.SetValueWithoutNotify(Marker);
@@ -614,6 +521,129 @@ namespace Timeline.Editor
             paint2D.MoveTo(new Vector2(0, 25));
             paint2D.LineTo(new Vector2(0, 1000));
             paint2D.Stroke();
+        }
+
+        #endregion
+
+        #region Marker
+
+        private void MarkerViewPointerDown(PointerDownEvent evt)
+        {
+            int targetFrame = GetClosestFrame(evt.localPosition.x + ScrollViewContentOffset);
+            foreach (TimelineMarkerView marker in MarkerViews)
+            {
+                //不知道为什么，这里addToSelection不会改变样式
+                if (!marker.InMiddle(targetFrame))
+                {
+                    continue;
+                }
+
+                marker.OnPointerDown(evt);
+                return;
+            }
+        }
+
+        private int m_StartMoveMarkerFrame;
+
+        public void MarkerStartMove(TimelineMarkerView markerView)
+        {
+            m_StartMoveMarkerFrame = markerView.info.frame;
+        }
+
+        public void MoveMarkers(float deltaPosition)
+        {
+            int startFrame = int.MaxValue;
+            List<TimelineMarkerView> moveMarkers = new List<TimelineMarkerView>();
+            foreach (ISelectable selectable in Selections)
+            {
+                if (selectable is TimelineMarkerView markerView)
+                {
+                    moveMarkers.Add(markerView);
+                    if (markerView.info.frame < startFrame)
+                    {
+                        startFrame = markerView.info.frame;
+                    }
+                }
+            }
+
+            if (moveMarkers.Count == 0)
+            {
+                return;
+            }
+
+            int targetStartFrame = GetClosestFrame(FramePosMap[startFrame] + deltaPosition);
+            targetStartFrame = Mathf.Clamp(targetStartFrame, CurrentMinFrame, CurrentMaxFrame);
+
+            int deltaFrame = targetStartFrame - startFrame;
+
+            foreach (var markerView in MarkerViews)
+            {
+                markerView.Move(deltaFrame);
+            }
+
+            //判断marker发生重叠
+            foreach (var marker in MarkerViews)
+            {
+                marker.InValid = GetMarkerMoveValid(marker);
+            }
+
+            UpdateMix();
+            DrawFrameLine(startFrame);
+        }
+
+        public void ApplyMarkerMove()
+        {
+            int startFrame = int.MaxValue;
+            bool InValid = true;
+
+            List<TimelineMarkerView> markerViews = new();
+            foreach (var selection in Selections)
+            {
+                if (selection is not TimelineMarkerView markerView) continue;
+                if (!markerView.InValid)
+                {
+                    InValid = false;
+                    break;
+                }
+
+                if (markerView.info.frame <= startFrame)
+                {
+                    startFrame = markerView.info.frame;
+                }
+
+                markerViews.Add(markerView);
+            }
+
+            int deltaFrame = startFrame - m_StartMoveMarkerFrame;
+
+            if (deltaFrame != 0)
+            {
+                foreach (var markerView in markerViews)
+                {
+                    markerView.ResetMove(deltaFrame);
+                }
+
+                if (InValid)
+                {
+                    EditorWindow.ApplyModify(() =>
+                    {
+                        foreach (var markerView in markerViews)
+                        {
+                            markerView.Move(deltaFrame);
+                        }
+                    }, "Move Marker");
+                }
+            }
+        }
+
+        private bool GetMarkerMoveValid(TimelineMarkerView markerView)
+        {
+            foreach (var view in MarkerViews)
+            {
+                if (view.info.frame == markerView.info.frame) return false;
+            }
+
+            return true;
         }
 
         #endregion
@@ -850,6 +880,12 @@ namespace Timeline.Editor
             {
                 trackView.Refreh();
             }
+
+            //Update marker pos
+            foreach (var markerView in MarkerViews)
+            {
+                markerView.Refresh();
+            }
         }
 
         #endregion
@@ -1047,7 +1083,7 @@ namespace Timeline.Editor
             {
                 SetTimeLocator((int)(counter * TimelineUtility.FrameRate));
                 //AnimationClip 当前preview模式下会阻塞主线程?(preview中timeline更新速率变慢)
-                
+
                 float timer = Time.realtimeSinceStartup;
                 yield return null;
                 counter += Time.realtimeSinceStartup - timer;

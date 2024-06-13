@@ -143,8 +143,6 @@ namespace ET
             RegisterStruct<GradientColorKey>(); // Gradient
             RegisterStruct<Color>();
             RegisterStruct<GradientAlphaKey>();
-            
-            Debug.LogWarning("Regist struct");
 #endif
         }
 

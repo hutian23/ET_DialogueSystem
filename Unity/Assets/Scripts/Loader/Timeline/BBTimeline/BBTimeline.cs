@@ -11,6 +11,7 @@ namespace Timeline
     [Serializable]
     public class MarkerInfo
     {
+        public string markerName;
         public int frame;
         public string description;
     }
@@ -24,7 +25,7 @@ namespace Timeline
         public List<BBTrack> Tracks = new();
 
         [NonSerialized, OdinSerialize]
-        public Dictionary<string, MarkerInfo> MarkDict = new();
+        public List<MarkerInfo> Marks = new();
 
 #if UNITY_EDITOR
         [HideInInspector]

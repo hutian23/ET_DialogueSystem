@@ -250,19 +250,5 @@ namespace Timeline.Editor
         }
 
         #endregion
-
-        #region Record
-
-        public bool EqualTrack(BBTrack track)
-        {
-            return BBTrack == track;
-        }
-
-        public void IsRecord(bool record)
-        {
-            // style.borderLeftColor = record? Color.red : Color.gray;
-        }
-
-        #endregion
     }
 }

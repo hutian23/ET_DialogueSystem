@@ -1,0 +1,20 @@
+#marker-view {
+    background-image: resource('Icon/SignalAsset Icon');
+    width: 12px;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    position: absolute;
+}
+
+#marker-view :hover{
+    -unity-background-image-tint-color: rgba(68, 192, 255, 0.29);
+}
+
+.Selected{
+    -unity-background-image-tint-color: rgba(68, 192, 255, 0.29);
+}

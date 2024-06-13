@@ -28,9 +28,9 @@ namespace ET.Client
             //Evaluate playableGraph
             TimelinePlayer timelinePlayer = unit.GetComponent<GameObjectComponent>().GameObject.GetComponent<TimelinePlayer>();
             BBTimeline timeline = timelinePlayer.CurrentTimeline;
-            timeline.MarkDict.TryGetValue(marker, out MarkerInfo info);
+            // timeline.Marks.TryGetValue(marker, out MarkerInfo info);
             RuntimePlayable runtimePlayable = timelinePlayer.RuntimeimePlayable;
-            runtimePlayable.Evaluate(info.frame);
+            // runtimePlayable.Evaluate(info.frame);
             
             //wait time
             BBTimerComponent timerComponent = parser.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>();

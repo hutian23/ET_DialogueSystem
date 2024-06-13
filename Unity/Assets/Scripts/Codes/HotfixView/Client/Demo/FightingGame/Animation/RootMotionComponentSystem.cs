@@ -26,6 +26,11 @@ namespace ET.Client
             PlayableManager manager = self.GetParent<DialogueComponent>().GetComponent<PlayableManager>();
             RuntimePlayable runtimePlayable = manager.GetPlayable();
 
+            if (!runtimePlayable.TimelinePlayer.ApplyRootMotion)
+            {
+                return;
+            }
+
             foreach (var runtimeTrack in runtimePlayable.RuntimeTracks)
             {
                 if (runtimeTrack is not RuntimeAnimationTrack runtimeAnimationTrack)
@@ -45,9 +50,10 @@ namespace ET.Client
                         }
 
                         self.currentClip = clip as BBAnimationClip;
+                        int ClipInFrame = targetFrame - self.currentClip.StartFrame;
                         //Update position
                         //TODO 物理模拟
-                        self.GetTransform().position = self.initPos + self.currentClip.CurrentPosition(targetFrame);
+                        self.GetTransform().position = self.initPos + self.currentClip.CurrentPosition(ClipInFrame);
                         return;
                     }
                 }
@@ -66,7 +72,6 @@ namespace ET.Client
         {
             self.currentClip = null;
             self.initPos = self.GetTransform().position;
-            Log.Warning(self.initPos.ToString());
         }
 
         private static Transform GetTransform(this RootMotionComponent self)

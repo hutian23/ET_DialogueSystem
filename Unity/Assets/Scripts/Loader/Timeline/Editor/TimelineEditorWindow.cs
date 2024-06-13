@@ -91,6 +91,15 @@ namespace Timeline.Editor
             m_AddTrackButton = root.Q("add-track-button");
             m_AddTrackButton.AddManipulator(new DropdownMenuManipulator((menu) =>
             {
+                menu.AppendAction("Marker", _ =>
+                {
+                    ApplyModify(() =>
+                    {
+                        MarkerInfo info = new() { frame = m_TimelineField.GetCurrentTimeLocator(), markerName = "TimelineMarker" };
+                        BBTimeline.Marks.Add(info);
+                    }, "Add Marker");
+                });
+                menu.AppendSeparator();
                 foreach (var type in BBTimelineEditorUtility.BBTrackTypeDic)
                 {
                     menu.AppendAction(type.Key, _ => { ApplyModify(() => { RuntimePlayable.AddTrack(type.Value); }, "Add Track"); });
@@ -125,14 +134,14 @@ namespace Timeline.Editor
             m_currentMarkerField = root.Q<TextField>("current-marker-field");
             m_currentMarkerField.RegisterCallback<BlurEvent>(_ =>
             {
-                if (!BBTimeline.MarkDict.ContainsKey(m_currentMarkerField.value)) return;
-                int frame = BBTimeline.MarkDict[m_currentMarkerField.value].frame;
-                m_TimelineField.CurrentFrameFieldUpdate(frame);
+                // if (!BBTimeline.Marks.ContainsKey(m_currentMarkerField.value)) return;
+                // int frame = BBTimeline.Marks[m_currentMarkerField.value].frame;
+                // m_TimelineField.CurrentFrameFieldUpdate(frame);
             });
 
             Undo.undoRedoEvent += OnUndoRedoEvent;
         }
-        
+
         private void OnDestroy()
         {
             Undo.undoRedoEvent -= OnUndoRedoEvent;
