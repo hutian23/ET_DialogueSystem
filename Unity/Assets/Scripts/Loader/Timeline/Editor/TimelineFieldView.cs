@@ -202,6 +202,7 @@ namespace Timeline.Editor
             //Destroy inspectorData
             currentInspector?.InspectorDestroy();
             currentInspector = null;
+            ClipInspector.Clear();
 
             //Stop play Cor
             if (PlayCor != null)
@@ -214,7 +215,6 @@ namespace Timeline.Editor
             m_Elements.Clear();
             TrackViewMap.Clear();
             TrackViews.Clear();
-
             MarkerViews.Clear();
             MarkerViewField.Clear();
         }
@@ -576,13 +576,33 @@ namespace Timeline.Editor
 
             int deltaFrame = targetStartFrame - startFrame;
 
-            foreach (var markerView in MarkerViews)
+            foreach (TimelineMarkerView markerView in moveMarkers)
             {
                 markerView.Move(deltaFrame);
             }
 
-            //判断marker发生重叠
-            foreach (var marker in MarkerViews)
+            //Resize frameMap
+            int maxFrame = int.MinValue;
+            foreach (var marker in moveMarkers)
+            {
+                if (marker.info.frame >= maxFrame)
+                {
+                    maxFrame = marker.info.frame;
+                }
+            }
+
+            if (maxFrame >= m_MaxFrame)
+            {
+                for (int i = m_MaxFrame; i <= maxFrame; i++)
+                {
+                    FramePosMap.Add(i, OneFrameWidth * i + m_FieldOffsetX);
+                }
+
+                m_MaxFrame = maxFrame + 1;
+            }
+
+            //判断当前移动的marker是否发生重叠
+            foreach (TimelineMarkerView marker in moveMarkers)
             {
                 marker.InValid = GetMarkerMoveValid(marker);
             }
@@ -596,14 +616,15 @@ namespace Timeline.Editor
             int startFrame = int.MaxValue;
             bool InValid = true;
 
-            List<TimelineMarkerView> markerViews = new();
+            List<TimelineMarkerView> moveMarkers = new();
             foreach (var selection in Selections)
             {
                 if (selection is not TimelineMarkerView markerView) continue;
+
+                // override with other marker
                 if (!markerView.InValid)
                 {
                     InValid = false;
-                    break;
                 }
 
                 if (markerView.info.frame <= startFrame)
@@ -611,14 +632,15 @@ namespace Timeline.Editor
                     startFrame = markerView.info.frame;
                 }
 
-                markerViews.Add(markerView);
+                moveMarkers.Add(markerView);
             }
 
             int deltaFrame = startFrame - m_StartMoveMarkerFrame;
 
             if (deltaFrame != 0)
             {
-                foreach (var markerView in markerViews)
+                //Reset Position
+                foreach (var markerView in moveMarkers)
                 {
                     markerView.ResetMove(deltaFrame);
                 }
@@ -627,20 +649,31 @@ namespace Timeline.Editor
                 {
                     EditorWindow.ApplyModify(() =>
                     {
-                        foreach (var markerView in markerViews)
+                        foreach (var markerView in moveMarkers)
                         {
                             markerView.Move(deltaFrame);
                         }
                     }, "Move Marker");
                 }
             }
+
+            DrawFrameLine();
+            UpdateMix();
         }
 
         private bool GetMarkerMoveValid(TimelineMarkerView markerView)
         {
             foreach (var view in MarkerViews)
             {
-                if (view.info.frame == markerView.info.frame) return false;
+                if (view == markerView)
+                {
+                    continue;
+                }
+
+                if (view.info.frame == markerView.info.frame)
+                {
+                    return false;
+                }
             }
 
             return true;

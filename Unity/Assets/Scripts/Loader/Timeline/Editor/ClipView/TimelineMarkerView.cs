@@ -1,9 +1,23 @@
-﻿using UnityEditor;
+﻿using System;
+using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
+    [Serializable]
+    public class MarkerInspectorData
+    {
+        [HideReferenceObjectPicker,HideLabel]
+        public MarkerInfo info;
+
+        public MarkerInspectorData(MarkerInfo target, TimelineFieldView _fieldView)
+        {
+            info = target;
+        }
+    }
+
     public class TimelineMarkerView: VisualElement, ISelectable
     {
         public MarkerInfo info;
@@ -28,7 +42,7 @@ namespace Timeline.Editor
             MarkerView = this.Q<VisualElement>("marker-view");
             m_MenuHandle = new DropdownMenuHandler(MenuBuilder);
 
-            var dragManipulator = new DragManipulator(OnDrag, OnDrop, OnMove);
+            var dragManipulator = new DragManipulator(OnStartDrag, OnDragStop, OnDragMove);
             this.AddManipulator(dragManipulator);
         }
 
@@ -99,6 +113,8 @@ namespace Timeline.Editor
             }
         }
 
+        #region Move marker
+
         public void Move(int deltaFrame)
         {
             info.frame += deltaFrame;
@@ -110,19 +126,24 @@ namespace Timeline.Editor
             info.frame -= deltaFrame;
         }
 
-        private void OnDrag(PointerDownEvent evt)
+        private void OnStartDrag(PointerDownEvent evt)
         {
             fieldView.MarkerStartMove(this);
         }
 
-        private void OnDrop()
+        private void OnDragStop()
         {
+            fieldView.ApplyMarkerMove();
         }
 
-        private void OnMove(Vector2 movePos)
+        private void OnDragMove(Vector2 movePos)
         {
-            Debug.LogWarning(movePos);
+            fieldView.MoveMarkers(movePos.x);
         }
+
+        #endregion
+
+        #region Select
 
         public ISelection SelectionContainer { get; set; }
         private TimelineFieldView fieldView => SelectionContainer as TimelineFieldView;
@@ -137,6 +158,7 @@ namespace Timeline.Editor
             m_IsSelected = true;
             BringToFront();
             MarkerView.AddToClassList("Selected");
+            OpenInspector();
         }
 
         public void UnSelect()
@@ -151,5 +173,16 @@ namespace Timeline.Editor
         {
             return this.m_IsSelected;
         }
+
+        #endregion
+
+        #region Inspector
+
+        private void OpenInspector()
+        {
+            TimelineInspectorData.CreateView(fieldView.ClipInspector, new MarkerInspectorData(info, fieldView));
+        }
+        
+        #endregion
     }
 }

@@ -121,8 +121,6 @@ namespace Timeline
     [Serializable]
     public class BBHitboxInspectorData: ShowInspectorData
     {
-        [Sirenix.OdinInspector.ReadOnly]
-        [LabelText("当前帧: ")]
         public int ClipInFrame;
 
         [HideReferenceObjectPicker]

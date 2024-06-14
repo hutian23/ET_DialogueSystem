@@ -134,9 +134,12 @@ namespace Timeline.Editor
             m_currentMarkerField = root.Q<TextField>("current-marker-field");
             m_currentMarkerField.RegisterCallback<BlurEvent>(_ =>
             {
-                // if (!BBTimeline.Marks.ContainsKey(m_currentMarkerField.value)) return;
-                // int frame = BBTimeline.Marks[m_currentMarkerField.value].frame;
-                // m_TimelineField.CurrentFrameFieldUpdate(frame);
+                foreach (var mark in BBTimeline.Marks)
+                {
+                    if (!mark.markerName.Equals(m_currentMarkerField.value)) continue;
+                    int frame = mark.frame;
+                    m_TimelineField.CurrentFrameFieldUpdate(frame);
+                }
             });
 
             Undo.undoRedoEvent += OnUndoRedoEvent;

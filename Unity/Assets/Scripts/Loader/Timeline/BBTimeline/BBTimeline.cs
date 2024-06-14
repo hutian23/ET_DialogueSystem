@@ -5,15 +5,21 @@ using Sirenix.Serialization;
 using Timeline.Editor;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Timeline
 {
     [Serializable]
     public class MarkerInfo
     {
-        public string markerName;
+        [HideInInspector]
         public int frame;
-        public string description;
+
+        public string markerName;
+
+        [FoldoutGroup("脚本: ")]
+        [TextArea(14, 30), HideLabel]
+        public string Script;
     }
 
     [CreateAssetMenu(menuName = "ScriptableObject/BBTimeline/Timeline", fileName = "BBTimeline")]
@@ -116,7 +122,7 @@ namespace Timeline
         public int StartFrame;
         public int EndFrame;
         public int Length => EndFrame - StartFrame;
-        
+
         protected BBClip()
         {
             Name = GetType().Name;
