@@ -8,18 +8,10 @@ using UnityEngine.Playables;
 
 namespace Timeline
 {
-    #region RootMotion
-
-    public struct CalRootMotionCallback
-    {
-        public long instanceId; // entity dialogueComponent instanceid
-        public Vector3 deltaOffset;
-    }
-
-    #endregion
-
     public sealed class TimelinePlayer: SerializedMonoBehaviour
     {
+        private long instanceId; // DialogueComponent
+
         [Sirenix.OdinInspector.OnValueChanged("ResetPos")]
         public bool ApplyRootMotion;
 
@@ -63,14 +55,18 @@ namespace Timeline
         }
 
 #if UNITY_EDITOR
-        [Sirenix.OdinInspector.Button("技能编辑器")]
+        public bool EditMode;
+        private bool InEdit => EditMode;
+        private bool InRuntime => !EditMode;
+
+        [Sirenix.OdinInspector.Button("技能编辑器"), Sirenix.OdinInspector.ShowIf("InEdit")]
         public void OpenWindow()
         {
             //默认字典第一个元素为入口
-            foreach (var pair in BBPlayable.Timelines)
+            foreach (var timeline in BBPlayable.Timelines)
             {
-                OpenWindow(pair.Value);
-                break;
+                OpenWindow(timeline);
+                return;
             }
         }
 
@@ -154,14 +150,15 @@ namespace Timeline
 
         public BBTimeline GetByOrder(int order)
         {
-            if (BBPlayable == null) return null;
-            if (!BBPlayable.Timelines.TryGetValue(order, out BBTimeline timeline))
-            {
-                Debug.LogError($"not exist timeline, order: {order}");
-                return null;
-            }
+            // if (BBPlayable == null) return null;
+            // if (!BBPlayable.Timelines.TryGetValue(order, out BBTimeline timeline))
+            // {
+            //     Debug.LogError($"not exist timeline, order: {order}");
+            //     return null;
+            // }
 
-            return timeline;
+            // return timeline;
+            return CurrentTimeline;
         }
     }
 }

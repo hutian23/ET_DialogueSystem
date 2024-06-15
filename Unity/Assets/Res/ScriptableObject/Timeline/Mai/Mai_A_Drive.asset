@@ -29,7 +29,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
       Data: 1|Timeline.BBAnimationTrack, Unity.Loader
@@ -982,6 +982,28 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 33|Timeline.BBAnimationTrack, Unity.Loader
+    - Name: Name
+      Entry: 1
+      Data: BBAnimation
+    - Name: Clips
+      Entry: 7
+      Data: 34|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -989,14 +1011,14 @@ MonoBehaviour:
       Data: 
     - Name: Marks
       Entry: 7
-      Data: 33|System.Collections.Generic.List`1[[Timeline.MarkerInfo, Unity.Loader]],
+      Data: 35|System.Collections.Generic.List`1[[Timeline.MarkerInfo, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 34|Timeline.MarkerInfo, Unity.Loader
+      Data: 36|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 8
@@ -1011,7 +1033,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 35|Timeline.MarkerInfo, Unity.Loader
+      Data: 37|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 13
@@ -1026,7 +1048,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 36|Timeline.MarkerInfo, Unity.Loader
+      Data: 38|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 17

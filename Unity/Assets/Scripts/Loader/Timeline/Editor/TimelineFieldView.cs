@@ -190,8 +190,6 @@ namespace Timeline.Editor
             //Marker
             MarkerViewField = this.Q<VisualElement>("marker-view");
             MarkerViewField.RegisterCallback<PointerDownEvent>(MarkerViewPointerDown);
-            // var dragHandle = new DragManipulator(OnMarkerDrag, OnMarkerDrop, OnMarkerMove);
-            // MarkerViewField.AddManipulator(dragHandle);
 
             RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
             this.AddManipulator(new RectangleSelecter(() => -localBound.position));

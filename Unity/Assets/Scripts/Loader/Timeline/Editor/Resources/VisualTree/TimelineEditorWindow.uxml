@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Scripts/Loader/Timeline/Editor/Resources/Style/TimelineEditorWindow.uss?fileID=7433441132597879392&amp;guid=dd412e76b6520e14cb2532733bbe8e3c&amp;type=3#TimelineEditorWindow" />
     <ui:VisualElement name="top" style="height: 26px;">
         <ui:Label tabindex="-1" text="300-Rg_Throw" parse-escape-sequences="true" display-tooltip-when-elided="true" name="select-timeline-label" style="color: rgb(255, 255, 255); -unity-text-align: middle-left; text-overflow: clip; height: 25px; width: 150px; padding-left: 10px; padding-top: 2px;" />
-        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="select-timeline-button" focusable="true" />
+        <ui:Button name="select-timeline-button" />
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="play-button" />
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="pause-button" />
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="loop-button" />

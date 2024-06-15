@@ -10,8 +10,7 @@ namespace Timeline
     public class BBPlayableGraph: SerializedScriptableObject
     {
         [HideReferenceObjectPicker]
-        [DictionaryDrawerSettings(KeyLabel = "BehaviorOrder", ValueLabel = "Timeline")]
         [OdinSerialize, NonSerialized]
-        public Dictionary<int, BBTimeline> Timelines = new();
+        public List<BBTimeline> Timelines = new();
     }
 }

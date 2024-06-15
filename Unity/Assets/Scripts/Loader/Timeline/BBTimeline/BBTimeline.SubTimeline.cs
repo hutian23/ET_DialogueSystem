@@ -68,19 +68,19 @@ namespace Timeline
         [Sirenix.OdinInspector.Button("Open TimelineEditorWindow"), Sirenix.OdinInspector.ShowIf("hasTestBinder")]
         public void OpenTimeline()
         {
-            if (!TestBinder.BBPlayable.Timelines.TryGetValue(Order, out BBTimeline timeline))
-            {
-                Debug.LogError($"not exist timeline,order:{Order}");
-                return;
-            }
-
-            TestBinder.ClearTimelineGenerate();
-            TimelineEditorWindow window = ScriptableObject.CreateInstance<TimelineEditorWindow>();
-            window.Show();
-            window.TimelinePlayer = TestBinder;
-            window.TimelinePlayer.Dispose();
-            window.TimelinePlayer.Init(timeline);
-            window.PopulateView();
+            // if (!TestBinder.BBPlayable.Timelines.TryGetValue(Order, out BBTimeline timeline))
+            // {
+            //     Debug.LogError($"not exist timeline,order:{Order}");
+            //     return;
+            // }
+            //
+            // TestBinder.ClearTimelineGenerate();
+            // TimelineEditorWindow window = ScriptableObject.CreateInstance<TimelineEditorWindow>();
+            // window.Show();
+            // window.TimelinePlayer = TestBinder;
+            // window.TimelinePlayer.Dispose();
+            // window.TimelinePlayer.Init(timeline);
+            // window.PopulateView();
         }
 
         private TimelineFieldView fieldView;

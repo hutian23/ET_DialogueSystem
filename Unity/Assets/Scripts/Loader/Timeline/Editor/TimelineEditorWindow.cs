@@ -109,11 +109,15 @@ namespace Timeline.Editor
             m_select_timeline_Button = root.Q<Button>("select-timeline-button");
             m_select_timeline_Button.AddManipulator(new DropdownMenuManipulator((menu) =>
             {
-                foreach (var pair in TimelinePlayer.BBPlayable.Timelines)
+                foreach (var timeline in TimelinePlayer.BBPlayable.Timelines)
                 {
-                    var actionName = $"{pair.Key} - {pair.Value.timelineName}";
-                    menu.AppendAction(actionName, _ => { TimelinePlayer.OpenWindow(pair.Value); });
+                    var actionName = $"{timeline.timelineName}";
+                    menu.AppendAction(actionName, _ => { TimelinePlayer.OpenWindow(timeline); });
                 }
+
+                menu.AppendSeparator();
+                menu.AppendAction("Create New Timeline", _ => { CreateTimeline(); });
+                menu.AppendAction("Add Existing Timeline", _ => { Debug.LogWarning("Add Existing Timeline"); });
             }, MouseButton.RightMouse));
 
             m_select_timeline_label = root.Q<Label>("select-timeline-label");
@@ -251,13 +255,32 @@ namespace Timeline.Editor
             window.PopulateView();
         }
 
+        #region Select Timeline
+
         private void UpdateSelectTimeline()
         {
-            foreach (var pair in TimelinePlayer.BBPlayable.Timelines)
+            foreach (var timeline in TimelinePlayer.BBPlayable.Timelines)
             {
-                if (pair.Value != TimelinePlayer.CurrentTimeline) continue;
-                m_select_timeline_label.text = $"{pair.Key} - {pair.Value.timelineName}";
+                if (timeline != TimelinePlayer.CurrentTimeline) continue;
+                m_select_timeline_label.text = $"{timeline.timelineName}";
             }
         }
+
+        private void CreateTimeline()
+        {
+            string path = EditorUtility.OpenFilePanel("Create Timeline", "Assets/Res/ScriptableObject/", "");
+            if (!string.IsNullOrEmpty(path))
+            {
+                string relativePath = "Assets" + path.Substring(Application.dataPath.Length);
+                BBTimeline timeline = AssetDatabase.LoadAssetAtPath<BBTimeline>(relativePath);
+
+                if (timeline != null)
+                {
+                    Selection.activeObject = timeline;
+                }
+            }
+        }
+
+        #endregion
     }
 }
