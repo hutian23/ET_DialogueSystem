@@ -25,7 +25,7 @@ namespace Timeline
     [CreateAssetMenu(menuName = "ScriptableObject/BBTimeline/Timeline", fileName = "BBTimeline")]
     public class BBTimeline: SerializedScriptableObject
     {
-        public string timelineName;
+        public string timelineName = "New BBTimeline";
 
         [NonSerialized, OdinSerialize]
         public List<BBTrack> Tracks = new();

@@ -68,6 +68,8 @@ namespace Timeline
                 OpenWindow(timeline);
                 return;
             }
+
+            Debug.LogWarning("PlayableGraph need at least one timeline");
         }
 
         public void OpenWindow(BBTimeline timeline)
@@ -93,8 +95,7 @@ namespace Timeline
                 DestroyImmediate(go);
             }
         }
-
-        [Sirenix.OdinInspector.Button("初始位置")]
+        
         public void ResetPosition()
         {
             transform.position = initPos;

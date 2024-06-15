@@ -9,35 +9,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c5b3524ad82f7148a06c6c02bdf2e1a, type: 3}
-  m_Name: Mai
+  m_Script: {fileID: 11500000, guid: 9dad01b398c6f634c9e134265baa14a1, type: 3}
+  m_Name: Mai_A_Drive_2
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 2affb37f3f1d84942b6912d82c84e175, type: 2}
-    - {fileID: 11400000, guid: 137771d11a4747243aaa75ca5b9b2a3a, type: 2}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: Timelines
+    - Name: Tracks
       Entry: 7
-      Data: 0|ET.ListComponent`1[[Timeline.BBTimeline, Unity.Loader]], Unity.Core
+      Data: 0|System.Collections.Generic.List`1[[Timeline.BBTrack, Unity.Loader]],
+        mscorlib
     - Name: 
       Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 10
       Data: 0
-    - Name: 
-      Entry: 10
-      Data: 1
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
+    - Name: Marks
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[Timeline.MarkerInfo, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  timelineName: New BBTimeline

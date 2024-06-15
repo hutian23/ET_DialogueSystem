@@ -112,12 +112,14 @@ namespace Timeline.Editor
                 foreach (var timeline in TimelinePlayer.BBPlayable.Timelines)
                 {
                     var actionName = $"{timeline.timelineName}";
-                    menu.AppendAction(actionName, _ => { TimelinePlayer.OpenWindow(timeline); });
+                    menu.AppendAction(actionName, _ => { TimelinePlayer.OpenWindow(timeline); },
+                        TimelinePlayer.CurrentTimeline == timeline? DropdownMenuAction.Status.Checked : DropdownMenuAction.Status.Normal);
                 }
 
                 menu.AppendSeparator();
                 menu.AppendAction("Create New Timeline", _ => { CreateTimeline(); });
-                menu.AppendAction("Add Existing Timeline", _ => { Debug.LogWarning("Add Existing Timeline"); });
+                menu.AppendAction("Add Existing Timeline", _ => { AddTimeline(); });
+                menu.AppendAction("Remove Current Timeline", _ => { RemoveTimeline(); });
             }, MouseButton.RightMouse));
 
             m_select_timeline_label = root.Q<Label>("select-timeline-label");
@@ -268,16 +270,64 @@ namespace Timeline.Editor
 
         private void CreateTimeline()
         {
-            string path = EditorUtility.OpenFilePanel("Create Timeline", "Assets/Res/ScriptableObject/", "");
+            string path = EditorUtility.SaveFilePanel("Create new Timeline", "Assets/Res/ScriptableObject/", "", "asset");
+            if (string.IsNullOrEmpty(path))
+            {
+                return;
+            }
+
+            string relativePath = "Assets" + path.Substring(Application.dataPath.Length);
+
+            //Override? 从timelines移除
+            BBTimeline preTimeline = AssetDatabase.LoadAssetAtPath<BBTimeline>(relativePath);
+            TimelinePlayer.BBPlayable.Timelines.Remove(preTimeline);
+
+            BBTimeline timeline = CreateInstance<BBTimeline>();
+            AssetDatabase.CreateAsset(timeline, relativePath);
+            AssetDatabase.SaveAssets();
+
+            TimelinePlayer.BBPlayable.Timelines.Add(timeline);
+        }
+
+        private void AddTimeline()
+        {
+            string path = EditorUtility.OpenFilePanel("Add Existing Timeline", "Assets/Res/ScriptableObject/", "");
             if (!string.IsNullOrEmpty(path))
             {
                 string relativePath = "Assets" + path.Substring(Application.dataPath.Length);
                 BBTimeline timeline = AssetDatabase.LoadAssetAtPath<BBTimeline>(relativePath);
 
-                if (timeline != null)
+                if (timeline == null)
                 {
-                    Selection.activeObject = timeline;
+                    return;
                 }
+
+                if (TimelinePlayer.BBPlayable.Timelines.Contains(timeline))
+                {
+                    Debug.LogWarning($"already exist Timeline:{timeline.timelineName}");
+                    return;
+                }
+
+                TimelinePlayer.BBPlayable.Timelines.Add(timeline);
+            }
+        }
+
+        private void RemoveTimeline()
+        {
+            if (TimelinePlayer.BBPlayable.Timelines.Count <= 1)
+            {
+                Debug.LogWarning("at least one timeline in list!!!");
+                return;
+            }
+
+            //remove timeline 
+            TimelinePlayer.BBPlayable.Timelines.Remove(BBTimeline);
+
+            //open first timeline
+            foreach (var timeline in TimelinePlayer.BBPlayable.Timelines)
+            {
+                TimelinePlayer.OpenWindow(timeline);
+                break;
             }
         }
 
