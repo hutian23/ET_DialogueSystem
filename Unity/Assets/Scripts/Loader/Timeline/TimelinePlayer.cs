@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Timeline.Editor;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Audio;
@@ -55,10 +56,16 @@ namespace Timeline
         }
 
 #if UNITY_EDITOR
+        [OnValueChanged("SwitchEditMode")]
         public bool EditMode;
-        private bool InEdit => EditMode;
-        private bool InRuntime => !EditMode;
+        public bool InEdit => EditMode;
+        public bool InRuntime => !EditMode;
 
+        public void SwitchEditMode()
+        {
+            EditorWindow.GetWindow<TimelineEditorWindow>().Dispose();
+        }
+        
         [Sirenix.OdinInspector.Button("技能编辑器"), Sirenix.OdinInspector.ShowIf("InEdit")]
         public void OpenWindow()
         {
@@ -95,7 +102,7 @@ namespace Timeline
                 DestroyImmediate(go);
             }
         }
-        
+
         public void ResetPosition()
         {
             transform.position = initPos;
@@ -127,10 +134,10 @@ namespace Timeline
             CurrentTimeline = _timeline;
             RuntimeimePlayable = RuntimePlayable.Create(CurrentTimeline, this);
 
-            if (!ApplyRootMotion)
-            {
-                ResetPos();
-            }
+            // if (!ApplyRootMotion)
+            // {
+            //     ResetPos();
+            // }
 
             #endregion
         }

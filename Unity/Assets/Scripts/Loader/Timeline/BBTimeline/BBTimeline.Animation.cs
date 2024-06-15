@@ -63,6 +63,31 @@ namespace Timeline
             return curve.Evaluate((float)targetFrame / TimelineUtility.FrameRate) - initPos;
         }
 
+#if UNITY_EDITOR
+        public Vector3 EditorPosition(int targetFrame)
+        {
+            float x = GetRootMotionDataInEditor("m_LocalPosition_x", targetFrame);
+            float y = GetRootMotionDataInEditor("m_LocalPosition_y", targetFrame);
+            float z = GetRootMotionDataInEditor("m_LocalPosition_z", targetFrame);
+            return new Vector3(x, y, z);
+        }
+
+        public Vector3 EditorRotation(int targetFrame)
+        {
+            float x = GetRootMotionDataInEditor("localEulerAnglesRaw_x", targetFrame);
+            float y = GetRootMotionDataInEditor("localEulerAnglesRaw_y", targetFrame);
+            float z = GetRootMotionDataInEditor("localEulerAnglesRaw_z", targetFrame);
+            return new Vector3(x, y, z);
+        }
+
+        private float GetRootMotionDataInEditor(string key, int targetFrame)
+        {
+            if (!rootMotionDict.TryGetValue(key, out AnimationCurve curve)) return 0f;
+            return curve.Evaluate((float)targetFrame / TimelineUtility.FrameRate);
+        }
+
+#endif
+
         public BBAnimationClip(int frame): base(frame)
         {
         }
@@ -88,15 +113,15 @@ namespace Timeline
         {
             FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() => { Clip.Name = ClipName; }, "Rename Clip");
         }
-        
-        [LabelText("Clip: "),PropertyOrder(3)]
+
+        [LabelText("Clip: "), PropertyOrder(3)]
         public UnityEngine.AnimationClip AnimationClip;
 
-        [LabelText("AnimationLength: "),PropertyOrder(4)]
+        [LabelText("AnimationLength: "), PropertyOrder(4)]
         [Sirenix.OdinInspector.ShowInInspector]
         public int animationLength => AnimationClip == null? 0 : (int)(AnimationClip.length * TimelineUtility.FrameRate);
 
-        [Sirenix.OdinInspector.Button("Rebind"),PropertyOrder(5)]
+        [Sirenix.OdinInspector.Button("Rebind"), PropertyOrder(5)]
         public void Rebind()
         {
             FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() =>
@@ -230,6 +255,7 @@ namespace Timeline
         private Playable Output { get; set; }
         public Playable Handle { get; private set; }
         private AnimationClipPlayable ClipPlayable { get; set; }
+        private RuntimePlayable runtimePlayable;
 
         public override void PrepareFrame(Playable playable, FrameData info)
         {
@@ -254,7 +280,11 @@ namespace Timeline
 
             //不混合rootmotion的位移量
             if (GetInputWeight() <= 0f) return;
-            //TODO 怎么抛出事件...? 
+
+            //Edit mode下,更新position
+            if (!runtimePlayable.TimelinePlayer.InEdit) return;
+            BBAnimationClip animationClip = Clip as BBAnimationClip;
+            runtimePlayable.TimelinePlayer.transform.localPosition = animationClip.EditorPosition(clipInFrame);
         }
 
         public static BBTimelineAnimationClipPlayable Create(RuntimePlayable runtimePlayable, BBAnimationClip clip, Playable output, int index)
@@ -264,6 +294,7 @@ namespace Timeline
             clipPlayable.Clip = clip;
             clipPlayable.Handle = handle;
             clipPlayable.ClipPlayable = AnimationClipPlayable.Create(runtimePlayable.PlayableGraph, clip.animationClip);
+            clipPlayable.runtimePlayable = runtimePlayable;
             handle.AddInput(clipPlayable.ClipPlayable, 0, 1);
 
             clipPlayable.Output = output;

@@ -61,10 +61,6 @@ namespace ET.Client
                 self.OnDone();
                 return;
             }
-
-            //TODO 
-            //1. currentframe所在animationClip
-            //3. 当前帧位移量
         }
 
         //当前clip执行完的回调
