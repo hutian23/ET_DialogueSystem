@@ -12,5 +12,7 @@ namespace Timeline
         [HideReferenceObjectPicker]
         [OdinSerialize, NonSerialized]
         public List<BBTimeline> Timelines = new();
+
+        public List<BehaviorClip> BehaviorClips = new();
     }
 }

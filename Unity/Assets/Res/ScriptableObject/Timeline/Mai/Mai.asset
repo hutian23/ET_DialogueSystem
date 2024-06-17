@@ -41,3 +41,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  BehaviorClips:
+  - Script: 
+    ClipPos: {x: 0, y: 0, z: 0}

@@ -61,9 +61,10 @@ namespace Timeline
         public bool InEdit => EditMode;
         public bool InRuntime => !EditMode;
 
-        public void SwitchEditMode()
+        [Sirenix.OdinInspector.Button("行为编辑器")]
+        public void OpenController()
         {
-            EditorWindow.GetWindow<TimelineEditorWindow>().Dispose();
+            EditorWindow.GetWindow<BehaviorControllerEditor>().Show();
         }
         
         [Sirenix.OdinInspector.Button("技能编辑器"), Sirenix.OdinInspector.ShowIf("InEdit")]

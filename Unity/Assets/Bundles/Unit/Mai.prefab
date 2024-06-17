@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4287713381951760772}
   - component: {fileID: 1340376429761113669}
   - component: {fileID: 8844023896634408005}
+  - component: {fileID: 9109099541066534420}
   m_Layer: 0
   m_Name: Mai
   m_TagString: Untagged
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 2016810935
   m_SortingLayer: 1
   m_SortingOrder: 299
-  m_Sprite: {fileID: 21300000, guid: 9b4664808f8c4d04d9928788a3af6b84, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 86231986e2d7e074786fff57f223b391, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -126,7 +127,7 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 2affb37f3f1d84942b6912d82c84e175, type: 2}
     - {fileID: 1340376429761113669}
-    - {fileID: 7400000, guid: 02a9bdc4e1dd7da43bdda810a313987d, type: 2}
+    - {fileID: 7400000, guid: eb558f1bf7fe911489ba949dc52e9701, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -272,6 +273,7 @@ MonoBehaviour:
   BBPlayable: {fileID: 11400000, guid: b08df29221071a849b0e549f7223945d, type: 2}
   CurrentTimeline: {fileID: 11400000, guid: 2affb37f3f1d84942b6912d82c84e175, type: 2}
   initPos: {x: 0, y: 0, z: 0}
+  EditMode: 1
 --- !u!114 &8844023896634408005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,3 +289,15 @@ MonoBehaviour:
   data:
   - key: Mai
     gameObject: {fileID: 4287713381951760773}
+--- !u!114 &9109099541066534420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287713381951760773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32a91b08ba16e824098fc5eb3ecddf37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

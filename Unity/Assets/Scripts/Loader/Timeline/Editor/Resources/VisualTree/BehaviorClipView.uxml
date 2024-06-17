@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Label tabindex="-1" text="Rg_IdleRg_IdleRg_IdleRg_IdleRg_IdleRg_IdleRg_IdleRg_IdleRg_IdleRg_Idle" parse-escape-sequences="true" display-tooltip-when-elided="true" name="behavior-clip-label" />
+    <ui:ProgressBar name="behavior-progress-bar" value="14.51" />
+</ui:UXML>

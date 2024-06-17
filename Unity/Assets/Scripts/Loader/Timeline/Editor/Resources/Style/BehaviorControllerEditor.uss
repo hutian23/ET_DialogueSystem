@@ -1,0 +1,69 @@
+#controller-container {
+    background-color: rgb(32, 32, 32);
+    flex-grow: 1;
+}
+
+#left-panel-toolbar > .unity-button {
+    background-color: rgba(0, 0, 0, 0);
+    margin: 0;
+    padding: 2px 5px;
+    border-radius: 0;
+    border-width: 0;
+}
+
+#left-panel-toolbar > .unity-button:hover {
+    background-color: rgb(88, 88, 88);
+}
+
+#left-panel-toolbar > .unity-button:active {
+    background-color: rgba(88, 88, 88, 0);
+}
+
+#left-panel-toolbar {
+    width: 100%;
+    height: 25px;
+    background-color: rgb(56, 56, 56);
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(32, 32, 32);
+}
+
+#left-panel-toolbar #Layers {
+    margin-left: 5px;
+    border-left-width: 1px;
+    border-left-color: rgb(32, 32, 32);
+}
+
+#left-panel-toolbar #Parameters {
+    border-left-width: 1px;
+    border-left-color: rgb(32, 32, 32);
+    border-right-width: 1px;
+    border-right-color: rgb(32, 32, 32);
+}
+
+#left-panel-inspector-container {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(56, 56, 56);
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(32, 32, 32);
+}
+
+#right-panel-toolbar {
+    width: 100%;
+    height: 25px;
+    flex-shrink: 0;
+    background-color: rgb(56, 56, 56);
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(32, 32, 32);
+}
+
+#current-layer {
+    border-right: 50px solid transparent;
+}
+
+GridBackground {
+    --grid-background-color: rgb(40, 40, 40);
+    --line-color: rgba(193, 196, 192, 0.1);
+    --thick-line-color: rgba(193, 196, 192, 0.1);
+    --spacing: 15;
+}
