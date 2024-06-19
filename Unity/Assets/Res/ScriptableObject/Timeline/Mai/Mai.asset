@@ -43,8 +43,29 @@ MonoBehaviour:
       Data: 
   BehaviorClips:
   - Timeline: {fileID: 0}
-    Title: New BehaviorClip
+    Title: Rg_22222
     Script: 
     viewDataKey: a14929b1-f9b2-4082-8fa7-a3bebb61d7cd
-    ClipPos: {x: 291, y: 0, z: 0}
-  linkDatas: []
+    ClipPos: {x: 278, y: 0, z: 0}
+  - Timeline: {fileID: 0}
+    Title: Rg_002
+    Script: 
+    viewDataKey: 130d7cdd-76f7-4689-8d43-b42989f9ba52
+    ClipPos: {x: 599, y: -77, z: 0}
+  - Timeline: {fileID: 0}
+    Title: Debug_Node
+    Script: 'Debug.Log("Hello world");
+
+      Print("Hello world");'
+    viewDataKey: 548f48c7-56ff-4e1f-a25f-b98a5c398f95
+    ClipPos: {x: 599, y: 115, z: 0}
+  linkDatas:
+  - viewDataKey: e26cea0c-f178-47b8-9c31-cb3e2150304f
+    inputGuid: a14929b1-f9b2-4082-8fa7-a3bebb61d7cd
+    outputGuid: 0
+  - viewDataKey: cb964f89-7822-4607-84a2-912a93debe68
+    inputGuid: 130d7cdd-76f7-4689-8d43-b42989f9ba52
+    outputGuid: a14929b1-f9b2-4082-8fa7-a3bebb61d7cd
+  - viewDataKey: bf5fbb6f-46bd-47a9-9963-4aa7745354c2
+    inputGuid: 548f48c7-56ff-4e1f-a25f-b98a5c398f95
+    outputGuid: a14929b1-f9b2-4082-8fa7-a3bebb61d7cd

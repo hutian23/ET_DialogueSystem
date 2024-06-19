@@ -41,5 +41,11 @@ namespace Timeline.Editor
             //Selection
             RegisterCallback<PointerDownEvent>(_ => { BBTimelineSettings.GetSettings().SetActiveObject(behaviorClip); });
         }
+
+        public void Refresh()
+        {
+            if (BehaviorClip == null) return;
+            title = BehaviorClip.Title;
+        }
     }
 }

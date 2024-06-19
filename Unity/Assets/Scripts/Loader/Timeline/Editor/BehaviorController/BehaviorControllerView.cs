@@ -110,7 +110,7 @@ namespace Timeline.Editor
                 {
                     evt.menu.ClearItems();
                     evt.menu.AppendAction("Open Timeline", _ => { Debug.LogWarning("Hello world"); });
-                    evt.menu.AppendAction("Open Script", _ => { Debug.LogWarning("Hello world"); });
+                    evt.menu.AppendAction("Open Script", _ => { BehaviorScriptEditor.Init(clipView.BehaviorClip); });
                     evt.menu.AppendAction("Delete BehaviorClip", _ => { RemoveClip(clipView); });
                     evt.menu.AppendAction("Select", _ =>
                     {
@@ -258,6 +258,13 @@ namespace Timeline.Editor
 
             //Regist event
             RegisterCallback<MouseMoveEvent>(evt => { this.ScreenMousePosition = evt.mousePosition + Editor.position.position; });
+            RegisterCallback<FocusEvent>(_ =>
+            {
+                foreach (BehaviorClipView behaviorClipView in clipViews)
+                {
+                    behaviorClipView.Refresh();
+                }
+            });
         }
     }
 }
