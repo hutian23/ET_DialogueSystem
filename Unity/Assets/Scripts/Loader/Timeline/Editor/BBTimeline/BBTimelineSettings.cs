@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Timeline.Editor;
+using UnityEditor;
+using UnityEngine;
 
 namespace Timeline
 {
@@ -15,5 +17,18 @@ namespace Timeline
 
         [Sirenix.OdinInspector.ReadOnly]
         public System.Object CopyTarget;
+
+        public BehaviorActiveObject BehaviorActiveObject;
+
+        public void SetActiveObject(System.Object activeObject)
+        {
+            BehaviorActiveObject.ActiveObject = activeObject;
+            Selection.activeObject = BehaviorActiveObject;
+        }
+        
+        public void OnEnable()
+        {
+            BehaviorActiveObject = CreateInstance<BehaviorActiveObject>();
+        }
     }
 }

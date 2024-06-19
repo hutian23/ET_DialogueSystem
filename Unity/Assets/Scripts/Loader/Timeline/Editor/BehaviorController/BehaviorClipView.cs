@@ -1,28 +1,45 @@
-﻿using UnityEngine;
+﻿using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
-    public sealed class BehaviorClipView: VisualElement
+    public sealed class BehaviorClipView: Node
     {
-        public new class UxmlFactory: UxmlFactory<BehaviorClipView, UxmlTraits>
-        {
-        }
+        public BehaviorClip BehaviorClip;
 
-        private DropdownMenuManipulator dropManipulator;
+        public Port Input;
+        public Port Output;
 
         public BehaviorClipView()
         {
-            VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>($"VisualTree/BehaviorClipView");
-            visualTree.CloneTree(this);
+            Input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof (bool));
+            Input.portName = "Input";
+            Output = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof (bool));
+            Output.portName = "Output";
 
-            var styleSheet = Resources.Load<StyleSheet>($"Style/BehaviorClipView");
-            styleSheets.Add(styleSheet);
-            AddToClassList("BehaviorClipView");
+            inputContainer.Add(Input);
+            outputContainer.Add(Output);
 
-            dropManipulator = new DropdownMenuManipulator((menu) => { menu.AppendAction("Hello world", _ => { Debug.LogWarning("Hello world"); }); },
-                MouseButton.RightMouse);
-            this.AddManipulator(dropManipulator);
+            ProgressBar bar = new();
+            bar.style.height = 13;
+            bar.style.display = DisplayStyle.None;
+            contentContainer.Add(bar);
+        }
+
+        public void Init(BehaviorClip behaviorClip)
+        {
+            //Timeline
+            BehaviorClip = behaviorClip;
+            title = behaviorClip.Title;
+            viewDataKey = behaviorClip.viewDataKey;
+
+            Rect oldPos = GetPosition();
+            oldPos.position = behaviorClip.ClipPos;
+            SetPosition(oldPos);
+
+            //Selection
+            RegisterCallback<PointerDownEvent>(_ => { BBTimelineSettings.GetSettings().SetActiveObject(behaviorClip); });
         }
     }
 }

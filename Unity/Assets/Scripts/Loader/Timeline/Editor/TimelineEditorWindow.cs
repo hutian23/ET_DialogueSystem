@@ -24,7 +24,7 @@ namespace Timeline.Editor
         private TimelineFieldView m_TimelineField;
         public IntegerField m_currentFrameField;
         public TextField m_currentMarkerField;
-        public TimelinePlayer TimelinePlayer { get; set; }
+        public TimelinePlayer TimelinePlayer { get; private set; }
 
         public BBTimeline BBTimeline => TimelinePlayer.RuntimeimePlayable.Timeline;
         public RuntimePlayable RuntimePlayable => TimelinePlayer.RuntimeimePlayable;
@@ -179,12 +179,12 @@ namespace Timeline.Editor
             Undo.CollapseUndoOperations(undoGroup);
         }
 
-        public void Dispose()
+        private void Dispose()
         {
             m_TimelineField.Dispose();
         }
 
-        public void PopulateView()
+        private void PopulateView()
         {
             TrackHandleContainer.Clear();
             TrackHandleContainer.ForceScrollViewUpdate();

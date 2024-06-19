@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Timeline.Editor;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Audio;
@@ -58,15 +57,16 @@ namespace Timeline
 #if UNITY_EDITOR
         [OnValueChanged("SwitchEditMode")]
         public bool EditMode;
+
         public bool InEdit => EditMode;
         public bool InRuntime => !EditMode;
 
         [Sirenix.OdinInspector.Button("行为编辑器")]
         public void OpenController()
         {
-            EditorWindow.GetWindow<BehaviorControllerEditor>().Show();
+            BehaviorControllerEditor.OpenWindow(this);
         }
-        
+
         [Sirenix.OdinInspector.Button("技能编辑器"), Sirenix.OdinInspector.ShowIf("InEdit")]
         public void OpenWindow()
         {

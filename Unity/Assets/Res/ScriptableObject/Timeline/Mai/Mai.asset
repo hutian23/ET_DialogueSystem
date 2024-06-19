@@ -42,5 +42,9 @@ MonoBehaviour:
       Entry: 8
       Data: 
   BehaviorClips:
-  - Script: 
-    ClipPos: {x: 0, y: 0, z: 0}
+  - Timeline: {fileID: 0}
+    Title: New BehaviorClip
+    Script: 
+    viewDataKey: a14929b1-f9b2-4082-8fa7-a3bebb61d7cd
+    ClipPos: {x: 291, y: 0, z: 0}
+  linkDatas: []

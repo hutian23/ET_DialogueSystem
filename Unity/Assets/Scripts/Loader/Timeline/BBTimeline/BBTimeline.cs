@@ -5,7 +5,6 @@ using Sirenix.Serialization;
 using Timeline.Editor;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Timeline
 {
