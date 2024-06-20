@@ -13,8 +13,6 @@ namespace Timeline
     {
         [HideReferenceObjectPicker]
         [OdinSerialize, NonSerialized]
-        public List<BBTimeline> Timelines = new();
-
         public List<BehaviorClip> BehaviorClips = new();
 
 #if UNITY_EDITOR
@@ -27,5 +25,16 @@ namespace Timeline
             SerializedController.Update();
         }
 #endif
+
+        public RootClip root;
+
+        public List<String> Layers = new();
+    }
+
+    [Serializable]
+    public class RootClip
+    {
+        [TextArea(10, 30)]
+        public string MainScript;
     }
 }

@@ -1450,6 +1450,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1340376429761113669, guid: c7a02efc57a5aa44bbf97b07f3f9ed02,
         type: 3}
+      propertyPath: CurrentTimeline
+      value: 
+      objectReference: {fileID: 11400000, guid: 2affb37f3f1d84942b6912d82c84e175,
+        type: 2}
+    - target: {fileID: 1340376429761113669, guid: c7a02efc57a5aa44bbf97b07f3f9ed02,
+        type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 1340376429761113669, guid: c7a02efc57a5aa44bbf97b07f3f9ed02,
@@ -1459,6 +1465,12 @@ PrefabInstance:
       propertyPath: serializationData.ReferencedUnityObjects.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1340376429761113669, guid: c7a02efc57a5aa44bbf97b07f3f9ed02,
+        type: 3}
+      propertyPath: serializationData.ReferencedUnityObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2affb37f3f1d84942b6912d82c84e175,
+        type: 2}
     - target: {fileID: 1340376429761113669, guid: c7a02efc57a5aa44bbf97b07f3f9ed02,
         type: 3}
       propertyPath: serializationData.ReferencedUnityObjects.Array.data[2]
@@ -1533,7 +1545,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: acb59df2923e7a843ba93617207eae34,
+      objectReference: {fileID: 21300000, guid: 9b4664808f8c4d04d9928788a3af6b84,
         type: 3}
     m_RemovedComponents:
     - {fileID: 9109099541066534420, guid: c7a02efc57a5aa44bbf97b07f3f9ed02, type: 3}

@@ -1,0 +1,51 @@
+#container {
+    margin-top: -1px;
+    width: 100%;
+    height: 50px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-color: rgb(32, 32, 32);
+    border-bottom-color: rgb(32, 32, 32);
+}
+
+#layer-line {
+    width: 100%;
+    height: 3px;
+    background-color: white;
+}
+
+#layer-setting-button {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    border-radius: 0;
+    width: 25px;
+    height: 25px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: resource('Icon/d__Popup@2x');
+}
+
+#layer-setting-button:hover {
+    background-color: rgb(88, 88, 88);
+}
+
+#layer-label {
+    width: 150px;
+    height: 25px;
+    margin: 0;
+    margin-left: 5%;
+    margin-top: 5px;
+    padding: 0;
+}
+
+#layer-line {
+    position: absolute;
+    bottom: 8px;
+    left: 5%;
+    width: 90%;
+    height: 2px;
+    background-color: whitesmoke;
+}

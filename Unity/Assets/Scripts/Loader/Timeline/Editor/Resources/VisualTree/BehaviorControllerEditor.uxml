@@ -6,7 +6,14 @@
                 <ui:Button text="Layers" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Layers" />
                 <ui:Button text="Parameters" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Parameters" />
             </ui:VisualElement>
-            <ui:VisualElement name="left-panel-inspector-container" />
+            <ui:VisualElement name="left-panel-inspector-container">
+                <ui:VisualElement name="layer-container" style="width: 100%; height: 100%;">
+                    <ui:VisualElement name="layer-toolbar">
+                        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="add-layer-button" />
+                    </ui:VisualElement>
+                    <ui:ScrollView name="layer-views-container" style="width: 100%; height: 100%;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="right-panel">
             <ui:VisualElement name="right-panel-toolbar">

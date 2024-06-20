@@ -16,56 +16,160 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 2affb37f3f1d84942b6912d82c84e175, type: 2}
     - {fileID: 11400000, guid: 137771d11a4747243aaa75ca5b9b2a3a, type: 2}
+    - {fileID: 11400000, guid: 2affb37f3f1d84942b6912d82c84e175, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: Timelines
+    - Name: BehaviorClips
       Entry: 7
-      Data: 0|ET.ListComponent`1[[Timeline.BBTimeline, Unity.Loader]], Unity.Core
+      Data: 0|System.Collections.Generic.List`1[[Timeline.BehaviorClip, Unity.Loader]],
+        mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
+      Entry: 7
+      Data: 1|Timeline.BehaviorClip, Unity.Loader
+    - Name: Timeline
       Entry: 10
       Data: 0
+    - Name: IsDefault
+      Entry: 5
+      Data: false
+    - Name: Layer
+      Entry: 6
+      Data: 
+    - Name: Title
+      Entry: 1
+      Data: Mai_B_Drive
+    - Name: Script
+      Entry: 6
+      Data: 
+    - Name: viewDataKey
+      Entry: 1
+      Data: 80736fa1-5ed6-470f-9d3f-3bb15613aa98
+    - Name: ClipPos
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
+      Entry: 4
+      Data: 376
+    - Name: 
+      Entry: 4
+      Data: 62
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 2|Timeline.BehaviorClip, Unity.Loader
+    - Name: Timeline
       Entry: 10
       Data: 1
+    - Name: IsDefault
+      Entry: 5
+      Data: false
+    - Name: Layer
+      Entry: 6
+      Data: 
+    - Name: Title
+      Entry: 1
+      Data: Mai_A_Drive
+    - Name: Script
+      Entry: 6
+      Data: 
+    - Name: viewDataKey
+      Entry: 1
+      Data: acdef711-fd64-478e-95d3-d8356cf8af55
+    - Name: ClipPos
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 376
+    - Name: 
+      Entry: 4
+      Data: -38
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|Timeline.BehaviorClip, Unity.Loader
+    - Name: Timeline
+      Entry: 6
+      Data: 
+    - Name: IsDefault
+      Entry: 5
+      Data: false
+    - Name: Layer
+      Entry: 6
+      Data: 
+    - Name: Title
+      Entry: 1
+      Data: Idle
+    - Name: Script
+      Entry: 6
+      Data: 
+    - Name: viewDataKey
+      Entry: 1
+      Data: 2ac18321-767d-4f6e-adb1-6de527c64e11
+    - Name: ClipPos
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 147
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  BehaviorClips:
-  - Timeline: {fileID: 0}
-    Title: Rg_22222
-    Script: 
-    viewDataKey: a14929b1-f9b2-4082-8fa7-a3bebb61d7cd
-    ClipPos: {x: 278, y: 0, z: 0}
-  - Timeline: {fileID: 0}
-    Title: Rg_002
-    Script: 
-    viewDataKey: 130d7cdd-76f7-4689-8d43-b42989f9ba52
-    ClipPos: {x: 599, y: -77, z: 0}
-  - Timeline: {fileID: 0}
-    Title: Debug_Node
-    Script: 'Debug.Log("Hello world");
-
-      Print("Hello world");'
-    viewDataKey: 548f48c7-56ff-4e1f-a25f-b98a5c398f95
-    ClipPos: {x: 599, y: 115, z: 0}
   linkDatas:
-  - viewDataKey: e26cea0c-f178-47b8-9c31-cb3e2150304f
-    inputGuid: a14929b1-f9b2-4082-8fa7-a3bebb61d7cd
+  - viewDataKey: 7c146bfa-dc77-4f4b-8777-d471cee89bcf
+    inputGuid: 80736fa1-5ed6-470f-9d3f-3bb15613aa98
+    outputGuid: 2ac18321-767d-4f6e-adb1-6de527c64e11
+  - viewDataKey: a5404e97-f6cd-4ecc-b695-3da48430a110
+    inputGuid: 2ac18321-767d-4f6e-adb1-6de527c64e11
     outputGuid: 0
-  - viewDataKey: cb964f89-7822-4607-84a2-912a93debe68
-    inputGuid: 130d7cdd-76f7-4689-8d43-b42989f9ba52
-    outputGuid: a14929b1-f9b2-4082-8fa7-a3bebb61d7cd
-  - viewDataKey: bf5fbb6f-46bd-47a9-9963-4aa7745354c2
-    inputGuid: 548f48c7-56ff-4e1f-a25f-b98a5c398f95
-    outputGuid: a14929b1-f9b2-4082-8fa7-a3bebb61d7cd
+  - viewDataKey: bb37df8c-9132-46f0-b009-aa2b835e862a
+    inputGuid: acdef711-fd64-478e-95d3-d8356cf8af55
+    outputGuid: 2ac18321-767d-4f6e-adb1-6de527c64e11
+  root:
+    MainScript: '@Init:
+
+      return;'
+  Layers:
+  - 
+  - 
+  - 
+  - 
+  - 

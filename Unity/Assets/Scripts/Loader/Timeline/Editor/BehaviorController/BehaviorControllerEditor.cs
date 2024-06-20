@@ -14,6 +14,8 @@ public class BehaviorControllerEditor: EditorWindow
         visualTree.CloneTree(root);
 
         controllerView = root.Q<BehaviorControllerView>();
+        inspectorContainer = root.Q<ScrollView>("layer-views-container");
+
         controllerView.Editor = this;
     }
 
@@ -30,6 +32,7 @@ public class BehaviorControllerEditor: EditorWindow
     public TimelinePlayer timelinePlayer;
     public BBPlayableGraph PlayableGraph => timelinePlayer.BBPlayable;
     private BehaviorControllerView controllerView;
+    public ScrollView inspectorContainer;
 
     public static void OpenWindow(TimelinePlayer timelinePlayer)
     {

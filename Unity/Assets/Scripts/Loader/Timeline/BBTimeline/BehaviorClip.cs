@@ -7,8 +7,11 @@ namespace Timeline
     public class BehaviorClip
     {
         public BBTimeline Timeline;
-        
+
+        public bool IsDefault;
+        public string Layer;
         public string Title;
+
         [TextArea(10, 30)]
         public string Script;
 

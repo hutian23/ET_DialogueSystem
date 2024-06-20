@@ -49,7 +49,7 @@ namespace Timeline
             //禁用AnimationClip对transform的修改
         }
 
-        public void ResetPos()
+        private void ResetPos()
         {
             transform.localPosition = initPos;
         }
@@ -71,9 +71,10 @@ namespace Timeline
         public void OpenWindow()
         {
             //默认字典第一个元素为入口
-            foreach (var timeline in BBPlayable.Timelines)
+            foreach (var behaviorClip in BBPlayable.BehaviorClips)
             {
-                OpenWindow(timeline);
+                if (behaviorClip.Timeline == null) continue;
+                OpenWindow(behaviorClip.Timeline);
                 return;
             }
 

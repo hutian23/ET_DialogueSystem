@@ -16,6 +16,7 @@ namespace Timeline.Editor
         public BehaviorControllerEditor Editor;
         private IEnumerable<BehaviorClipView> clipViews => graphElements.OfType<BehaviorClipView>();
         private new IEnumerable<Edge> edges => graphElements.OfType<Edge>();
+        private List<BehaviorLayerView> layerViews = new();
 
         private Vector2 ScreenMousePosition;
 
@@ -99,6 +100,8 @@ namespace Timeline.Editor
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
         {
             evt.menu.AppendAction("create new behaviorClip", _ => { CreateClip(); });
+            evt.menu.AppendAction("Reload Behavior", _ => { });
+            evt.menu.AppendAction("Preview Behavior", _ => { });
         }
 
         private void OnContextMenuPopulate(ContextualMenuPopulateEvent evt)
@@ -108,16 +111,19 @@ namespace Timeline.Editor
             {
                 case BehaviorClipView clipView:
                 {
-                    evt.menu.ClearItems();
-                    evt.menu.AppendAction("Open Timeline", _ => { Debug.LogWarning("Hello world"); });
-                    evt.menu.AppendAction("Open Script", _ => { BehaviorScriptEditor.Init(clipView.BehaviorClip); });
-                    evt.menu.AppendAction("Delete BehaviorClip", _ => { RemoveClip(clipView); });
-                    evt.menu.AppendAction("Select", _ =>
+                    //Root Node
+                    if (clipView.viewDataKey == "0")
                     {
-                        var activeObject = ScriptableObject.CreateInstance<BehaviorActiveObject>();
-                        activeObject.ActiveObject = clipView.BehaviorClip;
-                        Selection.activeObject = activeObject;
-                    });
+                        evt.menu.ClearItems();
+                        evt.menu.AppendAction("Open Main Script", _ => { });
+                    }
+                    else
+                    {
+                        evt.menu.ClearItems();
+                        evt.menu.AppendAction("Open Timeline", _ => { Editor.timelinePlayer.OpenWindow(); });
+                        evt.menu.AppendAction("Delete BehaviorClip", _ => { RemoveClip(clipView); });
+                    }
+
                     break;
                 }
             }
@@ -220,6 +226,9 @@ namespace Timeline.Editor
             {
                 RemoveElement(edge);
             }
+
+            //
+            Editor.inspectorContainer.Clear();
         }
 
         public void PopulateView()
@@ -235,7 +244,9 @@ namespace Timeline.Editor
             root.capabilities &= ~ Capabilities.Deletable;
             root.title = "Root";
             root.viewDataKey = "0";
+            root.titleContainer.style.backgroundColor = new Color(0.207f, 0.528f, 0.258f, 0.627f);
             root.inputContainer.Clear();
+            root.RegisterCallback<PointerDownEvent>(_ => { BBTimelineSettings.GetSettings().SetActiveObject(Editor.PlayableGraph.root); });
             AddElement(root);
 
             //create clip view
@@ -249,11 +260,19 @@ namespace Timeline.Editor
             //create edge
             foreach (var linkData in Editor.PlayableGraph.linkDatas)
             {
-                Edge edge = new();
-                edge.input = GetClipByGuid(linkData.inputGuid).Input;
-                edge.output = GetClipByGuid(linkData.outputGuid).Output;
+                Port input = GetClipByGuid(linkData.inputGuid).Input;
+                Port output = GetClipByGuid(linkData.outputGuid).Output;
+                Edge edge = output.ConnectTo(input);
                 edge.viewDataKey = linkData.viewDataKey;
                 AddElement(edge);
+            }
+
+            //create layerview
+            foreach (var layer in Editor.PlayableGraph.Layers)
+            {
+                BehaviorLayerView layerView = new();
+                this.layerViews.Add(layerView);
+                Editor.inspectorContainer.Add(layerView);
             }
 
             //Regist event
