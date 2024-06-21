@@ -1396,6 +1396,18 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
+    m_Name: New Layer 1
+    m_StateMachine: {fileID: 4491420253653957648}
+    m_Mask: {fileID: 0}
+    m_Motions: []
+    m_Behaviours: []
+    m_BlendingMode: 0
+    m_SyncedLayerIndex: -1
+    m_DefaultWeight: 0
+    m_IKPass: 0
+    m_SyncedLayerAffectsTiming: 0
+    m_Controller: {fileID: 9100000}
+  - serializedVersion: 5
     m_Name: Block
     m_StateMachine: {fileID: -3643623651158998656}
     m_Mask: {fileID: 0}
@@ -1410,18 +1422,6 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: New Layer 0
     m_StateMachine: {fileID: -6755558317521461928}
-    m_Mask: {fileID: 0}
-    m_Motions: []
-    m_Behaviours: []
-    m_BlendingMode: 0
-    m_SyncedLayerIndex: -1
-    m_DefaultWeight: 0
-    m_IKPass: 0
-    m_SyncedLayerAffectsTiming: 0
-    m_Controller: {fileID: 9100000}
-  - serializedVersion: 5
-    m_Name: New Layer 1
-    m_StateMachine: {fileID: 4491420253653957648}
     m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []

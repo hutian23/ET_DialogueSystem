@@ -21,6 +21,12 @@ namespace Timeline
 #endif
     }
 
+    [Serializable]
+    public class BehaviorLayer
+    {
+        public string layerName;
+    }
+
 #if UNITY_EDITOR
     [Serializable]
     public class BehaviorLinkData

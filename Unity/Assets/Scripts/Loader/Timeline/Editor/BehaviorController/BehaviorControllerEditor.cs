@@ -14,7 +14,21 @@ public class BehaviorControllerEditor: EditorWindow
         visualTree.CloneTree(root);
 
         controllerView = root.Q<BehaviorControllerView>();
-        inspectorContainer = root.Q<ScrollView>("layer-views-container");
+
+        #region Layer
+
+        layerViewsContainer = root.Q<ScrollView>("layer-views-container");
+        layerViewsContainer.RegisterCallback<PointerDownEvent>(evt =>
+        {
+            Debug.LogWarning(evt.localPosition);
+        }, TrickleDown.TrickleDown);
+        AddLayerButton = root.Q<Button>("add-layer-button");
+        AddLayerButton.clicked += () =>
+        {
+            ApplyModify(() => { PlayableGraph.Layers.Add(new BehaviorLayer() { layerName = "New Layer" }); }, "Add layer", true);
+        };
+
+        #endregion
 
         controllerView.Editor = this;
     }
@@ -31,8 +45,9 @@ public class BehaviorControllerEditor: EditorWindow
 
     public TimelinePlayer timelinePlayer;
     public BBPlayableGraph PlayableGraph => timelinePlayer.BBPlayable;
-    private BehaviorControllerView controllerView;
-    public ScrollView inspectorContainer;
+    public BehaviorControllerView controllerView;
+    public ScrollView layerViewsContainer;
+    private Button AddLayerButton;
 
     public static void OpenWindow(TimelinePlayer timelinePlayer)
     {

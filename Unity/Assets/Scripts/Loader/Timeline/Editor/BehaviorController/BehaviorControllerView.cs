@@ -16,7 +16,6 @@ namespace Timeline.Editor
         public BehaviorControllerEditor Editor;
         private IEnumerable<BehaviorClipView> clipViews => graphElements.OfType<BehaviorClipView>();
         private new IEnumerable<Edge> edges => graphElements.OfType<Edge>();
-        private List<BehaviorLayerView> layerViews = new();
 
         private Vector2 ScreenMousePosition;
 
@@ -226,9 +225,8 @@ namespace Timeline.Editor
             {
                 RemoveElement(edge);
             }
-
-            //
-            Editor.inspectorContainer.Clear();
+            
+            Editor.layerViewsContainer.Clear();
         }
 
         public void PopulateView()
@@ -271,9 +269,11 @@ namespace Timeline.Editor
             foreach (var layer in Editor.PlayableGraph.Layers)
             {
                 BehaviorLayerView layerView = new();
-                this.layerViews.Add(layerView);
-                Editor.inspectorContainer.Add(layerView);
+                layerView.Init(Editor, layer);
+
+                Editor.layerViewsContainer.Add(layerView);
             }
+            Editor.layerViewsContainer.ForceScrollViewUpdate();
 
             //Regist event
             RegisterCallback<MouseMoveEvent>(evt => { this.ScreenMousePosition = evt.mousePosition + Editor.position.position; });

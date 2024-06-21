@@ -59,7 +59,7 @@ MonoBehaviour:
       Data: 376
     - Name: 
       Entry: 4
-      Data: 62
+      Data: 63
     - Name: 
       Entry: 4
       Data: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
       Data: 376
     - Name: 
       Entry: 4
-      Data: -38
+      Data: -47
     - Name: 
       Entry: 4
       Data: 0
@@ -137,7 +137,7 @@ MonoBehaviour:
       Data: 147
     - Name: 
       Entry: 4
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 4
       Data: 0
@@ -168,8 +168,7 @@ MonoBehaviour:
 
       return;'
   Layers:
-  - 
-  - 
-  - 
-  - 
-  - 
+  - layerName: New Layer
+  - layerName: New Layer
+  - layerName: 1
+  - layerName: New Layer
