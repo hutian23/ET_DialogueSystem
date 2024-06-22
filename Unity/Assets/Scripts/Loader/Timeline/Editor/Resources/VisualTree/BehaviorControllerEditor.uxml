@@ -13,6 +13,9 @@
                     </ui:VisualElement>
                     <ui:ScrollView name="layer-views-container" style="width: 100%; height: 100%;" />
                 </ui:VisualElement>
+                <ui:ScrollView name="parameter-container" style="width: 100%; height: 100%;">
+                    <ui:ScrollView name="parameter-views-container" style="width: 100%; height: 100%;" />
+                </ui:ScrollView>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="right-panel">

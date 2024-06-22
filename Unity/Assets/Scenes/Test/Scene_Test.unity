@@ -1452,7 +1452,7 @@ PrefabInstance:
         type: 3}
       propertyPath: CurrentTimeline
       value: 
-      objectReference: {fileID: 11400000, guid: 2affb37f3f1d84942b6912d82c84e175,
+      objectReference: {fileID: 11400000, guid: 137771d11a4747243aaa75ca5b9b2a3a,
         type: 2}
     - target: {fileID: 1340376429761113669, guid: c7a02efc57a5aa44bbf97b07f3f9ed02,
         type: 3}
@@ -1469,7 +1469,7 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.ReferencedUnityObjects.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 2affb37f3f1d84942b6912d82c84e175,
+      objectReference: {fileID: 11400000, guid: 137771d11a4747243aaa75ca5b9b2a3a,
         type: 2}
     - target: {fileID: 1340376429761113669, guid: c7a02efc57a5aa44bbf97b07f3f9ed02,
         type: 3}

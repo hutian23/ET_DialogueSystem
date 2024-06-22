@@ -59,7 +59,7 @@ MonoBehaviour:
       Data: 376
     - Name: 
       Entry: 4
-      Data: 63
+      Data: 61
     - Name: 
       Entry: 4
       Data: 0
@@ -153,6 +153,31 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: variables
+      Entry: 7
+      Data: 4|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 5|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 6
+      Data: 
+    - Name: value
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   linkDatas:
   - viewDataKey: 7c146bfa-dc77-4f4b-8777-d471cee89bcf
     inputGuid: 80736fa1-5ed6-470f-9d3f-3bb15613aa98
@@ -172,3 +197,11 @@ MonoBehaviour:
   - layerName: 3
   - layerName: 4
   - layerName: 5
+  - layerName: New Layer
+  - layerName: New Layer
+  - layerName: New Layer
+  - layerName: New Layer
+  - layerName: New Layer
+  - layerName: New Layer
+  - layerName: New Layer
+  - layerName: New Layer

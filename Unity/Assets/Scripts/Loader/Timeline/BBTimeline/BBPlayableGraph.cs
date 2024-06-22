@@ -29,6 +29,8 @@ namespace Timeline
         public RootClip root;
 
         public List<BehaviorLayer> Layers = new();
+
+        public List<SharedVariable> variables = new();
     }
 
     [Serializable]

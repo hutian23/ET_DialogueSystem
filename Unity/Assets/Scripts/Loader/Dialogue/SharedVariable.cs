@@ -6,6 +6,8 @@ namespace ET.Client
     public class SharedVariable
     {
         public string name;
+
+        [HideReferenceObjectPicker]
         public object value;
     }
 }

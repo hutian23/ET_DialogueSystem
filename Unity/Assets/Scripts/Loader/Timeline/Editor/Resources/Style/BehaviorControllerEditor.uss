@@ -33,6 +33,10 @@
     border-left-color: rgb(32, 32, 32);
 }
 
+ButtonSelected{
+    background-color: rgb(88, 88, 88);
+}
+
 #left-panel-toolbar #Parameters {
     border-left-width: 1px;
     border-left-color: rgb(32, 32, 32);

@@ -3973,7 +3973,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 6
     - Name: 
       Entry: 7
       Data: 200|ET.Client.SharedVariable, Unity.Loader
@@ -4271,6 +4271,39 @@ MonoBehaviour:
     - Name: 
       Entry: 3
       Data: 1000
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 211|ET.Client.SharedVariable, Unity.Loader
+    - Name: name
+      Entry: 1
+      Data: Constant
+    - Name: value
+      Entry: 7
+      Data: 212|UnityEngine.AnimationCurve, UnityEngine.CoreModule
+    - Name: 
+      Entry: 7
+      Data: 213|UnityEngine.Keyframe[], UnityEngine.CoreModule
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 3
+      Data: 8
+    - Name: 
+      Entry: 3
+      Data: 8
     - Name: 
       Entry: 8
       Data: 

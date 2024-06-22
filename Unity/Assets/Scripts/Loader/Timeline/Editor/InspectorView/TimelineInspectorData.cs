@@ -4,6 +4,7 @@ using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
+    [HideMonoScript]
     public class TimelineInspectorData: SerializedScriptableObject
     {
         [HideLabel]

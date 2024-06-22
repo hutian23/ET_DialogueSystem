@@ -160,7 +160,19 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 7|ET.LocalizationGroup, Unity.Loader
+    - Name: Language
+      Entry: 3
       Data: 0
+    - Name: content
+      Entry: 1
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -191,7 +203,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 7|ET.Client.BBRoot, Unity.Loader
+      Data: 8|ET.Client.BBRoot, Unity.Loader
     - Name: TreeID
       Entry: 3
       Data: 1
@@ -203,7 +215,7 @@ MonoBehaviour:
       Data: false
     - Name: checkList
       Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
+      Data: 9|System.Collections.Generic.List`1[[ET.Client.NodeCheckConfig, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -243,7 +255,7 @@ MonoBehaviour:
       Data: 0
     - Name: LocalizationGroups
       Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
+      Data: 10|System.Collections.Generic.List`1[[ET.LocalizationGroup, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -265,14 +277,14 @@ MonoBehaviour:
       Data: 
     - Name: NodeLinkDatas
       Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
+      Data: 11|System.Collections.Generic.List`1[[ET.Client.NodeLinkData, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 11|ET.Client.NodeLinkData, Unity.Loader
+      Data: 12|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 23fe742af9fa0414bae3a8a07fc963bf
@@ -287,7 +299,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 12|ET.Client.NodeLinkData, Unity.Loader
+      Data: 13|ET.Client.NodeLinkData, Unity.Loader
     - Name: outputNodeGuid
       Entry: 1
       Data: 4a1ddc580c8276644bbca0e546f60d7b
@@ -308,11 +320,11 @@ MonoBehaviour:
       Data: 
     - Name: targets
       Entry: 7
-      Data: 13|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
+      Data: 14|System.Collections.Generic.Dictionary`2[[System.UInt32, mscorlib],[ET.DialogueNode,
         Unity.Loader]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 14|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
+      Data: 15|System.Collections.Generic.GenericEqualityComparer`1[[System.UInt32,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -340,7 +352,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 9
-      Data: 7
+      Data: 8
     - Name: 
       Entry: 8
       Data: 
@@ -364,23 +376,23 @@ MonoBehaviour:
       Data: 
     - Name: Variables
       Entry: 7
-      Data: 15|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
+      Data: 16|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 16|ET.Client.SharedVariable, Unity.Loader
+      Data: 17|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Constant
     - Name: value
       Entry: 7
-      Data: 17|UnityEngine.Gradient, UnityEngine.CoreModule
+      Data: 18|UnityEngine.Gradient, UnityEngine.CoreModule
     - Name: 
       Entry: 7
-      Data: 18|UnityEngine.GradientAlphaKey[], UnityEngine.CoreModule
+      Data: 19|UnityEngine.GradientAlphaKey[], UnityEngine.CoreModule
     - Name: 
       Entry: 12
       Data: 2
@@ -416,7 +428,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 19|UnityEngine.GradientColorKey[], UnityEngine.CoreModule
+      Data: 20|UnityEngine.GradientColorKey[], UnityEngine.CoreModule
     - Name: 
       Entry: 12
       Data: 2
@@ -482,7 +494,7 @@ MonoBehaviour:
       Data: 
     - Name: mode
       Entry: 7
-      Data: 20|UnityEngine.GradientMode, UnityEngine.CoreModule
+      Data: 21|UnityEngine.GradientMode, UnityEngine.CoreModule
     - Name: 
       Entry: 3
       Data: 0
@@ -497,13 +509,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 21|ET.Client.SharedVariable, Unity.Loader
+      Data: 22|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: Constant(1)
     - Name: value
       Entry: 7
-      Data: 22|System.Int32, mscorlib
+      Data: 23|System.Int32, mscorlib
     - Name: 
       Entry: 3
       Data: 232
