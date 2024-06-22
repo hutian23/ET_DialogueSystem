@@ -25,7 +25,7 @@ namespace Timeline.Editor
         private ScrollView LayerViewsContainer => controllerEditor.layerViewsContainer;
         private readonly TextField layerLabel;
 
-        private BehaviorLayer behaviorLayer;
+        public BehaviorLayer behaviorLayer;
         private readonly float Interval = 49;
 
         public void Init(BehaviorControllerEditor Editor, BehaviorLayer _behaviorLayer)
@@ -136,6 +136,22 @@ namespace Timeline.Editor
         private int GetOrder()
         {
             return playableGraph.Layers.IndexOf(behaviorLayer);
+        }
+
+        public bool InMiddle(Vector2 worldPosition)
+        {
+            return worldBound.Contains(worldPosition);
+        }
+
+        public void Select()
+        {
+            AddToClassList("selected");
+            BBTimelineSettings.GetSettings().SetActiveObject(behaviorLayer);
+        }
+
+        public void UnSelect()
+        {
+            RemoveFromClassList("selected");
         }
     }
 }

@@ -17,19 +17,27 @@ public class BehaviorControllerEditor: EditorWindow
 
         #region Layer
 
-        layerViewsContainer = root.Q<ScrollView>("layer-views-container");
-        layerViewsContainer.RegisterCallback<PointerDownEvent>(evt =>
-        {
-            Debug.LogWarning(evt.localPosition);
-        }, TrickleDown.TrickleDown);
-        AddLayerButton = root.Q<Button>("add-layer-button");
-        AddLayerButton.clicked += () =>
-        {
-            ApplyModify(() => { PlayableGraph.Layers.Add(new BehaviorLayer() { layerName = "New Layer" }); }, "Add layer", true);
-        };
+        LayersButton = root.Q<Button>("Layers");
+        
+        layerContainer = root.Q<VisualElement>("layer-container");
+        layerContainer.visible = false;    
+        
+        layerMenuHandler = new DropdownMenuHandler(LayerMenuBuilder);
 
+        layerViewsContainer = root.Q<ScrollView>("layer-views-container");
+        layerViewsContainer.RegisterCallback<PointerDownEvent>(PointerDown, TrickleDown.TrickleDown);
+
+        AddLayerButton = root.Q<Button>("add-layer-button");
+        AddLayerButton.clicked += AddLayer;
+       
         #endregion
 
+        #region Parameters
+
+        ParametersButton = root.Q<Button>("Parameters");
+
+        #endregion
+        
         controllerView.Editor = this;
     }
 
@@ -45,10 +53,23 @@ public class BehaviorControllerEditor: EditorWindow
 
     public TimelinePlayer timelinePlayer;
     public BBPlayableGraph PlayableGraph => timelinePlayer.BBPlayable;
-    public BehaviorControllerView controllerView;
-    public ScrollView layerViewsContainer;
-    private Button AddLayerButton;
+    private BehaviorControllerView controllerView;
 
+    #region Layer
+
+    private Button LayersButton;
+    private VisualElement layerContainer;
+    private Button AddLayerButton;
+    public ScrollView layerViewsContainer;
+
+    #endregion
+
+    #region Parameters
+
+    private Button ParametersButton;
+    
+    #endregion
+    
     public static void OpenWindow(TimelinePlayer timelinePlayer)
     {
         BehaviorControllerEditor controllerEditor = GetWindow<BehaviorControllerEditor>();
@@ -83,6 +104,67 @@ public class BehaviorControllerEditor: EditorWindow
         {
             controllerView.PopulateView();
         }
+    }
+
+    #endregion
+
+    #region Event
+
+    private DropdownMenuHandler layerMenuHandler;
+    private Vector2 m_layer_localMousePosition;
+
+    private void LayerMenuBuilder(DropdownMenu menu)
+    {
+        menu.AppendAction("Remove Layer", _ =>
+        {
+            if (PlayableGraph.Layers.Count <= 1)
+            {
+                Debug.LogError("PlayableGraph must be at least 1 layer!!!");
+                return;
+            }
+
+            var layers = layerViewsContainer.Query<BehaviorLayerView>().ToList();
+            foreach (BehaviorLayerView layerView in layers)
+            {
+                if (layerView.InMiddle(m_layer_localMousePosition))
+                {
+                    ApplyModify(() => { PlayableGraph.Layers.Remove(layerView.behaviorLayer); }, "Remove Layer", true);
+                    return;
+                }
+            }
+        });
+    }
+
+    private void PointerDown(PointerDownEvent evt)
+    {
+        //Select
+        if (evt.button == 0)
+        {
+            var layers = layerViewsContainer.Query<BehaviorLayerView>().ToList();
+
+            bool Selected = false;
+
+            foreach (var layer in layers)
+            {
+                layer.UnSelect();
+                if (layer.InMiddle(evt.position) && !Selected)
+                {
+                    layer.Select();
+                    Selected = true;
+                }
+            }
+        }
+        //Menu
+        else if (evt.button == 1)
+        {
+            m_layer_localMousePosition = evt.position;
+            layerMenuHandler.ShowMenu(evt);
+        }
+    }
+
+    private void AddLayer()
+    {
+        ApplyModify(() => { PlayableGraph.Layers.Add(new BehaviorLayer() { layerName = "New Layer" }); }, "Add layer", true);
     }
 
     #endregion

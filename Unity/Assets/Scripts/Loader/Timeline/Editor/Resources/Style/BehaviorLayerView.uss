@@ -1,4 +1,4 @@
-.behaviorLayerView{
+.behaviorLayerView {
     position: absolute;
     width: 100%;
     height: 50px;
@@ -8,6 +8,10 @@
     border-top-color: rgb(32, 32, 32);
     border-bottom-color: rgb(32, 32, 32);
     background-color: rgb(56, 56, 56);
+}
+
+.selected {
+    background-color: rgba(68, 192, 255, 0.21);
 }
 
 #container {

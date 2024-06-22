@@ -168,7 +168,7 @@ MonoBehaviour:
 
       return;'
   Layers:
-  - layerName: New Layer
-  - layerName: New Layer
-  - layerName: 1
-  - layerName: New Layer
+  - layerName: 2
+  - layerName: 3
+  - layerName: 4
+  - layerName: 5
