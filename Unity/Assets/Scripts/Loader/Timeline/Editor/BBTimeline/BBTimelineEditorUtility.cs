@@ -11,6 +11,18 @@ namespace Timeline.Editor
     public static class BBTimelineEditorUtility
     {
         public static Dictionary<string, Type> BBTrackTypeDic = new();
+        public static Dictionary<string, object> ParamsTypeDict = new();
+
+        [UnityEditor.Callbacks.DidReloadScripts]
+        public static void RegistParamsType()
+        {
+            ParamsTypeDict.Clear();
+            ParamsTypeDict.Add("Int", 0);
+            ParamsTypeDict.Add("Float", 0f);
+            ParamsTypeDict.Add("Bool", false);
+            ParamsTypeDict.Add("AnimationCurve", new AnimationCurve());
+            ParamsTypeDict.Add("Gradient", new Gradient());
+        }
 
         [UnityEditor.Callbacks.DidReloadScripts]
         public static void RegistBBTrack()
@@ -64,6 +76,7 @@ namespace Timeline.Editor
                 //     }
                 // }
             }
+
             return keyframeSet;
         }
 

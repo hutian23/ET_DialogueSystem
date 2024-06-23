@@ -323,9 +323,21 @@ AnimatorController:
   m_Name: Mai
   serializedVersion: 5
   m_AnimatorParameters:
+  - m_Name: New Trigger
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   - m_Name: Hello world
     m_Type: 1
     m_DefaultFloat: 2
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Just a Test
+    m_Type: 1
+    m_DefaultFloat: 23
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
@@ -333,12 +345,6 @@ AnimatorController:
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 232323
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: Just a Test
-    m_Type: 1
-    m_DefaultFloat: 23
-    m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   m_AnimatorLayers:

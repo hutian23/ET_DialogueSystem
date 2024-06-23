@@ -30,7 +30,7 @@ namespace Timeline
 
         public List<BehaviorLayer> Layers = new();
 
-        public List<SharedVariable> variables = new();
+        public List<SharedVariable> Parameters = new();
     }
 
     [Serializable]

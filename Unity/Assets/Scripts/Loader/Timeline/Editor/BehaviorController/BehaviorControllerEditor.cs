@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using ET.Client;
 using Sirenix.OdinInspector;
 using UnityEditor;
@@ -9,49 +8,6 @@ using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
-    [Serializable]
-    public class ParameterInspector
-    {
-        public void Test()
-        {
-            Debug.LogWarning("Hello world");
-        }
-
-        [Searchable]
-        public SharedVariable se;
-
-        [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "name", ShowFoldout = true, HideAddButton = true,
-            CustomAddFunction = "Test")]
-        [HideReferenceObjectPicker, LabelText("Params: ")]
-        public List<SharedVariable> Variables = new()
-        {
-            new SharedVariable() { name = "Hello world", value = 30 },
-            new SharedVariable() { name = "Hello_11111" },
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable() { name = "Hello world", value = 30 },
-            new SharedVariable() { name = "Hello_11111" },
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable(),
-            new SharedVariable()
-        };
-    }
-
     [Searchable]
     public class BehaviorControllerEditor: EditorWindow
     {
@@ -89,8 +45,16 @@ namespace Timeline.Editor
             parameterContainer = root.Q<ScrollView>("parameter-container");
             parameterContainer.style.display = DisplayStyle.None;
 
+            //Add parameters
+            addParameterButton = root.Q<Button>("parameters-add-button");
+            dropdownMenuManipulator = new DropdownMenuHandler(AddParams);
+            addParameterButton.clickable.clicked += () => { dropdownMenuManipulator.ShowMenu(addParameterButton); };
+
+            //search
             paramsSearchField = root.Q<ToolbarPopupSearchField>("parameter-search-view");
-            paramsSearchField.menu.AppendAction("Hello wolrd", _ => { });
+            var paramsSearchBtn = paramsSearchField.Q<Button>("unity-search");
+            paramTypeMenuHandler = new DropdownMenuHandler(ShowParamSearchMenu);
+            paramsSearchBtn.clickable.clicked += () => { paramTypeMenuHandler.ShowMenu(paramsSearchBtn); };
 
             #endregion
 
@@ -155,7 +119,35 @@ namespace Timeline.Editor
 
         private Button ParametersButton;
         private ScrollView parameterContainer;
+        private Button addParameterButton;
         private ToolbarPopupSearchField paramsSearchField;
+        private DropdownMenuHandler dropdownMenuManipulator;
+        private DropdownMenuHandler paramTypeMenuHandler;
+
+        private string SearchParamMode = "Name";
+
+        private void AddParams(DropdownMenu menu)
+        {
+            foreach (var param in BBTimelineEditorUtility.ParamsTypeDict)
+            {
+                menu.AppendAction(param.Key, _ =>
+                {
+                    ApplyModify(() => { PlayableGraph.Parameters.Add(new SharedVariable() { name = "New Param", value = param.Value }); },
+                        "Add Param");
+                });
+            }
+        }
+
+        private void ShowParamSearchMenu(DropdownMenu menu)
+        {
+            menu.AppendAction("Name", _ => { SearchParamMode = "Name"; },
+                SearchParamMode.Equals("Name")? DropdownMenuAction.Status.Checked : DropdownMenuAction.Status.Normal);
+            foreach (var param in BBTimelineEditorUtility.ParamsTypeDict)
+            {
+                menu.AppendAction(param.Key, _ => { SearchParamMode = param.Key; },
+                    SearchParamMode.Equals(param.Key)? DropdownMenuAction.Status.Checked : DropdownMenuAction.Status.Normal);
+            }
+        }
 
         #endregion
 

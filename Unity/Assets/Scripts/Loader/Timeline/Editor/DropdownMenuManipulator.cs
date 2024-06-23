@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Timeline.Editor
@@ -19,6 +20,7 @@ namespace Timeline.Editor
             {
                 button = mouseButton
             });
+            
             clickedWithEventInfo += (e) =>
             {
                 if (showWithMouse)

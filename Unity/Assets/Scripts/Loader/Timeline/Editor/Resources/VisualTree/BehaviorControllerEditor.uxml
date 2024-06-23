@@ -16,7 +16,7 @@
                 <ui:ScrollView name="parameter-container">
                     <ui:VisualElement name="parameter-toolbar">
                         <uie:ToolbarPopupSearchField focusable="true" name="parameter-search-view" />
-                        <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="parameters-add-button" />
+                        <ui:Button parse-escape-sequences="false" display-tooltip-when-elided="false" name="parameters-add-button" enable-rich-text="false" focusable="false" style="overflow: visible;" />
                     </ui:VisualElement>
                 </ui:ScrollView>
             </ui:VisualElement>

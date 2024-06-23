@@ -92,13 +92,25 @@ ButtonSelected {
     flex-direction: row;
 }
 
-#parameter-add-button {
-    width: 30px;
-    height: 25px;
+#parameters-add-button {
+    position: absolute;
+    right: 3px;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    border-width: 0;
+    background-image: resource('d_Toolbar Plus More@2x');
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#parameters-add-button:hover{
+    background-color: rgb(88, 88, 88);
 }
 
 #parameter-search-view {
-    width: 170px;
+    width: 80%;
     height: 18px;
     margin: 0;
     padding: 0;
