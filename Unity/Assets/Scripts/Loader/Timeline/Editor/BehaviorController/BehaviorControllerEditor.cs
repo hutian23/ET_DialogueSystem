@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using ET.Client;
 using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor;
 using UnityEditor;
-using UnityEditor.IMGUI.Controls;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -16,14 +14,14 @@ namespace Timeline.Editor
     {
         public void Test()
         {
-            Debug.LogWarning("Hello world");       
+            Debug.LogWarning("Hello world");
         }
 
         [Searchable]
         public SharedVariable se;
-        
-        
-        [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "name", ShowFoldout = true, HideAddButton = true,CustomAddFunction = "Test")]
+
+        [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "name", ShowFoldout = true, HideAddButton = true,
+            CustomAddFunction = "Test")]
         [HideReferenceObjectPicker, LabelText("Params: ")]
         public List<SharedVariable> Variables = new()
         {
@@ -77,7 +75,7 @@ namespace Timeline.Editor
 
             layerViewsContainer = root.Q<ScrollView>("layer-views-container");
             layerViewsContainer.RegisterCallback<PointerDownEvent>(PointerDown, TrickleDown.TrickleDown);
-            
+
             AddLayerButton = root.Q<Button>("add-layer-button");
             AddLayerButton.clicked += AddLayer;
 
@@ -90,6 +88,9 @@ namespace Timeline.Editor
 
             parameterContainer = root.Q<ScrollView>("parameter-container");
             parameterContainer.style.display = DisplayStyle.None;
+
+            paramsSearchField = root.Q<ToolbarPopupSearchField>("parameter-search-view");
+            paramsSearchField.menu.AppendAction("Hello wolrd", _ => { });
 
             #endregion
 
@@ -154,6 +155,7 @@ namespace Timeline.Editor
 
         private Button ParametersButton;
         private ScrollView parameterContainer;
+        private ToolbarPopupSearchField paramsSearchField;
 
         #endregion
 

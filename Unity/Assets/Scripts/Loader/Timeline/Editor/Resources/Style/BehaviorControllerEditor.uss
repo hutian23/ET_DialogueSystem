@@ -33,7 +33,7 @@
     border-left-color: rgb(32, 32, 32);
 }
 
-ButtonSelected{
+ButtonSelected {
     background-color: rgb(88, 88, 88);
 }
 
@@ -73,8 +73,37 @@ ButtonSelected{
     border-width: 0;
 }
 
-#add-layer-button:hover{
+#add-layer-button:hover {
     background-color: rgb(88, 88, 88);
+}
+
+#parameter-container {
+    width: 100%;
+    height: 100%;
+}
+
+#parameter-toolbar {
+    width: 100%;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    border-bottom-color: rgb(32, 32, 32);
+    border-bottom-width: 1px;
+    flex-direction: row;
+}
+
+#parameter-add-button {
+    width: 30px;
+    height: 25px;
+}
+
+#parameter-search-view {
+    width: 170px;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+    margin-top: 3px;
+    margin-left: 5px;
 }
 
 #right-panel-toolbar {

@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <Style src="project://database/Assets/Scripts/Loader/Timeline/Editor/Resources/Style/BehaviorControllerEditor.uss?fileID=7433441132597879392&amp;guid=8a4a57d22b92c0e46b3c1abd6b9f038d&amp;type=3#BehaviorControllerEditor" />
     <ET.Client.SplitView fixed-pane-initial-dimension="225" name="controller-container">
         <ui:VisualElement name="left-panel" style="min-width: 225px;">
@@ -13,8 +13,11 @@
                     </ui:VisualElement>
                     <ui:ScrollView name="layer-views-container" style="width: 100%; height: 100%;" />
                 </ui:VisualElement>
-                <ui:ScrollView name="parameter-container" style="width: 100%; height: 100%;">
-                    <ui:ScrollView name="parameter-views-container" style="width: 100%; height: 100%;" />
+                <ui:ScrollView name="parameter-container">
+                    <ui:VisualElement name="parameter-toolbar">
+                        <uie:ToolbarPopupSearchField focusable="true" name="parameter-search-view" />
+                        <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="parameters-add-button" />
+                    </ui:VisualElement>
                 </ui:ScrollView>
             </ui:VisualElement>
         </ui:VisualElement>
