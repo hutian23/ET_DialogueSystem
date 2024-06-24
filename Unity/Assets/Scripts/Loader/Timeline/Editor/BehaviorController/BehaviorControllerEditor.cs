@@ -42,7 +42,7 @@ namespace Timeline.Editor
             ParametersButton = root.Q<Button>("Parameters");
             ParametersButton.clicked += () => { UpdateInspector(false); };
 
-            parameterContainer = root.Q<ScrollView>("parameter-container");
+            parameterContainer = root.Q<VisualElement>("parameter-container");
             parameterContainer.style.display = DisplayStyle.None;
 
             //Add parameters
@@ -118,7 +118,7 @@ namespace Timeline.Editor
         #region Parameters
 
         private Button ParametersButton;
-        private ScrollView parameterContainer;
+        private VisualElement parameterContainer;
         private Button addParameterButton;
         private ToolbarPopupSearchField paramsSearchField;
         private DropdownMenuHandler dropdownMenuManipulator;

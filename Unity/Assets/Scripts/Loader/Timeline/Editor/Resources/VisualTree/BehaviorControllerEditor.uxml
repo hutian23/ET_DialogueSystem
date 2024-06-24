@@ -13,12 +13,28 @@
                     </ui:VisualElement>
                     <ui:ScrollView name="layer-views-container" style="width: 100%; height: 100%;" />
                 </ui:VisualElement>
-                <ui:ScrollView name="parameter-container">
+                <ui:VisualElement name="parameter-container">
                     <ui:VisualElement name="parameter-toolbar">
                         <uie:ToolbarPopupSearchField focusable="true" name="parameter-search-view" />
                         <ui:Button parse-escape-sequences="false" display-tooltip-when-elided="false" name="parameters-add-button" enable-rich-text="false" focusable="false" style="overflow: visible;" />
                     </ui:VisualElement>
-                </ui:ScrollView>
+                    <ui:ScrollView name="parameter-view-container">
+                        <Timeline.Editor.BehaviorParamView />
+                        <Timeline.Editor.BehaviorParamView />
+                        <Timeline.Editor.BehaviorParamView />
+                        <Timeline.Editor.BehaviorParamView />
+                        <Timeline.Editor.BehaviorParamView />
+                        <Timeline.Editor.BehaviorParamView />
+                        <Timeline.Editor.BehaviorParamView />
+                        <Timeline.Editor.BehaviorParamView />
+                        <Timeline.Editor.BehaviorParamView />
+                        <Timeline.Editor.BehaviorParamView />
+                        <Timeline.Editor.BehaviorParamView />
+                        <Timeline.Editor.BehaviorParamView />
+                        <Timeline.Editor.BehaviorParamView />
+                        <Timeline.Editor.BehaviorParamView />
+                    </ui:ScrollView>
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="right-panel">

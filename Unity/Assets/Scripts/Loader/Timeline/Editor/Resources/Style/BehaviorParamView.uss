@@ -1,0 +1,10 @@
+.BehaviorParamView {
+    width: 100%;
+    height: 40px;
+    background-color: rgb(88, 88, 88);
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+    border-bottom-color: black;
+    border-top-color: black;
+    margin-top: -1px;
+}
