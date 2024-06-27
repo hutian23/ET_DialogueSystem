@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using ET.Client;
 using Sirenix.OdinInspector;
 using UnityEditor;
@@ -44,8 +46,12 @@ namespace Timeline.Editor
 
             parameterContainer = root.Q<VisualElement>("parameter-container");
             parameterContainer.style.display = DisplayStyle.None;
+
+            //param view
             parameterViewContainer = root.Q<VisualElement>("parameter-view-container");
-            
+            parameterViewContainer.RegisterCallback<PointerDownEvent>(ParamViewOnPointerDown, TrickleDown.TrickleDown);
+            paramViewMenuHandler = new DropdownMenuHandler(ParamMenuBuilder);
+
             //Add parameters
             addParameterButton = root.Q<Button>("parameters-add-button");
             dropdownMenuManipulator = new DropdownMenuHandler(AddParams);
@@ -53,6 +59,7 @@ namespace Timeline.Editor
 
             //search
             paramsSearchField = root.Q<ToolbarPopupSearchField>("parameter-search-view");
+            paramsSearchField.RegisterValueChangedCallback(_ => { RefreshParamView(); });
             var paramsSearchBtn = paramsSearchField.Q<Button>("unity-search");
             paramTypeMenuHandler = new DropdownMenuHandler(ShowParamSearchMenu);
             paramsSearchBtn.clickable.clicked += () => { paramTypeMenuHandler.ShowMenu(paramsSearchBtn); };
@@ -119,14 +126,18 @@ namespace Timeline.Editor
         #region Parameters
 
         private Button ParametersButton;
-        public VisualElement parameterContainer;
+        private VisualElement parameterContainer;
         public VisualElement parameterViewContainer;
         private Button addParameterButton;
         private ToolbarPopupSearchField paramsSearchField;
-        private DropdownMenuHandler dropdownMenuManipulator;
-        private DropdownMenuHandler paramTypeMenuHandler;
 
-        private string SearchParamMode = "Name";
+        private DropdownMenuHandler dropdownMenuManipulator; //search window
+        private DropdownMenuHandler paramTypeMenuHandler; // add view
+        private DropdownMenuHandler paramViewMenuHandler; // click on paramView
+
+        public string SearchParamMode = "Name";
+
+        private BehaviorParamView SelectParamView;
 
         private void AddParams(DropdownMenu menu)
         {
@@ -136,18 +147,105 @@ namespace Timeline.Editor
                 {
                     ApplyModify(() => { PlayableGraph.Parameters.Add(new SharedVariable() { name = "New Param", value = param.Value }); },
                         "Add Param");
+                    RefreshParamView();
                 });
             }
         }
 
+        private void ParamViewOnPointerDown(PointerDownEvent evt)
+        {
+            //Select
+            if (evt.button == 0)
+            {
+                var parameters = parameterViewContainer.Query<BehaviorParamView>().ToList();
+
+                foreach (var param in parameters)
+                {
+                    param.UnSelect();
+                    if (param.InMiddle(evt.position))
+                    {
+                        SelectParamView = param;
+                    }
+                }
+
+                SelectParamView?.Select();
+            }
+            else if (evt.button == 1)
+            {
+                paramViewMenuHandler.ShowMenu(evt);
+            }
+        }
+
+        private void ParamMenuBuilder(DropdownMenu menu)
+        {
+            menu.AppendAction("Edit", _ => { SelectParamView.InEditMode(true); });
+            menu.AppendAction("Remove",
+                _ =>
+                {
+                    ApplyModify(() => { PlayableGraph.Parameters.Remove(SelectParamView.variable); }, "Remove param");
+                    RefreshParamView();
+                });
+        }
+
         private void ShowParamSearchMenu(DropdownMenu menu)
         {
-            menu.AppendAction("Name", _ => { SearchParamMode = "Name"; },
+            menu.AppendAction("Name", _ =>
+                {
+                    SearchParamMode = "Name";
+                    RefreshParamView();
+                },
                 SearchParamMode.Equals("Name")? DropdownMenuAction.Status.Checked : DropdownMenuAction.Status.Normal);
             foreach (var param in BBTimelineEditorUtility.ParamsTypeDict)
             {
-                menu.AppendAction(param.Key, _ => { SearchParamMode = param.Key; },
+                menu.AppendAction(param.Key, _ =>
+                    {
+                        SearchParamMode = param.Key;
+                        RefreshParamView();
+                    },
                     SearchParamMode.Equals(param.Key)? DropdownMenuAction.Status.Checked : DropdownMenuAction.Status.Normal);
+            }
+        }
+
+        private List<SharedVariable> GetParams()
+        {
+            if (SearchParamMode == "Name")
+            {
+                return FuzzySearch(PlayableGraph.Parameters);
+            }
+
+            BBTimelineEditorUtility.ParamsTypeDict.TryGetValue(SearchParamMode, out object o);
+            if (o == null)
+            {
+                Debug.LogError($"not found search type:{SearchParamMode}");
+                return null;
+            }
+
+            Type objType = o.GetType();
+            return FuzzySearch(PlayableGraph.Parameters.Where(v => v.value.GetType() == objType).ToList());
+        }
+
+        private List<SharedVariable> FuzzySearch(List<SharedVariable> variables)
+        {
+            var _searchTerm = paramsSearchField.value.ToLower();
+            //空搜索
+            if (string.IsNullOrEmpty(_searchTerm))
+            {
+                return variables;
+            }
+
+            var results = variables.Where(item => item.name.ToLower().Contains(_searchTerm)) //进行包含匹配并忽略大小写
+                    .OrderBy(item => item.name.Length)
+                    .ToList();
+            return results;
+        }
+
+        public void RefreshParamView()
+        {
+            parameterViewContainer.Clear();
+            //Create paramView
+            foreach (var param in GetParams())
+            {
+                Activator.CreateInstance(BBTimelineEditorUtility.ParamsFieldDict[param.value.GetType()], param, this);
             }
         }
 
@@ -158,6 +256,7 @@ namespace Timeline.Editor
             BehaviorControllerEditor controllerEditor = GetWindow<BehaviorControllerEditor>();
             controllerEditor.timelinePlayer = timelinePlayer;
             controllerEditor.controllerView.PopulateView();
+            controllerEditor.RefreshParamView();
         }
 
         #region Undo

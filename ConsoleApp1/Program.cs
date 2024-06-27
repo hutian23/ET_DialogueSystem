@@ -1,52 +1,60 @@
 ﻿using System.Text.RegularExpressions;
 using UnityEngine;
 
-// 定义语法树节点的类型
-public enum NodeType
-{
-    If,
-    Condition,
-    Statement
-}
-
-// 定义语法树节点
-public class Node
-{
-    public NodeType Type { get; set; }
-    public string Value { get; set; }
-    public Node Left { get; set; }
-    public Node Right { get; set; }
-
-    public Node(NodeType type, string value)
-    {
-        Type = type;
-        Value = value;
-        Left = null;
-        Right = null;
-    }
-}
-
-// 用于构建语法树的类
-public class SyntaxTreeBuilder
-{
-    public Node BuildSyntaxTree(string condition, string statement)
-    {
-        Node rootNode = new Node(NodeType.If, "if");
-        Node conditionNode = new Node(NodeType.Condition, condition);
-        Node statementNode = new Node(NodeType.Statement, statement);
-
-        rootNode.Left = conditionNode;
-        rootNode.Right = statementNode;
-
-        return rootNode;
-    }
-}
+// // 定义语法树节点的类型
+// public enum NodeType
+// {
+//     If,
+//     Condition,
+//     Statement
+// }
+//
+// // 定义语法树节点
+// public class Node
+// {
+//     public NodeType Type { get; set; }
+//     public string Value { get; set; }
+//     public Node Left { get; set; }
+//     public Node Right { get; set; }
+//
+//     public Node(NodeType type, string value)
+//     {
+//         Type = type;
+//         Value = value;
+//         Left = null;
+//         Right = null;
+//     }
+// }
+//
+// // 用于构建语法树的类
+// public class SyntaxTreeBuilder
+// {
+//     public Node BuildSyntaxTree(string condition, string statement)
+//     {
+//         Node rootNode = new Node(NodeType.If, "if");
+//         Node conditionNode = new Node(NodeType.Condition, condition);
+//         Node statementNode = new Node(NodeType.Statement, statement);
+//
+//         rootNode.Left = conditionNode;
+//         rootNode.Right = statementNode;
+//
+//         return rootNode;
+//     }
+// }
 
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine((int)Mathf.Clamp01(0.2f));
+        var data = new List<string> { "just a test", "Just a test", "Test", "example", "another test" };
+        string searchTerm = "test";
+
+        var results = FuzzySearchMethod(data, searchTerm);
+        foreach (var result in results)
+        {
+            Console.WriteLine(result);
+        }
+        // Console.WriteLine((int)Mathf.Clamp01(0.2f));
         // SortedSet<int> set = new();
         // set.Add(2);
         // set.Add(1);
@@ -114,18 +122,143 @@ class Program
         // Console.WriteLine(dic[1]);
     }
 
-    static void PrintSyntaxTree(Node node, int indent)
+    // static void PrintSyntaxTree(Node node, int indent)
+    // {
+    //     if (node == null)
+    //         return;
+    //
+    //     // 打印节点值
+    //     Console.WriteLine($"{new string(' ', indent)}{node.Type}: {node.Value}");
+    //
+    //     // 打印左子树
+    //     PrintSyntaxTree(node.Left, indent + 2);
+    //
+    //     // 打印右子树
+    //     PrintSyntaxTree(node.Right, indent + 2);
+    // }
+
+    /// <summary>
+    ///     Calculate the difference between 2 strings using the Levenshtein distance algorithm
+    /// </summary>
+    /// <param name="source1">First string</param>
+    /// <param name="source2">Second string</param>
+    /// <returns></returns>
+    public static int Calculate(string source1, string source2) //O(n*m)
     {
-        if (node == null)
-            return;
+        var source1Length = source1.Length;
+        var source2Length = source2.Length;
 
-        // 打印节点值
-        Console.WriteLine($"{new string(' ', indent)}{node.Type}: {node.Value}");
+        var matrix = new int[source1Length + 1, source2Length + 1];
 
-        // 打印左子树
-        PrintSyntaxTree(node.Left, indent + 2);
+        // First calculation, if one entry is empty return full length
+        if (source1Length == 0)
+            return source2Length;
 
-        // 打印右子树
-        PrintSyntaxTree(node.Right, indent + 2);
+        if (source2Length == 0)
+            return source1Length;
+
+        // Initialization of matrix with row size source1Length and columns size source2Length
+        for (var i = 0; i <= source1Length; matrix[i, 0] = i++)
+        {
+        }
+
+        for (var j = 0; j <= source2Length; matrix[0, j] = j++)
+        {
+        }
+
+        // Calculate rows and collumns distances
+        for (var i = 1; i <= source1Length; i++)
+        {
+            for (var j = 1; j <= source2Length; j++)
+            {
+                var cost = (source2[j - 1] == source1[i - 1])? 0 : 1;
+
+                matrix[i, j] = Math.Min(Math.Min(matrix[i - 1, j] + 1, matrix[i, j - 1] + 1),
+                    matrix[i - 1, j - 1] + cost);
+            }
+        }
+
+        // return result
+        return matrix[source1Length, source2Length];
+    }
+
+    public static List<string> FuzzySearchMethod(List<string> data, string searchTerm)
+    {
+        // 转换输入的searchTerm为小写
+        searchTerm = searchTerm.ToLower();
+        
+        var results = data
+                .Where(item => item.ToLower().Contains(searchTerm)) // 进行包含匹配并忽略大小写
+                .OrderBy(item => item.Length) // 可以按字符串长度排序，确保更精确的结果在前
+                .ToList();
+
+        return results;
+    }
+    
+    public static double JaroWinklerDistance(string s1, string s2)
+    {
+        int s1Len = s1.Length;
+        int s2Len = s2.Length;
+
+        if (s1Len == 0)
+            return s2Len == 0? 1.0 : 0.0;
+
+        int matchDistance = Math.Max(s1Len, s2Len) / 2 - 1;
+
+        bool[] s1Matches = new bool[s1Len];
+        bool[] s2Matches = new bool[s2Len];
+
+        int matches = 0;
+        int transpositions = 0;
+
+        for (int i = 0; i < s1Len; i++)
+        {
+            int start = Math.Max(0, i - matchDistance);
+            int end = Math.Min(i + matchDistance + 1, s2Len);
+
+            for (int j = start; j < end; j++)
+            {
+                if (s2Matches[j])
+                    continue;
+                if (s1[i] != s2[j])
+                    continue;
+                s1Matches[i] = true;
+                s2Matches[j] = true;
+                matches++;
+                break;
+            }
+        }
+
+        if (matches == 0)
+            return 0.0;
+
+        int k = 0;
+        for (int i = 0; i < s1Len; i++)
+        {
+            if (!s1Matches[i])
+                continue;
+            while (!s2Matches[k])
+                k++;
+            if (s1[i] != s2[k])
+                transpositions++;
+            k++;
+        }
+
+        double jaro = ((double)matches / s1Len +
+            (double)matches / s2Len +
+            (double)(matches - transpositions / 2.0) / matches) / 3.0;
+
+        double p = 0.1; // scaling factor
+        int l = 0; // length of common prefix
+        int prefixLimit = Math.Min(4, Math.Min(s1Len, s2Len));
+        for (int i = 0; i < prefixLimit; i++)
+        {
+            if (s1[i] == s2[i])
+                l++;
+            else
+                break;
+        }
+
+        return jaro + l * p * (1.0 - jaro);
     }
 }

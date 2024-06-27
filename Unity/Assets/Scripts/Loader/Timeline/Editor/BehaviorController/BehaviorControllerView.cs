@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -228,10 +227,9 @@ namespace Timeline.Editor
             }
 
             //Dispose ParamView
-            Editor.parameterViewContainer.Clear();
             Editor.layerViewsContainer.Clear();
         }
-
+        
         public void PopulateView()
         {
             Dispose();
@@ -278,13 +276,6 @@ namespace Timeline.Editor
             }
 
             Editor.layerViewsContainer.ForceScrollViewUpdate();
-
-            //Create ParamView
-            foreach (var param in Editor.PlayableGraph.Parameters)
-            {
-                ParamResolver fieldResolver = Activator.CreateInstance(BBTimelineEditorUtility.ParamsFieldDict[param.value.GetType()],
-                    args: new object[] { param, Editor }) as ParamResolver;
-            }
 
             //Regist event
             RegisterCallback<MouseMoveEvent>(evt => { this.ScreenMousePosition = evt.mousePosition + Editor.position.position; });
