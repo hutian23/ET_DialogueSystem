@@ -17,6 +17,13 @@ namespace ET.Client
     {
         protected abstract ETTask<Status> Run(Unit unit, Node node, ETCancellationToken token);
 
+        /// <summary>
+        /// BBScript中一行代码表示一个子携程
+        /// </summary>
+        /// <param name="unit">玩家Entity,通过该entity查找对应的数值组件</param>
+        /// <param name="node">当前行为树节点</param>
+        /// <param name="token">用来取消当前子携程</param>
+        /// <returns></returns>
         public async ETTask<Status> Handle(Unit unit, object node, ETCancellationToken token)
         {
             if (node is not Node dialogueNode)

@@ -106,7 +106,7 @@ namespace ET.Client
                 if (node == null) continue;
                 CreateNodeView(node);
             }
-            
+
             tree.nodes = tree.nodes.Where(node => node != null).ToList();
 
             //3. 生成边

@@ -10,7 +10,7 @@ namespace Timeline.Editor
         {
         }
 
-        private SharedVariable variable = new() { name = "New Paramter", value = new AnimationCurve()};
+        private SharedVariable variable = new() { name = "New Paramter", value = new AnimationCurve() };
         private IMGUIContainer controllerContainer;
 
         public BehaviorParamView()
@@ -18,9 +18,6 @@ namespace Timeline.Editor
             VisualTreeAsset visualTreeAsset = Resources.Load<VisualTreeAsset>($"VisualTree/BehaviorParamView");
             visualTreeAsset.CloneTree(this);
             AddToClassList("BehaviorParamView");
-
-            controllerContainer = this.Q<IMGUIContainer>("variable-container");
-            TimelineInspectorData.CreateView(controllerContainer, variable);
         }
     }
 }

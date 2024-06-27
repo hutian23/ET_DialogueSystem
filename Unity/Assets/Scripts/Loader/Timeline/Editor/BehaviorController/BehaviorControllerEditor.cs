@@ -44,7 +44,8 @@ namespace Timeline.Editor
 
             parameterContainer = root.Q<VisualElement>("parameter-container");
             parameterContainer.style.display = DisplayStyle.None;
-
+            parameterViewContainer = root.Q<VisualElement>("parameter-view-container");
+            
             //Add parameters
             addParameterButton = root.Q<Button>("parameters-add-button");
             dropdownMenuManipulator = new DropdownMenuHandler(AddParams);
@@ -118,7 +119,8 @@ namespace Timeline.Editor
         #region Parameters
 
         private Button ParametersButton;
-        private VisualElement parameterContainer;
+        public VisualElement parameterContainer;
+        public VisualElement parameterViewContainer;
         private Button addParameterButton;
         private ToolbarPopupSearchField paramsSearchField;
         private DropdownMenuHandler dropdownMenuManipulator;

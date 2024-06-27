@@ -752,10 +752,10 @@ MonoBehaviour:
       Data: 
     - Name: StartFrame
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: EndFrame
       Entry: 3
-      Data: 9
+      Data: 10
     - Name: boxInfoDict
       Entry: 7
       Data: 24|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[System.Collections.Generic.List`1[[Timeline.BoxInfo,

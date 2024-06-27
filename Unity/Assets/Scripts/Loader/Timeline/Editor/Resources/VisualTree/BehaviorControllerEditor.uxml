@@ -18,22 +18,7 @@
                         <uie:ToolbarPopupSearchField focusable="true" name="parameter-search-view" />
                         <ui:Button parse-escape-sequences="false" display-tooltip-when-elided="false" name="parameters-add-button" enable-rich-text="false" focusable="false" style="overflow: visible;" />
                     </ui:VisualElement>
-                    <ui:ScrollView name="parameter-view-container">
-                        <Timeline.Editor.BehaviorParamView />
-                        <Timeline.Editor.BehaviorParamView />
-                        <Timeline.Editor.BehaviorParamView />
-                        <Timeline.Editor.BehaviorParamView />
-                        <Timeline.Editor.BehaviorParamView />
-                        <Timeline.Editor.BehaviorParamView />
-                        <Timeline.Editor.BehaviorParamView />
-                        <Timeline.Editor.BehaviorParamView />
-                        <Timeline.Editor.BehaviorParamView />
-                        <Timeline.Editor.BehaviorParamView />
-                        <Timeline.Editor.BehaviorParamView />
-                        <Timeline.Editor.BehaviorParamView />
-                        <Timeline.Editor.BehaviorParamView />
-                        <Timeline.Editor.BehaviorParamView />
-                    </ui:ScrollView>
+                    <ui:ScrollView name="parameter-view-container" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
