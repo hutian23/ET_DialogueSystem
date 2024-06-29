@@ -33,7 +33,7 @@ MonoBehaviour:
       Data: 1|Timeline.BehaviorLayer, Unity.Loader
     - Name: layerName
       Entry: 1
-      Data: Idle
+      Data: Idle_111
     - Name: BehaviorClips
       Entry: 7
       Data: 2|System.Collections.Generic.List`1[[Timeline.BehaviorClip, Unity.Loader]],
@@ -49,7 +49,7 @@ MonoBehaviour:
       Data: 
     - Name: Title
       Entry: 1
-      Data: Just a test
+      Data: Rg_Idle_1
     - Name: Script
       Entry: 6
       Data: 
@@ -61,7 +61,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 196
+      Data: 113
     - Name: 
       Entry: 4
       Data: 0
@@ -94,7 +94,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 432
+      Data: 292
     - Name: 
       Entry: 4
       Data: 0

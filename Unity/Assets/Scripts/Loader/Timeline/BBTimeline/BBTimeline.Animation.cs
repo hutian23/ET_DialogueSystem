@@ -282,7 +282,7 @@ namespace Timeline
             if (GetInputWeight() <= 0f) return;
 
             //Edit mode下,更新position
-            if (!runtimePlayable.TimelinePlayer.InEdit) return;
+            // if (!runtimePlayable.TimelinePlayer.InEdit) return;
             BBAnimationClip animationClip = Clip as BBAnimationClip;
             runtimePlayable.TimelinePlayer.transform.localPosition = animationClip.EditorPosition(clipInFrame);
         }

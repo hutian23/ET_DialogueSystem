@@ -95,7 +95,7 @@ namespace Timeline
         public virtual Type RuntimeTrackType => typeof (RuntimeTrack);
 
 #if UNITY_EDITOR
-        protected virtual Type ClipType => typeof (Clip);
+        protected virtual Type ClipType => typeof (BBClip);
         public virtual Type ClipViewType => typeof (TimelineClipView);
 
         public BBClip AddClip(int frame)

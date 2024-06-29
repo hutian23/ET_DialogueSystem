@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using ET;
 using Unity.EditorCoroutines.Editor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -59,7 +58,6 @@ namespace Timeline.Editor
         private bool m_DrawTimeText;
 
         public TimelineEditorWindow EditorWindow;
-        private DoubleMap<Track, TimelineTrackView> TrackViewMap { get; set; } = new();
         public List<TimelineTrackView> TrackViews { get; set; } = new();
         private List<TimelineMarkerView> MarkerViews { get; set; } = new();
         public Dictionary<int, float> FramePosMap { get; set; } = new();
@@ -211,7 +209,6 @@ namespace Timeline.Editor
             TrackField.Clear();
             m_Selections.Clear();
             m_Elements.Clear();
-            TrackViewMap.Clear();
             TrackViews.Clear();
             MarkerViews.Clear();
             MarkerViewField.Clear();
@@ -361,12 +358,6 @@ namespace Timeline.Editor
 
             float maxTextWidth = TextWidth(m_MaxFrame.ToString(), m_MarkerTextFont, m_TimeTextFontSize);
             m_DrawTimeText = OneFrameWidth > maxTextWidth * 1.5f;
-
-            // resize track 
-            foreach (var trackView in TrackViewMap.Values)
-            {
-                trackView.Refreh();
-            }
 
             //Repaint marker 
             DrawTimeField();
@@ -1016,20 +1007,6 @@ namespace Timeline.Editor
                 if (Mathf.Abs(framePosPair.Value - position) < Mathf.Abs(FramePosMap[frame] - position) && position <= framePosPair.Value)
                 {
                     frame = framePosPair.Key;
-                }
-            }
-
-            return frame;
-        }
-
-        public int GetRightEdgeFrame(Track track)
-        {
-            int frame = 0;
-            foreach (var clip in track.Clips)
-            {
-                if (clip.EndFrame > frame)
-                {
-                    frame = clip.EndFrame;
                 }
             }
 

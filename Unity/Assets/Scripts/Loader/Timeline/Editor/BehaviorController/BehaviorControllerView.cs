@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using ET;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -38,8 +39,7 @@ namespace Timeline.Editor
             this.AddManipulator(new RectangleSelector());
             this.AddManipulator(new ContextualMenuManipulator(this.OnContextMenuPopulate));
 
-            var styleSheet =
-                    AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Loader/Timeline/Editor/Resources/Style/BehaviorControllerEditor.uss");
+            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Loader/Timeline/Editor/Resources/Style/BehaviorControllerEditor.uss");
             styleSheets.Add(styleSheet);
         }
 
@@ -98,9 +98,14 @@ namespace Timeline.Editor
 
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
         {
-            evt.menu.AppendAction("create new behaviorClip", _ => { CreateClip(); });
-            evt.menu.AppendAction("Reload Behavior", _ => { });
-            evt.menu.AppendAction("Preview Behavior", _ => { });
+            evt.menu.AppendAction("Create New BehaviorClip", _ => { CreateClip(); });
+            evt.menu.AppendAction("Reload Behavior", _ =>
+                {
+                    // EventSystem.Instance.Invoke
+                },
+                EditorApplication.isPlaying? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Disabled);
+            evt.menu.AppendAction("Preview Behavior", _ => { },
+                EditorApplication.isPlaying? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Disabled);
         }
 
         private void OnContextMenuPopulate(ContextualMenuPopulateEvent evt)
@@ -122,7 +127,6 @@ namespace Timeline.Editor
                         evt.menu.AppendAction("Open Timeline", _ => { Editor.timelinePlayer.OpenWindow(); });
                         evt.menu.AppendAction("Delete BehaviorClip", _ => { RemoveClip(clipView); });
                     }
-
                     break;
                 }
             }

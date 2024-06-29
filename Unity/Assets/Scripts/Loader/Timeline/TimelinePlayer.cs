@@ -10,9 +10,10 @@ namespace Timeline
 {
     public sealed class TimelinePlayer: SerializedMonoBehaviour
     {
-        private long instanceId; // DialogueComponent
+        [HideInInspector]
+        public long instanceId; // DialogueComponent
 
-        [Sirenix.OdinInspector.OnValueChanged("ResetPos")]
+        [OnValueChanged("ResetPos")]
         public bool ApplyRootMotion;
 
         public bool IsValid => PlayableGraph.IsValid();
@@ -57,19 +58,13 @@ namespace Timeline
         
         
 #if UNITY_EDITOR
-        [OnValueChanged("SwitchEditMode")]
-        public bool EditMode;
-
-        public bool InEdit => EditMode;
-        public bool InRuntime => !EditMode;
-
-        [Sirenix.OdinInspector.Button("行为编辑器")]
+        [Button("行为编辑器")]
         public void OpenController()
         {
             BehaviorControllerEditor.OpenWindow(this);
         }
 
-        [Sirenix.OdinInspector.Button("技能编辑器"), Sirenix.OdinInspector.ShowIf("InEdit")]
+        [Button("技能编辑器")]
         public void OpenWindow()
         {
             //默认字典第一个元素为入口
@@ -89,7 +84,7 @@ namespace Timeline
             TimelineEditorWindow.OpenWindow(this, timeline);
         }
 
-        [Sirenix.OdinInspector.Button("清除运行时组件")]
+        [Button("清除运行时组件")]
         public void ClearTimelineGenerate()
         {
             var goSet = new HashSet<GameObject>();
@@ -151,15 +146,7 @@ namespace Timeline
             if (PlayableGraph.IsValid()) PlayableGraph.Destroy();
             ResetPos();
         }
-
-        public void BindTimeline(Timeline timeline)
-        {
-        }
-
-        public void RemoveTimeline(Timeline timeline)
-        {
-        }
-
+        
         public BBTimeline GetByOrder(int order)
         {
             // if (BBPlayable == null) return null;
