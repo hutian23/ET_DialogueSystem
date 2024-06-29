@@ -3,28 +3,13 @@ using UnityEngine;
 
 namespace Timeline
 {
-    public enum ExtraPolationMode
-    {
-        None = 0,
-        Hold = 1
-    }
-
-    [Flags]
-    public enum ClipCapabilities
-    {
-        None = 0,
-        Resizeable = 0x1,
-        Mixable = 0x2,
-        ClipInable = 0x4
-    }
-
     public delegate void Evaluate(float deltaTime);
 
     public static class TimelineUtility
     {
         public static int FrameRate = 60;
 
-        public static float MinEvaluateDeltaTime => 1f / FrameRate;
+        private static float MinEvaluateDeltaTime => 1f / FrameRate;
 
         public static void Lerp(float targetTime, float deltaTime, Evaluate evaluateSplitDeltaTime, ref float lastTime)
         {
@@ -32,18 +17,11 @@ namespace Timeline
             int direction = deltaTime > 0? 1 : -1;
             if (Mathf.Abs(deltaTime) > MinEvaluateDeltaTime)
             {
-                while (lastTime != targetTime)
+                while (Math.Abs(lastTime - targetTime) > 0.01f)
                 {
                     float splitDeltaTime = direction * MinEvaluateDeltaTime;
-                    if (direction == 1)
-                    {
-                        splitDeltaTime = Mathf.Min(splitDeltaTime, targetTime - lastTime);
-                    }
-                    else
-                    {
-                        splitDeltaTime = Mathf.Max(splitDeltaTime, targetTime - lastTime);
-                    }
-
+                    splitDeltaTime = direction == 1? Mathf.Min(splitDeltaTime, targetTime - lastTime) : Mathf.Max(splitDeltaTime, targetTime - lastTime);
+                    
                     evaluateSplitDeltaTime(splitDeltaTime);
                     lastTime += splitDeltaTime;
                 }

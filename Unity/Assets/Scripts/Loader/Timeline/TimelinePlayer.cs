@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Reflection;
 using Sirenix.OdinInspector;
 using Timeline.Editor;
 using UnityEngine;
@@ -90,7 +91,8 @@ namespace Timeline
             var goSet = new HashSet<GameObject>();
             foreach (var component in GetComponentsInChildren<Component>())
             {
-                if (component.GetAttribute<TimelineGenerateAttribute>() != null)
+                
+                if (component.GetType().GetCustomAttribute<TimelineGenerateAttribute>() != null)
                 {
                     goSet.Add(component.gameObject);
                 }
