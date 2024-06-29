@@ -59,6 +59,11 @@ ButtonSelected {
     border-bottom-width: 1px;
 }
 
+#current-layer {
+    border-right-color: rgb(32, 32, 32);
+    border-right-width: 1px;
+}
+
 #add-layer-button {
     position: absolute;
     right: 5px;

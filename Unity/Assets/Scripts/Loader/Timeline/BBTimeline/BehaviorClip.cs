@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Timeline
 {
@@ -7,16 +10,16 @@ namespace Timeline
     public class BehaviorClip
     {
         public BBTimeline Timeline;
-
-        public bool IsDefault;
-        public string Layer;
         public string Title;
 
         [TextArea(10, 30)]
         public string Script;
 
 #if UNITY_EDITOR
+        [HideInInspector]
         public string viewDataKey;
+
+        [HideInInspector]
         public Vector3 ClipPos;
 #endif
     }
@@ -25,6 +28,15 @@ namespace Timeline
     public class BehaviorLayer
     {
         public string layerName;
+        
+        [HideReferenceObjectPicker]
+        public List<BehaviorClip> BehaviorClips = new();
+
+#if UNITY_EDITOR
+        [FormerlySerializedAs("linkData")]
+        [HideReferenceObjectPicker]
+        public List<BehaviorLinkData> linkDatas = new();
+#endif
     }
 
 #if UNITY_EDITOR

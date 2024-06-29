@@ -34,6 +34,8 @@ namespace Timeline.Editor
             layerViewsContainer = root.Q<ScrollView>("layer-views-container");
             layerViewsContainer.RegisterCallback<PointerDownEvent>(PointerDown, TrickleDown.TrickleDown);
 
+            currentLayerLabel = root.Q<Label>("current-layer-label");
+
             AddLayerButton = root.Q<Button>("add-layer-button");
             AddLayerButton.clicked += AddLayer;
 
@@ -83,7 +85,7 @@ namespace Timeline.Editor
 
         public TimelinePlayer timelinePlayer;
         public BBPlayableGraph PlayableGraph => timelinePlayer.BBPlayable;
-        private BehaviorControllerView controllerView;
+        public BehaviorControllerView controllerView;
 
         #region Inspector
 
@@ -119,7 +121,107 @@ namespace Timeline.Editor
         private Button LayersButton;
         private VisualElement layerContainer;
         private Button AddLayerButton;
+        private Label currentLayerLabel;
         public ScrollView layerViewsContainer;
+
+        private int _layerIndex;
+
+        public int layerIndex
+        {
+            get
+            {
+                //adjust layerView
+                if (_layerIndex >= PlayableGraph.Layers.Count)
+                {
+                    _layerIndex = 0;
+                }
+
+                return _layerIndex;
+            }
+            set
+            {
+                _layerIndex = value;
+            }
+        }
+
+        public BehaviorLayer currentLayer => PlayableGraph.Layers[layerIndex];
+
+        public void RefreshLayerView()
+        {
+            layerViewsContainer.Clear();
+            layerViewsContainer.ForceScrollViewUpdate();
+
+            //refresh current layer
+            currentLayerLabel.text = currentLayer.layerName;
+
+            //inspector create layerview
+            for (int i = 0; i < PlayableGraph.Layers.Count; i++)
+            {
+                BehaviorLayer layer = PlayableGraph.Layers[i];
+
+                BehaviorLayerView layerView = new();
+                layerView.Init(this, layer);
+                layerViewsContainer.Add(layerView);
+
+                if (i == layerIndex)
+                {
+                    layerView.Select();
+                }
+            }
+        }
+
+        private DropdownMenuHandler layerMenuHandler;
+
+        private void LayerMenuBuilder(DropdownMenu menu)
+        {
+            menu.AppendAction("Edit Layer", _ =>
+            {
+                var layers = layerViewsContainer.Query<BehaviorLayerView>().ToList();
+                layers[layerIndex].EditMode(true);
+            });
+            menu.AppendAction("Remove Layer", _ =>
+            {
+                if (PlayableGraph.Layers.Count <= 1)
+                {
+                    Debug.LogError("PlayableGraph must be at least 1 layer!!!");
+                    return;
+                }
+
+                ApplyModify(() => { PlayableGraph.Layers.RemoveAt(layerIndex); }, "Remove Layer");
+                RefreshLayerView();
+            });
+        }
+
+        private void PointerDown(PointerDownEvent evt)
+        {
+            //Select
+            if (evt.button == 0)
+            {
+                var layers = layerViewsContainer.Query<BehaviorLayerView>().ToList();
+
+                for (int i = 0; i < layers.Count; i++)
+                {
+                    BehaviorLayerView layer = layers[i];
+                    layer.UnSelect();
+                    if (layer.InMiddle(evt.position))
+                    {
+                        layer.Select();
+                        layerIndex = i;
+                    }
+                }
+            }
+            //Menu
+            else if (evt.button == 1)
+            {
+                layerMenuHandler.ShowMenu(evt);
+            }
+        }
+
+        private void AddLayer()
+        {
+            ApplyModify(() => { PlayableGraph.Layers.Add(new BehaviorLayer() { layerName = "New Layer" }); }, "Add layer");
+            RefreshLayerView();
+        }
 
         #endregion
 
@@ -255,8 +357,14 @@ namespace Timeline.Editor
         {
             BehaviorControllerEditor controllerEditor = GetWindow<BehaviorControllerEditor>();
             controllerEditor.timelinePlayer = timelinePlayer;
-            controllerEditor.controllerView.PopulateView();
-            controllerEditor.RefreshParamView();
+            controllerEditor.RefreshView();
+        }
+
+        public void RefreshView()
+        {
+            RefreshLayerView();
+            RefreshParamView();
+            controllerView.PopulateView();
         }
 
         #region Undo
@@ -276,7 +384,7 @@ namespace Timeline.Editor
 
             if (refresh)
             {
-                controllerView.PopulateView();
+                RefreshView();
             }
         }
 
@@ -284,69 +392,8 @@ namespace Timeline.Editor
         {
             if (info.undoName.Split(':')[0] == "Behavior")
             {
-                controllerView.PopulateView();
+                RefreshView();
             }
-        }
-
-        #endregion
-
-        #region Event
-
-        private DropdownMenuHandler layerMenuHandler;
-        private Vector2 m_layer_localMousePosition;
-
-        private void LayerMenuBuilder(DropdownMenu menu)
-        {
-            menu.AppendAction("Remove Layer", _ =>
-            {
-                if (PlayableGraph.Layers.Count <= 1)
-                {
-                    Debug.LogError("PlayableGraph must be at least 1 layer!!!");
-                    return;
-                }
-
-                var layers = layerViewsContainer.Query<BehaviorLayerView>().ToList();
-                foreach (BehaviorLayerView layerView in layers)
-                {
-                    if (layerView.InMiddle(m_layer_localMousePosition))
-                    {
-                        ApplyModify(() => { PlayableGraph.Layers.Remove(layerView.behaviorLayer); }, "Remove Layer", true);
-                        return;
-                    }
-                }
-            });
-        }
-
-        private void PointerDown(PointerDownEvent evt)
-        {
-            //Select
-            if (evt.button == 0)
-            {
-                var layers = layerViewsContainer.Query<BehaviorLayerView>().ToList();
-
-                bool Selected = false;
-
-                foreach (var layer in layers)
-                {
-                    layer.UnSelect();
-                    if (layer.InMiddle(evt.position) && !Selected)
-                    {
-                        layer.Select();
-                        Selected = true;
-                    }
-                }
-            }
-            //Menu
-            else if (evt.button == 1)
-            {
-                m_layer_localMousePosition = evt.position;
-                layerMenuHandler.ShowMenu(evt);
-            }
-        }
-
-        private void AddLayer()
-        {
-            ApplyModify(() => { PlayableGraph.Layers.Add(new BehaviorLayer() { layerName = "New Layer" }); }, "Add layer", true);
         }
 
         #endregion

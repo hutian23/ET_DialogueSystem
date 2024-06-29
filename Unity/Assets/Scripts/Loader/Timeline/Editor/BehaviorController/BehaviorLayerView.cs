@@ -16,17 +16,20 @@ namespace Timeline.Editor
             visualTree.CloneTree(this);
             AddToClassList("behaviorLayerView");
 
-            layerLabel = this.Q<TextField>("layer-label");
+            layerText = this.Q<TextField>("layer-text");
+            layerLabel = this.Q<Label>("layer-label");
         }
 
         private DropdownMenuManipulator MenuManipulator;
         private BehaviorControllerEditor controllerEditor;
-        private BBPlayableGraph playableGraph => controllerEditor.PlayableGraph;
         private ScrollView LayerViewsContainer => controllerEditor.layerViewsContainer;
-        private readonly TextField layerLabel;
-
-        public BehaviorLayer behaviorLayer;
+        private readonly TextField layerText;
+        private readonly Label layerLabel;
         private readonly float Interval = 49;
+
+        //data
+        private BBPlayableGraph playableGraph => controllerEditor.PlayableGraph;
+        private BehaviorLayer behaviorLayer;
 
         public void Init(BehaviorControllerEditor Editor, BehaviorLayer _behaviorLayer)
         {
@@ -34,10 +37,12 @@ namespace Timeline.Editor
             behaviorLayer = _behaviorLayer;
 
             //Init edit layerName
-            layerLabel.SetValueWithoutNotify(_behaviorLayer.layerName);
-            layerLabel.RegisterCallback<BlurEvent>(_ =>
+            layerLabel.text = _behaviorLayer.layerName;
+            layerText.SetValueWithoutNotify(_behaviorLayer.layerName);
+            layerText.RegisterCallback<BlurEvent>(_ =>
             {
-                Editor.ApplyModify(() => { behaviorLayer.layerName = layerLabel.value; }, "Rename Clip");
+                Editor.ApplyModify(() => { behaviorLayer.layerName = layerText.value; }, "Rename layer");
+                Editor.RefreshLayerView();
             });
 
             //drag
@@ -72,6 +77,10 @@ namespace Timeline.Editor
 
                 float targetY = Interval * currentIndex;
                 transform.position = new Vector3(0, targetY, 0);
+
+                //Update currentLayer Index
+                controllerEditor.layerIndex = currentIndex;
+                controllerEditor.RefreshLayerView();
             }, (e) =>
             {
                 //OnMove
@@ -147,11 +156,22 @@ namespace Timeline.Editor
         {
             AddToClassList("selected");
             BBTimelineSettings.GetSettings().SetActiveObject(behaviorLayer);
+            controllerEditor.controllerView.PopulateView(); //刷新graphView
         }
 
         public void UnSelect()
         {
             RemoveFromClassList("selected");
+        }
+
+        public void EditMode(bool inEdit)
+        {
+            layerLabel.style.display = inEdit? DisplayStyle.None : DisplayStyle.Flex;
+            layerText.style.display = inEdit? DisplayStyle.Flex : DisplayStyle.None;
+            if (inEdit)
+            {
+                layerText.Focus();
+            }
         }
     }
 }

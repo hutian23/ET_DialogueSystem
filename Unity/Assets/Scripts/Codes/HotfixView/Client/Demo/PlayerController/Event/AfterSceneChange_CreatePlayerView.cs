@@ -18,7 +18,7 @@ namespace ET.Client
             //2. 以下组件 切换场景时全部销毁
             player.AddComponent<ObjectWait>();
             player.AddComponent<GameObjectComponent>().GameObject = go;
-            player.AddComponent<DialogueComponent>();
+            // player.AddComponent<DialogueComponent>();
         }
     }
 }

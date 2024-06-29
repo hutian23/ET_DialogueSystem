@@ -85,13 +85,13 @@ namespace Timeline.Editor
             clipView.Init(clip);
             AddElement(clipView);
 
-            Editor.ApplyModify(() => { Editor.PlayableGraph.BehaviorClips.Add(clip); }, "Create BehaviorClip");
+            Editor.ApplyModify(() => { Editor.currentLayer.BehaviorClips.Add(clip); }, "Create BehaviorClip");
         }
 
         private void RemoveClip(BehaviorClipView clipView)
         {
             RemoveElement(clipView);
-            Editor.ApplyModify(() => { Editor.PlayableGraph.BehaviorClips.Remove(clipView.BehaviorClip); }, "Delete BehaviorClip", true);
+            Editor.ApplyModify(() => { Editor.currentLayer.BehaviorClips.Remove(clipView.BehaviorClip); }, "Delete BehaviorClip", true);
         }
 
         #endregion
@@ -142,7 +142,7 @@ namespace Timeline.Editor
                         linkData.inputGuid = edge.input.node.viewDataKey;
                         linkData.outputGuid = edge.output.node.viewDataKey;
 
-                        Editor.PlayableGraph.linkDatas.Add(linkData);
+                        Editor.currentLayer.linkDatas.Add(linkData);
                     }
                 }, "Save node LinkData");
             }
@@ -196,15 +196,15 @@ namespace Timeline.Editor
                     for (int i = 0; i < removeClips.Count; i++)
                     {
                         BehaviorClipView clipView = removeClips[i];
-                        Editor.PlayableGraph.BehaviorClips.Remove(clipView.BehaviorClip);
+                        Editor.currentLayer.BehaviorClips.Remove(clipView.BehaviorClip);
                         RemoveElement(clipView);
                     }
 
                     for (int i = 0; i < removeEdges.Count; i++)
                     {
                         Edge removeEdge = removeEdges[i];
-                        BehaviorLinkData linkData = Editor.PlayableGraph.linkDatas.FirstOrDefault(link => link.viewDataKey == removeEdge.viewDataKey);
-                        Editor.PlayableGraph.linkDatas.Remove(linkData);
+                        BehaviorLinkData linkData = Editor.currentLayer.linkDatas.FirstOrDefault(link => link.viewDataKey == removeEdge.viewDataKey);
+                        Editor.currentLayer.linkDatas.Remove(linkData);
                     }
                 }, "Remove Element", true);
             }
@@ -225,11 +225,8 @@ namespace Timeline.Editor
             {
                 RemoveElement(edge);
             }
-
-            //Dispose ParamView
-            Editor.layerViewsContainer.Clear();
         }
-        
+
         public void PopulateView()
         {
             Dispose();
@@ -248,8 +245,9 @@ namespace Timeline.Editor
             root.RegisterCallback<PointerDownEvent>(_ => { BBTimelineSettings.GetSettings().SetActiveObject(Editor.PlayableGraph.root); });
             AddElement(root);
 
+            BehaviorLayer behaviorLayer = Editor.PlayableGraph.Layers[Editor.layerIndex];
             //create clip view
-            foreach (BehaviorClip behaviorClip in Editor.PlayableGraph.BehaviorClips)
+            foreach (BehaviorClip behaviorClip in behaviorLayer.BehaviorClips)
             {
                 BehaviorClipView behaviorClipView = new();
                 behaviorClipView.Init(behaviorClip);
@@ -257,7 +255,7 @@ namespace Timeline.Editor
             }
 
             //create edge
-            foreach (var linkData in Editor.PlayableGraph.linkDatas)
+            foreach (var linkData in behaviorLayer.linkDatas)
             {
                 Port input = GetClipByGuid(linkData.inputGuid).Input;
                 Port output = GetClipByGuid(linkData.outputGuid).Output;
@@ -265,17 +263,6 @@ namespace Timeline.Editor
                 edge.viewDataKey = linkData.viewDataKey;
                 AddElement(edge);
             }
-
-            //create layerview
-            foreach (var layer in Editor.PlayableGraph.Layers)
-            {
-                BehaviorLayerView layerView = new();
-                layerView.Init(Editor, layer);
-
-                Editor.layerViewsContainer.Add(layerView);
-            }
-
-            Editor.layerViewsContainer.ForceScrollViewUpdate();
 
             //Regist event
             RegisterCallback<MouseMoveEvent>(evt => { this.ScreenMousePosition = evt.mousePosition + Editor.position.position; });

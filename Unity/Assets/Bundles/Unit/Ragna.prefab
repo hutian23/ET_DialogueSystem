@@ -297,8 +297,10 @@ MonoBehaviour:
       Entry: 6
       Data: 
   ApplyRootMotion: 1
-  BBPlayable: {fileID: 11400000, guid: 94b58ded95a18bf49958a695850fae83, type: 2}
+  BBPlayable: {fileID: 11400000, guid: b08df29221071a849b0e549f7223945d, type: 2}
   CurrentTimeline: {fileID: 0}
+  initPos: {x: 0, y: 0, z: 0}
+  EditMode: 0
 --- !u!114 &7237696647212242221
 MonoBehaviour:
   m_ObjectHideFlags: 0

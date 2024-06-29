@@ -1,7 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/Loader/Timeline/Editor/Resources/Style/BehaviorLayerView.uss?fileID=7433441132597879392&amp;guid=1b88edd72e69545419ca381d177772e8&amp;type=3#BehaviorLayerView" />
     <ui:VisualElement name="container" style="flex-direction: row;">
-        <ui:TextField picking-mode="Ignore" name="layer-label" value="New Layer" />
+        <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="layer-label" />
+        <ui:TextField picking-mode="Ignore" name="layer-text" value="New Layer" />
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="layer-setting-button" />
         <ui:VisualElement name="layer-line" style="position: absolute;" />
     </ui:VisualElement>

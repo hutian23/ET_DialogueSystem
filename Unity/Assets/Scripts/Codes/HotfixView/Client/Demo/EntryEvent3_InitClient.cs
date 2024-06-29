@@ -16,10 +16,10 @@ namespace ET.Client
             clientScene.AddComponent<Input>();
             clientScene.AddComponent<TODEventSystem>();
             clientScene.AddComponent<OperaComponent>();
-            clientScene.AddComponent<DialogueDispatcherComponent>();
+            // clientScene.AddComponent<DialogueDispatcherComponent>();
             
             Unit player = TODUnitFactory.CreatePlayer(clientScene);
-            player.AddComponent<DialogueStorageManager>();
+            // player.AddComponent<DialogueStorageManager>();
             
             await Storage.Instance.SaveStorage(0, player);
             //反序列化存档

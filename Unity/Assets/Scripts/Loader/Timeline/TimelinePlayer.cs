@@ -54,6 +54,8 @@ namespace Timeline
             transform.localPosition = initPos;
         }
 
+        
+        
 #if UNITY_EDITOR
         [OnValueChanged("SwitchEditMode")]
         public bool EditMode;
@@ -71,12 +73,12 @@ namespace Timeline
         public void OpenWindow()
         {
             //默认字典第一个元素为入口
-            foreach (var behaviorClip in BBPlayable.BehaviorClips)
-            {
-                if (behaviorClip.Timeline == null) continue;
-                OpenWindow(behaviorClip.Timeline);
-                return;
-            }
+            // foreach (var behaviorClip in BBPlayable.BehaviorClips)
+            // {
+            //     if (behaviorClip.Timeline == null) continue;
+            //     OpenWindow(behaviorClip.Timeline);
+            //     return;
+            // }
 
             Debug.LogWarning("PlayableGraph need at least one timeline");
         }

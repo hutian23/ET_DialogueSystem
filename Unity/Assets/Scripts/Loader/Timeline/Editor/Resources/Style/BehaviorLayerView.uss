@@ -43,7 +43,18 @@
     background-color: rgb(88, 88, 88);
 }
 
-#layer-label {
+#layer-label{
+    position: absolute;
+    width: 150px;
+    height: 25px;
+    margin: 0;
+    margin-left: 5%;
+    margin-top: 8px;
+    padding: 0;
+}
+
+#layer-text {
+    display: none;
     width: 150px;
     height: 25px;
     margin: 0;
