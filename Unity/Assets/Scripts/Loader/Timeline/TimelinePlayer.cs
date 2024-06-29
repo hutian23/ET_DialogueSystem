@@ -9,6 +9,15 @@ using UnityEngine.Playables;
 
 namespace Timeline
 {
+    #region Event
+
+    public struct BehaviorControllerReloadCallback
+    {
+        public long instanceId;
+    }
+
+    #endregion
+
     public sealed class TimelinePlayer: SerializedMonoBehaviour
     {
         [HideInInspector]
@@ -56,8 +65,6 @@ namespace Timeline
             transform.localPosition = initPos;
         }
 
-        
-        
 #if UNITY_EDITOR
         [Button("行为编辑器")]
         public void OpenController()
@@ -91,7 +98,6 @@ namespace Timeline
             var goSet = new HashSet<GameObject>();
             foreach (var component in GetComponentsInChildren<Component>())
             {
-                
                 if (component.GetType().GetCustomAttribute<TimelineGenerateAttribute>() != null)
                 {
                     goSet.Add(component.gameObject);
@@ -148,7 +154,7 @@ namespace Timeline
             if (PlayableGraph.IsValid()) PlayableGraph.Destroy();
             ResetPos();
         }
-        
+
         public BBTimeline GetByOrder(int order)
         {
             // if (BBPlayable == null) return null;

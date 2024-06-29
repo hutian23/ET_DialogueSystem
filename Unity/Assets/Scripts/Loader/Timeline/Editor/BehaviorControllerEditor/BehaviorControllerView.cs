@@ -99,9 +99,12 @@ namespace Timeline.Editor
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
         {
             evt.menu.AppendAction("Create New BehaviorClip", _ => { CreateClip(); });
-            evt.menu.AppendAction("Reload Behavior", _ =>
+            evt.menu.AppendAction("Reload Behavior",
+                _ =>
                 {
-                    // EventSystem.Instance.Invoke
+                    //重载
+                    //注意要在init场景中调用
+                    EventSystem.Instance?.Invoke(new BehaviorControllerReloadCallback() { instanceId = Editor.timelinePlayer.instanceId });
                 },
                 EditorApplication.isPlaying? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Disabled);
             evt.menu.AppendAction("Preview Behavior", _ => { },
@@ -127,6 +130,7 @@ namespace Timeline.Editor
                         evt.menu.AppendAction("Open Timeline", _ => { Editor.timelinePlayer.OpenWindow(); });
                         evt.menu.AppendAction("Delete BehaviorClip", _ => { RemoveClip(clipView); });
                     }
+
                     break;
                 }
             }

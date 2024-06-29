@@ -51,8 +51,14 @@ MonoBehaviour:
       Entry: 1
       Data: Rg_Idle_1
     - Name: Script
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: 'BeginIf HP > 10:
+
+
+
+        EndIf
+
+'
     - Name: viewDataKey
       Entry: 1
       Data: 3d318cde-8579-454d-b099-673105939a9f
@@ -61,10 +67,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 113
+      Data: 145
     - Name: 
       Entry: 4
-      Data: 0
+      Data: -77
     - Name: 
       Entry: 4
       Data: 0
@@ -94,10 +100,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 292
+      Data: 365
     - Name: 
       Entry: 4
-      Data: 0
+      Data: -77
     - Name: 
       Entry: 4
       Data: 0

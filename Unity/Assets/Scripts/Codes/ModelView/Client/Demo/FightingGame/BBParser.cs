@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ET.Client
 {
@@ -19,6 +20,7 @@ namespace ET.Client
         public Dictionary<string, ETCancellationToken> subCoroutineDict = new();
     }
 
+    [Serializable]
     public class BBScriptData
     {
         public string opLine; //指令码
@@ -50,6 +52,7 @@ namespace ET.Client
         Normal
     }
 
+    [Serializable]
     public class SyntaxNode
     {
         public List<SyntaxNode> children = new();
