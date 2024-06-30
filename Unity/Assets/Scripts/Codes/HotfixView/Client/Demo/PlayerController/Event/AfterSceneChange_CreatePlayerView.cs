@@ -20,7 +20,7 @@ namespace ET.Client
             player.AddComponent<GameObjectComponent>().GameObject = go;
             // player.AddComponent<DialogueComponent>();
 
-            player.AddComponent<BBTimelineComponent>();
+            player.AddComponent<TimelineComponent>();
         }
     }
 }

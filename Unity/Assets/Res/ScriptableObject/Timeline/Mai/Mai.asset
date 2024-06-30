@@ -67,10 +67,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 145
+      Data: 126
     - Name: 
       Entry: 4
-      Data: -77
+      Data: 0
     - Name: 
       Entry: 4
       Data: 0
@@ -100,10 +100,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 365
+      Data: 321
     - Name: 
       Entry: 4
-      Data: -77
+      Data: 0
     - Name: 
       Entry: 4
       Data: 0
@@ -753,6 +753,6 @@ MonoBehaviour:
       Entry: 8
       Data: 
   root:
-    MainScript: '@Init:
-
-      return;'
+    MainScript: "@Init:\nStartCoroutine: 'Sub1';\nBrcWindow: \nreturn;\n\n\n@Sub1:\nStartCoroutine:
+      'Sub2','222';\nLogWarning: 'Hello world222';\nreturn;\n\n@Sub2:\nLogWarning:
+      'Hello world\u2018;\nWaitTime: 300;\nLogWarning: '2222';\nreturn;\n\n\n\n\n\n\n\n"
