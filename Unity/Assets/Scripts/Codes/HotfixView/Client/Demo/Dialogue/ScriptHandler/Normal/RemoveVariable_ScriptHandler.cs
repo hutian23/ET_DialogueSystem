@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 namespace ET.Client
 {
     [FriendOf(typeof(DialogueComponent))]
-    public class RemoveVariable_ScriptHandler : ScriptHandler
+    public class RemoveVariableDialogueScriptHandler : DialogueScriptHandler
     {
         public override string GetOPType()
         {

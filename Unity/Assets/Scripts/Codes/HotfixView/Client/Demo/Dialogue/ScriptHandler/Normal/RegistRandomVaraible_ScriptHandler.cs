@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ET.Client
 {
     [FriendOf(typeof (DialogueComponent))]
-    public class RegistRandomVaraible_ScriptHandler: ScriptHandler
+    public class RegistRandomVaraibleDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

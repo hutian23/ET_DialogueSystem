@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class VN_Flip_ScriptHandler: ScriptHandler
+    public class VnFlipDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

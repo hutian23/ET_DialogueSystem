@@ -26,9 +26,12 @@ namespace ET.Client
             component.RemoveComponent<ScriptParser>();
             ScriptParser parser = component.AddComponent<ScriptParser>();
             parser.InitScript(BBPlayable.root.MainScript);
-
-            Log.Warning(parser.GetMarker("hutian2501").ToString());
-            parser.Invoke("Init", null).Coroutine();
+            
+            //Add BBTimerComponent ---> test
+            component.RemoveComponent<BBTimerComponent>();
+            component.AddComponent<BBTimerComponent>();
+            
+            parser.Invoke("Init").Coroutine();
         }
     }
 }

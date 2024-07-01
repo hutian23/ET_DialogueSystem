@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class Log_ScriptHandler : ScriptHandler
+    public class LogDialogueScriptHandler : DialogueScriptHandler
     {
         public override string GetOPType()
         {

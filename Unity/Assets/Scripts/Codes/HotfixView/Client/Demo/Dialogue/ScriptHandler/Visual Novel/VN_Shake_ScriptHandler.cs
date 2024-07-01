@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ET.Client
 {
-    public class VN_Shake_ScriptHandler: ScriptHandler
+    public class VnShakeDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

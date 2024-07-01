@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ET.Client
 {
-    public class VN_RegistBackground_ScriptHandler: ScriptHandler
+    public class VnRegistBackgroundDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

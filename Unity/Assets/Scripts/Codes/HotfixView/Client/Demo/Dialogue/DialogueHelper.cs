@@ -102,7 +102,7 @@ namespace ET.Client
         private static async ETTask ScriptHandle(this DialogueDispatcherComponent self, Unit unit, DialogueNode node, string opType, string opCode,
         ETCancellationToken token)
         {
-            if (!self.scriptHandlers.TryGetValue(opType, out ScriptHandler handler))
+            if (!self.scriptHandlers.TryGetValue(opType, out DialogueScriptHandler handler))
             {
                 Log.Error($"not found script handler: {opType}");
                 return;

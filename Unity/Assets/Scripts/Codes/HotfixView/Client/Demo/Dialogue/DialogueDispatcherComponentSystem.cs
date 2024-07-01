@@ -66,7 +66,7 @@ namespace ET.Client
             var scriptHandlers = EventSystem.Instance.GetTypes(typeof (DialogueScriptAttribute));
             foreach (Type type in scriptHandlers)
             {
-                ScriptHandler handler = Activator.CreateInstance(type) as ScriptHandler;
+                DialogueScriptHandler handler = Activator.CreateInstance(type) as DialogueScriptHandler;
                 if (handler == null)
                 {
                     Log.Error($"this obj is not a ScriptableHandler: {type.Name}");

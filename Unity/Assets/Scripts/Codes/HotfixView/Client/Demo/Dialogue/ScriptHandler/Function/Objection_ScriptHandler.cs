@@ -1,6 +1,6 @@
 ﻿namespace ET.Client
 {
-    public class Objection_ScriptHandler: ScriptHandler
+    public class ObjectionDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

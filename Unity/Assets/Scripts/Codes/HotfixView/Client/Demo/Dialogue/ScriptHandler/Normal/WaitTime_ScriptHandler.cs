@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class WaitTime_ScriptHandler: ScriptHandler
+    public class WaitTimeDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

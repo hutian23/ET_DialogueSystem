@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class BBInit_ScriptHandler: ScriptHandler
+    public class BbInitDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

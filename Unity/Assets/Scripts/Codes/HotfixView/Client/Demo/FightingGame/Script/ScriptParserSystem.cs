@@ -1,19 +1,24 @@
 ﻿using System.Text.RegularExpressions;
+using Sirenix.Utilities;
 
 namespace ET.Client
 {
     [FriendOf(typeof (ScriptParser))]
+    [FriendOf(typeof (ScriptDispatcherComponent))]
     public static class ScriptParserSystem
     {
         public class ScriptParserAwakeSystem: AwakeSystem<ScriptParser>
         {
             protected override void Awake(ScriptParser self)
             {
+                self.Cancel();
             }
         }
 
         private static void Cancel(this ScriptParser self)
         {
+            self.subCoroutineDatas.Values.ForEach(data => { data.Recycle(); });
+            self.subCoroutineDatas.Clear();
             self.Token?.Cancel();
             self.opLines = null;
             self.funcMap.Clear();
@@ -70,7 +75,14 @@ namespace ET.Client
             return -1;
         }
 
-        public static async ETTask<Status> Invoke(this ScriptParser self, string funcName, ETCancellationToken token)
+        //Init ---> Init coroutine Main ---> Main Coroutine
+        public static async ETTask<Status> Invoke(this ScriptParser self, string funcName)
+        {
+            await self.CallSubCoroutine(funcName, funcName);
+            return Status.Success;
+        }
+
+        private static async ETTask<Status> CallSubCoroutine(this ScriptParser self, string funcName, string coroutineName)
         {
             //1. 函数入口指针
             if (!self.funcMap.TryGetValue(funcName, out int index))
@@ -78,10 +90,59 @@ namespace ET.Client
                 Log.Warning($"not found function:{funcName}");
                 return Status.Failed;
             }
-            Log.Warning(index.ToString());
 
-            await ETTask.CompletedTask;
+            ETCancellationToken subToken = new();
+            self.Token.Add(subToken.Cancel);
+            SubCoroutineData coroutineData = SubCoroutineData.Create(coroutineName, index, subToken);
+            //2. 回收同名协程
+            if (self.subCoroutineDatas.TryGetValue(coroutineName, out SubCoroutineData _data))
+            {
+                _data.Recycle();
+                self.subCoroutineDatas.Remove(coroutineName);
+            }
+
+            self.subCoroutineDatas.Add(coroutineName, coroutineData);
+
+            while (++coroutineData.pointer < self.opDict.Count)
+            {
+                if (self.Token.IsCancel()) return Status.Failed;
+
+                //4. 语句(OpType: xxxx;)根据OpType匹配handler
+                string opLine = self.opDict[coroutineData.pointer];
+                Match match = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
+                if (!match.Success)
+                {
+                    Log.Error($"{opLine}匹配失败!请检查格式");
+                    return Status.Failed;
+                }
+
+                //5. 匹配 ScriptHandler
+                string opType = match.Value;
+                if (!ScriptDispatcherComponent.Instance.ScriptHandlers.TryGetValue(opType, out ScriptHandler handler))
+                {
+                    Log.Error($"not found script handler:{opType}");
+                    return Status.Failed;
+                }
+
+                ScriptData scriptData = ScriptData.Create(opLine, coroutineName);
+                Status ret = await handler.Handle(self.GetParent<TimelineComponent>().GetParent<Unit>(), scriptData, subToken);
+                scriptData.Recycle();
+
+                if (subToken.IsCancel() || ret == Status.Failed) return Status.Failed;
+                if (ret != Status.Success) return ret;
+            }
+
             return Status.Success;
+        }
+
+        public static string GetOpLine(this ScriptParser self, int index)
+        {
+            if (self.opDict.TryGetValue(index, out string opLine))
+            {
+                return opLine;
+            }
+            Log.Error($"index: {index} out of range!!!");
+            return string.Empty;
         }
     }
 }

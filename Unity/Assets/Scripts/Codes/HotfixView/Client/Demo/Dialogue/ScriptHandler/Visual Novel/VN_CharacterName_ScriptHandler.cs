@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class VN_CharacterName_ScriptHandler: ScriptHandler
+    public class VnCharacterNameDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

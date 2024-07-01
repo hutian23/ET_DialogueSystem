@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class VN_RegistTalker_ScriptHandler: ScriptHandler
+    public class VnRegistTalkerDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

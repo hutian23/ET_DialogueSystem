@@ -1,6 +1,6 @@
 ﻿namespace ET.Client
 {
-    public class DisableSetting : ScriptHandler
+    public class DisableSetting : DialogueScriptHandler
     {
         public override string GetOPType()
         {

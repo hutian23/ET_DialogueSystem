@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ET.Client
 {
+    [Serializable]
     public class BBTimerAction
     {
         public long Id;
@@ -39,7 +41,7 @@ namespace ET.Client
     {
         public object Args;
     }
-    
+
     [ComponentOf]
     public class BBTimerComponent: Entity, IAwake, IDestroy, ILoad, IUpdate
     {
@@ -57,7 +59,7 @@ namespace ET.Client
         public long minFrame = long.MaxValue;
         public long curFrame = 0;
         public float deltaTimereminder = 0;
-        
+
         public float timeScale = 1f;
     }
 }

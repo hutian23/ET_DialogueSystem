@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ET.Client
 {
-    public class VN_TextAlign_ScriptHandler: ScriptHandler
+    public class VnTextAlignDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

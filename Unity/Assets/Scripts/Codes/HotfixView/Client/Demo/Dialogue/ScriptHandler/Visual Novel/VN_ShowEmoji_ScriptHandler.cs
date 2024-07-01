@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ET.Client
 {
-    public class VN_ShowEmoji_ScriptHandler: ScriptHandler
+    public class VnShowEmojiDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

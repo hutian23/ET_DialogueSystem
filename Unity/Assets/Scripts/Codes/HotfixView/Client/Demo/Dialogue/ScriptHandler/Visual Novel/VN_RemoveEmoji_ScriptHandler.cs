@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class VN_RemoveEmoji_ScriptHandler: ScriptHandler
+    public class VnRemoveEmojiDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

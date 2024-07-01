@@ -1,6 +1,6 @@
 ﻿namespace ET.Client
 {
-    public class Enable_VN_Storage_ScriptHandler: ScriptHandler
+    public class EnableVnStorageDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class LoadSpriteAtlas_ScriptHandler: ScriptHandler
+    public class LoadSpriteAtlasDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

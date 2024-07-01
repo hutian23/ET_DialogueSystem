@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ET.Client
 {
-    public class VN_RemoveCharacter_ScriptHandler: ScriptHandler
+    public class VnRemoveCharacterDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

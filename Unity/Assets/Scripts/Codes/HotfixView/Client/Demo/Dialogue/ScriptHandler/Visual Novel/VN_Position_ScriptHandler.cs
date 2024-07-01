@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ET.Client
 {
-    public class VN_Position_ScriptHandler: ScriptHandler
+    public class VnPositionDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace ET.Client
 {
-    public class HideWindow_ScriptHandler: ScriptHandler
+    public class HideWindowDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

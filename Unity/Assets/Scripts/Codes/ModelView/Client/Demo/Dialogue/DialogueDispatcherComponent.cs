@@ -13,7 +13,7 @@ namespace ET.Client
 
         public Dictionary<Type, NodeCheckHandler> checker_dispatchHandlers = new();
 
-        public Dictionary<string, ScriptHandler> scriptHandlers = new();
+        public Dictionary<string, DialogueScriptHandler> scriptHandlers = new();
 
         public Dictionary<string, ReplaceHandler> replaceHandlers = new();
         

@@ -16,6 +16,7 @@ namespace ET.Client
             clientScene.AddComponent<Input>();
             clientScene.AddComponent<TODEventSystem>();
             clientScene.AddComponent<OperaComponent>();
+            clientScene.AddComponent<ScriptDispatcherComponent>();
             // clientScene.AddComponent<DialogueDispatcherComponent>();
             
             Unit player = TODUnitFactory.CreatePlayer(clientScene);

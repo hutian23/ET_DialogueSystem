@@ -1,6 +1,6 @@
 ﻿namespace ET.Client
 {
-    public class HoldIt_ScriptHandler : ScriptHandler
+    public class HoldItDialogueScriptHandler : DialogueScriptHandler
     {
         public override string GetOPType()
         {

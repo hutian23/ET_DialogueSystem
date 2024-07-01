@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class VN_WaitAnimPlay_ScriptHandler: ScriptHandler
+    public class VnWaitAnimPlayDialogueScriptHandler: DialogueScriptHandler
     {
         public override string GetOPType()
         {

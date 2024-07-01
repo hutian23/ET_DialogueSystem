@@ -54,8 +54,6 @@ MonoBehaviour:
       Entry: 1
       Data: 'BeginIf HP > 10:
 
-
-
         EndIf
 
 '
@@ -753,6 +751,37 @@ MonoBehaviour:
       Entry: 8
       Data: 
   root:
-    MainScript: "@Init:\nStartCoroutine: 'Sub1';\nBrcWindow: \nreturn;\n\n\n@Sub1:\nStartCoroutine:
-      'Sub2','222';\nLogWarning: 'Hello world222';\nreturn;\n\n@Sub2:\nLogWarning:
-      'Hello world\u2018;\nWaitTime: 300;\nLogWarning: '2222';\nreturn;\n\n\n\n\n\n\n\n"
+    MainScript: '@Init:
+
+
+      WaitFrame: 30;
+
+      LogWarning: ''1'';
+
+
+      WaitFrame:
+      30;
+
+      LogWarning: ''2'';
+
+
+      WaitFrame: 30;
+
+
+      SetMarker: ''hutian2501'';
+
+      LogWarning:
+      ''marker_test'';
+
+      GotoMarker: ''hutian2501'';
+
+      return:
+
+
+
+
+
+
+
+
+'
