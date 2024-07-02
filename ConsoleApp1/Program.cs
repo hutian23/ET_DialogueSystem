@@ -46,14 +46,19 @@ class Program
 {
     static void Main(string[] args)
     {
-        var data = new List<string> { "just a test", "Just a test", "Test", "example", "another test" };
-        string searchTerm = "test";
+        Match match2 = Regex.Match("BeginIf: HP > 10", "BeginIf: (.+)");
+        string op = match2.Groups[1].Value;
+        var ops = op.Split(' ');
+        Console.WriteLine(ops[0]);
 
-        var results = FuzzySearchMethod(data, searchTerm);
-        foreach (var result in results)
-        {
-            Console.WriteLine(result);
-        }
+        // var data = new List<string> { "just a test", "Just a test", "Test", "example", "another test" };
+        // string searchTerm = "test";
+        //
+        // var results = FuzzySearchMethod(data, searchTerm);
+        // foreach (var result in results)
+        // {
+        //     Console.WriteLine(result);
+        // }
         // Console.WriteLine((int)Mathf.Clamp01(0.2f));
         // SortedSet<int> set = new();
         // set.Add(2);
@@ -186,7 +191,7 @@ class Program
     {
         // 转换输入的searchTerm为小写
         searchTerm = searchTerm.ToLower();
-        
+
         var results = data
                 .Where(item => item.ToLower().Contains(searchTerm)) // 进行包含匹配并忽略大小写
                 .OrderBy(item => item.Length) // 可以按字符串长度排序，确保更精确的结果在前
@@ -194,7 +199,7 @@ class Program
 
         return results;
     }
-    
+
     public static double JaroWinklerDistance(string s1, string s2)
     {
         int s1Len = s1.Length;

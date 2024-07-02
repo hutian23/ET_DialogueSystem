@@ -9,5 +9,6 @@ namespace ET.Client
         public static ScriptDispatcherComponent Instance;
 
         public Dictionary<string, ScriptHandler> ScriptHandlers = new();
+        public Dictionary<string, TriggerHandler> TriggerHandlers = new();
     }
 }

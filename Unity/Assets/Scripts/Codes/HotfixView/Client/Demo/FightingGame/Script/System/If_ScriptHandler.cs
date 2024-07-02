@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 namespace ET.Client
 {
     [FriendOf(typeof (ScriptParser))]
+    [FriendOf(typeof (ScriptDispatcherComponent))]
     public class If_ScriptHandler: ScriptHandler
     {
         public override string GetOpType()
@@ -11,24 +12,12 @@ namespace ET.Client
             return "BeginIf";
         }
 
-        //BeginIf HP > 10:
-        //  LogWarning: 'Hello world';
-        //  BeginIf:
-        //      LogWarning: 'Hello world';
-        //      LogWarning: '2222';
-        //  EndIf:
-        //  LogWarning: '22222';
-        //  LogWarning: '222333';
-        //EndIf:
         public override async ETTask<Status> Handle(Unit unit, ScriptData data, ETCancellationToken token)
         {
             ScriptParser parser = unit.GetComponent<TimelineComponent>().GetComponent<ScriptParser>();
 
             BBSyntaxNode rootNode = GenerateSyntaxTree(parser, data);
-            await HandleSyntaxTree(parser, data, rootNode);
-
-            await ETTask.CompletedTask;
-            return Status.Success;
+            return await HandleSyntaxTree(parser, data, rootNode);
         }
 
         private BBSyntaxNode GenerateSyntaxTree(ScriptParser parser, ScriptData data)
@@ -56,19 +45,20 @@ namespace ET.Client
 
                 string opType = match.Value;
 
+                BBSyntaxNode child = BBSyntaxNode.Create(pointer);
                 switch (opType)
                 {
                     case "BeginIf":
-                        BBSyntaxNode child = BBSyntaxNode.Create(pointer);
                         conditionStack.Peek().children.Add(child);
                         conditionStack.Push(child);
                         break;
                     case "EndIf":
+                        conditionStack.Peek().endIndex = pointer;
+                        conditionStack.Peek().children.Add(child);
                         conditionStack.Pop();
                         break;
                     default:
-                        BBSyntaxNode normal = BBSyntaxNode.Create(pointer);
-                        conditionStack.Peek().children.Add(normal);
+                        conditionStack.Peek().children.Add(child);
                         break;
                 }
             }
@@ -76,24 +66,93 @@ namespace ET.Client
             return rootNode;
         }
 
-        private async ETTask<Status> HandleSyntaxTree(ScriptParser parser, ScriptData data, BBSyntaxNode rootNode)
+        private async ETTask<Status> HandleSyntaxTree(ScriptParser parser, ScriptData data, BBSyntaxNode syntaxNode)
         {
-            BBTimerComponent timerComponent = parser.GetParent<Unit>().GetComponent<BBTimerComponent>();
-            Queue<BBSyntaxNode> workQueue = new Queue<BBSyntaxNode>();
-            workQueue.Enqueue(rootNode);
-
-            while (workQueue.Count > 0)
+            //1. get subcoroutine
+            parser.subCoroutineDatas.TryGetValue(data.coroutineID, out SubCoroutineData coroutineData);
+            if (coroutineData == null)
             {
-                BBSyntaxNode node = workQueue.Dequeue();
-                Log.Warning(parser.opDict[node.index]);
+                Log.Error($"not found coroutineData: {data.coroutineID}");
+                return Status.Failed;
+            }
 
-                foreach (var child in node.children)
+            //2. get OpType
+            string opLine = parser.opDict[syntaxNode.startIndex];
+            Match match = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
+            if (!match.Success)
+            {
+                ScriptHelper.ScriptMatchError(opLine);
+                return Status.Failed;
+            }
+
+            string opType = match.Value;
+
+            switch (opType)
+            {
+                case "BeginIf":
                 {
-                    workQueue.Enqueue(child);
+                    Match match2 = Regex.Match(opLine, "BeginIf: (.+)");
+                    string triggerLine = match2.Groups[1].Value;
+                    string triggerType = triggerLine.Split(' ')[0];
+
+                    ScriptDispatcherComponent.Instance.TriggerHandlers.TryGetValue(triggerType, out TriggerHandler triggerHandler);
+                    ScriptData scriptData = ScriptData.Create(triggerLine, coroutineData.coroutineName);
+
+                    //条件不符合, 跳过当前if块
+                    if (!triggerHandler.Check(parser, scriptData))
+                    {
+                        coroutineData.pointer = syntaxNode.endIndex;
+                        return Status.Failed;
+                    }
+
+                    break;
+                }
+                case "EndIf":
+                {
+                    break;
+                }
+                default:
+                {
+                    Match match3 = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
+                    if (!match3.Success)
+                    {
+                        Log.Error($"not found opType: {opLine}");
+                        return Status.Failed;
+                    }
+
+                    if (!ScriptDispatcherComponent.Instance.ScriptHandlers.TryGetValue(match3.Value, out ScriptHandler scriptHandler))
+                    {
+                        Log.Error($"not found script handler: {match3.Value}");
+                        return Status.Failed;
+                    }
+
+                    ScriptData _data = ScriptData.Create(opLine, coroutineData.coroutineName);
+                    Status ret = await scriptHandler.Handle(parser.GetParent<TimelineComponent>().GetParent<Unit>(), _data, coroutineData.token);
+                    if (ret != Status.Success)
+                    {
+                        Log.Warning($"index: {syntaxNode.startIndex} {opLine} failed to execute");
+                        return ret;
+                    }
+
+                    break;
                 }
             }
 
-            await ETTask.CompletedTask;
+            coroutineData.pointer = syntaxNode.startIndex;
+
+            foreach (var child in syntaxNode.children)
+            {
+                if (coroutineData.token.IsCancel())
+                {
+                    return Status.Failed;
+                }
+                Status status = await HandleSyntaxTree(parser, data, child);
+                if (status != Status.Success)
+                {
+                    return Status.Success;
+                }
+            }
+
             return Status.Success;
         }
     }

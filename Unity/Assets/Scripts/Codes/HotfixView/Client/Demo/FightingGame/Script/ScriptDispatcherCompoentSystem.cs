@@ -43,7 +43,22 @@ namespace ET.Client
                     Log.Error($"this obj is not a scriptHandle:{type.Name}");
                     continue;
                 }
+
                 self.ScriptHandlers.Add(scriptHandler.GetOpType(), scriptHandler);
+            }
+
+            self.TriggerHandlers.Clear();
+            var triggerHandlers = EventSystem.Instance.GetTypes(typeof (TriggerAttribute));
+            foreach (var type in triggerHandlers)
+            {
+                TriggerHandler triggerHandler = Activator.CreateInstance(type) as TriggerHandler;
+                if (triggerHandler == null)
+                {
+                    Log.Error($"this obj is not triggerHandler:{type.Name}");
+                    continue;
+                }
+
+                self.TriggerHandlers.Add(triggerHandler.GetTriggerType(), triggerHandler);
             }
         }
     }

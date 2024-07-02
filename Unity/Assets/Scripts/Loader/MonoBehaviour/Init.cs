@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Threading;
 using CommandLine;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace ET
 {
 	public class Init: MonoBehaviour
 	{
+		[Button("Hello world")]
+		public void Test()
+		{
+			Debug.LogWarning(Application.persistentDataPath);
+		}
+        
 		private void Start()
 		{
 			DontDestroyOnLoad(gameObject);

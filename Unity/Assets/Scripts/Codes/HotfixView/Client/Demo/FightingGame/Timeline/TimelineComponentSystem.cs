@@ -14,5 +14,28 @@ namespace ET.Client
                 timelinePlayer.instanceId = self.InstanceId;
             }
         }
+
+        public static T GetParameter<T>(this TimelineComponent timelineComponent, string parameterName)
+        {
+            TimelinePlayer timelinePlayer = timelineComponent.GetParent<Unit>()
+                    .GetComponent<GameObjectComponent>().GameObject
+                    .GetComponent<TimelinePlayer>();
+            BBPlayableGraph playableGraph = timelinePlayer.BBPlayable;
+            foreach (var param in playableGraph.Parameters)
+            {
+                if (param.name == parameterName)
+                {
+                    if (param.value is not T value)
+                    {
+                        Log.Error($"cannot format {param.name} to {typeof (T)}");
+                        return default;
+                    }
+
+                    return value;
+                }
+            }
+
+            return default;
+        }
     }
 }

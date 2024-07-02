@@ -21,6 +21,11 @@ namespace ET.Client
 
             Log.Warning(match.Groups["Info"].Value);
 
+            TimelineComponent timelineComponent = unit.GetComponent<TimelineComponent>();
+
+            int test = timelineComponent.GetParameter<int>("CheckHP");
+            Log.Warning(test.ToString());
+
             await ETTask.CompletedTask;
             return Status.Success;
         }
