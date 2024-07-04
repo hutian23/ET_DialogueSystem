@@ -362,7 +362,7 @@ MonoBehaviour:
       Data: 25|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 111
+      Data: 32
     - Name: 
       Entry: 8
       Data: 
@@ -376,6 +376,22 @@ MonoBehaviour:
       Entry: 8
       Data: 
   root:
-    MainScript: "@Init:\nBeginIf: HP > 10\n  LogWarning: '2222';\n  BeginIf: HP >
-      5:\n    LogWarning: '3333';\n    LogWarning: '4444';\n  EndIf:\n  LogWarning:
-      '5555';\nEndIf:\nreturn:\n\n\n\n\n\n\n\n"
+    MainScript: '@Init:
+
+
+      LogWarning: ''<Param name = CheckHP/>'';
+
+      LogWarning:
+      ''222'';
+
+
+      return:
+
+
+
+
+
+
+
+
+'

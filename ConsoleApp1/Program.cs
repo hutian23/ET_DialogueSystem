@@ -46,10 +46,24 @@ class Program
 {
     static void Main(string[] args)
     {
-        Match match2 = Regex.Match("BeginIf: HP > 10", "BeginIf: (.+)");
-        string op = match2.Groups[1].Value;
-        var ops = op.Split(' ');
-        Console.WriteLine(ops[0]);
+        string input = "LogWarning: <Param name = Hello World/> <Param name = 2222/>";
+        string pattern = @"<Param name = [^/]+/>";
+
+        MatchCollection matches = Regex.Matches(input, pattern);
+        foreach (Match match in matches)
+        {
+            string matchLine = match.Value;
+            Match match2 = Regex.Match(matchLine, "<Param name = (?<param>.*?)/>");
+            Console.WriteLine(match2.Groups["param"].Value);
+            Console.WriteLine("匹配到的内容: " + match.Value);
+            input = input.Replace(match2.Value, match2.Groups["param"].Value);
+        }
+        
+        Console.WriteLine(input);
+        // Match match2 = Regex.Match("BeginIf: HP > 10", "BeginIf: (.+)");
+        // string op = match2.Groups[1].Value;
+        // var ops = op.Split(' ');
+        // Console.WriteLine(ops[0]);
 
         // var data = new List<string> { "just a test", "Just a test", "Test", "example", "another test" };
         // string searchTerm = "test";

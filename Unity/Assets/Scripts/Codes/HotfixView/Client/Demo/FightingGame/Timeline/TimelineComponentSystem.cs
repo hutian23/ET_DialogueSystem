@@ -37,5 +37,22 @@ namespace ET.Client
 
             return default;
         }
+
+        public static object GetParameter(this TimelineComponent self, string paramName)
+        {
+            TimelinePlayer timelinePlayer = self.GetParent<Unit>()
+                    .GetComponent<GameObjectComponent>().GameObject
+                    .GetComponent<TimelinePlayer>();
+            BBPlayableGraph playableGraph = timelinePlayer.BBPlayable;
+            foreach (var param in playableGraph.Parameters)
+            {
+                if (param.name == paramName)
+                {
+                    return param.value;
+                }
+            }
+
+            return null;
+        }
     }
 }

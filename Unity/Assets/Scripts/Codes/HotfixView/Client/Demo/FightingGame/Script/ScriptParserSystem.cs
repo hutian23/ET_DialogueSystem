@@ -108,7 +108,7 @@ namespace ET.Client
                 if (self.Token.IsCancel()) return Status.Failed;
 
                 //4. 语句(OpType: xxxx;)根据OpType匹配handler
-                string opLine = self.opDict[coroutineData.pointer];
+                self.ReplaceParam(self.opDict[coroutineData.pointer], out string opLine);
                 Match match = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
                 if (!match.Success)
                 {
@@ -135,14 +135,29 @@ namespace ET.Client
             return Status.Success;
         }
 
-        public static string GetOpLine(this ScriptParser self, int index)
+        public static void ReplaceParam(this ScriptParser self, string opLine, out string postOpLine)
         {
-            if (self.opDict.TryGetValue(index, out string opLine))
+            postOpLine = opLine;
+
+            //1.find <Param name = /> pattern string
+            MatchCollection matches = Regex.Matches(opLine, @"<Param name = [^/]+/>");
+            foreach (Match match in matches)
             {
-                return opLine;
+                string paramLine = match.Value;
+
+                //2. find param name
+                Match match2 = Regex.Match(paramLine, "<Param name = (?<param>.*?)/>");
+                if (!match2.Success)
+                {
+                    Log.Error($"dismatch {paramLine}");
+                    return;
+                }
+
+                //3. replace
+                string valueName = match2.Groups["param"].Value;
+                TimelineComponent timelineComponent = self.GetParent<TimelineComponent>();
+                postOpLine = postOpLine.Replace(paramLine, timelineComponent.GetParameter(valueName).ToString());
             }
-            Log.Error($"index: {index} out of range!!!");
-            return string.Empty;
         }
     }
 }

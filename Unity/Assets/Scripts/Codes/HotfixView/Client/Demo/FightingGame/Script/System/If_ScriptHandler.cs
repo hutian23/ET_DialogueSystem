@@ -77,7 +77,7 @@ namespace ET.Client
             }
 
             //2. get OpType
-            string opLine = parser.opDict[syntaxNode.startIndex];
+            parser.ReplaceParam(parser.opDict[syntaxNode.startIndex], out string opLine);
             Match match = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
             if (!match.Success)
             {
@@ -146,6 +146,7 @@ namespace ET.Client
                 {
                     return Status.Failed;
                 }
+
                 Status status = await HandleSyntaxTree(parser, data, child);
                 if (status != Status.Success)
                 {
