@@ -75,15 +75,18 @@ namespace Timeline
         [Button("技能编辑器")]
         public void OpenWindow()
         {
-            //默认字典第一个元素为入口
-            // foreach (var behaviorClip in BBPlayable.BehaviorClips)
-            // {
-            //     if (behaviorClip.Timeline == null) continue;
-            //     OpenWindow(behaviorClip.Timeline);
-            //     return;
-            // }
+            var timelineSet = BBPlayable.GetTimelines();
+            if (timelineSet.Count <= 0)
+            {
+                Debug.LogWarning("PlayableGraph need at least one timeline");
+                return;
+            }
 
-            Debug.LogWarning("PlayableGraph need at least one timeline");
+            foreach (var timeline in timelineSet)
+            {
+                OpenWindow(timeline);
+                return;
+            }
         }
 
         public void OpenWindow(BBTimeline timeline)

@@ -109,19 +109,12 @@ namespace Timeline.Editor
             m_select_timeline_Button = root.Q<Button>("select-timeline-button");
             m_select_timeline_Button.AddManipulator(new DropdownMenuManipulator((menu) =>
             {
-                // foreach (var behaviorClip in TimelinePlayer.BBPlayable.BehaviorClips)
-                // {
-                //     BBTimeline _timeline = behaviorClip.Timeline;
-                //
-                //     if (_timeline == null)
-                //     {
-                //         continue;
-                //     }
-                //
-                //     var actionName = $"{_timeline.timelineName}";
-                //     menu.AppendAction(actionName, _ => { TimelinePlayer.OpenWindow(_timeline); },
-                //         TimelinePlayer.CurrentTimeline == _timeline? DropdownMenuAction.Status.Checked : DropdownMenuAction.Status.Normal);
-                // }
+                foreach (var _timeline in TimelinePlayer.BBPlayable.GetTimelines())
+                {
+                    var actionName = $"{_timeline.timelineName}";
+                    menu.AppendAction(actionName, _ => { TimelinePlayer.OpenWindow(_timeline); },
+                        TimelinePlayer.CurrentTimeline == _timeline? DropdownMenuAction.Status.Checked : DropdownMenuAction.Status.Normal);
+                }
             }, MouseButton.RightMouse));
 
             m_select_timeline_label = root.Q<Label>("select-timeline-label");
@@ -272,6 +265,7 @@ namespace Timeline.Editor
             //     m_select_timeline_label.text = $"{_timeline.timelineName}";
             // }
         }
+
         #endregion
     }
 }

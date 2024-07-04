@@ -357,6 +357,11 @@ namespace Timeline.Editor
         {
             BehaviorControllerEditor controllerEditor = GetWindow<BehaviorControllerEditor>();
             controllerEditor.timelinePlayer = timelinePlayer;
+            //添加默认layer
+            if (timelinePlayer.BBPlayable.Layers.Count == 0)
+            {
+                timelinePlayer.BBPlayable.Layers.Add(new BehaviorLayer());
+            }
             controllerEditor.RefreshView();
         }
 

@@ -13,10 +13,24 @@ namespace Timeline
     {
 #if UNITY_EDITOR
         private SerializedObject SerializedController;
+
         public void SerializedUpdate()
         {
             SerializedController = new SerializedObject(this);
             SerializedController.Update();
+        }
+
+        public HashSet<BBTimeline> GetTimelines()
+        {
+            HashSet<BBTimeline> timelineSet = new();
+            foreach (var layer in Layers)
+            {
+                foreach (var behaviorClip in layer.BehaviorClips)
+                {
+                    timelineSet.Add(behaviorClip.Timeline);
+                }
+            }
+            return timelineSet;
         }
 #endif
 

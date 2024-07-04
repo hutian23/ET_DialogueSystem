@@ -44,7 +44,7 @@ namespace ET.Client
                     .GetComponent<GameObjectComponent>().GameObject
                     .GetComponent<TimelinePlayer>();
             BBPlayableGraph playableGraph = timelinePlayer.BBPlayable;
-            foreach (var param in playableGraph.Parameters)
+            foreach (SharedVariable param in playableGraph.Parameters)
             {
                 if (param.name == paramName)
                 {

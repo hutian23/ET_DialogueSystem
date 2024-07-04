@@ -15,7 +15,8 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 3db21ea503a2acf41a86a07c8518ad0d, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -27,78 +28,41 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 6
+      Data: 2
     - Name: 
       Entry: 7
       Data: 1|Timeline.BehaviorLayer, Unity.Loader
     - Name: layerName
       Entry: 1
-      Data: Idle_111
+      Data: Idle
     - Name: BehaviorClips
       Entry: 7
       Data: 2|System.Collections.Generic.List`1[[Timeline.BehaviorClip, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
       Data: 3|Timeline.BehaviorClip, Unity.Loader
     - Name: Timeline
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: Title
       Entry: 1
-      Data: Rg_Idle_1
-    - Name: Script
-      Entry: 1
-      Data: 'BeginIf HP > 10:
-
-        EndIf
-
-'
-    - Name: viewDataKey
-      Entry: 1
-      Data: 3d318cde-8579-454d-b099-673105939a9f
-    - Name: ClipPos
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 104
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 4|Timeline.BehaviorClip, Unity.Loader
-    - Name: Timeline
-      Entry: 6
-      Data: 
-    - Name: Title
-      Entry: 1
-      Data: Hello world
+      Data: Rg_Idle
     - Name: Script
       Entry: 6
       Data: 
     - Name: viewDataKey
       Entry: 1
-      Data: 593190da-50ec-4dae-a408-3580492aa98a
+      Data: 67ed0a7d-e5ce-4227-8995-869a6d8968c9
     - Name: ClipPos
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 334
+      Data: 128
     - Name: 
       Entry: 4
       Data: 0
@@ -119,20 +83,20 @@ MonoBehaviour:
       Data: 
     - Name: linkDatas
       Entry: 7
-      Data: 5|System.Collections.Generic.List`1[[Timeline.BehaviorLinkData, Unity.Loader]],
+      Data: 4|System.Collections.Generic.List`1[[Timeline.BehaviorLinkData, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
-      Data: 6|Timeline.BehaviorLinkData, Unity.Loader
+      Data: 5|Timeline.BehaviorLinkData, Unity.Loader
     - Name: viewDataKey
       Entry: 1
-      Data: 10aee690-bbc6-4c65-9ca1-4a14ac86208e
+      Data: 1a8ac22d-ac62-465f-ae8f-4fbd2e68ec2f
     - Name: inputGuid
       Entry: 1
-      Data: 3d318cde-8579-454d-b099-673105939a9f
+      Data: 67ed0a7d-e5ce-4227-8995-869a6d8968c9
     - Name: outputGuid
       Entry: 1
       Data: 0
@@ -140,21 +104,6 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 7|Timeline.BehaviorLinkData, Unity.Loader
-    - Name: viewDataKey
-      Entry: 1
-      Data: 1133fc67-e602-4f6c-94a4-ced6eaf32a93
-    - Name: inputGuid
-      Entry: 1
-      Data: 593190da-50ec-4dae-a408-3580492aa98a
-    - Name: outputGuid
-      Entry: 1
-      Data: 3d318cde-8579-454d-b099-673105939a9f
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -165,13 +114,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 8|Timeline.BehaviorLayer, Unity.Loader
+      Data: 6|Timeline.BehaviorLayer, Unity.Loader
     - Name: layerName
       Entry: 1
-      Data: Just a Test
+      Data: NS_Idle
     - Name: BehaviorClips
       Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[Timeline.BehaviorClip, Unity.Loader]],
+      Data: 7|System.Collections.Generic.List`1[[Timeline.BehaviorClip, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -184,147 +133,7 @@ MonoBehaviour:
       Data: 
     - Name: linkDatas
       Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[Timeline.BehaviorLinkData, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 11|Timeline.BehaviorLayer, Unity.Loader
-    - Name: layerName
-      Entry: 1
-      Data: New Layer
-    - Name: BehaviorClips
-      Entry: 7
-      Data: 12|System.Collections.Generic.List`1[[Timeline.BehaviorClip, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: linkDatas
-      Entry: 7
-      Data: 13|System.Collections.Generic.List`1[[Timeline.BehaviorLinkData, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 14|Timeline.BehaviorLayer, Unity.Loader
-    - Name: layerName
-      Entry: 1
-      Data: New Layer
-    - Name: BehaviorClips
-      Entry: 7
-      Data: 15|System.Collections.Generic.List`1[[Timeline.BehaviorClip, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: linkDatas
-      Entry: 7
-      Data: 16|System.Collections.Generic.List`1[[Timeline.BehaviorLinkData, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 17|Timeline.BehaviorLayer, Unity.Loader
-    - Name: layerName
-      Entry: 1
-      Data: New Layer
-    - Name: BehaviorClips
-      Entry: 7
-      Data: 18|System.Collections.Generic.List`1[[Timeline.BehaviorClip, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: linkDatas
-      Entry: 7
-      Data: 19|System.Collections.Generic.List`1[[Timeline.BehaviorLinkData, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 20|Timeline.BehaviorLayer, Unity.Loader
-    - Name: layerName
-      Entry: 1
-      Data: New Layer
-    - Name: BehaviorClips
-      Entry: 7
-      Data: 21|System.Collections.Generic.List`1[[Timeline.BehaviorClip, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: linkDatas
-      Entry: 7
-      Data: 22|System.Collections.Generic.List`1[[Timeline.BehaviorLinkData, Unity.Loader]],
+      Data: 8|System.Collections.Generic.List`1[[Timeline.BehaviorLinkData, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -346,23 +155,23 @@ MonoBehaviour:
       Data: 
     - Name: Parameters
       Entry: 7
-      Data: 23|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
+      Data: 9|System.Collections.Generic.List`1[[ET.Client.SharedVariable, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 24|ET.Client.SharedVariable, Unity.Loader
+      Data: 10|ET.Client.SharedVariable, Unity.Loader
     - Name: name
       Entry: 1
       Data: CheckHP
     - Name: value
       Entry: 7
-      Data: 25|System.Int32, mscorlib
+      Data: 11|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 323
+      Data: 34
     - Name: 
       Entry: 8
       Data: 
@@ -376,8 +185,27 @@ MonoBehaviour:
       Entry: 8
       Data: 
   root:
-    MainScript: "@Init:\nBeginIf: HP < <Param name = CheckHP/>\n  LogWarning: '1111';\n 
-      BeginIf: HP = 0\n    LogWarning: '2222';\n    LogWarning: '2222_1';\n  EndIf:\nEndIf:\nLogWarning:
-      '<Param name = CheckHP/>';\nLogWarning: '4444';\nLogWarning: 'final';\n\nStartCoroutine:
-      'test';\n\nreturn:\n\n@Test:\nLogWarning: 'hello world';\nLogWarning: 'just
-      a test';\nLogWarning: 'hutian2501';\nreturn;\n\n\n\n\n"
+    MainScript: '@Init:
+
+
+      return:
+
+
+      @Test:
+
+      SetMarker: ''Test1'';
+
+      LogWarning:
+      ''Hello world'';
+
+      WaitFrame: 10;
+
+      GotoMarker: ''Test1'';
+
+      return;
+
+
+
+
+
+'

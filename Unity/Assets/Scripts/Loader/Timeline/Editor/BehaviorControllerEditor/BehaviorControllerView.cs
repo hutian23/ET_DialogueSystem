@@ -122,7 +122,10 @@ namespace Timeline.Editor
                     if (clipView.viewDataKey == "0")
                     {
                         evt.menu.ClearItems();
-                        evt.menu.AppendAction("Open Main Script", _ => { });
+                        evt.menu.AppendAction("Open Main Script", _ =>
+                        {
+                            
+                        });
                     }
                     else
                     {

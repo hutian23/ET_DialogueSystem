@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 2016810935
   m_SortingLayer: 1
   m_SortingOrder: 299
-  m_Sprite: {fileID: 21300000, guid: 86231986e2d7e074786fff57f223b391, type: 3}
+  m_Sprite: {fileID: -1331877821, guid: a714674fa1a745f47809580dd5aa27ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -124,9 +124,8 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 2affb37f3f1d84942b6912d82c84e175, type: 2}
+    - {fileID: 11400000, guid: 137771d11a4747243aaa75ca5b9b2a3a, type: 2}
     - {fileID: 1340376429761113669}
-    - {fileID: 7400000, guid: eb558f1bf7fe911489ba949dc52e9701, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -180,8 +179,8 @@ MonoBehaviour:
       Entry: 3
       Data: 20
     - Name: animationClip
-      Entry: 10
-      Data: 2
+      Entry: 6
+      Data: 
     - Name: rootMotionDict
       Entry: 7
       Data: 6|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.AnimationCurve,
@@ -271,7 +270,7 @@ MonoBehaviour:
   instanceId: 0
   ApplyRootMotion: 0
   BBPlayable: {fileID: 11400000, guid: b08df29221071a849b0e549f7223945d, type: 2}
-  CurrentTimeline: {fileID: 11400000, guid: 2affb37f3f1d84942b6912d82c84e175, type: 2}
+  CurrentTimeline: {fileID: 11400000, guid: 3db21ea503a2acf41a86a07c8518ad0d, type: 2}
   initPos: {x: 0, y: 0, z: 0}
 --- !u!114 &8844023896634408005
 MonoBehaviour:
@@ -285,6 +284,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 502d8cafd6a5a0447ab1db9a24cdcb10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-  - key: Mai
-    gameObject: {fileID: 4287713381951760773}
+  data: []
