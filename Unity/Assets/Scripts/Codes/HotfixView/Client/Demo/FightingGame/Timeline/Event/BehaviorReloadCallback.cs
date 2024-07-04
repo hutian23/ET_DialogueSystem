@@ -24,12 +24,8 @@ namespace ET.Client
 
             //parse script
             component.RemoveComponent<ScriptParser>();
-            ScriptParser parser = component.AddComponent<ScriptParser>();
+            ScriptParser parser = component.GetComponent<ScriptParser>();
             parser.InitScript(BBPlayable.root.MainScript);
-            
-            //Add BBTimerComponent ---> test
-            component.RemoveComponent<BBTimerComponent>();
-            component.AddComponent<BBTimerComponent>();
             
             parser.Invoke("Init").Coroutine();
         }

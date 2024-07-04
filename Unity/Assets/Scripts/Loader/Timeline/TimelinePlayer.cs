@@ -16,6 +16,12 @@ namespace Timeline
         public long instanceId;
     }
 
+    public struct PreviewReloadCallback
+    {
+        public long instanceId;
+        public BehaviorClip Clip;
+    }
+
     #endregion
 
     public sealed class TimelinePlayer: SerializedMonoBehaviour

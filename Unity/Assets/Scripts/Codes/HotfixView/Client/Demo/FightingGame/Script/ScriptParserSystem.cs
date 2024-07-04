@@ -14,6 +14,14 @@ namespace ET.Client
                 self.Cancel();
             }
         }
+        
+        public class ScriptParserLoadSystem : LoadSystem<ScriptParser>
+        {
+            protected override void Load(ScriptParser self)
+            {
+                self.Cancel();
+            }
+        }
 
         private static void Cancel(this ScriptParser self)
         {

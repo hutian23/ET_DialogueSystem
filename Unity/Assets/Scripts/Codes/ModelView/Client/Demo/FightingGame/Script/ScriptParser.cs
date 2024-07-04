@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace ET.Client
 {
     [ComponentOf(typeof (TimelineComponent))]
-    public class ScriptParser: Entity, IAwake, IDestroy
+    public class ScriptParser: Entity, IAwake, IDestroy, ILoad
     {
         public Dictionary<string, int> funcMap = new();
         public Dictionary<string, int> markerMap = new();

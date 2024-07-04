@@ -52,8 +52,8 @@ MonoBehaviour:
       Entry: 1
       Data: Rg_Idle
     - Name: Script
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: "@Main: \nWaitFrame: 54;\nLogWarning: '2222';\nreturn;"
     - Name: viewDataKey
       Entry: 1
       Data: 67ed0a7d-e5ce-4227-8995-869a6d8968c9
@@ -62,7 +62,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 128
+      Data: 209
     - Name: 
       Entry: 4
       Data: 0
@@ -187,20 +187,22 @@ MonoBehaviour:
   root:
     MainScript: '@Init:
 
+      TimelineInit;
 
       return:
 
 
       @Test:
 
-      SetMarker: ''Test1'';
+      SetMarker:
+      ''Test1'';
 
-      LogWarning:
-      ''Hello world'';
+      LogWarning: ''Hello world'';
 
       WaitFrame: 10;
 
-      GotoMarker: ''Test1'';
+      GotoMarker:
+      ''Test1'';
 
       return;
 

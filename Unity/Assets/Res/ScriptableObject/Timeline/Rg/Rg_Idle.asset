@@ -236,7 +236,7 @@ MonoBehaviour:
       Data: 13|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 12
+      Data: 13
     - Name: markerName
       Entry: 1
       Data: TimelineMarker

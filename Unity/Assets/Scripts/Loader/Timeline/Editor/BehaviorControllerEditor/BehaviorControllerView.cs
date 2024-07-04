@@ -39,7 +39,8 @@ namespace Timeline.Editor
             this.AddManipulator(new RectangleSelector());
             this.AddManipulator(new ContextualMenuManipulator(this.OnContextMenuPopulate));
 
-            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Loader/Timeline/Editor/Resources/Style/BehaviorControllerEditor.uss");
+            var styleSheet =
+                    AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Loader/Timeline/Editor/Resources/Style/BehaviorControllerEditor.uss");
             styleSheets.Add(styleSheet);
         }
 
@@ -107,8 +108,6 @@ namespace Timeline.Editor
                     EventSystem.Instance?.Invoke(new BehaviorControllerReloadCallback() { instanceId = Editor.timelinePlayer.instanceId });
                 },
                 EditorApplication.isPlaying? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Disabled);
-            evt.menu.AppendAction("Preview Behavior", _ => { },
-                EditorApplication.isPlaying? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Disabled);
         }
 
         private void OnContextMenuPopulate(ContextualMenuPopulateEvent evt)
@@ -122,15 +121,20 @@ namespace Timeline.Editor
                     if (clipView.viewDataKey == "0")
                     {
                         evt.menu.ClearItems();
-                        evt.menu.AppendAction("Open Main Script", _ =>
-                        {
-                            
-                        });
                     }
                     else
                     {
                         evt.menu.ClearItems();
                         evt.menu.AppendAction("Open Timeline", _ => { Editor.timelinePlayer.OpenWindow(); });
+                        evt.menu.AppendAction("Preview BehaviorClip",
+                            _ =>
+                            {
+                                EventSystem.Instance?.Invoke(new PreviewReloadCallback()
+                                {
+                                    instanceId = Editor.timelinePlayer.instanceId, Clip = clipView.BehaviorClip
+                                });
+                            },
+                            EditorApplication.isPlaying? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Disabled);
                         evt.menu.AppendAction("Delete BehaviorClip", _ => { RemoveClip(clipView); });
                     }
 
