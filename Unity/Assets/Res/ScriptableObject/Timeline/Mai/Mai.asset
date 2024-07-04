@@ -65,7 +65,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 126
+      Data: 104
     - Name: 
       Entry: 4
       Data: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 321
+      Data: 334
     - Name: 
       Entry: 4
       Data: 0
@@ -362,7 +362,7 @@ MonoBehaviour:
       Data: 25|System.Int32, mscorlib
     - Name: 
       Entry: 3
-      Data: 32
+      Data: 323
     - Name: 
       Entry: 8
       Data: 
@@ -376,22 +376,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
   root:
-    MainScript: '@Init:
-
-
-      LogWarning: ''<Param name = CheckHP/>'';
-
-      LogWarning:
-      ''222'';
-
-
-      return:
-
-
-
-
-
-
-
-
-'
+    MainScript: "@Init:\nBeginIf: HP < <Param name = CheckHP/>\n  LogWarning: '1111';\n 
+      BeginIf: HP = 0\n    LogWarning: '2222';\n    LogWarning: '2222_1';\n  EndIf:\nEndIf:\nLogWarning:
+      '<Param name = CheckHP/>';\nLogWarning: '4444';\nLogWarning: 'final';\n\nStartCoroutine:
+      'test';\n\nreturn:\n\n@Test:\nLogWarning: 'hello world';\nLogWarning: 'just
+      a test';\nLogWarning: 'hutian2501';\nreturn;\n\n\n\n\n"

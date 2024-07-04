@@ -99,10 +99,10 @@ namespace ET.Client
                     ScriptData scriptData = ScriptData.Create(triggerLine, coroutineData.coroutineName);
 
                     //条件不符合, 跳过当前if块
-                    if (!triggerHandler.Check(parser, scriptData))
+                    if (!triggerHandler.Check(parser.GetParent<TimelineComponent>().GetParent<Unit>(), scriptData))
                     {
                         coroutineData.pointer = syntaxNode.endIndex;
-                        return Status.Failed;
+                        return Status.Success;
                     }
 
                     break;

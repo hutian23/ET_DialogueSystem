@@ -82,7 +82,7 @@ namespace ET.Client
             return Status.Success;
         }
 
-        private static async ETTask<Status> CallSubCoroutine(this ScriptParser self, string funcName, string coroutineName)
+        public static async ETTask<Status> CallSubCoroutine(this ScriptParser self, string funcName, string coroutineName)
         {
             //1. 函数入口指针
             if (!self.funcMap.TryGetValue(funcName, out int index))
@@ -133,6 +133,19 @@ namespace ET.Client
             }
 
             return Status.Success;
+        }
+
+        public static void StopSubCoroutine(this ScriptParser self, string CoroutineName)
+        {
+            if (!self.subCoroutineDatas.TryGetValue(CoroutineName, out SubCoroutineData coroutineData))
+            {
+                Log.Error($"not found coroutine:{CoroutineName}");
+                return;
+            }
+
+            coroutineData.token.Cancel(); //取消子携程
+            self.subCoroutineDatas.Remove(CoroutineName); 
+            coroutineData.Recycle();
         }
 
         public static void ReplaceParam(this ScriptParser self, string opLine, out string postOpLine)

@@ -19,7 +19,6 @@ namespace ET.Client
             player.AddComponent<ObjectWait>();
             player.AddComponent<GameObjectComponent>().GameObject = go;
             // player.AddComponent<DialogueComponent>();
-
             player.AddComponent<TimelineComponent>();
         }
     }

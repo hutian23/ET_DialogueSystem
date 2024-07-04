@@ -1,4 +1,6 @@
-﻿namespace ET.Client.Trigger
+﻿using System.Text.RegularExpressions;
+
+namespace ET.Client.Trigger
 {
     public class CheckHP_TriggerHandler: TriggerHandler
     {
@@ -7,9 +9,29 @@
             return "HP";
         }
 
-        public override bool Check(ScriptParser parser, ScriptData data)
+        //HP > 10
+        public override bool Check(Unit unit, ScriptData data)
         {
-            Log.Warning("Check HP");
+            NumericComponent nu = unit.GetComponent<NumericComponent>();
+
+            Match match = Regex.Match(data.opLine, @"(\w+)\s*([<>=]+)\s*(\d+)");
+            if (!match.Success)
+            {
+                ScriptHelper.ScriptMatchError(data.opLine);
+                return false;
+            }
+
+            int.TryParse(match.Groups[3].Value, out int checkValue);
+            switch (match.Groups[2].Value)
+            {
+                case "<":
+                    return nu[NumericType.Hp] < checkValue;
+                case "=":
+                    return nu[NumericType.Hp] == checkValue;
+                case ">":
+                    return nu[NumericType.Hp] > checkValue;
+            }
+
             return true;
         }
     }

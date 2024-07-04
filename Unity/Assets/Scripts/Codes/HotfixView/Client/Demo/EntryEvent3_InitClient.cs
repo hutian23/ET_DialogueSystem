@@ -18,16 +18,16 @@ namespace ET.Client
             clientScene.AddComponent<OperaComponent>();
             clientScene.AddComponent<ScriptDispatcherComponent>();
             // clientScene.AddComponent<DialogueDispatcherComponent>();
-            
+
             Unit player = TODUnitFactory.CreatePlayer(clientScene);
+            player.AddComponent<NumericComponent>();
             // player.AddComponent<DialogueStorageManager>();
-            
+
             await Storage.Instance.SaveStorage(0, player);
             //反序列化存档
             Unit loadUnit = await Storage.Instance.LoadStorage(0);
             TODUnitHelper.AddPlayer(clientScene, loadUnit);
-            
-            
+
             await EventSystem.Instance.PublishAsync(clientScene, new EventType.AppStartInitFinish());
         }
     }
