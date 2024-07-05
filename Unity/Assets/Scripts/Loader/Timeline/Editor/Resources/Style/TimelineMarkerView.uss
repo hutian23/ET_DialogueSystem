@@ -1,5 +1,6 @@
 #marker-view {
     background-image: resource('Icon/SignalAsset Icon');
+    background-color: rgba(0, 0, 0, 0);
     width: 12px;
     height: 18px;
     margin: 0;
@@ -11,10 +12,10 @@
     position: absolute;
 }
 
-#marker-view :hover{
+#marker-view :hover {
     -unity-background-image-tint-color: rgba(68, 192, 255, 0.29);
 }
 
-.Selected{
+.Selected {
     -unity-background-image-tint-color: rgba(68, 192, 255, 0.29);
 }

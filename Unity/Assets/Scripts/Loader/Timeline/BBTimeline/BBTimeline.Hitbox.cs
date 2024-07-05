@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using ET;
-using ET.Client;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using Timeline.Editor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -14,11 +14,20 @@ namespace Timeline
     [IconGuid("1dc9e96059838334696fb81dfec22393")]
     public class BBHitboxTrack: BBTrack
     {
+        [OdinSerialize, NonSerialized]
+        public Dictionary<int, HitboxKeyframe> KeyframeDict = new();
         public override Type RuntimeTrackType => typeof (RuntimeHitboxTrack);
 #if UNITY_EDITOR
         protected override Type ClipType => typeof (BBHitboxClip);
         public override Type ClipViewType => typeof (HitboxClipView);
+        public override Type TrackViewType => typeof (HitboxTrackView);
 #endif
+    }
+
+    [Serializable]
+    public class HitboxKeyframe
+    {
+        public int frame = 0;
     }
 
     [Color(165, 032, 025)]
@@ -53,7 +62,7 @@ namespace Timeline
         public string boxName;
 
         [LabelText("绑定对象: ")]
-        [Sirenix.OdinInspector.ReadOnly]
+        [ReadOnly]
         public string bindParent;
 
         [LabelText("判定框类型: ")]
@@ -94,14 +103,14 @@ namespace Timeline
             go = castBox.gameObject;
         }
 
-        [Sirenix.OdinInspector.Button("复制")]
+        [Button("复制")]
         public void Copy()
         {
             var boxCopy = MongoHelper.Clone(info);
             BBTimelineSettings.GetSettings().CopyTarget = boxCopy;
         }
 
-        [Sirenix.OdinInspector.Button("黏贴")]
+        [Button("黏贴")]
         public void Paste()
         {
             if (BBTimelineSettings.GetSettings().CopyTarget is not BoxInfo infoCopy) return;
@@ -110,7 +119,7 @@ namespace Timeline
             BBTimelineSettings.GetSettings().CopyTarget = null;
         }
 
-        [Sirenix.OdinInspector.Button("删除")]
+        [Button("删除")]
         public void Delete()
         {
             Object.DestroyImmediate(castBox.gameObject);
@@ -146,7 +155,7 @@ namespace Timeline
         public GameObject bindParent;
 
         [FoldoutGroup(groupName: "创建判定框")]
-        [Sirenix.OdinInspector.Button("创建")]
+        [Button("创建")]
         public void CreateHitbox()
         {
             //refer 
@@ -177,7 +186,7 @@ namespace Timeline
             UpdateCastBoxInspector();
         }
 
-        [Sirenix.OdinInspector.Button("清空")]
+        [Button("清空")]
         public void ClearHitbox()
         {
             //Clear hitboxes
@@ -189,13 +198,13 @@ namespace Timeline
             UpdateCastBoxInspector();
         }
 
-        [Sirenix.OdinInspector.Button("移除")]
+        [Button("移除")]
         public void DeleteHitbox()
         {
             FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() => { hitboxClip.boxInfoDict.Remove(ClipInFrame); }, "Delete Hitbox");
         }
 
-        [Sirenix.OdinInspector.Button("保存")]
+        [Button("保存")]
         public void SaveHitbox()
         {
             FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() =>
@@ -295,7 +304,7 @@ namespace Timeline
                     {
                         Object.DestroyImmediate(castBox.gameObject);
                     }
-                    
+
                     //Create hitbox
                     ReferenceCollector refer = timelinePlayer.GetComponent<ReferenceCollector>();
                     foreach (var boxInfo in boxInfos)

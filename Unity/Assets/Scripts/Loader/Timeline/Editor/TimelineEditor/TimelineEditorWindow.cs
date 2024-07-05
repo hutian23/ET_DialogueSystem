@@ -169,9 +169,7 @@ namespace Timeline.Editor
             //不希望按钮事件添加到undo中
             Undo.IncrementCurrentGroup();
             int undoGroup = Undo.GetCurrentGroup();
-
             ApplyModify(action, _name, rebind);
-
             Undo.CollapseUndoOperations(undoGroup);
         }
 

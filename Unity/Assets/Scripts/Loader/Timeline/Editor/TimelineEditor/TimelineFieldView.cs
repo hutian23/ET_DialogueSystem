@@ -237,7 +237,7 @@ namespace Timeline.Editor
             foreach (var runtimeTrack in RuntimePlayable.RuntimeTracks)
             {
                 // TrackView
-                TimelineTrackView trackView = new();
+                TimelineTrackView trackView = Activator.CreateInstance(runtimeTrack.Track.TrackViewType) as TimelineTrackView;
                 trackView.SelectionContainer = this;
                 trackView.Init(runtimeTrack);
 
@@ -900,7 +900,7 @@ namespace Timeline.Editor
         {
             foreach (var trackView in TrackViews)
             {
-                trackView.Refreh();
+                trackView.Refresh();
             }
 
             //Update marker pos
@@ -954,7 +954,7 @@ namespace Timeline.Editor
 
         #region Helper
 
-        private int GetClosestFrame(float position)
+        public int GetClosestFrame(float position)
         {
             int frame = 0;
             foreach (var framePosPair in FramePosMap)

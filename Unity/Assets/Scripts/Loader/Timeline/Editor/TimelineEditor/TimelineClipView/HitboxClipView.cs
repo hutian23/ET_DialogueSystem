@@ -13,6 +13,8 @@ namespace Timeline.Editor
         public HitboxClipView()
         {
             m_Content.generateVisualContent += OnKeyFrameGenerateContent;
+
+            m_Content.Add(new TimelineMarkerView());
         }
 
         protected override void MenuBuilder(DropdownMenu menu)

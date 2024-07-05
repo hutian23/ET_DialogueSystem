@@ -16,13 +16,9 @@ namespace Timeline.Editor
         public ISelection SelectionContainer { get; set; }
         public TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
         public TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
-        public readonly DoubleMap<BBClip, TimelineClipView> ClipViewMap = new();
-
-        public Action OnSelected;
-        public Action OnUnSelected;
+        private readonly DoubleMap<BBClip, TimelineClipView> ClipViewMap = new();
 
         private readonly DropdownMenuHandler m_MenuHandler;
-        private Vector2 m_localMousePosition;
 
         public RuntimeTrack RuntimeTrack;
         private BBTrack BBTrack => RuntimeTrack.Track;
@@ -40,7 +36,7 @@ namespace Timeline.Editor
             m_MenuHandler = new DropdownMenuHandler(MenuBuilder);
         }
 
-        public void Init(RuntimeTrack track)
+        public virtual void Init(RuntimeTrack track)
         {
             RuntimeTrack = track;
             int index = EditorWindow.RuntimePlayable.RuntimeTracks.IndexOf(track);
@@ -60,7 +56,7 @@ namespace Timeline.Editor
             }
         }
 
-        public void Refreh()
+        public void Refresh()
         {
             foreach (TimelineClipView clipViewValue in ClipViewMap.Values)
             {
@@ -90,19 +86,17 @@ namespace Timeline.Editor
             m_Selected = true;
             AddToClassList("selected");
             BringToFront();
-            OnSelected?.Invoke();
         }
 
         public void UnSelect()
         {
             m_Selected = false;
             RemoveFromClassList("selected");
-            OnUnSelected?.Invoke();
         }
 
         #endregion
 
-        private void MenuBuilder(DropdownMenu menu)
+        protected virtual void MenuBuilder(DropdownMenu menu)
         {
             menu.AppendAction("Add Clip", _ =>
             {
@@ -111,7 +105,7 @@ namespace Timeline.Editor
             });
         }
 
-        private void OnPointerDown(PointerDownEvent evt)
+        protected virtual void OnPointerDown(PointerDownEvent evt)
         {
             //当前选中了Clip
             foreach (TimelineClipView v in ClipViewMap.Values)
@@ -125,13 +119,12 @@ namespace Timeline.Editor
 
             if (evt.button == 1)
             {
-                m_localMousePosition = evt.localPosition;
                 m_MenuHandler.ShowMenu(evt);
                 evt.StopImmediatePropagation();
             }
         }
 
-        private void OnPointerMove(PointerMoveEvent evt)
+        protected virtual void OnPointerMove(PointerMoveEvent evt)
         {
             foreach (TimelineClipView clipViewValue in ClipViewMap.Values)
             {
@@ -144,14 +137,14 @@ namespace Timeline.Editor
             }
         }
 
-        private void OnPointerOut(PointerOutEvent evt)
+        protected virtual void OnPointerOut(PointerOutEvent evt)
         {
             foreach (TimelineClipView clipViewValue in ClipViewMap.Values)
             {
                 clipViewValue.OnHover(false);
             }
         }
-        
+
         private class DragAndDropManipulator: PointerManipulator
         {
             private Label dropLabel;
