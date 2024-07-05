@@ -1473,7 +1473,7 @@ PrefabInstance:
     - target: {fileID: 4287713381951760773, guid: c7a02efc57a5aa44bbf97b07f3f9ed02,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4287713381951760774, guid: c7a02efc57a5aa44bbf97b07f3f9ed02,
         type: 3}
@@ -1529,7 +1529,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1331877821, guid: a714674fa1a745f47809580dd5aa27ef,
+      objectReference: {fileID: -255855529, guid: 44ca8ff9816141147a483f0ce241ae4f,
         type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

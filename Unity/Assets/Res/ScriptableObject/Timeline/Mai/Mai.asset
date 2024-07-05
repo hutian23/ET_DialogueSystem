@@ -17,6 +17,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 3db21ea503a2acf41a86a07c8518ad0d, type: 2}
+    - {fileID: 11400000, guid: f7e2a3955ac3b114e8ddec46da3de190, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -60,8 +61,7 @@ MonoBehaviour:
 
         @Main:
 
-        LogWarning: ''hello
-        world'';
+        StartTimeline;
 
         return;'
     - Name: viewDataKey
@@ -89,8 +89,8 @@ MonoBehaviour:
       Entry: 7
       Data: 4|Timeline.BehaviorClip, Unity.Loader
     - Name: Timeline
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 1
     - Name: Title
       Entry: 1
       Data: New BehaviorClip
