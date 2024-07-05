@@ -32,6 +32,19 @@ namespace Timeline
         [NonSerialized, OdinSerialize]
         public List<MarkerInfo> Marks = new();
 
+        public MarkerInfo GetMarker(int frame)
+        {
+            foreach (MarkerInfo mark in Marks)
+            {
+                if (mark.frame == frame)
+                {
+                    return mark;
+                }
+            }
+
+            return null;
+        }
+
 #if UNITY_EDITOR
         [HideInInspector]
         public SerializedObject SerializedTimeline;
@@ -74,15 +87,6 @@ namespace Timeline
             track.RemoveClip(clip);
         }
 #endif
-    }
-
-    [Serializable]
-    public class BBTimelineKeyframe
-    {
-#if UNITY_EDITOR
-        public int frame;
-#endif
-        public int a = 10;
     }
 
     public abstract class BBTrack

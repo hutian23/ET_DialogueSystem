@@ -23,7 +23,6 @@ namespace ET.Client
             BBPlayableGraph BBPlayable = timelinePlayer.BBPlayable;
 
             //parse script
-            component.RemoveComponent<ScriptParser>();
             ScriptParser parser = component.GetComponent<ScriptParser>();
             parser.InitScript(BBPlayable.root.MainScript);
             

@@ -208,10 +208,22 @@ namespace Timeline.Editor
 
                 Editor.ApplyModify(() =>
                 {
+                    HashSet<BehaviorLinkData> removeLinkDatas = new();
+
                     for (int i = 0; i < removeClips.Count; i++)
                     {
                         BehaviorClipView clipView = removeClips[i];
                         Editor.currentLayer.BehaviorClips.Remove(clipView.BehaviorClip);
+
+                        //remove linkData
+                        foreach (var linkData in Editor.currentLayer.linkDatas)
+                        {
+                            if (linkData.outputGuid == clipView.viewDataKey || linkData.inputGuid == clipView.viewDataKey)
+                            {
+                                removeLinkDatas.Add(linkData);
+                            }
+                        }
+
                         RemoveElement(clipView);
                     }
 
@@ -219,6 +231,11 @@ namespace Timeline.Editor
                     {
                         Edge removeEdge = removeEdges[i];
                         BehaviorLinkData linkData = Editor.currentLayer.linkDatas.FirstOrDefault(link => link.viewDataKey == removeEdge.viewDataKey);
+                        removeLinkDatas.Add(linkData);
+                    }
+
+                    foreach (var linkData in removeLinkDatas)
+                    {
                         Editor.currentLayer.linkDatas.Remove(linkData);
                     }
                 }, "Remove Element", true);
@@ -274,6 +291,7 @@ namespace Timeline.Editor
             {
                 Port input = GetClipByGuid(linkData.inputGuid).Input;
                 Port output = GetClipByGuid(linkData.outputGuid).Output;
+
                 Edge edge = output.ConnectTo(input);
                 edge.viewDataKey = linkData.viewDataKey;
                 AddElement(edge);

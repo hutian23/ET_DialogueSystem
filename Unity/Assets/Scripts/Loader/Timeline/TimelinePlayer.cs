@@ -22,6 +22,12 @@ namespace Timeline
         public BehaviorClip Clip;
     }
 
+    public struct EditTimelineCallback
+    {
+        public long instanceId;
+        
+    }
+
     #endregion
 
     public sealed class TimelinePlayer: SerializedMonoBehaviour

@@ -27,6 +27,10 @@ namespace Timeline
             {
                 foreach (var behaviorClip in layer.BehaviorClips)
                 {
+                    if (behaviorClip.Timeline == null)
+                    {
+                        continue;
+                    }
                     timelineSet.Add(behaviorClip.Timeline);
                 }
             }

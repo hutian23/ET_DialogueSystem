@@ -20,19 +20,19 @@ namespace ET.Client
             EventSystem.Instance.Load();
 
             //Find GameObject
-            TimelinePlayer timelinePlayer = timelineComponent
-                    .GetParent<Unit>()
-                    .GetComponent<GameObjectComponent>().GameObject
-                    .GetComponent<TimelinePlayer>().GetComponent<TimelinePlayer>();
+            TimelinePlayer timelinePlayer = timelineComponent.GetTimelinePlayer();
             BBPlayableGraph BBPlayable = timelinePlayer.BBPlayable;
+            //Init timelinePlayer
+            timelinePlayer.Dispose();
+            timelinePlayer.Init(args.Clip.Timeline);
 
             //init root
             ScriptParser parser = timelineComponent.GetComponent<ScriptParser>();
             parser.InitScript(BBPlayable.root.MainScript);
             await parser.Invoke("Init");
 
-            BehaviorClip clip = args.Clip;
-            parser.InitScript(clip.Script);
+            //preview 
+            parser.InitScript(args.Clip.Script);
             await parser.Invoke("Main");
         }
     }

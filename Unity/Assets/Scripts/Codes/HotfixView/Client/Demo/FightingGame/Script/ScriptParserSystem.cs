@@ -23,7 +23,7 @@ namespace ET.Client
             }
         }
 
-        private static void Cancel(this ScriptParser self)
+        public static void Cancel(this ScriptParser self)
         {
             self.subCoroutineDatas.Values.ForEach(data => { data.Recycle(); });
             self.subCoroutineDatas.Clear();

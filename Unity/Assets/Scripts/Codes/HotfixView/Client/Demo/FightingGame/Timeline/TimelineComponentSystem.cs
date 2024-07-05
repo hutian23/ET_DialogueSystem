@@ -40,9 +40,8 @@ namespace ET.Client
 
         public static object GetParameter(this TimelineComponent self, string paramName)
         {
-            TimelinePlayer timelinePlayer = self.GetParent<Unit>()
-                    .GetComponent<GameObjectComponent>().GameObject
-                    .GetComponent<TimelinePlayer>();
+            TimelinePlayer timelinePlayer = self.GetTimelinePlayer();
+
             BBPlayableGraph playableGraph = timelinePlayer.BBPlayable;
             foreach (SharedVariable param in playableGraph.Parameters)
             {
@@ -53,6 +52,12 @@ namespace ET.Client
             }
 
             return null;
+        }
+
+        public static TimelinePlayer GetTimelinePlayer(this TimelineComponent self)
+        {
+            return self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject
+                    .GetComponent<TimelinePlayer>();
         }
     }
 }
