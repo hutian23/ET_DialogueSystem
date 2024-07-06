@@ -56,7 +56,7 @@ namespace Timeline.Editor
             }
         }
 
-        public void Refresh()
+        public virtual void Refresh()
         {
             foreach (TimelineClipView clipViewValue in ClipViewMap.Values)
             {

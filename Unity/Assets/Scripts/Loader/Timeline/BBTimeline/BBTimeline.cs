@@ -114,6 +114,19 @@ namespace Timeline
         {
             Clips.Remove(clip);
         }
+
+        public virtual int GetMaxFrame()
+        {
+            int maxFrame = 0;
+            foreach (BBClip clip in Clips)
+            {
+                if (clip.EndFrame >= maxFrame)
+                {
+                    maxFrame = clip.EndFrame;
+                }
+            }
+            return maxFrame;
+        }
 #endif
     }
 

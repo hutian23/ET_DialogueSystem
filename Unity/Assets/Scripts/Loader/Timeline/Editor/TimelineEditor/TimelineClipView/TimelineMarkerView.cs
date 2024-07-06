@@ -9,7 +9,7 @@ namespace Timeline.Editor
     [Serializable]
     public class MarkerInspectorData
     {
-        [HideReferenceObjectPicker,HideLabel]
+        [HideReferenceObjectPicker, HideLabel]
         public MarkerInfo info;
 
         public MarkerInspectorData(MarkerInfo target, TimelineFieldView _fieldView)
@@ -35,7 +35,8 @@ namespace Timeline.Editor
             VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>($"VisualTree/TimelineMarkerView");
             visualTree.CloneTree(this);
 
-            StyleSheet styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Loader/Timeline/Editor/Resources/Style/TimelineMarkerView.uss");
+            StyleSheet styleSheet =
+                    AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Loader/Timeline/Editor/Resources/Style/TimelineMarkerView.uss");
             styleSheets.Add(styleSheet);
 
             MarkerView = this.Q<VisualElement>("marker-view");
@@ -53,14 +54,13 @@ namespace Timeline.Editor
 
         public void Refresh()
         {
-            var trackScrollView = fieldView.Q<ScrollView>("track-scroll");
             if (!fieldView.FramePosMap.TryGetValue(info.frame, out float pos))
             {
                 Debug.LogError("not exist frame:" + info.frame);
                 return;
             }
 
-            float relativePos = pos - trackScrollView.scrollOffset.x;
+            float relativePos = pos - fieldView.ScrollViewContentOffset;
             style.left = relativePos - 6;
         }
 
@@ -181,7 +181,7 @@ namespace Timeline.Editor
         {
             TimelineInspectorData.CreateView(fieldView.ClipInspector, new MarkerInspectorData(info, fieldView));
         }
-        
+
         #endregion
     }
 }

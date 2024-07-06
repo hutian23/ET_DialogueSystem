@@ -31,10 +31,10 @@ MonoBehaviour:
       Data: 3
     - Name: 
       Entry: 7
-      Data: 1|Timeline.BBAnimationTrack, Unity.Loader
+      Data: 1|Timeline.BBTargetBindTrack, Unity.Loader
     - Name: Name
       Entry: 1
-      Data: Rg_Idle
+      Data: BBTargetBind
     - Name: Clips
       Entry: 7
       Data: 2|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
@@ -44,7 +44,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 3|Timeline.BBAnimationClip, Unity.Loader
+      Data: 3|Timeline.BBTargetBindClip, Unity.Loader
     - Name: InValid
       Entry: 5
       Data: false
@@ -53,83 +53,20 @@ MonoBehaviour:
       Data: 
     - Name: StartFrame
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: EndFrame
       Entry: 3
-      Data: 48
-    - Name: animationClip
-      Entry: 10
-      Data: 0
-    - Name: rootMotionDict
-      Entry: 7
-      Data: 4|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.AnimationCurve,
-        UnityEngine.CoreModule]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 5|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 6|Timeline.BBTargetBindTrack, Unity.Loader
-    - Name: Name
-      Entry: 1
-      Data: BBTargetBind
-    - Name: Clips
-      Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 8|Timeline.BBTargetBindClip, Unity.Loader
-    - Name: InValid
-      Entry: 5
-      Data: false
-    - Name: Name
-      Entry: 6
-      Data: 
-    - Name: StartFrame
-      Entry: 3
-      Data: 0
-    - Name: EndFrame
-      Entry: 3
-      Data: 9
+      Data: 11
     - Name: referName
       Entry: 1
       Data: targetBind
     - Name: TargetKeyframeDict
       Entry: 7
-      Data: 9|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[UnityEngine.Vector3,
+      Data: 4|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[UnityEngine.Vector3,
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 10|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
+      Data: 5|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -205,6 +142,69 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
+      Data: 6|Timeline.BBAnimationTrack, Unity.Loader
+    - Name: Name
+      Entry: 1
+      Data: Rg_Idle
+    - Name: Clips
+      Entry: 7
+      Data: 7|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 8|Timeline.BBAnimationClip, Unity.Loader
+    - Name: InValid
+      Entry: 5
+      Data: false
+    - Name: Name
+      Entry: 6
+      Data: 
+    - Name: StartFrame
+      Entry: 3
+      Data: 0
+    - Name: EndFrame
+      Entry: 3
+      Data: 30
+    - Name: animationClip
+      Entry: 10
+      Data: 0
+    - Name: rootMotionDict
+      Entry: 7
+      Data: 9|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.AnimationCurve,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 10|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
       Data: 11|Timeline.BBHitboxTrack, Unity.Loader
     - Name: Name
       Entry: 1
@@ -260,35 +260,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: KeyframeDict
+    - Name: Keyframes
       Entry: 7
-      Data: 16|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[Timeline.HitboxKeyframe,
-        Unity.Loader]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 17|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 16|ET.ListComponent`1[[Timeline.HitboxKeyframe, Unity.Loader]], Unity.Core
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 7
-      Data: 18|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 17|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -309,17 +292,17 @@ MonoBehaviour:
       Data: 
     - Name: Marks
       Entry: 7
-      Data: 19|System.Collections.Generic.List`1[[Timeline.MarkerInfo, Unity.Loader]],
+      Data: 18|System.Collections.Generic.List`1[[Timeline.MarkerInfo, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
-      Data: 20|Timeline.MarkerInfo, Unity.Loader
+      Data: 19|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 3
+      Data: 5
     - Name: markerName
       Entry: 1
       Data: Test1
@@ -331,10 +314,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 21|Timeline.MarkerInfo, Unity.Loader
+      Data: 20|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 6
+      Data: 10
     - Name: markerName
       Entry: 1
       Data: TimelineMarker
@@ -346,7 +329,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 22|Timeline.MarkerInfo, Unity.Loader
+      Data: 21|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 0
@@ -358,6 +341,21 @@ MonoBehaviour:
       Data: 'LogWarning: ''marker1'';
 
         LogWarning: ''<Param name = CheckHP/>'';'
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 22|Timeline.MarkerInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 0
+    - Name: markerName
+      Entry: 1
+      Data: TimelineMarker
+    - Name: Script
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 

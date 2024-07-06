@@ -15,12 +15,26 @@ namespace Timeline
     public class BBHitboxTrack: BBTrack
     {
         [OdinSerialize, NonSerialized]
-        public Dictionary<int, HitboxKeyframe> KeyframeDict = new();
+        public List<HitboxKeyframe> Keyframes = new();
+
         public override Type RuntimeTrackType => typeof (RuntimeHitboxTrack);
 #if UNITY_EDITOR
         protected override Type ClipType => typeof (BBHitboxClip);
         public override Type ClipViewType => typeof (HitboxClipView);
         public override Type TrackViewType => typeof (HitboxTrackView);
+        public override int GetMaxFrame()
+        {
+            int maxFrame = 0;
+            foreach (HitboxKeyframe keyframe in Keyframes)
+            {
+                if (keyframe.frame >= maxFrame)
+                {
+                    maxFrame = keyframe.frame;
+                }
+            }
+
+            return maxFrame;
+        }
 #endif
     }
 

@@ -67,11 +67,11 @@ namespace Timeline.Editor
         private readonly Action OnGeometryChangedCallback;
 
         //注意，是当前滑动窗口显示的最小帧和最大帧
-        private int CurrentMinFrame => GetClosestCeilFrame(ScrollViewContentOffset);
-        private int CurrentMaxFrame => GetClosestCeilFrame(ScrollViewContentWidth + ScrollViewContentOffset);
+        public int CurrentMinFrame => GetClosestCeilFrame(ScrollViewContentOffset);
+        public int CurrentMaxFrame => GetClosestCeilFrame(ScrollViewContentWidth + ScrollViewContentOffset);
         private float OneFrameWidth => m_MarkerWidth * m_FieldScale;
         private float ScrollViewContentWidth => TrackScrollView.contentContainer.worldBound.width;
-        private float ScrollViewContentOffset => TrackScrollView.scrollOffset.x;
+        public float ScrollViewContentOffset => TrackScrollView.scrollOffset.x;
 
         public float ContentWidth => FieldContent.worldBound.width;
 
@@ -218,19 +218,24 @@ namespace Timeline.Editor
         {
             Dispose();
 
-            int maxFrame = 0;
-            foreach (var runtimeTrack in RuntimePlayable.RuntimeTracks)
+            //get maxframe
+            int maxFrame = m_MaxFrame;
+            foreach (var mark in RuntimePlayable.Timeline.Marks)
             {
-                foreach (BBClip clip in runtimeTrack.Track.Clips)
+                if (mark.frame >= maxFrame)
                 {
-                    if (clip.EndFrame > maxFrame)
-                    {
-                        maxFrame = clip.EndFrame;
-                    }
+                    maxFrame = mark.frame + 1;
                 }
             }
+            foreach (var runtimeTrack in RuntimePlayable.RuntimeTracks)
+            {
+                if (maxFrame <= runtimeTrack.Track.GetMaxFrame())
+                {
+                    maxFrame = runtimeTrack.Track.GetMaxFrame() + 1;
+                }
+            }
+            m_MaxFrame = maxFrame;
 
-            m_MaxFrame = maxFrame + 1;
             ResizeTimeField();
             UpdateBindState();
 
@@ -335,21 +340,27 @@ namespace Timeline.Editor
             OnGeometryChangedCallback?.Invoke();
         }
 
+        public void ResizeTimeField(int maxFrame)
+        {
+            if (maxFrame < m_MaxFrame) return;
+            m_MaxFrame = maxFrame;
+            ResizeTimeField();
+        }
+
         private void ResizeTimeField()
         {
             FramePosMap.Clear();
-
-            if (FieldContent.worldBound.width < ScrollViewContentWidth + ScrollViewContentOffset)
-            {
-                FieldContent.style.width = ScrollViewContentWidth + ScrollViewContentOffset;
-            }
-
-            //总帧数
-            int interval = Mathf.CeilToInt(Mathf.Max(FieldContent.worldBound.width, worldBound.width) / OneFrameWidth);
-            if (m_MaxFrame < interval)
-            {
-                m_MaxFrame = interval;
-            }
+            // if (FieldContent.worldBound.width < ScrollViewContentWidth + ScrollViewContentOffset)
+            // {
+            //     FieldContent.style.width = ScrollViewContentWidth + ScrollViewContentOffset;
+            // }
+            //
+            // //总帧数
+            // int interval = Mathf.CeilToInt(Mathf.Max(FieldContent.worldBound.width, worldBound.width) / OneFrameWidth);
+            // if (m_MaxFrame < interval)
+            // {
+            //     m_MaxFrame = interval;
+            // }
 
             for (int i = 0; i < m_MaxFrame; i++)
             {
@@ -381,6 +392,7 @@ namespace Timeline.Editor
             int showInterval = Mathf.CeilToInt(1 / m_FieldScale);
             int startFrame = CurrentMinFrame;
             int endFrame = CurrentMaxFrame;
+            Debug.LogWarning(ScrollViewContentOffset + "   " + (ScrollViewContentWidth + ScrollViewContentOffset) + "   " + m_MaxFrame);
 
             for (int j = startFrame; j <= endFrame; j++)
             {
@@ -886,8 +898,15 @@ namespace Timeline.Editor
         {
             foreach (BBClip clip in clipView.BBTrack.Clips)
             {
-                if (clip == clipView.BBClip) continue;
-                if (clipView.BBClip.Overlap(clip)) return false;
+                if (clip == clipView.BBClip)
+                {
+                    continue;
+                }
+
+                if (clipView.BBClip.Overlap(clip))
+                {
+                    return false;
+                }
             }
 
             return true;

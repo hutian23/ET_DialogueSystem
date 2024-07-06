@@ -7,37 +7,43 @@ namespace Timeline.Editor
     public class HitboxMarkerView: VisualElement, ISelectable
     {
         private readonly VisualElement MarkerView;
+        private HitboxTrackView trackView;
 
-        private HitboxKeyframe keyframe;
+        public HitboxKeyframe keyframe;
 
         public HitboxMarkerView()
         {
             VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>($"VisualTree/TimelineMarkerView");
             visualTree.CloneTree(this);
 
-            StyleSheet styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Loader/Timeline/Editor/Resources/Style/TimelineMarkerView.uss");
+            StyleSheet styleSheet =
+                    AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Loader/Timeline/Editor/Resources/Style/TimelineMarkerView.uss");
             styleSheets.Add(styleSheet);
 
             MarkerView = this.Q<VisualElement>("marker-view");
+
+            var dragManipulator = new DragManipulator(OnStartDrag, OnDragStop, OnDragMove);
+            this.AddManipulator(dragManipulator);
         }
 
-        public void Init(HitboxTrackView trackView, HitboxKeyframe _keyframe)
+        public void Init(HitboxTrackView _trackView, HitboxKeyframe _keyframe)
         {
-            SelectionContainer = trackView.FieldView;
+            trackView = _trackView;
+            SelectionContainer = _trackView.FieldView;
             keyframe = _keyframe;
             Refresh();
         }
 
         public void Refresh()
         {
-            var trackScrollView = fieldView.Q<ScrollView>("track-scroll");
             if (!fieldView.FramePosMap.TryGetValue(keyframe.frame, out float pos))
             {
                 Debug.LogError("not exist frame: " + keyframe.frame);
                 return;
             }
 
-            var relativePos = pos - trackScrollView.scrollOffset.x;
+            // var relativePos = pos - fieldView.ScrollViewContentOffset;
+            var relativePos = pos;
             style.left = relativePos - 6;
         }
 
@@ -75,6 +81,38 @@ namespace Timeline.Editor
                 }
             }
         }
+
+        #region Move marker
+
+        public bool InValid;
+
+        public void Move(int deltaFrame)
+        {
+            keyframe.frame += deltaFrame;
+        }
+
+        public void ResetMove(int deltaFrame)
+        {
+            InValid = true;
+            keyframe.frame -= deltaFrame;
+        }
+
+        private void OnStartDrag(PointerDownEvent evt)
+        {
+            trackView.MarkerStartMove(this);
+        }
+
+        private void OnDragStop()
+        {
+            trackView.ApplyMarkerMove();
+        }
+
+        private void OnDragMove(Vector2 movePos)
+        {
+            trackView.MoveMarkers(movePos.x);
+        }
+
+        #endregion
 
         #region Select
 
