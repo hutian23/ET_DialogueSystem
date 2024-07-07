@@ -392,8 +392,7 @@ namespace Timeline.Editor
             int showInterval = Mathf.CeilToInt(1 / m_FieldScale);
             int startFrame = CurrentMinFrame;
             int endFrame = CurrentMaxFrame;
-            Debug.LogWarning(ScrollViewContentOffset + "   " + (ScrollViewContentWidth + ScrollViewContentOffset) + "   " + m_MaxFrame);
-
+         
             for (int j = startFrame; j <= endFrame; j++)
             {
                 float pos = FramePosMap[j] - TrackScrollView.scrollOffset.x;

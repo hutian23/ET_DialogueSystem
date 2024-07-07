@@ -18,7 +18,7 @@ namespace Timeline.Editor
         public TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
         private readonly DoubleMap<BBClip, TimelineClipView> ClipViewMap = new();
 
-        private readonly DropdownMenuHandler m_MenuHandler;
+        protected readonly DropdownMenuHandler m_MenuHandler;
 
         public RuntimeTrack RuntimeTrack;
         private BBTrack BBTrack => RuntimeTrack.Track;

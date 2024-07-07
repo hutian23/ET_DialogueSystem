@@ -71,14 +71,7 @@ namespace Timeline.Editor
 
         private void MenuBuilder(DropdownMenu menu)
         {
-            menu.AppendAction("Delete Marker", _ =>
-            {
-                fieldView.EditorWindow.ApplyModify(() =>
-                {
-                    RuntimePlayable runtimePlayable = fieldView.EditorWindow.RuntimePlayable;
-                    runtimePlayable.Timeline.Marks.Remove(info);
-                }, "Delete Marker");
-            });
+            menu.AppendAction("Delete Marker", _ => { fieldView.EditorWindow.ApplyModify(() => { fieldView.EditorWindow.BBTimeline.Marks.Remove(info); }, "Delete Marker"); });
         }
 
         public void OnPointerDown(PointerDownEvent evt)

@@ -55,7 +55,7 @@ namespace Timeline.Editor
             m_TrackHierachy = root.Q("track-hierachy");
             m_Toolbar = root.Q("tool-bar");
 
-            //TrackHandler
+            //Scroll trackView
             TrackHandleContainer = root.Q<ScrollView>("track-handle-container");
             TrackHandleContainer.focusable = true;
             TrackHandleContainer.verticalScrollerVisibility = ScrollerVisibility.Hidden;
@@ -89,6 +89,7 @@ namespace Timeline.Editor
                 }
             });
 
+            //Add Track
             m_AddTrackButton = root.Q("add-track-button");
             m_AddTrackButton.AddManipulator(new DropdownMenuManipulator((menu) =>
             {
@@ -107,16 +108,18 @@ namespace Timeline.Editor
                 }
             }, MouseButton.LeftMouse));
 
+            //Select Timeline
             m_select_timeline_Button = root.Q<Button>("select-timeline-button");
-            m_select_timeline_Button.AddManipulator(new DropdownMenuManipulator((menu) =>
+            DropdownMenuHandler selectMenuHandler = new(menu =>
             {
-                foreach (var _timeline in TimelinePlayer.BBPlayable.GetTimelines())
+                foreach (BBTimeline _timeline in TimelinePlayer.BBPlayable.GetTimelines())
                 {
-                    var actionName = $"{_timeline.timelineName}";
+                    string actionName = $"{_timeline.timelineName}";
                     menu.AppendAction(actionName, _ => { TimelinePlayer.OpenWindow(_timeline); },
                         TimelinePlayer.CurrentTimeline == _timeline? DropdownMenuAction.Status.Checked : DropdownMenuAction.Status.Normal);
                 }
-            }, MouseButton.RightMouse));
+            });
+            m_select_timeline_Button.clicked += () => { selectMenuHandler.ShowMenu(m_select_timeline_Button); };
 
             m_select_timeline_label = root.Q<Label>("select-timeline-label");
 

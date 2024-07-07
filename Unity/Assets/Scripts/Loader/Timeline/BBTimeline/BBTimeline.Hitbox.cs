@@ -18,6 +18,19 @@ namespace Timeline
         public List<HitboxKeyframe> Keyframes = new();
 
         public override Type RuntimeTrackType => typeof (RuntimeHitboxTrack);
+
+        public HitboxKeyframe GetKeyframe(int targetFrame)
+        {
+            foreach (HitboxKeyframe keyframe in Keyframes)
+            {
+                if (keyframe.frame == targetFrame)
+                {
+                    return keyframe;
+                }
+            }
+            return null;
+        }
+
 #if UNITY_EDITOR
         protected override Type ClipType => typeof (BBHitboxClip);
         public override Type ClipViewType => typeof (HitboxClipView);
@@ -41,7 +54,7 @@ namespace Timeline
     [Serializable]
     public class HitboxKeyframe
     {
-        public int frame = 0;
+        public int frame;
     }
 
     [Color(165, 032, 025)]

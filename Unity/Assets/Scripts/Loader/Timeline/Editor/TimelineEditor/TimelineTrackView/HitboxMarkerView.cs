@@ -8,7 +8,7 @@ namespace Timeline.Editor
     {
         private readonly VisualElement MarkerView;
         private HitboxTrackView trackView;
-
+        
         public HitboxKeyframe keyframe;
 
         public HitboxMarkerView()
@@ -21,11 +21,10 @@ namespace Timeline.Editor
             styleSheets.Add(styleSheet);
 
             MarkerView = this.Q<VisualElement>("marker-view");
-
-            var dragManipulator = new DragManipulator(OnStartDrag, OnDragStop, OnDragMove);
+            DragManipulator dragManipulator = new(OnStartDrag, OnDragStop, OnDragMove);
             this.AddManipulator(dragManipulator);
         }
-
+        
         public void Init(HitboxTrackView _trackView, HitboxKeyframe _keyframe)
         {
             trackView = _trackView;
@@ -54,11 +53,7 @@ namespace Timeline.Editor
 
         public void OnPointerDown(PointerDownEvent evt)
         {
-            if (evt.button == 1)
-            {
-                evt.StopImmediatePropagation();
-            }
-            else if (evt.button == 0)
+            if (evt.button == 0)
             {
                 if (!IsSelected())
                 {

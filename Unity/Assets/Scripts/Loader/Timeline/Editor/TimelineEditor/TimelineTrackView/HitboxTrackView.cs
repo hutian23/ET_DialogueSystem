@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -36,16 +37,16 @@ namespace Timeline.Editor
             }
         }
 
+        private Vector2 localMousePos;
+
         protected override void OnPointerDown(PointerDownEvent evt)
         {
             int targetFrame = FieldView.GetClosestFrame(evt.localPosition.x);
-            foreach (HitboxMarkerView markerView in markerViews)
-            {
-                if (!markerView.InMiddle(targetFrame))
-                {
-                    continue;
-                }
 
+            localMousePos = evt.localPosition;
+
+            foreach (HitboxMarkerView markerView in markerViews.Where(markerView => markerView.InMiddle(targetFrame)))
+            {
                 markerView.OnPointerDown(evt);
             }
 
@@ -53,9 +54,37 @@ namespace Timeline.Editor
             if (evt.button == 1)
             {
                 // Open menu builder
+                m_MenuHandler.ShowMenu(evt);
                 evt.StopImmediatePropagation();
             }
         }
+
+        #region Menu
+
+        protected override void MenuBuilder(DropdownMenu menu)
+        {
+            menu.AppendAction("Create Keyframe", _ =>
+            {
+                int targetFrame = FieldView.GetClosestFrame(localMousePos.x);
+                EditorWindow.ApplyModify(() => { Track.Keyframes.Add(new HitboxKeyframe() { frame = targetFrame }); }, "Create Hitbox Keyframe");
+            }, ContainKeyframe()? DropdownMenuAction.Status.Hidden : DropdownMenuAction.Status.Normal);
+            menu.AppendAction("Remove keyframe", _ =>
+            {
+                int targetFrame = FieldView.GetClosestFrame(localMousePos.x);
+                HitboxKeyframe keyframe = Track.GetKeyframe(targetFrame);
+                EditorWindow.ApplyModify(() => { Track.Keyframes.Remove(keyframe); }, "Remove hitbox keyframe");
+            }, ContainKeyframe()? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Hidden);
+        }
+
+        private bool ContainKeyframe()
+        {
+            int frame = FieldView.GetClosestFrame(localMousePos.x);
+            return Track.GetKeyframe(frame) != null;
+        }
+
+        #endregion
+
+        #region Move marker
 
         private int m_startMoveMarkerFrame;
 
@@ -181,7 +210,10 @@ namespace Timeline.Editor
                 }
             }
 
+            Refresh();
             FieldView.DrawFrameLine();
         }
+
+        #endregion
     }
 }
