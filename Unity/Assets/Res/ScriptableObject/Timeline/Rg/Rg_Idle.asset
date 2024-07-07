@@ -106,42 +106,7 @@ MonoBehaviour:
       Entry: 12
       Data: 1
     - Name: 
-      Entry: 7
-      Data: 8|Timeline.BBHitboxClip, Unity.Loader
-    - Name: InValid
-      Entry: 5
-      Data: false
-    - Name: Name
       Entry: 6
-      Data: 
-    - Name: StartFrame
-      Entry: 3
-      Data: 0
-    - Name: EndFrame
-      Entry: 3
-      Data: 3
-    - Name: boxInfoDict
-      Entry: 7
-      Data: 9|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[System.Collections.Generic.List`1[[Timeline.BoxInfo,
-        Unity.Loader]], mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 10|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
       Data: 
     - Name: 
       Entry: 13
@@ -151,34 +116,199 @@ MonoBehaviour:
       Data: 
     - Name: Keyframes
       Entry: 7
-      Data: 11|ET.ListComponent`1[[Timeline.HitboxKeyframe, Unity.Loader]], Unity.Core
+      Data: 8|ET.ListComponent`1[[Timeline.HitboxKeyframe, Unity.Loader]], Unity.Core
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 9|Timeline.HitboxKeyframe, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 0
+    - Name: boxInfos
+      Entry: 7
+      Data: 10|ET.ListComponent`1[[Timeline.BoxInfo, Unity.Loader]], Unity.Core
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 11|Timeline.HitboxKeyframe, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 12
+    - Name: boxInfos
+      Entry: 7
+      Data: 12|ET.ListComponent`1[[Timeline.BoxInfo, Unity.Loader]], Unity.Core
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 12|Timeline.HitboxKeyframe, Unity.Loader
-    - Name: frame
+      Data: 13|Timeline.BoxInfo, Unity.Loader
+    - Name: boxName
+      Entry: 1
+      Data: hutian2501
+    - Name: hitboxType
       Entry: 3
+      Data: 1
+    - Name: center
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: -0.1752411
+    - Name: 
+      Entry: 4
+      Data: -0.170217514
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: size
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1.16962624
+    - Name: 
+      Entry: 4
+      Data: 2.23957968
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 14|Timeline.BoxInfo, Unity.Loader
+    - Name: boxName
+      Entry: 1
+      Data: counter_hit_1
+    - Name: hitboxType
+      Entry: 3
+      Data: 2
+    - Name: center
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: -0.07198793
+    - Name: 
+      Entry: 4
+      Data: -0.251957834
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: size
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 2
+    - Name: 
+      Entry: 4
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 15|Timeline.BoxInfo, Unity.Loader
+    - Name: boxName
+      Entry: 1
+      Data: Throw_1
+    - Name: hitboxType
+      Entry: 3
+      Data: 3
+    - Name: center
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: size
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
       Data: 0
     - Name: 
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 13|Timeline.HitboxKeyframe, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 10
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 14|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 16|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 5
+    - Name: boxInfos
+      Entry: 7
+      Data: 17|ET.ListComponent`1[[Timeline.BoxInfo, Unity.Loader]], Unity.Core
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 18|Timeline.HitboxKeyframe, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 7
+    - Name: boxInfos
+      Entry: 7
+      Data: 19|ET.ListComponent`1[[Timeline.BoxInfo, Unity.Loader]], Unity.Core
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -199,14 +329,14 @@ MonoBehaviour:
       Data: 
     - Name: Marks
       Entry: 7
-      Data: 15|System.Collections.Generic.List`1[[Timeline.MarkerInfo, Unity.Loader]],
+      Data: 20|System.Collections.Generic.List`1[[Timeline.MarkerInfo, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 16|Timeline.MarkerInfo, Unity.Loader
+      Data: 21|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 5
@@ -221,10 +351,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 17|Timeline.MarkerInfo, Unity.Loader
+      Data: 22|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 10
+      Data: 8
     - Name: markerName
       Entry: 1
       Data: TimelineMarker
@@ -236,10 +366,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 18|Timeline.MarkerInfo, Unity.Loader
+      Data: 23|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: markerName
       Entry: 1
       Data: hutian2501
@@ -253,7 +383,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 19|Timeline.MarkerInfo, Unity.Loader
+      Data: 24|Timeline.MarkerInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 0

@@ -89,10 +89,6 @@ namespace Timeline
             if (targetBindGo != null) Object.DestroyImmediate(targetBindGo);
             currentClip = null;
         }
-
-        public override void RuntimMute(bool value)
-        {
-        }
     }
 
     #endregion

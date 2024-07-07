@@ -7,7 +7,7 @@ namespace Timeline
 
     public static class TimelineUtility
     {
-        public static int FrameRate = 60;
+        public const int FrameRate = 60;
 
         private static float MinEvaluateDeltaTime => 1f / FrameRate;
 

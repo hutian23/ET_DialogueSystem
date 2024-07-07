@@ -220,20 +220,22 @@ namespace Timeline.Editor
 
             //get maxframe
             int maxFrame = m_MaxFrame;
-            foreach (var mark in RuntimePlayable.Timeline.Marks)
+            foreach (MarkerInfo mark in RuntimePlayable.Timeline.Marks)
             {
                 if (mark.frame >= maxFrame)
                 {
                     maxFrame = mark.frame + 1;
                 }
             }
-            foreach (var runtimeTrack in RuntimePlayable.RuntimeTracks)
+
+            foreach (RuntimeTrack runtimeTrack in RuntimePlayable.RuntimeTracks)
             {
                 if (maxFrame <= runtimeTrack.Track.GetMaxFrame())
                 {
                     maxFrame = runtimeTrack.Track.GetMaxFrame() + 1;
                 }
             }
+
             m_MaxFrame = maxFrame;
 
             ResizeTimeField();
@@ -271,6 +273,8 @@ namespace Timeline.Editor
                 SelectionElements.Add(markerView);
                 MarkerViews.Add(markerView);
             }
+            
+            UpdateTimeLocator();
         }
 
         private void UpdateBindState()
@@ -350,17 +354,6 @@ namespace Timeline.Editor
         private void ResizeTimeField()
         {
             FramePosMap.Clear();
-            // if (FieldContent.worldBound.width < ScrollViewContentWidth + ScrollViewContentOffset)
-            // {
-            //     FieldContent.style.width = ScrollViewContentWidth + ScrollViewContentOffset;
-            // }
-            //
-            // //总帧数
-            // int interval = Mathf.CeilToInt(Mathf.Max(FieldContent.worldBound.width, worldBound.width) / OneFrameWidth);
-            // if (m_MaxFrame < interval)
-            // {
-            //     m_MaxFrame = interval;
-            // }
 
             for (int i = 0; i < m_MaxFrame; i++)
             {
@@ -392,7 +385,7 @@ namespace Timeline.Editor
             int showInterval = Mathf.CeilToInt(1 / m_FieldScale);
             int startFrame = CurrentMinFrame;
             int endFrame = CurrentMaxFrame;
-         
+
             for (int j = startFrame; j <= endFrame; j++)
             {
                 float pos = FramePosMap[j] - TrackScrollView.scrollOffset.x;

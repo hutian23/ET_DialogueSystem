@@ -123,10 +123,6 @@ namespace Timeline
 
             Dispose();
         }
-
-        public override void RuntimMute(bool value)
-        {
-        }
     }
 
     #endregion
@@ -147,7 +143,7 @@ namespace Timeline
         public ParticleSystem ParticlePrefab;
 
         [PropertySpace(3)]
-        [PropertyOrder(3), Sirenix.OdinInspector.Button("Rebind")]
+        [PropertyOrder(3), Button("Rebind")]
         public void Rebind()
         {
             FieldView.EditorWindow.ApplyModify(() =>
@@ -159,18 +155,18 @@ namespace Timeline
 
         private bool HasBind => ParticleObject != null;
 
-        [PropertySpace(10), PropertyOrder(4), Sirenix.OdinInspector.ShowIf("HasBind")]
+        [PropertySpace(10), PropertyOrder(4), ShowIf("HasBind")]
         public ParticleSystem ParticleObject;
 
         [PropertyOrder(5)]
-        [Sirenix.OdinInspector.ReadOnly, Sirenix.OdinInspector.ShowIf("HasBind")]
+        [ReadOnly, ShowIf("HasBind")]
         public Vector3 Offset;
 
         [PropertyOrder(6)]
-        [Sirenix.OdinInspector.ReadOnly, Sirenix.OdinInspector.ShowIf("HasBind")]
+        [ReadOnly, ShowIf("HasBind")]
         public Vector3 Rotation;
 
-        [PropertyOrder(7), Sirenix.OdinInspector.Button("Record"),Sirenix.OdinInspector.ShowIf("HasBind")]
+        [PropertyOrder(7), Button("Record"),ShowIf("HasBind")]
         public void Record()
         {
             if (ParticleObject == null) return;

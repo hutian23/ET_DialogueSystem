@@ -34,7 +34,7 @@ namespace Timeline
 #endif
     public class BBAnimationClip: BBClip
     {
-        public UnityEngine.AnimationClip animationClip;
+        public AnimationClip animationClip;
 
         //rootmotion data
         [OdinSerialize, NonSerialized]
@@ -108,20 +108,20 @@ namespace Timeline
         [LabelText("ClipName: "), PropertyOrder(0)]
         public string ClipName;
 
-        [Sirenix.OdinInspector.Button("ReName"), PropertyOrder(1)]
+        [Button("ReName"), PropertyOrder(1)]
         public void Rename()
         {
             FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() => { Clip.Name = ClipName; }, "Rename Clip");
         }
 
         [LabelText("Clip: "), PropertyOrder(3)]
-        public UnityEngine.AnimationClip AnimationClip;
+        public AnimationClip AnimationClip;
 
         [LabelText("AnimationLength: "), PropertyOrder(4)]
-        [Sirenix.OdinInspector.ShowInInspector]
+        [ShowInInspector]
         public int animationLength => AnimationClip == null? 0 : (int)(AnimationClip.length * TimelineUtility.FrameRate);
 
-        [Sirenix.OdinInspector.Button("Rebind"), PropertyOrder(5)]
+        [Button("Rebind"), PropertyOrder(5)]
         public void Rebind()
         {
             FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() =>
@@ -210,11 +210,7 @@ namespace Timeline
                 clipPlayable.SetTime(targetFrame);
             }
         }
-
-        public override void RuntimMute(bool value)
-        {
-        }
-
+        
         public RuntimeAnimationTrack(RuntimePlayable runtimePlayable, BBTrack track): base(runtimePlayable, track)
         {
         }

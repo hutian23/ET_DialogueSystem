@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Timeline.Editor
 {
-    [TimelineGenerate]
     public class TargetBindCollector: MonoBehaviour
     {
         [ReadOnly]

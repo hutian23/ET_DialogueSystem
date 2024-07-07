@@ -8,7 +8,7 @@ namespace Timeline.Editor
     {
         private readonly VisualElement MarkerView;
         private HitboxTrackView trackView;
-        
+
         public HitboxKeyframe keyframe;
 
         public HitboxMarkerView()
@@ -16,15 +16,14 @@ namespace Timeline.Editor
             VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>($"VisualTree/TimelineMarkerView");
             visualTree.CloneTree(this);
 
-            StyleSheet styleSheet =
-                    AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Loader/Timeline/Editor/Resources/Style/TimelineMarkerView.uss");
+            StyleSheet styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Loader/Timeline/Editor/Resources/Style/TimelineMarkerView.uss");
             styleSheets.Add(styleSheet);
 
             MarkerView = this.Q<VisualElement>("marker-view");
             DragManipulator dragManipulator = new(OnStartDrag, OnDragStop, OnDragMove);
             this.AddManipulator(dragManipulator);
         }
-        
+
         public void Init(HitboxTrackView _trackView, HitboxKeyframe _keyframe)
         {
             trackView = _trackView;
@@ -40,8 +39,7 @@ namespace Timeline.Editor
                 Debug.LogError("not exist frame: " + keyframe.frame);
                 return;
             }
-
-            // var relativePos = pos - fieldView.ScrollViewContentOffset;
+            
             var relativePos = pos;
             style.left = relativePos - 6;
         }
@@ -126,6 +124,8 @@ namespace Timeline.Editor
             m_IsSelected = true;
             BringToFront();
             MarkerView.AddToClassList("Selected");
+            
+            OpenInspector();
         }
 
         public void UnSelect()
@@ -140,5 +140,12 @@ namespace Timeline.Editor
         }
 
         #endregion
+
+        private void OpenInspector()
+        {
+            HitboxMarkerInspectorData inspectorData = new(keyframe);
+            inspectorData.InspectorAwake(fieldView);
+            TimelineInspectorData.CreateView(fieldView.ClipInspector, inspectorData);
+        }
     }
 }

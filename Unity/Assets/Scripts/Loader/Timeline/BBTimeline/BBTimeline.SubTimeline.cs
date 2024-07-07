@@ -52,7 +52,7 @@ namespace Timeline
 
         public int Order;
 
-        [Sirenix.OdinInspector.Button("Rebind")]
+        [Button("Rebind")]
         public void Bind()
         {
             EditorWindow.ApplyModify(() =>
@@ -65,7 +65,7 @@ namespace Timeline
 
         private bool hasTestBinder => TestBinder != null;
 
-        [Sirenix.OdinInspector.Button("Open TimelineEditorWindow"), Sirenix.OdinInspector.ShowIf("hasTestBinder")]
+        [Button("Open TimelineEditorWindow"), ShowIf("hasTestBinder")]
         public void OpenTimeline()
         {
             // if (!TestBinder.BBPlayable.Timelines.TryGetValue(Order, out BBTimeline timeline))
@@ -174,10 +174,6 @@ namespace Timeline
             }
 
             currentClip = null;
-        }
-
-        public override void RuntimMute(bool value)
-        {
         }
     }
 

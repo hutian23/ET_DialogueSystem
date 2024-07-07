@@ -2,16 +2,16 @@
 
 namespace Timeline.Editor
 {
-    [TimelineGenerate]
     public class CastBox: CastShapeBase
     {
         public BoxInfo info;
+        
 #if UNITY_EDITOR
-        protected override void Reset()
-        {
-            info.center = Vector3.zero;
-            info.size = Vector3.one;
-        }
+        // protected override void Reset()
+        // {
+        //     info.center = Vector3.zero;
+        //     info.size = Vector3.one;
+        // }
 
         protected override void OnDrawGizmos()
         {

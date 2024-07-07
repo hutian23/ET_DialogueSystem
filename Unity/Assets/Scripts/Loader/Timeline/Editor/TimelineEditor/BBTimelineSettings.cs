@@ -12,8 +12,6 @@ namespace Timeline.Editor
             return Resources.Load<BBTimelineSettings>(nameof (BBTimelineSettings));
         }
 
-        public GameObject hitboxPrefab;
-
         [Sirenix.OdinInspector.ReadOnly]
         public System.Object CopyTarget;
 

@@ -4,11 +4,6 @@ using UnityEngine;
 
 namespace Timeline.Editor
 {
-    public class TimelineGenerateAttribute: Attribute
-    {
-    }
-
-    [TimelineGenerate]
     public class ParticleCollector: MonoBehaviour
     {
         [ReadOnly]

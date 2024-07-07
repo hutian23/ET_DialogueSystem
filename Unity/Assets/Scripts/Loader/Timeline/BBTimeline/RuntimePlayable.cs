@@ -23,7 +23,7 @@ namespace Timeline
         #endregion
 
         public List<RuntimeTrack> RuntimeTracks = new();
-        private int CurrentFrame;
+        private int CurrentFrame = -1;
 
         public static RuntimePlayable Create(BBTimeline _timeline, TimelinePlayer _timelinePlayer)
         {
@@ -49,7 +49,7 @@ namespace Timeline
 
         public void Dispose()
         {
-            CurrentFrame = 0;
+            CurrentFrame = -1;
             foreach (var runtimeTrack in RuntimeTracks)
             {
                 runtimeTrack.UnBind();
@@ -128,7 +128,6 @@ namespace Timeline
         public abstract void Bind();
         public abstract void UnBind();
         public abstract void SetTime(int targetFrame);
-        public abstract void RuntimMute(bool value);
 
         public int ClipCount => Track.Clips.Count;
     }

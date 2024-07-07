@@ -255,6 +255,7 @@ namespace Timeline.Editor
             window.TimelinePlayer.Dispose();
             window.TimelinePlayer.Init(timeline);
             window.PopulateView();
+            
         }
 
         #region Select Timeline
