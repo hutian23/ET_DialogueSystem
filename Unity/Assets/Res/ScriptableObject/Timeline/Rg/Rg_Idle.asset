@@ -35,6 +35,9 @@ MonoBehaviour:
     - Name: Name
       Entry: 1
       Data: Rg_Idle
+    - Name: Enable
+      Entry: 5
+      Data: false
     - Name: Clips
       Entry: 7
       Data: 2|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
@@ -56,7 +59,7 @@ MonoBehaviour:
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 30
+      Data: 48
     - Name: animationClip
       Entry: 10
       Data: 0
@@ -97,7 +100,10 @@ MonoBehaviour:
       Data: 6|Timeline.BBHitboxTrack, Unity.Loader
     - Name: Name
       Entry: 1
-      Data: BBHitbox
+      Data: Hitbox
+    - Name: Enable
+      Entry: 5
+      Data: false
     - Name: Clips
       Entry: 7
       Data: 7|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
@@ -146,7 +152,7 @@ MonoBehaviour:
       Data: 11|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 12
+      Data: 8
     - Name: boxInfos
       Entry: 7
       Data: 12|ET.ListComponent`1[[Timeline.BoxInfo, Unity.Loader]], Unity.Core
@@ -161,16 +167,16 @@ MonoBehaviour:
       Data: hutian2501
     - Name: hitboxType
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: center
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -0.1752411
+      Data: -0.175241113
     - Name: 
       Entry: 4
-      Data: -0.170217514
+      Data: -0.605832
     - Name: 
       Entry: 8
       Data: 
@@ -182,7 +188,7 @@ MonoBehaviour:
       Data: 1.16962624
     - Name: 
       Entry: 4
-      Data: 2.23957968
+      Data: 3.11080813
     - Name: 
       Entry: 8
       Data: 
@@ -275,7 +281,7 @@ MonoBehaviour:
       Data: 16|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 5
+      Data: 3
     - Name: boxInfos
       Entry: 7
       Data: 17|ET.ListComponent`1[[Timeline.BoxInfo, Unity.Loader]], Unity.Core
@@ -296,7 +302,7 @@ MonoBehaviour:
       Data: 18|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 7
+      Data: 6
     - Name: boxInfos
       Entry: 7
       Data: 19|ET.ListComponent`1[[Timeline.BoxInfo, Unity.Loader]], Unity.Core
@@ -333,7 +339,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 7
       Data: 21|Timeline.MarkerInfo, Unity.Loader
@@ -357,7 +363,7 @@ MonoBehaviour:
       Data: 8
     - Name: markerName
       Entry: 1
-      Data: TimelineMarker
+      Data: CreateProjectile
     - Name: Script
       Entry: 6
       Data: 
@@ -387,6 +393,21 @@ MonoBehaviour:
     - Name: frame
       Entry: 3
       Data: 0
+    - Name: markerName
+      Entry: 1
+      Data: TimelineMarker
+    - Name: Script
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 25|Timeline.MarkerInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 3
     - Name: markerName
       Entry: 1
       Data: TimelineMarker

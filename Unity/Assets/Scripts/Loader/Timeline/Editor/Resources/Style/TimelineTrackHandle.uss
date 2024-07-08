@@ -11,7 +11,7 @@
     position: absolute;
     right: 0;
     left: 20px;
-    flex-direction: row; /*水平布局*/
+    flex-direction: row;
 }
 
 .selected.timelineTrackHandle {
@@ -26,7 +26,7 @@
     flex-grow: 1;
     margin-top: 5px;
     margin-bottom: 5px;
-    right: 20px;
+    right: 28px;
     left: 0;
     position: absolute;
     top: 0;
@@ -43,4 +43,22 @@
     height: 20px;
     margin-top: 5px;
     margin-left: 5px;
+}
+
+#eye {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 4px;
+    top: 5px;
+    background-image: resource('Icon/eye');
+}
+
+#eye-close {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 4px;
+    top: 5px;
+    background-image: resource('Icon/eye-close');
 }

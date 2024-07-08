@@ -177,7 +177,7 @@ SpriteRenderer:
   m_SortingLayerID: 2016810935
   m_SortingLayer: 1
   m_SortingOrder: 299
-  m_Sprite: {fileID: 1633333993, guid: 5bff696bc646bc24da588afc6c65f285, type: 3}
+  m_Sprite: {fileID: -898875547, guid: 249a1eb7ace5d9f4cb4f3e0f9fefcf6c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -390,7 +390,7 @@ MonoBehaviour:
     gameObject: {fileID: 5734408607030598583}
   - key: Hurt
     gameObject: {fileID: 5882268993243149495}
-  - key: CounterHit
+  - key: CounterHurt
     gameObject: {fileID: 6510282245402195571}
   - key: Throw
     gameObject: {fileID: 2583209291556621167}

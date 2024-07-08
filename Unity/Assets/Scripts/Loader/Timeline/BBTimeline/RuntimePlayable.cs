@@ -50,7 +50,7 @@ namespace Timeline
         public void Dispose()
         {
             CurrentFrame = -1;
-            foreach (var runtimeTrack in RuntimeTracks)
+            foreach (RuntimeTrack runtimeTrack in RuntimeTracks)
             {
                 runtimeTrack.UnBind();
             }
@@ -61,12 +61,20 @@ namespace Timeline
 
         public void Evaluate(int targetFrame)
         {
-            if (CurrentFrame == targetFrame) return;
+            if (CurrentFrame == targetFrame)
+            {
+                return;
+            }
+
             CurrentFrame = targetFrame;
 
             for (int i = RuntimeTracks.Count - 1; i >= 0; i--)
             {
                 RuntimeTrack runtimeTrack = RuntimeTracks[i];
+                if (!runtimeTrack.Track.Enable)
+                {
+                    continue;
+                }
                 runtimeTrack.SetTime(targetFrame);
             }
 

@@ -16,7 +16,7 @@ namespace Timeline
 
         public string markerName;
 
-        [FoldoutGroup("脚本: ")]
+        [Title("Script")]
         [TextArea(14, 30), HideLabel]
         public string Script;
     }
@@ -92,6 +92,7 @@ namespace Timeline
     public abstract class BBTrack
     {
         public string Name;
+        public bool Enable;
 
         [OdinSerialize, NonSerialized]
         public List<BBClip> Clips = new();
@@ -125,6 +126,7 @@ namespace Timeline
                     maxFrame = clip.EndFrame;
                 }
             }
+
             return maxFrame;
         }
 #endif

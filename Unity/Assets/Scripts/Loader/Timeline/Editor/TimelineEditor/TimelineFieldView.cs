@@ -1077,17 +1077,14 @@ namespace Timeline.Editor
             PlayCor = EditorCoroutineUtility.StartCoroutine(LoopPlayCoroutine(), this);
         }
 
-        private int ClipMaxFrame()
+        private int GetMaxFrame()
         {
             int maxFrame = 0;
-            foreach (var track in RuntimePlayable.Timeline.Tracks)
+            foreach (BBTrack track in RuntimePlayable.Timeline.Tracks)
             {
-                foreach (var clip in track.Clips)
+                if (maxFrame <= track.GetMaxFrame())
                 {
-                    if (clip.EndFrame >= maxFrame)
-                    {
-                        maxFrame = clip.EndFrame;
-                    }
+                    maxFrame = track.GetMaxFrame();
                 }
             }
 
@@ -1098,7 +1095,7 @@ namespace Timeline.Editor
         {
             float counter = 0f;
             SetTimeLocator(0);
-            while (currentTimeLocator < ClipMaxFrame())
+            while (currentTimeLocator < GetMaxFrame())
             {
                 SetTimeLocator((int)(counter * TimelineUtility.FrameRate));
                 //AnimationClip 当前preview模式下会阻塞主线程?(preview中timeline更新速率变慢)

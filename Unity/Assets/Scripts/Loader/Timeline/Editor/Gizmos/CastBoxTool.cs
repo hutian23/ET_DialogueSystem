@@ -89,14 +89,14 @@ namespace Timeline.Editor
     {
         private SerializedProperty m_center;
         private SerializedProperty m_size;
-        private SerializedProperty m_hitboxType;
+        // private SerializedProperty m_hitboxType;
         private SerializedProperty m_hitboxName;
 
         private void OnEnable()
         {
             m_center = serializedObject.FindProperty("info.center");
             m_size = serializedObject.FindProperty("info.size");
-            m_hitboxType = serializedObject.FindProperty("info.hitboxType");
+            // m_hitboxType = serializedObject.FindProperty("info.hitboxType");
             m_hitboxName = serializedObject.FindProperty("info.boxName");
         }
 
@@ -106,7 +106,7 @@ namespace Timeline.Editor
             EditorGUILayout.Space(4);
             EditorGUILayout.EditorToolbarForTarget(EditorGUIUtility.TrTempContent("Edit Shape"), target);
             EditorGUILayout.Space(4);
-            EditorGUILayout.PropertyField(m_hitboxType);
+            // EditorGUILayout.PropertyField(m_hitboxType);
             EditorGUILayout.LabelField("Hitbox Name", m_hitboxName.stringValue);
             EditorGUILayout.Space(4);
             EditorGUILayout.PropertyField(m_center);

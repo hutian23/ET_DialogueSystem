@@ -12,7 +12,8 @@ namespace Timeline.Editor
 
         private TextField NameField { get; set; }
         private VisualElement Icon { get; set; }
-
+        private VisualElement eyeBtn { get; set; }
+        private VisualElement eyeCloseBtn { get; set; }
         private TimelineTrackView TrackView { get; set; }
         private RuntimeTrack RuntimeTrack => TrackView.RuntimeTrack;
         private BBTrack BBTrack => RuntimeTrack.Track;
@@ -117,6 +118,13 @@ namespace Timeline.Editor
                 }
             });
             this.AddManipulator(DragManipulator);
+
+            eyeBtn = this.Q("eye");
+            eyeBtn.style.display = BBTrack.Enable? DisplayStyle.Flex : DisplayStyle.None;
+            eyeCloseBtn = this.Q("eye-close");
+            eyeCloseBtn.style.display = BBTrack.Enable? DisplayStyle.None : DisplayStyle.Flex;
+            eyeBtn.RegisterCallback<PointerDownEvent>(_ => { EditorWindow.ApplyModify(() => { BBTrack.Enable = false; }, "Disable Track"); });
+            eyeCloseBtn.RegisterCallback<PointerDownEvent>(_ => { EditorWindow.ApplyModify(() => { BBTrack.Enable = true; }, "Enable Track"); });
         }
 
         //下面这两个其实一样

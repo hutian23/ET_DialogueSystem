@@ -19,7 +19,7 @@ namespace Timeline.Editor
             int index = EditorWindow.RuntimePlayable.RuntimeTracks.IndexOf(track);
             transform.position = new Vector3(0, index * 40, 0);
 
-            foreach (var keyframe in Track.Keyframes)
+            foreach (HitboxKeyframe keyframe in Track.Keyframes)
             {
                 HitboxMarkerView markerView = new();
                 markerView.Init(this, keyframe);
@@ -153,14 +153,14 @@ namespace Timeline.Editor
 
             int deltaFrame = targetStartFrame - startFrame;
 
-            foreach (var marker in moveMarkers)
+            foreach (HitboxMarkerView marker in moveMarkers)
             {
                 marker.Move(deltaFrame);
             }
 
             //Resize frameMap
             int maxFrame = int.MinValue;
-            foreach (var marker in moveMarkers)
+            foreach (HitboxMarkerView marker in moveMarkers)
             {
                 if (marker.keyframe.frame >= maxFrame)
                 {
@@ -171,7 +171,7 @@ namespace Timeline.Editor
             FieldView.ResizeTimeField(maxFrame);
 
             //检查重叠
-            foreach (var marker in moveMarkers)
+            foreach (HitboxMarkerView marker in moveMarkers)
             {
                 marker.InValid = GetMarkerMoveValid(marker);
             }
@@ -182,7 +182,7 @@ namespace Timeline.Editor
 
         private bool GetMarkerMoveValid(HitboxMarkerView markerView)
         {
-            foreach (var view in markerViews)
+            foreach (HitboxMarkerView view in markerViews)
             {
                 if (view == markerView)
                 {
@@ -204,7 +204,7 @@ namespace Timeline.Editor
             bool InValid = true;
 
             List<HitboxMarkerView> moveMarkers = new();
-            foreach (var selection in FieldView.Selections)
+            foreach (ISelectable selection in FieldView.Selections)
             {
                 if (selection is not HitboxMarkerView markerView) continue;
 
@@ -227,7 +227,7 @@ namespace Timeline.Editor
             if (deltaFrame != 0)
             {
                 //Reset position
-                foreach (var markerView in moveMarkers)
+                foreach (HitboxMarkerView markerView in moveMarkers)
                 {
                     markerView.ResetMove(deltaFrame);
                 }
@@ -236,7 +236,7 @@ namespace Timeline.Editor
                 {
                     EditorWindow.ApplyModify(() =>
                     {
-                        foreach (var markerView in moveMarkers)
+                        foreach (HitboxMarkerView markerView in moveMarkers)
                         {
                             markerView.Move(deltaFrame);
                         }
