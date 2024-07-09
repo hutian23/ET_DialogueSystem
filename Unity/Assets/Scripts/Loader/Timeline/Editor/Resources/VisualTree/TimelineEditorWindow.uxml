@@ -8,8 +8,6 @@
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="loop-button" />
         <ui:Label tabindex="-1" text="Frame: " parse-escape-sequences="true" display-tooltip-when-elided="true" name="current-frame-label" />
         <ui:IntegerField value="0" name="current-frame-field" />
-        <ui:Label tabindex="-1" text="Marker: " parse-escape-sequences="true" display-tooltip-when-elided="true" name="current-marker-label" />
-        <ui:TextField picking-mode="Ignore" value="filler text" name="current-marker-field" />
         <ui:SliderInt picking-mode="Ignore" value="100" high-value="500" name="field-scale-bar" low-value="10" style="width: 80px; height: 25px; right: 10px; position: absolute; margin-top: 3px; margin-right: 0; margin-bottom: 0; margin-left: 0;" />
     </ui:VisualElement>
     <ET.Client.SplitView fixed-pane-initial-dimension="225" name="track-container">
@@ -20,7 +18,6 @@
                         <ui:VisualElement name="add-track-button-Icon" style="flex-grow: 1; background-image: resource(&apos;Icon/d_Toolbar Plus More@2x&apos;); -unity-background-scale-mode: scale-to-fit; padding-left: 0; margin-left: 50px; height: 100%; width: 100px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="marker-view-label" />
                 <ui:ScrollView name="track-handle-container" style="height: 100%; width: 100%;" />
             </ui:VisualElement>
         </ui:VisualElement>

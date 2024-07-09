@@ -23,8 +23,8 @@ namespace Timeline.Editor
         private Button m_LoopPlayButton;
         private Label m_select_timeline_label;
         private TimelineFieldView m_TimelineField;
-        public IntegerField m_currentFrameField;
-        public TextField m_currentMarkerField;
+        // public IntegerField m_currentFrameField;
+        // public TextField m_currentMarkerField;
         public TimelinePlayer TimelinePlayer { get; private set; }
 
         public BBTimeline BBTimeline => TimelinePlayer.RuntimeimePlayable.Timeline;
@@ -129,23 +129,23 @@ namespace Timeline.Editor
             fieldScaleBar = root.Q<SliderInt>("field-scale-bar");
             fieldScaleBar.RegisterValueChangedCallback(m_TimelineField.SliderUpdate);
 
-            m_currentFrameField = root.Q<IntegerField>("current-frame-field");
-            m_currentFrameField.RegisterCallback<BlurEvent>(_ =>
-            {
-                if (m_currentFrameField.value >= 500) m_currentFrameField.SetValueWithoutNotify(500);
-                m_TimelineField.CurrentFrameFieldUpdate(m_currentFrameField.value);
-            });
+            // m_currentFrameField = root.Q<IntegerField>("current-frame-field");
+            // m_currentFrameField.RegisterCallback<BlurEvent>(_ =>
+            // {
+            //     if (m_currentFrameField.value >= 500) m_currentFrameField.SetValueWithoutNotify(500);
+            //     m_TimelineField.CurrentFrameFieldUpdate(m_currentFrameField.value);
+            // });
 
-            m_currentMarkerField = root.Q<TextField>("current-marker-field");
-            m_currentMarkerField.RegisterCallback<BlurEvent>(_ =>
-            {
-                foreach (var mark in BBTimeline.Marks)
-                {
-                    if (!mark.markerName.Equals(m_currentMarkerField.value)) continue;
-                    int frame = mark.frame;
-                    m_TimelineField.CurrentFrameFieldUpdate(frame);
-                }
-            });
+            // m_currentMarkerField = root.Q<TextField>("current-marker-field");
+            // m_currentMarkerField.RegisterCallback<BlurEvent>(_ =>
+            // {
+            //     foreach (var mark in BBTimeline.Marks)
+            //     {
+            //         if (!mark.markerName.Equals(m_currentMarkerField.value)) continue;
+            //         int frame = mark.frame;
+            //         m_TimelineField.CurrentFrameFieldUpdate(frame);
+            //     }
+            // });
 
             Undo.undoRedoEvent += OnUndoRedoEvent;
         }

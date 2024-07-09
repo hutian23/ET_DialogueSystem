@@ -31,7 +31,7 @@ namespace Timeline.Editor
         private Label LocaterFrameLabel { get; set; }
         private ScrollView InspectorScrollView { get; set; }
         public VisualElement ClipInspector { get; set; }
-        private VisualElement MarkerViewField { get; set; }
+        // private VisualElement MarkerViewField { get; set; }
 
         #region Param
 
@@ -186,8 +186,8 @@ namespace Timeline.Editor
             ClipInspector.RegisterCallback<PointerDownEvent>((e) => e.StopImmediatePropagation());
 
             //Marker
-            MarkerViewField = this.Q<VisualElement>("marker-view");
-            MarkerViewField.RegisterCallback<PointerDownEvent>(MarkerViewPointerDown);
+            // MarkerViewField = this.Q<VisualElement>("marker-view");
+            // MarkerViewField.RegisterCallback<PointerDownEvent>(MarkerViewPointerDown);
 
             RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
             this.AddManipulator(new RectangleSelecter(() => -localBound.position));
@@ -211,7 +211,7 @@ namespace Timeline.Editor
             m_Elements.Clear();
             TrackViews.Clear();
             MarkerViews.Clear();
-            MarkerViewField.Clear();
+            // MarkerViewField.Clear();
         }
 
         public void PopulateView()
@@ -220,14 +220,13 @@ namespace Timeline.Editor
 
             //get maxframe
             int maxFrame = m_MaxFrame;
-            foreach (MarkerInfo mark in RuntimePlayable.Timeline.Marks)
-            {
-                if (mark.frame >= maxFrame)
-                {
-                    maxFrame = mark.frame + 1;
-                }
-            }
-
+            // foreach (MarkerInfo mark in RuntimePlayable.Timeline.Marks)
+            // {
+            //     if (mark.frame >= maxFrame)
+            //     {
+            //         maxFrame = mark.frame + 1;
+            //     }
+            // }
             foreach (RuntimeTrack runtimeTrack in RuntimePlayable.RuntimeTracks)
             {
                 if (maxFrame <= runtimeTrack.Track.GetMaxFrame())
@@ -269,7 +268,7 @@ namespace Timeline.Editor
                 markerView.SelectionContainer = this;
                 markerView.Init(marker);
 
-                MarkerViewField.Add(markerView);
+                // MarkerViewField.Add(markerView);
                 SelectionElements.Add(markerView);
                 MarkerViews.Add(markerView);
             }
@@ -473,15 +472,15 @@ namespace Timeline.Editor
             //更新Inspector
             currentInspector?.InsepctorUpdate();
             //更新frameField
-            EditorWindow.m_currentFrameField.SetValueWithoutNotify(currentTimeLocator);
-            string Marker = "_ _ _";
-            foreach (MarkerInfo marker in EditorWindow.BBTimeline.Marks)
-            {
-                if (marker.frame != currentTimeLocator) continue;
-                Marker = marker.markerName;
-            }
-
-            EditorWindow.m_currentMarkerField.SetValueWithoutNotify(Marker);
+            // EditorWindow.m_currentFrameField.SetValueWithoutNotify(currentTimeLocator);
+            // string Marker = "_ _ _";
+            // foreach (MarkerInfo marker in EditorWindow.BBTimeline.Marks)
+            // {
+            //     if (marker.frame != currentTimeLocator) continue;
+            //     Marker = marker.markerName;
+            // }
+            //
+            // EditorWindow.m_currentMarkerField.SetValueWithoutNotify(Marker);
 
             //更新playableGraph
             RuntimePlayable.Evaluate(currentTimeLocator);
@@ -520,21 +519,21 @@ namespace Timeline.Editor
 
         #region Marker
 
-        private void MarkerViewPointerDown(PointerDownEvent evt)
-        {
-            int targetFrame = GetClosestFrame(evt.localPosition.x + ScrollViewContentOffset);
-            foreach (TimelineMarkerView marker in MarkerViews)
-            {
-                //不知道为什么，这里addToSelection不会改变样式
-                if (!marker.InMiddle(targetFrame))
-                {
-                    continue;
-                }
-
-                marker.OnPointerDown(evt);
-                return;
-            }
-        }
+        // private void MarkerViewPointerDown(PointerDownEvent evt)
+        // {
+        //     int targetFrame = GetClosestFrame(evt.localPosition.x + ScrollViewContentOffset);
+        //     foreach (TimelineMarkerView marker in MarkerViews)
+        //     {
+        //         //不知道为什么，这里addToSelection不会改变样式
+        //         if (!marker.InMiddle(targetFrame))
+        //         {
+        //             continue;
+        //         }
+        //
+        //         marker.OnPointerDown(evt);
+        //         return;
+        //     }
+        // }
 
         private int m_StartMoveMarkerFrame;
 
