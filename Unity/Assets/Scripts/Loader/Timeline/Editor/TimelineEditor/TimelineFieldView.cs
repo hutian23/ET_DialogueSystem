@@ -59,7 +59,6 @@ namespace Timeline.Editor
 
         public TimelineEditorWindow EditorWindow;
         public List<TimelineTrackView> TrackViews { get; set; } = new();
-        private List<TimelineMarkerView> MarkerViews { get; set; } = new();
         public Dictionary<int, float> FramePosMap { get; set; } = new();
         private DragManipulator LocatorDragManipulator { get; set; }
 
@@ -67,11 +66,11 @@ namespace Timeline.Editor
         private readonly Action OnGeometryChangedCallback;
 
         //注意，是当前滑动窗口显示的最小帧和最大帧
-        public int CurrentMinFrame => GetClosestCeilFrame(ScrollViewContentOffset);
-        public int CurrentMaxFrame => GetClosestCeilFrame(ScrollViewContentWidth + ScrollViewContentOffset);
+        private int CurrentMinFrame => GetClosestCeilFrame(ScrollViewContentOffset);
+        private int CurrentMaxFrame => GetClosestCeilFrame(ScrollViewContentWidth + ScrollViewContentOffset);
         private float OneFrameWidth => m_MarkerWidth * m_FieldScale;
         private float ScrollViewContentWidth => TrackScrollView.contentContainer.worldBound.width;
-        public float ScrollViewContentOffset => TrackScrollView.scrollOffset.x;
+        private float ScrollViewContentOffset => TrackScrollView.scrollOffset.x;
 
         public float ContentWidth => FieldContent.worldBound.width;
 
@@ -210,8 +209,6 @@ namespace Timeline.Editor
             m_Selections.Clear();
             m_Elements.Clear();
             TrackViews.Clear();
-            MarkerViews.Clear();
-            // MarkerViewField.Clear();
         }
 
         public void PopulateView()
@@ -220,13 +217,6 @@ namespace Timeline.Editor
 
             //get maxframe
             int maxFrame = m_MaxFrame;
-            // foreach (MarkerInfo mark in RuntimePlayable.Timeline.Marks)
-            // {
-            //     if (mark.frame >= maxFrame)
-            //     {
-            //         maxFrame = mark.frame + 1;
-            //     }
-            // }
             foreach (RuntimeTrack runtimeTrack in RuntimePlayable.RuntimeTracks)
             {
                 if (maxFrame <= runtimeTrack.Track.GetMaxFrame())
@@ -260,17 +250,6 @@ namespace Timeline.Editor
 
                 EditorWindow.TrackHandleContainer.Add(trackHandle);
                 SelectionElements.Add(trackHandle);
-            }
-
-            foreach (MarkerInfo marker in RuntimePlayable.Timeline.Marks)
-            {
-                TimelineMarkerView markerView = new();
-                markerView.SelectionContainer = this;
-                markerView.Init(marker);
-
-                // MarkerViewField.Add(markerView);
-                SelectionElements.Add(markerView);
-                MarkerViews.Add(markerView);
             }
             
             UpdateTimeLocator();
@@ -516,163 +495,7 @@ namespace Timeline.Editor
         }
 
         #endregion
-
-        #region Marker
-
-        // private void MarkerViewPointerDown(PointerDownEvent evt)
-        // {
-        //     int targetFrame = GetClosestFrame(evt.localPosition.x + ScrollViewContentOffset);
-        //     foreach (TimelineMarkerView marker in MarkerViews)
-        //     {
-        //         //不知道为什么，这里addToSelection不会改变样式
-        //         if (!marker.InMiddle(targetFrame))
-        //         {
-        //             continue;
-        //         }
-        //
-        //         marker.OnPointerDown(evt);
-        //         return;
-        //     }
-        // }
-
-        private int m_StartMoveMarkerFrame;
-
-        public void MarkerStartMove(TimelineMarkerView markerView)
-        {
-            m_StartMoveMarkerFrame = markerView.info.frame;
-        }
-
-        public void MoveMarkers(float deltaPosition)
-        {
-            int startFrame = int.MaxValue;
-            List<TimelineMarkerView> moveMarkers = new List<TimelineMarkerView>();
-            foreach (ISelectable selectable in Selections)
-            {
-                if (selectable is TimelineMarkerView markerView)
-                {
-                    moveMarkers.Add(markerView);
-                    if (markerView.info.frame < startFrame)
-                    {
-                        startFrame = markerView.info.frame;
-                    }
-                }
-            }
-
-            if (moveMarkers.Count == 0)
-            {
-                return;
-            }
-
-            int targetStartFrame = GetClosestFrame(FramePosMap[startFrame] + deltaPosition);
-            targetStartFrame = Mathf.Clamp(targetStartFrame, CurrentMinFrame, CurrentMaxFrame);
-
-            int deltaFrame = targetStartFrame - startFrame;
-
-            foreach (TimelineMarkerView markerView in moveMarkers)
-            {
-                markerView.Move(deltaFrame);
-            }
-
-            //Resize frameMap
-            int maxFrame = int.MinValue;
-            foreach (var marker in moveMarkers)
-            {
-                if (marker.info.frame >= maxFrame)
-                {
-                    maxFrame = marker.info.frame;
-                }
-            }
-
-            if (maxFrame >= m_MaxFrame)
-            {
-                for (int i = m_MaxFrame; i <= maxFrame; i++)
-                {
-                    FramePosMap.Add(i, OneFrameWidth * i + m_FieldOffsetX);
-                }
-
-                m_MaxFrame = maxFrame + 1;
-            }
-
-            //判断当前移动的marker是否发生重叠
-            foreach (TimelineMarkerView marker in moveMarkers)
-            {
-                marker.InValid = GetMarkerMoveValid(marker);
-            }
-
-            UpdateMix();
-            DrawFrameLine(startFrame);
-        }
-
-        public void ApplyMarkerMove()
-        {
-            int startFrame = int.MaxValue;
-            bool InValid = true;
-
-            List<TimelineMarkerView> moveMarkers = new();
-            foreach (var selection in Selections)
-            {
-                if (selection is not TimelineMarkerView markerView) continue;
-
-                // override with other marker
-                if (!markerView.InValid)
-                {
-                    InValid = false;
-                }
-
-                if (markerView.info.frame <= startFrame)
-                {
-                    startFrame = markerView.info.frame;
-                }
-
-                moveMarkers.Add(markerView);
-            }
-
-            int deltaFrame = startFrame - m_StartMoveMarkerFrame;
-
-            if (deltaFrame != 0)
-            {
-                //Reset Position
-                foreach (var markerView in moveMarkers)
-                {
-                    markerView.ResetMove(deltaFrame);
-                }
-
-                if (InValid)
-                {
-                    EditorWindow.ApplyModify(() =>
-                    {
-                        foreach (var markerView in moveMarkers)
-                        {
-                            markerView.Move(deltaFrame);
-                        }
-                    }, "Move Marker");
-                }
-            }
-
-            DrawFrameLine();
-            UpdateMix();
-        }
-
-        private bool GetMarkerMoveValid(TimelineMarkerView markerView)
-        {
-            foreach (var view in MarkerViews)
-            {
-                if (view == markerView)
-                {
-                    continue;
-                }
-
-                if (view.info.frame == markerView.info.frame)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        #endregion
-
+        
         #region DragFrameLine
 
         private int[] m_DrawFrameLine = Array.Empty<int>();
@@ -911,12 +734,6 @@ namespace Timeline.Editor
             foreach (var trackView in TrackViews)
             {
                 trackView.Refresh();
-            }
-
-            //Update marker pos
-            foreach (var markerView in MarkerViews)
-            {
-                markerView.Refresh();
             }
         }
 

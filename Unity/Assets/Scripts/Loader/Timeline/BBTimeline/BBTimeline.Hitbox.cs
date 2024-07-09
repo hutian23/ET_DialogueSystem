@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using Timeline.Editor;
@@ -8,8 +9,10 @@ using UnityEngine;
 namespace Timeline
 {
     [BBTrack("Hitbox")]
+#if UNITY_EDITOR
     [Color(165, 032, 025)]
     [IconGuid("1dc9e96059838334696fb81dfec22393")]
+#endif
     public class BBHitboxTrack: BBTrack
     {
         [OdinSerialize, NonSerialized]
@@ -34,26 +37,14 @@ namespace Timeline
         public override Type TrackViewType => typeof (HitboxTrackView);
         public override int GetMaxFrame()
         {
-            int maxFrame = 0;
-            foreach (HitboxKeyframe keyframe in Keyframes)
-            {
-                if (keyframe.frame >= maxFrame)
-                {
-                    maxFrame = keyframe.frame;
-                }
-            }
-
-            return maxFrame;
+            return Keyframes.Max(keyframe => keyframe.frame);
         }
 #endif
     }
 
     [Serializable]
-    public class HitboxKeyframe
+    public class HitboxKeyframe : BBKeyframeBase
     {
-        [ReadOnly]
-        public int frame;
-
         [HideReferenceObjectPicker]
         public List<BoxInfo> boxInfos = new();
     }

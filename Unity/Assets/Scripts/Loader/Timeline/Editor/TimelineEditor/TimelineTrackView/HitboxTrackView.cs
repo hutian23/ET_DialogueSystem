@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using ET;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -8,7 +7,6 @@ namespace Timeline.Editor
 {
     public sealed class HitboxTrackView: TimelineTrackView
     {
-        private readonly List<HitboxMarkerView> markerViews = new();
         private BBHitboxTrack Track;
 
         public override void Init(RuntimeTrack track)
@@ -26,13 +24,12 @@ namespace Timeline.Editor
 
                 markerViews.Add(markerView);
                 Add(markerView);
-                FieldView.SelectionElements.Add(markerView); // selection
             }
         }
 
         public override void Refresh()
         {
-            foreach (HitboxMarkerView markerView in markerViews)
+            foreach (MarkerView markerView in markerViews)
             {
                 markerView.Refresh();
             }
@@ -46,9 +43,11 @@ namespace Timeline.Editor
 
             localMousePos = evt.localPosition;
 
-            foreach (HitboxMarkerView markerView in markerViews.Where(markerView => markerView.InMiddle(targetFrame)))
+            foreach (MarkerView markerView in markerViews.Where(markerView => markerView.InMiddle(targetFrame)))
             {
                 markerView.OnPointerDown(evt);
+                evt.StopImmediatePropagation();
+                return;
             }
 
             //右键
@@ -114,138 +113,6 @@ namespace Timeline.Editor
         {
             int frame = FieldView.GetClosestFrame(x);
             return Track.GetKeyframe(frame) != null;
-        }
-
-        #endregion
-
-        #region Move marker
-
-        private int m_startMoveMarkerFrame;
-
-        public void MarkerStartMove(HitboxMarkerView markerView)
-        {
-            m_startMoveMarkerFrame = markerView.keyframe.frame;
-        }
-
-        public void MoveMarkers(float deltaPosition)
-        {
-            int startFrame = int.MaxValue;
-            List<HitboxMarkerView> moveMarkers = new List<HitboxMarkerView>();
-            foreach (ISelectable selectable in FieldView.Selections)
-            {
-                if (selectable is HitboxMarkerView markerView)
-                {
-                    moveMarkers.Add(markerView);
-                    if (markerView.keyframe.frame < startFrame)
-                    {
-                        startFrame = markerView.keyframe.frame;
-                    }
-                }
-            }
-
-            if (moveMarkers.Count == 0)
-            {
-                return;
-            }
-
-            int targetStartFrame = FieldView.GetClosestFrame(FieldView.FramePosMap[startFrame] + deltaPosition);
-            targetStartFrame = Mathf.Clamp(targetStartFrame, FieldView.CurrentMinFrame, FieldView.CurrentMaxFrame);
-
-            int deltaFrame = targetStartFrame - startFrame;
-
-            foreach (HitboxMarkerView marker in moveMarkers)
-            {
-                marker.Move(deltaFrame);
-            }
-
-            //Resize frameMap
-            int maxFrame = int.MinValue;
-            foreach (HitboxMarkerView marker in moveMarkers)
-            {
-                if (marker.keyframe.frame >= maxFrame)
-                {
-                    maxFrame = marker.keyframe.frame;
-                }
-            }
-
-            FieldView.ResizeTimeField(maxFrame);
-
-            //检查重叠
-            foreach (HitboxMarkerView marker in moveMarkers)
-            {
-                marker.InValid = GetMarkerMoveValid(marker);
-            }
-
-            Refresh();
-            FieldView.DrawFrameLine(startFrame);
-        }
-
-        private bool GetMarkerMoveValid(HitboxMarkerView markerView)
-        {
-            foreach (HitboxMarkerView view in markerViews)
-            {
-                if (view == markerView)
-                {
-                    continue;
-                }
-
-                if (view.keyframe.frame == markerView.keyframe.frame)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        public void ApplyMarkerMove()
-        {
-            int startFrame = int.MaxValue;
-            bool InValid = true;
-
-            List<HitboxMarkerView> moveMarkers = new();
-            foreach (ISelectable selection in FieldView.Selections)
-            {
-                if (selection is not HitboxMarkerView markerView) continue;
-
-                //override with other marker
-                if (!markerView.InValid)
-                {
-                    InValid = false;
-                }
-
-                if (markerView.keyframe.frame <= startFrame)
-                {
-                    startFrame = markerView.keyframe.frame;
-                }
-
-                moveMarkers.Add(markerView);
-            }
-
-            int deltaFrame = startFrame - m_startMoveMarkerFrame;
-
-            if (deltaFrame != 0)
-            {
-                //Reset position
-                foreach (HitboxMarkerView markerView in moveMarkers)
-                {
-                    markerView.ResetMove(deltaFrame);
-                }
-
-                if (InValid)
-                {
-                    EditorWindow.ApplyModify(() =>
-                    {
-                        foreach (HitboxMarkerView markerView in moveMarkers)
-                        {
-                            markerView.Move(deltaFrame);
-                        }
-                    }, "Move hitbox markers");
-                }
-            }
-
-            Refresh();
-            FieldView.DrawFrameLine();
         }
 
         #endregion

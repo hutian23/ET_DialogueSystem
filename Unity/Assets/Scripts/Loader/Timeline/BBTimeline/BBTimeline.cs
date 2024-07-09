@@ -8,19 +8,6 @@ using UnityEngine;
 
 namespace Timeline
 {
-    [Serializable]
-    public class MarkerInfo
-    {
-        [HideInInspector]
-        public int frame;
-
-        public string markerName;
-
-        [Title("Script")]
-        [TextArea(14, 30), HideLabel]
-        public string Script;
-    }
-
     [CreateAssetMenu(menuName = "ScriptableObject/BBTimeline/Timeline", fileName = "BBTimeline")]
     public class BBTimeline: SerializedScriptableObject
     {
@@ -30,11 +17,11 @@ namespace Timeline
         public List<BBTrack> Tracks = new();
 
         [NonSerialized, OdinSerialize]
-        public List<MarkerInfo> Marks = new();
+        public List<EventInfo> Marks = new();
 
-        public MarkerInfo GetMarker(int frame)
+        public EventInfo GetMarker(int frame)
         {
-            foreach (MarkerInfo mark in Marks)
+            foreach (EventInfo mark in Marks)
             {
                 if (mark.frame == frame)
                 {
@@ -175,5 +162,15 @@ namespace Timeline
 
         public virtual Type ShowInInpsectorType => typeof (ShowInspectorData);
 #endif
+    }
+
+    //Track中的marker基类
+    [Serializable]
+    public class BBKeyframeBase
+    {
+        [ReadOnly]
+        public int frame;
+
+        public string keyframeName;
     }
 }

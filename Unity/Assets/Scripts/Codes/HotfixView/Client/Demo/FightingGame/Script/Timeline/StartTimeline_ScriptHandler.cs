@@ -27,7 +27,7 @@ namespace ET.Client
                 }
 
                 //编辑器事件
-                MarkerInfo info = runtimePlayable.Timeline.GetMarker(frame);
+                EventInfo info = runtimePlayable.Timeline.GetMarker(frame);
                 if (info != null)
                 {
                     Status ret = await MarkerEventHandle(unit, data, token, info);
@@ -43,15 +43,15 @@ namespace ET.Client
             }
         }
 
-        private async ETTask<Status> MarkerEventHandle(Unit unit, ScriptData data, ETCancellationToken token, MarkerInfo markerInfo)
+        private async ETTask<Status> MarkerEventHandle(Unit unit, ScriptData data, ETCancellationToken token, EventInfo eventInfo)
         {
-            if (string.IsNullOrEmpty(markerInfo.Script))
+            if (string.IsNullOrEmpty(eventInfo.Script))
             {
                 return Status.Success;
             }
 
             List<string> opLines = new();
-            foreach (var opLine in markerInfo.Script.Split("\n"))
+            foreach (var opLine in eventInfo.Script.Split("\n"))
             {
                 string op = opLine.Trim();
                 if (string.IsNullOrEmpty(op) || op.StartsWith('#')) continue;

@@ -97,7 +97,7 @@ namespace Timeline.Editor
                 {
                     ApplyModify(() =>
                     {
-                        MarkerInfo info = new() { frame = m_TimelineField.GetCurrentTimeLocator(), markerName = "TimelineMarker" };
+                        EventInfo info = new() { frame = m_TimelineField.GetCurrentTimeLocator(), keyframeName = "TimelineMarker" };
                         BBTimeline.Marks.Add(info);
                     }, "Add Marker");
                 });
