@@ -32,8 +32,8 @@ namespace Timeline.Editor
         {
         }
 
-        public abstract void InspectorAwake(TimelineFieldView fieldView);
-        public abstract void InspectorUpdate(TimelineFieldView fieldView);
-        public abstract void InspectorDestroy(TimelineFieldView fieldView);
+        public abstract void InspectorAwake(TimelineFieldView _fieldView);
+        public abstract void InspectorUpdate(TimelineFieldView _fieldView);
+        public abstract void InspectorDestroy(TimelineFieldView _fieldView);
     }
 }

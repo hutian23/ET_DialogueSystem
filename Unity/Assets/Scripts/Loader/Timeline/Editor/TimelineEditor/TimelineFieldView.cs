@@ -184,10 +184,6 @@ namespace Timeline.Editor
             });
             ClipInspector.RegisterCallback<PointerDownEvent>((e) => e.StopImmediatePropagation());
 
-            //Marker
-            // MarkerViewField = this.Q<VisualElement>("marker-view");
-            // MarkerViewField.RegisterCallback<PointerDownEvent>(MarkerViewPointerDown);
-
             RegisterCallback<CustomStyleResolvedEvent>(OnCustomStyleResolved);
             this.AddManipulator(new RectangleSelecter(() => -localBound.position));
         }
@@ -450,16 +446,6 @@ namespace Timeline.Editor
 
             //更新Inspector
             currentInspector?.InsepctorUpdate();
-            //更新frameField
-            // EditorWindow.m_currentFrameField.SetValueWithoutNotify(currentTimeLocator);
-            // string Marker = "_ _ _";
-            // foreach (MarkerInfo marker in EditorWindow.BBTimeline.Marks)
-            // {
-            //     if (marker.frame != currentTimeLocator) continue;
-            //     Marker = marker.markerName;
-            // }
-            //
-            // EditorWindow.m_currentMarkerField.SetValueWithoutNotify(Marker);
 
             //更新playableGraph
             RuntimePlayable.Evaluate(currentTimeLocator);
@@ -492,6 +478,119 @@ namespace Timeline.Editor
             paint2D.MoveTo(new Vector2(0, 25));
             paint2D.LineTo(new Vector2(0, 1000));
             paint2D.Stroke();
+        }
+
+        #endregion
+
+        #region Marker
+        private int startMoveMarkerFrame;
+        
+        public void MarkerStartMove(MarkerView markerView)
+        {
+            startMoveMarkerFrame = markerView.keyframeBase.frame;
+        }
+        
+        public void MoveMarkers(float deltaPosition)
+        {
+            int startFrame = int.MaxValue;
+            List<MarkerView> moveMarkers = new List<MarkerView>();
+            
+            //1. 获得选中的markerView
+            foreach (ISelectable selectable in Selections)
+            {
+                if (selectable is MarkerView markerView)
+                {
+                    moveMarkers.Add(markerView);
+                    if (markerView.keyframeBase.frame < startFrame)
+                    {
+                        startFrame = markerView.keyframeBase.frame;
+                    }
+                }
+            }
+
+            if (moveMarkers.Count == 0)
+            {
+                return;
+            }
+            
+            //2. Move markerView
+            int targetStartFrame = GetClosestFrame(FramePosMap[startFrame] + deltaPosition);
+            int deltaFrame = targetStartFrame - startFrame;
+            foreach (MarkerView marker in moveMarkers)
+            {
+                marker.Move(deltaFrame);
+            }
+
+            //3. Resize frameMap
+            int maxFrame = int.MinValue;
+            foreach (MarkerView marker in moveMarkers)
+            {
+                if (marker.keyframeBase.frame >= maxFrame)
+                {
+                    maxFrame = marker.keyframeBase.frame;
+                }
+            }
+
+            ResizeTimeField(maxFrame);
+
+            //4. check overlap
+            foreach (MarkerView marker in moveMarkers)
+            {
+                marker.InValid = marker.GetMoveValid();
+            }
+            
+            UpdateMix();
+            DrawFrameLine(startFrame);
+        }
+        
+        public void ApplyMarkerMove()
+        {
+            int startFrame = int.MaxValue;
+            bool InValid = true;
+
+            List<MarkerView> moveMarkers = new();
+            foreach (ISelectable selection in Selections)
+            {
+                if (selection is not MarkerView markerView) continue;
+
+                //override with other marker
+                if (!markerView.InValid)
+                {
+                    InValid = false;
+                }
+
+                if (markerView.keyframeBase.frame <= startFrame)
+                {
+                    startFrame = markerView.keyframeBase.frame;
+                }
+
+                moveMarkers.Add(markerView);
+            }
+
+            int deltaFrame = startFrame - startMoveMarkerFrame;
+
+            if (deltaFrame != 0)
+            {
+                //Reset position
+                foreach (MarkerView markerView in moveMarkers)
+                {
+                    markerView.ResetMove(deltaFrame);
+                }
+
+                if (InValid)
+                {
+                    EditorWindow.ApplyModify(() =>
+                    {
+                        foreach (MarkerView markerView in moveMarkers)
+                        {
+                            markerView.Move(deltaFrame);
+                        }
+                    }, "Move hitbox markers");
+                }
+            }
+            
+            UpdateMix();
+            DrawFrameLine();
         }
 
         #endregion

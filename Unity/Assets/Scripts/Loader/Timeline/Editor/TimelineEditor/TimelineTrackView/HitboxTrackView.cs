@@ -46,8 +46,6 @@ namespace Timeline.Editor
             foreach (MarkerView markerView in markerViews.Where(markerView => markerView.InMiddle(targetFrame)))
             {
                 markerView.OnPointerDown(evt);
-                evt.StopImmediatePropagation();
-                return;
             }
 
             //右键

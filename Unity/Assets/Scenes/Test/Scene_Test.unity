@@ -1455,13 +1455,13 @@ PrefabInstance:
     - target: {fileID: 1340376429761113669, guid: c7a02efc57a5aa44bbf97b07f3f9ed02,
         type: 3}
       propertyPath: serializationData.ReferencedUnityObjects.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1340376429761113669, guid: c7a02efc57a5aa44bbf97b07f3f9ed02,
         type: 3}
       propertyPath: serializationData.ReferencedUnityObjects.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7400000, guid: f5420f65636486a40bb486a2e0b65a8c, type: 2}
     - target: {fileID: 1340376429761113669, guid: c7a02efc57a5aa44bbf97b07f3f9ed02,
         type: 3}
       propertyPath: serializationData.ReferencedUnityObjects.Array.data[3]
@@ -1531,7 +1531,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1331877821, guid: a714674fa1a745f47809580dd5aa27ef,
+      objectReference: {fileID: -898875547, guid: 249a1eb7ace5d9f4cb4f3e0f9fefcf6c,
         type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

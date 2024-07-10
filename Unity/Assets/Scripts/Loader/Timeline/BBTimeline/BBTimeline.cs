@@ -171,6 +171,6 @@ namespace Timeline
         [ReadOnly]
         public int frame;
 
-        public string keyframeName;
+        public string keyframeName = "";
     }
 }

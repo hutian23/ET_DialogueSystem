@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ET;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using Timeline.Editor;
@@ -20,12 +21,17 @@ namespace Timeline
         public List<EventInfo> EventInfos = new();
 
         public override Type RuntimeTrackType => typeof (RuntimeEventTrack);
-        
+
+        public EventInfo GetInfo(int targetFrame)
+        {
+            return EventInfos.FirstOrDefault(info => info.frame == targetFrame);
+        }
+
 #if UNITY_EDITOR
         public override Type TrackViewType => typeof (EventTrackView);
         public override int GetMaxFrame()
         {
-            return EventInfos.Max(info => info.frame);
+            return EventInfos.Count > 0? EventInfos.Max(info => info.frame) : 0;
         }
 #endif
     }
@@ -38,10 +44,50 @@ namespace Timeline
         public string Script;
     }
 
+    public struct EventCallback
+    {
+        public long instanceId;
+
+        public EventInfo info;
+    }
+
+#if UNITY_EDITOR
+    public class EventInspectorData: ShowInspectorData
+    {
+        [HideReferenceObjectPicker, HideLabel]
+        public EventInfo Info;
+
+        private TimelineFieldView FieldView;
+
+        public EventInspectorData(object target): base(target)
+        {
+            Info = target as EventInfo;
+        }
+
+        public override void InspectorAwake(TimelineFieldView fieldView)
+        {
+            FieldView = fieldView;
+        }
+
+        public override void InspectorUpdate(TimelineFieldView fieldView)
+        {
+        }
+
+        public override void InspectorDestroy(TimelineFieldView fieldView)
+        {
+        }
+    }
+#endif
+
     public class RuntimeEventTrack: RuntimeTrack
     {
-        public RuntimeEventTrack(RuntimePlayable runtimePlayable, BBTrack track): base(runtimePlayable, track)
+        private int currentFrame = -1;
+        private readonly BBEventTrack track;
+        private TimelinePlayer timelinePlayer => RuntimePlayable.TimelinePlayer;
+        
+        public RuntimeEventTrack(RuntimePlayable runtimePlayable, BBTrack _track): base(runtimePlayable, _track)
         {
+            track = _track as BBEventTrack;
         }
 
         public override void Bind()
@@ -54,6 +100,18 @@ namespace Timeline
 
         public override void SetTime(int targetFrame)
         {
+            if (currentFrame == targetFrame)
+            {
+                return;
+            }
+
+            currentFrame = targetFrame;
+
+            EventInfo info = track.GetInfo(targetFrame);
+            if (info != null)
+            {
+                EventSystem.Instance?.Invoke(new EventCallback());
+            }
         }
     }
 }

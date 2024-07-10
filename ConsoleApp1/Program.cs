@@ -42,24 +42,43 @@ using UnityEngine;
 //     }
 // }
 
+public class TestInfo
+{
+    public int frame;
+}
+
 class Program
 {
     static void Main(string[] args)
     {
-        string input = "LogWarning: <Param name = Hello World/> <Param name = 2222/>";
-        string pattern = @"<Param name = [^/]+/>";
+        //Linq测试
+        //count >=1
+        // List<TestInfo> infos = new(){new TestInfo(){frame = 3},new TestInfo(){frame = 4},new TestInfo(){frame = 5}};
+        List<TestInfo> infos = new();
+        Console.WriteLine(infos.Max(info => info.frame));
+        // List<int> list = new List<int>()
+        // {
+        //     1,
+        //     2,
+        //     3,
+        //     6,
+        //     656
+        // };
+        // Console.WriteLine(list.Max());
+        // string input = "LogWarning: <Param name = Hello World/> <Param name = 2222/>";
+        // string pattern = @"<Param name = [^/]+/>";
+        //
+        // MatchCollection matches = Regex.Matches(input, pattern);
+        // foreach (Match match in matches)
+        // {
+        //     string matchLine = match.Value;
+        //     Match match2 = Regex.Match(matchLine, "<Param name = (?<param>.*?)/>");
+        //     Console.WriteLine(match2.Groups["param"].Value);
+        //     Console.WriteLine("匹配到的内容: " + match.Value);
+        //     input = input.Replace(match2.Value, match2.Groups["param"].Value);
+        // }
 
-        MatchCollection matches = Regex.Matches(input, pattern);
-        foreach (Match match in matches)
-        {
-            string matchLine = match.Value;
-            Match match2 = Regex.Match(matchLine, "<Param name = (?<param>.*?)/>");
-            Console.WriteLine(match2.Groups["param"].Value);
-            Console.WriteLine("匹配到的内容: " + match.Value);
-            input = input.Replace(match2.Value, match2.Groups["param"].Value);
-        }
-        
-        Console.WriteLine(input);
+        // Console.WriteLine(input);
         // Match match2 = Regex.Match("BeginIf: HP > 10", "BeginIf: (.+)");
         // string op = match2.Groups[1].Value;
         // var ops = op.Split(' ');

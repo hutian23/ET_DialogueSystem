@@ -90,17 +90,17 @@ namespace Timeline.Editor
 
         protected virtual void OnStartDrag(PointerDownEvent evt)
         {
-            trackView.MarkerStartMove(this);
+            FieldView.MarkerStartMove(this);
         }
 
         protected virtual void OnDragStop()
         {
-            trackView.ApplyMarkerMove();
+            FieldView.ApplyMarkerMove();
         }
 
         protected virtual void OnDragMove(Vector2 movePos)
         {
-            trackView.MoveMarkers(movePos.x);
+            FieldView.MoveMarkers(movePos.x);
         }
 
         #endregion
@@ -120,6 +120,24 @@ namespace Timeline.Editor
             keyframeBase.frame -= deltaFrame;
         }
 
+        public bool GetMoveValid()
+        {
+            foreach (MarkerView view in trackView.markerViews)
+            {
+                if (view == this)
+                {
+                    continue;
+                }
+
+                if (view.keyframeBase.frame == keyframeBase.frame)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        
         #endregion
 
         #region Select
