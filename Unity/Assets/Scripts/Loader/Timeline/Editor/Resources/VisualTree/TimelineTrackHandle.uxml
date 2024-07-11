@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/Loader/Timeline/Editor/Resources/Style/TimelineTrackHandle.uss?fileID=7433441132597879392&amp;guid=a90b12e657cbaf34facbb3305a4fae71&amp;type=3#TimelineTrackHandle" />
+    <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="name-label" />
     <ui:TextField name="name-field" picking-mode="Ignore" />
     <ui:VisualElement name="icon" />
     <ui:VisualElement name="eye" />

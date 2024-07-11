@@ -22,9 +22,8 @@ namespace Timeline.Editor
         private Button m_PauseButton;
         private Button m_LoopPlayButton;
         private Label m_select_timeline_label;
+
         private TimelineFieldView m_TimelineField;
-        // public IntegerField m_currentFrameField;
-        // public TextField m_currentMarkerField;
         public TimelinePlayer TimelinePlayer { get; private set; }
 
         public BBTimeline BBTimeline => TimelinePlayer.RuntimeimePlayable.Timeline;
@@ -77,15 +76,8 @@ namespace Timeline.Editor
                     if (timelineTrackHandle.worldBound.Contains(e.position))
                     {
                         timelineTrackHandle.OnPointerDown(e);
-                        e.StopImmediatePropagation();
                         return;
                     }
-                }
-
-                if (e.button == 0)
-                {
-                    m_TimelineField.ClearSelection();
-                    e.StopImmediatePropagation();
                 }
             });
 
@@ -93,15 +85,6 @@ namespace Timeline.Editor
             m_AddTrackButton = root.Q("add-track-button");
             m_AddTrackButton.AddManipulator(new DropdownMenuManipulator((menu) =>
             {
-                menu.AppendAction("Marker", _ =>
-                {
-                    ApplyModify(() =>
-                    {
-                        EventInfo info = new() { frame = m_TimelineField.GetCurrentTimeLocator(), keyframeName = "TimelineMarker" };
-                        BBTimeline.Marks.Add(info);
-                    }, "Add Marker");
-                });
-                menu.AppendSeparator();
                 foreach (var type in BBTimelineEditorUtility.BBTrackTypeDic)
                 {
                     menu.AppendAction(type.Key, _ => { ApplyModify(() => { RuntimePlayable.AddTrack(type.Value); }, "Add Track"); });
@@ -128,25 +111,7 @@ namespace Timeline.Editor
 
             fieldScaleBar = root.Q<SliderInt>("field-scale-bar");
             fieldScaleBar.RegisterValueChangedCallback(m_TimelineField.SliderUpdate);
-
-            // m_currentFrameField = root.Q<IntegerField>("current-frame-field");
-            // m_currentFrameField.RegisterCallback<BlurEvent>(_ =>
-            // {
-            //     if (m_currentFrameField.value >= 500) m_currentFrameField.SetValueWithoutNotify(500);
-            //     m_TimelineField.CurrentFrameFieldUpdate(m_currentFrameField.value);
-            // });
-
-            // m_currentMarkerField = root.Q<TextField>("current-marker-field");
-            // m_currentMarkerField.RegisterCallback<BlurEvent>(_ =>
-            // {
-            //     foreach (var mark in BBTimeline.Marks)
-            //     {
-            //         if (!mark.markerName.Equals(m_currentMarkerField.value)) continue;
-            //         int frame = mark.frame;
-            //         m_TimelineField.CurrentFrameFieldUpdate(frame);
-            //     }
-            // });
-
+            
             Undo.undoRedoEvent += OnUndoRedoEvent;
         }
 
@@ -255,7 +220,6 @@ namespace Timeline.Editor
             window.TimelinePlayer.Dispose();
             window.TimelinePlayer.Init(timeline);
             window.PopulateView();
-            
         }
 
         #region Select Timeline

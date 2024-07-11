@@ -10,6 +10,7 @@ namespace Timeline.Editor
         {
         }
 
+        private Label NameLabel { get; set; }
         private TextField NameField { get; set; }
         private VisualElement Icon { get; set; }
         private VisualElement eyeBtn { get; set; }
@@ -41,15 +42,23 @@ namespace Timeline.Editor
 
             style.borderLeftColor = ColorAttribute.GetColor(BBTrack.GetType());
 
-            //bind track name
+            //track name
+            NameLabel = this.Q<Label>();
+            NameLabel.pickingMode = PickingMode.Ignore;
             NameField = this.Q<TextField>();
+            NameField.pickingMode = PickingMode.Ignore;
             //因为用了odinSerialized 这里无法反射获取属性
-            // SerializedProperty serializedProperty = EditorWindow.SerializedTimeline.FindProperty("Tracks");
-            // serializedProperty = serializedProperty.GetArrayElementAtIndex(EditorWindow.BBTimeline.Tracks.IndexOf(BBTrack));
-            // NameField.bindingPath = serializedProperty.FindPropertyRelative("Name").propertyPath;
-            // NameField.Bind(EditorWindow.SerializedTimeline);
-            NameField.value = BBTrack.Name;
-            NameField.RegisterValueChangedCallback(_ => { BBTrack.Name = NameField.value; });
+            NameField.RegisterCallback<BlurEvent>(_ =>
+            {
+                if (EditorWindow.BBTimeline.ContainTrack(NameField.value))
+                {
+                    RefreshEditName(false);
+                    return;
+                }
+
+                EditorWindow.ApplyModify(() => { BBTrack.Name = NameField.value; }, "Rename BBTrack");
+            });
+            RefreshEditName(false);
 
             transform.position = new Vector3(0, GetTrackOrder() * 40, 0);
 
@@ -119,6 +128,7 @@ namespace Timeline.Editor
             });
             this.AddManipulator(DragManipulator);
 
+            //Enable
             eyeBtn = this.Q("eye");
             eyeBtn.style.display = BBTrack.Enable? DisplayStyle.Flex : DisplayStyle.None;
             eyeCloseBtn = this.Q("eye-close");
@@ -141,6 +151,7 @@ namespace Timeline.Editor
         private void MenuBuilder(DropdownMenu menu)
         {
             menu.AppendAction("Remove Track", _ => { EditorWindow.ApplyModify(() => { RuntimePlayable.RemoveTrack(BBTrack); }, "Remove Track"); });
+            menu.AppendAction("Edit Track Name", _ => { RefreshEditName(true); });
         }
 
         public void OnPointerDown(PointerDownEvent evt)
@@ -181,6 +192,20 @@ namespace Timeline.Editor
             }
         }
 
+        private void RefreshEditName(bool editMode)
+        {
+            NameField.style.display = editMode? DisplayStyle.Flex : DisplayStyle.None;
+            NameLabel.style.display = editMode? DisplayStyle.None : DisplayStyle.Flex;
+
+            NameLabel.text = BBTrack.Name;
+            NameField.value = BBTrack.Name;
+
+            if (editMode)
+            {
+                NameField.Focus();
+            }
+        }
+
         #region Drag
 
         private bool Dragging;
@@ -197,12 +222,6 @@ namespace Timeline.Editor
             var trackHandles = parent.Query<TimelineTrackHandle>().ToList();
             foreach (var trackHandle in trackHandles)
             {
-                // var bindingPath = Regex.Replace(trackHandle.NameField.bindingPath,
-                //     @"(Tracks.Array.data\[)(\d+)(\].Name)",
-                //     "Tracks.Array.data[" + trackHandle.GetTrackIndex() + "].Name");
-                // trackHandle.NameField.bindingPath = bindingPath;
-                // trackHandle.NameField.Bind(EditorWindow.SerializedTimeline);
-
                 if (!trackHandle.Dragging)
                 {
                     float targetY = trackHandle.GetTrackIndex() * Interval;

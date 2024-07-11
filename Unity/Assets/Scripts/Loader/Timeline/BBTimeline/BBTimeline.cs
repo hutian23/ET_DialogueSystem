@@ -44,7 +44,10 @@ namespace Timeline
         public BBTrack AddTrack(Type type)
         {
             BBTrack track = Activator.CreateInstance(type) as BBTrack;
-            track.Name = type.Name.Replace("Track", string.Empty);
+
+            string trackName = Guid.NewGuid().ToString();
+            track.Name = trackName;
+            // track.Name = type.Name.Replace("Track", string.Empty);
             Tracks.Add(track);
             return track;
         }
@@ -52,6 +55,11 @@ namespace Timeline
         public void RemoveTrack(BBTrack track)
         {
             Tracks.Remove(track);
+        }
+
+        public bool ContainTrack(string trackName)
+        {
+            return Tracks.Exists(track => track.Name == trackName);
         }
 
         public BBClip AddClip(BBTrack track, int frame)

@@ -44,7 +44,7 @@ namespace Timeline
         public string Script;
     }
 
-    public struct EventCallback
+    public struct EventMarkerCallback
     {
         public long instanceId;
 
@@ -110,7 +110,7 @@ namespace Timeline
             EventInfo info = track.GetInfo(targetFrame);
             if (info != null)
             {
-                EventSystem.Instance?.Invoke(new EventCallback());
+                EventSystem.Instance?.Invoke(new EventMarkerCallback());
             }
         }
     }

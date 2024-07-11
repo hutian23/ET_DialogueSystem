@@ -4,11 +4,10 @@ using UnityEngine;
 namespace ET.Client
 {
     [Invoke]
-    public class TimelineEventCallback : AInvokeHandler<EventCallback>
+    public class TimelineEventCallback : AInvokeHandler<EventMarkerCallback>
     {
-        public override void Handle(EventCallback args)
+        public override void Handle(EventMarkerCallback args)
         {
-            Debug.LogWarning("Hello world");
         }
     }
 }

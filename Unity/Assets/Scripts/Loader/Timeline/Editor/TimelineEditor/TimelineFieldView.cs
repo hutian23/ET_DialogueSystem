@@ -31,7 +31,6 @@ namespace Timeline.Editor
         private Label LocaterFrameLabel { get; set; }
         private ScrollView InspectorScrollView { get; set; }
         public VisualElement ClipInspector { get; set; }
-        // private VisualElement MarkerViewField { get; set; }
 
         #region Param
 

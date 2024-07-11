@@ -22,11 +22,23 @@
     background-color: forestgreen;
 }
 
+#name-label{
+    flex-grow: 1;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    right: 50px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: 28px;
+}
+
 #name-field {
     flex-grow: 1;
     margin-top: 5px;
     margin-bottom: 5px;
-    right: 28px;
+    right: 50px;
     left: 0;
     position: absolute;
     top: 0;
