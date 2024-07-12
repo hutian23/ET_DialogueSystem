@@ -85,7 +85,6 @@ namespace Timeline
     public class RuntimeEventTrack: RuntimeTrack
     {
         private TimelinePlayer timelinePlayer => RuntimePlayable.TimelinePlayer;
-        private int currentFrame = -1;
 
         public RuntimeEventTrack(RuntimePlayable runtimePlayable, BBTrack _track): base(runtimePlayable, _track)
         {
@@ -103,19 +102,9 @@ namespace Timeline
 
         public override void SetTime(int targetFrame)
         {
-            if (currentFrame == targetFrame)
-            {
-                return;
-            }
-
-            currentFrame = targetFrame;
-
             BBEventTrack eventTrack = Track as BBEventTrack;
-            EventInfo targetInfo = eventTrack.GetInfo(currentFrame);
-            if (targetInfo == null)
-            {
-                return;
-            }
+            EventInfo targetInfo = eventTrack.GetInfo(targetFrame);
+            if (targetInfo == null) return;
 
             //目前的想法是 跟 AnimationEvent保持一致， 同步调用动画帧事件(协程调用当前异步动画帧事件)
             EventSystem.Instance?.Invoke(new EventMarkerCallback() { instanceId = timelinePlayer.instanceId, info = targetInfo });

@@ -19,7 +19,7 @@ namespace Timeline.Editor
         protected TimelineFieldView FieldView => SelectionContainer as TimelineFieldView;
         protected TimelineEditorWindow EditorWindow => FieldView.EditorWindow;
         public BBClip BBClip;
-        public BBTrack BBTrack => TrackView.RuntimeTrack.Track;
+        public BBTrack BBTrack => TrackView.Track;
 
         protected Dictionary<int, float> FramePosMap => FieldView.FramePosMap;
         public int StartFrame => BBClip.StartFrame;

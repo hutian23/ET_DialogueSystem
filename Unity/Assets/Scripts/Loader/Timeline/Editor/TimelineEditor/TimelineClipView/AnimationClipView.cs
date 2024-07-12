@@ -6,10 +6,7 @@ namespace Timeline.Editor
     public class AnimationClipView: TimelineClipView
     {
         private UnityEngine.AnimationClip AnimationClip => (BBClip as BBAnimationClip).animationClip;
-
-        public AnimationClipView()
-        {
-        }
+        
 
         protected override void MenuBuilder(DropdownMenu menu)
         {

@@ -7,17 +7,16 @@ namespace Timeline.Editor
 {
     public sealed class HitboxTrackView: TimelineTrackView
     {
-        private BBHitboxTrack Track;
+        private BBHitboxTrack hitboxTrack => Track as BBHitboxTrack;
 
-        public override void Init(RuntimeTrack track)
+        public override void Init(BBTrack track)
         {
-            RuntimeTrack = track;
-            Track = RuntimeTrack.Track as BBHitboxTrack;
+            Track = track;
 
-            int index = EditorWindow.RuntimePlayable.RuntimeTracks.IndexOf(track);
+            int index = EditorWindow.BBTimeline.Tracks.IndexOf(track);
             transform.position = new Vector3(0, index * 40, 0);
 
-            foreach (HitboxKeyframe keyframe in Track.Keyframes)
+            foreach (HitboxKeyframe keyframe in hitboxTrack.Keyframes)
             {
                 HitboxMarkerView markerView = new();
                 markerView.Init(this, keyframe);
@@ -64,18 +63,18 @@ namespace Timeline.Editor
             menu.AppendAction("Create Keyframe", _ =>
             {
                 int targetFrame = FieldView.GetClosestFrame(localMousePos.x);
-                EditorWindow.ApplyModify(() => { Track.Keyframes.Add(new HitboxKeyframe() { frame = targetFrame }); }, "Create Hitbox Keyframe");
+                EditorWindow.ApplyModify(() => { hitboxTrack.Keyframes.Add(new HitboxKeyframe() { frame = targetFrame }); }, "Create Hitbox Keyframe");
             }, ContainKeyframe(localMousePos.x)? DropdownMenuAction.Status.Hidden : DropdownMenuAction.Status.Normal);
             menu.AppendAction("Remove keyframe", _ =>
             {
                 int targetFrame = FieldView.GetClosestFrame(localMousePos.x);
-                HitboxKeyframe keyframe = Track.GetKeyframe(targetFrame);
-                EditorWindow.ApplyModify(() => { Track.Keyframes.Remove(keyframe); }, "Remove hitbox keyframe");
+                HitboxKeyframe keyframe = hitboxTrack.GetKeyframe(targetFrame);
+                EditorWindow.ApplyModify(() => { hitboxTrack.Keyframes.Remove(keyframe); }, "Remove hitbox keyframe");
             }, ContainKeyframe(localMousePos.x)? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Hidden);
             menu.AppendAction("Copy keyframe", _ =>
             {
                 int targetFrame = FieldView.GetClosestFrame(localMousePos.x);
-                HitboxKeyframe copyFrame = MongoHelper.Clone(Track.GetKeyframe(targetFrame));
+                HitboxKeyframe copyFrame = MongoHelper.Clone(hitboxTrack.GetKeyframe(targetFrame));
                 BBTimelineSettings.GetSettings().CopyTarget = copyFrame;
             }, ContainKeyframe(localMousePos.x)? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Hidden);
             menu.AppendAction("Paste keyframe", _ =>
@@ -96,7 +95,7 @@ namespace Timeline.Editor
 
                 HitboxKeyframe cloneKeyframe = MongoHelper.Clone(targetKeyframe);
                 cloneKeyframe.frame = targetFrame;
-                EditorWindow.ApplyModify(() => { Track.Keyframes.Add(cloneKeyframe); }, "Paste Hitbox Keyframe");
+                EditorWindow.ApplyModify(() => { hitboxTrack.Keyframes.Add(cloneKeyframe); }, "Paste Hitbox Keyframe");
             }, CanPaste()? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Hidden);
         }
 
@@ -110,7 +109,7 @@ namespace Timeline.Editor
         private bool ContainKeyframe(float x)
         {
             int frame = FieldView.GetClosestFrame(x);
-            return Track.GetKeyframe(frame) != null;
+            return hitboxTrack.GetKeyframe(frame) != null;
         }
 
         #endregion

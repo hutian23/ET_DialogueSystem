@@ -17,9 +17,10 @@ namespace Timeline.Editor
         private readonly DoubleMap<BBClip, TimelineClipView> ClipViewMap = new();
         public readonly List<MarkerView> markerViews = new();
         
-        public RuntimeTrack RuntimeTrack;
-        private BBTrack BBTrack => RuntimeTrack.Track;
-
+        // public RuntimeTrack RuntimeTrack;
+        // private BBTrack BBTrack => RuntimeTrack.Track;
+        public BBTrack Track;
+        
         public TimelineTrackView()
         {
             VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>($"VisualTree/TimelineTrackView");
@@ -33,24 +34,37 @@ namespace Timeline.Editor
             m_MenuHandler = new DropdownMenuHandler(MenuBuilder);
         }
 
-        public virtual void Init(RuntimeTrack track)
+        public virtual void Init(BBTrack track)
         {
-            RuntimeTrack = track;
-            int index = EditorWindow.RuntimePlayable.RuntimeTracks.IndexOf(track);
+            // RuntimeTrack = track;
+            // int index = EditorWindow.RuntimePlayable.RuntimeTracks.IndexOf(track);
+            Track = track;
+            int index = EditorWindow.BBTimeline.Tracks.IndexOf(track);
+            
             transform.position = new Vector3(0, index * 40, 0);
 
             //Init ClipView
             ClipViewMap.Clear();
-            foreach (BBClip clip in RuntimeTrack.Track.Clips)
+            foreach (BBClip clip in Track.Clips)
             {
-                TimelineClipView clipView = Activator.CreateInstance(RuntimeTrack.Track.ClipViewType) as TimelineClipView;
+                TimelineClipView clipView = Activator.CreateInstance(Track.ClipViewType) as TimelineClipView;
                 clipView.SelectionContainer = FieldView;
                 clipView.Init(clip, this);
-
+                
                 Add(clipView);
                 ClipViewMap.Add(clip, clipView);
                 FieldView.SelectionElements.Add(clipView);
             }
+            // foreach (BBClip clip in RuntimeTrack.Track.Clips)
+            // {
+            //     TimelineClipView clipView = Activator.CreateInstance(RuntimeTrack.Track.ClipViewType) as TimelineClipView;
+            //     clipView.SelectionContainer = FieldView;
+            //     clipView.Init(clip, this);
+            //
+            //     Add(clipView);
+            //     ClipViewMap.Add(clip, clipView);
+            //     FieldView.SelectionElements.Add(clipView);
+            // }
         }
 
         public virtual void Refresh()
@@ -100,7 +114,7 @@ namespace Timeline.Editor
         protected virtual void MenuBuilder(DropdownMenu menu)
         {
             menu.AppendAction("Add Clip",
-                _ => { EditorWindow.ApplyModify(() => { BBTrack.AddClip(FieldView.GetCurrentTimeLocator()); }, "Add Clip"); });
+                _ => { EditorWindow.ApplyModify(() => { Track.AddClip(FieldView.GetCurrentTimeLocator()); }, "Add Clip"); });
         }
 
         protected virtual void OnPointerDown(PointerDownEvent evt)

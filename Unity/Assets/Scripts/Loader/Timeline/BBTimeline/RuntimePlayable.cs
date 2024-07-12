@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Animations;
-using UnityEngine.Audio;
 using UnityEngine.Playables;
 
 namespace Timeline
@@ -11,19 +9,15 @@ namespace Timeline
     {
         public BBTimeline Timeline;
         public TimelinePlayer TimelinePlayer;
+        public List<RuntimeTrack> RuntimeTracks = new();
+        private int CurrentFrame = -1;
 
         #region Component
 
-        public Animator Animator => TimelinePlayer.GetComponent<Animator>();
-        public AudioSource AudioSource => TimelinePlayer.GetComponent<AudioSource>();
         public PlayableGraph PlayableGraph => TimelinePlayer.PlayableGraph;
         public AnimationLayerMixerPlayable AnimationRootPlayable => TimelinePlayer.AnimationRootPlayable;
-        public AudioMixerPlayable AudioRootPlayable => TimelinePlayer.AudioRootPlayable;
 
         #endregion
-
-        public List<RuntimeTrack> RuntimeTracks = new();
-        private int CurrentFrame = -1;
 
         public static RuntimePlayable Create(BBTimeline _timeline, TimelinePlayer _timelinePlayer)
         {
@@ -36,10 +30,16 @@ namespace Timeline
             return runtimePlayable;
         }
 
+        //解耦合需要达成什么目标? 
+        //1. TrackView 渲染完全脱离RuntimeTrack ,只跟数据层有关
+        //2. TrackView中支持抛出事件到逻辑层
+        //3. 支持选择是否evaluate track
         private void Init()
         {
             Timeline.Tracks.ForEach(track =>
             {
+                if (!track.Enable) return;
+
                 Type trackType = track.RuntimeTrackType;
                 RuntimeTrack runtimeTrack = Activator.CreateInstance(trackType, this, track) as RuntimeTrack;
                 runtimeTrack.Bind();
@@ -61,6 +61,7 @@ namespace Timeline
 
         public void Evaluate(int targetFrame)
         {
+            //1. dont call each update 
             if (CurrentFrame == targetFrame)
             {
                 return;
@@ -68,16 +69,14 @@ namespace Timeline
 
             CurrentFrame = targetFrame;
 
+            //2. mute runtimeTrack
             for (int i = RuntimeTracks.Count - 1; i >= 0; i--)
             {
                 RuntimeTrack runtimeTrack = RuntimeTracks[i];
-                if (!runtimeTrack.Track.Enable)
-                {
-                    continue;
-                }
                 runtimeTrack.SetTime(targetFrame);
             }
 
+            //3. mute playable 
             PlayableGraph.Evaluate();
         }
 
@@ -106,14 +105,11 @@ namespace Timeline
         public int ClipMaxFrame()
         {
             int maxFrame = 0;
-            foreach (var track in Timeline.Tracks)
+            foreach (BBTrack track in Timeline.Tracks)
             {
-                foreach (var clip in track.Clips)
+                if (maxFrame <= track.GetMaxFrame())
                 {
-                    if (clip.EndFrame >= maxFrame)
-                    {
-                        maxFrame = clip.EndFrame;
-                    }
+                    maxFrame = track.GetMaxFrame();
                 }
             }
 
@@ -128,11 +124,11 @@ namespace Timeline
             RuntimePlayable = runtimePlayable;
             Track = track;
         }
-
-        protected RuntimePlayable RuntimePlayable;
+        
         public BBTrack Track;
-
         protected int PlayableIndex;
+        protected RuntimePlayable RuntimePlayable;
+        
         public abstract void Bind();
         public abstract void UnBind();
         public abstract void SetTime(int targetFrame);

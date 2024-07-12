@@ -212,11 +212,11 @@ namespace Timeline.Editor
 
             //get maxframe
             int maxFrame = m_MaxFrame;
-            foreach (RuntimeTrack runtimeTrack in RuntimePlayable.RuntimeTracks)
+            foreach (BBTrack track in EditorWindow.BBTimeline.Tracks)
             {
-                if (maxFrame <= runtimeTrack.Track.GetMaxFrame())
+                if (maxFrame <= track.GetMaxFrame())
                 {
-                    maxFrame = runtimeTrack.Track.GetMaxFrame() + 1;
+                    maxFrame = track.GetMaxFrame() + 1;
                 }
             }
 
@@ -225,12 +225,12 @@ namespace Timeline.Editor
             ResizeTimeField();
             UpdateBindState();
 
-            foreach (RuntimeTrack runtimeTrack in RuntimePlayable.RuntimeTracks)
+            foreach (BBTrack track in EditorWindow.BBTimeline.Tracks)
             {
                 // TrackView
-                TimelineTrackView trackView = Activator.CreateInstance(runtimeTrack.Track.TrackViewType) as TimelineTrackView;
+                TimelineTrackView trackView = Activator.CreateInstance(track.TrackViewType) as TimelineTrackView;
                 trackView.SelectionContainer = this;
-                trackView.Init(runtimeTrack);
+                trackView.Init(track);
 
                 //可以被选中
                 SelectionElements.Add(trackView);
@@ -642,7 +642,7 @@ namespace Timeline.Editor
                     clipView.BBClip.StartFrame = targetFrame;
                     bool overlap = false;
 
-                    foreach (var clip in clipView.BBTrack.Clips)
+                    foreach (BBClip clip in clipView.BBTrack.Clips)
                     {
                         if (clip == clipView.BBClip) continue;
                         if (clip.Overlap(clipView.BBClip))
@@ -1014,7 +1014,6 @@ namespace Timeline.Editor
             {
                 SetTimeLocator((int)(counter * TimelineUtility.FrameRate));
                 //AnimationClip 当前preview模式下会阻塞主线程?(preview中timeline更新速率变慢)
-
                 float timer = Time.realtimeSinceStartup;
                 yield return null;
                 counter += Time.realtimeSinceStartup - timer;

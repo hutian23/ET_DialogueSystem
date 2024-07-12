@@ -6,17 +6,16 @@ namespace Timeline.Editor
 {
     public class EventTrackView: TimelineTrackView
     {
-        private BBEventTrack Track;
+        private BBEventTrack eventTrack => Track as BBEventTrack;
 
-        public override void Init(RuntimeTrack track)
+        public override void Init(BBTrack track)
         {
-            RuntimeTrack = track;
-            Track = RuntimeTrack.Track as BBEventTrack;
+            Track = track;
 
-            int index = EditorWindow.RuntimePlayable.RuntimeTracks.IndexOf(track);
+            int index = EditorWindow.BBTimeline.Tracks.IndexOf(track);
             transform.position = new Vector3(0, index * 40, 0);
 
-            foreach (EventInfo info in Track.EventInfos)
+            foreach (EventInfo info in eventTrack.EventInfos)
             {
                 EventMarkerView markerView = new();
                 markerView.Init(this, info);
@@ -62,15 +61,15 @@ namespace Timeline.Editor
             menu.AppendAction("Create Event", _ =>
             {
                 int targetFrame = FieldView.GetClosestFrame(localMousePos.x);
-                EditorWindow.ApplyModify(() => { Track.EventInfos.Add(new EventInfo() { frame = targetFrame }); }, "Create Event keyframe");
+                EditorWindow.ApplyModify(() => { eventTrack.EventInfos.Add(new EventInfo() { frame = targetFrame }); }, "Create Event keyframe");
             }, ContainKeyframe(localMousePos.x)? DropdownMenuAction.Status.Hidden : DropdownMenuAction.Status.Normal);
             menu.AppendAction("Delete Event", _ =>
             {
                 int targetFrame = FieldView.GetClosestFrame(localMousePos.x);
                 EditorWindow.ApplyModify(() =>
                 {
-                    EventInfo targetInfo = Track.GetInfo(targetFrame);
-                    Track.EventInfos.Remove(targetInfo);
+                    EventInfo targetInfo = eventTrack.GetInfo(targetFrame);
+                    eventTrack.EventInfos.Remove(targetInfo);
                 }, "Delete Event");
             }, ContainKeyframe(localMousePos.x)? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Hidden);
         }
@@ -78,7 +77,7 @@ namespace Timeline.Editor
         private bool ContainKeyframe(float x)
         {
             int frame = FieldView.GetClosestFrame(x);
-            return Track.EventInfos.FirstOrDefault(info => info.frame == frame) != null;
+            return eventTrack.EventInfos.FirstOrDefault(info => info.frame == frame) != null;
         }
     }
 }

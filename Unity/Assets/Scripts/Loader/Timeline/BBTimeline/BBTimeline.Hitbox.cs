@@ -115,7 +115,6 @@ namespace Timeline
 
     public class RuntimeHitboxTrack: RuntimeTrack
     {
-        private int currentFrame = -1;
         private TimelinePlayer timelinePlayer => RuntimePlayable.TimelinePlayer;
 
         public RuntimeHitboxTrack(RuntimePlayable runtimePlayable, BBTrack track): base(runtimePlayable, track)
@@ -136,17 +135,10 @@ namespace Timeline
         public override void SetTime(int targetFrame)
         {
 #if UNITY_EDITOR
-            if (currentFrame == targetFrame)
-            {
-                return;
-            }
-
-            currentFrame = targetFrame;
-
             BBHitboxTrack hitboxTrack = Track as BBHitboxTrack;
             foreach (HitboxKeyframe keyframe in hitboxTrack.Keyframes)
             {
-                if (keyframe.frame != currentFrame)
+                if (keyframe.frame != targetFrame)
                 {
                     continue;
                 }

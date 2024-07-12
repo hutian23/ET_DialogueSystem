@@ -16,8 +16,7 @@ namespace Timeline.Editor
         private VisualElement eyeBtn { get; set; }
         private VisualElement eyeCloseBtn { get; set; }
         private TimelineTrackView TrackView { get; set; }
-        private RuntimeTrack RuntimeTrack => TrackView.RuntimeTrack;
-        private BBTrack BBTrack => RuntimeTrack.Track;
+        private BBTrack BBTrack => TrackView.Track;
         private BBTimeline BBTimeline => EditorWindow.BBTimeline;
         private RuntimePlayable RuntimePlayable => EditorWindow.RuntimePlayable;
 
