@@ -4,9 +4,13 @@ using System.Collections.Generic;
 namespace ET.Client
 {
     [ComponentOf(typeof (TimelineComponent))]
-    [ChildOf(typeof(TimelineEventManager))]
+    [ChildOf(typeof (TimelineEventManager))]
     public class ScriptParser: Entity, IAwake, IDestroy, ILoad
     {
+        //Unit的唯一Id
+        //因为行为机和 timeline 帧事件都用到了ScriptParser组件 这样避免了结构和引用问题 (通过id查到unit，获取下面的组件)
+        public long instanceId;
+
         public Dictionary<string, int> funcMap = new();
         public Dictionary<string, int> markerMap = new();
 

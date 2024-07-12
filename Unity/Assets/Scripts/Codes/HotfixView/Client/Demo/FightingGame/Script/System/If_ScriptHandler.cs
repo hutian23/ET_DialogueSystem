@@ -12,10 +12,8 @@ namespace ET.Client
             return "BeginIf";
         }
 
-        public override async ETTask<Status> Handle(Unit unit, ScriptData data, ETCancellationToken token)
+        public override async ETTask<Status> Handle(ScriptParser parser, ScriptData data, ETCancellationToken token)
         {
-            ScriptParser parser = unit.GetComponent<TimelineComponent>().GetComponent<ScriptParser>();
-
             BBSyntaxNode rootNode = GenerateSyntaxTree(parser, data);
             return await HandleSyntaxTree(parser, data, rootNode);
         }
@@ -127,7 +125,7 @@ namespace ET.Client
                     }
 
                     ScriptData _data = ScriptData.Create(opLine, coroutineData.coroutineName);
-                    Status ret = await scriptHandler.Handle(parser.GetParent<TimelineComponent>().GetParent<Unit>(), _data, coroutineData.token);
+                    Status ret = await scriptHandler.Handle(parser, _data, coroutineData.token);
                     if (ret != Status.Success)
                     {
                         Log.Warning($"index: {syntaxNode.startIndex} {opLine} failed to execute");

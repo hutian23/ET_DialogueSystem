@@ -10,10 +10,8 @@
 
         //RegistMove:
         //EndMove:
-        public override async ETTask<Status> Handle(Unit unit, ScriptData data, ETCancellationToken token)
+        public override async ETTask<Status> Handle(ScriptParser parser, ScriptData data, ETCancellationToken token)
         {
-            ScriptParser parser = unit.GetComponent<TimelineComponent>().GetComponent<ScriptParser>();
-
             parser.subCoroutineDatas.TryGetValue(data.coroutineID, out SubCoroutineData coroutineData);
             int pointer = coroutineData.pointer;
 

@@ -10,7 +10,7 @@ namespace ET.Client
         }
 
         //LogWarning: 'Hello world';
-        public override async ETTask<Status> Handle(Unit unit, ScriptData data, ETCancellationToken token)
+        public override async ETTask<Status> Handle(ScriptParser parser, ScriptData data, ETCancellationToken token)
         {
             Match match = Regex.Match(data.opLine, "LogWarning: '(?<Info>.*?)';");
             if (!match.Success)

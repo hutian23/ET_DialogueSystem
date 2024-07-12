@@ -9,6 +9,6 @@
     {
         public abstract string GetOpType();
 
-        public abstract ETTask<Status> Handle(Unit unit, ScriptData data, ETCancellationToken token);
+        public abstract ETTask<Status> Handle(ScriptParser parser, ScriptData data, ETCancellationToken token);
     }
 } 

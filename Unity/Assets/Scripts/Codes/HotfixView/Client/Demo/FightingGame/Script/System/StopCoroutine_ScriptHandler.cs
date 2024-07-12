@@ -10,7 +10,7 @@ namespace ET.Client
         }
 
         //StopCoroutine: 'Test1';
-        public override async ETTask<Status> Handle(Unit unit, ScriptData data, ETCancellationToken token)
+        public override async ETTask<Status> Handle(ScriptParser parser, ScriptData data, ETCancellationToken token)
         {
             Match match = Regex.Match(data.opLine, "StopCoroutine: '(?<CoroutineName>.*?)';");
             if (!match.Success)
@@ -18,8 +18,6 @@ namespace ET.Client
                 ScriptHelper.ScriptMatchError(data.opLine);
                 return Status.Failed;
             }
-
-            ScriptParser parser = unit.GetComponent<TimelineComponent>().GetComponent<ScriptParser>();
             parser.StopSubCoroutine(match.Groups["CoroutineName"].Value);
 
             await ETTask.CompletedTask;

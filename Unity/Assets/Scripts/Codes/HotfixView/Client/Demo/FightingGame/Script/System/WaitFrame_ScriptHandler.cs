@@ -10,9 +10,11 @@ namespace ET.Client
         }
 
         //WaitFrame: 3;
-        public override async ETTask<Status> Handle(Unit unit, ScriptData data, ETCancellationToken token)
+        public override async ETTask<Status> Handle(ScriptParser parser, ScriptData data, ETCancellationToken token)
         {
-            BBTimerComponent timer = unit.GetComponent<TimelineComponent>().GetComponent<BBTimerComponent>();
+            BBTimerComponent timer = parser.GetUnit()
+                    .GetComponent<TimelineComponent>()
+                    .GetComponent<BBTimerComponent>();
             Match match = Regex.Match(data.opLine, "WaitFrame: (?<frame>.*?);");
             if (!match.Success)
             {

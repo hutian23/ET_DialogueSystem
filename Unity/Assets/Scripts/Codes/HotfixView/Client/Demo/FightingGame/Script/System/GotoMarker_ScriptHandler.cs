@@ -11,7 +11,7 @@ namespace ET.Client
         }
 
         //GotoMarker: 'hutian2501';
-        public override async ETTask<Status> Handle(Unit unit, ScriptData data, ETCancellationToken token)
+        public override async ETTask<Status> Handle(ScriptParser parser, ScriptData data, ETCancellationToken token)
         {
             Match match = Regex.Match(data.opLine, "GotoMarker: '(?<marker>.*?)';");
             if (!match.Success)
@@ -21,7 +21,7 @@ namespace ET.Client
             }
 
             //1. find coroutine
-            ScriptParser parser = unit.GetComponent<TimelineComponent>().GetComponent<ScriptParser>();
+            Unit unit = parser.GetUnit();
             parser.subCoroutineDatas.TryGetValue(data.coroutineID, out SubCoroutineData coroutineData);
             if (coroutineData == null)
             {

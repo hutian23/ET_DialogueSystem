@@ -14,8 +14,8 @@ namespace ET.Client
                 self.Cancel();
             }
         }
-        
-        public class ScriptParserLoadSystem : LoadSystem<ScriptParser>
+
+        public class ScriptParserLoadSystem: LoadSystem<ScriptParser>
         {
             protected override void Load(ScriptParser self)
             {
@@ -25,6 +25,7 @@ namespace ET.Client
 
         public static void Cancel(this ScriptParser self)
         {
+            self.instanceId = 0;
             self.subCoroutineDatas.Values.ForEach(data => { data.Recycle(); });
             self.subCoroutineDatas.Clear();
             self.Token?.Cancel();
@@ -133,7 +134,7 @@ namespace ET.Client
                 }
 
                 ScriptData scriptData = ScriptData.Create(opLine, coroutineName);
-                Status ret = await handler.Handle(self.GetParent<TimelineComponent>().GetParent<Unit>(), scriptData, subToken);
+                Status ret = await handler.Handle(self, scriptData, subToken);
                 scriptData.Recycle();
 
                 if (subToken.IsCancel() || ret == Status.Failed) return Status.Failed;
@@ -152,7 +153,7 @@ namespace ET.Client
             }
 
             coroutineData.token.Cancel(); //取消子携程
-            self.subCoroutineDatas.Remove(CoroutineName); 
+            self.subCoroutineDatas.Remove(CoroutineName);
             coroutineData.Recycle();
         }
 
@@ -179,6 +180,12 @@ namespace ET.Client
                 TimelineComponent timelineComponent = self.GetParent<TimelineComponent>();
                 postOpLine = postOpLine.Replace(paramLine, timelineComponent.GetParameter(valueName).ToString());
             }
+        }
+
+        public static Unit GetUnit(this ScriptParser self)
+        {
+            Unit unit = Root.Instance.Get(self.instanceId) as Unit;
+            return unit;
         }
     }
 }

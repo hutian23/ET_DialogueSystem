@@ -8,7 +8,7 @@
         }
 
         //无作用， InitScript时已经记录了marker的指针
-        public override async ETTask<Status> Handle(Unit unit, ScriptData data, ETCancellationToken token)
+        public override async ETTask<Status> Handle(ScriptParser parser, ScriptData data, ETCancellationToken token)
         {
             await ETTask.CompletedTask;
             return Status.Success;

@@ -12,8 +12,10 @@ namespace ET.Client
             return "StartTimeline";
         }
 
-        public override async ETTask<Status> Handle(Unit unit, ScriptData data, ETCancellationToken token)
+        public override async ETTask<Status> Handle(ScriptParser parser, ScriptData data, ETCancellationToken token)
         {
+            Unit unit = parser.GetUnit();
+
             BBTimerComponent timerComponent = unit.GetComponent<TimelineComponent>().GetComponent<BBTimerComponent>();
             TimelineComponent timelineComponent = unit.GetComponent<TimelineComponent>();
             RuntimePlayable runtimePlayable = timelineComponent.GetTimelinePlayer().RuntimeimePlayable;
@@ -82,7 +84,7 @@ namespace ET.Client
                 }
 
                 ScriptData scriptData = ScriptData.Create(opLine, data.coroutineID);
-                Status ret = await handler.Handle(unit, scriptData, token);
+                Status ret = await handler.Handle(parser, scriptData, token);
                 scriptData.Recycle();
                 if (ret != Status.Success || token.IsCancel())
                 {
