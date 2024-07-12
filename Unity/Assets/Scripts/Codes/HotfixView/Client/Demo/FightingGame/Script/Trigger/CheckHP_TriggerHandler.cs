@@ -10,9 +10,9 @@ namespace ET.Client.Trigger
         }
 
         //HP > 10
-        public override bool Check(Unit unit, ScriptData data)
+        public override bool Check(ScriptParser parser, ScriptData data)
         {
-            NumericComponent nu = unit.GetComponent<NumericComponent>();
+            NumericComponent nu = parser.GetUnit().GetComponent<NumericComponent>();
 
             Match match = Regex.Match(data.opLine, @"(\w+)\s*([<>=]+)\s*(\d+)");
             if (!match.Success)

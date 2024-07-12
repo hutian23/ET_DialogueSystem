@@ -14,6 +14,8 @@ namespace ET.Client
 
             //动画帧事件
             ScriptParser parser = manager.GetParser(args.track.Name);
+            parser.InitScript(args.info.Script);
+            parser.Invoke("Main").Coroutine();
         }
     }
 }

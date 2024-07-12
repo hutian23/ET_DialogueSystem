@@ -9,6 +9,6 @@
     {
         public abstract string GetTriggerType();
 
-        public abstract bool Check(Unit unit, ScriptData data);
+        public abstract bool Check(ScriptParser parser, ScriptData data);
     }
 }

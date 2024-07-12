@@ -7,11 +7,12 @@ namespace ET.Client
     [FriendOf(typeof (ScriptDispatcherComponent))]
     public static class ScriptParserSystem
     {
-        public class ScriptParserAwakeSystem: AwakeSystem<ScriptParser>
+        public class ScriptParserAwakeSystem: AwakeSystem<ScriptParser, long>
         {
-            protected override void Awake(ScriptParser self)
+            protected override void Awake(ScriptParser self, long instanceID)
             {
                 self.Cancel();
+                self.instanceId = instanceID;
             }
         }
 
@@ -23,9 +24,17 @@ namespace ET.Client
             }
         }
 
+        public class ScriptParserDestroySystem: DestroySystem<ScriptParser>
+        {
+            protected override void Destroy(ScriptParser self)
+            {
+                self.Cancel();
+                self.instanceId = 0;
+            }
+        }
+
         public static void Cancel(this ScriptParser self)
         {
-            self.instanceId = 0;
             self.subCoroutineDatas.Values.ForEach(data => { data.Recycle(); });
             self.subCoroutineDatas.Clear();
             self.Token?.Cancel();
@@ -177,8 +186,8 @@ namespace ET.Client
 
                 //3. replace
                 string valueName = match2.Groups["param"].Value;
-                TimelineComponent timelineComponent = self.GetParent<TimelineComponent>();
-                postOpLine = postOpLine.Replace(paramLine, timelineComponent.GetParameter(valueName).ToString());
+                Unit unit = Root.Instance.Get(self.instanceId) as Unit;
+                postOpLine = postOpLine.Replace(paramLine, unit.GetComponent<TimelineComponent>().GetParameter(valueName).ToString());
             }
         }
 

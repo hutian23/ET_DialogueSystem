@@ -4,6 +4,7 @@ using UnityEngine;
 namespace ET.Client
 {
     [Event(SceneType.Client)]
+    [FriendOf(typeof (ScriptParser))]
     public class AfterSceneChange_CreatePlayerView: AEvent<CreatePlayerView>
     {
         protected override async ETTask Run(Scene scene, CreatePlayerView args)
@@ -18,11 +19,11 @@ namespace ET.Client
             //2. 以下组件 切换场景时全部销毁
             player.AddComponent<ObjectWait>();
             player.AddComponent<GameObjectComponent>().GameObject = go;
-            // player.AddComponent<DialogueComponent>();
 
             //3. Timeline
             TimelineComponent timelineComponent = player.AddComponent<TimelineComponent>();
-            timelineComponent.AddComponent<ScriptParser>();
+
+            timelineComponent.AddComponent<ScriptParser, long>(player.InstanceId);
             timelineComponent.AddComponent<TimelineEventManager>();
         }
     }

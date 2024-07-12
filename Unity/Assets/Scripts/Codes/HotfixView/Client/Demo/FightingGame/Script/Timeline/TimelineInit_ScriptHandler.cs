@@ -11,7 +11,6 @@
         public override async ETTask<Status> Handle(ScriptParser parser, ScriptData data, ETCancellationToken token)
         {
             Unit unit = parser.GetUnit();
-            
             TimelineComponent timelineComponent = unit.GetComponent<TimelineComponent>();
             timelineComponent.RemoveComponent<BBTimerComponent>();
             timelineComponent.AddComponent<BBTimerComponent>();

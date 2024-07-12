@@ -4,6 +4,7 @@ namespace ET.Client
 {
     [Invoke]
     [FriendOf(typeof (TimelineEventManager))]
+    [FriendOf(typeof (ScriptParser))]
     public class InitEventTrackCallback: AInvokeHandler<InitEventTrack>
     {
         public override void Handle(InitEventTrack args)
@@ -14,6 +15,7 @@ namespace ET.Client
             BBEventTrack track = args.RuntimeEventTrack.Track as BBEventTrack;
 
             //runtime event track ---> scriptParser
+            Unit unit = timelineComponent.GetParent<Unit>();
             TimelineEventManager manager = timelineComponent.GetComponent<TimelineEventManager>();
 
             switch (args.initType)
@@ -27,7 +29,7 @@ namespace ET.Client
                         manager.parserDict.Remove(track.Name);
                     }
 
-                    ScriptParser parser = manager.AddChild<ScriptParser>();
+                    ScriptParser parser = manager.AddChild<ScriptParser, long>(unit.InstanceId);
                     manager.parserDict.Add(track.Name, parser.Id);
                     break;
                 }
@@ -39,6 +41,7 @@ namespace ET.Client
                         manager.RemoveChild(id);
                         manager.parserDict.Remove(track.Name);
                     }
+
                     break;
                 }
             }

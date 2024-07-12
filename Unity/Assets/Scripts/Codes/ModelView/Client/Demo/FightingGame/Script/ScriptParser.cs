@@ -5,7 +5,7 @@ namespace ET.Client
 {
     [ComponentOf(typeof (TimelineComponent))]
     [ChildOf(typeof (TimelineEventManager))]
-    public class ScriptParser: Entity, IAwake, IDestroy, ILoad
+    public class ScriptParser: Entity, IAwake<long>, IDestroy, ILoad
     {
         //Unit的唯一Id
         //因为行为机和 timeline 帧事件都用到了ScriptParser组件 这样避免了结构和引用问题 (通过id查到unit，获取下面的组件)
