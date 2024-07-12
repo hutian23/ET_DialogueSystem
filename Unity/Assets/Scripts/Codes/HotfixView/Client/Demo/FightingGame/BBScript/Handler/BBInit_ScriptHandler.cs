@@ -39,11 +39,7 @@ namespace ET.Client
             dialogueComponent.AddComponent<PlayableManager>();
             dialogueComponent.AddComponent<RootMotionComponent>();
             unit.AddComponent<NumericComponent>();
-
-            //Test
-            BBTestManager testManager = go.AddComponent<BBTestManager>();
-            testManager.instanceId = dialogueComponent.InstanceId;
-
+            
             await ETTask.CompletedTask;
         }
     }

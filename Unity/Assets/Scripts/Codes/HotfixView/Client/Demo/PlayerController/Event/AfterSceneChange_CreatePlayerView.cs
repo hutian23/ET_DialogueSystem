@@ -19,10 +19,11 @@ namespace ET.Client
             player.AddComponent<ObjectWait>();
             player.AddComponent<GameObjectComponent>().GameObject = go;
             // player.AddComponent<DialogueComponent>();
-            
+
             //3. Timeline
             TimelineComponent timelineComponent = player.AddComponent<TimelineComponent>();
             timelineComponent.AddComponent<ScriptParser>();
+            timelineComponent.AddComponent<TimelineEventManager>();
         }
     }
 }

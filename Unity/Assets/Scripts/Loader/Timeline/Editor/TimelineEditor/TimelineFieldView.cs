@@ -225,7 +225,7 @@ namespace Timeline.Editor
             ResizeTimeField();
             UpdateBindState();
 
-            foreach (var runtimeTrack in RuntimePlayable.RuntimeTracks)
+            foreach (RuntimeTrack runtimeTrack in RuntimePlayable.RuntimeTracks)
             {
                 // TrackView
                 TimelineTrackView trackView = Activator.CreateInstance(runtimeTrack.Track.TrackViewType) as TimelineTrackView;
@@ -246,7 +246,7 @@ namespace Timeline.Editor
                 EditorWindow.TrackHandleContainer.Add(trackHandle);
                 SelectionElements.Add(trackHandle);
             }
-            
+
             UpdateTimeLocator();
         }
 
@@ -317,7 +317,7 @@ namespace Timeline.Editor
             OnGeometryChangedCallback?.Invoke();
         }
 
-        public void ResizeTimeField(int maxFrame)
+        private void ResizeTimeField(int maxFrame)
         {
             if (maxFrame < m_MaxFrame) return;
             m_MaxFrame = maxFrame;
@@ -482,18 +482,19 @@ namespace Timeline.Editor
         #endregion
 
         #region Marker
+
         private int startMoveMarkerFrame;
-        
+
         public void MarkerStartMove(MarkerView markerView)
         {
             startMoveMarkerFrame = markerView.keyframeBase.frame;
         }
-        
+
         public void MoveMarkers(float deltaPosition)
         {
             int startFrame = int.MaxValue;
             List<MarkerView> moveMarkers = new List<MarkerView>();
-            
+
             //1. 获得选中的markerView
             foreach (ISelectable selectable in Selections)
             {
@@ -511,7 +512,7 @@ namespace Timeline.Editor
             {
                 return;
             }
-            
+
             //2. Move markerView
             int targetStartFrame = GetClosestFrame(FramePosMap[startFrame] + deltaPosition);
             int deltaFrame = targetStartFrame - startFrame;
@@ -537,11 +538,11 @@ namespace Timeline.Editor
             {
                 marker.InValid = marker.GetMoveValid();
             }
-            
+
             UpdateMix();
             DrawFrameLine(startFrame);
         }
-        
+
         public void ApplyMarkerMove()
         {
             int startFrame = int.MaxValue;
@@ -587,13 +588,13 @@ namespace Timeline.Editor
                     }, "Move hitbox markers");
                 }
             }
-            
+
             UpdateMix();
             DrawFrameLine();
         }
 
         #endregion
-        
+
         #region DragFrameLine
 
         private int[] m_DrawFrameLine = Array.Empty<int>();

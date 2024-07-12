@@ -60,7 +60,7 @@ namespace Timeline.Editor
             TrackHandleContainer.verticalScrollerVisibility = ScrollerVisibility.Hidden;
             TrackHandleContainer.RegisterCallback<WheelEvent>(_ =>
             {
-                foreach (var child in TrackHandleContainer.Children())
+                foreach (VisualElement child in TrackHandleContainer.Children())
                 {
                     if (child is not TimelineTrackHandle) continue;
                     ScrollView trackScroll = root.Q<ScrollView>("track-scroll");

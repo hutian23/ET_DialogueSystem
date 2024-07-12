@@ -44,20 +44,11 @@ namespace Timeline
         public string Script;
     }
 
-    public struct EventMarkerCallback
-    {
-        public long instanceId;
-
-        public EventInfo info;
-    }
-
 #if UNITY_EDITOR
     public class EventInspectorData: ShowInspectorData
     {
         [HideReferenceObjectPicker, HideLabel]
         public EventInfo Info;
-
-        private TimelineFieldView FieldView;
 
         public EventInspectorData(object target): base(target)
         {
@@ -66,7 +57,6 @@ namespace Timeline
 
         public override void InspectorAwake(TimelineFieldView fieldView)
         {
-            FieldView = fieldView;
         }
 
         public override void InspectorUpdate(TimelineFieldView fieldView)
@@ -79,19 +69,32 @@ namespace Timeline
     }
 #endif
 
+    public struct EventMarkerCallback
+    {
+        public long instanceId;
+
+        public EventInfo info;
+    }
+
+    public struct InitEventTrack
+    {
+        public long instanceId;
+        public RuntimeEventTrack RuntimeEventTrack;
+    }
+
     public class RuntimeEventTrack: RuntimeTrack
     {
-        private int currentFrame = -1;
-        private readonly BBEventTrack track;
         private TimelinePlayer timelinePlayer => RuntimePlayable.TimelinePlayer;
-        
+        private int currentFrame = -1;
+
         public RuntimeEventTrack(RuntimePlayable runtimePlayable, BBTrack _track): base(runtimePlayable, _track)
         {
-            track = _track as BBEventTrack;
         }
 
         public override void Bind()
         {
+            //Init component of event track
+            EventSystem.Instance?.Invoke(new InitEventTrack() { instanceId = timelinePlayer.instanceId, RuntimeEventTrack = this });
         }
 
         public override void UnBind()
@@ -107,11 +110,15 @@ namespace Timeline
 
             currentFrame = targetFrame;
 
-            EventInfo info = track.GetInfo(targetFrame);
-            if (info != null)
+            BBEventTrack eventTrack = Track as BBEventTrack;
+            EventInfo targetInfo = eventTrack.GetInfo(currentFrame);
+            if (targetInfo == null)
             {
-                EventSystem.Instance?.Invoke(new EventMarkerCallback());
+                return;
             }
+
+            //目前的想法是 跟 AnimationEvent保持一致， 同步调用动画帧事件(协程调用当前异步动画帧事件)
+            EventSystem.Instance?.Invoke(new EventMarkerCallback() { instanceId = timelinePlayer.instanceId, info = targetInfo });
         }
     }
 }

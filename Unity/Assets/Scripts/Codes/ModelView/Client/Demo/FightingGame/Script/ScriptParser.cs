@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace ET.Client
 {
     [ComponentOf(typeof (TimelineComponent))]
-    // [ChildOf(typ)]
+    [ChildOf(typeof(TimelineEventManager))]
     public class ScriptParser: Entity, IAwake, IDestroy, ILoad
     {
         public Dictionary<string, int> funcMap = new();

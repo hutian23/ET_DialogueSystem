@@ -155,11 +155,6 @@ namespace Timeline
             CurrentTimeline = _timeline;
             RuntimeimePlayable = RuntimePlayable.Create(CurrentTimeline, this);
 
-            // if (!ApplyRootMotion)
-            // {
-            //     ResetPos();
-            // }
-
             #endregion
         }
 
@@ -171,14 +166,6 @@ namespace Timeline
 
         public BBTimeline GetByOrder(int order)
         {
-            // if (BBPlayable == null) return null;
-            // if (!BBPlayable.Timelines.TryGetValue(order, out BBTimeline timeline))
-            // {
-            //     Debug.LogError($"not exist timeline, order: {order}");
-            //     return null;
-            // }
-
-            // return timeline;
             return CurrentTimeline;
         }
     }
