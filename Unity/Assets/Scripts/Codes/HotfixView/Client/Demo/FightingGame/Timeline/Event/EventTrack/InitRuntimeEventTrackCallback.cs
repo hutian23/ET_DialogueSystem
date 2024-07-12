@@ -15,8 +15,33 @@ namespace ET.Client
 
             //runtime event track ---> scriptParser
             TimelineEventManager manager = timelineComponent.GetComponent<TimelineEventManager>();
-            ScriptParser parser = manager.AddChild<ScriptParser>();
-            manager.parserDict.Add(track.Name, parser.Id);
+
+            switch (args.initType)
+            {
+                //Bind
+                case 0:
+                {
+                    if (manager.parserDict.TryGetValue(track.Name, out long id))
+                    {
+                        manager.RemoveChild(id);
+                        manager.parserDict.Remove(track.Name);
+                    }
+
+                    ScriptParser parser = manager.AddChild<ScriptParser>();
+                    manager.parserDict.Add(track.Name, parser.Id);
+                    break;
+                }
+                //UnBind
+                case 1:
+                {
+                    if (manager.parserDict.TryGetValue(track.Name, out long id))
+                    {
+                        manager.RemoveChild(id);
+                        manager.parserDict.Remove(track.Name);
+                    }
+                    break;
+                }
+            }
         }
     }
 }

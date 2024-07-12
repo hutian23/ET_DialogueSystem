@@ -72,7 +72,7 @@ namespace Timeline
     public struct EventMarkerCallback
     {
         public long instanceId;
-
+        public BBEventTrack track;
         public EventInfo info;
     }
 
@@ -80,6 +80,7 @@ namespace Timeline
     {
         public long instanceId;
         public RuntimeEventTrack RuntimeEventTrack;
+        public int initType;
     }
 
     public class RuntimeEventTrack: RuntimeTrack
@@ -93,11 +94,12 @@ namespace Timeline
         public override void Bind()
         {
             //Init component of event track
-            EventSystem.Instance?.Invoke(new InitEventTrack() { instanceId = timelinePlayer.instanceId, RuntimeEventTrack = this });
+            EventSystem.Instance?.Invoke(new InitEventTrack() { instanceId = timelinePlayer.instanceId, RuntimeEventTrack = this, initType = 0 });
         }
 
         public override void UnBind()
         {
+            EventSystem.Instance?.Invoke(new InitEventTrack() { instanceId = timelinePlayer.instanceId, RuntimeEventTrack = this, initType = 1 });
         }
 
         public override void SetTime(int targetFrame)
@@ -107,7 +109,10 @@ namespace Timeline
             if (targetInfo == null) return;
 
             //目前的想法是 跟 AnimationEvent保持一致， 同步调用动画帧事件(协程调用当前异步动画帧事件)
-            EventSystem.Instance?.Invoke(new EventMarkerCallback() { instanceId = timelinePlayer.instanceId, info = targetInfo });
+            EventSystem.Instance?.Invoke(new EventMarkerCallback()
+            {
+                instanceId = timelinePlayer.instanceId, info = targetInfo, track = Track as BBEventTrack
+            });
         }
     }
 }
