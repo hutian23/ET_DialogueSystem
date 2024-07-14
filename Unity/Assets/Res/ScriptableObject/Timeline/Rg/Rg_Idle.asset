@@ -423,6 +423,13 @@ MonoBehaviour:
       Entry: 1
       Data: '@Main:
 
+        LogWarning: ''Event 1'';
+
+        WaitFrame: 3;
+
+        LogWarning:
+        ''Event 2'';
+
         return;
 
 '
