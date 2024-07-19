@@ -1,27 +1,30 @@
-﻿using System.Drawing;
-
-namespace AABB
+﻿namespace AABB
 {
     public interface ICollision
     {
         /// <summary>
         /// Gets the box that is moving and collides with an other one.
         /// </summary>
-        protected IBox Box { get; }
+        public IBox Box { get; }
         
         /// <summary>
         /// Gets the other box than being collided by the moving box.
         /// </summary>
-        protected IBox Other { get; }
+        public IBox Other { get; }
+        
+        /// <summary>
+        /// Gets the origin of the box move
+        /// </summary>
+        public RectangleF Origin { get; }
         
         /// <summary>
         /// Gets the goal position of the box move
         /// </summary>
-        protected RectangleF Goal { get; }
+        public RectangleF Goal { get; }
         
         /// <summary>
         /// Gets information about the impact point
         /// </summary>
-        protected IHit Hit { get; }
+        public IHit Hit { get; }
     }
 }

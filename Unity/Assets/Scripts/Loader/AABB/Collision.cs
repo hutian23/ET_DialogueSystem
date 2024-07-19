@@ -3,7 +3,7 @@
     //handle collision event
     public class Collision: ICollision
     {
-        public IBox Box { get; }
+        public IBox Box { get; set; }
 
         public IBox Other
         {
@@ -13,8 +13,10 @@
             }
         }
 
-        public RectangleF Goal { get; }
-        public IHit Hit { get; }
+        public RectangleF Origin { get; set; }
+        public RectangleF Goal { get; set; }
+        public IHit Hit { get; set; }
+        public bool HasCollided => Hit != null;
 
         public Collision()
         {

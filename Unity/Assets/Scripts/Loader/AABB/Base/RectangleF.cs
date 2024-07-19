@@ -57,14 +57,26 @@ namespace AABB
 
         public Vector2 Center => new Vector2(X + Width / 2f, Y + Height / 2);
 
-        // internal string Debug
-
         public RectangleF(float x, float y, float width, float height)
         {
             X = x;
             Y = y;
             Width = width;
             Height = height;
+        }
+
+        //取并集?
+        public RectangleF(RectangleF one, RectangleF two)
+        {
+            var left = Math.Min(one.Left, two.Left);
+            var right = Math.Max(one.Right, two.Right);
+            var top = Math.Min(one.Top, two.Top);
+            var bottom = Math.Max(one.Bottom, two.Bottom);
+
+            X = left;
+            Y = top;
+            Width = right - left;
+            Height = bottom - top;
         }
 
         public RectangleF(Vector2 location, Vector2 size)
@@ -100,6 +112,11 @@ namespace AABB
             return X <= x && x < X + Width && Y <= y && y < y + Height;
         }
 
+        public bool Contains(Vector2 value)
+        {
+            return X <= value.X && value.X < X + Width && Y <= value.Y && value.Y < Y + Height;
+        }
+        
         public bool Contains(float x, float y)
         {
             return X <= x && x < X + Width && Y <= y && y < y + Height;
@@ -131,7 +148,7 @@ namespace AABB
         {
             return obj is RectangleF f && this == f;
         }
-        
+
         public bool Equals(RectangleF other)
         {
             return X.Equals(other.X) && Y.Equals(other.Y) && Width.Equals(other.Width) && Height.Equals(other.Height);
@@ -156,7 +173,7 @@ namespace AABB
         }
 
         #region Intersect
-
+        
         /// <summary>
         /// Gets whether or not the other intersects(相交) with this rectangle
         /// </summary>
