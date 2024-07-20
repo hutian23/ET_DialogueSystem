@@ -9,12 +9,16 @@ namespace AABB
             switch (response)
             {
                 case CollisionResponses.Touch:
+                    child = new TouchResponse(col);
                     break;
                 case CollisionResponses.Cross:
+                    child = new CrossResponse(col);
                     break;
                 case CollisionResponses.Slide:
+                    child = new SlideResponse(col);
                     break;
                 case CollisionResponses.Bounce:
+                    child = new BoundsResponse(col);
                     break;
                 default:
                     throw new ArgumentException("Unsupproted collision type");

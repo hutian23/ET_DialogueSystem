@@ -41,6 +41,7 @@ namespace AABB
 
         #endregion
 
+        //Check Collision
         public IMovement Simulate(float x, float y, Func<ICollision, ICollisionResponse> filter)
         {
             return world.Simulate(this, x, y, filter);
@@ -70,10 +71,10 @@ namespace AABB
 
         public IMovement Move(float x, float y, Func<ICollision, CollisionResponses> filter)
         {
-            var movement = this.Simulate(x, y, filter);
-            this.bounds.X = movement.Destination.X;
-            this.bounds.Y = movement.Destination.Y;
-            this.world.Update(this, movement.Origin);
+            var movement = Simulate(x, y, filter);
+            bounds.X = movement.Destination.X;
+            bounds.Y = movement.Destination.Y;
+            world.Update(this, movement.Origin);
             return movement;
         }
 

@@ -4,17 +4,17 @@ using System.Linq;
 
 namespace AABB
 {
-    public class World
+    public class World: IWorld
     {
-        public RectangleF Bounds;
-
-        public World(float width, float height, float cellSize)
+        public World(float width, float height, float cellSize = 64)
         {
             int iwidth = (int)Math.Ceiling(width / cellSize);
             int iheight = (int)Math.Ceiling(height / cellSize);
 
             grid = new Grid(iwidth, iheight, cellSize);
         }
+
+        public RectangleF Bounds => new(0, 0, grid.Width, grid.Height);
 
         #region Boxes
 
@@ -24,9 +24,12 @@ namespace AABB
         {
             Box box = new(this, x, y, width, height);
             grid.Add(box);
-            return null;
+            return box;
         }
 
+        /// <summary>
+        /// Find boxes in range
+        /// </summary>
         public IEnumerable<IBox> Find(float x, float y, float w, float h)
         {
             x = Math.Max(0, Math.Min(x, Bounds.Right - w));
@@ -57,6 +60,7 @@ namespace AABB
         public IHit Hit(Vector2 point, IEnumerable<IBox> ignoring = null)
         {
             var boxes = Find(point.X, point.Y, 0, 0);
+
             if (ignoring != null)
             {
                 boxes = boxes.Except(ignoring);
@@ -79,7 +83,7 @@ namespace AABB
             Vector2 min = Vector2.Min(origin, destination);
             Vector2 max = Vector2.Max(origin, destination);
 
-            RectangleF wrap = new RectangleF(min, max - min);
+            var wrap = new RectangleF(min, max - min);
             var boxes = Find(wrap.X, wrap.Y, wrap.Width, wrap.Height);
 
             if (ignoring != null)
@@ -104,6 +108,7 @@ namespace AABB
 
         public IHit Hit(RectangleF origin, RectangleF destination, IEnumerable<IBox> ignoring = null)
         {
+            //get the union
             var wrap = new RectangleF(origin, destination);
             var boxes = Find(wrap.X, wrap.Y, wrap.Width, wrap.Height);
 
@@ -114,6 +119,7 @@ namespace AABB
 
             IHit nearest = null;
 
+            //check hit in intersect boxes
             foreach (var other in boxes)
             {
                 var hit = AABB.Hit.Resolve(origin, destination, other);
@@ -133,7 +139,9 @@ namespace AABB
 
         public IMovement Simulate(Box box, float x, float y, Func<ICollision, ICollisionResponse> filter)
         {
+            //源位置
             var origin = box.Bounds;
+            //目的位置
             var destination = new RectangleF(x, y, box.Width, box.Height);
 
             var hits = new List<IHit>();
@@ -158,7 +166,7 @@ namespace AABB
                 hits.Add(nearest);
 
                 var impact = new RectangleF(nearest.Position, origin.Size);
-                var collision = new Collision() { Box = box, Hit = nearest, Goal = destination };
+                var collision = new Collision() { Box = box, Hit = nearest, Goal = destination, Origin = origin };
                 var response = filter(collision);
 
                 if (response != null && destination != response.Destination)

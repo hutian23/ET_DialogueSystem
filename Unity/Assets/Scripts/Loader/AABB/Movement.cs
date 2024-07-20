@@ -20,8 +20,13 @@ namespace AABB
             }
         }
 
+        //current position
         public RectangleF Origin { get; set; }
+        
+        //target position
         public RectangleF Goal { get; set; }
+        
+        //after simulate collision, the actual position
         public RectangleF Destination { get; set; }
     }
 }

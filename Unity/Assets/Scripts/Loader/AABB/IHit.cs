@@ -20,7 +20,7 @@ namespace AABB
         public Vector2 Position { get; }
         
         //Gets the amount of movement needed from impact position to get the requested initial goal position.
-        public float Romaining { get; }
+        public float Remaining { get; }
 
         //Indicates whether the hit point is nearer than an other from a given point.
         //Warning: this should only be used for multiple calculation of the same box movement

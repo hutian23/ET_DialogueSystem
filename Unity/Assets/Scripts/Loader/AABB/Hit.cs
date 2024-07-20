@@ -15,7 +15,7 @@ namespace AABB
         public float Amount { get; set; }
         public Vector2 Position { get; set; }
 
-        public float Romaining
+        public float Remaining
         {
             get
             {
@@ -45,7 +45,9 @@ namespace AABB
 
         public static Hit Resolve(RectangleF origin, RectangleF destination, RectangleF other)
         {
+            //简单理解就是当前帧物体移动覆盖的区域
             var broadphaseArea = RectangleF.Union(origin, destination);
+
             if (broadphaseArea.Intersects(other) || broadphaseArea.Contains(other))
             {
                 return ResolveNarrow(origin, destination, other);
@@ -102,6 +104,11 @@ namespace AABB
             else if (Math.Abs(min - bottom) < Constants.Threshold)
             {
                 normal = Vector2.UnitY;
+                position = new Vector2(position.X, other.Bottom);
+            }
+            else if (Math.Abs(min - left) < Constants.Threshold)
+            {
+                normal = -Vector2.UnitX;
                 position = new Vector2(other.Left, position.Y);
             }
             else if (Math.Abs(min - right) < Constants.Threshold)
@@ -125,16 +132,25 @@ namespace AABB
 
             var min = Math.Min(top, Math.Min(bottom, Math.Min(right, left)));
 
+            //Move Down
             if (Math.Abs(min - top) < Constants.Threshold)
             {
                 normal = -Vector2.UnitY;
                 position.Location = new Vector2(position.Location.X, other.Top - position.Height);
             }
+            //Move Up
             else if (Math.Abs(min - bottom) < Constants.Threshold)
             {
                 normal = Vector2.UnitY;
+                position.Location = new Vector2(position.Location.X, other.Bottom);
+            }
+            //Move Left
+            else if (Math.Abs(min - left) < Constants.Threshold)
+            {
+                normal = -Vector2.UnitX;
                 position.Location = new Vector2(other.Left - position.Width, position.Location.Y);
             }
+            //Move Right
             else if (Math.Abs(min - right) < Constants.Threshold)
             {
                 normal = Vector2.UnitX;
@@ -147,6 +163,7 @@ namespace AABB
         private static Hit ResolveNarrow(RectangleF origin, RectangleF destination, RectangleF other)
         {
             //if starts inside,push it outside at the nearest place
+            // 当前object已经和其他object相交
             if (other.Contains(origin) || other.Intersects(origin))
             {
                 var outside = PushOutside(origin, other);
@@ -156,6 +173,8 @@ namespace AABB
 
             var velocity = (destination.Location - origin.Location);
 
+            //invEntry 进入障碍物所需时间
+            //InvExit 穿过障碍物所需时间
             Vector2 invEntry, invExit, entry, exit;
 
             if (velocity.X > 0)
@@ -180,6 +199,7 @@ namespace AABB
                 invExit.Y = other.Top - origin.Bottom;
             }
 
+            //计算时间
             if (Math.Abs(velocity.X) < Constants.Threshold)
             {
                 entry.X = float.MinValue;
@@ -202,25 +222,15 @@ namespace AABB
                 exit.Y = invExit.Y / velocity.Y;
             }
 
-            if (Math.Abs(velocity.Y) < Constants.Threshold)
-            {
-                entry.Y = float.MinValue;
-                exit.Y = float.MaxValue;
-            }
-            else
-            {
-                entry.Y = invEntry.Y / velocity.Y;
-                exit.Y = invExit.Y / velocity.Y;
-            }
-
-            if (entry.Y > 1.0f) entry.X = float.MinValue;
+            //区间 [0,1]
+            if (entry.Y > 1.0f) entry.Y = float.MinValue;
             if (entry.X > 1.0f) entry.X = float.MinValue;
 
             var entryTime = Math.Max(entry.X, entry.Y);
             var exitTime = Math.Min(exit.X, exit.Y);
 
             if (
-                (entryTime > exitTime || entry.X < 0.0f && entry.Y < 0.00f) ||
+                (entryTime > exitTime || entry is { X: < 0.0f, Y: < 0.0f }) ||
                 (entry.X < 0.0f && (origin.Right < other.Left || origin.Left > other.Right)) ||
                 (entry.Y < 0.0f && (origin.Bottom < other.Top || origin.Top > other.Bottom)))
             {
@@ -294,10 +304,13 @@ namespace AABB
             if (entry.Y > 1.0f) entry.Y = float.MinValue;
             if (entry.X > 1.0f) entry.X = float.MinValue;
 
+            //Find which axis collided first
             var entryTime = Math.Max(entry.X, entry.Y);
             var exitTime = Math.Max(exit.X, exit.Y);
 
-            if ((entryTime > exitTime || entry.X < 0.0f && entry.Y < 0.0f) ||
+            //entryTime will tell use when he collision first occurred and exittime is when it exited the object
+            //from the other side. tell us if a collision occurred at all.
+            if ((entryTime > exitTime || entry is { X: < 0.0f, Y: < 0.0f }) ||
                 (entry.X < 0.0f && (origin.X < other.Left || origin.X > other.Right)) ||
                 (entry.Y < 0.0f && (origin.Y < other.Top || origin.Y > other.Bottom)))
             {
@@ -313,10 +326,10 @@ namespace AABB
         {
             if (entry.X > entry.Y)
             {
-                return (invEntry.X < 0.0f) || (Math.Abs(invEntry.X) < Constants.Threshold && invExit.X < 0)? Vector2.UnitX : -Vector2.UnitX;
+                return (invEntry.X < 0.0f) || (Math.Abs(invEntry.X) < Constants.Threshold && invExit.X < 0.0f)? Vector2.UnitX : -Vector2.UnitX;
             }
 
-            return (invEntry.Y < 0.0f || (Math.Abs(invEntry.Y) < Constants.Threshold && invExit.Y < 0))? Vector2.UnitY : -Vector2.UnitY;
+            return (invEntry.Y < 0.0f || (Math.Abs(invEntry.Y) < Constants.Threshold && invExit.Y < 0.0f))? Vector2.UnitY : -Vector2.UnitY;
         }
 
         public bool IsNearest(IHit than, Vector2 origin)

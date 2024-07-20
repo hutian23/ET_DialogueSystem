@@ -55,7 +55,7 @@ namespace AABB
             }
         }
 
-        public Vector2 Center => new Vector2(X + Width / 2f, Y + Height / 2);
+        public Vector2 Center => new(X + Width / 2f, Y + Height / 2);
 
         public RectangleF(float x, float y, float width, float height)
         {
@@ -109,17 +109,17 @@ namespace AABB
 
         public bool Contains(int x, int y)
         {
-            return X <= x && x < X + Width && Y <= y && y < y + Height;
+            return X <= x && x < X + Width && Y <= y && y < Y + Height;
         }
 
         public bool Contains(Vector2 value)
         {
             return X <= value.X && value.X < X + Width && Y <= value.Y && value.Y < Y + Height;
         }
-        
+
         public bool Contains(float x, float y)
         {
-            return X <= x && x < X + Width && Y <= y && y < y + Height;
+            return X <= x && x < X + Width && Y <= y && y < Y + Height;
         }
 
         public void Contains(ref Vector2 value, out bool result)
@@ -161,6 +161,7 @@ namespace AABB
 
         /// <summary>
         /// Adjust the edges of this by specified horizontal and vertical amounts.
+        /// 缩减Bounds
         /// </summary>
         /// <param name="horizontalAmount"></param>
         /// <param name="verticalAmount"></param>
@@ -172,8 +173,16 @@ namespace AABB
             Height += verticalAmount * 2;
         }
 
-        #region Intersect
-        
+        public void Inflate(float horizontalAmount, float vertialAmount)
+        {
+            X -= horizontalAmount;
+            Y -= vertialAmount;
+            Width += horizontalAmount * 2;
+            Height += vertialAmount * 2;
+        }
+
+        #region Intersect(判断相交)
+
         /// <summary>
         /// Gets whether or not the other intersects(相交) with this rectangle
         /// </summary>
@@ -275,19 +284,19 @@ namespace AABB
         {
             //Calculate half sizes
             float thisHalfWidth = Width / 2.0f;
-            float thisHalfWidthHeight = Height / 2.0f;
+            float thisHalfHeight = Height / 2.0f;
             float otherHalfWidth = other.Width / 2.0f;
             float otherHalfHeight = other.Height / 2.0f;
 
             //Calculate centers
-            Vector2 centerA = new(Left + thisHalfWidth, Top + thisHalfWidthHeight);
+            Vector2 centerA = new(Left + thisHalfWidth, Top + thisHalfHeight);
             Vector2 centerB = new(other.Left + otherHalfWidth, other.Top + otherHalfHeight);
 
             //Calculate current and minimum-non-intersecting distances between centers.
             float distanceX = centerA.X - centerB.X;
             float distanceY = centerA.Y - centerB.Y;
             float minDistanceX = thisHalfWidth + otherHalfWidth;
-            float minDistanceY = thisHalfWidthHeight + otherHalfHeight;
+            float minDistanceY = thisHalfHeight + otherHalfHeight;
 
             //If we are not instersecting at all,return (0,0)
             if (Math.Abs(distanceX) >= minDistanceX || Math.Abs(distanceY) >= minDistanceY)

@@ -46,23 +46,26 @@ namespace AABB
 
         public Grid(int width, int height, float cellSize)
         {
+            Cells = new Cell[width, height];
+            CellSize = cellSize;
         }
 
         public float CellSize { get; set; }
 
         #region Size
 
-        // public float Width => this
-
-        public int Width;
-        public int Height;
-        public int Columns;
-        public int Rows;
+        public float Width => Columns * CellSize;
+        public float Height => Rows * CellSize;
+        public int Columns => Cells.GetLength(0);
+        public int Rows => Cells.GetLength(1);
 
         #endregion
 
         public Cell[,] Cells { get; private set; }
 
+        /// <summary>
+        /// query all box in the selected area
+        /// </summary>
         public IEnumerable<Cell> QueryCells(float x, float y, float w, float h)
         {
             var minX = (int)(x / CellSize);
@@ -83,6 +86,7 @@ namespace AABB
                 {
                     var cell = Cells[i, j];
 
+                    //也许不应该动态插入格子
                     if (cell == null)
                     {
                         cell = new Cell(i, j, CellSize);
@@ -98,14 +102,14 @@ namespace AABB
 
         public IEnumerable<IBox> QueryBoxes(float x, float y, float w, float h)
         {
-            var cell = this.QueryCells(x, y, w, h);
+            var cell = QueryCells(x, y, w, h);
 
             return cell.SelectMany((c) => c.Children).Distinct(); //取唯一元素
         }
 
         public void Add(IBox box)
         {
-            var cells = this.QueryCells(box.X, box.Y, box.Width, box.Height);
+            var cells = QueryCells(box.X, box.Y, box.Width, box.Height);
 
             foreach (Cell cell in cells)
             {
@@ -118,7 +122,7 @@ namespace AABB
 
         public void Update(IBox box, RectangleF from)
         {
-            var fromCell = this.QueryCells(from.X, from.Y, from.Width, from.Height);
+            var fromCell = QueryCells(from.X, from.Y, from.Width, from.Height);
             var removed = false;
 
             foreach (var cell in fromCell)
