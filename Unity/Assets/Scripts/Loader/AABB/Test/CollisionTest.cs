@@ -9,7 +9,7 @@ namespace ET
     {
         public World world;
         public IBox body;
-        
+
         public void Start()
         {
         }
@@ -20,24 +20,25 @@ namespace ET
             world = new World(500, 300);
 
             //box1
-            body = world.Create(100, 100, 20, 20);
+            body = world.Create(0, 0, 20, 20);
 
             //box2
-            world.Create(180, 190, 100, 100);
+            world.Create(40, 40, 100, 100);
 
+            Debug.LogWarning(body.Bounds);
             //Try to move the box to (100,200) with a slide movement for every other collided body
-            var result = body.Move(170, 200, (_) => CollisionResponses.Slide);
-            
+            var result = body.Move(80, 80, (_) => CollisionResponses.Touch);
+
             Debug.LogWarning(result.ToJson());
+            Debug.LogWarning(body.Bounds);
             if (result.HasCollided)
             {
                 Debug.Log("Body collided");
             }
         }
-        
+
         public void Update()
         {
-            
         }
     }
 }

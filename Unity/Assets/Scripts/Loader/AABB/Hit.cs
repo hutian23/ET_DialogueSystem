@@ -132,13 +132,13 @@ namespace AABB
 
             var min = Math.Min(top, Math.Min(bottom, Math.Min(right, left)));
 
-            //Move Down
+            //Move Up
             if (Math.Abs(min - top) < Constants.Threshold)
             {
                 normal = -Vector2.UnitY;
                 position.Location = new Vector2(position.Location.X, other.Top - position.Height);
             }
-            //Move Up
+            //Move Down
             else if (Math.Abs(min - bottom) < Constants.Threshold)
             {
                 normal = Vector2.UnitY;
@@ -306,7 +306,7 @@ namespace AABB
 
             //Find which axis collided first
             var entryTime = Math.Max(entry.X, entry.Y);
-            var exitTime = Math.Max(exit.X, exit.Y);
+            var exitTime = Math.Min(exit.X, exit.Y);
 
             //entryTime will tell use when he collision first occurred and exittime is when it exited the object
             //from the other side. tell us if a collision occurred at all.
