@@ -45,17 +45,17 @@
     <Analyzer Include="D:\Unity\2022.3.16f1c1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\SomeData.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Editor\ItemDrawer.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Editor\RPGEditorWindow.cs" />
+    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Editor\ItemSlotCellDrawer.cs" />
     <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\OverrideGetTargetsExampleWindow.cs" />
     <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Editor\CharacterTable.cs" />
     <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\SomeTextureToolWindow.cs" />
-    <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\SomeData.cs" />
     <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\BasicOdinEditorExampleWindow.cs" />
-    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Editor\ItemDrawer.cs" />
-    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Editor\RPGEditorWindow.cs" />
     <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\OdinMenuStyleExample.cs" />
     <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\QuicklyInspectObjects.cs" />
     <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Editor\ScriptableObjectCreator.cs" />
-    <Compile Include="Assets\Plugins\Sirenix\Demos\Sample - RPG Editor\Scripts\Editor\ItemSlotCellDrawer.cs" />
     <Compile Include="Assets\Plugins\Sirenix\Demos\Editor Windows\Scripts\Editor\OdinMenuEditorWindowExample.cs" />
     <None Include="Assets\Plugins\Sirenix\Odin Inspector\Assets\Editor\Bootstrap License.txt" />
     <Reference Include="UnityEngine">
