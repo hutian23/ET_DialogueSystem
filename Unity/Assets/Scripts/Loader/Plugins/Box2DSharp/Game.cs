@@ -5,10 +5,12 @@ using System.Reflection;
 using Box2DSharp.Common;
 using Box2DSharp.Testbed.Unity.Inspection;
 using ImGuiNET;
+using Sirenix.OdinInspector;
 using Testbed.Abstractions;
 using Testbed.TestCases;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using Camera = UnityEngine.Camera;
 
 namespace Box2DSharp.Testbed.Unity
@@ -117,15 +119,21 @@ namespace Box2DSharp.Testbed.Unity
             CheckMouseMove();
             CheckMouseUp();
         }
-
+        
         private void OnPreRender()
         {
             Test.Render();
         }
 
+        private void BeginCameraRender(ScriptableRenderContext context, Camera _)
+        {
+            this.OnPreRender();
+        }
+
         private void OnEnable()
         {
             ImGuiUn.Layout += RenderUI;
+            RenderPipelineManager.beginCameraRendering += BeginCameraRender;
         }
 
         private void OnDisable()

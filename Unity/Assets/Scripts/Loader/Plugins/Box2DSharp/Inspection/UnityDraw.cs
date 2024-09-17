@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -33,15 +34,20 @@ namespace Box2DSharp.Testbed.Unity.Inspection
 
             return drawLines;
         }
-
+        
+        //https://discussions.unity.com/t/urp-doesnt-pass-camera-current-to-onrenderobject/231742
         private void OnRenderObject()
         {
-            if (Camera.current == default)
-            {
-                return;
-            }
-
-            if (!Camera.current.CompareTag(MainCameraTag) && Camera.current.name != SceneCameraName)
+            // if (Camera.current == default)
+            // {
+            //     return;
+            // }
+            //
+            // if (!Camera.current.CompareTag(MainCameraTag) && Camera.current.name != SceneCameraName)
+            // {
+            //     return;
+            // }
+            if (Camera.main == default)
             {
                 return;
             }
@@ -58,7 +64,7 @@ namespace Box2DSharp.Testbed.Unity.Inspection
                     GL.Vertex(line.end);
                 }
             }
-
+            
             GL.End();
             GL.Begin(GL.QUADS);
             for (var i = 0; i < _points.Count; i++)

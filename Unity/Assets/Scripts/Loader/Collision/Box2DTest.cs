@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using ImGuiNET;
 using UnityEngine;
 
 namespace ET
@@ -10,18 +8,17 @@ namespace ET
         // Start is called before the first frame update
         void Start()
         {
+            ImGuiUn.Layout += this.OnPreRender;
+        }
         
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            Debug.LogWarning("Hello owrld");
-        }
-
         private void OnPreRender()
         {
-            Debug.LogWarning("Hello world");
+            Debug.LogWarning("OnPreRender");
+        }
+
+        private void OnPostRender()
+        {
+            Debug.LogWarning("Post Render");
         }
     }
 }
