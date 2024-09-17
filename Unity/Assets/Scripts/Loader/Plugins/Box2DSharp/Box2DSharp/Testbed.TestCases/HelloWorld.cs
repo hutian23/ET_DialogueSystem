@@ -56,5 +56,10 @@ namespace Testbed.TestCases
                 World.CreateBody(bodyDef).CreateFixture(fixtureDef);
             }
         }
+
+        protected override void OnRender()
+        {
+            DrawString($"{this._body.Transform.Position}");
+        }
     }
 }

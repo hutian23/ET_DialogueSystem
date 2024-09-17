@@ -7,6 +7,7 @@ using Box2DSharp.Common;
 using Box2DSharp.Dynamics;
 using Box2DSharp.Dynamics.Contacts;
 using Box2DSharp.Dynamics.Joints;
+using UnityEngine;
 using Joint = Box2DSharp.Dynamics.Joints.Joint;
 using Random = System.Random;
 using Vector2 = System.Numerics.Vector2;
@@ -20,7 +21,7 @@ namespace Testbed.Abstractions
 
         public const int RandomLimit = 32767;
 
-        public readonly Random Random = new Random();
+        public readonly Random Random = new();
 
         public readonly ContactPoint[] Points = new ContactPoint[2048];
 
@@ -132,6 +133,7 @@ namespace Testbed.Abstractions
             PreStep();
             World.Step(TimeStep, TestSettings.VelocityIterations, TestSettings.PositionIterations);
             PostStep();
+            
         }
 
         #endregion
@@ -231,6 +233,7 @@ namespace Testbed.Abstractions
 
             OnRender();
             DrawWorld();
+       
             if (TimeStep > 0)
             {
                 ++StepCount;
