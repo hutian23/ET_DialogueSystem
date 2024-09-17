@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 namespace Box2DSharp.Testbed.Unity.Inspection
 {
     [ExecuteInEditMode]
-    public class UnityDraw : MonoBehaviour
+    public class UnityDraw: MonoBehaviour
     {
         private const string SceneCameraName = "SceneCamera";
 
@@ -20,10 +20,10 @@ namespace Box2DSharp.Testbed.Unity.Inspection
         private readonly List<List<(Vector3 begin, Vector3 end)>> _lines = new List<List<(Vector3, Vector3)>>();
 
         private readonly List<(Vector3 Center, float Radius, Color color)> _points =
-            new List<(Vector3 Center, float Radius, Color color)>();
+                new List<(Vector3 Center, float Radius, Color color)>();
 
         private StringBuilder _stringBuilder = new StringBuilder();
-        
+
         public static UnityDraw GetDraw()
         {
             var drawLines = FindObjectOfType<UnityDraw>();
@@ -34,20 +34,25 @@ namespace Box2DSharp.Testbed.Unity.Inspection
 
             return drawLines;
         }
-        
-        //https://discussions.unity.com/t/urp-doesnt-pass-camera-current-to-onrenderobject/231742
-        private void OnRenderObject()
+
+        private void OnEnable()
         {
-            // if (Camera.current == default)
-            // {
-            //     return;
-            // }
-            //
-            // if (!Camera.current.CompareTag(MainCameraTag) && Camera.current.name != SceneCameraName)
-            // {
-            //     return;
-            // }
-            if (Camera.main == default)
+            RenderPipelineManager.beginCameraRendering += BeginCameraRender;
+        }
+
+        private void OnDisable()
+        {
+            RenderPipelineManager.beginCameraRendering -= BeginCameraRender;
+        }
+
+        private void BeginCameraRender(ScriptableRenderContext context, Camera _camera)
+        {
+            if (_camera == default)
+            {
+                return;
+            }
+
+            if (!_camera.CompareTag(MainCameraTag) && _camera.name != SceneCameraName)
             {
                 return;
             }
@@ -64,7 +69,7 @@ namespace Box2DSharp.Testbed.Unity.Inspection
                     GL.Vertex(line.end);
                 }
             }
-            
+
             GL.End();
             GL.Begin(GL.QUADS);
             for (var i = 0; i < _points.Count; i++)
@@ -78,6 +83,51 @@ namespace Box2DSharp.Testbed.Unity.Inspection
             }
 
             GL.End();
+        }
+
+        //https://discussions.unity.com/t/urp-doesnt-pass-camera-current-to-onrenderobject/231742
+        private void OnRenderObject()
+        {
+            // if (Camera.current == default)
+            // {
+            //     return;
+            // }
+            //
+            // if (!Camera.current.CompareTag(MainCameraTag) && Camera.current.name != SceneCameraName)
+            // {
+            //     return;
+            // }
+            // if (Camera.main == default)
+            // {
+            //     return;
+            // }
+            //
+            // CreateLineMaterial();
+            // _lineMaterial.SetPass(0);
+            // GL.Begin(GL.LINES);
+            // for (var i = 0; i < _lines.Count; i++)
+            // {
+            //     GL.Color(_colors[i]);
+            //     foreach (var line in _lines[i])
+            //     {
+            //         GL.Vertex(line.begin);
+            //         GL.Vertex(line.end);
+            //     }
+            // }
+            //
+            // GL.End();
+            // GL.Begin(GL.QUADS);
+            // for (var i = 0; i < _points.Count; i++)
+            // {
+            //     var point = _points[i];
+            //     GL.Color(point.color);
+            //     GL.Vertex(new Vector2(point.Center.x - point.Radius, point.Center.y - point.Radius));
+            //     GL.Vertex(new Vector2(point.Center.x - point.Radius, point.Center.y + point.Radius));
+            //     GL.Vertex(new Vector2(point.Center.x + point.Radius, point.Center.y + point.Radius));
+            //     GL.Vertex(new Vector2(point.Center.x + point.Radius, point.Center.y - point.Radius));
+            // }
+            //
+            // GL.End();
         }
 
         public void PostLines(List<(Vector3 begin, Vector3 end)> lines, Color color)
@@ -108,14 +158,14 @@ namespace Box2DSharp.Testbed.Unity.Inspection
             // Unity has a built-in shader that is useful for drawing
             // simple colored things.
             var shader = Shader.Find("Hidden/Internal-Colored");
-            _lineMaterial = new Material(shader) {hideFlags = HideFlags.HideAndDontSave};
+            _lineMaterial = new Material(shader) { hideFlags = HideFlags.HideAndDontSave };
 
             // Turn on alpha blending
-            _lineMaterial.SetInt("_SrcBlend", (int) BlendMode.SrcAlpha);
-            _lineMaterial.SetInt("_DstBlend", (int) BlendMode.OneMinusSrcAlpha);
+            _lineMaterial.SetInt("_SrcBlend", (int)BlendMode.SrcAlpha);
+            _lineMaterial.SetInt("_DstBlend", (int)BlendMode.OneMinusSrcAlpha);
 
             // Turn backface culling off
-            _lineMaterial.SetInt("_Cull", (int) CullMode.Off);
+            _lineMaterial.SetInt("_Cull", (int)CullMode.Off);
 
             // Turn off depth writes
             _lineMaterial.SetInt("_ZWrite", 0);
