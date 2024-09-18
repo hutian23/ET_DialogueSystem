@@ -5,7 +5,7 @@ namespace Box2DSharp.Testbed.Unity
 {
     public class FixedUpdate
     {
-        private readonly Stopwatch _gameTimer = new Stopwatch();
+        private readonly Stopwatch _gameTimer = new();
 
         public long Dt;
 

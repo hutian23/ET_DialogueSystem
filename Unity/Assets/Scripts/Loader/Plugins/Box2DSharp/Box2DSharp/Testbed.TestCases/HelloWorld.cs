@@ -24,9 +24,11 @@ namespace Testbed.TestCases
             groundBody.CreateFixture(groundBox, 0.0f);
 
             // Define the dynamic body. We set its position and call the body factory.
-            var bodyDef = new BodyDef {BodyType = BodyType.DynamicBody};
-
-            bodyDef.Position.Set(0, 4f);
+            var bodyDef = new BodyDef
+            {
+                BodyType = BodyType.DynamicBody,
+                Position = new Vector2(0,4f)
+            };
 
             var dynamicBox = new PolygonShape();
             dynamicBox.SetAsBox(1f, 1f, Vector2.Zero, 45f);

@@ -22,7 +22,6 @@ namespace ET.Client
 
             //3. Timeline
             TimelineComponent timelineComponent = player.AddComponent<TimelineComponent>();
-
             timelineComponent.AddComponent<ScriptParser, long>(player.InstanceId);
             timelineComponent.AddComponent<TimelineEventManager>();
         }

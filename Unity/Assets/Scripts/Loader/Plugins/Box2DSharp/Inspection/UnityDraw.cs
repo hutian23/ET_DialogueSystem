@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ImGuiNET;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -34,29 +35,20 @@ namespace Box2DSharp.Testbed.Unity.Inspection
 
             return drawLines;
         }
-
-        private void OnEnable()
+        
+        //https://discussions.unity.com/t/urp-doesnt-pass-camera-current-to-onrenderobject/231742
+        private void OnRenderObject()
         {
-            RenderPipelineManager.beginCameraRendering += BeginCameraRender;
-        }
-
-        private void OnDisable()
-        {
-            RenderPipelineManager.beginCameraRendering -= BeginCameraRender;
-        }
-
-        private void BeginCameraRender(ScriptableRenderContext context, Camera _camera)
-        {
-            if (_camera == default)
+            if (Camera.current == default)
             {
                 return;
             }
-
-            if (!_camera.CompareTag(MainCameraTag) && _camera.name != SceneCameraName)
+            
+            if (!Camera.current.CompareTag(MainCameraTag) && Camera.current.name != SceneCameraName)
             {
                 return;
             }
-
+            
             CreateLineMaterial();
             _lineMaterial.SetPass(0);
             GL.Begin(GL.LINES);
@@ -69,7 +61,7 @@ namespace Box2DSharp.Testbed.Unity.Inspection
                     GL.Vertex(line.end);
                 }
             }
-
+            
             GL.End();
             GL.Begin(GL.QUADS);
             for (var i = 0; i < _points.Count; i++)
@@ -81,53 +73,8 @@ namespace Box2DSharp.Testbed.Unity.Inspection
                 GL.Vertex(new Vector2(point.Center.x + point.Radius, point.Center.y + point.Radius));
                 GL.Vertex(new Vector2(point.Center.x + point.Radius, point.Center.y - point.Radius));
             }
-
+            
             GL.End();
-        }
-
-        //https://discussions.unity.com/t/urp-doesnt-pass-camera-current-to-onrenderobject/231742
-        private void OnRenderObject()
-        {
-            // if (Camera.current == default)
-            // {
-            //     return;
-            // }
-            //
-            // if (!Camera.current.CompareTag(MainCameraTag) && Camera.current.name != SceneCameraName)
-            // {
-            //     return;
-            // }
-            // if (Camera.main == default)
-            // {
-            //     return;
-            // }
-            //
-            // CreateLineMaterial();
-            // _lineMaterial.SetPass(0);
-            // GL.Begin(GL.LINES);
-            // for (var i = 0; i < _lines.Count; i++)
-            // {
-            //     GL.Color(_colors[i]);
-            //     foreach (var line in _lines[i])
-            //     {
-            //         GL.Vertex(line.begin);
-            //         GL.Vertex(line.end);
-            //     }
-            // }
-            //
-            // GL.End();
-            // GL.Begin(GL.QUADS);
-            // for (var i = 0; i < _points.Count; i++)
-            // {
-            //     var point = _points[i];
-            //     GL.Color(point.color);
-            //     GL.Vertex(new Vector2(point.Center.x - point.Radius, point.Center.y - point.Radius));
-            //     GL.Vertex(new Vector2(point.Center.x - point.Radius, point.Center.y + point.Radius));
-            //     GL.Vertex(new Vector2(point.Center.x + point.Radius, point.Center.y + point.Radius));
-            //     GL.Vertex(new Vector2(point.Center.x + point.Radius, point.Center.y - point.Radius));
-            // }
-            //
-            // GL.End();
         }
 
         public void PostLines(List<(Vector3 begin, Vector3 end)> lines, Color color)
