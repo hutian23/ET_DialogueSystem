@@ -7,11 +7,11 @@ namespace ET
 {
     public class b2GUIController
     {
-        public readonly b2World _world;
+        private readonly b2Game Game;
 
-        public b2GUIController(b2World world)
+        public b2GUIController(b2Game game)
         {
-            this._world = world;
+            this.Game = game;
         }
 
         public void Render()
@@ -23,7 +23,7 @@ namespace ET
 
         private void UpdateText()
         {
-            if (this._world.DebugDraw.ShowUI)
+            if (this.Game.DebugDraw.ShowUI)
             {
                 ImGui.SetNextWindowPos(new Vector2(0.0f, 0.0f));
                 ImGui.SetNextWindowSize(new Vector2(Global.Camera.Width, Global.Camera.Height));
@@ -31,7 +31,7 @@ namespace ET
                 ImGui.Begin("Overlay", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoInputs | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoScrollbar);
                 ImGui.End();
 
-                while (_world.DebugDraw.Texts.TryDequeue(out var text))
+                while (this.Game.DebugDraw.Texts.TryDequeue(out var text))
                 {
                     ImGui.Begin("Overlay", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoInputs | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoScrollbar);
                     ImGui.SetCursorPos(text.Position.ToUnityVector2());

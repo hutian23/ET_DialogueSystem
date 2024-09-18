@@ -1,68 +1,63 @@
 ﻿using System;
-using System.Threading;
+using Box2DSharp.Testbed.Unity;
 using CommandLine;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace ET
 {
-	public class Init: MonoBehaviour
-	{
-		[Button("Hello world")]
-		public void Test()
-		{
-			Debug.LogWarning(Application.persistentDataPath);
-		}
-        
-		private void Start()
-		{
-			DontDestroyOnLoad(gameObject);
-			
-			AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
-			{
-				Log.Error(e.ExceptionObject.ToString());
-			};
-				
-			Game.AddSingleton<MainThreadSynchronizationContext>();
+    public class Init: MonoBehaviour
+    {
+        private FixedUpdate fixedUpdate;
 
-			// 命令行参数
-			string[] args = "".Split(" ");
-			Parser.Default.ParseArguments<Options>(args)
-				.WithNotParsed(error => throw new Exception($"命令行格式错误! {error}"))
-				.WithParsed(Game.AddSingleton);
-			
-			Game.AddSingleton<TimeInfo>();
-			Game.AddSingleton<Logger>().ILog = new UnityLogger();
-			Game.AddSingleton<ObjectPool>();
-			Game.AddSingleton<IdGenerater>();
-			Game.AddSingleton<EventSystem>();
-			Game.AddSingleton<TimerComponent>();
-			Game.AddSingleton<CoroutineLockComponent>();
-			
-			ETTask.ExceptionHandler += Log.Error;
+        private void Awake()
+        {
+            fixedUpdate = new FixedUpdate(TimeSpan.FromSeconds(1 / 60d), () => { EventSystem.Instance.FixedUpdate(); });
+        }
 
-			Game.AddSingleton<CodeLoader>().Start();
-		}
+        private void Start()
+        {
+            DontDestroyOnLoad(gameObject);
 
-		private void Update()
-		{
-			Game.Update();
-		}
+            AppDomain.CurrentDomain.UnhandledException += (_, e) => { Log.Error(e.ExceptionObject.ToString()); };
 
-		private void FixedUpdate()
-		{
-			EventSystem.Instance.FixedUpdate();
-		}
+            Game.AddSingleton<MainThreadSynchronizationContext>();
 
-		private void LateUpdate()
-		{
-			Game.LateUpdate();
-			Game.FrameFinishUpdate();
-		}
+            // 命令行参数
+            string[] args = "".Split(" ");
+            Parser.Default.ParseArguments<Options>(args)
+                    .WithNotParsed(error => throw new Exception($"命令行格式错误! {error}"))
+                    .WithParsed(Game.AddSingleton);
 
-		private void OnApplicationQuit()
-		{
-			Game.Close();
-		}
-	}
+            Game.AddSingleton<TimeInfo>();
+            Game.AddSingleton<Logger>().ILog = new UnityLogger();
+            Game.AddSingleton<ObjectPool>();
+            Game.AddSingleton<IdGenerater>();
+            Game.AddSingleton<EventSystem>();
+            Game.AddSingleton<TimerComponent>();
+            Game.AddSingleton<CoroutineLockComponent>();
+
+            ETTask.ExceptionHandler += Log.Error;
+
+            Game.AddSingleton<CodeLoader>().Start();
+
+            fixedUpdate.Start();
+        }
+
+        private void Update()
+        {
+            Game.Update();
+            fixedUpdate.Update();
+        }
+
+        private void LateUpdate()
+        {
+            Game.LateUpdate();
+            Game.FrameFinishUpdate();
+        }
+
+        private void OnApplicationQuit()
+        {
+            Game.Close();
+        }
+    }
 }

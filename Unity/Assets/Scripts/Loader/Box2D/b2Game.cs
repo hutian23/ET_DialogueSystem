@@ -10,7 +10,7 @@ using Camera = UnityEngine.Camera;
 
 namespace ET
 {
-    public class b2World: MonoBehaviour
+    public class b2Game: MonoBehaviour
     {
         private FpsCounter fpsCounter;
 
@@ -149,7 +149,7 @@ namespace ET
             }
         }
 
-        public void ScrollCallback(double dx, double dy)
+        private void ScrollCallback(double dx, double dy)
         {
             if (dy > 0)
             {
@@ -181,7 +181,7 @@ namespace ET
             }
         }
 
-        public void ResizeWindowCallback(int width, int height, FullScreenMode fullScreenMode)
+        private void ResizeWindowCallback(int width, int height, FullScreenMode fullScreenMode)
         {
             Global.Camera.Width = width;
             Global.Camera.Height = height;
@@ -198,8 +198,7 @@ namespace ET
         {
             var mouse = Mouse.current;
             var mousePosition = Mouse.current.position.ReadValue();
-            var keyboard = Keyboard.current;
-            
+
             //Drag
             if (mouse.rightButton.isPressed)
             {

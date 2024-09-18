@@ -244,6 +244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unityDraw: {fileID: 648636216}
   MainCamera: {fileID: 0}
+  Difference: {x: 0, y: 0, z: 0}
+  Origin: {x: 0, y: 0, z: 0}
   Drag: 0
   _screenWidth: 0
   _screenHeight: 0

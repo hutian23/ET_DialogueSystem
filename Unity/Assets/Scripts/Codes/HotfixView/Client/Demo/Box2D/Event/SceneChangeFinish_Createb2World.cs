@@ -7,7 +7,7 @@ namespace ET.Client
     {
         protected override async ETTask Run(Scene scene, SceneChangeFinish args)
         {
-            scene.AddComponent<b2WorldManager>();
+            scene.AddComponent<b2GameManager>();
             await ETTask.CompletedTask;
         }
     }
