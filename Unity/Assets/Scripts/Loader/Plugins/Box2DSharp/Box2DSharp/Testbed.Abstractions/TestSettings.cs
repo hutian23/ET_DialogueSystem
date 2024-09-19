@@ -42,6 +42,30 @@ namespace Testbed.Abstractions
         public int TestIndex;
 
         [DataMember]
+        public int ETItemIndex;
+
+        [DataMember]
+        public bool ShowHitbox;
+
+        [DataMember]
+        public bool ShowHurtBox;
+
+        [DataMember]
+        public bool ShowThrowBox;
+
+        [DataMember]
+        public bool ShowThrowHurtBox;
+
+        [DataMember]
+        public bool ShowPushBox;
+
+        [DataMember]
+        public bool ShowProximityBox;
+
+        [DataMember]
+        public bool ShowOtherBox;
+        
+        [DataMember]
         public int WindowWidth;
 
         [DataMember]
