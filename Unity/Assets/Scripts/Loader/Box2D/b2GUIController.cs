@@ -99,7 +99,9 @@ namespace ET
                             ImGui.TreeNodeEx("Hot Reload", leafNodeFlags);
                             if (ImGui.IsItemClicked())
                             {
-                                Debug.LogWarning("Hello world");
+                                CodeLoader.Instance.LoadHotfix();
+                                EventSystem.Instance.Load();
+                                Log.Debug("hot reload success");
                             }
 
                             ImGui.TreePop();
@@ -115,6 +117,7 @@ namespace ET
                             ImGui.Checkbox("ThrowHurtbox", ref Global.Settings.ShowThrowHurtBox);
                             ImGui.Checkbox("PushBox", ref Global.Settings.ShowPushBox);
                             ImGui.Checkbox("ProximityBox", ref Global.Settings.ShowProximityBox);
+                            ImGui.Checkbox("OtherBox", ref Global.Settings.ShowOtherBox);
                             ImGui.EndTabItem();
                         }
                     }

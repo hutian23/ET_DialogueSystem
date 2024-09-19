@@ -11,8 +11,6 @@ namespace ET
     //Loader层，负责渲染形状，接收输入
     public class b2Game: MonoBehaviour
     {
-        private TestBase testBase;
-        
         private FpsCounter fpsCounter;
 
         private FixedUpdate fixedUpdate;

@@ -121,7 +121,7 @@ namespace Testbed.Abstractions
 
         [DataMember]
         public bool EnableSleep;
-
+        
         public bool Pause;
 
         public bool SingleStep;

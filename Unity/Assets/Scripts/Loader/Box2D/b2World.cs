@@ -1,51 +1,30 @@
-﻿using System.Numerics;
-using Box2DSharp.Collision.Collider;
-using Box2DSharp.Collision.Shapes;
+﻿using Box2DSharp.Collision.Collider;
 using Box2DSharp.Common;
-using Box2DSharp.Dynamics;
 using Testbed.Abstractions;
 
 namespace ET
 {
     public class b2World: TestBase
     {
+        private b2Game Game;
+
         public b2World(b2Game _Game)
         {
+            Game = _Game;
             //render
-            _Game.PreRenderCallback += Drawb2World;
+            Game.PreRenderCallback += Drawb2World;
 
             //Load
             Input = Global.Input;
             Draw = Global.DebugDraw;
             TestSettings = Global.Settings;
             World.Draw = Global.DebugDraw;
+        }
 
-            //ground
-            //1. 创建刚体
-            var groundBodyDef = new BodyDef { BodyType = BodyType.StaticBody, Position = Vector2.Zero };
-            var groundBody = World.CreateBody(groundBodyDef);
-
-            //2. 夹具
-            var groundBox = new PolygonShape();
-            groundBox.SetAsBox(50f, 5.0f);
-            groundBody.CreateFixture(groundBox, 0.0f);
-            
-            //dynamic body
-            //1. bodyDef
-            var bodyDef = new BodyDef
-            {
-                BodyType = BodyType.DynamicBody,
-                Position = new Vector2(0,10f),
-                FixedRotation = true
-            };
-            //2. shape
-            var dynamicBox = new PolygonShape();
-            dynamicBox.SetAsBox(1f, 1f, Vector2.Zero, 45f);
-            //3. fixture
-            var fixtureDef = new FixtureDef { Shape = dynamicBox, Density = 1.0f, Friction = 0.3f };
-
-            var body = World.CreateBody(bodyDef);
-            body.CreateFixture(fixtureDef);
+        public override void Dispose()
+        {
+            Game.PreRenderCallback -= Drawb2World;
+            Game = null;
         }
 
         private void Drawb2World()

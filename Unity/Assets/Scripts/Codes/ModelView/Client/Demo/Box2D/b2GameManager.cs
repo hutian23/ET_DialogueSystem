@@ -1,7 +1,7 @@
 ﻿namespace ET.Client
 {
     [ComponentOf(typeof (Scene))]
-    public class b2GameManager: Entity, IAwake, IDestroy, IFixedUpdate
+    public class b2GameManager: Entity, IAwake, IDestroy, IFixedUpdate,ILoad
     {
         [StaticField]
         public static b2GameManager Instance;
