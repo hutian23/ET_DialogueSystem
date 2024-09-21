@@ -49,6 +49,11 @@ namespace Box2DSharp.Testbed.Unity.Inspection
         {
             return new System.Numerics.Vector3(vector3.x, vector3.y, 0);
         }
+
+        public static float GetRadian(float angle)
+        {
+            return Mathf.Deg2Rad * angle;
+        }
     }
 
     [AttributeUsage(AttributeTargets.Field, Inherited = true)]

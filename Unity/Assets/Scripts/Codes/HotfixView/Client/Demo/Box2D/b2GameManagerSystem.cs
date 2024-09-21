@@ -31,6 +31,16 @@ namespace ET.Client
             protected override void FixedUpdate(b2GameManager self)
             {
                 self.B2World.Step();
+                self.SyncTrans();
+            }
+        }
+
+        private static void SyncTrans(this b2GameManager self)
+        {
+            foreach (Entity child in self.Children.Values)
+            {
+                b2Body body = child as b2Body;
+                body.SyncUnitTransform();
             }
         }
 

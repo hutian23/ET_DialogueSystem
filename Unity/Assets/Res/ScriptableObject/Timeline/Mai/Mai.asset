@@ -77,10 +77,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 132
+      Data: 154
     - Name: 
       Entry: 4
-      Data: 0
+      Data: -12
     - Name: 
       Entry: 4
       Data: 0

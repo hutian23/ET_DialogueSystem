@@ -5,6 +5,7 @@ using System.Reflection;
 using Box2DSharp.Common;
 using Box2DSharp.Testbed.Unity.Inspection;
 using ImGuiNET;
+using Sirenix.OdinInspector;
 using Testbed.Abstractions;
 using Testbed.TestCases;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Box2DSharp.Testbed.Unity
 {
     public class Game: MonoBehaviour
     {
+        public GameObject go;
         public TestBase Test { get; private set; }
 
         public FpsCounter FpsCounter = new FpsCounter();

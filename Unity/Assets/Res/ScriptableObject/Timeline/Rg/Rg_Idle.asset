@@ -103,7 +103,7 @@ MonoBehaviour:
       Data: HitboxTrack_1
     - Name: Enable
       Entry: 5
-      Data: true
+      Data: false
     - Name: Clips
       Entry: 7
       Data: 7|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
