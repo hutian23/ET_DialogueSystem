@@ -3,6 +3,7 @@ using Box2DSharp.Collision.Shapes;
 using Box2DSharp.Dynamics;
 using Box2DSharp.Testbed.Unity.Inspection;
 using ET.Event;
+using Timeline;
 
 namespace ET.Client
 {
@@ -23,21 +24,33 @@ namespace ET.Client
 
             //1. Player
             Unit player = TODUnitHelper.GetPlayer(scene.ClientScene());
-            b2Body B2Body = b2GameManager.Instance.AddChild<b2Body>();
-
+            
             var bodyDef = new BodyDef
             {
-                BodyType = BodyType.DynamicBody, Position = new Vector2(0, 15), Angle = Utils.GetRadian(-35f)
+                BodyType = BodyType.DynamicBody, Position = new Vector2(0, 15), Angle = Utils.GetRadian(0f)
             };
             var body = World.CreateBody(bodyDef);
 
-            var box = new PolygonShape();
-            box.SetAsBox(2, 2);
-            body.CreateFixture(box, 1.0f);
+            HitboxKeyframe keyframe = null;
+            TimelinePlayer timelinePlayer = player.GetComponent<TimelineComponent>().GetTimelinePlayer();
+            foreach (var track in timelinePlayer.CurrentTimeline.Tracks)
+            {
+                if (track is BBHitboxTrack hitboxTrack)
+                {
+                    keyframe = hitboxTrack.GetKeyframe(0);
+                }
+            }
 
-            B2Body.IsPlayer = true;
-            B2Body.body = body;
-            B2Body.unitId = player.InstanceId;
+            foreach (var boxInfo in keyframe.boxInfos)
+            {
+                var box = new PolygonShape();
+                box.SetAsHitbox(boxInfo);
+                body.CreateFixture(box, 1.0f);
+                b2Body B2Body = b2GameManager.Instance.AddChild<b2Body>();
+                B2Body.IsPlayer = true;
+                B2Body.body = body;
+                B2Body.unitId = player.InstanceId;   
+            }
 
             await ETTask.CompletedTask;
         }

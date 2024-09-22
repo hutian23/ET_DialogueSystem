@@ -65,12 +65,14 @@ namespace Timeline.Editor
         //TODO 需要深入学习
         protected static Vector3 TransformColliderCenterToHandleSpace(Transform colliderTransform, Vector3 colliderCenter)
         {
-            return Handles.inverseMatrix * (Matrix4x4.TRS(colliderTransform.position, Quaternion.identity, Vector3.one) * colliderCenter);
+            // return Handles.inverseMatrix * (Matrix4x4.TRS(colliderTransform.position, Quaternion.identity, Vector3.one) * colliderCenter);
+            return Handles.inverseMatrix * (Matrix4x4.TRS(colliderTransform.localPosition, Quaternion.identity, Vector3.one) * colliderCenter);
         }
 
         protected static Vector3 TransformHandleCenterToColliderSpace(Transform colliderTransform, Vector3 handleCenter)
         {
-            return Matrix4x4.TRS(colliderTransform.position, Quaternion.identity, Vector3.one).inverse * (Handles.matrix * handleCenter);
+            // return Matrix4x4.TRS(colliderTransform.position, Quaternion.identity, Vector3.one).inverse * (Handles.matrix * handleCenter);
+            return Matrix4x4.TRS(colliderTransform.localPosition, Quaternion.identity, Vector3.one).inverse * (Handles.matrix * handleCenter);
         }
     }
 }

@@ -111,7 +111,7 @@ namespace Timeline.Editor
 
             fieldScaleBar = root.Q<SliderInt>("field-scale-bar");
             fieldScaleBar.RegisterValueChangedCallback(m_TimelineField.SliderUpdate);
-            
+
             Undo.undoRedoEvent += OnUndoRedoEvent;
         }
 

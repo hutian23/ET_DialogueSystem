@@ -161,7 +161,6 @@ namespace Timeline
         public void Dispose()
         {
             if (PlayableGraph.IsValid()) PlayableGraph.Destroy();
-            ResetPos();
         }
 
         public BBTimeline GetByOrder(int order)

@@ -275,12 +275,12 @@ namespace Timeline
             PrepareFrame(default, default);
 
             //不混合rootmotion的位移量
-            if (GetInputWeight() <= 0f) return;
+            // if (GetInputWeight() <= 0f) return;
 
             //Edit mode下,更新position
             // if (!runtimePlayable.TimelinePlayer.InEdit) return;
-            BBAnimationClip animationClip = Clip as BBAnimationClip;
-            runtimePlayable.TimelinePlayer.transform.localPosition = animationClip.EditorPosition(clipInFrame);
+            // BBAnimationClip animationClip = Clip as BBAnimationClip;
+            // runtimePlayable.TimelinePlayer.transform.localPosition = animationClip.EditorPosition(clipInFrame);
         }
 
         public static BBTimelineAnimationClipPlayable Create(RuntimePlayable runtimePlayable, BBAnimationClip clip, Playable output, int index)

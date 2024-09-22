@@ -43,7 +43,7 @@ namespace Timeline
     }
 
     [Serializable]
-    public class HitboxKeyframe : BBKeyframeBase
+    public class HitboxKeyframe: BBKeyframeBase
     {
         [HideReferenceObjectPicker]
         public List<BoxInfo> boxInfos = new();
@@ -161,6 +161,7 @@ namespace Timeline
 
                 GameObject child = new(boxInfo.boxName);
                 child.transform.SetParent(parent.transform);
+                child.transform.localPosition = Vector2.zero;
                 child.AddComponent<TimelineGenerate>();
                 CastBox castBox = child.AddComponent<CastBox>();
                 castBox.info = boxInfo;
