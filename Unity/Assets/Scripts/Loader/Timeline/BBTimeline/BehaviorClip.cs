@@ -11,6 +11,7 @@ namespace Timeline
     {
         public BBTimeline Timeline;
         public string Title;
+        public int order;
 
         [TextArea(10, 30)]
         public string Script;
@@ -28,7 +29,7 @@ namespace Timeline
     public class BehaviorLayer
     {
         public string layerName;
-        
+
         [HideReferenceObjectPicker]
         public List<BehaviorClip> BehaviorClips = new();
 

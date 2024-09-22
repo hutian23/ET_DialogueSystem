@@ -8,22 +8,24 @@ namespace ET.Client
         {
             DialogueComponent dialogueComponent = unit.GetComponent<DialogueComponent>();
             BehaviorBufferComponent bufferComponent = dialogueComponent.GetComponent<BehaviorBufferComponent>();
-            PlayableManager playableManager = dialogueComponent.GetComponent<PlayableManager>();
-            RootMotionComponent rootMotion = dialogueComponent.GetComponent<RootMotionComponent>();
-
-            //移除所有加特林取消
-            bufferComponent.ClearWhiff();
-            bufferComponent.ClearGC();
-
-            //初始化timeline
-            long skillOrder = bufferComponent.GetOrder(node.TargetID);
-            playableManager.Init(skillOrder);
-
-            //enable root motion
-            rootMotion.Init(node.TargetID);
-
-            dialogueComponent.GetComponent<BBParser>().InitScript(node);
-            return await dialogueComponent.GetComponent<BBParser>().Main();
+            // TimelineManager timelineManager = dialogueComponent.GetComponent<TimelineManager>();
+            // RootMotionComponent rootMotion = dialogueComponent.GetComponent<RootMotionComponent>();
+            //
+            // //移除所有加特林取消
+            // bufferComponent.ClearWhiff();
+            // bufferComponent.ClearGC();
+            //
+            // //初始化timeline
+            // long skillOrder = bufferComponent.GetOrder(node.TargetID);
+            // timelineManager.Init(skillOrder);
+            //
+            // //enable root motion
+            // rootMotion.Init(node.TargetID);
+            //
+            // dialogueComponent.GetComponent<BBParser>().InitScript(node);
+            // return await dialogueComponent.GetComponent<BBParser>().Main();
+            await ETTask.CompletedTask;
+            return Status.Success;
         }
     }
 }

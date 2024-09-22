@@ -52,6 +52,9 @@ MonoBehaviour:
     - Name: Title
       Entry: 1
       Data: Test
+    - Name: order
+      Entry: 3
+      Data: 0
     - Name: Script
       Entry: 1
       Data: '@Init:
@@ -99,6 +102,9 @@ MonoBehaviour:
     - Name: Title
       Entry: 1
       Data: New BehaviorClip
+    - Name: order
+      Entry: 3
+      Data: 1
     - Name: Script
       Entry: 6
       Data: 

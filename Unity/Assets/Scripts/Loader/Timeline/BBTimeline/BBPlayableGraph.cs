@@ -11,6 +11,16 @@ namespace Timeline
     [CreateAssetMenu(menuName = "ScriptableObject/BBTimeline/PlayableGraph", fileName = "BBPlayableGraph")]
     public class BBPlayableGraph: SerializedScriptableObject
     {
+        public RootClip root;
+
+        [HideReferenceObjectPicker]
+        [OdinSerialize, NonSerialized]
+        public List<BehaviorLayer> Layers = new();
+
+        [HideReferenceObjectPicker]
+        [OdinSerialize, NonSerialized]
+        public List<SharedVariable> Parameters = new();
+        
 #if UNITY_EDITOR
         private SerializedObject SerializedController;
 
@@ -38,15 +48,10 @@ namespace Timeline
         }
 #endif
 
-        public RootClip root;
-
-        [HideReferenceObjectPicker]
-        [OdinSerialize, NonSerialized]
-        public List<BehaviorLayer> Layers = new();
-
-        [HideReferenceObjectPicker]
-        [OdinSerialize, NonSerialized]
-        public List<SharedVariable> Parameters = new();
+        public BBTimeline GetByOrder(int order)
+        {
+            return null;
+        }
     }
 
     [Serializable]

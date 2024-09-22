@@ -21,7 +21,7 @@ namespace ET.Client
                 dialogueComponent.RemoveComponent<BBInputComponent>();
                 dialogueComponent.RemoveComponent<BehaviorBufferComponent>();
                 dialogueComponent.RemoveComponent<RootMotionComponent>();
-                dialogueComponent.RemoveComponent<PlayableManager>();
+                dialogueComponent.RemoveComponent<TimelineManager>();
                 unit.RemoveComponent<NumericComponent>();
 
                 //Test
@@ -36,7 +36,7 @@ namespace ET.Client
             dialogueComponent.AddComponent<BBParser>();
             dialogueComponent.AddComponent<BBInputComponent>();
             dialogueComponent.AddComponent<BehaviorBufferComponent>();
-            dialogueComponent.AddComponent<PlayableManager>();
+            // dialogueComponent.AddComponent<TimelineManager>();
             dialogueComponent.AddComponent<RootMotionComponent>();
             unit.AddComponent<NumericComponent>();
             

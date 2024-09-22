@@ -1,4 +1,5 @@
-﻿using ET.EventType;
+﻿using ET.Event;
+using ET.EventType;
 using UnityEngine;
 
 namespace ET.Client

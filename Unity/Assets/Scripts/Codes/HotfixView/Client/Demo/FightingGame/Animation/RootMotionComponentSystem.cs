@@ -10,6 +10,7 @@ namespace ET.Client
         {
             protected override void Awake(RootMotionComponent self)
             {
+                
             }
         }
 
@@ -23,44 +24,44 @@ namespace ET.Client
 
         public static void UpdatePos(this RootMotionComponent self, int targetFrame)
         {
-            PlayableManager manager = self.GetParent<DialogueComponent>().GetComponent<PlayableManager>();
-            RuntimePlayable runtimePlayable = manager.GetPlayable();
-
-            if (!runtimePlayable.TimelinePlayer.ApplyRootMotion)
-            {
-                return;
-            }
-
-            foreach (var runtimeTrack in runtimePlayable.RuntimeTracks)
-            {
-                if (runtimeTrack is not RuntimeAnimationTrack runtimeAnimationTrack)
-                {
-                    continue;
-                }
-
-                BBAnimationTrack track = runtimeAnimationTrack.AnimationTrack;
-
-                foreach (var clip in track.Clips)
-                {
-                    if (clip.InMiddle(targetFrame))
-                    {
-                        if (self.currentClip != clip)
-                        {
-                            self.OnDone();
-                        }
-
-                        self.currentClip = clip as BBAnimationClip;
-                        int ClipInFrame = targetFrame - self.currentClip.StartFrame;
-                        //Update position
-                        //TODO 物理模拟
-                        self.GetTransform().position = self.initPos + self.currentClip.CurrentPosition(ClipInFrame);
-                        return;
-                    }
-                }
-
-                self.OnDone();
-                return;
-            }
+            // TimelineManager manager = self.GetParent<DialogueComponent>().GetComponent<TimelineManager>();
+            // RuntimePlayable runtimePlayable = manager.GetPlayable();
+            //
+            // if (!runtimePlayable.TimelinePlayer.ApplyRootMotion)
+            // {
+            //     return;
+            // }
+            //
+            // foreach (var runtimeTrack in runtimePlayable.RuntimeTracks)
+            // {
+            //     if (runtimeTrack is not RuntimeAnimationTrack runtimeAnimationTrack)
+            //     {
+            //         continue;
+            //     }
+            //
+            //     BBAnimationTrack track = runtimeAnimationTrack.AnimationTrack;
+            //
+            //     foreach (var clip in track.Clips)
+            //     {
+            //         if (clip.InMiddle(targetFrame))
+            //         {
+            //             if (self.currentClip != clip)
+            //             {
+            //                 self.OnDone();
+            //             }
+            //
+            //             self.currentClip = clip as BBAnimationClip;
+            //             int ClipInFrame = targetFrame - self.currentClip.StartFrame;
+            //             //Update position
+            //             //TODO 物理模拟
+            //             self.GetTransform().position = self.initPos + self.currentClip.CurrentPosition(ClipInFrame);
+            //             return;
+            //         }
+            //     }
+            //
+            //     self.OnDone();
+            //     return;
+            // }
         }
 
         //当前clip执行完的回调
@@ -72,8 +73,9 @@ namespace ET.Client
 
         private static Transform GetTransform(this RootMotionComponent self)
         {
-            TimelinePlayer timelinePlayer = self.GetParent<DialogueComponent>().GetComponent<PlayableManager>().GetPlayable().TimelinePlayer;
-            return timelinePlayer.transform;
+            // TimelinePlayer timelinePlayer = self.GetParent<DialogueComponent>().GetComponent<TimelineManager>().GetPlayable().TimelinePlayer;
+            // return timelinePlayer.transform;
+            return null;
         }
     }
 }

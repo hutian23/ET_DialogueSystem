@@ -4,7 +4,7 @@ namespace ET.Client
 {
     public static class PlayableManagerSystem
     {
-        private static TimelinePlayer GetTimelinePlayer(this PlayableManager self)
+        private static TimelinePlayer GetTimelinePlayer(this TimelineManager self)
         {
             return self.GetParent<DialogueComponent>()
                     .GetParent<Unit>()
@@ -12,18 +12,18 @@ namespace ET.Client
                     .GetComponent<TimelinePlayer>();
         }
 
-        public static RuntimePlayable GetPlayable(this PlayableManager self)
+        public static RuntimePlayable GetPlayable(this TimelineManager self)
         {
             return self.GetTimelinePlayer().RuntimeimePlayable;
         }
 
-        public static BBTimeline GetCurrentTimeline(this PlayableManager self)
+        public static BBTimeline GetCurrentTimeline(this TimelineManager self)
         {
             return self.GetPlayable().Timeline;
         }
 
         //behaviorOrder ---> timeline
-        public static void Init(this PlayableManager self, long skillOrder)
+        public static void Init(this TimelineManager self, long skillOrder)
         {
             BBTimeline currentTimeline = self.GetTimelinePlayer().GetByOrder((int)skillOrder);
             self.GetTimelinePlayer().Init(currentTimeline);

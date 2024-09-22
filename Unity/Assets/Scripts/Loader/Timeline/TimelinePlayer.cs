@@ -24,7 +24,6 @@ namespace Timeline
     public struct EditTimelineCallback
     {
         public long instanceId;
-        
     }
 
     #endregion
@@ -117,7 +116,7 @@ namespace Timeline
                     goSet.Add(component.gameObject);
                 }
             }
-            
+
             foreach (GameObject go in goSet)
             {
                 DestroyImmediate(go);
@@ -157,7 +156,7 @@ namespace Timeline
 
             #endregion
         }
-
+        
         public void Dispose()
         {
             if (PlayableGraph.IsValid()) PlayableGraph.Destroy();
