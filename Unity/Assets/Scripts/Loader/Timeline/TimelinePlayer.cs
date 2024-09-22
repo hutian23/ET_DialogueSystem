@@ -129,6 +129,11 @@ namespace Timeline
         }
 #endif
 
+        public void Init(int order)
+        {
+            Init(BBPlayable.GetByOrder(order));
+        }
+        
         public void Init(BBTimeline _timeline)
         {
             #region PlayableGraph

@@ -20,7 +20,7 @@ namespace Timeline
         [HideReferenceObjectPicker]
         [OdinSerialize, NonSerialized]
         public List<SharedVariable> Parameters = new();
-        
+
 #if UNITY_EDITOR
         private SerializedObject SerializedController;
 
@@ -41,15 +41,33 @@ namespace Timeline
                     {
                         continue;
                     }
+
                     timelineSet.Add(behaviorClip.Timeline);
                 }
             }
+
             return timelineSet;
         }
 #endif
 
         public BBTimeline GetByOrder(int order)
         {
+            foreach (var layer in Layers)
+            {
+                foreach (var behaviorClip in layer.BehaviorClips)
+                {
+                    if (behaviorClip.Timeline == null)
+                    {
+                        continue;
+                    }
+
+                    if (behaviorClip.order == order)
+                    {
+                        return behaviorClip.Timeline;
+                    }
+                }
+            }
+
             return null;
         }
     }

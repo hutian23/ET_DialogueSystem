@@ -5,6 +5,7 @@ namespace ET.Client
 {
     public static class TimelineComponentSystem
     {
+        [FriendOf(typeof (TimelineManager))]
         public class BBTimelineComponentAwakeSystem: AwakeSystem<TimelineComponent>
         {
             protected override void Awake(TimelineComponent self)
@@ -12,9 +13,20 @@ namespace ET.Client
                 GameObject go = self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject;
                 TimelinePlayer timelinePlayer = go.GetComponent<TimelinePlayer>();
                 timelinePlayer.instanceId = self.InstanceId;
+
+                TimelineManager.Instance.instanceIds.Add(self.InstanceId);
             }
         }
 
+        [FriendOf(typeof (TimelineManager))]
+        public class BBTimelineComponentDestroySystem: DestroySystem<TimelineComponent>
+        {
+            protected override void Destroy(TimelineComponent self)
+            {
+                TimelineManager.Instance.instanceIds.Remove(self.InstanceId);
+            }
+        }
+        
         public static T GetParameter<T>(this TimelineComponent timelineComponent, string parameterName)
         {
             TimelinePlayer timelinePlayer = timelineComponent.GetParent<Unit>()

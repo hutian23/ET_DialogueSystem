@@ -17,7 +17,7 @@ namespace ET.Client
             var groundBodyDef = new BodyDef { BodyType = BodyType.StaticBody, Position = Vector2.Zero };
             var groundBody = World.CreateBody(groundBodyDef);
             var groundBox = new PolygonShape();
-            groundBox.SetAsBox(50f, 5.0f);
+            groundBox.SetAsBox(50f, 2.0f);
             groundBody.CreateFixture(groundBox, 0.0f);
             
             await ETTask.CompletedTask;

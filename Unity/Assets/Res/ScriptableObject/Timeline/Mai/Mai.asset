@@ -51,7 +51,7 @@ MonoBehaviour:
       Data: 0
     - Name: Title
       Entry: 1
-      Data: Test
+      Data: Idle
     - Name: order
       Entry: 3
       Data: 0

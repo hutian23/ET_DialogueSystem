@@ -13,7 +13,8 @@ namespace ET.Client
             await ResourcesComponent.Instance.LoadBundleAsync($"{currentScene.Name}.unity3d");
             // 切换到map场景
             await SceneManager.LoadSceneAsync(currentScene.Name);
-            
+
+            currentScene.AddComponent<GameManager>();
             //添加物理世界管理组件
             currentScene.AddComponent<b2GameManager>();
             //Timeline管理

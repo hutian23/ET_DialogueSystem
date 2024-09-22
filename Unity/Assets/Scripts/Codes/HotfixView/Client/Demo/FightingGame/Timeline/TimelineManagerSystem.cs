@@ -1,5 +1,6 @@
 ﻿namespace ET.Client
 {
+    [FriendOf(typeof (TimelineManager))]
     public static class TimelineManagerSystem
     {
         public class TimelineManagerAwakeSystem: AwakeSystem<TimelineManager>
@@ -7,21 +8,26 @@
             protected override void Awake(TimelineManager self)
             {
                 TimelineManager.Instance = self;
-                self.Reload();
+                self.instanceIds.Clear();
             }
         }
 
-        public class TimelineManageLoadSystem: LoadSystem<TimelineManager>
+        public class TimelineManagerDestroySystem: DestroySystem<TimelineManager>
         {
-            protected override void Load(TimelineManager self)
+            protected override void Destroy(TimelineManager self)
             {
-                self.Reload();
+                TimelineManager.Instance = null;
+                self.instanceIds.Clear();
             }
         }
 
-        private static void Reload(this TimelineManager self)
+        public static void Reload(this TimelineManager self)
         {
-            EventSystem.Instance.PublishAsync(self.DomainScene(), new InitTimeline()).Coroutine();
+            foreach (long instanceId in self.instanceIds)
+            {
+                TimelineComponent timelineComponent = Root.Instance.Get(instanceId) as TimelineComponent;
+                timelineComponent.GetTimelinePlayer().Init(0); //Idle
+            }
         }
     }
 }

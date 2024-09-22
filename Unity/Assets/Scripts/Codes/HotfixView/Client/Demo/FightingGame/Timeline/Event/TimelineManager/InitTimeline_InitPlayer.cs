@@ -1,20 +1,14 @@
-﻿using System.Linq;
-using Timeline;
+﻿using Timeline;
 
 namespace ET.Client
 {
     [Event(SceneType.Current)]
     public class InitTimeline_InitPlayer : AEvent<InitTimeline>
     {
-        protected override async ETTask Run(Scene scene, InitTimeline a)
+        protected override async ETTask Run(Scene scene, InitTimeline args)
         {
             Unit player = TODUnitHelper.GetPlayer(scene.ClientScene());
             TimelineComponent timelineComponent = player.GetComponent<TimelineComponent>();
-            TimelinePlayer timelinePlayer = timelineComponent.GetTimelinePlayer();
-
-            BBTimeline Idle = timelinePlayer.BBPlayable.GetTimelines().FirstOrDefault();
-            timelinePlayer.Init(Idle);
-            
             await ETTask.CompletedTask;
         }
     }

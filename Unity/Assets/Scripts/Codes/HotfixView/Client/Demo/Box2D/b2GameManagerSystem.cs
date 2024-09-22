@@ -15,16 +15,8 @@ namespace ET.Client
                 self.Reload();
             }
         }
-
-        public class b2WorldChangeLoadSystem:LoadSystem<b2GameManager>
-        {
-            protected override void Load(b2GameManager self)
-            {
-                self.Reload();
-            }
-        }
-
-        private static void Reload(this b2GameManager self)
+        
+        public static void Reload(this b2GameManager self)
         {
             self.B2World?.Dispose();
             self.B2World = new b2World(self.Game);
