@@ -44,7 +44,7 @@ namespace ET.Client
     }
 
     [ComponentOf]
-    public class BBTimerComponent: Entity, IAwake, IDestroy, ILoad, IUpdate
+    public class BBTimerComponent: Entity, IAwake, IDestroy, IUpdate
     {
         public readonly MultiMap<long, long> TimerId = new();
 
@@ -65,8 +65,5 @@ namespace ET.Client
         public long LastTime;
         public long Accumulator;
         public Stopwatch _gameTimer = new();
-        
-        
-        
     }
 }

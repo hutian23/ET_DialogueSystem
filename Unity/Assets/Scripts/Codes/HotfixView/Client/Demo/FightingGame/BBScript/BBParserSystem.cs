@@ -30,11 +30,50 @@ namespace ET.Client
             self.function_Pointers.Clear();
         }
 
+        public static void InitScript(this BBParser self, string script)
+        {
+            self.Cancel();
+            self.opLines = script;
+            
+            //热重载取消所有BBParser子协程
+            self.cancellationToken = new ETCancellationToken();
+
+            //建立执行语句和指针的映射
+            string[] opLines = self.opLines.Split("\n");
+            int pointer = 0;
+            foreach (string opLine in opLines)
+            {
+                string op = opLine.Trim();
+                if (string.IsNullOrEmpty(op) || op.StartsWith('#')) continue; //空行 or 注释行
+                self.opDict[pointer++] = op;
+            }
+
+            foreach (var kv in self.opDict)
+            {
+                //函数指针
+                string pattern = "@([^:]+)";
+                Match match = Regex.Match(kv.Value, pattern);
+                if (match.Success)
+                {
+                    self.funcMap.TryAdd(match.Groups[1].Value, kv.Key);
+                }
+
+                //匹配marker
+                string pattern2 = @"SetMarker:\s+'([^']*)'";
+                Match match2 = Regex.Match(kv.Value, pattern2);
+                if (match2.Success)
+                {
+                    self.markers.TryAdd(match2.Groups[1].Value, kv.Key);
+                }
+            }
+        }
+        
         public static void InitScript(this BBParser self, BBNode node)
         {
             self.Cancel();
             self.opLines = node.BBScript;
             self.currentID = node.TargetID;
+            
             //热重载取消所有BBParser子协程
             self.cancellationToken = new ETCancellationToken();
             self.GetParent<DialogueComponent>().token.Add(self.cancellationToken.Cancel);
@@ -72,11 +111,10 @@ namespace ET.Client
         public static async ETTask Init(this BBParser self)
         {
             //行为信息组件
-            BehaviorBufferComponent bufferComponent = self.GetParent<DialogueComponent>().GetComponent<BehaviorBufferComponent>();
-            BehaviorInfo behaviorInfo = bufferComponent.AddChild<BehaviorInfo>();
-            bufferComponent.behaviorDict.Add(self.currentID, behaviorInfo);
-            behaviorInfo.targetID = self.currentID;
-
+            // BehaviorBufferComponent bufferComponent = self.GetParent<DialogueComponent>().GetComponent<BehaviorBufferComponent>();
+            // BehaviorInfo behaviorInfo = bufferComponent.AddChild<BehaviorInfo>();
+            // bufferComponent.behaviorDict.Add(self.currentID, behaviorInfo);
+            // behaviorInfo.targetID = self.currentID;
             await self.Invoke("Init",self.cancellationToken);
         }
 

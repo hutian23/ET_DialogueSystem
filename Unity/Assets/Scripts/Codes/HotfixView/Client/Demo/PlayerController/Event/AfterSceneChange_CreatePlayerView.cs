@@ -1,5 +1,4 @@
-﻿using ET.Event;
-using ET.EventType;
+﻿using ET.EventType;
 using UnityEngine;
 
 namespace ET.Client
@@ -20,11 +19,11 @@ namespace ET.Client
             //2. 以下组件 切换场景时全部销毁
             player.AddComponent<ObjectWait>();
             player.AddComponent<GameObjectComponent>().GameObject = go;
-            player.AddComponent<BBTimerComponent>();
             
             //3. Timeline
             TimelineComponent timelineComponent = player.AddComponent<TimelineComponent>();
-            timelineComponent.AddComponent<ScriptParser, long>(player.InstanceId);
+            timelineComponent.AddComponent<BBTimerComponent>(); // 战斗相关的计时器(因为和角色行为逻辑关联性强，作为timeline的组件)
+            timelineComponent.AddComponent<BBParser>();
             timelineComponent.AddComponent<TimelineEventManager>();
             timelineComponent.AddComponent<HitboxComponent>();
         }

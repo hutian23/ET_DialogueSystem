@@ -448,9 +448,4 @@ MonoBehaviour:
   order: 0
   Script: '@Main:
 
-    LogWarning: ''Hello World'';
-
-    WaitFrame: 30;
-
-    LogWarning:
-    ''2222'';'
+    StartTimelineCor;'

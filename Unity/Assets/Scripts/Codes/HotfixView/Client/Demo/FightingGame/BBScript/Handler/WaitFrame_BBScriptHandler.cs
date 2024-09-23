@@ -20,10 +20,7 @@ namespace ET.Client
             }
 
             int.TryParse(match.Groups["WaitFrame"].Value, out int frame);
-            // await parser.GetParent<TimelineComponent>().GetParent<Unit>().GetComponent<BBTimerComponent>().WaitAsync(frame, token);
-            // Log.Warning((parser.GetParent<TimelineComponent>()==null).ToString());
-            Log.Warning(frame.ToString());
-            await ETTask.CompletedTask;
+            await parser.GetParent<TimelineComponent>().GetComponent<BBTimerComponent>().WaitAsync(frame, token);
             return token.IsCancel()? Status.Failed : Status.Success;
         }
     }

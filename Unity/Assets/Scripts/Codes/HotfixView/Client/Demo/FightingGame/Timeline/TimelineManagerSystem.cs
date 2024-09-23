@@ -28,12 +28,18 @@ namespace ET.Client
             foreach (long instanceId in self.instanceIds)
             {
                 TimelineComponent timelineComponent = Root.Instance.Get(instanceId) as TimelineComponent;
-                timelineComponent.GetTimelinePlayer().Init(0); //Idle
+                BBParser parser = timelineComponent.GetComponent<BBParser>();
+                BBTimerComponent timer = timelineComponent.GetComponent<BBTimerComponent>();
 
+                //1. 初始化
+                parser.Cancel();
+                timer.ReLoad();
+
+                //2. 默认行为
+                timelineComponent.GetTimelinePlayer().Init(0); //Idle
                 BBTimeline timeline = timelineComponent.GetCurrentTimeline();
-                ScriptParser parser = timelineComponent.GetComponent<ScriptParser>();
                 parser.InitScript(timeline.Script);
-                parser.Invoke("Main").Coroutine();
+                parser.Main().Coroutine();
             }
         }
     }

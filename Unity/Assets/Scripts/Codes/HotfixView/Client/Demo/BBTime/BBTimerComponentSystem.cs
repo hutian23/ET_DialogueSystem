@@ -20,20 +20,15 @@ namespace ET.Client
         {
             protected override void Awake(BBTimerComponent self)
             {
-                self.Init();
-                self._gameTimer.Start();
-                self.LastTime = self._gameTimer.ElapsedTicks;
+                self.ReLoad();
             }
         }
 
-        public class BBTimerComponentLoadSystem: LoadSystem<BBTimerComponent>
+        public static void ReLoad(this BBTimerComponent self)
         {
-            protected override void Load(BBTimerComponent self)
-            {
-                self.Init();
-                self._gameTimer.Start();
-                self.LastTime = self._gameTimer.ElapsedTicks;
-            }
+            self.Init();
+            self._gameTimer.Start();
+            self.LastTime = self._gameTimer.ElapsedTicks;            
         }
 
         public class BBTimerComponentUpdateSystem: UpdateSystem<BBTimerComponent>
@@ -47,7 +42,7 @@ namespace ET.Client
         public class BBTimerComponentDestorySystem: DestroySystem<BBTimerComponent>
         {
             protected override void Destroy(BBTimerComponent self)
-            {
+            { 
                 self.Init();
             }
         }

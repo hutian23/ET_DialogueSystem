@@ -16,11 +16,11 @@ namespace ET.Client
             clientScene.AddComponent<Input>();
             clientScene.AddComponent<TODEventSystem>();
             clientScene.AddComponent<OperaComponent>();
-            clientScene.AddComponent<ScriptDispatcherComponent>();
-            // clientScene.AddComponent<DialogueDispatcherComponent>();
+            // clientScene.AddComponent<ScriptDispatcherComponent>();
+            clientScene.AddComponent<DialogueDispatcherComponent>();
 
             Unit player = TODUnitFactory.CreatePlayer(clientScene);
-            player.AddComponent<NumericComponent>();
+            // player.AddComponent<NumericComponent>();
             // player.AddComponent<DialogueStorageManager>();
 
             await Storage.Instance.SaveStorage(0, player);
