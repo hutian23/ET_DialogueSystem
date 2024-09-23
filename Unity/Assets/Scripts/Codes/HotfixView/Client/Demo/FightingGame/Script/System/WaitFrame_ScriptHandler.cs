@@ -12,9 +12,6 @@ namespace ET.Client
         //WaitFrame: 3;
         public override async ETTask<Status> Handle(ScriptParser parser, ScriptData data, ETCancellationToken token)
         {
-            BBTimerComponent timer = parser.GetUnit()
-                    .GetComponent<TimelineComponent>()
-                    .GetComponent<BBTimerComponent>();
             Match match = Regex.Match(data.opLine, "WaitFrame: (?<frame>.*?);");
             if (!match.Success)
             {
@@ -23,7 +20,7 @@ namespace ET.Client
             }
 
             int.TryParse(match.Groups["frame"].Value, out int frame);
-            await timer.WaitAsync(frame, token);
+            await parser.GetParent<TimelineComponent>().GetParent<Unit>().GetComponent<BBTimerComponent>().WaitAsync(frame, token);
             return token.IsCancel()? Status.Failed : Status.Success;
         }
     }

@@ -31,7 +31,6 @@ namespace ET.Client
                 timelineComponent.GetTimelinePlayer().Init(0); //Idle
 
                 BBTimeline timeline = timelineComponent.GetCurrentTimeline();
-                
                 ScriptParser parser = timelineComponent.GetComponent<ScriptParser>();
                 parser.InitScript(timeline.Script);
                 parser.Invoke("Main").Coroutine();

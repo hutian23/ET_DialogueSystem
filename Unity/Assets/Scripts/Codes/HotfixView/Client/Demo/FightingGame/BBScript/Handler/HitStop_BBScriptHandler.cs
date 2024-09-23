@@ -37,7 +37,7 @@ namespace ET.Client
             await bbTimer.WaitTillAsync(bbTimer.GetNow() + frame, token);
             if (token.IsCancel()) return;
 
-            combatTimer.Hertz = timeScale;
+            // combatTimer.Hertz = timeScale;
         }
     }
 }

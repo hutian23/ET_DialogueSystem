@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using System;
+using System.Linq;
 
 namespace ET.Client
 {
@@ -11,12 +11,32 @@ namespace ET.Client
         {
             public override void Handle(BBTimeChanged args)
             {
-                BBTimerComponent timerComponent = Root.Instance.Get(args.instanceId) as BBTimerComponent;
-                timerComponent.SetTimeScale(args.timeScale);
+                // BBTimerComponent timerComponent = Root.Instance.Get(args.instanceId) as BBTimerComponent;
+                // timerComponent.SetTimeScale(args.timeScale);
             }
         }
 
-        public class TODTimerComponentUpdateSystem: UpdateSystem<BBTimerComponent>
+        public class BBTimerComponentAwakeSystem: AwakeSystem<BBTimerComponent>
+        {
+            protected override void Awake(BBTimerComponent self)
+            {
+                self.Init();
+                self._gameTimer.Start();
+                self.LastTime = self._gameTimer.ElapsedTicks;
+            }
+        }
+
+        public class BBTimerComponentLoadSystem: LoadSystem<BBTimerComponent>
+        {
+            protected override void Load(BBTimerComponent self)
+            {
+                self.Init();
+                self._gameTimer.Start();
+                self.LastTime = self._gameTimer.ElapsedTicks;
+            }
+        }
+
+        public class BBTimerComponentUpdateSystem: UpdateSystem<BBTimerComponent>
         {
             protected override void Update(BBTimerComponent self)
             {
@@ -24,7 +44,7 @@ namespace ET.Client
             }
         }
 
-        public class TODTimerComponentDestorySystem: DestroySystem<BBTimerComponent>
+        public class BBTimerComponentDestorySystem: DestroySystem<BBTimerComponent>
         {
             protected override void Destroy(BBTimerComponent self)
             {
@@ -45,7 +65,7 @@ namespace ET.Client
         private static void Init(this BBTimerComponent self)
         {
             //回收所有定时器
-            foreach (var action in self.timerActions.Values)
+            foreach (BBTimerAction action in self.timerActions.Values)
             {
                 action?.Recycle();
             }
@@ -55,35 +75,34 @@ namespace ET.Client
             self.timeOutTimerIds.Clear();
             self.timerActions.Clear();
 
-            self.Hertz = 1f;
+            self.Hertz = 60;
             self.minFrame = long.MaxValue;
             self.curFrame = 0;
-            self.deltaTimereminder = 0f;
+            self.LastTime = 0;
+            self.Accumulator = 0;
         }
 
-        /// <summary>
-        /// 获得一帧的真实时长
-        /// </summary>
-        private static float GetFrameLength(this BBTimerComponent self)
+        private static long GetFrameLength(this BBTimerComponent self)
         {
-            //假设一秒为60帧
-            return Mathf.Round(1000 / (60 * self.Hertz));
+            return TimeSpan.FromSeconds((float)1 / self.Hertz).Ticks;
         }
 
         private static void TimerUpdate(this BBTimerComponent self)
         {
-            //时间完全静止了
-            if (self.Hertz == 0)
+            //计算当前帧
+            long now = self._gameTimer.ElapsedTicks;
+            long frameTime = now - self.LastTime;
+
+            self.LastTime = now;
+            self.Accumulator += frameTime;
+
+            long Dt = self.GetFrameLength();
+
+            while (self.Accumulator >= Dt)
             {
-                return;
+                self.Accumulator -= Dt;
+                ++self.curFrame;
             }
-
-            self.deltaTimereminder += Time.deltaTime * 1000;
-
-            float frameLength = self.GetFrameLength();
-            int num = (int)(self.deltaTimereminder / frameLength);
-            self.deltaTimereminder -= num * frameLength;
-            self.curFrame += num;
 
             //当前帧没有可执行的定时器，就不进行遍历了
             if (self.curFrame < self.minFrame)
@@ -290,9 +309,9 @@ namespace ET.Client
             return timer.Id;
         }
 
-        public static void SetTimeScale(this BBTimerComponent self, float timeScale)
+        public static void SetHertz(this BBTimerComponent self, int Hertz)
         {
-            self.Hertz = timeScale;
+            self.Hertz = Hertz;
         }
 
         public static float GetTimeScale(this BBTimerComponent self)

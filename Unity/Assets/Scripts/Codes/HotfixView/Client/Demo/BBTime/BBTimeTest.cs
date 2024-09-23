@@ -6,7 +6,7 @@
     {
         protected override void Run(BBTimerComponent timerComponent)
         {
-            Log.Warning($"{timerComponent.curFrame} {timerComponent.deltaTimereminder}");
+            // Log.Warning($"{timerComponent.curFrame} {timerComponent.deltaTimereminder}");
         }
     }
 }
