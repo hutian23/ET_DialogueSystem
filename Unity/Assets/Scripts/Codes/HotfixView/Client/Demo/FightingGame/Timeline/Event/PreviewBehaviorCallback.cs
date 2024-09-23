@@ -32,7 +32,7 @@ namespace ET.Client
             await parser.Invoke("Init");
 
             //preview 
-            parser.InitScript(args.Clip.Script);
+            // parser.InitScript(args.Clip.Script);
             await parser.Invoke("Main");
         }
     }

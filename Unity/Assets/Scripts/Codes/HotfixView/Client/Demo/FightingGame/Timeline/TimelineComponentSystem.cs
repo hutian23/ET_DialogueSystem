@@ -6,7 +6,7 @@ namespace ET.Client
     public static class TimelineComponentSystem
     {
         [FriendOf(typeof (TimelineManager))]
-        public class BBTimelineComponentAwakeSystem: AwakeSystem<TimelineComponent>
+        public class TimelineComponentAwakeSystem: AwakeSystem<TimelineComponent>
         {
             protected override void Awake(TimelineComponent self)
             {
@@ -19,14 +19,16 @@ namespace ET.Client
         }
 
         [FriendOf(typeof (TimelineManager))]
-        public class BBTimelineComponentDestroySystem: DestroySystem<TimelineComponent>
+        public class TimelineComponentDestroySystem: DestroySystem<TimelineComponent>
         {
             protected override void Destroy(TimelineComponent self)
             {
                 TimelineManager.Instance.instanceIds.Remove(self.InstanceId);
             }
         }
-        
+
+        #region Param
+
         public static T GetParameter<T>(this TimelineComponent timelineComponent, string parameterName)
         {
             TimelinePlayer timelinePlayer = timelineComponent.GetParent<Unit>()
@@ -66,10 +68,18 @@ namespace ET.Client
             return null;
         }
 
+        #endregion
+
         public static TimelinePlayer GetTimelinePlayer(this TimelineComponent self)
         {
-            return self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject
+            return self.GetParent<Unit>()
+                    .GetComponent<GameObjectComponent>().GameObject
                     .GetComponent<TimelinePlayer>();
+        }
+
+        public static BBTimeline GetCurrentTimeline(this TimelineComponent self)
+        {
+            return self.GetTimelinePlayer().CurrentTimeline;
         }
     }
 }

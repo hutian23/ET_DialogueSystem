@@ -5,7 +5,6 @@ using System.Reflection;
 using Box2DSharp.Common;
 using Box2DSharp.Testbed.Unity.Inspection;
 using ImGuiNET;
-using Sirenix.OdinInspector;
 using Testbed.Abstractions;
 using Testbed.TestCases;
 using UnityEngine;

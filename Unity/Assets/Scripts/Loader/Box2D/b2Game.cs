@@ -6,6 +6,7 @@ using Testbed.Abstractions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Camera = UnityEngine.Camera;
+
 namespace ET
 {
     //Loader层，负责渲染形状，接收输入
@@ -79,9 +80,11 @@ namespace ET
         {
             fpsCounter.SetFps();
         }
-        
+
         #region RenderUI
+
         public Action PreRenderCallback;
+
         private void OnPreRender()
         {
             PreRenderCallback?.Invoke();
@@ -100,6 +103,8 @@ namespace ET
         private void RenderUI()
         {
             controller.Render();
+            var mode = Global.Settings.InEditMode? "EditMode" : "RuntimeMode";
+            DebugDraw.DrawString(5, 10, $"Game Mode: {mode}");
             DebugDraw.DrawString(5, Global.Camera.Height - 40, $"{fpsCounter.Ms:0.0} ms");
             DebugDraw.DrawString(5, Global.Camera.Height - 20, $"{fpsCounter.Fps:F1} fps");
         }

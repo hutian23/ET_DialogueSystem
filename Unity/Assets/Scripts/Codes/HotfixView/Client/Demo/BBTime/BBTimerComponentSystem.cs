@@ -55,7 +55,7 @@ namespace ET.Client
             self.timeOutTimerIds.Clear();
             self.timerActions.Clear();
 
-            self.timeScale = 1f;
+            self.Hertz = 1f;
             self.minFrame = long.MaxValue;
             self.curFrame = 0;
             self.deltaTimereminder = 0f;
@@ -67,13 +67,13 @@ namespace ET.Client
         private static float GetFrameLength(this BBTimerComponent self)
         {
             //假设一秒为60帧
-            return Mathf.Round(1000 / (60 * self.timeScale));
+            return Mathf.Round(1000 / (60 * self.Hertz));
         }
 
         private static void TimerUpdate(this BBTimerComponent self)
         {
             //时间完全静止了
-            if (self.timeScale == 0)
+            if (self.Hertz == 0)
             {
                 return;
             }
@@ -292,12 +292,12 @@ namespace ET.Client
 
         public static void SetTimeScale(this BBTimerComponent self, float timeScale)
         {
-            self.timeScale = timeScale;
+            self.Hertz = timeScale;
         }
 
         public static float GetTimeScale(this BBTimerComponent self)
         {
-            return self.timeScale;
+            return self.Hertz;
         }
     }
 }

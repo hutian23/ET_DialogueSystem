@@ -155,10 +155,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -0.05
+      Data: 0
     - Name: 
       Entry: 4
-      Data: -1.15
+      Data: -3.3
     - Name: 
       Entry: 8
       Data: 
@@ -445,3 +445,12 @@ MonoBehaviour:
       Entry: 8
       Data: 
   timelineName: Rg_Idle
+  order: 0
+  Script: '@Main:
+
+    LogWarning: ''Hello World'';
+
+    WaitFrame: 30;
+
+    LogWarning:
+    ''2222'';'

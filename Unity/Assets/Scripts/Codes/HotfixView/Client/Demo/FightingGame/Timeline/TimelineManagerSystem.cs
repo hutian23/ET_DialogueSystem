@@ -1,4 +1,6 @@
-﻿namespace ET.Client
+﻿using Timeline;
+
+namespace ET.Client
 {
     [FriendOf(typeof (TimelineManager))]
     public static class TimelineManagerSystem
@@ -27,6 +29,12 @@
             {
                 TimelineComponent timelineComponent = Root.Instance.Get(instanceId) as TimelineComponent;
                 timelineComponent.GetTimelinePlayer().Init(0); //Idle
+
+                BBTimeline timeline = timelineComponent.GetCurrentTimeline();
+                
+                ScriptParser parser = timelineComponent.GetComponent<ScriptParser>();
+                parser.InitScript(timeline.Script);
+                parser.Invoke("Main").Coroutine();
             }
         }
     }

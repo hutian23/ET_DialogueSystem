@@ -15,10 +15,10 @@ namespace ET.Client
             await SceneManager.LoadSceneAsync(currentScene.Name);
 
             currentScene.AddComponent<GameManager>();
-            //添加物理世界管理组件
-            currentScene.AddComponent<b2GameManager>();
             //Timeline管理
             currentScene.AddComponent<TimelineManager>();
+            //添加物理世界管理组件
+            currentScene.AddComponent<b2GameManager>();
         }
     }
 }

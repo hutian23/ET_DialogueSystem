@@ -93,11 +93,12 @@ namespace Timeline.Editor
 
             //Select Timeline
             m_select_timeline_Button = root.Q<Button>("select-timeline-button");
+            
             DropdownMenuHandler selectMenuHandler = new(menu =>
             {
                 foreach (BBTimeline _timeline in TimelinePlayer.BBPlayable.GetTimelines())
                 {
-                    string actionName = $"{_timeline.timelineName}";
+                    string actionName = $"{_timeline.order} - {_timeline.timelineName}";
                     menu.AppendAction(actionName, _ => { TimelinePlayer.OpenWindow(_timeline); },
                         TimelinePlayer.CurrentTimeline == _timeline? DropdownMenuAction.Status.Checked : DropdownMenuAction.Status.Normal);
                 }
@@ -226,7 +227,7 @@ namespace Timeline.Editor
 
         private void UpdateSelectTimeline()
         {
-            m_select_timeline_label.text = TimelinePlayer.CurrentTimeline.timelineName;
+            m_select_timeline_label.text = $"{TimelinePlayer.CurrentTimeline.order} - {TimelinePlayer.CurrentTimeline.timelineName}";
         }
 
         #endregion

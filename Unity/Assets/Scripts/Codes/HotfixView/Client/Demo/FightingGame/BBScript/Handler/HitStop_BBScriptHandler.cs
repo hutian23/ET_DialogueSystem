@@ -32,12 +32,12 @@ namespace ET.Client
             BBTimerComponent bbTimer = parser.GetParent<DialogueComponent>().GetComponent<BBInputComponent>().GetComponent<BBTimerComponent>();
             BBTimerComponent combatTimer = parser.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>();
 
-            float timeScale = combatTimer.timeScale;
-            combatTimer.timeScale = 0;
+            float timeScale = combatTimer.Hertz;
+            combatTimer.Hertz = 0;
             await bbTimer.WaitTillAsync(bbTimer.GetNow() + frame, token);
             if (token.IsCancel()) return;
 
-            combatTimer.timeScale = timeScale;
+            combatTimer.Hertz = timeScale;
         }
     }
 }

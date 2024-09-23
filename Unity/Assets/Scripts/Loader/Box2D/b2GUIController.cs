@@ -33,7 +33,7 @@ namespace ET
                     ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoInputs | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoScrollbar);
                 ImGui.End();
 
-                while (this.Game.DebugDraw.Texts.TryDequeue(out var text))
+                while (this.Game.DebugDraw.Texts.TryDequeue(out (System.Numerics.Vector2 Position, string Text) text))
                 {
                     ImGui.Begin("Overlay",
                         ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoInputs | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoScrollbar);
@@ -65,7 +65,7 @@ namespace ET
                         ImGui.SliderFloat("Hertz", ref Global.Settings.Hertz, 5.0f, 120.0f, "%.0f hz");
 
                         ImGui.Separator();
-                        
+
                         ImGui.Checkbox("Sleep", ref Global.Settings.EnableSleep);
                         ImGui.Checkbox("Warm Starting", ref Global.Settings.EnableWarmStarting);
                         ImGui.Checkbox("Time of Impact", ref Global.Settings.EnableContinuous);
@@ -83,7 +83,7 @@ namespace ET
                         ImGui.Checkbox("Center of Masses", ref Global.Settings.DrawCOMs);
                         ImGui.Checkbox("Statistics", ref Global.Settings.DrawStats);
                         ImGui.Checkbox("Profile", ref Global.Settings.DrawProfile);
-                        
+
                         ImGui.EndTabItem();
                     }
 
@@ -102,6 +102,26 @@ namespace ET
                                 CodeLoader.Instance.LoadHotfix();
                                 EventSystem.Instance.Load();
                                 Log.Debug("hot reload success");
+                            }
+
+                            ImGui.TreeNodeEx("Edit Mode", leafNodeFlags);
+                            if (ImGui.IsItemClicked())
+                            {
+                                if (!Global.Settings.InEditMode)
+                                {
+                                    //TODO Invoke
+                                }
+                                Global.Settings.InEditMode = true;
+                            }
+
+                            ImGui.TreeNodeEx("Runtime Mode", leafNodeFlags);
+                            if (ImGui.IsItemClicked())
+                            {
+                                if (Global.Settings.InEditMode)
+                                {
+                                    //TODO Invoke
+                                }
+                                Global.Settings.InEditMode = false;
                             }
 
                             ImGui.TreePop();

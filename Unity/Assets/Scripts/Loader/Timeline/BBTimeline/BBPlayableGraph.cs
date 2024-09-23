@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ET.Client;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -52,23 +53,7 @@ namespace Timeline
 
         public BBTimeline GetByOrder(int order)
         {
-            foreach (var layer in Layers)
-            {
-                foreach (var behaviorClip in layer.BehaviorClips)
-                {
-                    if (behaviorClip.Timeline == null)
-                    {
-                        continue;
-                    }
-
-                    if (behaviorClip.order == order)
-                    {
-                        return behaviorClip.Timeline;
-                    }
-                }
-            }
-
-            return null;
+            return GetTimelines().FirstOrDefault(timeline => timeline.order == order);
         }
     }
 

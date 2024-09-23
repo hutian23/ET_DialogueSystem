@@ -11,10 +11,6 @@ namespace Timeline
     {
         public BBTimeline Timeline;
         public string Title;
-        public int order;
-
-        [TextArea(10, 30)]
-        public string Script;
 
 #if UNITY_EDITOR
         [HideInInspector]

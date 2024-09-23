@@ -133,7 +133,7 @@ namespace Timeline
         {
             Init(BBPlayable.GetByOrder(order));
         }
-        
+
         public void Init(BBTimeline _timeline)
         {
             #region PlayableGraph
@@ -161,7 +161,7 @@ namespace Timeline
 
             #endregion
         }
-        
+
         public void Dispose()
         {
             if (PlayableGraph.IsValid()) PlayableGraph.Destroy();

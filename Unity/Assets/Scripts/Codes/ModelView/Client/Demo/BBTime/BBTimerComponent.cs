@@ -60,6 +60,6 @@ namespace ET.Client
         public long curFrame = 0;
         public float deltaTimereminder = 0;
 
-        public float timeScale = 1f;
+        public float Hertz = 1f;
     }
 }

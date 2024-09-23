@@ -125,5 +125,7 @@ namespace Testbed.Abstractions
         public bool Pause;
 
         public bool SingleStep;
+
+        public bool InEditMode;
     }
 }
