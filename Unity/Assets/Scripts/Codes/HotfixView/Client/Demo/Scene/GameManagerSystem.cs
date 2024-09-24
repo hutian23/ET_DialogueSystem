@@ -20,11 +20,10 @@
 
         public static void Reload(this GameManager self)
         {
-            //1. timeline
-            TimelineManager.Instance.Reload();
-            
             //2. b2World reload
             b2GameManager.Instance.Reload();
+            //1. timeline
+            TimelineManager.Instance.Reload();
         }
     }
 }

@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace ET.Client
 {
-    [FriendOf(typeof(b2GameManager))]
+    [FriendOf(typeof (b2GameManager))]
     public static class b2GameManagerSystem
     {
-        public class b2WorldManagerAwakeSystem : AwakeSystem<b2GameManager>
+        public class b2WorldManagerAwakeSystem: AwakeSystem<b2GameManager>
         {
             protected override void Awake(b2GameManager self)
             {
@@ -15,20 +15,42 @@ namespace ET.Client
                 self.Reload();
             }
         }
-        
+
         public static void Reload(this b2GameManager self)
         {
+            //create new b2World
             self.B2World?.Dispose();
             self.B2World = new b2World(self.Game);
+
+            //dispose b2body
+            foreach (var kv in self.BodyDict)
+            {
+                kv.Value.Dispose();
+            }
+
+            self.BodyDict.Clear();
+
+            //create hitbox
             EventSystem.Instance.PublishAsync(self.DomainScene(), new AfterB2WorldCreated() { B2World = self.B2World }).Coroutine();
         }
-        
-        public class b2WorldManagerFixedUpdateSystem : FixedUpdateSystem<b2GameManager>
+
+        public class b2WorldManagerFixedUpdateSystem: FixedUpdateSystem<b2GameManager>
         {
             protected override void FixedUpdate(b2GameManager self)
             {
                 self.B2World.Step();
                 self.SyncTrans();
+            }
+        }
+
+        public class b2WorldManagerDestroySystem: DestroySystem<b2GameManager>
+        {
+            protected override void Destroy(b2GameManager self)
+            {
+                b2GameManager.Instance = null;
+                self.Game = null;
+                self.B2World?.Dispose();
+                self.BodyDict.Clear();
             }
         }
 
@@ -41,14 +63,14 @@ namespace ET.Client
             }
         }
 
-        public class b2WorldManagerDestroySystem : DestroySystem<b2GameManager>
+        public static b2Body GetBody(this b2GameManager self, long unitId)
         {
-            protected override void Destroy(b2GameManager self)
+            if (self.BodyDict.TryGetValue(unitId, out b2Body body))
             {
-                b2GameManager.Instance = null;
-                self.Game = null;
-                self.B2World?.Dispose();
+                return body;
             }
+
+            return null;
         }
     }
 }

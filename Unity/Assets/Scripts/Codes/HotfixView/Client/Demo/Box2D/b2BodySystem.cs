@@ -6,27 +6,18 @@ namespace ET.Client
     [FriendOf(typeof (b2Body))]
     public static class b2BodySystem
     {
-        public class b2BodyLoadSystem: LoadSystem<b2Body>
-        {
-            protected override void Load(b2Body self)
-            {
-                self.Dispose();
-            }
-        }
-
         public class b2BodyDestroySystem: DestroySystem<b2Body>
         {
             protected override void Destroy(b2Body self)
             {
                 self.unitId = 0;
-                self.IsPlayer = false;
                 self.body = null;
             }
         }
 
         public static void SyncUnitTransform(this b2Body self)
         {
-            Unit unit = TODUnitHelper.GetPlayer(self.ClientScene());
+            Unit unit = Root.Instance.Get(self.unitId) as Unit;
 
             var curTrans = self.body.GetTransform();
             if (self.trans.Equals(curTrans))

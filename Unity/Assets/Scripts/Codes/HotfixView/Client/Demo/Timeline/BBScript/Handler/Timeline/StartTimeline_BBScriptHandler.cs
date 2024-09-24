@@ -34,13 +34,14 @@ namespace ET.Client
             // }
             //
             // rootMotion.OnDone();
+            
             TimelineComponent timelineComponent = parser.GetParent<TimelineComponent>();
             BBTimerComponent timer = timelineComponent.GetComponent<BBTimerComponent>();
             RuntimePlayable playable = timelineComponent.GetTimelinePlayer().RuntimeimePlayable;
 
             for (int i = 0; i < playable.ClipMaxFrame(); i++)
             {
-                playable.Evaluate(i);
+                timelineComponent.Evaluate(i);
                 await timer.WaitAsync(1, token);
                 if (token.IsCancel()) break;
             }

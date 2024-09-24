@@ -20,7 +20,7 @@ namespace ET.Client
             {
                 for (int i = 0; i < playable.ClipMaxFrame(); i++)
                 {
-                    playable.Evaluate(i);
+                    timelineComponent.Evaluate(i);
                     await timer.WaitAsync(1, token);
                     if (token.IsCancel()) break;
                 }

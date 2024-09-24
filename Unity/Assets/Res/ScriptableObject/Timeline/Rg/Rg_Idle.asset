@@ -448,4 +448,4 @@ MonoBehaviour:
   order: 0
   Script: '@Main:
 
-    StartTimelineCor;'
+    LoopTimeline;'

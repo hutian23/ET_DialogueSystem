@@ -15,7 +15,6 @@ namespace ET
         [Button("动画编辑器")]
         public void EnterAnimEditor()
         {
-            Debug.Log("344343");
         }
     }
 }

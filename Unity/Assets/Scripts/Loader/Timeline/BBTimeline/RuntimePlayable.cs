@@ -62,11 +62,7 @@ namespace Timeline
         public void Evaluate(int targetFrame)
         {
             //1. dont call each update 
-            if (CurrentFrame == targetFrame)
-            {
-                return;
-            }
-
+            if (CurrentFrame == targetFrame) return;
             CurrentFrame = targetFrame;
 
             //2. mute runtimeTrack

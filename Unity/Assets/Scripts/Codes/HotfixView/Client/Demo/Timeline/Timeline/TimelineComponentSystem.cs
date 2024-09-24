@@ -81,5 +81,11 @@ namespace ET.Client
         {
             return self.GetTimelinePlayer().CurrentTimeline;
         }
+
+        public static void Evaluate(this TimelineComponent self, int targetFrame)
+        {
+            RuntimePlayable playable = self.GetTimelinePlayer().RuntimeimePlayable;
+            playable.Evaluate(targetFrame);
+        }
     }
 }

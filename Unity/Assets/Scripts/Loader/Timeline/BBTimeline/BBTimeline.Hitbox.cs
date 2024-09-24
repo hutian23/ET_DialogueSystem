@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ET;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using Timeline.Editor;
@@ -113,10 +114,19 @@ namespace Timeline
 
     #region Runtime
 
+    public struct UpdateHitboxCallback
+    {
+        public long instanceId;
+
+        public HitboxKeyframe Keyframe;
+    }
+
     public class RuntimeHitboxTrack: RuntimeTrack
     {
         private TimelinePlayer timelinePlayer => RuntimePlayable.TimelinePlayer;
-
+        
+        private int currentFrame = -1;
+        
         public RuntimeHitboxTrack(RuntimePlayable runtimePlayable, BBTrack track): base(runtimePlayable, track)
         {
         }
@@ -134,19 +144,20 @@ namespace Timeline
 
         public override void SetTime(int targetFrame)
         {
-#if UNITY_EDITOR
             BBHitboxTrack hitboxTrack = Track as BBHitboxTrack;
             foreach (HitboxKeyframe keyframe in hitboxTrack.Keyframes)
             {
-                if (keyframe.frame != targetFrame)
-                {
-                    continue;
-                }
+                if (keyframe.frame != targetFrame) continue;
 
+                //Hitbox没有发生更新
+                if (currentFrame == targetFrame) break;
+                currentFrame = targetFrame;
+                EventSystem.Instance?.Invoke(new UpdateHitboxCallback() { instanceId = timelinePlayer.instanceId, Keyframe = keyframe });
+#if UNITY_EDITOR
                 GenerateHitbox(timelinePlayer, keyframe);
+#endif
                 break;
             }
-#endif
         }
 
 #if UNITY_EDITOR
