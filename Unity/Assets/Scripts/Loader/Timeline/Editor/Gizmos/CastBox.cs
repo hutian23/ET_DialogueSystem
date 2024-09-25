@@ -26,9 +26,6 @@ namespace Timeline.Editor
                 case HitboxType.Hurt:
                     Gizmos.color = Color.green;
                     break;
-                case HitboxType.CounterHurt:
-                    Gizmos.color = Color.cyan;
-                    break;
                 case HitboxType.Squash:
                     Gizmos.color = Color.yellow;
                     break;

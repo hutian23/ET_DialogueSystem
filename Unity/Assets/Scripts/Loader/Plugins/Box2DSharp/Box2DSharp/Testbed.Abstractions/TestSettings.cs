@@ -54,10 +54,7 @@ namespace Testbed.Abstractions
         public bool ShowThrowBox;
 
         [DataMember]
-        public bool ShowThrowHurtBox;
-
-        [DataMember]
-        public bool ShowPushBox;
+        public bool ShowSquashBox;
 
         [DataMember]
         public bool ShowProximityBox;

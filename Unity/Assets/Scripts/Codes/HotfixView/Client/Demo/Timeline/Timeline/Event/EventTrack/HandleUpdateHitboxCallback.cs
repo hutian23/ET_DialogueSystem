@@ -19,16 +19,18 @@ namespace ET.Client
             long unitId = timelineComponent.GetParent<Unit>().InstanceId;
             b2Body b2Body = b2GameManager.Instance.GetBody(unitId);
 
+            //1. Dispose old fixtures
             for (int i = 0; i < b2Body.body.FixtureList.Count; i++)
             {
                 b2Body.body.DestroyFixture(b2Body.body.FixtureList[i]);
             }
 
+            //2. update fixtures
             foreach (BoxInfo info in args.Keyframe.boxInfos)
             {
                 PolygonShape shape = new();
                 shape.SetAsBox(info.size.x / 2, info.size.y / 2, Vector2.Zero, 0);
-                FixtureDef fixtureDef = new() { Shape = shape, Density = 1.0f, Friction = 0.3f };
+                FixtureDef fixtureDef = new() { Shape = shape, Density = 1.0f, Friction = 0.3f, UserData = info };
 
                 b2Body.body.CreateFixture(fixtureDef);
                 break;

@@ -134,8 +134,7 @@ namespace ET
                             ImGui.Checkbox("Hitbox", ref Global.Settings.ShowHitbox);
                             ImGui.Checkbox("Hurtbox", ref Global.Settings.ShowHurtBox);
                             ImGui.Checkbox("Throwbox", ref Global.Settings.ShowThrowBox);
-                            ImGui.Checkbox("ThrowHurtbox", ref Global.Settings.ShowThrowHurtBox);
-                            ImGui.Checkbox("PushBox", ref Global.Settings.ShowPushBox);
+                            ImGui.Checkbox("SquashBox", ref Global.Settings.ShowSquashBox);
                             ImGui.Checkbox("ProximityBox", ref Global.Settings.ShowProximityBox);
                             ImGui.Checkbox("OtherBox", ref Global.Settings.ShowOtherBox);
                             ImGui.EndTabItem();

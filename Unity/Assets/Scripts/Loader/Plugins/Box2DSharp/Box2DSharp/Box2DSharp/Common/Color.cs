@@ -30,6 +30,14 @@ namespace Box2DSharp.Common
 
         public static Color Yellow { get; } = new Color(0xFFFFFF00);
 
+        public static Color Magenta { get; } = new Color(0x00FF00FF);
+
+        public static Color Black { get; } = new Color(0x0000000);
+
+        public static Color White { get; } = FromArgb(255, 255, 255);
+
+        public static Color Transparent { get; } = FromArgb(0, 0, 0, 0);
+        
         private Color(long value)
         {
             Value = value;

@@ -40,9 +40,6 @@ namespace Timeline.Editor
                         case HitboxType.Hurt:
                             boundsHandle.SetColor(Color.green);
                             break;
-                        case HitboxType.CounterHurt:
-                            boundsHandle.SetColor(Color.cyan);
-                            break;
                         case HitboxType.Squash:
                             boundsHandle.SetColor(Color.yellow);
                             break;

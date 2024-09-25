@@ -52,12 +52,13 @@ namespace Timeline
 
     public enum HitboxType
     {
+        None,
         Hit,
         Hurt,
-        CounterHurt,
         Throw,
         Squash,
-        Proximity
+        Proximity,
+        Other
     }
 
     [Serializable]
