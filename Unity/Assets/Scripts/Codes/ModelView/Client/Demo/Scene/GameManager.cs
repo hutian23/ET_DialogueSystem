@@ -6,8 +6,5 @@
         [StaticField]
         public static GameManager Instance;
     }
-
-    public struct AfterCurrentSceneReload
-    {
-    }
+    
 }

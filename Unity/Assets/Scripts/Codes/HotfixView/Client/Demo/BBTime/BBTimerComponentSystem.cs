@@ -28,7 +28,7 @@ namespace ET.Client
         {
             self.Init();
             self._gameTimer.Start();
-            self.LastTime = self._gameTimer.ElapsedTicks;            
+            self.LastTime = self._gameTimer.ElapsedTicks;
         }
 
         public class BBTimerComponentUpdateSystem: UpdateSystem<BBTimerComponent>
@@ -42,7 +42,7 @@ namespace ET.Client
         public class BBTimerComponentDestorySystem: DestroySystem<BBTimerComponent>
         {
             protected override void Destroy(BBTimerComponent self)
-            { 
+            {
                 self.Init();
             }
         }
@@ -306,12 +306,28 @@ namespace ET.Client
 
         public static void SetHertz(this BBTimerComponent self, int Hertz)
         {
+            if (Hertz <= 0)
+            {
+                Log.Warning("TimerComponent's Hz must be positive");
+                return;
+            }
+
             self.Hertz = Hertz;
         }
 
         public static float GetTimeScale(this BBTimerComponent self)
         {
             return self.Hertz;
+        }
+
+        public static void Pause(this BBTimerComponent self)
+        {
+            self._gameTimer.Stop();
+        }
+
+        public static void Restart(this BBTimerComponent self)
+        {
+            self._gameTimer.Start();
         }
     }
 }

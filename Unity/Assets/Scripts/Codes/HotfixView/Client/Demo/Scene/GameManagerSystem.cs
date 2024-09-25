@@ -1,4 +1,6 @@
-﻿namespace ET.Client
+﻿using Testbed.Abstractions;
+
+namespace ET.Client
 {
     public static class GameManagerSystem
     {
@@ -20,6 +22,10 @@
 
         public static void Reload(this GameManager self)
         {
+            //Editor
+            Global.Settings.Pause = false;
+            Global.Settings.InEditMode = false;
+            
             //2. b2World reload
             b2GameManager.Instance.Reload();
             //1. timeline

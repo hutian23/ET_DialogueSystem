@@ -7,13 +7,14 @@ namespace ET.Client
     {
         public override void Handle(SwitchEditModeCallback args)
         {
+            Global.Settings.InEditMode = args.IsEdit;
+            
             //pause b2world
-            Global.Settings.Pause = !args.IsEdit;
+            Global.Settings.Pause = args.IsEdit;
             
             //pause timeline
             //因为timeline的更新都是基于timercomponent,将hertz设为0
-            
-            Log.Warning(args.IsEdit.ToString());
+            TimelineManager.Instance.Pause(args.IsEdit);
         }
     }
 }

@@ -112,13 +112,13 @@ namespace ET
                             ImGui.TreeNodeEx("Edit Mode", leafNodeFlags);
                             if (ImGui.IsItemClicked())
                             {
-                                EventSystem.Instance?.Invoke(new SwitchEditModeCallback() { IsEdit = false });
+                                EventSystem.Instance?.Invoke(new SwitchEditModeCallback() { IsEdit = true });
                             }
 
                             ImGui.TreeNodeEx("Runtime Mode", leafNodeFlags);
                             if (ImGui.IsItemClicked())
                             {
-                                EventSystem.Instance?.Invoke(new SwitchEditModeCallback() { IsEdit = true });
+                                EventSystem.Instance?.Invoke(new SwitchEditModeCallback() { IsEdit = false });
                             }
 
                             ImGui.TreePop();

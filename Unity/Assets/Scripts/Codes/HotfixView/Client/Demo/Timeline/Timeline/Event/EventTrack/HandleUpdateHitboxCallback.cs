@@ -30,10 +30,16 @@ namespace ET.Client
             {
                 PolygonShape shape = new();
                 shape.SetAsBox(info.size.x / 2, info.size.y / 2, info.center.ToVector2(), 0);
-                FixtureDef fixtureDef = new() { Shape = shape, Density = 1.0f, Friction = 0.3f, UserData = info };
-                
+                FixtureDef fixtureDef = new()
+                {
+                    Shape = shape,
+                    Density = 1.0f,
+                    Friction = 0.3f,
+                    UserData = info,
+                    IsSensor = info.hitboxType is not HitboxType.Squash
+                };
+
                 b2Body.body.CreateFixture(fixtureDef);
-                break;
             }
         }
     }

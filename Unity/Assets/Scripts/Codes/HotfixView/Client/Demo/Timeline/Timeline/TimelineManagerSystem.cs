@@ -42,5 +42,23 @@ namespace ET.Client
                 parser.Main().Coroutine();
             }
         }
+
+        public static void Pause(this TimelineManager self,bool pause)
+        {
+            foreach (var instanceId in self.instanceIds)
+            {
+                TimelineComponent timelineComponent = Root.Instance.Get(instanceId) as TimelineComponent;
+                BBTimerComponent timer = timelineComponent.GetComponent<BBTimerComponent>();
+
+                if (pause)
+                {
+                    timer.Pause();   
+                }
+                else
+                {
+                    timer.Restart();
+                }
+            }
+        }
     }
 }
