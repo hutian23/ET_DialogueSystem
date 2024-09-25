@@ -5,6 +5,11 @@ using UnityEngine;
 
 namespace ET
 {
+    public struct SwitchEditModeCallback
+    {
+        public bool IsEdit;
+    }
+
     public class b2GUIController
     {
         private readonly b2Game Game;
@@ -107,21 +112,13 @@ namespace ET
                             ImGui.TreeNodeEx("Edit Mode", leafNodeFlags);
                             if (ImGui.IsItemClicked())
                             {
-                                if (!Global.Settings.InEditMode)
-                                {
-                                    //TODO Invoke
-                                }
-                                Global.Settings.InEditMode = true;
+                                EventSystem.Instance?.Invoke(new SwitchEditModeCallback() { IsEdit = false });
                             }
 
                             ImGui.TreeNodeEx("Runtime Mode", leafNodeFlags);
                             if (ImGui.IsItemClicked())
                             {
-                                if (Global.Settings.InEditMode)
-                                {
-                                    //TODO Invoke
-                                }
-                                Global.Settings.InEditMode = false;
+                                EventSystem.Instance?.Invoke(new SwitchEditModeCallback() { IsEdit = true });
                             }
 
                             ImGui.TreePop();

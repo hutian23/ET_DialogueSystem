@@ -171,5 +171,15 @@ namespace Timeline
         {
             return CurrentTimeline;
         }
+
+        /// <summary>
+        /// 运行时 逻辑层传回组件instanceId给loader层回调事件
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public bool HasBindUnit()
+        {
+            return instanceId != 0;
+        }
     }
 }

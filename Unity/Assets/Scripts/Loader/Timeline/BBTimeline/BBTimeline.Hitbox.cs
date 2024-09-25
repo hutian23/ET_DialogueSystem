@@ -93,6 +93,12 @@ namespace Timeline
             RuntimeHitboxTrack.GenerateHitbox(fieldView.EditorWindow.TimelinePlayer, Keyframe);
         }
 
+        [Button("保存")]
+        private void Save()
+        {
+            fieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() => { },"Save hitbox");
+        }
+        
         public HitboxMarkerInspectorData(object target): base(target)
         {
             Keyframe = target as HitboxKeyframe;
@@ -153,7 +159,11 @@ namespace Timeline
                 //Hitbox没有发生更新
                 if (currentFrame == targetFrame) break;
                 currentFrame = targetFrame;
-                EventSystem.Instance?.Invoke(new UpdateHitboxCallback() { instanceId = timelinePlayer.instanceId, Keyframe = keyframe });
+
+                if (timelinePlayer.HasBindUnit())
+                {
+                    EventSystem.Instance.Invoke(new UpdateHitboxCallback() { instanceId = timelinePlayer.instanceId, Keyframe = keyframe });
+                }
 #if UNITY_EDITOR
                 GenerateHitbox(timelinePlayer, keyframe);
 #endif

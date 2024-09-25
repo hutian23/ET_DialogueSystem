@@ -1,6 +1,6 @@
-﻿using System.Numerics;
-using Box2DSharp.Collision.Shapes;
+﻿using Box2DSharp.Collision.Shapes;
 using Box2DSharp.Dynamics;
+using Box2DSharp.Testbed.Unity.Inspection;
 using Timeline;
 
 namespace ET.Client
@@ -29,9 +29,9 @@ namespace ET.Client
             foreach (BoxInfo info in args.Keyframe.boxInfos)
             {
                 PolygonShape shape = new();
-                shape.SetAsBox(info.size.x / 2, info.size.y / 2, Vector2.Zero, 0);
+                shape.SetAsBox(info.size.x / 2, info.size.y / 2, info.center.ToVector2(), 0);
                 FixtureDef fixtureDef = new() { Shape = shape, Density = 1.0f, Friction = 0.3f, UserData = info };
-
+                
                 b2Body.body.CreateFixture(fixtureDef);
                 break;
             }
