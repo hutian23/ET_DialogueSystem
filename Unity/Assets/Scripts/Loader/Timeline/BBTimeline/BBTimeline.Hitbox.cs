@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using ET;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -90,22 +89,60 @@ namespace Timeline
     [Serializable]
     public class HitboxMarkerInspectorData: ShowInspectorData
     {
+        [LabelText("判定框类型: ")]
+        public HitboxType HitboxType;
+
+        [LabelText("判定框名: ")]
+        public string HitboxName;
+
         [HideReferenceObjectPicker]
         [HideLabel]
+        [HideInInspector]
         public HitboxKeyframe Keyframe;
 
         private TimelineFieldView fieldView;
 
-        [Button("刷新")]
+        [PropertySpace(5)]
+        [Button("新建判定框", DirtyOnClick = false)]
+        private void CreateHitbox()
+        {
+            if (HitboxType is HitboxType.None)
+            {
+                Debug.LogError($"Hitbox type should not be none!");
+                return;
+            }
+
+            this.fieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() =>
+            {
+                GameObject parent = fieldView.EditorWindow.TimelinePlayer.gameObject.GetComponent<ReferenceCollector>()
+                        .Get<GameObject>(HitboxType.ToString());
+                GameObject child = new(HitboxName);
+                child.transform.SetParent(parent.transform);
+                child.transform.localPosition = Vector2.zero;
+                child.AddComponent<TimelineGenerate>();
+                CastBox castBox = child.AddComponent<CastBox>();
+                castBox.info = new BoxInfo() { hitboxType = HitboxType, boxName = HitboxName };
+            }, "Create hitbox", false);
+        }
+
+        [Button("刷新",DirtyOnClick = false)]
         private void Refresh()
         {
             RuntimeHitboxTrack.GenerateHitbox(fieldView.EditorWindow.TimelinePlayer, Keyframe);
         }
 
-        [Button("保存")]
+        [Button("保存", DirtyOnClick = false)]
         private void Save()
         {
-            fieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() => { }, "Save hitbox");
+            fieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() =>
+            {
+                TimelinePlayer timelinePlayer = fieldView.EditorWindow.TimelinePlayer;
+                foreach (CastBox castBox in timelinePlayer.GetComponentsInChildren<CastBox>())
+                {
+                    Keyframe.boxInfos.Clear();
+                    Keyframe.boxInfos.Add(MongoHelper.Clone(castBox.info));
+                }
+            }, "Save hitbox", false);
         }
 
         public HitboxMarkerInspectorData(object target): base(target)
@@ -193,9 +230,8 @@ namespace Timeline
             timelinePlayer.ClearTimelineGenerate();
             foreach (BoxInfo boxInfo in keyframe.boxInfos)
             {
-                
-                if(boxInfo.hitboxType is HitboxType.None) continue;
-                
+                if (boxInfo.hitboxType is HitboxType.None) continue;
+
                 GameObject parent = timelinePlayer
                         .GetComponent<ReferenceCollector>()
                         .Get<GameObject>(boxInfo.hitboxType.ToString());
@@ -204,8 +240,10 @@ namespace Timeline
                 child.transform.SetParent(parent.transform);
                 child.transform.localPosition = Vector2.zero;
                 child.AddComponent<TimelineGenerate>();
+
+                //深拷贝
                 CastBox castBox = child.AddComponent<CastBox>();
-                castBox.info = boxInfo;
+                castBox.info = MongoHelper.Clone(boxInfo);
             }
         }
     }

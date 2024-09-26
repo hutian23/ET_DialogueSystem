@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using Box2DSharp.Testbed.Unity.Inspection;
 using UnityEditor;
 using UnityEditor.EditorTools;
 using UnityEditor.IMGUI.Controls;
