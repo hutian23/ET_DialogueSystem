@@ -24,7 +24,6 @@ namespace ET.Client
         {
             //Editor
             Global.Settings.Pause = false;
-            Global.Settings.InEditMode = false;
             
             //2. b2World reload
             b2GameManager.Instance.Reload();

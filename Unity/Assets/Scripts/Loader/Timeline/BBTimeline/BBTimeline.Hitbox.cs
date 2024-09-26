@@ -154,13 +154,19 @@ namespace Timeline
             BBHitboxTrack hitboxTrack = Track as BBHitboxTrack;
             foreach (HitboxKeyframe keyframe in hitboxTrack.Keyframes)
             {
-                if (keyframe.frame != targetFrame) continue;
+                if (keyframe.frame != targetFrame)
+                {
+                    continue;
+                }
 
                 //Hitbox没有发生更新
-                if (currentFrame == targetFrame) break;
+                if (currentFrame == targetFrame)
+                {
+                    break;
+                }
                 currentFrame = targetFrame;
-
-                if (timelinePlayer.HasBindUnit())
+                
+                if (timelinePlayer.HasBindUnit)
                 {
                     EventSystem.Instance.Invoke(new UpdateHitboxCallback() { instanceId = timelinePlayer.instanceId, Keyframe = keyframe });
                 }

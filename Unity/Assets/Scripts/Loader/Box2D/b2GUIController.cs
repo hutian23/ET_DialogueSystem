@@ -1,13 +1,15 @@
-﻿using Box2DSharp.Testbed.Unity.Inspection;
+﻿using System;
+using Box2DSharp.Testbed.Unity.Inspection;
 using ImGuiNET;
 using Testbed.Abstractions;
+using Timeline;
 using UnityEngine;
 
 namespace ET
 {
-    public struct SwitchEditModeCallback
+    public struct PausedCallback
     {
-        public bool IsEdit;
+        public bool Pause;
     }
 
     public class b2GUIController
@@ -52,6 +54,8 @@ namespace ET
         private void UpdateUI()
         {
             const int MenuWidth = 220;
+
+            //Tools
             if (Game.DebugDraw.ShowUI)
             {
                 //窗口MinBound
@@ -109,16 +113,10 @@ namespace ET
                                 Log.Debug("hot reload success");
                             }
 
-                            ImGui.TreeNodeEx("Edit Mode", leafNodeFlags);
+                            ImGui.TreeNodeEx("Pause", leafNodeFlags);
                             if (ImGui.IsItemClicked())
                             {
-                                EventSystem.Instance?.Invoke(new SwitchEditModeCallback() { IsEdit = true });
-                            }
-
-                            ImGui.TreeNodeEx("Runtime Mode", leafNodeFlags);
-                            if (ImGui.IsItemClicked())
-                            {
-                                EventSystem.Instance?.Invoke(new SwitchEditModeCallback() { IsEdit = false });
+                                EventSystem.Instance?.Invoke(new PausedCallback() { Pause = !Global.Settings.Pause });
                             }
 
                             ImGui.TreePop();
@@ -135,6 +133,60 @@ namespace ET
                             ImGui.Checkbox("ProximityBox", ref Global.Settings.ShowProximityBox);
                             ImGui.Checkbox("OtherBox", ref Global.Settings.ShowOtherBox);
                             ImGui.EndTabItem();
+                        }
+                    }
+
+                    ImGui.EndTabBar();
+                }
+
+                ImGui.End();
+            }
+
+            //Behaviors
+            if (Game.DebugDraw.ShowUI)
+            {
+                ImGui.SetNextWindowPos(new Vector2((float)Global.Camera.Width - MenuWidth - 10, 30));
+                ImGui.SetNextWindowSize(new Vector2(MenuWidth, (float)Global.Camera.Height - 40));
+                ImGui.Begin("Behaviors", ref this.Game.DebugDraw.ShowUI, ImGuiWindowFlags.NoResize);
+
+                if (ImGui.BeginTabBar("Behaviors"))
+                {
+                    if (ImGui.BeginTabItem("Behaviors"))
+                    {
+                        Transform root = GameObject.Find("Global/UnitRoot").transform;
+
+                        var leafNodeflags = ImGuiTreeNodeFlags.Leaf | ImGuiTreeNodeFlags.NoTreePushOnOpen;
+                        var parentNodeFlags = ImGuiTreeNodeFlags.OpenOnArrow | ImGuiTreeNodeFlags.OpenOnDoubleClick;
+
+                        for (int i = 0; i < root.GetComponentsInChildren<TimelinePlayer>().Length; i++)
+                        {
+                            TimelinePlayer timelinePlayer = root.GetComponentsInChildren<TimelinePlayer>()[i];
+
+                            var nodeSelectedFlag = timelinePlayer.instanceId == Global.Settings.instanceId? ImGuiTreeNodeFlags.Selected : 0;
+                            var nodeOpen = ImGui.TreeNodeEx((IntPtr)i, parentNodeFlags | nodeSelectedFlag, $"{timelinePlayer.name}");
+                            if (ImGui.IsItemClicked())
+                            {
+                                Global.Settings.instanceId = timelinePlayer.instanceId;
+                            }
+
+                            if (nodeOpen)
+                            {
+                                var behaviorOpens = ImGui.TreeNodeEx("Behaviors", parentNodeFlags);
+                                if (behaviorOpens)
+                                {
+                                    var timelines = timelinePlayer.BBPlayable.GetTimelines();
+                                    var j = 0;
+                                    foreach (var timeline in timelines)
+                                    {
+                                        ImGui.TreeNodeEx((IntPtr)j, leafNodeflags, $"{timeline.order} - {timeline.timelineName}");
+                                        j++;
+                                    }
+
+                                    ImGui.TreePop();
+                                }
+
+                                ImGui.TreePop();
+                            }
                         }
                     }
 

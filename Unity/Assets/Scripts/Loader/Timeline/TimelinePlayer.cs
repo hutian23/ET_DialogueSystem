@@ -32,8 +32,7 @@ namespace Timeline
     {
         [HideInInspector]
         public long instanceId; // DialogueComponent
-
-        [OnValueChanged("ResetPos")]
+        
         public bool ApplyRootMotion;
 
         public bool IsValid => PlayableGraph.IsValid();
@@ -41,8 +40,9 @@ namespace Timeline
         public AudioSource AudioSource { get; private set; }
         public PlayableGraph PlayableGraph { get; private set; }
         public AnimationLayerMixerPlayable AnimationRootPlayable { get; private set; }
-        public AudioMixerPlayable AudioRootPlayable { get; private set; }
+        private AudioMixerPlayable AudioRootPlayable { get; set; }
 
+        [ShowIf("HasNotBindUnit")]
         public BBPlayableGraph BBPlayable;
 
         [HideInInspector]
@@ -65,24 +65,20 @@ namespace Timeline
             initPos = transform.localPosition;
         }
 
+        // ReSharper disable once Unity.RedundantEventFunction
         private void OnAnimatorMove()
         {
             //禁用AnimationClip对transform的修改
         }
 
-        private void ResetPos()
-        {
-            transform.localPosition = initPos;
-        }
-
 #if UNITY_EDITOR
-        [Button("行为编辑器")]
+        [Button("行为编辑器"), ShowIf("HasNotBindUnit")]
         public void OpenController()
         {
             BehaviorControllerEditor.OpenWindow(this);
         }
 
-        [Button("技能编辑器")]
+        [Button("技能编辑器"), ShowIf("HasNotBindUnit")]
         public void OpenWindow()
         {
             var timelineSet = BBPlayable.GetTimelines();
@@ -105,7 +101,7 @@ namespace Timeline
             TimelineEditorWindow.OpenWindow(this, timeline);
         }
 
-        [Button("清除运行时组件")]
+        [Button("清除运行时组件"), ShowIf("HasNotBindUnit")]
         public void ClearTimelineGenerate()
         {
             var goSet = new HashSet<GameObject>();
@@ -177,9 +173,17 @@ namespace Timeline
         /// 
         /// </summary>
         /// <returns></returns>
-        public bool HasBindUnit()
+        public bool HasBindUnit
         {
-            return instanceId != 0;
+            get
+            {
+                return instanceId != 0;
+            }
+        }
+
+        public bool HasNotBindUnit
+        {
+            get => !HasBindUnit;
         }
     }
 }

@@ -16,7 +16,6 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 7400000, guid: 8e89723a4d53d5d438d29d208fc962d9, type: 2}
     - {fileID: 7400000, guid: 66d48d541fad4854882af6c77f5aac7a, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -45,7 +44,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
       Data: 3|Timeline.BBAnimationClip, Unity.Loader
@@ -54,13 +53,13 @@ MonoBehaviour:
       Data: false
     - Name: Name
       Entry: 1
-      Data: Mai_C_3
+      Data: Mai_C_2
     - Name: StartFrame
       Entry: 3
-      Data: 26
+      Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 89
+      Data: 26
     - Name: animationClip
       Entry: 10
       Data: 0
@@ -88,47 +87,6 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 6|Timeline.BBAnimationClip, Unity.Loader
-    - Name: InValid
-      Entry: 5
-      Data: false
-    - Name: Name
-      Entry: 1
-      Data: Mai_C_2
-    - Name: StartFrame
-      Entry: 3
-      Data: 0
-    - Name: EndFrame
-      Entry: 3
-      Data: 26
-    - Name: animationClip
-      Entry: 10
-      Data: 1
-    - Name: rootMotionDict
-      Entry: 7
-      Data: 7|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.AnimationCurve,
-        UnityEngine.CoreModule]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 8|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -139,7 +97,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 9|Timeline.BBHitboxTrack, Unity.Loader
+      Data: 6|Timeline.BBHitboxTrack, Unity.Loader
     - Name: Name
       Entry: 1
       Data: BBHitbox
@@ -148,7 +106,7 @@ MonoBehaviour:
       Data: false
     - Name: Clips
       Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
+      Data: 7|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -161,13 +119,13 @@ MonoBehaviour:
       Data: 
     - Name: Keyframes
       Entry: 7
-      Data: 11|ET.ListComponent`1[[Timeline.HitboxKeyframe, Unity.Loader]], Unity.Core
+      Data: 8|ET.ListComponent`1[[Timeline.HitboxKeyframe, Unity.Loader]], Unity.Core
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 12|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 9|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 0
@@ -176,7 +134,7 @@ MonoBehaviour:
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 13|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
+      Data: 10|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -207,7 +165,7 @@ MonoBehaviour:
       Data: 
     - Name: Marks
       Entry: 7
-      Data: 14|System.Collections.Generic.List`1[[Timeline.EventInfo, Unity.Loader]],
+      Data: 11|System.Collections.Generic.List`1[[Timeline.EventInfo, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -219,3 +177,5 @@ MonoBehaviour:
       Entry: 8
       Data: 
   timelineName: Rg_6C
+  order: 6
+  Script: 

@@ -43,6 +43,7 @@ namespace ET.Client
             }
         }
 
+        //Edit mode
         public static void Pause(this TimelineManager self,bool pause)
         {
             foreach (var instanceId in self.instanceIds)

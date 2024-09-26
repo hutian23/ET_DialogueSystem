@@ -36,44 +36,45 @@ namespace ET
 
         public void Awake()
         {
-            this.fpsCounter = new();
-            this.Settings = TestSettingHelper.Load();
+            fpsCounter = new();
+            Settings = TestSettingHelper.Load();
             Global.Settings = this.Settings;
             Global.Camera.Width = this.Settings.WindowWidth;
             Global.Camera.Height = this.Settings.WindowHeight;
             Screen.SetResolution(this.Settings.WindowWidth, this.Settings.WindowHeight, this.Settings.FullScreenMode);
 
-            this._screenWidth = Screen.width;
-            this._screenHeight = Screen.height;
+            _screenWidth = Screen.width;
+            _screenHeight = Screen.height;
 
-            this.UnityInput = new UnityInput();
+            UnityInput = new UnityInput();
             Global.Input = this.UnityInput;
 
-            this.unityDraw = UnityDraw.GetDraw();
-            this.DebugDraw = new DebugDraw { Draw = this.unityDraw };
-            Global.DebugDraw = this.DebugDraw;
+            unityDraw = UnityDraw.GetDraw();
+            DebugDraw = new DebugDraw { Draw = unityDraw };
+            Global.DebugDraw = DebugDraw;
 
-            Application.quitting += () => TestSettingHelper.Save(this.Settings);
+            Application.quitting += () => TestSettingHelper.Save(Settings);
 
-            this.fixedUpdate = new FixedUpdate(TimeSpan.FromSeconds(1 / 60d), Tick);
-            this.controller = new b2GUIController(this);
-            this.MainCamera = Camera.main;
+            fixedUpdate = new FixedUpdate(TimeSpan.FromSeconds(1 / 60d), Tick);
+            controller = new b2GUIController(this);
+            MainCamera = Camera.main;
         }
 
         public void Start()
         {
-            this.fixedUpdate.Start();
+            fixedUpdate.Start();
         }
 
         private void Update()
         {
-            this.fixedUpdate.Update();
+            fixedUpdate.Update();
 
-            this.CheckZoom();
-            this.CheckResize();
-            this.CheckMouseDown();
-            this.CheckMouseMove();
-            this.CheckMouseUp();
+            CheckZoom();
+            CheckResize();
+            CheckMouseDown();
+            CheckMouseMove();
+            CheckMouseUp();
+            CheckKeyDown();
         }
 
         private void Tick()
@@ -103,8 +104,12 @@ namespace ET
         private void RenderUI()
         {
             controller.Render();
-            var mode = Global.Settings.InEditMode? "EditMode" : "RuntimeMode";
-            DebugDraw.DrawString(5, 10, $"Game Mode: {mode}");
+            DebugDraw.DrawString(5,10,@"(F1) Reload  (F2) Pause");
+            if (Global.Settings.Pause)
+            {
+                DebugDraw.DrawString(5, 30, "****PAUSED***");
+            }
+
             DebugDraw.DrawString(5, Global.Camera.Height - 40, $"{fpsCounter.Ms:0.0} ms");
             DebugDraw.DrawString(5, Global.Camera.Height - 20, $"{fpsCounter.Fps:F1} fps");
         }
@@ -241,6 +246,27 @@ namespace ET
             if (Drag)
             {
                 MainCamera.transform.position = Origin - Difference;
+            }
+        }
+
+        #endregion
+
+        #region KeyControl
+
+        private void CheckKeyDown()
+        {
+            var key = Keyboard.current;
+            //Reload
+            if (key.f1Key.wasPressedThisFrame)
+            {
+                CodeLoader.Instance.LoadHotfix();
+                EventSystem.Instance.Load();
+                Log.Debug("hot reload success");
+            }
+            //Paused
+            if (key.f2Key.wasPressedThisFrame)
+            {
+                EventSystem.Instance?.Invoke(new PausedCallback() { Pause = !Global.Settings.Pause });
             }
         }
 

@@ -11,5 +11,12 @@
             playerComponent.MyId = player.Id;
             return player;
         }
+
+        public static Unit Create(Scene currentScene)
+        {
+            UnitComponent unitComponent = currentScene.GetComponent<UnitComponent>();
+            Unit unit = unitComponent.AddChild<Unit, int>(1001);
+            return unit;
+        }
     }
 }
