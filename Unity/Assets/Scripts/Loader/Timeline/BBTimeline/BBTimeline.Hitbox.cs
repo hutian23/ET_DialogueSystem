@@ -38,7 +38,16 @@ namespace Timeline
         public override Type TrackViewType => typeof (HitboxTrackView);
         public override int GetMaxFrame()
         {
-            return Keyframes.Max(keyframe => keyframe.frame);
+            var max = 1;
+            foreach (var keyframe in Keyframes)
+            {
+                if (keyframe.frame >= max)
+                {
+                    max = keyframe.frame;
+                }
+            }
+
+            return max;
         }
 #endif
     }
@@ -96,9 +105,9 @@ namespace Timeline
         [Button("保存")]
         private void Save()
         {
-            fieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() => { },"Save hitbox");
+            fieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() => { }, "Save hitbox");
         }
-        
+
         public HitboxMarkerInspectorData(object target): base(target)
         {
             Keyframe = target as HitboxKeyframe;
@@ -131,9 +140,9 @@ namespace Timeline
     public class RuntimeHitboxTrack: RuntimeTrack
     {
         private TimelinePlayer timelinePlayer => RuntimePlayable.TimelinePlayer;
-        
+
         private int currentFrame = -1;
-        
+
         public RuntimeHitboxTrack(RuntimePlayable runtimePlayable, BBTrack track): base(runtimePlayable, track)
         {
         }
@@ -164,8 +173,9 @@ namespace Timeline
                 {
                     break;
                 }
+
                 currentFrame = targetFrame;
-                
+
                 if (timelinePlayer.HasBindUnit)
                 {
                     EventSystem.Instance.Invoke(new UpdateHitboxCallback() { instanceId = timelinePlayer.instanceId, Keyframe = keyframe });
@@ -183,6 +193,9 @@ namespace Timeline
             timelinePlayer.ClearTimelineGenerate();
             foreach (BoxInfo boxInfo in keyframe.boxInfos)
             {
+                
+                if(boxInfo.hitboxType is HitboxType.None) continue;
+                
                 GameObject parent = timelinePlayer
                         .GetComponent<ReferenceCollector>()
                         .Get<GameObject>(boxInfo.hitboxType.ToString());

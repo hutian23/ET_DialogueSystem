@@ -12,6 +12,13 @@ namespace ET
         public bool Pause;
     }
 
+    public struct UpdateBehaviorCallback
+    {
+        public long instanceId;
+
+        public int behaviorOrder;
+    }
+
     public class b2GUIController
     {
         private readonly b2Game Game;
@@ -164,9 +171,10 @@ namespace ET
 
                             var nodeSelectedFlag = timelinePlayer.instanceId == Global.Settings.instanceId? ImGuiTreeNodeFlags.Selected : 0;
                             var nodeOpen = ImGui.TreeNodeEx((IntPtr)i, parentNodeFlags | nodeSelectedFlag, $"{timelinePlayer.name}");
+                            var instanceId = timelinePlayer.instanceId;
                             if (ImGui.IsItemClicked())
                             {
-                                Global.Settings.instanceId = timelinePlayer.instanceId;
+                                Global.Settings.instanceId = instanceId;
                             }
 
                             if (nodeOpen)
@@ -179,6 +187,14 @@ namespace ET
                                     foreach (var timeline in timelines)
                                     {
                                         ImGui.TreeNodeEx((IntPtr)j, leafNodeflags, $"{timeline.order} - {timeline.timelineName}");
+                                        if (ImGui.IsItemClicked())
+                                        {
+                                            EventSystem.Instance?.Invoke(new UpdateBehaviorCallback()
+                                            {
+                                                instanceId = instanceId, behaviorOrder = timeline.order
+                                            });
+                                        }
+
                                         j++;
                                     }
 

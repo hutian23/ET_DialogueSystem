@@ -19,7 +19,7 @@ namespace ET.Client
                 World world = args.B2World.World;
 
                 //创建刚体
-                var bodyDef = new BodyDef() { BodyType = BodyType.DynamicBody, Position = new Vector2(0, 10) };
+                var bodyDef = new BodyDef() { BodyType = BodyType.DynamicBody, Position = new Vector2(0, 10),FixedRotation = true};
                 var body = world.CreateBody(bodyDef);
 
                 b2Body b2Body = b2GameManager.Instance.AddChild<b2Body>();

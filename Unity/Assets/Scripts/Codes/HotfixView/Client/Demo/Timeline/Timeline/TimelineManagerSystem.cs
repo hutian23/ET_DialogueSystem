@@ -1,6 +1,4 @@
-﻿using Timeline;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     [FriendOf(typeof (TimelineManager))]
     public static class TimelineManagerSystem
@@ -28,18 +26,7 @@ namespace ET.Client
             foreach (long instanceId in self.instanceIds)
             {
                 TimelineComponent timelineComponent = Root.Instance.Get(instanceId) as TimelineComponent;
-                BBParser parser = timelineComponent.GetComponent<BBParser>();
-                BBTimerComponent timer = timelineComponent.GetComponent<BBTimerComponent>();
-
-                //1. 初始化
-                parser.Cancel();
-                timer.ReLoad();
-
-                //2. 默认行为
-                timelineComponent.GetTimelinePlayer().Init(0); //Idle
-                BBTimeline timeline = timelineComponent.GetCurrentTimeline();
-                parser.InitScript(timeline.Script);
-                parser.Main().Coroutine();
+                timelineComponent.Reload(0); // Idle
             }
         }
 

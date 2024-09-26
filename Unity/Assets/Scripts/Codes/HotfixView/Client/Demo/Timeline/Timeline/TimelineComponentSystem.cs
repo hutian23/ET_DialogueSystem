@@ -27,7 +27,7 @@ namespace ET.Client
             }
         }
 
-        #region Param
+        #region TimelinePlayer
 
         public static T GetParameter<T>(this TimelineComponent timelineComponent, string parameterName)
         {
@@ -68,8 +68,6 @@ namespace ET.Client
             return null;
         }
 
-        #endregion
-
         public static TimelinePlayer GetTimelinePlayer(this TimelineComponent self)
         {
             return self.GetParent<Unit>()
@@ -86,6 +84,23 @@ namespace ET.Client
         {
             RuntimePlayable playable = self.GetTimelinePlayer().RuntimeimePlayable;
             playable.Evaluate(targetFrame);
+        }
+        #endregion
+
+        public static void Reload(this TimelineComponent self, int behaviorOrder)
+        {
+            BBParser parser = self.GetComponent<BBParser>();
+            BBTimerComponent timer = self.GetComponent<BBTimerComponent>();
+
+            //1. 初始化
+            parser.Cancel();
+            timer.ReLoad();
+
+            //2. 默认行为
+            self.GetTimelinePlayer().Init(behaviorOrder);
+            BBTimeline timeline = self.GetCurrentTimeline();
+            parser.InitScript(timeline.Script);
+            parser.Main().Coroutine();
         }
     }
 }
