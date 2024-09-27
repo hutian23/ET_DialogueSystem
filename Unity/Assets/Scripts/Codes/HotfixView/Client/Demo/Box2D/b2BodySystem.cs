@@ -1,7 +1,6 @@
 ﻿using Box2DSharp.Common;
 using Box2DSharp.Testbed.Unity.Inspection;
 using UnityEngine;
-using Vector3 = UnityEngine.Vector3;
 
 namespace ET.Client
 {
@@ -13,6 +12,7 @@ namespace ET.Client
             protected override void Destroy(b2Body self)
             {
                 self.unitId = 0;
+                self.fixtures.Clear();
                 self.body = null;
             }
         }

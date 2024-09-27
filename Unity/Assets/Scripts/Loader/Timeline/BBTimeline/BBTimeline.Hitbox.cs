@@ -89,6 +89,9 @@ namespace Timeline
     [Serializable]
     public class HitboxMarkerInspectorData: ShowInspectorData
     {
+        [LabelText("当前帧: "),ReadOnly]
+        public int currentFrame;
+        
         [LabelText("判定框类型: ")]
         public HitboxType HitboxType;
 
@@ -137,9 +140,9 @@ namespace Timeline
             fieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() =>
             {
                 TimelinePlayer timelinePlayer = fieldView.EditorWindow.TimelinePlayer;
+                Keyframe.boxInfos.Clear();
                 foreach (CastBox castBox in timelinePlayer.GetComponentsInChildren<CastBox>())
                 {
-                    Keyframe.boxInfos.Clear();
                     Keyframe.boxInfos.Add(MongoHelper.Clone(castBox.info));
                 }
             }, "Save hitbox", false);
@@ -148,6 +151,7 @@ namespace Timeline
         public HitboxMarkerInspectorData(object target): base(target)
         {
             Keyframe = target as HitboxKeyframe;
+            currentFrame = Keyframe.frame;
         }
 
         public override void InspectorAwake(TimelineFieldView _fieldView)

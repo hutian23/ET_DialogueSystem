@@ -1,9 +1,11 @@
-﻿
+﻿using Box2DSharp.Dynamics;
+using MongoDB.Bson;
+
 namespace ET.Client
 {
     [Invoke]
-    [FriendOf(typeof(b2Body))]
-    public class HandleUpdateBehaviorCallback : AInvokeHandler<UpdateBehaviorCallback>
+    [FriendOf(typeof (b2Body))]
+    public class HandleUpdateBehaviorCallback: AInvokeHandler<UpdateBehaviorCallback>
     {
         public override void Handle(UpdateBehaviorCallback args)
         {
@@ -12,10 +14,12 @@ namespace ET.Client
             b2Body b2body = b2GameManager.Instance.GetBody(unit.InstanceId);
 
             //1. Destroy old fixture
-            for (int i = 0; i < b2body.body.FixtureList.Count; i++)
+            for (int i = 0; i < b2body.fixtures.Count; i++)
             {
-                b2body.body.DestroyFixture(b2body.body.FixtureList[i]);
+                Fixture fixture = b2body.fixtures[i];
+                b2body.body.DestroyFixture(fixture);
             }
+            b2body.fixtures.Clear();
             
             //2. update behavior
             timelineComponent.Reload(args.behaviorOrder);

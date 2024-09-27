@@ -20,11 +20,13 @@ namespace ET.Client
             b2Body b2Body = b2GameManager.Instance.GetBody(unitId);
 
             //1. Dispose old fixtures
-            for (int i = 0; i < b2Body.body.FixtureList.Count; i++)
+            for (int i = 0; i < b2Body.fixtures.Count; i++)
             {
-                b2Body.body.DestroyFixture(b2Body.body.FixtureList[i]);
+                Fixture fixture = b2Body.fixtures[i];
+                b2Body.body.DestroyFixture(fixture);
             }
-
+            b2Body.fixtures.Clear();
+            
             //2. update fixtures
             foreach (BoxInfo info in args.Keyframe.boxInfos)
             {
@@ -38,8 +40,8 @@ namespace ET.Client
                     UserData = info,
                     IsSensor = info.hitboxType is not HitboxType.Squash
                 };
-
-                b2Body.body.CreateFixture(fixtureDef);
+                Fixture fixture = b2Body.body.CreateFixture(fixtureDef);
+                b2Body.fixtures.Add(fixture);
             }
         }
     }
