@@ -1,3 +1,5 @@
+using ET;
+using MongoDB.Bson;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -10,6 +12,15 @@ public class Test : MonoBehaviour
     // private Vector3 originalPosition;
     // private float shakeTimer;
 
+    public AnimationCurve curve;
+
+    [Button("test")]
+    public void Test222()
+    {
+        var clone =MongoHelper.Clone(this.curve);
+        Debug.LogWarning(clone.ToJson());
+    }
+    
     [TextArea]
     public string Text;
     

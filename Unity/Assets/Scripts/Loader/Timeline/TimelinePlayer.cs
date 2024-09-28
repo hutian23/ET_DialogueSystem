@@ -32,7 +32,7 @@ namespace Timeline
     {
         [HideInInspector]
         public long instanceId; // DialogueComponent
-        
+
         public bool ApplyRootMotion;
 
         public bool IsValid => PlayableGraph.IsValid();

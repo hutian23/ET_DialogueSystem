@@ -121,7 +121,7 @@ namespace Timeline
         [ShowInInspector]
         public int animationLength => AnimationClip == null? 0 : (int)(AnimationClip.length * TimelineUtility.FrameRate);
 
-        [Button("Rebind"), PropertyOrder(5)]
+        [Button("提取运动曲线", DirtyOnClick = false), PropertyOrder(5)]
         public void Rebind()
         {
             FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() =>
@@ -136,7 +136,7 @@ namespace Timeline
                     AnimationCurve cloneCurve = MongoHelper.Clone(curve);
                     Clip.rootMotionDict.TryAdd(propertyName, cloneCurve);
                 }
-            }, "rebind animationClip");
+            }, "Extract AnimationCurve", false);
         }
 
         public AnimationClipInspectorData(object target): base(target)
@@ -210,7 +210,7 @@ namespace Timeline
                 clipPlayable.SetTime(targetFrame);
             }
         }
-        
+
         public RuntimeAnimationTrack(RuntimePlayable runtimePlayable, BBTrack track): base(runtimePlayable, track)
         {
         }
@@ -274,13 +274,13 @@ namespace Timeline
             ClipPlayable.SetTime((float)clipInFrame / TimelineUtility.FrameRate);
             PrepareFrame(default, default);
 
-            //不混合rootmotion的位移量
-            // if (GetInputWeight() <= 0f) return;
-
-            //Edit mode下,更新position
-            // if (!runtimePlayable.TimelinePlayer.InEdit) return;
-            // BBAnimationClip animationClip = Clip as BBAnimationClip;
-            // runtimePlayable.TimelinePlayer.transform.localPosition = animationClip.EditorPosition(clipInFrame);
+            //Edit mode ---> play animation curve
+            var timelinePlayer = runtimePlayable.TimelinePlayer;
+            if (!timelinePlayer.HasBindUnit)
+            {
+                BBAnimationClip animationClip = Clip as BBAnimationClip;
+                timelinePlayer.transform.localPosition = animationClip.EditorPosition(clipInFrame);
+            }
         }
 
         public static BBTimelineAnimationClipPlayable Create(RuntimePlayable runtimePlayable, BBAnimationClip clip, Playable output, int index)
