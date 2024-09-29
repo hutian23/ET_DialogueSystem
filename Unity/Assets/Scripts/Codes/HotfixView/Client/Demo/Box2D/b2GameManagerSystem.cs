@@ -4,6 +4,7 @@ using UnityEngine;
 namespace ET.Client
 {
     [FriendOf(typeof (b2GameManager))]
+    [FriendOf(typeof (b2Body))]
     public static class b2GameManagerSystem
     {
         public class b2WorldManagerAwakeSystem: AwakeSystem<b2GameManager>
@@ -38,6 +39,7 @@ namespace ET.Client
         {
             protected override void FixedUpdate(b2GameManager self)
             {
+                self.UpdateVelocity();
                 self.B2World.Step();
                 self.SyncTrans();
             }
@@ -52,6 +54,16 @@ namespace ET.Client
                 self.B2World?.Dispose();
                 self.BodyDict.Clear();
             }
+        }
+
+        private static void UpdateVelocity(this b2GameManager self)
+        {
+            // foreach (var child in self.Children.Values)
+            // {
+            //     b2Body B2body = child as b2Body;
+            //     B2body.body.SetLinearVelocity(new Vector2(0, 10));
+            //     B2body.body.IsAwake = true;
+            // }
         }
 
         private static void SyncTrans(this b2GameManager self)

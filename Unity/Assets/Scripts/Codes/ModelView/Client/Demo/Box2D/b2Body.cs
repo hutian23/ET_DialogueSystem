@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Numerics;
 using Box2DSharp.Dynamics;
 using Transform = Box2DSharp.Common.Transform;
 
@@ -11,9 +12,11 @@ namespace ET.Client
         public long unitId;
         public Body body;
 
+        public Vector2 velocity;
+        
         //当前步长，b2World中刚体的位置转换信息
         public Transform trans;
-
+        
         //当前帧建立的hitbox
         public List<Fixture> fixtures = new();
     }

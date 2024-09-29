@@ -9,6 +9,19 @@ using Camera = UnityEngine.Camera;
 
 namespace ET
 {
+    public struct UnitProfile
+    {
+        public string UnitName;
+        public System.Numerics.Vector2 LinearVelocity;
+        public float AngularVelocity;
+        public System.Numerics.Vector2 Position;
+    }
+
+    public struct UpdateUnitProfileCallback
+    {
+        public long instanceId;
+    }
+
     //Loader层，负责渲染形状，接收输入
     public class b2Game: MonoBehaviour
     {
@@ -93,18 +106,18 @@ namespace ET
 
         private void OnEnable()
         {
-            ImGuiUn.Layout += this.RenderUI;
+            ImGuiUn.Layout += RenderUI;
         }
 
         private void OnDisable()
         {
-            ImGuiUn.Layout -= this.RenderUI;
+            ImGuiUn.Layout -= RenderUI;
         }
 
         private void RenderUI()
         {
             controller.Render();
-            DebugDraw.DrawString(5,10,@"(F1) Reload  (F2) Pause");
+            DebugDraw.DrawString(5, 10, @"(F1) Reload  (F2) Pause");
             if (Global.Settings.Pause)
             {
                 DebugDraw.DrawString(5, 30, "****PAUSED***");
@@ -112,7 +125,19 @@ namespace ET
 
             DebugDraw.DrawString(5, Global.Camera.Height - 40, $"{fpsCounter.Ms:0.0} ms");
             DebugDraw.DrawString(5, Global.Camera.Height - 20, $"{fpsCounter.Fps:F1} fps");
+
+            //Draw Profile
+            if (Global.Settings.instanceId == 0) return;
+
+            //call update unit profile
+            EventSystem.Instance?.Invoke(new UpdateUnitProfileCallback() { instanceId = Global.Settings.instanceId });
+            
+            DebugDraw.DrawString(5, 50, $"UnitName: {Profile.UnitName}");
+            DebugDraw.DrawString(5, 65, $"LinearVelocity:{Profile.LinearVelocity}");
+            DebugDraw.DrawString(5, 80, $"AngularVelocity:{Profile.AngularVelocity}");
         }
+
+        public UnitProfile Profile;
 
         #endregion
 
@@ -263,6 +288,7 @@ namespace ET
                 EventSystem.Instance.Load();
                 Log.Debug("hot reload success");
             }
+
             //Paused
             if (key.f2Key.wasPressedThisFrame)
             {

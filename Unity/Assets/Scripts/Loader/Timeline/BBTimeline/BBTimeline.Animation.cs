@@ -60,7 +60,7 @@ namespace Timeline
         {
             if (!rootMotionDict.TryGetValue(key, out AnimationCurve curve)) return 0f;
             float initPos = curve.Evaluate(0);
-            return curve.Evaluate((float)targetFrame / TimelineUtility.FrameRate) - initPos;
+            return curve.Evaluate(targetFrame / 60f) - initPos;
         }
 
 #if UNITY_EDITOR
@@ -163,6 +163,12 @@ namespace Timeline
     #endregion
 
     #region Runtime
+
+    public struct UpdateRootMotionCallback
+    {
+        public long instanceId;
+        public Vector2 velocity;
+    }
 
     public class RuntimeAnimationTrack: RuntimeTrack
     {
@@ -275,11 +281,21 @@ namespace Timeline
             PrepareFrame(default, default);
 
             //Edit mode ---> play animation curve
-            var timelinePlayer = runtimePlayable.TimelinePlayer;
+            TimelinePlayer timelinePlayer = runtimePlayable.TimelinePlayer;
+            BBAnimationClip animationClip = Clip as BBAnimationClip;
+
             if (!timelinePlayer.HasBindUnit)
             {
-                BBAnimationClip animationClip = Clip as BBAnimationClip;
-                timelinePlayer.transform.localPosition = animationClip.EditorPosition(clipInFrame);
+                timelinePlayer.transform.localPosition = animationClip.CurrentPosition(clipInFrame);
+            }
+            //Runtime mode ---> invoke update trans callback
+            else
+            {
+                var pos = animationClip.CurrentPosition(clipInFrame);
+                var prePos = animationClip.CurrentPosition(clipInFrame - 1);
+                var velocity = pos - prePos;
+                //1. get cur velocity  
+                EventSystem.Instance.Invoke(new UpdateRootMotionCallback() { instanceId = timelinePlayer.instanceId, velocity = velocity });
             }
         }
 

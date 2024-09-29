@@ -1,6 +1,7 @@
 ﻿using Box2DSharp.Common;
 using Box2DSharp.Testbed.Unity.Inspection;
 using UnityEngine;
+using Vector2 = System.Numerics.Vector2;
 
 namespace ET.Client
 {
@@ -14,6 +15,7 @@ namespace ET.Client
                 self.unitId = 0;
                 self.fixtures.Clear();
                 self.body = null;
+                self.velocity = Vector2.Zero;
             }
         }
 

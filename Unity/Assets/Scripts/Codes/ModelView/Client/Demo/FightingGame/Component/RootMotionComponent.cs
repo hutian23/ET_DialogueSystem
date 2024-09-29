@@ -1,17 +1,14 @@
-﻿using Timeline;
-using UnityEngine;
+﻿using System.Numerics;
 
 namespace ET.Client
 {
-    [ComponentOf(typeof (DialogueComponent))]
+    [ComponentOf(typeof (b2Body))]
     public class RootMotionComponent: Entity, IAwake, IDestroy
     {
-        // 当前behavior的初始位置
-        public Vector3 initPos;
+        public int currentFrame;
 
-        //当前帧总位移
-        public Vector3 moveCounter;
-
-        public BBAnimationClip currentClip;
+        //dx / 1 = dv
+        //运动曲线中当前帧的位移量，等于速度
+        public Vector2 velocity;
     }
 }
