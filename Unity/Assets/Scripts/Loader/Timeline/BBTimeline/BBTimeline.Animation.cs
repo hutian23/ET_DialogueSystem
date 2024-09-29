@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine;
 
 #if UNITY_EDITOR
+using Testbed.Abstractions;
 using Timeline.Editor;
 #endif
 using UnityEngine.Animations;
@@ -36,6 +37,8 @@ namespace Timeline
     {
         public AnimationClip animationClip;
 
+        public bool ApplyRootMotion;
+
         //rootmotion data
         [OdinSerialize, NonSerialized]
         public Dictionary<string, AnimationCurve> rootMotionDict = new();
@@ -59,34 +62,8 @@ namespace Timeline
         private float GetRootMotionData(string key, int targetFrame)
         {
             if (!rootMotionDict.TryGetValue(key, out AnimationCurve curve)) return 0f;
-            float initPos = curve.Evaluate(0);
-            return curve.Evaluate(targetFrame / 60f) - initPos;
+            return curve.Evaluate(targetFrame / 60f);
         }
-
-#if UNITY_EDITOR
-        public Vector3 EditorPosition(int targetFrame)
-        {
-            float x = GetRootMotionDataInEditor("m_LocalPosition_x", targetFrame);
-            float y = GetRootMotionDataInEditor("m_LocalPosition_y", targetFrame);
-            float z = GetRootMotionDataInEditor("m_LocalPosition_z", targetFrame);
-            return new Vector3(x, y, z);
-        }
-
-        public Vector3 EditorRotation(int targetFrame)
-        {
-            float x = GetRootMotionDataInEditor("localEulerAnglesRaw_x", targetFrame);
-            float y = GetRootMotionDataInEditor("localEulerAnglesRaw_y", targetFrame);
-            float z = GetRootMotionDataInEditor("localEulerAnglesRaw_z", targetFrame);
-            return new Vector3(x, y, z);
-        }
-
-        private float GetRootMotionDataInEditor(string key, int targetFrame)
-        {
-            if (!rootMotionDict.TryGetValue(key, out AnimationCurve curve)) return 0f;
-            return curve.Evaluate((float)targetFrame / TimelineUtility.FrameRate);
-        }
-
-#endif
 
         public BBAnimationClip(int frame): base(frame)
         {
@@ -121,7 +98,15 @@ namespace Timeline
         [ShowInInspector]
         public int animationLength => AnimationClip == null? 0 : (int)(AnimationClip.length * TimelineUtility.FrameRate);
 
-        [Button("提取运动曲线", DirtyOnClick = false), PropertyOrder(5)]
+        [LabelText("ApplyRootMotion: "), PropertyOrder(5), OnValueChanged("ApplyRootMotionValueChange")]
+        public bool ApplyRootMotion;
+
+        public void ApplyRootMotionValueChange()
+        {
+            FieldView.EditorWindow.ApplyModify(() => { Clip.ApplyRootMotion = ApplyRootMotion; }, "Change ApplyRootMotion", false);
+        }
+
+        [Button("提取运动曲线", DirtyOnClick = false), PropertyOrder(6)]
         public void Rebind()
         {
             FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() =>
@@ -168,6 +153,7 @@ namespace Timeline
     {
         public long instanceId;
         public Vector2 velocity;
+        public bool ApplyRootMotion;
     }
 
     public class RuntimeAnimationTrack: RuntimeTrack
@@ -293,9 +279,13 @@ namespace Timeline
             {
                 var pos = animationClip.CurrentPosition(clipInFrame);
                 var prePos = animationClip.CurrentPosition(clipInFrame - 1);
-                var velocity = pos - prePos;
-                //1. get cur velocity  
-                EventSystem.Instance.Invoke(new UpdateRootMotionCallback() { instanceId = timelinePlayer.instanceId, velocity = velocity });
+                //dv = dx / dt 
+                var velocity = (pos - prePos) * Global.Settings.Hertz;
+
+                EventSystem.Instance.Invoke(new UpdateRootMotionCallback()
+                {
+                    instanceId = timelinePlayer.instanceId, velocity = velocity, ApplyRootMotion = animationClip.ApplyRootMotion
+                });
             }
         }
 

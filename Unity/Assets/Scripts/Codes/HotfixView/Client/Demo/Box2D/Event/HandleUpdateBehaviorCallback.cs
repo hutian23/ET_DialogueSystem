@@ -20,9 +20,6 @@ namespace ET.Client
                 b2body.body.DestroyFixture(fixture);
             }
             b2body.fixtures.Clear();
-            b2body.frame = 0;
-            b2body.velocity = Vector2.Zero;
-            b2body.totalPos = Vector2.Zero;
             
             //2. update behavior
             timelineComponent.Reload(args.behaviorOrder);

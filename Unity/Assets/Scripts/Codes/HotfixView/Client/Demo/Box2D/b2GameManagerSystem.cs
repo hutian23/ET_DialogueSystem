@@ -1,5 +1,6 @@
 ﻿using ET.Event;
-using UnityEngine;
+using Testbed.Abstractions;
+using Camera = UnityEngine.Camera;
 
 namespace ET.Client
 {
@@ -28,23 +29,22 @@ namespace ET.Client
             {
                 kv.Value.Dispose();
             }
-
             self.BodyDict.Clear();
 
             //create hitbox
             EventSystem.Instance.PublishAsync(self.DomainScene(), new AfterB2WorldCreated() { B2World = self.B2World }).Coroutine();
         }
-
-        public class b2WorldManagerFixedUpdateSystem: FixedUpdateSystem<b2GameManager>
+        
+        public class B2GameManagerFixedUpdateSystem : FixedUpdateSystem<b2GameManager>
         {
             protected override void FixedUpdate(b2GameManager self)
             {
-                self.UpdateVelocity();
+                self.SyncVelocity();
                 self.B2World.Step();
                 self.SyncTrans();
             }
         }
-
+        
         public class b2WorldManagerDestroySystem: DestroySystem<b2GameManager>
         {
             protected override void Destroy(b2GameManager self)
@@ -56,15 +56,24 @@ namespace ET.Client
             }
         }
 
-        private static void UpdateVelocity(this b2GameManager self)
+        public static void Update(this b2GameManager self)
         {
-            foreach (var child in self.Children.Values)
+            //Single Step
+            if (Global.Settings.Pause && Global.Settings.SingleStep)
             {
-                b2Body B2body = child as b2Body;
-                B2body.body.SetLinearVelocity(B2body.velocity);
+                self.B2World.SingleStep();
             }
         }
 
+        private static void SyncVelocity(this b2GameManager self)
+        {
+            foreach (Entity child in self.Children.Values)
+            {
+                b2Body body = child as b2Body;
+                body.SyncVelocity();
+            }
+        }
+        
         private static void SyncTrans(this b2GameManager self)
         {
             foreach (Entity child in self.Children.Values)

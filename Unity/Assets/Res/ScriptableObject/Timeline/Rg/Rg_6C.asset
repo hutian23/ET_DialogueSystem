@@ -63,6 +63,9 @@ MonoBehaviour:
     - Name: animationClip
       Entry: 10
       Data: 0
+    - Name: ApplyRootMotion
+      Entry: 5
+      Data: true
     - Name: rootMotionDict
       Entry: 7
       Data: 4|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.AnimationCurve,

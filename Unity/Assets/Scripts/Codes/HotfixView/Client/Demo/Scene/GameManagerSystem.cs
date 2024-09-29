@@ -24,6 +24,8 @@ namespace ET.Client
         {
             protected override void Update(GameManager self)
             {
+                //Single step 
+                b2GameManager.Instance.Update();
                 TimelineManager.Instance.Update();
                 Global.Settings.SingleStep = false;
             }

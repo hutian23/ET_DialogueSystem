@@ -1,23 +1,40 @@
 ﻿using Box2DSharp.Common;
 using Box2DSharp.Testbed.Unity.Inspection;
 using UnityEngine;
-using Vector2 = System.Numerics.Vector2;
 
 namespace ET.Client
 {
-    [FriendOf(typeof (b2Body))]
+    [FriendOf(typeof(b2Body))]
+    [FriendOf(typeof(RootMotionComponent))]
     public static class b2BodySystem
     {
-        public class b2BodyDestroySystem: DestroySystem<b2Body>
+        public class b2BodyAwakeSystem : AwakeSystem<b2Body>
+        {
+            protected override void Awake(b2Body self)
+            {
+            }
+        }
+
+        public class b2BodyDestroySystem : DestroySystem<b2Body>
         {
             protected override void Destroy(b2Body self)
             {
                 self.unitId = 0;
                 self.fixtures.Clear();
                 self.body = null;
-                self.velocity = Vector2.Zero;
-                self.frame = 0;
             }
+        }
+
+        public static void SyncVelocity(this b2Body self)
+        {
+            //根运动
+            RootMotionComponent rootMotion = self.GetComponent<RootMotionComponent>();
+            if (rootMotion == null)
+            {
+                return;
+            }
+
+            self.body.SetLinearVelocity(rootMotion.velocity);
         }
 
         public static void SyncUnitTransform(this b2Body self)

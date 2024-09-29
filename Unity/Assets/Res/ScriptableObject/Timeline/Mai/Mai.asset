@@ -52,26 +52,6 @@ MonoBehaviour:
     - Name: Title
       Entry: 1
       Data: Idle
-    - Name: order
-      Entry: 3
-      Data: 0
-    - Name: Script
-      Entry: 1
-      Data: '@Init:
-
-        return;
-
-
-        @Main:
-
-        SetMarker: ''t1'';
-
-        StartTimeline;
-
-        GotoMarker:
-        ''t1'';
-
-        return;'
     - Name: viewDataKey
       Entry: 1
       Data: 90d7e814-e6ee-44fb-8fdf-69a94213d188
@@ -102,12 +82,6 @@ MonoBehaviour:
     - Name: Title
       Entry: 1
       Data: New BehaviorClip
-    - Name: order
-      Entry: 3
-      Data: 1
-    - Name: Script
-      Entry: 6
-      Data: 
     - Name: viewDataKey
       Entry: 1
       Data: 896f2e9e-2e32-408c-a779-e65308db9611

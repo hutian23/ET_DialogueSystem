@@ -4,17 +4,24 @@ using Timeline;
 namespace ET.Client
 {
     [Invoke]
-    [FriendOf(typeof (b2Body))]
-    public class HandleUpdateRootMotionCallback: AInvokeHandler<UpdateRootMotionCallback>
+    [FriendOf(typeof(b2Body))]
+    [FriendOf(typeof(RootMotionComponent))]
+    public class HandleUpdateRootMotionCallback : AInvokeHandler<UpdateRootMotionCallback>
     {
         public override void Handle(UpdateRootMotionCallback args)
         {
             TimelineComponent timelineComponent = Root.Instance.Get(args.instanceId) as TimelineComponent;
             Unit unit = timelineComponent.GetParent<Unit>();
-            b2Body body = b2GameManager.Instance.GetBody(unit.InstanceId);
-            body.velocity = args.velocity.ToVector2();
-            body.totalPos += args.velocity.ToVector2();
-            body.frame++;
+            b2Body B2body = b2GameManager.Instance.GetBody(unit.InstanceId);
+            if (args.ApplyRootMotion)
+            {
+                RootMotionComponent rootMotion = B2body.GetComponent<RootMotionComponent>() ?? B2body.AddComponent<RootMotionComponent>();
+                rootMotion.velocity = args.velocity.ToVector2();
+            }
+            else
+            {
+                B2body.RemoveComponent<RootMotionComponent>();
+            }
         }
     }
 }

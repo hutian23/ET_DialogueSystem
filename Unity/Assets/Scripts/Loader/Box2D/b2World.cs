@@ -37,21 +37,36 @@ namespace ET
 
         public new void Step()
         {
-            TimeStep = this.TestSettings.Hertz > 0.0f? 1.0f / TestSettings.Hertz : 0f;
-            // if (this.TestSettings.Pause)
-            // {
-            //     this.TimeStep = this.TestSettings.SingleStep? 1f : 0f;
-            // }
+            TimeStep = TestSettings.Hertz > 0.0f? 1.0f / TestSettings.Hertz : 0f;
+            if (Global.Settings.Pause)
+            {
+                TimeStep = 0;
+            }
 
-            this.World.AllowSleep = this.TestSettings.EnableSleep;
-            this.World.WarmStarting = this.TestSettings.EnableWarmStarting;
-            this.World.SubStepping = this.TestSettings.EnableSubStepping;
+            World.AllowSleep = TestSettings.EnableSleep;
+            World.WarmStarting = TestSettings.EnableWarmStarting;
+            World.SubStepping = TestSettings.EnableSubStepping;
 
-            this.PointsCount = 0;
+            PointsCount = 0;
+
+            PreStep();
+            World.Step(TimeStep, TestSettings.VelocityIterations, TestSettings.PositionIterations);
+            PostStep();
+        }
+
+        public void SingleStep()
+        {
+            TimeStep = 1.0f / TestSettings.Hertz;
             
-            this.PreStep();
-            this.World.Step(this.TimeStep,this.TestSettings.VelocityIterations,this.TestSettings.PositionIterations);
-            this.PostStep();
+            World.AllowSleep = TestSettings.EnableSleep;
+            World.WarmStarting = TestSettings.EnableWarmStarting;
+            World.SubStepping = TestSettings.EnableSubStepping;
+
+            PointsCount = 0;
+
+            PreStep();
+            World.Step(TimeStep, TestSettings.VelocityIterations, TestSettings.PositionIterations);
+            PostStep();
         }
 
         #region Render
