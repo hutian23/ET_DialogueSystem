@@ -117,7 +117,7 @@ namespace ET
         private void RenderUI()
         {
             controller.Render();
-            DebugDraw.DrawString(5, 10, @"(F1) Reload  (F2) Pause");
+            DebugDraw.DrawString(5, 10, @"(F1) Reload  (F2) Pause  (F3) Single Step");
             if (Global.Settings.Pause)
             {
                 DebugDraw.DrawString(5, 30, "****PAUSED***");
@@ -135,6 +135,7 @@ namespace ET
             DebugDraw.DrawString(5, 50, $"UnitName: {Profile.UnitName}");
             DebugDraw.DrawString(5, 65, $"LinearVelocity:{Profile.LinearVelocity}");
             DebugDraw.DrawString(5, 80, $"AngularVelocity:{Profile.AngularVelocity}");
+            DebugDraw.DrawString(5,95,$"Position:{Profile.Position}");
         }
 
         public UnitProfile Profile;
@@ -293,6 +294,12 @@ namespace ET
             if (key.f2Key.wasPressedThisFrame)
             {
                 EventSystem.Instance?.Invoke(new PausedCallback() { Pause = !Global.Settings.Pause });
+            }
+            
+            //Single Step
+            if (key.f3Key.wasPressedThisFrame)
+            {
+                Global.Settings.SingleStep = !Global.Settings.SingleStep;
             }
         }
 

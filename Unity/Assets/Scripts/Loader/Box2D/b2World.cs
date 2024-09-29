@@ -35,6 +35,25 @@ namespace ET
             Game = null;
         }
 
+        public new void Step()
+        {
+            TimeStep = this.TestSettings.Hertz > 0.0f? 1.0f / TestSettings.Hertz : 0f;
+            // if (this.TestSettings.Pause)
+            // {
+            //     this.TimeStep = this.TestSettings.SingleStep? 1f : 0f;
+            // }
+
+            this.World.AllowSleep = this.TestSettings.EnableSleep;
+            this.World.WarmStarting = this.TestSettings.EnableWarmStarting;
+            this.World.SubStepping = this.TestSettings.EnableSubStepping;
+
+            this.PointsCount = 0;
+            
+            this.PreStep();
+            this.World.Step(this.TimeStep,this.TestSettings.VelocityIterations,this.TestSettings.PositionIterations);
+            this.PostStep();
+        }
+
         #region Render
 
         private void Drawb2World()

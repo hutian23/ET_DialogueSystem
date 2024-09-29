@@ -11,8 +11,6 @@ namespace ET.Client
         {
             public override void Handle(BBTimeChanged args)
             {
-                // BBTimerComponent timerComponent = Root.Instance.Get(args.instanceId) as BBTimerComponent;
-                // timerComponent.SetTimeScale(args.timeScale);
             }
         }
 
@@ -77,7 +75,7 @@ namespace ET.Client
             self.Accumulator = 0;
         }
 
-        private static long GetFrameLength(this BBTimerComponent self)
+        public static long GetFrameLength(this BBTimerComponent self)
         {
             return TimeSpan.FromSeconds((float)1 / self.Hertz).Ticks;
         }

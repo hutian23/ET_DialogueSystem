@@ -37,7 +37,7 @@ namespace ET.Client
             dialogueComponent.AddComponent<BBInputComponent>();
             dialogueComponent.AddComponent<BehaviorBufferComponent>();
             // dialogueComponent.AddComponent<TimelineManager>();
-            dialogueComponent.AddComponent<RootMotionComponent>();
+            // dialogueComponent.AddComponent<RootMotionComponent>();
             unit.AddComponent<NumericComponent>();
             
             await ETTask.CompletedTask;

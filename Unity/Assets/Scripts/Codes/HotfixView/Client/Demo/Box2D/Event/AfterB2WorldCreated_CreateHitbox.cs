@@ -24,6 +24,8 @@ namespace ET.Client
                     BodyType = BodyType.DynamicBody,
                     Position = new Vector2(0, 8),
                     GravityScale = 0f,
+                    LinearDamping = 0f,
+                    AngularDamping = 0f,
                     AllowSleep = true,
                     FixedRotation = true
                 };

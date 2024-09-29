@@ -58,12 +58,11 @@ namespace ET.Client
 
         private static void UpdateVelocity(this b2GameManager self)
         {
-            // foreach (var child in self.Children.Values)
-            // {
-            //     b2Body B2body = child as b2Body;
-            //     B2body.body.SetLinearVelocity(new Vector2(0, 10));
-            //     B2body.body.IsAwake = true;
-            // }
+            foreach (var child in self.Children.Values)
+            {
+                b2Body B2body = child as b2Body;
+                B2body.body.SetLinearVelocity(B2body.velocity);
+            }
         }
 
         private static void SyncTrans(this b2GameManager self)

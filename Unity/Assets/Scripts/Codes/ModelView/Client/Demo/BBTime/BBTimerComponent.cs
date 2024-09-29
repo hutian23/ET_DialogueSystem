@@ -59,7 +59,7 @@ namespace ET.Client
         // 记录最小事件，不用每次都去MultiMap取第一个值
         public long minFrame = long.MaxValue;
         public long curFrame = 0;
-
+        
         //标准更新频率60fps
         public int Hertz = 60;
         public long LastTime;

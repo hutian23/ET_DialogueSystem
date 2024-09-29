@@ -16,6 +16,7 @@ namespace ET.Client
                 self.fixtures.Clear();
                 self.body = null;
                 self.velocity = Vector2.Zero;
+                self.frame = 0;
             }
         }
 
