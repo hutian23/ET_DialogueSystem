@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dad01b398c6f634c9e134265baa14a1, type: 3}
-  m_Name: Rg_6C
+  m_Name: Mai_LightPunch2
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -1087,7 +1087,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  timelineName: Rg_6C
+  timelineName: Mai_LightPunch_2
   order: 6
   Script: '@Main:
 
