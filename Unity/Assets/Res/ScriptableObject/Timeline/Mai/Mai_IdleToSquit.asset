@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dad01b398c6f634c9e134265baa14a1, type: 3}
-  m_Name: Mai_Run
+  m_Name: Mai_IdleToSquit
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 7400000, guid: 846764d32809ff842a0a139780318ae8, type: 2}
+    - {fileID: 7400000, guid: bf519771e6ca73249af794295352ed63, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -34,7 +34,7 @@ MonoBehaviour:
       Data: 1|Timeline.BBAnimationTrack, Unity.Loader
     - Name: Name
       Entry: 1
-      Data: RunAnimation
+      Data: Animation
     - Name: Enable
       Entry: 5
       Data: true
@@ -53,13 +53,13 @@ MonoBehaviour:
       Data: false
     - Name: Name
       Entry: 1
-      Data: Mai_Run
+      Data: Mai_SquitTransition
     - Name: StartFrame
       Entry: 3
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 25
+      Data: 7
     - Name: animationClip
       Entry: 10
       Data: 0
@@ -156,10 +156,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 0.00127279758
     - Name: 
       Entry: 4
-      Data: 0.7
+      Data: 0.348288566
     - Name: 
       Entry: 8
       Data: 
@@ -168,10 +168,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 1.76685357
+      Data: 1.34536743
     - Name: 
       Entry: 4
-      Data: 0.6999999
+      Data: 0.703422844
     - Name: 
       Entry: 8
       Data: 
@@ -195,7 +195,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 4
-      Data: -1.05
+      Data: -1.23
     - Name: 
       Entry: 8
       Data: 
@@ -207,7 +207,7 @@ MonoBehaviour:
       Data: 1.8
     - Name: 
       Entry: 4
-      Data: 2.8
+      Data: 2.45
     - Name: 
       Entry: 8
       Data: 
@@ -231,7 +231,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 4
-      Data: -1.2
+      Data: -1.35
     - Name: 
       Entry: 8
       Data: 
@@ -243,7 +243,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 4
-      Data: 2.5
+      Data: 2.2
     - Name: 
       Entry: 8
       Data: 
@@ -287,8 +287,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  timelineName: Mai_Run
-  order: 1
+  timelineName: Mai_IdleToSquit
+  order: 5
   Script: '@Main:
 
-    LoopTimeline;'
+    StartTimeline;'

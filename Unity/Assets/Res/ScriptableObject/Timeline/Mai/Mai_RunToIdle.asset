@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dad01b398c6f634c9e134265baa14a1, type: 3}
-  m_Name: Mai_Run
+  m_Name: Mai_RunToIdle
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 7400000, guid: 846764d32809ff842a0a139780318ae8, type: 2}
+    - {fileID: 7400000, guid: 5948e2e00345c774aa727f40c33a43df, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -34,7 +34,7 @@ MonoBehaviour:
       Data: 1|Timeline.BBAnimationTrack, Unity.Loader
     - Name: Name
       Entry: 1
-      Data: RunAnimation
+      Data: Animation
     - Name: Enable
       Entry: 5
       Data: true
@@ -53,13 +53,13 @@ MonoBehaviour:
       Data: false
     - Name: Name
       Entry: 1
-      Data: Mai_Run
+      Data: Mai_RunToIdle
     - Name: StartFrame
       Entry: 3
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 25
+      Data: 10
     - Name: animationClip
       Entry: 10
       Data: 0
@@ -287,8 +287,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  timelineName: Mai_Run
-  order: 1
-  Script: '@Main:
-
-    LoopTimeline;'
+  timelineName: Mai_RunToIdle
+  order: 2
+  Script: "@Main: \nStartTimeline;"

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dad01b398c6f634c9e134265baa14a1, type: 3}
-  m_Name: Mai_Run
+  m_Name: Mai_Squitting
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 7400000, guid: 846764d32809ff842a0a139780318ae8, type: 2}
+    - {fileID: 7400000, guid: 1846b35c32d2b7c478c31ee8771e8ee0, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -34,7 +34,7 @@ MonoBehaviour:
       Data: 1|Timeline.BBAnimationTrack, Unity.Loader
     - Name: Name
       Entry: 1
-      Data: RunAnimation
+      Data: Animation
     - Name: Enable
       Entry: 5
       Data: true
@@ -53,13 +53,13 @@ MonoBehaviour:
       Data: false
     - Name: Name
       Entry: 1
-      Data: Mai_Run
+      Data: Mai_Squitting
     - Name: StartFrame
       Entry: 3
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 25
+      Data: 41
     - Name: animationClip
       Entry: 10
       Data: 0
@@ -141,46 +141,10 @@ MonoBehaviour:
       Data: 10|ET.ListComponent`1[[Timeline.BoxInfo, Unity.Loader]], Unity.Core
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 7
       Data: 11|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: Hurt_Head
-    - Name: hitboxType
-      Entry: 3
-      Data: 2
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0.7
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.76685357
-    - Name: 
-      Entry: 4
-      Data: 0.6999999
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 12|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_Body
@@ -192,10 +156,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0
+      Data: -0.032359004
     - Name: 
       Entry: 4
-      Data: -1.05
+      Data: -1.39305842
     - Name: 
       Entry: 8
       Data: 
@@ -204,10 +168,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 1.8
+      Data: 1.59010577
     - Name: 
       Entry: 4
-      Data: 2.8
+      Data: 2.13304925
     - Name: 
       Entry: 8
       Data: 
@@ -216,7 +180,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 13|Timeline.BoxInfo, Unity.Loader
+      Data: 12|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: PushBox
@@ -231,7 +195,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 4
-      Data: -1.2
+      Data: -1.46
     - Name: 
       Entry: 8
       Data: 
@@ -243,7 +207,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 4
-      Data: 2.5
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -276,7 +240,7 @@ MonoBehaviour:
       Data: 
     - Name: Marks
       Entry: 7
-      Data: 14|System.Collections.Generic.List`1[[Timeline.EventInfo, Unity.Loader]],
+      Data: 13|System.Collections.Generic.List`1[[Timeline.EventInfo, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -287,8 +251,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  timelineName: Mai_Run
-  order: 1
+  timelineName: Mai_Squitting
+  order: 4
   Script: '@Main:
 
     LoopTimeline;'
