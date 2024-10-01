@@ -449,6 +449,11 @@ MonoBehaviour:
       Data: 
   timelineName: Mai_Idle
   order: 0
-  Script: '@Main:
+  Script: '@Init:
+
+    return;
+
+
+    @Main:
 
     LoopTimeline;'

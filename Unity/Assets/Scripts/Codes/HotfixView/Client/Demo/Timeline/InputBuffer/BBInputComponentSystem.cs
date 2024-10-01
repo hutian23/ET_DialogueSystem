@@ -3,66 +3,27 @@ using UnityEngine.InputSystem;
 
 namespace ET.Client
 {
-    [FriendOf(typeof(BBInputComponent))]
-    public static class TODInputComponentSystem
+    //开始重构
+    [FriendOf(typeof (BBInputComponent))]
+    public static class BBInputComponentSystem
     {
-        [Invoke(BBTimerInvokeType.CheckInput)]
-        [FriendOf(typeof(BBInputComponent))]
-        [FriendOf(typeof(BBTimerComponent))]
-        public class CheckInputTimer : BBTimer<BBInputComponent>
-        {
-            protected override void Run(BBInputComponent self)
-            {
-                long ops = self.CheckInput();
-                self.GetComponent<BBWait>().Notify(ops);
-                // self.ClientScene().GetComponent<UIComponent>().GetDlgLogic<DlgFtg>().Refresh(ops);
-            }
-        }
-
-        [FriendOf(typeof(BBTimerComponent))]
-        public class TODInputComponentAwakeSystem : AwakeSystem<BBInputComponent>
+        public class BBInputAwakeSystem: AwakeSystem<BBInputComponent>
         {
             protected override void Awake(BBInputComponent self)
             {
-                // self.ClientScene().GetComponent<UIComponent>().ShowWindow<DlgFtg>();
-
-                BBTimerComponent timerComponent = self.AddComponent<BBTimerComponent>();
-                self.timer = timerComponent.NewFrameTimer(BBTimerInvokeType.CheckInput, self);
-
-                self.AddComponent<BBWait>();
-                self.InitPressDict();
+                BBInputComponent.Instance = self;
             }
         }
 
-        [FriendOf(typeof(BBTimerComponent))]
-        public class TODInputComponentLoadSystem : LoadSystem<BBInputComponent>
+        public static void Reload(this BBInputComponent self)
         {
-            protected override void Load(BBInputComponent self)
-            {
-                // self.ClientScene().GetComponent<UIComponent>().UnLoadWindow<DlgFtg>();
-                // self.ClientScene().GetComponent<UIComponent>().ShowWindow<DlgFtg>();
-
-                self.RemoveComponent<BBTimerComponent>();
-                BBTimerComponent timerComponent = self.AddComponent<BBTimerComponent>();
-                self.timer = timerComponent.NewFrameTimer(BBTimerInvokeType.CheckInput, self);
-
-                self.InitPressDict();
-            }
+            //TODO Reload
         }
 
-        private static void InitPressDict(this BBInputComponent self)
+        public static void Update(this BBInputComponent self)
         {
-            self.pressDict.Clear();
-            self.pressDict.Add(BBOperaType.LIGHTPUNCH, 0);
-            self.pressDict.Add(BBOperaType.MIDDLEPUNCH, 0);
-            self.pressDict.Add(BBOperaType.HEAVYPUNCH, 0);
-
-            self.pressDict.Add(BBOperaType.LIGHTKICK, 0);
-            self.pressDict.Add(BBOperaType.MIDDLEKICK, 0);
-            self.pressDict.Add(BBOperaType.HEAVYKICK, 0);
-
-            self.pressDict.Add(BBOperaType.HEAVYPUNCH | BBOperaType.HEAVYKICK, 0);
-            self.pressDict.Add(BBOperaType.MIDDLEKICK | BBOperaType.MIDDLEPUNCH, 0);
+            long input = self.CheckInput();
+            EventSystem.Instance.PublishAsync(self.DomainScene(), new UpdateInputCallback() { Ops = input }).Coroutine();
         }
 
         public static long CheckInput(this BBInputComponent self)
@@ -118,98 +79,52 @@ namespace ET.Client
                 }
             }
 
-            //2. 技能按键
-            BBTimerComponent timerComponent = self.GetComponent<BBTimerComponent>();
             // 轻拳
             if (gamepad.xButton.isPressed)
             {
-                if (self.pressDict[BBOperaType.LIGHTPUNCH] == 0) self.pressDict[BBOperaType.LIGHTPUNCH] = timerComponent.GetNow();
-                if (timerComponent.GetNow() - self.pressDict[BBOperaType.LIGHTPUNCH] < 10) ops |= BBOperaType.LIGHTPUNCH;
-            }
-            else
-            {
-                self.pressDict[BBOperaType.LIGHTPUNCH] = 0;
+                ops |= BBOperaType.LIGHTPUNCH;
             }
 
             //中拳
             if (gamepad.yButton.isPressed)
             {
-                if (self.pressDict[BBOperaType.MIDDLEPUNCH] == 0) self.pressDict[BBOperaType.MIDDLEPUNCH] = timerComponent.GetNow();
-                if (timerComponent.GetNow() - self.pressDict[BBOperaType.MIDDLEPUNCH] < self.maxPressedFrame) ops |= BBOperaType.MIDDLEPUNCH;
-            }
-            else
-            {
-                self.pressDict[BBOperaType.MIDDLEPUNCH] = 0;
+                ops |= BBOperaType.MIDDLEPUNCH;
             }
 
             //重拳
             if (gamepad.rightShoulder.isPressed)
             {
-                if (self.pressDict[BBOperaType.HEAVYPUNCH] == 0) self.pressDict[BBOperaType.HEAVYPUNCH] = timerComponent.GetNow();
-                if (timerComponent.GetNow() - self.pressDict[BBOperaType.HEAVYPUNCH] < self.maxPressedFrame) ops |= BBOperaType.HEAVYPUNCH;
-            }
-            else
-            {
-                self.pressDict[BBOperaType.HEAVYPUNCH] = 0;
+                ops |= BBOperaType.HEAVYPUNCH;
             }
 
             //轻脚
             if (gamepad.aButton.isPressed)
             {
-                if (self.pressDict[BBOperaType.LIGHTKICK] == 0) self.pressDict[BBOperaType.LIGHTKICK] = timerComponent.GetNow();
-                if (timerComponent.GetNow() - self.pressDict[BBOperaType.LIGHTKICK] < self.maxPressedFrame) ops |= BBOperaType.LIGHTKICK;
-            }
-            else
-            {
-                self.pressDict[BBOperaType.LIGHTKICK] = 0;
+                ops |= BBOperaType.LIGHTKICK;
             }
 
             //中脚
             if (gamepad.bButton.isPressed)
             {
-                if (self.pressDict[BBOperaType.MIDDLEKICK] == 0) self.pressDict[BBOperaType.MIDDLEKICK] = timerComponent.GetNow();
-                if (timerComponent.GetNow() - self.pressDict[BBOperaType.MIDDLEKICK] < self.maxPressedFrame) ops |= BBOperaType.MIDDLEKICK;
-            }
-            else
-            {
-                self.pressDict[BBOperaType.MIDDLEKICK] = 0;
+                ops |= BBOperaType.MIDDLEKICK;
             }
 
             //重脚
             if (gamepad.rightTrigger.isPressed)
             {
-                if (self.pressDict[BBOperaType.HEAVYKICK] == 0) self.pressDict[BBOperaType.HEAVYKICK] = timerComponent.GetNow();
-                if (timerComponent.GetNow() - self.pressDict[BBOperaType.HEAVYKICK] < self.maxPressedFrame) ops |= BBOperaType.HEAVYKICK;
-            }
-            else
-            {
-                self.pressDict[BBOperaType.HEAVYKICK] = 0;
+                ops |= BBOperaType.HEAVYKICK;
             }
 
             //LB（组合键）
             if (gamepad.leftShoulder.isPressed)
             {
-                if (self.pressDict[BBOperaType.HEAVYPUNCH | BBOperaType.HEAVYKICK] == 0)
-                    self.pressDict[BBOperaType.HEAVYPUNCH | BBOperaType.HEAVYKICK] = timerComponent.GetNow();
-                if (timerComponent.GetNow() - self.pressDict[BBOperaType.HEAVYPUNCH | BBOperaType.HEAVYKICK] < self.maxPressedFrame)
-                    ops |= BBOperaType.HEAVYKICK | BBOperaType.HEAVYPUNCH;
-            }
-            else
-            {
-                self.pressDict[BBOperaType.HEAVYPUNCH | BBOperaType.HEAVYKICK] = 0;
+                ops |= BBOperaType.HEAVYKICK | BBOperaType.HEAVYPUNCH;
             }
 
             //LT
             if (gamepad.leftTrigger.isPressed)
             {
-                if (self.pressDict[BBOperaType.MIDDLEPUNCH | BBOperaType.MIDDLEKICK] == 0)
-                    self.pressDict[BBOperaType.MIDDLEPUNCH | BBOperaType.MIDDLEKICK] = timerComponent.GetNow();
-                if (timerComponent.GetNow() - self.pressDict[BBOperaType.MIDDLEPUNCH | BBOperaType.MIDDLEKICK] < self.maxPressedFrame)
-                    ops |= BBOperaType.MIDDLEKICK | BBOperaType.MIDDLEPUNCH;
-            }
-            else
-            {
-                self.pressDict[BBOperaType.MIDDLEKICK | BBOperaType.MIDDLEPUNCH] = 0;
+                ops |= BBOperaType.MIDDLEKICK | BBOperaType.MIDDLEPUNCH;
             }
 
             return ops;

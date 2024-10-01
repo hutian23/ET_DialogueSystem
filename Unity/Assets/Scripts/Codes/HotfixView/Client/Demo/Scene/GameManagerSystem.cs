@@ -24,6 +24,8 @@ namespace ET.Client
         {
             protected override void Update(GameManager self)
             {
+                //Input
+                BBInputComponent.Instance.Update();
                 //Single step 
                 b2GameManager.Instance.Update();
                 TimelineManager.Instance.Update();
@@ -37,10 +39,12 @@ namespace ET.Client
             Global.Settings.Pause = false;
             Global.Settings.SingleStep = false;
             
-            //2. b2World reload
+            //1. b2World reload
             b2GameManager.Instance.Reload();
-            //1. timeline
+            //2. timeline
             TimelineManager.Instance.Reload();
+            //3. reload input
+            BBInputComponent.Instance.Reload();
         }
     }
 }

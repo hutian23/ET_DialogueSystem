@@ -14,11 +14,14 @@ namespace ET.Client
             // 切换到map场景
             await SceneManager.LoadSceneAsync(currentScene.Name);
 
-            currentScene.AddComponent<GameManager>();
+            //管理输入
+            currentScene.AddComponent<BBInputComponent>();
             //Timeline管理
             currentScene.AddComponent<TimelineManager>();
             //添加物理世界管理组件
             currentScene.AddComponent<b2GameManager>();
+            
+            currentScene.AddComponent<GameManager>();
         }
     }
 }

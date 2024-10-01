@@ -10,10 +10,12 @@ namespace ET.Client
         {
             protected override void Awake(TimelineComponent self)
             {
+                //绑定渲染层
                 GameObject go = self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject;
                 TimelinePlayer timelinePlayer = go.GetComponent<TimelinePlayer>();
                 timelinePlayer.instanceId = self.InstanceId;
-
+                
+                //单例管理
                 TimelineManager.Instance.instanceIds.Add(self.InstanceId);
             }
         }
@@ -96,7 +98,10 @@ namespace ET.Client
             parser.Cancel();
             timer.ReLoad();
 
-            //2. 默认行为
+            //2. 加载所有行为到缓冲区
+            
+            
+            //3. 进入默认行为
             self.GetTimelinePlayer().Init(behaviorOrder);
             BBTimeline timeline = self.GetCurrentTimeline();
             parser.InitScript(timeline.Script);
