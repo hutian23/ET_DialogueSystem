@@ -22,8 +22,8 @@ namespace ET.Client
 
         public static void Update(this BBInputComponent self)
         {
-            long input = self.CheckInput();
-            EventSystem.Instance.PublishAsync(self.DomainScene(), new UpdateInputCallback() { Ops = input }).Coroutine();
+            self.Ops = self.CheckInput();
+            EventSystem.Instance.PublishAsync(self.DomainScene(), new UpdateInputCallback() { Ops = self.Ops }).Coroutine();
         }
 
         public static long CheckInput(this BBInputComponent self)
@@ -128,6 +128,11 @@ namespace ET.Client
             }
 
             return ops;
+        }
+
+        public static bool ContainKey(this BBInputComponent self, long op)
+        {
+            return (self.Ops & op) != 0;
         }
     }
 }

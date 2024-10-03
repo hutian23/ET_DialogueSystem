@@ -5,6 +5,8 @@
     {
         [StaticField]
         public static BBInputComponent Instance;
+
+        public long Ops;
     }
 
     public struct UpdateInputCallback

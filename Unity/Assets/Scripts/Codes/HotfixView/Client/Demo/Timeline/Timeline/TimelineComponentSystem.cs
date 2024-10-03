@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace ET.Client
 {
+    [FriendOf(typeof (SkillBuffer))]
     public static class TimelineComponentSystem
     {
         [FriendOf(typeof (TimelineManager))]
@@ -14,7 +15,7 @@ namespace ET.Client
                 GameObject go = self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject;
                 TimelinePlayer timelinePlayer = go.GetComponent<TimelinePlayer>();
                 timelinePlayer.instanceId = self.InstanceId;
-                
+
                 //单例管理
                 TimelineManager.Instance.instanceIds.Add(self.InstanceId);
             }
@@ -87,25 +88,27 @@ namespace ET.Client
             RuntimePlayable playable = self.GetTimelinePlayer().RuntimeimePlayable;
             playable.Evaluate(targetFrame);
         }
+
         #endregion
 
         public static void Reload(this TimelineComponent self, int behaviorOrder)
         {
             BBParser parser = self.GetComponent<BBParser>();
-            BBTimerComponent timer = self.GetComponent<BBTimerComponent>();
+            SkillBuffer skillBuffer = self.GetComponent<SkillBuffer>();
 
             //1. 初始化
+            parser.Exit();
             parser.Cancel();
-            timer.ReLoad();
-
-            //2. 加载所有行为到缓冲区
             
-            
-            //3. 进入默认行为
+            //3. 执行行为协程
             self.GetTimelinePlayer().Init(behaviorOrder);
             BBTimeline timeline = self.GetCurrentTimeline();
             parser.InitScript(timeline.Script);
             parser.Main().Coroutine();
+            
+            //2. 标记当前行为
+            skillBuffer.currentOrder = behaviorOrder;
+            skillBuffer.ClearFlag();
         }
     }
 }

@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Linq;
+using MongoDB.Bson;
 
 namespace ET.Client
 {
     [FriendOf(typeof (BBTimerComponent))]
     public static class BBTimerComponentSystem
     {
-        [Invoke]
-        public class BBTimerComponentChangedCallback: AInvokeHandler<BBTimeChanged>
-        {
-            public override void Handle(BBTimeChanged args)
-            {
-            }
-        }
-
         public class BBTimerComponentAwakeSystem: AwakeSystem<BBTimerComponent>
         {
             protected override void Awake(BBTimerComponent self)
@@ -136,7 +129,6 @@ namespace ET.Client
                 {
                     continue;
                 }
-
                 self.Run(timerAction);
             }
         }
@@ -297,7 +289,6 @@ namespace ET.Client
         private static long NewRepeatedTimer(this BBTimerComponent self, long frame, int type, object args)
         {
             BBTimerAction timer = BBTimerAction.Create(self.GetId(), TimerClass.RepeatedTimer, self.curFrame, frame, type, args);
-
             self.AddTimer(timer);
             return timer.Id;
         }

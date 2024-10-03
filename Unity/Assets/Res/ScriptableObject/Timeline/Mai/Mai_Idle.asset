@@ -449,7 +449,7 @@ MonoBehaviour:
       Data: 
   timelineName: Mai_Idle
   order: 0
-  Script: '@Init:
+  Script: '@Trigger:
 
     return;
 

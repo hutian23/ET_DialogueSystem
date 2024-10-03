@@ -26,6 +26,10 @@ namespace ET.Client
             timelineComponent.AddComponent<BBParser>();
             timelineComponent.AddComponent<TimelineEventManager>();
             timelineComponent.AddComponent<HitboxComponent>();
+            timelineComponent.AddComponent<SkillBuffer>();
+            
+            //4. timeline相关的资源，需要在创建player时加载
+            // Call Root InitCoroutine
         }
     }
 }

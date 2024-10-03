@@ -38,7 +38,7 @@ namespace ET.Client
                 DialogueNode childNode = dialogueComponent.GetNode(i);
                 if (childNode is not BBNode bbNode) continue;
                 Parser.InitScript(bbNode);
-                await Parser.Init();
+                // await Parser.Init();
             }
 
             //2. 启动行为缓冲组件

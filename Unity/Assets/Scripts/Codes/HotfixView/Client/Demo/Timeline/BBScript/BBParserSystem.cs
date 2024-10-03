@@ -34,7 +34,7 @@ namespace ET.Client
         {
             self.Cancel();
             self.opLines = script;
-            
+
             //热重载取消所有BBParser子协程
             self.cancellationToken = new ETCancellationToken();
 
@@ -67,13 +67,13 @@ namespace ET.Client
                 }
             }
         }
-        
+
         public static void InitScript(this BBParser self, BBNode node)
         {
             self.Cancel();
             self.opLines = node.BBScript;
             self.currentID = node.TargetID;
-            
+
             //热重载取消所有BBParser子协程
             self.cancellationToken = new ETCancellationToken();
             self.GetParent<DialogueComponent>().token.Add(self.cancellationToken.Cancel);
@@ -110,19 +110,23 @@ namespace ET.Client
 
         public static async ETTask Init(this BBParser self)
         {
-            //行为信息组件
-            // BehaviorBufferComponent bufferComponent = self.GetParent<DialogueComponent>().GetComponent<BehaviorBufferComponent>();
-            // BehaviorInfo behaviorInfo = bufferComponent.AddChild<BehaviorInfo>();
-            // bufferComponent.behaviorDict.Add(self.currentID, behaviorInfo);
-            // behaviorInfo.targetID = self.currentID;
-            await self.Invoke("Init",self.cancellationToken);
+            await self.Invoke("Init", self.cancellationToken);
         }
 
         public static async ETTask<Status> Main(this BBParser self)
         {
-            Status ret = await self.Invoke("Main",self.cancellationToken);
+            Status ret = await self.Invoke("Main", self.cancellationToken);
             self.cancellationToken.Cancel(); // 取消子协程
             return ret;
+        }
+
+        /// <summary>
+        /// 一些同步执行的操作(note!!!同步执行)
+        /// </summary>
+        /// <param name="self"></param>
+        public static void Exit(this BBParser self)
+        {
+            self.Invoke("Exit", self.cancellationToken).Coroutine();
         }
 
         public static int GetMarker(this BBParser self, string markerName)
@@ -140,7 +144,7 @@ namespace ET.Client
         /// 同步调用 Main函数或者在Main函数中调用函数
         /// 异步调用 不需要记录指针
         /// </summary>
-        public static async ETTask<Status> Invoke(this BBParser self, string funcName,ETCancellationToken token)
+        public static async ETTask<Status> Invoke(this BBParser self, string funcName, ETCancellationToken token)
         {
             //1. 找到函数入口指针
             if (!self.funcMap.TryGetValue(funcName, out int index))

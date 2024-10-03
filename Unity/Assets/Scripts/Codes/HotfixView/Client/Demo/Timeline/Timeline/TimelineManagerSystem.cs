@@ -2,11 +2,11 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof(TimelineManager))]
-    [FriendOf(typeof(BBTimerComponent))]
+    [FriendOf(typeof (TimelineManager))]
+    [FriendOf(typeof (BBTimerComponent))]
     public static class TimelineManagerSystem
     {
-        public class TimelineManagerAwakeSystem : AwakeSystem<TimelineManager>
+        public class TimelineManagerAwakeSystem: AwakeSystem<TimelineManager>
         {
             protected override void Awake(TimelineManager self)
             {
@@ -27,12 +27,13 @@ namespace ET.Client
                 {
                     bbTimer.Pause();
                 }
+
                 //Running state
                 if (!Global.Settings.Pause && !bbTimer._gameTimer.IsRunning)
                 {
                     bbTimer.Restart();
                 }
-                
+
                 //update one step
                 if (Global.Settings.SingleStep)
                 {
@@ -41,7 +42,7 @@ namespace ET.Client
             }
         }
 
-        public class TimelineManagerDestroySystem : DestroySystem<TimelineManager>
+        public class TimelineManagerDestroySystem: DestroySystem<TimelineManager>
         {
             protected override void Destroy(TimelineManager self)
             {
@@ -55,6 +56,14 @@ namespace ET.Client
             foreach (long instanceId in self.instanceIds)
             {
                 TimelineComponent timelineComponent = Root.Instance.Get(instanceId) as TimelineComponent;
+                BBTimerComponent bbTimer = timelineComponent.GetComponent<BBTimerComponent>();
+                SkillBuffer skillBuffer = timelineComponent.GetComponent<SkillBuffer>();
+                
+                //1. reload component of timelineComponent
+                bbTimer.ReLoad();
+                skillBuffer.Reload();
+                
+                //enter default behavior
                 timelineComponent.Reload(0); // Idle
             }
         }
