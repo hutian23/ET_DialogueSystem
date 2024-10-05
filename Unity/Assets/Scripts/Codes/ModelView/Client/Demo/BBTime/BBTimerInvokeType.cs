@@ -11,5 +11,6 @@
         public const int BehaviorBufferCheckTimer = 4;
         public const int BehaviorTimer = 5;
         public const int SkillCheckTimer = 6;
+        public const int BBInputTimer = 7;
     }
 }

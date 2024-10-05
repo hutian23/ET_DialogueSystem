@@ -451,8 +451,6 @@ MonoBehaviour:
   order: 0
   Script: '@Init:
 
-    RegistInputType: HoldDash;
-
     return;
 
 

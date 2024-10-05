@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Timeline;
 
 namespace ET.Client
 {
@@ -120,10 +121,20 @@ namespace ET.Client
             return ret;
         }
 
+        public static void Reload(this BBParser self)
+        {
+            BBPlayableGraph bbPlayable = self.GetParent<TimelineComponent>().GetTimelinePlayer().BBPlayable;
+            foreach (BBTimeline timeline in bbPlayable.GetTimelines())
+            {
+                //run init coroutine
+                self.InitScript(timeline.Script);
+                self.Invoke("Init", self.cancellationToken).Coroutine();
+            }
+        }
+
         /// <summary>
         /// 一些同步执行的操作(note!!!同步执行)
         /// </summary>
-        /// <param name="self"></param>
         public static void Exit(this BBParser self)
         {
             self.Invoke("Exit", self.cancellationToken).Coroutine();

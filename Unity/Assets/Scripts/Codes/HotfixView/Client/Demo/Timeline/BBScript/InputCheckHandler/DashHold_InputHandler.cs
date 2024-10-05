@@ -9,7 +9,6 @@
 
         public override async ETTask<Status> Handle(Unit unit, ETCancellationToken token)
         {
-            Log.Warning("Hello World");
             await ETTask.CompletedTask;
             return Status.Success;
         }

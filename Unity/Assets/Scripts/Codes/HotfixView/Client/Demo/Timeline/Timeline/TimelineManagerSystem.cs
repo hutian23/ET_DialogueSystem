@@ -58,11 +58,17 @@ namespace ET.Client
                 TimelineComponent timelineComponent = Root.Instance.Get(instanceId) as TimelineComponent;
                 BBTimerComponent bbTimer = timelineComponent.GetComponent<BBTimerComponent>();
                 SkillBuffer skillBuffer = timelineComponent.GetComponent<SkillBuffer>();
+                BBParser parser = timelineComponent.GetComponent<BBParser>();
+                InputWait wait = timelineComponent.GetComponent<InputWait>();
                 
                 //1. reload component of timelineComponent
+                //考虑到执行的先后顺序
                 bbTimer.ReLoad();
                 skillBuffer.Reload();
+                parser.Reload();
+                wait.Reload();
                 
+
                 //enter default behavior
                 timelineComponent.Reload(0); // Idle
             }

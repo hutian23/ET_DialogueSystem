@@ -19,7 +19,7 @@ namespace ET.Client
             //2. 以下组件 切换场景时全部销毁
             player.AddComponent<ObjectWait>();
             player.AddComponent<GameObjectComponent>().GameObject = go;
-            
+
             //3. Timeline
             TimelineComponent timelineComponent = player.AddComponent<TimelineComponent>();
             timelineComponent.AddComponent<BBTimerComponent>(); // 战斗相关的计时器(因为和角色行为逻辑关联性强，作为timeline的组件)
@@ -27,9 +27,9 @@ namespace ET.Client
             timelineComponent.AddComponent<TimelineEventManager>();
             timelineComponent.AddComponent<HitboxComponent>();
             timelineComponent.AddComponent<SkillBuffer>();
-            
+            timelineComponent.AddComponent<InputWait>();
+
             //4. timeline相关的资源，需要在创建player时加载
-            // Call Root InitCoroutine
         }
     }
 }
