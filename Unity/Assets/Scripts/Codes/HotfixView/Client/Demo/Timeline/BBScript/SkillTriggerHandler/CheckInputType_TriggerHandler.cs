@@ -7,7 +7,7 @@
             return "InputType";
         }
 
-        //InputType: 6;
+        //InputType: ();
         public override bool Check(BBParser parser, BBScriptData data)
         {
             return BBInputComponent.Instance.ContainKey(BBOperaType.LEFT);

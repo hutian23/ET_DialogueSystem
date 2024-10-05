@@ -289,6 +289,6 @@ MonoBehaviour:
       Data: 
   timelineName: Mai_Run
   order: 1
-  Script: "@Trigger:\nInputType: 6;\nreturn;\n\n@Main:\nLoopTimeline;\nreturn;\n\n\n@Exit:\nAddFlag:
+  Script: "@Trigger:\nInputType: 6;\nreturn;\n\n@Main:\nLoopTimeline;\nreturn;\n\n@Exit:\nAddFlag:
     \"RunToIdle\";\nreturn;\n\n# \u9700\u8981 Trigger(\u76F8\u5F53\u4E8EEnterState\uFF0C\u68C0\u67E5\u8FDB\u5165\u884C\u4E3A\u7684\u6761\u4EF6)\n#
     Main\u884C\u4E3A\u4E3B\u51FD\u6570\n# Exit(\u76F8\u5F53\u4E8EExitState\uFF0C\u6267\u884C\u9000\u51FA\u884C\u4E3A\u7684\u56DE\u8C03)\n"

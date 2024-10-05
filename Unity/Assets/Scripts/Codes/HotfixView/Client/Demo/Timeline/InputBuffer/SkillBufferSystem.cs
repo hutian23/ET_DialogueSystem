@@ -19,12 +19,12 @@ namespace ET.Client
                 {
                     SkillInfo info = self.GetChild<SkillInfo>(id);
                     var ret = info.SkillCheck();
+                    Log.Warning(ret+"  "+info.order);
                     if (ret)
                     {
                         if (self.currentOrder != info.order)
                         {
-                            self.currentOrder = info.order;
-                            self.GetParent<TimelineComponent>().Reload(self.currentOrder);
+                            self.GetParent<TimelineComponent>().Reload(info.order);
                         }
                         return;
                     }
@@ -63,6 +63,11 @@ namespace ET.Client
         public static void ClearFlag(this SkillBuffer self)
         {
             self.flags.Clear();
+        }
+
+        public static void RemoveFlag(this SkillBuffer self,string flag)
+        {
+            self.flags.Remove(flag);
         }
 
         public static void AddFlag(this SkillBuffer self,string flag)

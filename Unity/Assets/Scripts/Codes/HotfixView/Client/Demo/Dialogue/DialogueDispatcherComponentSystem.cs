@@ -131,6 +131,13 @@ namespace ET.Client
                 
                 self.BBTriggerHandlers.Add(handler.GetTriggerType(), handler);
             }
+            
+            self.BBInputHandlers.Clear();
+            var bbInputHandlers = EventSystem.Instance.GetTypes(typeof (BBInputAttribute));
+            foreach (var bbInput in bbInputHandlers)
+            {
+                BBInputHandler handler = Activator.CreateInstance(bbInput) as BBInputHandler;
+            }
         }
 
         public static async ETTask<Status> Handle(this DialogueDispatcherComponent self, Unit unit, object node, ETCancellationToken token)

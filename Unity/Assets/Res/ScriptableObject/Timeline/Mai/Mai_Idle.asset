@@ -449,11 +449,23 @@ MonoBehaviour:
       Data: 
   timelineName: Mai_Idle
   order: 0
-  Script: '@Trigger:
+  Script: '@Init:
+
+    RegistInputType: HoldDash;
+
+    return;
+
+
+    @Trigger:
 
     return;
 
 
     @Main:
 
-    LoopTimeline;'
+    LoopTimeline;
+
+
+    @Exit:
+
+    return;'

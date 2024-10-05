@@ -95,7 +95,11 @@ namespace ET.Client
         {
             BBParser parser = self.GetComponent<BBParser>();
             SkillBuffer skillBuffer = self.GetComponent<SkillBuffer>();
-
+            InputWait wait = self.GetComponent<InputWait>();
+            
+            //2. 标记当前行为
+            skillBuffer.currentOrder = behaviorOrder;
+            
             //1. 初始化
             parser.Exit();
             parser.Cancel();
@@ -105,10 +109,6 @@ namespace ET.Client
             BBTimeline timeline = self.GetCurrentTimeline();
             parser.InitScript(timeline.Script);
             parser.Main().Coroutine();
-            
-            //2. 标记当前行为
-            skillBuffer.currentOrder = behaviorOrder;
-            skillBuffer.ClearFlag();
         }
     }
 }
