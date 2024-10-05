@@ -137,6 +137,12 @@ namespace ET.Client
             foreach (var bbInput in bbInputHandlers)
             {
                 BBInputHandler handler = Activator.CreateInstance(bbInput) as BBInputHandler;
+                if (handler == null)
+                {
+                    Log.Error($"this obj is not a bbinputHandler:{bbInput.Name}");
+                    continue;
+                }
+                self.BBInputHandlers.Add(handler.GetInputType(),handler);
             }
         }
 
@@ -206,6 +212,17 @@ namespace ET.Client
             if (!self.BBTriggerHandlers.TryGetValue(name, out BBTriggerHandler handler))
             {
                 Log.Error($"not found triggerHandler: {name}");
+                return null;
+            }
+
+            return handler;
+        }
+
+        public static BBInputHandler GetInputHandler(this DialogueDispatcherComponent self, string name)
+        {
+            if (!self.BBInputHandlers.TryGetValue(name, out BBInputHandler handler))
+            {
+                Log.Error($"not found bbinputhandler: {name}");
                 return null;
             }
 

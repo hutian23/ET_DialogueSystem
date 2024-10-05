@@ -61,15 +61,15 @@ namespace ET.Client
                 BBParser parser = timelineComponent.GetComponent<BBParser>();
                 InputWait wait = timelineComponent.GetComponent<InputWait>();
                 
-                //1. reload component of timelineComponent
-                //考虑到执行的先后顺序
+                //1. 重载子组件, 考虑到执行的先后顺序
                 bbTimer.ReLoad();
                 skillBuffer.Reload();
-                parser.Reload();
                 wait.Reload();
                 
-
-                //enter default behavior
+                //2. 执行各个行为的初始化协程
+                parser.Init();
+                
+                //3. 进入默认行为
                 timelineComponent.Reload(0); // Idle
             }
         }

@@ -17,7 +17,7 @@ namespace ET.Client
 
         public static void Reload(this BBInputComponent self)
         {
-            //TODO Reload
+            //TODO Init
         }
 
         public static void Update(this BBInputComponent self)

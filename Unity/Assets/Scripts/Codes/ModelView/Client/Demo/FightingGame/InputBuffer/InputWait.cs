@@ -2,6 +2,9 @@
 
 namespace ET.Client
 {
+    /// <summary>
+    /// 输入模块
+    /// </summary>
     [ComponentOf(typeof (TimelineComponent))]
     public class InputWait: Entity, IAwake, IDestroy
     {
@@ -10,11 +13,39 @@ namespace ET.Client
         public long Ops;
 
         //BBScript中init协程中注册到这里
-        public HashSet<string> InputHandlers = new();
-
-        public ETCancellationToken Token;
-
+        public HashSet<string> handlers = new();
+        public HashSet<string> runningHandlers = new();
+        
+        public ETCancellationToken Token = new();
         public List<InputCallback> tcss = new();
+
+        public Queue<InputBuffer> bufferQueue = new();
+        public HashSet<string> inputBuffer = new();
+        public const int MaxStack = 30;
+    }
+
+    public class InputBuffer
+    {
+        public string bufferName;
+        public long startFrame;
+        public long lastedFrame;
+
+        public static InputBuffer Create(string bufferName, long startFrame, long lastedFrame)
+        {
+            InputBuffer buffer = ObjectPool.Instance.Fetch<InputBuffer>();
+            buffer.bufferName = bufferName;
+            buffer.startFrame = startFrame;
+            buffer.lastedFrame = lastedFrame;
+            return buffer;
+        }
+
+        public void Recycle()
+        {
+            bufferName = string.Empty;
+            startFrame = 0;
+            lastedFrame = 0;
+            ObjectPool.Instance.Recycle(this);
+        }
     }
 
     public class InputCallback

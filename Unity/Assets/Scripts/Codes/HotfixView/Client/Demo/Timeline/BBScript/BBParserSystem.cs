@@ -108,12 +108,7 @@ namespace ET.Client
                 }
             }
         }
-
-        public static async ETTask Init(this BBParser self)
-        {
-            await self.Invoke("Init", self.cancellationToken);
-        }
-
+        
         public static async ETTask<Status> Main(this BBParser self)
         {
             Status ret = await self.Invoke("Main", self.cancellationToken);
@@ -121,12 +116,12 @@ namespace ET.Client
             return ret;
         }
 
-        public static void Reload(this BBParser self)
+        public static void Init(this BBParser self)
         {
             BBPlayableGraph bbPlayable = self.GetParent<TimelineComponent>().GetTimelinePlayer().BBPlayable;
             foreach (BBTimeline timeline in bbPlayable.GetTimelines())
             {
-                //run init coroutine
+                //运行初始化协程
                 self.InitScript(timeline.Script);
                 self.Invoke("Init", self.cancellationToken).Coroutine();
             }

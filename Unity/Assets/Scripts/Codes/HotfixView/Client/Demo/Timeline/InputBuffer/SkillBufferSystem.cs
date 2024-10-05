@@ -19,7 +19,7 @@ namespace ET.Client
                 {
                     SkillInfo info = self.GetChild<SkillInfo>(id);
                     var ret = info.SkillCheck();
-                    Log.Warning(ret+"  "+info.order);
+                    Log.Warning(ret + "  " + info.order);
                     if (ret)
                     {
                         if (self.currentOrder != info.order)
@@ -34,14 +34,15 @@ namespace ET.Client
 
         public static void Reload(this SkillBuffer self)
         {
-            foreach (var id in self.Ids)
+            foreach (long id in self.Ids)
             {
                 self.RemoveChild(id);
             }
             self.Ids.Clear();
             self.ClearFlag();
             
-            var timelines = self.GetParent<TimelineComponent>().GetTimelinePlayer().BBPlayable
+            var timelines = self.GetParent<TimelineComponent>()
+                    .GetTimelinePlayer().BBPlayable
                     .GetTimelines()
                     .ToList().OrderByDescending(timeline => timeline.order);
 

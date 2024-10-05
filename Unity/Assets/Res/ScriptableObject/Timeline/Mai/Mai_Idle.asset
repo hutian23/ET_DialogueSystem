@@ -59,7 +59,7 @@ MonoBehaviour:
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 44
+      Data: 60
     - Name: animationClip
       Entry: 10
       Data: 0
