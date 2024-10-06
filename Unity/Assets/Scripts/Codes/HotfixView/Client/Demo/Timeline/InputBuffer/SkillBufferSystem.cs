@@ -18,15 +18,22 @@ namespace ET.Client
                 foreach (long id in self.Ids)
                 {
                     SkillInfo info = self.GetChild<SkillInfo>(id);
+                    //已经进入当前行为，不会重复检查进入条件
+                    //比当前行为权值小的行为也不会进行检查
+                    if (info.order == self.currentOrder)
+                    {
+                        break;
+                    }
+
                     var ret = info.SkillCheck();
-                    Log.Warning(ret + "  " + info.order);
                     if (ret)
                     {
                         if (self.currentOrder != info.order)
                         {
                             self.GetParent<TimelineComponent>().Reload(info.order);
                         }
-                        return;
+
+                        break;
                     }
                 }
             }
@@ -38,9 +45,11 @@ namespace ET.Client
             {
                 self.RemoveChild(id);
             }
+
             self.Ids.Clear();
             self.ClearFlag();
-            
+            self.currentOrder = -1;
+
             var timelines = self.GetParent<TimelineComponent>()
                     .GetTimelinePlayer().BBPlayable
                     .GetTimelines()
@@ -66,12 +75,12 @@ namespace ET.Client
             self.flags.Clear();
         }
 
-        public static void RemoveFlag(this SkillBuffer self,string flag)
+        public static void RemoveFlag(this SkillBuffer self, string flag)
         {
             self.flags.Remove(flag);
         }
 
-        public static void AddFlag(this SkillBuffer self,string flag)
+        public static void AddFlag(this SkillBuffer self, string flag)
         {
             self.flags.Add(flag);
         }
@@ -79,6 +88,16 @@ namespace ET.Client
         public static bool ContainFlag(this SkillBuffer self, string flag)
         {
             return self.flags.Contains(flag);
+        }
+
+        public static void SetCurrentOrder(this SkillBuffer self, int order)
+        {
+            self.currentOrder = order;
+        }
+
+        public static int GetCurrentOrder(this SkillBuffer self)
+        {
+            return self.currentOrder;
         }
     }
 }

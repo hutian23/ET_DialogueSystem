@@ -108,11 +108,13 @@ namespace ET.Client
                 }
             }
         }
-        
+
         public static async ETTask<Status> Main(this BBParser self)
         {
             Status ret = await self.Invoke("Main", self.cancellationToken);
-            self.cancellationToken.Cancel(); // 取消子协程
+            self.Exit();
+            // 取消子协程
+            self.cancellationToken?.Cancel();
             return ret;
         }
 
@@ -128,11 +130,26 @@ namespace ET.Client
         }
 
         /// <summary>
-        /// 一些同步执行的操作(note!!!同步执行)
+        /// 退出当前行为
         /// </summary>
-        public static void Exit(this BBParser self)
+        /// <param name="self"></param>
+        private static void Exit(this BBParser self)
         {
-            self.Invoke("Exit", self.cancellationToken).Coroutine();
+            async ETTask ExitCoroutine()
+            {
+                ETCancellationToken exitToken = new();
+                await self.Invoke("Exit", exitToken);
+                exitToken.Cancel();
+            }
+
+            ExitCoroutine().Coroutine();
+
+            //如果当前行为是正常执行完毕(没有被取消)，则回到默认状态
+            //TODO 这导致和SkillBufferComponent耦合，希望想到办法优化这里
+            if (!self.cancellationToken.IsCancel())
+            {
+                self.GetParent<TimelineComponent>().GetComponent<SkillBuffer>().SetCurrentOrder(-1);
+            }
         }
 
         public static int GetMarker(this BBParser self, string markerName)
@@ -166,7 +183,7 @@ namespace ET.Client
             //3. 逐条执行语句
             while (++self.function_Pointers[funcId] < self.opDict.Count)
             {
-                if (self.cancellationToken.IsCancel()) return Status.Failed;
+                if (token.IsCancel()) return Status.Failed;
 
                 //4. 语句(OPType: xxxx;) 根据 OPType 匹配handler
                 string opLine = self.opDict[self.function_Pointers[funcId]];
@@ -188,10 +205,10 @@ namespace ET.Client
 
                 //5. 执行一条语句相当于一个子协程
                 BBScriptData data = BBScriptData.Create(opLine, funcId, self.currentID); //池化，不然GC很高
-                Status ret = await handler.Handle(self, data, self.cancellationToken);
+                Status ret = await handler.Handle(self, data, token);
                 data.Recycle();
 
-                if (self.cancellationToken.IsCancel() || ret == Status.Failed) return Status.Failed;
+                if (token.IsCancel() || ret == Status.Failed) return Status.Failed;
                 if (ret != Status.Success) return ret;
             }
 

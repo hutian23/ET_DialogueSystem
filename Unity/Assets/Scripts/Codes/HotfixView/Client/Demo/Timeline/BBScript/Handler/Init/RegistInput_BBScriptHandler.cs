@@ -23,8 +23,9 @@ namespace ET.Client
             }
 
             InputWait inputWait = parser.GetParent<TimelineComponent>().GetComponent<InputWait>();
-            inputWait.handlers.Add(match.Groups["InputType"].Value);
-            
+            BBInputHandler handler = DialogueDispatcherComponent.Instance.GetInputHandler(match.Groups["InputType"].Value);
+            inputWait.handlers.Add(handler);
+
             await ETTask.CompletedTask;
             return Status.Success;
         }

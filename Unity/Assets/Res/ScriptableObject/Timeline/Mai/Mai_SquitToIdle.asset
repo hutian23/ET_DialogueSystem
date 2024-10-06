@@ -420,7 +420,29 @@ MonoBehaviour:
       Entry: 8
       Data: 
   timelineName: Mai_SquitToIdle
-  order: 6
-  Script: '@Main:
+  order: 2
+  Script: '@Init:
 
-    StartTimeline;'
+    return;
+
+
+    @Trigger:
+
+    CheckFlag: ''SquitToIdle'';
+
+    return;
+
+
+    @Main:
+
+    StartTimeline;
+
+    RemoveFlag:
+    ''SquitToIdle'';
+
+    return;
+
+
+    @Exit:
+
+    return;'

@@ -288,6 +288,6 @@ MonoBehaviour:
       Entry: 8
       Data: 
   timelineName: Mai_RunToIdle
-  order: 2
-  Script: "@Init:\nLogWarning: 'Hello World';\nreturn;\n\n@Trigger:\nCheckFlag: \"RunToIdle\";\nreturn;\n\n@Main:
-    \nStartTimeline;\nRemoveFlag: \"RunToIdle\";\nreturn;\n\n@Exit:\nreturn;"
+  order: 1
+  Script: "@Init:\nreturn;\n\n@Trigger:\nCheckFlag: 'RunToIdle';\nreturn;\n\n@Main:
+    \nStartTimeline;\nRemoveFlag: 'RunToIdle';\nreturn;\n\n@Exit:\nreturn;"

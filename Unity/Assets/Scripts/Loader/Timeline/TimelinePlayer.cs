@@ -3,7 +3,6 @@ using Sirenix.OdinInspector;
 using Timeline.Editor;
 using UnityEngine;
 using UnityEngine.Animations;
-using UnityEngine.Audio;
 using UnityEngine.Playables;
 
 namespace Timeline
@@ -37,10 +36,9 @@ namespace Timeline
 
         public bool IsValid => PlayableGraph.IsValid();
         private Animator Animator { get; set; }
-        public AudioSource AudioSource { get; private set; }
         public PlayableGraph PlayableGraph { get; private set; }
         public AnimationLayerMixerPlayable AnimationRootPlayable { get; private set; }
-        private AudioMixerPlayable AudioRootPlayable { get; set; }
+        // private AudioMixerPlayable AudioRootPlayable { get; set; }
 
         [ShowIf("HasNotBindUnit")]
         public BBPlayableGraph BBPlayable;
@@ -137,16 +135,16 @@ namespace Timeline
             PlayableGraph = PlayableGraph.Create(_timeline.timelineName);
             //混合
             AnimationRootPlayable = AnimationLayerMixerPlayable.Create(PlayableGraph);
-            AudioRootPlayable = AudioMixerPlayable.Create(PlayableGraph);
+            // AudioRootPlayable = AudioMixerPlayable.Create(PlayableGraph);
 
             Animator = GetComponent<Animator>();
             AnimationPlayableOutput playableOutput = AnimationPlayableOutput.Create(PlayableGraph, "Animation", Animator);
             playableOutput.SetSourcePlayable(AnimationRootPlayable);
 
-            AudioSource = GetComponent<AudioSource>();
-            AudioPlayableOutput audioOutput = AudioPlayableOutput.Create(PlayableGraph, "Audio", GetComponent<AudioSource>());
-            audioOutput.SetSourcePlayable(AudioRootPlayable);
-            audioOutput.SetEvaluateOnSeek(true);
+            // AudioSource = GetComponent<AudioSource>();
+            // AudioPlayableOutput audioOutput = AudioPlayableOutput.Create(PlayableGraph, "Audio", GetComponent<AudioSource>());
+            // audioOutput.SetSourcePlayable(AudioRootPlayable);
+            // audioOutput.SetEvaluateOnSeek(true);
 
             #endregion
 

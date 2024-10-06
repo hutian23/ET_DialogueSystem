@@ -16,9 +16,9 @@ namespace ET.Client
                 self.Notify(ops);
 
                 //检测执行完的输入协程，重新执行
-                foreach (string handler in self.handlers)
+                foreach (var handler in self.handlers)
                 {
-                    if (!self.runningHandlers.Contains(handler))
+                    if (!self.runningHandlers.Contains(handler.GetInputType()))
                     {
                         self.InputCheckCor(handler, self.Token).Coroutine();
                     }
@@ -31,9 +31,18 @@ namespace ET.Client
 
         private static void Init(this InputWait self)
         {
+            self.GetParent<TimelineComponent>().GetComponent<BBTimerComponent>().Remove(ref self.Timer);
+            self.Ops = 0;
+
             self.handlers.Clear();
+            self.runningHandlers.Clear();
+            self.bufferDict.Clear();
+
             self.Token?.Cancel();
+            self.tcss.ForEach(tcs => tcs.Recycle());
+            self.tcss.Clear();
             self.Token = new ETCancellationToken();
+
             self.bufferQueue.ForEach(buffer => buffer.Recycle());
             self.bufferQueue.Clear();
         }
@@ -44,7 +53,6 @@ namespace ET.Client
 
             //启动定时器
             BBTimerComponent bbTimer = self.GetParent<TimelineComponent>().GetComponent<BBTimerComponent>();
-            bbTimer.Remove(ref self.Timer);
             self.Timer = bbTimer.NewFrameTimer(BBTimerInvokeType.BBInputTimer, self);
         }
 
@@ -144,22 +152,21 @@ namespace ET.Client
             return ret;
         }
 
-        private static async ETTask InputCheckCor(this InputWait self, string handler, ETCancellationToken token)
+        private static async ETTask InputCheckCor(this InputWait self, BBInputHandler handler, ETCancellationToken token)
         {
-            self.runningHandlers.Add(handler);
-            BBInputHandler inputHandler = DialogueDispatcherComponent.Instance.GetInputHandler(handler);
-            Status ret = await inputHandler.Handle(self.GetParent<TimelineComponent>().GetParent<Unit>(), token);
-            self.runningHandlers.Remove(handler);
+            self.runningHandlers.Add(handler.GetInputType());
+            Status ret = await handler.Handle(self.GetParent<TimelineComponent>().GetParent<Unit>(), token);
+            self.runningHandlers.Remove(handler.GetInputType());
 
             if (ret is Status.Success)
             {
                 BBTimerComponent bbTimer = self.GetParent<TimelineComponent>().GetComponent<BBTimerComponent>();
-                InputBuffer buffer = InputBuffer.Create(inputHandler.GetInputType(), bbTimer.GetNow(), bbTimer.GetNow() + 5);
+                InputBuffer buffer = InputBuffer.Create(handler, bbTimer.GetNow(), bbTimer.GetNow() + 5);
                 self.AddBuffer(buffer);
             }
         }
 
-        private static void AddBuffer(this InputWait self, InputBuffer buffer)
+        public static void AddBuffer(this InputWait self, InputBuffer buffer)
         {
             while (self.bufferQueue.Count >= InputWait.MaxStack)
             {
@@ -178,23 +185,35 @@ namespace ET.Client
             while (count-- > 0)
             {
                 InputBuffer buffer = self.bufferQueue.Dequeue();
-                BBInputHandler handler = DialogueDispatcherComponent.Instance.GetInputHandler(buffer.bufferName);
+                BBInputHandler handler = buffer.handler;
 
                 if (bbTimer.GetNow() > buffer.lastedFrame)
                 {
-                    self.inputBuffer.Remove(handler.GetInputType());
+                    if (self.bufferDict.ContainsKey(handler.GetInputType()))
+                    {
+                        self.bufferDict[handler.GetInputType()] = false;
+                    }
+
                     buffer.Recycle();
                     continue;
                 }
 
                 self.bufferQueue.Enqueue(buffer);
-                self.inputBuffer.Add(handler.GetInputType());
+                if (!self.bufferDict.ContainsKey(handler.GetInputType()))
+                {
+                    self.bufferDict.Add(handler.GetInputType(), true);
+                }
+                else
+                {
+                    self.bufferDict[handler.GetInputType()] = true;
+                }
             }
         }
 
-        public static bool CheckInput(this InputWait self, string intputType)
+        public static bool CheckInput(this InputWait self, string inputType)
         {
-            return self.inputBuffer.Contains(intputType);
+            self.bufferDict.TryGetValue(inputType, out bool value);
+            return value;
         }
     }
 }

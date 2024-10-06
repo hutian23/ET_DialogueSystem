@@ -2,25 +2,27 @@
 
 namespace ET.Client
 {
-    public class CheckFlag_TriggerHandler: BBTriggerHandler
+    public class CheckBehaviorOrder_TriggerHandler: BBTriggerHandler
     {
         public override string GetTriggerType()
         {
-            return "CheckFlag";
+            return "BehaviorOrder";
         }
 
-        //CheckFlag: 'RunToIdle';
+        //BehaviorOrder: 0;
         public override bool Check(BBParser parser, BBScriptData data)
         {
-            Match match = Regex.Match(data.opLine, @"CheckFlag: '(?<Flag>\w+)';");
+            Match match = Regex.Match(data.opLine, @"BehaviorOrder: (?<Order>\w+);");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(data.opLine);
                 return false;
             }
 
+            int.TryParse(match.Groups["Order"].Value, out int order);
+
             SkillBuffer buffer = parser.GetParent<TimelineComponent>().GetComponent<SkillBuffer>();
-            return buffer.ContainFlag(match.Groups["Flag"].Value);
+            return buffer.GetCurrentOrder() == order;
         }
     }
 }

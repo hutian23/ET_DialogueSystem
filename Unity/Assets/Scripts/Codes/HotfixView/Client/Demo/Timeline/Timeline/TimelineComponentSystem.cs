@@ -78,7 +78,7 @@ namespace ET.Client
                     .GetComponent<TimelinePlayer>();
         }
 
-        public static BBTimeline GetCurrentTimeline(this TimelineComponent self)
+        private static BBTimeline GetCurrentTimeline(this TimelineComponent self)
         {
             return self.GetTimelinePlayer().CurrentTimeline;
         }
@@ -95,14 +95,10 @@ namespace ET.Client
         {
             BBParser parser = self.GetComponent<BBParser>();
             SkillBuffer skillBuffer = self.GetComponent<SkillBuffer>();
-            InputWait wait = self.GetComponent<InputWait>();
-            
+
             //2. 标记当前行为
-            skillBuffer.currentOrder = behaviorOrder;
-            
-            //1. 初始化
-            parser.Exit();
-            parser.Cancel();
+            skillBuffer.SetCurrentOrder(behaviorOrder);
+            skillBuffer.ClearFlag();
             
             //3. 执行行为协程
             self.GetTimelinePlayer().Init(behaviorOrder);

@@ -384,7 +384,29 @@ MonoBehaviour:
       Entry: 8
       Data: 
   timelineName: Mai_IdleToSquit
-  order: 5
-  Script: '@Main:
+  order: 203
+  Script: '@Init:
 
-    StartTimeline;'
+    return;
+
+
+    @Trigger:
+
+    InputType: SquitHold;
+
+    BehaviorOrder:
+    0;
+
+    return;
+
+
+    @Main:
+
+    StartTimeline;
+
+    return;
+
+
+    @Exit:
+
+    return;'
