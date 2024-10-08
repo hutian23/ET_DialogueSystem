@@ -21,11 +21,11 @@ namespace ET.Client
             groundBody.CreateFixture(groundBox, 0.0f);
             
             //obstacle
-            var obstacleDef = new BodyDef() { BodyType = BodyType.StaticBody, Position = new Vector2(-5, 4f) };
-            var obstacleBody = World.CreateBody(obstacleDef);
-            var box = new PolygonShape();
-            box.SetAsBox(1f, 1f);
-            obstacleBody.CreateFixture(box, 0.0f);
+            // var obstacleDef = new BodyDef() { BodyType = BodyType.StaticBody, Position = new Vector2(-5, 4f) };
+            // var obstacleBody = World.CreateBody(obstacleDef);
+            // var box = new PolygonShape();
+            // box.SetAsBox(1f, 1f);
+            // obstacleBody.CreateFixture(box, 0.0f);
             
             await ETTask.CompletedTask;
         }

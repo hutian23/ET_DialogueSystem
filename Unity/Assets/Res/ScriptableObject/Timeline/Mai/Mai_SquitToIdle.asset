@@ -428,7 +428,7 @@ MonoBehaviour:
 
     @Trigger:
 
-    CheckFlag: ''SquitToIdle'';
+    Transition: ''SquitToIdle'';
 
     return;
 
@@ -436,9 +436,6 @@ MonoBehaviour:
     @Main:
 
     StartTimeline;
-
-    RemoveFlag:
-    ''SquitToIdle'';
 
     return;
 

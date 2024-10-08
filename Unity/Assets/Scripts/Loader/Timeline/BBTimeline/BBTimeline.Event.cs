@@ -109,10 +109,10 @@ namespace Timeline
             if (targetInfo == null) return;
 
             //目前的想法是 跟 AnimationEvent保持一致， 同步调用动画帧事件(协程调用当前异步动画帧事件)
-            EventSystem.Instance?.Invoke(new EventMarkerCallback()
-            {
-                instanceId = timelinePlayer.instanceId, info = targetInfo, track = Track as BBEventTrack
-            });
+            // EventSystem.Instance?.Invoke(new EventMarkerCallback()
+            // {
+            //     instanceId = timelinePlayer.instanceId, info = targetInfo, track = Track as BBEventTrack
+            // });
         }
     }
 }

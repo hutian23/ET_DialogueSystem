@@ -216,7 +216,29 @@ MonoBehaviour:
       Entry: 8
       Data: 
   timelineName: Mai_GroundDash
-  order: 3
-  Script: '@Main:
+  order: 801
+  Script: '@Init:
 
-    StartTimeline;'
+    RegistInput: Dash;
+
+    return;
+
+
+    @Trigger:
+
+    InputType:
+    Dash;
+
+    return;
+
+
+    @Main:
+
+    StartTimeline;
+
+    return;
+
+
+    @Exit:
+
+    return;'

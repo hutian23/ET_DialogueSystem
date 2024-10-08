@@ -468,4 +468,9 @@ MonoBehaviour:
 
     @Exit:
 
+    #
+    Idle --> Squit
+
+    SetTransition: ''IdleToSquit'';
+
     return;'

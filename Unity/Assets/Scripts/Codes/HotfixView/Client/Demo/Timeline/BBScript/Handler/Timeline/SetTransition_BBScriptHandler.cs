@@ -2,26 +2,24 @@
 
 namespace ET.Client
 {
-    public class AddFlag_BBScriptHandler: BBScriptHandler
+    public class SetTransition_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "AddFlag";
+            return "SetTransition";
         }
 
-        //AddFlag: 'Run';
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"AddFlag: '(?<Flag>\w+)';");
+            Match match = Regex.Match(data.opLine, "SetTransition: '(?<transition>.*?)';");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
-            SkillBuffer buffer = parser.GetParent<TimelineComponent>().GetComponent<SkillBuffer>();
-            buffer.AddFlag(match.Groups["Flag"].Value);
-            
+            parser.GetParent<TimelineComponent>().GetComponent<SkillBuffer>().SetTransition(match.Groups["transition"].Value);
+
             await ETTask.CompletedTask;
             return Status.Success;
         }

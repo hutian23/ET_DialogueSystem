@@ -289,5 +289,5 @@ MonoBehaviour:
       Data: 
   timelineName: Mai_RunToIdle
   order: 1
-  Script: "@Init:\nreturn;\n\n@Trigger:\nCheckFlag: 'RunToIdle';\nreturn;\n\n@Main:
-    \nStartTimeline;\nRemoveFlag: 'RunToIdle';\nreturn;\n\n@Exit:\nreturn;"
+  Script: "@Init:\nreturn;\n\n@Trigger:\nTransition: 'RunToIdle';\nreturn;\n\n@Main:
+    \nStartTimeline;\nreturn;\n\n@Exit:\nreturn;"

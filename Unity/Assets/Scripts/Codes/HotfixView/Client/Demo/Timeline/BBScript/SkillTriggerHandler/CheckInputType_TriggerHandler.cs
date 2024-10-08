@@ -12,7 +12,7 @@ namespace ET.Client
         //InputType: (RunHold);
         public override bool Check(BBParser parser, BBScriptData data)
         {
-            Match match = Regex.Match(data.opLine, @"InputType: ((?<InputType>\w+));");
+            Match match = Regex.Match(data.opLine, @"InputType: ((?<InputType>\w+))");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(data.opLine);

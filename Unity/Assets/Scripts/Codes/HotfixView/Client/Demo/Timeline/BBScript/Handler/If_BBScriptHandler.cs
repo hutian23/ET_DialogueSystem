@@ -9,10 +9,10 @@ namespace ET.Client
     {
         public override string GetOPType()
         {
-            return "If";
+            return "BeginIf";
         }
 
-        //If: HP > 10
+        //BeginIf: HP > 10
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
             SyntaxNode root = GenerateSyntaxTree(parser, data);
@@ -45,7 +45,7 @@ namespace ET.Client
                 string opType = match.Value;
                 switch (opType)
                 {
-                    case "If":
+                    case "BeginIf":
                         SyntaxNode child = SyntaxNode.Create(SyntaxType.Condition, index);
                         conditionStack.Peek().children.Add(child);
                         conditionStack.Push(child);
@@ -73,21 +73,33 @@ namespace ET.Client
             {
                 case SyntaxType.Condition:
                 {
-                    //条件判断 CheckHP_TriggerHandler
-                    Match match = Regex.Match(opLine, @":\s*(\w+)");
-                    if (!match.Success)
+                    //BeginIf: (InputType: RunHold),(MoveType: Special),...()
+                    MatchCollection matches = Regex.Matches(opLine, @"\((.*?)\)");
+                    //没有条件判断(语法错误)
+                    if (matches.Count == 0)
                     {
-                        Log.Error($"not found trigger handler: {opLine}");
+                        Log.Error($"Ifhandler must have at least one triggerHandler!");
                         return Status.Failed;
                     }
 
-                    BBScriptData _data = BBScriptData.Create(opLine, data.functionID, data.targetID);
-                    bool ret = DialogueDispatcherComponent.Instance.GetTrigger(match.Groups[1].Value).Check(parser, _data);
-                    //判定失败, 跳过整个if块中的代码
-                    if (!ret)
+                    foreach (Match match in matches)
                     {
-                        parser.function_Pointers[data.functionID] = node.endIndex;
-                        return Status.Success;
+                        var op = match.Groups[1].Value;
+                        Match triggerMatch = Regex.Match(op, @"(.*?):");
+                        if (!triggerMatch.Success)
+                        {
+                            DialogueHelper.ScripMatchError(op);
+                            return Status.Failed;
+                        }
+
+                        BBScriptData _data = BBScriptData.Create(op, data.functionID, data.targetID);
+                        //判定失败, 跳过整个if块中的代码
+                        bool ret = DialogueDispatcherComponent.Instance.GetTrigger(triggerMatch.Groups[1].Value).Check(parser, _data);
+                        if (!ret)
+                        {
+                            parser.function_Pointers[data.functionID] = node.endIndex;
+                            return Status.Success;
+                        }
                     }
 
                     break;

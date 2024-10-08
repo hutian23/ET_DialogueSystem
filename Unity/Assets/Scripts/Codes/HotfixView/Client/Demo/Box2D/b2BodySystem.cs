@@ -4,18 +4,18 @@ using UnityEngine;
 
 namespace ET.Client
 {
-    [FriendOf(typeof(b2Body))]
-    [FriendOf(typeof(RootMotionComponent))]
+    [FriendOf(typeof (b2Body))]
+    [FriendOf(typeof (RootMotionComponent))]
     public static class b2BodySystem
     {
-        public class b2BodyAwakeSystem : AwakeSystem<b2Body>
+        public class b2BodyAwakeSystem: AwakeSystem<b2Body>
         {
             protected override void Awake(b2Body self)
             {
             }
         }
 
-        public class b2BodyDestroySystem : DestroySystem<b2Body>
+        public class b2BodyDestroySystem: DestroySystem<b2Body>
         {
             protected override void Destroy(b2Body self)
             {
@@ -56,6 +56,13 @@ namespace ET.Client
 
             go.transform.position = position;
             go.transform.eulerAngles = axis;
+        }
+
+        public static void SetVelocityX(this b2Body self, float velocityX)
+        {
+            var oldVel = self.body.LinearVelocity;
+            var newVel = new System.Numerics.Vector2(velocityX, oldVel.Y);
+            self.body.SetLinearVelocity(newVel);
         }
     }
 }

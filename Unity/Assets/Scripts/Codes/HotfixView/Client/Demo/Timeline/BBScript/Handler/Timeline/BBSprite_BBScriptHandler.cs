@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Linq;
+using System.Text.RegularExpressions;
 using Timeline;
 
 namespace ET.Client
@@ -19,26 +20,37 @@ namespace ET.Client
                 DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
-
             string marker = match.Groups["Sprite"].Value;
             int.TryParse(match.Groups["WaitFrame"].Value, out int waitFrame);
-            
-            Unit unit = parser.GetParent<DialogueComponent>().GetParent<Unit>();
-            
-            //Evaluate playableGraph
-            TimelinePlayer timelinePlayer = unit.GetComponent<GameObjectComponent>().GameObject.GetComponent<TimelinePlayer>();
-            BBTimeline timeline = timelinePlayer.CurrentTimeline;
-            // timeline.Marks.TryGetValue(marker, out MarkerInfo info);
-            RuntimePlayable runtimePlayable = timelinePlayer.RuntimeimePlayable;
-            // runtimePlayable.Evaluate(info.frame);
-            
-            //wait time
-            BBTimerComponent timerComponent = parser.GetParent<DialogueComponent>().GetComponent<BBTimerComponent>();
-            await timerComponent.WaitAsync(waitFrame, token);
-            if (token.IsCancel()) return Status.Failed;
 
-            await ETTask.CompletedTask;
-            return Status.Success;
+            
+            TimelinePlayer timelinePlayer = parser.GetParent<TimelineComponent>().GetTimelinePlayer();
+            BBTimerComponent bbTimer = parser.GetParent<TimelineComponent>().GetComponent<BBTimerComponent>();
+            BBTimeline timeline = timelinePlayer.CurrentTimeline;
+            RuntimePlayable runtimePlayable = timelinePlayer.RuntimeimePlayable;
+            foreach (BBTrack track in timeline.Tracks)
+            {
+                if (track is BBEventTrack { Name: "Marker" } eventTrack)
+                {
+                    EventInfo info = GetInfo(eventTrack, marker);
+                    if (info == null)
+                    {
+                        Log.Error($"not found marker:{marker}");
+                    }
+
+                    runtimePlayable.Evaluate(info.frame);
+                    await bbTimer.WaitAsync(waitFrame, token);
+                    return token.IsCancel()? Status.Failed : Status.Success;
+                }
+            }
+
+            Log.Error("Not found bbEventTrack: Marker");
+            return Status.Failed;
+        }
+
+        private EventInfo GetInfo(BBEventTrack track, string markerName)
+        {
+            return track.EventInfos.FirstOrDefault(info => info.keyframeName == markerName);
         }
     }
 }

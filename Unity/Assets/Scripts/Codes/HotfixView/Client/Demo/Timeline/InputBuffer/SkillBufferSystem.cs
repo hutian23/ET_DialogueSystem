@@ -47,7 +47,7 @@ namespace ET.Client
             }
 
             self.Ids.Clear();
-            self.ClearFlag();
+            self.SetTransition(string.Empty);
             self.currentOrder = -1;
 
             var timelines = self.GetParent<TimelineComponent>()
@@ -88,6 +88,16 @@ namespace ET.Client
         public static bool ContainFlag(this SkillBuffer self, string flag)
         {
             return self.flags.Contains(flag);
+        }
+
+        public static void SetTransition(this SkillBuffer self, string trans)
+        {
+            self.TransitionFlag = trans;
+        }
+
+        public static string GetTransition(this SkillBuffer self)
+        {
+            return self.TransitionFlag;
         }
 
         public static void SetCurrentOrder(this SkillBuffer self, int order)
