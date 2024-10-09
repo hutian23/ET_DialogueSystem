@@ -12,7 +12,6 @@ namespace ET.Client
         public Body body;
         //当前步长，b2World中刚体的位置转换信息
         public Transform trans;
-        
         //当前帧建立的hitbox
         public List<Fixture> fixtures = new();
     }

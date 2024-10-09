@@ -18,7 +18,7 @@
             while (true)
             {
                 //涉及转向
-                WaitInput wait = await inputWait.Wait(OP: BBOperaType.LEFT | BBOperaType.DOWNLEFT, FuzzyInputType.OR);
+                WaitInput wait = await inputWait.Wait(OP: BBOperaType.LEFT | BBOperaType.RIGHT, FuzzyInputType.OR);
                 if (wait.Error is WaitTypeError.Success && !Hold)
                 {
                     inputWait.AddBuffer(buffer);

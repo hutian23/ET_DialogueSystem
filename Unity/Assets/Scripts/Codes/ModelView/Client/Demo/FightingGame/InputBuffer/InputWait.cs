@@ -9,7 +9,6 @@ namespace ET.Client
     public class InputWait: Entity, IAwake, IDestroy
     {
         public long Timer;
-
         public long Ops;
 
         //BBScript中init协程中注册到这里

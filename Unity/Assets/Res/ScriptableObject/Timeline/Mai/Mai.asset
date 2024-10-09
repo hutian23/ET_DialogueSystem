@@ -388,4 +388,12 @@ MonoBehaviour:
       Entry: 8
       Data: 
   root:
-    MainScript: "@Init:\n#\u52A0\u8F7D\u8D44\u6E90\nTimelineInit;\nreturn:\n\n\n\n\n"
+    MainScript: '@Init:
+
+      return:
+
+
+
+
+
+'
