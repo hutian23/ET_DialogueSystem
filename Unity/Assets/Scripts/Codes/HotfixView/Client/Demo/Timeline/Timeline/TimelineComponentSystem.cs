@@ -93,18 +93,15 @@ namespace ET.Client
 
         public static void Reload(this TimelineComponent self, int behaviorOrder)
         {
-            BBParser parser = self.GetComponent<BBParser>();
-            SkillBuffer skillBuffer = self.GetComponent<SkillBuffer>();
-            
             //3. 执行行为协程
+            BBParser parser = self.GetComponent<BBParser>();
             self.GetTimelinePlayer().Init(behaviorOrder);
             BBTimeline timeline = self.GetCurrentTimeline();
             parser.InitScript(timeline.Script);
             parser.Main().Coroutine();
             
-            //2. 标记当前行为
-            skillBuffer.SetCurrentOrder(behaviorOrder);
-            skillBuffer.SetTransition(string.Empty);
+            //4. 切换行为后，抛出事件更新组件
+            EventSystem.Instance.PublishAsync(self.DomainScene(),new AfterBehaviorReload(){behaviorOrder = behaviorOrder,instanceId = self.GetParent<Unit>().InstanceId}).Coroutine();
         }
     }
 }

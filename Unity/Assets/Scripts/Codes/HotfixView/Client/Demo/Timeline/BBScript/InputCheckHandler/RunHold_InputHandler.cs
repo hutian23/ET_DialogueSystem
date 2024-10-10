@@ -13,12 +13,12 @@
             InputWait inputWait = BBInputHelper.GetInputWait(unit);
             BBTimerComponent bbTimer = BBInputHelper.GetBBTimer(unit);
 
-            InputBuffer buffer = InputBuffer.Create(this, bbTimer.GetNow(), bbTimer.GetNow() + 5);
+            InputBuffer buffer = InputBuffer.Create(this, bbTimer.GetNow(), bbTimer.GetNow() + 7);
             bool Hold = false;
             while (true)
             {
                 //涉及转向
-                WaitInput wait = await inputWait.Wait(OP: BBOperaType.LEFT | BBOperaType.RIGHT, FuzzyInputType.OR);
+                WaitInput wait = await inputWait.Wait(OP: BBOperaType.LEFT| BBOperaType.RIGHT, FuzzyInputType.OR);
                 if (wait.Error is WaitTypeError.Success && !Hold)
                 {
                     inputWait.AddBuffer(buffer);

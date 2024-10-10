@@ -29,6 +29,13 @@ namespace ET.Client
             self.opDict.Clear();
             self.markers.Clear();
             self.function_Pointers.Clear();
+
+            //回收变量
+            foreach (var kv in self.paramDict)
+            {
+                kv.Value.Recycle();
+            }
+            self.paramDict.Clear();
         }
 
         public static void InitScript(this BBParser self, string script)
@@ -243,6 +250,49 @@ namespace ET.Client
 
             self.cancellationToken?.Remove(subToken.Cancel);
             subToken.Cancel();
+        }
+
+        public static T RegistParam<T>(this BBParser self, string paramName, T value)
+        {
+            if (self.paramDict.ContainsKey(paramName))
+            {
+                Log.Error($"already contain params:{paramName}");
+                return default;
+            }
+
+            SharedVariable variable = SharedVariable.Create(paramName, value);
+            self.paramDict.Add(paramName, variable);
+            return value;
+        }
+
+        public static T GetParam<T>(this BBParser self, string paramName)
+        {
+            if (!self.paramDict.ContainsKey(paramName))
+            {
+                Log.Error($"does not exist param:{paramName}!");
+                return default;
+            }
+
+            SharedVariable variable = self.paramDict[paramName];
+            if (variable.value is not T value)
+            {
+                Log.Error($"cannot format {variable.name} to {typeof (T)}");
+                return default;
+            }
+
+            return value;
+        }
+
+        public static void RemoveParam(this BBParser self, string paramName)
+        {
+            if (!self.paramDict.ContainsKey(paramName))
+            {
+                Log.Error($"does not exist param:{paramName}!");
+                return;
+            }
+
+            self.paramDict[paramName].Recycle();
+            self.paramDict.Remove(paramName);
         }
     }
 }

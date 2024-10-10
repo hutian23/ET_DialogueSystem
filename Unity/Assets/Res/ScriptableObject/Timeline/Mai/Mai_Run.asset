@@ -156,7 +156,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0
+      Data: -0.3016281
     - Name: 
       Entry: 4
       Data: 0.7
@@ -168,7 +168,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 1.76685357
+      Data: 2.37010813
     - Name: 
       Entry: 4
       Data: 0.6999999
@@ -289,7 +289,7 @@ MonoBehaviour:
       Data: 
   timelineName: Mai_Run
   order: 201
-  Script: "@Init:\nRegistInput: RunHold;\nreturn;\n\n@Trigger:\nInputType: RunHold;\nreturn;\n\n@Main:\nSetVelocityX:
+  Script: "@Init:\nRegistInput: RunHold;\nreturn;\n\n@Trigger:\nInputType: RunHold;\nreturn;\n\n@Main:\nUpdateFlip;\nMoveX:
     8.3;\nStart_InputCheckCoroutine: 'RunHold';\nLoopTimeline;\nreturn;\n\n@Exit:\n#
     Run ---> Idle\nSetTransition: 'RunToIdle';\nSetVelocityX: 0;\nreturn;\n\n# \u9700\u8981
     Trigger(\u76F8\u5F53\u4E8EEnterState\uFF0C\u68C0\u67E5\u8FDB\u5165\u884C\u4E3A\u7684\u6761\u4EF6)\n#

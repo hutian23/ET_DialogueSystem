@@ -201,7 +201,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -0.032359004
+      Data: -0.6737926
     - Name: 
       Entry: 4
       Data: -1.39305842
@@ -213,7 +213,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 1.59010577
+      Data: 2.872973
     - Name: 
       Entry: 4
       Data: 2.13304925
@@ -297,7 +297,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.00127279758
+      Data: -0.5665536
     - Name: 
       Entry: 4
       Data: 0.348288566
@@ -309,7 +309,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 1.34536743
+      Data: 2.48102045
     - Name: 
       Entry: 4
       Data: 0.703422844
@@ -776,52 +776,55 @@ MonoBehaviour:
 
     @Main:
 
-    Start_InputCheckCoroutine: ''SquitHold'';
+    UpdateFlip;
+
+    Start_InputCheckCoroutine:
+    ''SquitHold'';
 
 
-    #Transition:
-    Idle ---> Squit
+    #Transition: Idle ---> Squit
 
-    BeginIf: (Transition: ''IdleToSquit'')
+    #BeginIf: (Transition:
+    ''IdleToSquit'')
 
-    BBSprite: ''Mai_Squit_0'',
+    BBSprite: ''Mai_Squit_0'', 2;
+
+    BBSprite: ''Mai_Squit_1'',
     2;
-
-    BBSprite: ''Mai_Squit_1'', 2;
 
     BBSprite: ''Mai_Squit_2'', 3;
 
-    EndIf:
+    #EndIf:
 
 
-    #
-    loop Squit behavior
+    # loop Squit behavior
 
-    SetMarker: ''Loop'';
+    SetMarker:
+    ''Loop'';
 
-    BBSprite: ''Mai_Squit_3'',
+    BBSprite: ''Mai_Squit_3'', 4;
+
+    BBSprite: ''Mai_Squit_4'',
     4;
-
-    BBSprite: ''Mai_Squit_4'', 4;
 
     BBSprite: ''Mai_Squit_5'', 4;
 
+    BBSprite: ''Mai_Squit_6'', 4;
+
     BBSprite:
-    ''Mai_Squit_6'', 4;
+    ''Mai_Squit_7'', 4;
 
-    BBSprite: ''Mai_Squit_7'', 4;
+    BBSprite: ''Mai_Squit_8'', 4;
 
-    BBSprite: ''Mai_Squit_8'',
+    BBSprite: ''Mai_Squit_9'',
     4;
-
-    BBSprite: ''Mai_Squit_9'', 4;
 
     BBSprite: ''Mai_Squit_10'', 4;
 
-    BBSprite:
-    ''Mai_Squit_11'', 4;
+    BBSprite: ''Mai_Squit_11'', 4;
 
-    BBSprite: ''Mai_Squit_12'', 3;
+    BBSprite:
+    ''Mai_Squit_12'', 3;
 
     GotoMarker: ''Loop'';
 

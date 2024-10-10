@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using Box2DSharp.Dynamics;
+﻿using Box2DSharp.Dynamics;
 
 namespace ET.Client
 {

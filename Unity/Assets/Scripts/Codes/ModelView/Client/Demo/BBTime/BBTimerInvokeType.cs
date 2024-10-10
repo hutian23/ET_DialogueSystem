@@ -12,5 +12,9 @@
         public const int BehaviorTimer = 5;
         public const int SkillCheckTimer = 6;
         public const int BBInputTimer = 7;
+
+        //和行为有关的计时器
+        public const int UpdateFlipTimer = 100;
+        public const int MoveXTimer = 101;
     }
 }

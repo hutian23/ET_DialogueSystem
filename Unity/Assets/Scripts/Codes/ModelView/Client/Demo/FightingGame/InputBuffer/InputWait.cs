@@ -23,13 +23,19 @@ namespace ET.Client
         public const int MaxStack = 30;
     }
 
+    public struct AfterUpdateInput
+    {
+        public long OP;
+        public long instanceId;
+    }
+
     public class InputBuffer
     {
         public BBInputHandler handler;
         public long startFrame;
         public long lastedFrame;
 
-        public static InputBuffer Create(BBInputHandler handler,long startFrame, long lastedFrame)
+        public static InputBuffer Create(BBInputHandler handler, long startFrame, long lastedFrame)
         {
             InputBuffer buffer = ObjectPool.Instance.Fetch<InputBuffer>();
             buffer.handler = handler;

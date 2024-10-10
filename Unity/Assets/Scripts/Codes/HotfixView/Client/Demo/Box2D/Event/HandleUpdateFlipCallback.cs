@@ -6,19 +6,17 @@ using Timeline;
 namespace ET.Client
 {
     [Invoke]
-    [FriendOf(typeof (HitboxComponent))]
     [FriendOf(typeof (b2Body))]
-    public class HandleUpdateHitboxCallback: AInvokeHandler<UpdateHitboxCallback>
+    [FriendOf(typeof (HitboxComponent))]
+    public class HandleUpdateFlipCallback: AInvokeHandler<UpdateFlipCallback>
     {
-        public override void Handle(UpdateHitboxCallback args)
+        public override void Handle(UpdateFlipCallback args)
         {
-            TimelineComponent timelineComponent = Root.Instance.Get(args.instanceId) as TimelineComponent;
+            Unit unit = Root.Instance.Get(args.instanceId) as Unit;
+            TimelineComponent timelineComponent = unit.GetComponent<TimelineComponent>();
             HitboxComponent hitboxComponent = timelineComponent.GetComponent<HitboxComponent>();
-            hitboxComponent.keyFrame = args.Keyframe;
 
-            long unitId = timelineComponent.GetParent<Unit>().InstanceId;
-            b2Body b2Body = b2GameManager.Instance.GetBody(unitId);
-
+            b2Body b2Body = b2GameManager.Instance.GetBody(args.instanceId);
             //1. Dispose old fixtures
             for (int i = 0; i < b2Body.fixtures.Count; i++)
             {
@@ -27,8 +25,9 @@ namespace ET.Client
             }
 
             b2Body.fixtures.Clear();
-            //2. update fixtures
-            foreach (BoxInfo info in args.Keyframe.boxInfos)
+
+            //2. Update fixtures
+            foreach (BoxInfo info in hitboxComponent.keyFrame.boxInfos)
             {
                 PolygonShape shape = new();
                 shape.SetAsBox(info.size.x / 2, info.size.y / 2, new Vector2(info.center.x * b2Body.GetFlip(), info.center.y), 0f);

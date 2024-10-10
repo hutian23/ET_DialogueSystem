@@ -13,10 +13,15 @@ namespace ET.Client
             protected override void Run(InputWait self)
             {
                 long ops = BBInputComponent.Instance.Ops;
-                self.Notify(ops);
+                self.Ops = ops;
+                //执行订阅事件(eg. 根据输入更新转向)
+                //注意domainScene为ClientScene，玩家unit挂在clientScene下
+                EventSystem.Instance.PublishAsync(self.DomainScene(), new AfterUpdateInput() { OP = self.Ops, instanceId = self.InstanceId })
+                        .Coroutine();
 
+                self.Notify(self.Ops);
                 //检测执行完的输入协程，重新执行
-                foreach (var handler in self.handlers)
+                foreach (BBInputHandler handler in self.handlers)
                 {
                     if (!self.runningHandlers.Contains(handler.GetInputType()))
                     {
@@ -78,7 +83,7 @@ namespace ET.Client
                         break;
                 }
 
-                callback.SetResult(new WaitInput() { frame = bbTimer.GetNow(), Error = WaitTypeError.Success });
+                callback.SetResult(new WaitInput() { frame = bbTimer.GetNow(), Error = WaitTypeError.Success, OP = op });
                 self.tcss.Remove(callback);
             }
         }

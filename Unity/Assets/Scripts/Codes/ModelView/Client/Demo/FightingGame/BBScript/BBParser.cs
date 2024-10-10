@@ -18,6 +18,10 @@ namespace ET.Client
         //协程ID --> 协程指针
         public Dictionary<long, int> function_Pointers = new();
         public Dictionary<string, ETCancellationToken> subCoroutineDict = new();
+        
+        //在携程内注册变量，携程执行完毕dispose
+        //TODO这部分需要优化，对象池管理
+        public Dictionary<string, SharedVariable> paramDict = new();
     }
 
     [Serializable]

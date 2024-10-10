@@ -32,7 +32,6 @@ namespace ET.Client
                         {
                             self.GetParent<TimelineComponent>().Reload(info.order);
                         }
-
                         break;
                     }
                 }
