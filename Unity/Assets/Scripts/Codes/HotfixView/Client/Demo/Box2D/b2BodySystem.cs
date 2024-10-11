@@ -29,7 +29,7 @@ namespace ET.Client
                 return;
             }
 
-            self.body.SetLinearVelocity(rootMotion.velocity);
+            self.body.SetLinearVelocity(rootMotion.velocity * self.GetFlip());
         }
 
         public static void SyncUnitTransform(this b2Body self)

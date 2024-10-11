@@ -1088,7 +1088,30 @@ MonoBehaviour:
       Entry: 8
       Data: 
   timelineName: Mai_LightPunch_2
-  order: 100
-  Script: '@Main:
+  order: 802
+  Script: '@Init:
 
-    StartTimeline;'
+    RegistInput: LightPunch;
+
+    return;
+
+
+    @Trigger:
+
+    InputType:
+    LightPunch;
+
+    return;
+
+
+    @Main:
+
+    StartTimeline;
+
+    return;
+
+
+    @Exit:
+
+
+    return;'

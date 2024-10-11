@@ -23,8 +23,7 @@ namespace ET.Client
             b2Body b2Body = b2GameManager.Instance.GetBody(unit.InstanceId);
 
             float.TryParse(match.Groups[1].Value, out float velX);
-            b2Body.SetVelocityX(-velX * b2Body.GetFlip());
-            
+            b2Body.SetVelocityX(velX);
             await ETTask.CompletedTask;
             return Status.Success;
         }
