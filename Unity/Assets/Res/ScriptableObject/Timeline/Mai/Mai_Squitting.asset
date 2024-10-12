@@ -784,8 +784,8 @@ MonoBehaviour:
 
     #Transition: Idle ---> Squit
 
-    #BeginIf: (Transition:
-    ''IdleToSquit'')
+    BeginIf: (Transition:
+    ''TransitionToSquit'')
 
     BBSprite: ''Mai_Squit_0'', 2;
 
@@ -794,7 +794,7 @@ MonoBehaviour:
 
     BBSprite: ''Mai_Squit_2'', 3;
 
-    #EndIf:
+    EndIf:
 
 
     # loop Squit behavior

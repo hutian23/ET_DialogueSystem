@@ -14,11 +14,8 @@ namespace ET.Client
             {
                 long ops = BBInputComponent.Instance.Ops;
                 self.Ops = ops;
-                //执行订阅事件(eg. 根据输入更新转向)
-                //注意domainScene为ClientScene，玩家unit挂在clientScene下
-                EventSystem.Instance.PublishAsync(self.DomainScene(), new AfterUpdateInput() { OP = self.Ops, instanceId = self.InstanceId })
-                        .Coroutine();
-
+                EventSystem.Instance.PublishAsync(self.DomainScene(),new AfterUpdateInput(){instanceId = self.InstanceId,OP = self.Ops}).Coroutine();
+                
                 self.Notify(self.Ops);
                 //检测执行完的输入协程，重新执行
                 foreach (BBInputHandler handler in self.handlers)
@@ -50,6 +47,19 @@ namespace ET.Client
 
             self.bufferQueue.ForEach(buffer => buffer.Recycle());
             self.bufferQueue.Clear();
+
+            self.pressDict.Clear();
+            self.RegistPressDict();
+        }
+
+        private static void RegistPressDict(this InputWait self)
+        {
+            for (int i = 1; i <= 32; i++)
+            {
+                //DownLeft: 2 << 1
+                //Down: 2 << 2
+                self.pressDict.Add(2 << i, long.MaxValue);
+            }
         }
 
         public static void Reload(this InputWait self)

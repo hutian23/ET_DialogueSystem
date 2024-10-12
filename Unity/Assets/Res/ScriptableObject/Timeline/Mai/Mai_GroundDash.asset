@@ -59,7 +59,7 @@ MonoBehaviour:
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 18
+      Data: 21
     - Name: animationClip
       Entry: 10
       Data: 0
@@ -604,7 +604,7 @@ MonoBehaviour:
 
     @Exit:
 
-    SetVelocityX:
-    0;
+    SetTransition:
+    ''SquitToIdle'';
 
     return;'

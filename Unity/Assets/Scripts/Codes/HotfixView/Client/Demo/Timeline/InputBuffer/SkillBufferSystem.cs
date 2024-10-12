@@ -32,6 +32,7 @@ namespace ET.Client
                         {
                             self.GetParent<TimelineComponent>().Reload(info.order);
                         }
+
                         break;
                     }
                 }
@@ -46,7 +47,7 @@ namespace ET.Client
             }
 
             self.Ids.Clear();
-            self.SetTransition(string.Empty);
+            self.transitionFlags.Clear();
             self.currentOrder = -1;
 
             var timelines = self.GetParent<TimelineComponent>()
@@ -91,12 +92,17 @@ namespace ET.Client
 
         public static void SetTransition(this SkillBuffer self, string trans)
         {
-            self.TransitionFlag = trans;
+            self.transitionFlags.Add(trans);
         }
 
-        public static string GetTransition(this SkillBuffer self)
+        public static bool ContainTransition(this SkillBuffer self, string trans)
         {
-            return self.TransitionFlag;
+            return self.transitionFlags.Contains(trans);
+        }
+
+        public static void ClearTransition(this SkillBuffer self)
+        {
+            self.transitionFlags.Clear();
         }
 
         public static void SetCurrentOrder(this SkillBuffer self, int order)

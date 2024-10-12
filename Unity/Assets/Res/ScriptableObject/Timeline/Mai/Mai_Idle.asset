@@ -396,6 +396,6 @@ MonoBehaviour:
     #
     Idle --> Squit
 
-    SetTransition: ''IdleToSquit'';
+    SetTransition: ''TransitionToSquit'';
 
     return;'

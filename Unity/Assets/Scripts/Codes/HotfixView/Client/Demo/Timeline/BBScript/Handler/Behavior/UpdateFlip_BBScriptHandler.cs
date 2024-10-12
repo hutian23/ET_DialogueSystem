@@ -32,7 +32,6 @@
             //转向发生更新
             if (curFlip != preFlip)
             {
-                Log.Warning("Update Flip");
                 b2Body.SetFlip(curFlip);
                 b2Body.SetUpdateFlag();
             }

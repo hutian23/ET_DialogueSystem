@@ -16,6 +16,6 @@ namespace ET.Client
         public int currentOrder;
 
         public HashSet<string> flags = new();
-        public string TransitionFlag;
+        public HashSet<string> transitionFlags = new();
     }
 }

@@ -21,6 +21,10 @@ namespace ET.Client
 
         public Queue<InputBuffer> bufferQueue = new();
         public const int MaxStack = 30;
+
+        //按键持续按压，需要判断哪一帧开始按下
+        //类似dash这个行为，不能按住dash键持续触发，
+        public Dictionary<int, long> pressDict = new();
     }
 
     public struct AfterUpdateInput
@@ -123,21 +127,21 @@ namespace ET.Client
     public static class BBOperaType
     {
         public const int None = 0;
-        public const int DOWNLEFT = 2 << 1;
-        public const int DOWN = 2 << 2;
-        public const int DOWNRIGHT = 2 << 3;
-        public const int LEFT = 2 << 4;
-        public const int MIDDLE = 2 << 5;
-        public const int RIGHT = 2 << 6;
-        public const int UPLEFT = 2 << 7;
-        public const int UP = 2 << 8;
-        public const int UPRIGHT = 2 << 9;
+        public const int DOWNLEFT = 2 << 0;
+        public const int DOWN = 2 << 1;
+        public const int DOWNRIGHT = 2 << 2;
+        public const int LEFT = 2 << 3;
+        public const int MIDDLE = 2 << 4;
+        public const int RIGHT = 2 << 5;
+        public const int UPLEFT = 2 << 6;
+        public const int UP = 2 << 7;
+        public const int UPRIGHT = 2 << 8;
 
-        public const int LIGHTPUNCH = 2 << 10;
-        public const int LIGHTKICK = 2 << 11;
-        public const int MIDDLEPUNCH = 2 << 12;
-        public const int MIDDLEKICK = 2 << 13;
-        public const int HEAVYPUNCH = 2 << 14;
-        public const int HEAVYKICK = 2 << 15;
+        public const int LIGHTPUNCH = 2 << 9;
+        public const int LIGHTKICK = 2 << 10;
+        public const int MIDDLEPUNCH = 2 << 11;
+        public const int MIDDLEKICK = 2 << 12;
+        public const int HEAVYPUNCH = 2 << 13;
+        public const int HEAVYKICK = 2 << 14;
     }
 }

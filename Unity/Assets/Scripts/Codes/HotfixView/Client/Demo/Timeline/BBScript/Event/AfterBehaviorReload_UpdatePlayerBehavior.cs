@@ -13,7 +13,7 @@
 
             //1. 标记当前行为
             skillBuffer.SetCurrentOrder(args.behaviorOrder);
-            skillBuffer.SetTransition(string.Empty);
+            skillBuffer.ClearTransition();
 
             //2. 转向
             if ((inputWait.Ops & BBOperaType.LEFT) != 0)

@@ -11,7 +11,7 @@
         {
             InputWait inputWait = BBInputHelper.GetInputWait(unit);
 
-            WaitInput wait = await inputWait.Wait(OP: BBOperaType.MIDDLEKICK, FuzzyInputType.OR);
+            WaitInput wait = await inputWait.Wait(OP: BBOperaType.MIDDLEKICK, FuzzyInputType.AND);
             if (wait.Error != WaitTypeError.Success) return Status.Failed;
 
             return Status.Success;
