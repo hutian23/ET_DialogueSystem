@@ -1,8 +1,9 @@
 ﻿namespace ET.Client
 {
     [Event(SceneType.Client)]
-    [FriendOf(typeof(InputWait))]
-    public class AfterBehaviorReload_UpdatePlayerBehavior : AEvent<AfterBehaviorReload>
+    [FriendOf(typeof (InputWait))]
+    [FriendOf(typeof (b2Body))]
+    public class AfterBehaviorReload_UpdatePlayerBehavior: AEvent<AfterBehaviorReload>
     {
         protected override async ETTask Run(Scene scene, AfterBehaviorReload args)
         {
@@ -16,23 +17,31 @@
             skillBuffer.ClearTransition();
 
             //2. 转向
+            var preFlag = b2Body.Flip;
+            var curFlag = preFlag;
+
             if ((inputWait.Ops & BBOperaType.LEFT) != 0)
             {
-                b2Body.SetFlip(FlipState.Left);
+                curFlag = FlipState.Left;
             }
             else if ((inputWait.Ops & BBOperaType.RIGHT) != 0)
             {
-                b2Body.SetFlip(FlipState.Right);
+                curFlag = FlipState.Right;
             }
             else if ((inputWait.Ops & BBOperaType.DOWNLEFT) != 0)
             {
-                b2Body.SetFlip(FlipState.Left);
+                curFlag = FlipState.Left;
             }
             else if ((inputWait.Ops & BBOperaType.DOWNRIGHT) != 0)
             {
-                b2Body.SetFlip(FlipState.Right);
+                curFlag = FlipState.Right;
             }
-            b2Body.SetUpdateFlag();
+
+            if (curFlag != preFlag)
+            {
+                b2Body.SetFlip(curFlag);
+                b2Body.SetUpdateFlag();
+            }
 
             await ETTask.CompletedTask;
         }

@@ -10,27 +10,14 @@
         public override async ETTask<Status> Handle(Unit unit, ETCancellationToken token)
         {
             InputWait inputWait = BBInputHelper.GetInputWait(unit);
-            BBTimerComponent bbTimer = BBInputHelper.GetBBTimer(unit);
-
-            InputBuffer buffer = InputBuffer.Create(this, bbTimer.GetNow(), bbTimer.GetNow() + 3);
-            bool Hold = false;
-            while (true)
+            
+            WaitInput wait = await inputWait.Wait(OP: BBOperaType.DOWN | BBOperaType.DOWNLEFT | BBOperaType.DOWNRIGHT, FuzzyInputType.OR);
+            if (wait.Error is not WaitTypeError.Success)
             {
-                //涉及转向
-                WaitInput wait = await inputWait.Wait(OP: BBOperaType.DOWN | BBOperaType.DOWNLEFT | BBOperaType.DOWNRIGHT, FuzzyInputType.OR);
-                if (wait.Error is WaitTypeError.Success && !Hold)
-                {
-                    inputWait.AddBuffer(buffer);
-                    Hold = true;
-                }
-                else
-                {
-                    return Status.Failed;
-                }
-
-                await TimerComponent.Instance.WaitFrameAsync(token);
-                if (token.IsCancel()) return Status.Failed;
+                return Status.Failed;
             }
+            await ETTask.CompletedTask;
+            return Status.Success;
         }
     }
 }

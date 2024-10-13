@@ -1,4 +1,5 @@
-﻿using Sirenix.Utilities;
+﻿using System;
+using Sirenix.Utilities;
 
 namespace ET.Client
 {
@@ -14,8 +15,8 @@ namespace ET.Client
             {
                 long ops = BBInputComponent.Instance.Ops;
                 self.Ops = ops;
-                EventSystem.Instance.PublishAsync(self.DomainScene(),new AfterUpdateInput(){instanceId = self.InstanceId,OP = self.Ops}).Coroutine();
-                
+
+                self.UpdatekeyHistory(self.Ops);
                 self.Notify(self.Ops);
                 //检测执行完的输入协程，重新执行
                 foreach (BBInputHandler handler in self.handlers)
@@ -31,12 +32,32 @@ namespace ET.Client
             }
         }
 
-        private static void Init(this InputWait self)
+        public class InputWaitAwakeSystem: AwakeSystem<InputWait>
         {
-            self.GetParent<TimelineComponent>().GetComponent<BBTimerComponent>().Remove(ref self.Timer);
+            protected override void Awake(InputWait self)
+            {
+                self.AddComponent<BBTimerComponent>();
+                self.RegistKeyHistory();
+            }
+        }
+
+        public class InputWaitDestroySystem: DestroySystem<InputWait>
+        {
+            protected override void Destroy(InputWait self)
+            {
+                self.Init();
+                self.PressedDict.Clear();
+            }
+        }
+
+        public static void Cancel(this InputWait self)
+        {
+            #region Init
+
+            self.GetComponent<BBTimerComponent>().Remove(ref self.Timer);
             self.Ops = 0;
 
-            self.handlers.Clear();
+            //InputHandler会在所有行为初始化时注册到handlers中，所以启动关闭输入窗口不能清空该列表
             self.runningHandlers.Clear();
             self.bufferDict.Clear();
 
@@ -48,28 +69,78 @@ namespace ET.Client
             self.bufferQueue.ForEach(buffer => buffer.Recycle());
             self.bufferQueue.Clear();
 
-            self.pressDict.Clear();
-            self.RegistPressDict();
+            #endregion
         }
 
-        private static void RegistPressDict(this InputWait self)
+        public static void Init(this InputWait self)
         {
-            for (int i = 1; i <= 32; i++)
-            {
-                //DownLeft: 2 << 1
-                //Down: 2 << 2
-                self.pressDict.Add(2 << i, long.MaxValue);
-            }
+            self.Cancel();
+            self.handlers.Clear();
+            self.GetComponent<BBTimerComponent>().ReLoad();
         }
 
         public static void Reload(this InputWait self)
         {
-            self.Init();
-
+            self.Cancel();
             //启动定时器
-            BBTimerComponent bbTimer = self.GetParent<TimelineComponent>().GetComponent<BBTimerComponent>();
-            self.Timer = bbTimer.NewFrameTimer(BBTimerInvokeType.BBInputTimer, self);
+            self.Timer = self.GetComponent<BBTimerComponent>().NewFrameTimer(BBTimerInvokeType.BBInputTimer, self);
         }
+
+        public static void ReloadTimer(this InputWait self)
+        {
+            self.Timer = self.GetComponent<BBTimerComponent>().NewFrameTimer(BBTimerInvokeType.BBInputTimer, self);
+        }
+
+        public static void CancelTimer(this InputWait self)
+        {
+            self.GetComponent<BBTimerComponent>().Remove(ref self.Timer);
+        }
+
+        #region KeyHistory
+
+        private static void RegistKeyHistory(this InputWait self)
+        {
+            self.PressedDict.Add(BBOperaType.LIGHTPUNCH, long.MaxValue);
+            self.PressedDict.Add(BBOperaType.LIGHTKICK, long.MaxValue);
+            self.PressedDict.Add(BBOperaType.MIDDLEPUNCH, long.MaxValue);
+            self.PressedDict.Add(BBOperaType.HEAVYKICK, long.MaxValue);
+            self.PressedDict.Add(BBOperaType.HEAVYPUNCH, long.MaxValue);
+        }
+
+        private static void UpdatekeyHistory(this InputWait self, long ops)
+        {
+            self.HandleKeyInput(ops, BBOperaType.LIGHTPUNCH);
+            self.HandleKeyInput(ops, BBOperaType.LIGHTKICK);
+            self.HandleKeyInput(ops, BBOperaType.MIDDLEPUNCH);
+            self.HandleKeyInput(ops, BBOperaType.MIDDLEKICK);
+            self.HandleKeyInput(ops, BBOperaType.HEAVYPUNCH);
+            self.HandleKeyInput(ops, BBOperaType.HEAVYKICK);
+        }
+
+        private static void HandleKeyInput(this InputWait self, long ops, int operaType)
+        {
+            BBTimerComponent bbTimer = self.GetComponent<BBTimerComponent>();
+            bool ret = (ops & operaType) != 0;
+            //按住，倾刻炼化
+            if (ret)
+            {
+                if (self.PressedDict[operaType] > bbTimer.GetNow())
+                {
+                    self.PressedDict[operaType] = bbTimer.GetNow();
+                }
+            }
+            else
+            {
+                self.PressedDict[operaType] = long.MaxValue;
+            }
+        }
+
+        public static bool WasPressedThisFrame(this InputWait self, int operaType)
+        {
+            return self.PressedDict[operaType] == self.GetComponent<BBTimerComponent>().GetNow();
+        }
+
+        #endregion
 
         //https://www.zhihu.com/question/36951135/answer/69880133
         private static void Notify(this InputWait self, long op)
@@ -78,7 +149,7 @@ namespace ET.Client
             {
                 BBTimerComponent bbTimer = self.GetParent<TimelineComponent>().GetComponent<BBTimerComponent>();
                 InputCallback callback = self.tcss[i];
-                //当前输入不符合条件
+                //1. 当前输入不符合条件
                 switch (callback.waitType)
                 {
                     case FuzzyInputType.OR:
@@ -93,14 +164,17 @@ namespace ET.Client
                         break;
                 }
 
+                //回调检查委托
+                if (callback.checkFunc != null && !callback.checkFunc.Invoke()) continue;
+                //2. 不同技能可能有不同的判定逻辑
                 callback.SetResult(new WaitInput() { frame = bbTimer.GetNow(), Error = WaitTypeError.Success, OP = op });
                 self.tcss.Remove(callback);
             }
         }
 
-        public static async ETTask<WaitInput> Wait(this InputWait self, long OP, int waitType)
+        public static async ETTask<WaitInput> Wait(this InputWait self, long OP, int waitType, Func<bool> checkFunc = null)
         {
-            InputCallback tcs = InputCallback.Create(OP, waitType);
+            InputCallback tcs = InputCallback.Create(OP, waitType, checkFunc);
             self.tcss.Add(tcs);
 
             void CancelAction()
@@ -119,49 +193,6 @@ namespace ET.Client
             finally
             {
                 self.Token.Remove(CancelAction);
-            }
-
-            return ret;
-        }
-
-        private static async ETTask<WaitInput> Wait(this InputWait self, long OP, int waitType, int waitFrame)
-        {
-            InputCallback tcs = InputCallback.Create(OP, waitType);
-            self.tcss.Add(tcs);
-
-            async ETTask WaitTimeOut()
-            {
-                // n帧内输入有效(sf6训练场还有该标准速度的选项，调整Hertz后，犹豫期也会跟着改变)
-                BBTimerComponent bbTimer = self.GetParent<TimelineComponent>().GetComponent<BBTimerComponent>();
-                await bbTimer.WaitAsync(waitFrame, self.Token);
-                if (self.Token.IsCancel() || tcs.IsDisposed)
-                {
-                    return;
-                }
-
-                self.tcss.Remove(tcs);
-                tcs.SetResult(new WaitInput() { Error = WaitTypeError.Timeout });
-                tcs.Recycle();
-            }
-
-            WaitTimeOut().Coroutine();
-
-            void CancelAction()
-            {
-                self.tcss.Remove(tcs);
-                tcs.SetResult(new WaitInput() { Error = WaitTypeError.Cancel });
-                tcs.Recycle();
-            }
-
-            WaitInput ret;
-            try
-            {
-                self.Token?.Add(CancelAction);
-                ret = await tcs.Task;
-            }
-            finally
-            {
-                self.Token?.Remove(CancelAction);
             }
 
             return ret;

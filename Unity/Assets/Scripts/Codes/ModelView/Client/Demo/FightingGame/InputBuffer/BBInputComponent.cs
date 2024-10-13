@@ -1,4 +1,6 @@
-﻿namespace ET.Client
+﻿using System.Collections.Generic;
+
+namespace ET.Client
 {
     [ComponentOf]
     public class BBInputComponent: Entity, IAwake, IDestroy, IUpdate, ILoad
@@ -7,13 +9,15 @@
         public static BBInputComponent Instance;
 
         public long Ops;
+
+        public Dictionary<int, bool> WasPressedDict = new();
     }
 
     public struct UpdateInputCallback
     {
         public long Ops;
     }
-    
+
     public class InputInfo
     {
         public long frame;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ET.Client
 {
@@ -22,9 +23,8 @@ namespace ET.Client
         public Queue<InputBuffer> bufferQueue = new();
         public const int MaxStack = 30;
 
-        //按键持续按压，需要判断哪一帧开始按下
-        //类似dash这个行为，不能按住dash键持续触发，
-        public Dictionary<int, long> pressDict = new();
+        public Dictionary<int, long> PressedDict = new();
+        public Dictionary<int, long> ReleasedDict = new();
     }
 
     public struct AfterUpdateInput
@@ -85,14 +85,17 @@ namespace ET.Client
 
         public long OP;
         public int waitType;
+        public Func<bool> checkFunc;
+
         private ETTask<WaitInput> tcs;
 
-        public static InputCallback Create(long OP, int waitType)
+        public static InputCallback Create(long OP, int waitType, Func<bool> checkFunc)
         {
             InputCallback callback = ObjectPool.Instance.Fetch<InputCallback>();
             callback.OP = OP;
             callback.waitType = waitType;
             callback.tcs = ETTask<WaitInput>.Create(true);
+            callback.checkFunc = checkFunc;
             return callback;
         }
 
@@ -101,6 +104,7 @@ namespace ET.Client
             OP = 0;
             waitType = 0;
             tcs = null;
+            checkFunc = null;
             ObjectPool.Instance.Recycle(this);
         }
     }
@@ -122,6 +126,7 @@ namespace ET.Client
         public const int AND = 1;
         public const int OR = 2;
         public const int Hold = 3;
+        public const int IsPressed = 4; //长按一个按键，只会执行一次技能
     }
 
     public static class BBOperaType

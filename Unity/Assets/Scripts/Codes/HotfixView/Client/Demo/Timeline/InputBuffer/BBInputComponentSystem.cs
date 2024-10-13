@@ -18,6 +18,13 @@ namespace ET.Client
         public static void Reload(this BBInputComponent self)
         {
             //TODO Init
+            self.WasPressedDict.Clear();
+            self.WasPressedDict.Add(BBOperaType.LIGHTPUNCH, false);
+            self.WasPressedDict.Add(BBOperaType.LIGHTKICK, false);
+            self.WasPressedDict.Add(BBOperaType.MIDDLEPUNCH, false);
+            self.WasPressedDict.Add(BBOperaType.MIDDLEKICK, false);
+            self.WasPressedDict.Add(BBOperaType.HEAVYPUNCH, false);
+            self.WasPressedDict.Add(BBOperaType.HEAVYKICK, false);
         }
 
         public static void Update(this BBInputComponent self)
@@ -114,7 +121,8 @@ namespace ET.Client
             {
                 ops |= BBOperaType.HEAVYKICK;
             }
-
+            
+            
             //LB（组合键）
             if (gamepad.leftShoulder.isPressed)
             {
@@ -133,6 +141,11 @@ namespace ET.Client
         public static bool ContainKey(this BBInputComponent self, long op)
         {
             return (self.Ops & op) != 0;
+        }
+
+        public static bool WasPressedThisFrame(this BBInputComponent self, int op)
+        {
+            return self.WasPressedDict[op];
         }
     }
 }

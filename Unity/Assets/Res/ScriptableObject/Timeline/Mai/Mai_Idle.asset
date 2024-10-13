@@ -374,8 +374,6 @@ MonoBehaviour:
   order: 0
   Script: '@Init:
 
-    RegistFlipCheck;
-
     return;
 
 
@@ -385,6 +383,10 @@ MonoBehaviour:
 
 
     @Main:
+
+    UpdateFlip;
+
+    OpenInputWindow;
 
     LoopTimeline;
 
@@ -397,5 +399,7 @@ MonoBehaviour:
     Idle --> Squit
 
     SetTransition: ''TransitionToSquit'';
+
+    CloseInputWindow;
 
     return;'

@@ -17,5 +17,6 @@ namespace ET.Client
 
         public HashSet<string> flags = new();
         public HashSet<string> transitionFlags = new();
+        public HashSet<string> gatlingCancelOptions = new();
     }
 }

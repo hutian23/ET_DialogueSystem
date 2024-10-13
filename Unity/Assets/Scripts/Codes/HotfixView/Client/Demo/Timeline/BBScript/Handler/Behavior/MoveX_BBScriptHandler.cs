@@ -37,7 +37,9 @@ namespace ET.Client
             parser.RegistParam("MoveX", moveX);
 
             //启动定时器
-            BBTimerComponent bbTimer = parser.GetParent<TimelineComponent>().GetComponent<BBTimerComponent>();
+            BBTimerComponent bbTimer = parser.GetParent<TimelineComponent>()
+                    .GetComponent<InputWait>()
+                    .GetComponent<BBTimerComponent>();
             long timer = bbTimer.NewFrameTimer(BBTimerInvokeType.MoveXTimer, parser);
             token.Add(() => { bbTimer.Remove(ref timer); });
 

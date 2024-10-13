@@ -15,6 +15,8 @@ namespace ET
         public System.Numerics.Vector2 LinearVelocity;
         public float AngularVelocity;
         public System.Numerics.Vector2 Position;
+        public int BehaviorOrder;
+        public string BehaviorName;
     }
 
     public struct UpdateUnitProfileCallback
@@ -131,11 +133,12 @@ namespace ET
 
             //call update unit profile
             EventSystem.Instance?.Invoke(new UpdateUnitProfileCallback() { instanceId = Global.Settings.instanceId });
-            
+
             DebugDraw.DrawString(5, 50, $"UnitName: {Profile.UnitName}");
             DebugDraw.DrawString(5, 65, $"LinearVelocity:{Profile.LinearVelocity}");
             DebugDraw.DrawString(5, 80, $"AngularVelocity:{Profile.AngularVelocity}");
-            DebugDraw.DrawString(5,95,$"Position:{Profile.Position}");
+            DebugDraw.DrawString(5, 95, $"Position:{Profile.Position}");
+            DebugDraw.DrawString(5, 110, $"Order:{Profile.BehaviorOrder}, Behavior: ({Profile.BehaviorName})");
         }
 
         public UnitProfile Profile;
@@ -295,7 +298,7 @@ namespace ET
             {
                 EventSystem.Instance?.Invoke(new PausedCallback() { Pause = !Global.Settings.Pause });
             }
-            
+
             //Single Step
             if (key.f3Key.wasPressedThisFrame)
             {

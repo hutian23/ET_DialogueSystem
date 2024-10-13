@@ -16,5 +16,6 @@
         //和行为有关的计时器
         public const int UpdateFlipTimer = 100;
         public const int MoveXTimer = 101;
+        public const int InputCheckTimer = 102;
     }
 }

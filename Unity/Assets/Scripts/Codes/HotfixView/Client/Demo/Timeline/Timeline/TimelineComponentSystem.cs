@@ -95,8 +95,10 @@ namespace ET.Client
         {
             //3. 执行行为协程
             BBParser parser = self.GetComponent<BBParser>();
+            
             self.GetTimelinePlayer().Init(behaviorOrder);
             BBTimeline timeline = self.GetCurrentTimeline();
+            
             parser.InitScript(timeline.Script);
             parser.Main().Coroutine();
             
