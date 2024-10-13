@@ -597,6 +597,8 @@ MonoBehaviour:
 
     @Main:
 
+    CloseInputWindow;
+
     StartTimeline;
 
     return;

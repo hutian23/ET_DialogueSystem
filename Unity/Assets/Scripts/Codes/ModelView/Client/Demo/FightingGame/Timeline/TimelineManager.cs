@@ -9,7 +9,10 @@ namespace ET.Client
         public static TimelineManager Instance;
 
         public HashSet<long> instanceIds = new();
+    }
 
-        public bool Pause;
+    public struct UpdateTimelineComponent
+    {
+        public long instanceId;
     }
 }

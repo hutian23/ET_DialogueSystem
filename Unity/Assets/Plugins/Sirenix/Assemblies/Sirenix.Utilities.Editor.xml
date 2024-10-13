@@ -552,7 +552,7 @@
             Gets an icon of a test tube symbol.
             </summary>
         </member>
-        <member name="P:Sirenix.Utilities.Editor.EditorIcons.Timer">
+        <member name="P:Sirenix.Utilities.Editor.EditorIcons.inputTimer">
             <summary>
             Gets an icon of a timer symbol.
             </summary>

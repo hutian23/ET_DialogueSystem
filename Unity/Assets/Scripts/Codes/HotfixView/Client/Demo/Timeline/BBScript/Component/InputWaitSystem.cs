@@ -13,21 +13,26 @@ namespace ET.Client
         {
             protected override void Run(InputWait self)
             {
-                long ops = BBInputComponent.Instance.Ops;
-                self.Ops = ops;
+                self.Ops = BBInputComponent.Instance.Ops;
 
+                //1. 更新按键历史
                 self.UpdatekeyHistory(self.Ops);
-                self.Notify(self.Ops);
-                //检测执行完的输入协程，重新执行
-                foreach (BBInputHandler handler in self.handlers)
+
+                //2. 输入窗口打开,处理预输入逻辑
+                if (self.IsOpen)
                 {
-                    if (!self.runningHandlers.Contains(handler.GetInputType()))
+                    self.Notify(self.Ops);
+                    //检测执行完的输入协程，重新执行
+                    foreach (BBInputHandler handler in self.handlers)
                     {
-                        self.InputCheckCor(handler, self.Token).Coroutine();
+                        if (!self.runningHandlers.Contains(handler.GetInputType()))
+                        {
+                            self.InputCheckCor(handler, self.Token).Coroutine();
+                        }
                     }
                 }
-
-                //更新缓冲区
+                
+                //3. 更新缓冲区
                 self.UpdateBuffer();
             }
         }
@@ -37,63 +42,43 @@ namespace ET.Client
             protected override void Awake(InputWait self)
             {
                 self.AddComponent<BBTimerComponent>();
-                self.RegistKeyHistory();
             }
         }
 
-        public class InputWaitDestroySystem: DestroySystem<InputWait>
-        {
-            protected override void Destroy(InputWait self)
-            {
-                self.Init();
-                self.PressedDict.Clear();
-            }
-        }
-
-        public static void Cancel(this InputWait self)
+        public static void Reload(this InputWait self)
         {
             #region Init
 
-            self.GetComponent<BBTimerComponent>().Remove(ref self.Timer);
+            self.GetComponent<BBTimerComponent>().Remove(ref self.inputTimer);
+            self.GetComponent<BBTimerComponent>().ReLoad();
             self.Ops = 0;
+            self.IsOpen = false;
 
-            //InputHandler会在所有行为初始化时注册到handlers中，所以启动关闭输入窗口不能清空该列表
+            self.handlers.Clear();
             self.runningHandlers.Clear();
-            self.bufferDict.Clear();
 
             self.Token?.Cancel();
             self.tcss.ForEach(tcs => tcs.Recycle());
             self.tcss.Clear();
             self.Token = new ETCancellationToken();
 
+            self.bufferDict.Clear();
             self.bufferQueue.ForEach(buffer => buffer.Recycle());
             self.bufferQueue.Clear();
 
+            self.PressedDict.Clear();
+
             #endregion
-        }
 
-        public static void Init(this InputWait self)
-        {
-            self.Cancel();
-            self.handlers.Clear();
-            self.GetComponent<BBTimerComponent>().ReLoad();
-        }
+            self.RegistKeyHistory();
 
-        public static void Reload(this InputWait self)
-        {
-            self.Cancel();
             //启动定时器
-            self.Timer = self.GetComponent<BBTimerComponent>().NewFrameTimer(BBTimerInvokeType.BBInputTimer, self);
+            self.inputTimer = self.GetComponent<BBTimerComponent>().NewFrameTimer(BBTimerInvokeType.BBInputTimer, self);
         }
 
-        public static void ReloadTimer(this InputWait self)
+        public static void SetOpenWindow(this InputWait self, bool isOpen)
         {
-            self.Timer = self.GetComponent<BBTimerComponent>().NewFrameTimer(BBTimerInvokeType.BBInputTimer, self);
-        }
-
-        public static void CancelTimer(this InputWait self)
-        {
-            self.GetComponent<BBTimerComponent>().Remove(ref self.Timer);
+            self.IsOpen = isOpen;
         }
 
         #region KeyHistory
@@ -164,8 +149,8 @@ namespace ET.Client
                         break;
                 }
 
-                //回调检查委托
-                if (callback.checkFunc != null && !callback.checkFunc.Invoke()) continue;
+                if(callback.checkFunc!=null && !callback.checkFunc.Invoke()) continue;
+                
                 //2. 不同技能可能有不同的判定逻辑
                 callback.SetResult(new WaitInput() { frame = bbTimer.GetNow(), Error = WaitTypeError.Success, OP = op });
                 self.tcss.Remove(callback);
@@ -212,7 +197,7 @@ namespace ET.Client
             }
         }
 
-        public static void AddBuffer(this InputWait self, InputBuffer buffer)
+        private static void AddBuffer(this InputWait self, InputBuffer buffer)
         {
             while (self.bufferQueue.Count >= InputWait.MaxStack)
             {

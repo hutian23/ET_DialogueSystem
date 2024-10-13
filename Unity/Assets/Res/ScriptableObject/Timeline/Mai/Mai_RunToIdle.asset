@@ -290,4 +290,4 @@ MonoBehaviour:
   timelineName: Mai_RunToIdle
   order: 1
   Script: "@Init:\nreturn;\n\n@Trigger:\nTransition: 'RunToIdle';\nreturn;\n\n@Main:
-    \nStartTimeline;\nreturn;\n\n@Exit:\nreturn;"
+    \nOpenInputWindow;\nStartTimeline;\nreturn;\n\n@Exit:\nreturn;"

@@ -11,8 +11,7 @@
         {
             InputWait inputWait = parser.GetParent<TimelineComponent>().GetComponent<InputWait>();
 
-            inputWait.ReloadTimer();
-            token.Add(inputWait.CancelTimer);
+            inputWait.SetOpenWindow(true);
 
             await ETTask.CompletedTask;
             return Status.Success;

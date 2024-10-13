@@ -400,6 +400,4 @@ MonoBehaviour:
 
     SetTransition: ''TransitionToSquit'';
 
-    CloseInputWindow;
-
     return;'

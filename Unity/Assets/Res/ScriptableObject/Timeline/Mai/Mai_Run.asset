@@ -292,5 +292,5 @@ MonoBehaviour:
   Script: "@Init:\nRegistInput: RunHold;\nreturn;\n\n@Trigger:\nInputType: RunHold;\nreturn;\n\n@Main:\nOpenInputWindow;\nUpdateFlip;\nMoveX:
     12;\nInputCheck: 'RunHold';\nLoopTimeline;\nreturn;\n\n@Exit:\n# Run ---> Idle\nSetTransition:
     'RunToIdle';\n# Run ---> Squit\nSetTransition: 'TransitionToSquit';\nSetVelocityX:
-    0;\nCloseInputWindow;\nreturn;\n\n#\u9700\u8981Trigger(\u76F8\u5F53\u4E8EEnterState\uFF0C\u68C0\u67E5\u8FDB\u5165\u884C\u4E3A\u7684\u6761\u4EF6)\n#
+    0;\nreturn;\n\n#\u9700\u8981Trigger(\u76F8\u5F53\u4E8EEnterState\uFF0C\u68C0\u67E5\u8FDB\u5165\u884C\u4E3A\u7684\u6761\u4EF6)\n#
     Main\u884C\u4E3A\u4E3B\u51FD\u6570\n# Exit(\u76F8\u5F53\u4E8EExitState\uFF0C\u6267\u884C\u9000\u51FA\u884C\u4E3A\u7684\u56DE\u8C03)\n"

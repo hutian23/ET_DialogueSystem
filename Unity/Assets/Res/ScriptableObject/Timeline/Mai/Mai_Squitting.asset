@@ -778,6 +778,7 @@ MonoBehaviour:
 
     InputCheck: ''SquitHold'';
 
+    OpenInputWindow;
 
     #Transition:
     Idle ---> Squit
@@ -834,5 +835,7 @@ MonoBehaviour:
     @Exit:
 
     SetTransition: ''SquitToIdle'';
+
+    CloseInputWindow;
 
     return;'
