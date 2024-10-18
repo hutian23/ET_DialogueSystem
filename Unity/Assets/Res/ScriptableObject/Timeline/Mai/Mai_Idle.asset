@@ -308,11 +308,6 @@ MonoBehaviour:
     - Name: keyframeName
       Entry: 1
       Data: Test2
-    - Name: Script
-      Entry: 1
-      Data: '@Main:
-
-        return;'
     - Name: 
       Entry: 8
       Data: 
@@ -325,20 +320,6 @@ MonoBehaviour:
     - Name: keyframeName
       Entry: 1
       Data: Test1
-    - Name: Script
-      Entry: 1
-      Data: '@Main:
-
-        LogWarning: ''Event 1'';
-
-        WaitFrame: 3;
-
-        LogWarning:
-        ''Event 2'';
-
-        return;
-
-'
     - Name: 
       Entry: 8
       Data: 
@@ -374,6 +355,12 @@ MonoBehaviour:
   order: 0
   Script: '@Init:
 
+    MoveType: None;
+
+    Order: 0;
+
+    Name: ''Mai_Idle'';
+
     return;
 
 
@@ -386,7 +373,7 @@ MonoBehaviour:
 
     UpdateFlip;
 
-    OpenInputWindow;
+    OpenCancelWindow;
 
     LoopTimeline;
 

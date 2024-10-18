@@ -7,15 +7,14 @@ namespace ET.Client
     {
         public override void Handle(EventMarkerCallback args)
         {
-            TimelineComponent timelineComponent = Root.Instance.Get(args.instanceId) as TimelineComponent;
-            if (timelineComponent == null) return;
+            // TimelineComponent timelineComponent = Root.Instance.Get(args.instanceId) as TimelineComponent;
+            // if (timelineComponent == null) return;
 
-            TimelineEventManager manager = timelineComponent.GetComponent<TimelineEventManager>();
+            // TimelineEventManager manager = timelineComponent.GetComponent<TimelineEventManager>();
 
             //动画帧事件
-            ScriptParser parser = manager.GetParser(args.track.Name);
-            parser.InitScript(args.info.Script);
-            parser.Invoke("Main").Coroutine();
+            // ScriptParser parser = manager.GetParser(args.track.Name);
+            // parser.Invoke("Main").Coroutine();
         }
     }
 }

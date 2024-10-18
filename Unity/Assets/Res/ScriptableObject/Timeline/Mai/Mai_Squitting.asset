@@ -543,9 +543,6 @@ MonoBehaviour:
     - Name: keyframeName
       Entry: 1
       Data: Mai_Squit_0
-    - Name: Script
-      Entry: 6
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -558,9 +555,6 @@ MonoBehaviour:
     - Name: keyframeName
       Entry: 1
       Data: Mai_Squit_1
-    - Name: Script
-      Entry: 6
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -573,9 +567,6 @@ MonoBehaviour:
     - Name: keyframeName
       Entry: 1
       Data: Mai_Squit_2
-    - Name: Script
-      Entry: 6
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -588,9 +579,6 @@ MonoBehaviour:
     - Name: keyframeName
       Entry: 1
       Data: Mai_Squit_3
-    - Name: Script
-      Entry: 6
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -603,9 +591,6 @@ MonoBehaviour:
     - Name: keyframeName
       Entry: 1
       Data: Mai_Squit_4
-    - Name: Script
-      Entry: 6
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -618,9 +603,6 @@ MonoBehaviour:
     - Name: keyframeName
       Entry: 1
       Data: Mai_Squit_5
-    - Name: Script
-      Entry: 6
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -633,9 +615,6 @@ MonoBehaviour:
     - Name: keyframeName
       Entry: 1
       Data: Mai_Squit_6
-    - Name: Script
-      Entry: 6
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -648,9 +627,6 @@ MonoBehaviour:
     - Name: keyframeName
       Entry: 1
       Data: Mai_Squit_7
-    - Name: Script
-      Entry: 6
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -663,9 +639,6 @@ MonoBehaviour:
     - Name: keyframeName
       Entry: 1
       Data: Mai_Squit_8
-    - Name: Script
-      Entry: 6
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -678,9 +651,6 @@ MonoBehaviour:
     - Name: keyframeName
       Entry: 1
       Data: Mai_Squit_9
-    - Name: Script
-      Entry: 6
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -693,9 +663,6 @@ MonoBehaviour:
     - Name: keyframeName
       Entry: 1
       Data: Mai_Squit_10
-    - Name: Script
-      Entry: 6
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -708,9 +675,6 @@ MonoBehaviour:
     - Name: keyframeName
       Entry: 1
       Data: Mai_Squit_11
-    - Name: Script
-      Entry: 6
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -723,9 +687,6 @@ MonoBehaviour:
     - Name: keyframeName
       Entry: 1
       Data: Mai_Squit_12
-    - Name: Script
-      Entry: 6
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -763,79 +724,84 @@ MonoBehaviour:
 
     RegistInput: SquitHold;
 
+    MoveType: Move;
+
+    Order: 202;
+
+    Name:
+    ''Mai_Squitting'';
+
     return;
 
 
     @Trigger:
 
-    InputType:
-    SquitHold;
+    InputType: SquitHold;
 
     return;
 
 
     @Main:
 
-    InputCheck: ''SquitHold'';
+    InputCheck:
+    ''SquitHold'';
 
-    OpenInputWindow;
+    OpenCancelWindow;
 
-    #Transition:
-    Idle ---> Squit
+    #Transition: Idle ---> Squit
 
-    BeginIf: (Transition: ''TransitionToSquit'')
+    BeginIf:
+    (Transition: ''TransitionToSquit'')
+
+    BBSprite: ''Mai_Squit_0'', 2;
 
     BBSprite:
-    ''Mai_Squit_0'', 2;
+    ''Mai_Squit_1'', 2;
 
-    BBSprite: ''Mai_Squit_1'', 2;
-
-    BBSprite: ''Mai_Squit_2'',
-    3;
+    BBSprite: ''Mai_Squit_2'', 3;
 
     EndIf:
 
 
-    # loop Squit behavior
+    # loop
+    Squit behavior
 
     UpdateFlip;
 
     SetMarker: ''Loop'';
 
-    BBSprite:
-    ''Mai_Squit_3'', 4;
+    BBSprite: ''Mai_Squit_3'',
+    4;
 
     BBSprite: ''Mai_Squit_4'', 4;
 
-    BBSprite: ''Mai_Squit_5'',
-    4;
+    BBSprite: ''Mai_Squit_5'', 4;
 
-    BBSprite: ''Mai_Squit_6'', 4;
+    BBSprite:
+    ''Mai_Squit_6'', 4;
 
     BBSprite: ''Mai_Squit_7'', 4;
 
-    BBSprite:
-    ''Mai_Squit_8'', 4;
+    BBSprite: ''Mai_Squit_8'',
+    4;
 
     BBSprite: ''Mai_Squit_9'', 4;
 
-    BBSprite: ''Mai_Squit_10'',
-    4;
+    BBSprite: ''Mai_Squit_10'', 4;
 
-    BBSprite: ''Mai_Squit_11'', 4;
+    BBSprite:
+    ''Mai_Squit_11'', 4;
 
     BBSprite: ''Mai_Squit_12'', 3;
 
-    GotoMarker:
-    ''Loop'';
+    GotoMarker: ''Loop'';
 
     return;
 
 
     @Exit:
 
-    SetTransition: ''SquitToIdle'';
-
-    CloseInputWindow;
+    SetTransition:
+    ''SquitToIdle'';
 
     return;'

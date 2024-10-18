@@ -5,7 +5,6 @@ using ET;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using Timeline.Editor;
-using UnityEngine;
 
 namespace Timeline
 {
@@ -39,16 +38,21 @@ namespace Timeline
     [Serializable]
     public class EventInfo: BBKeyframeBase
     {
-        [Title("Script")]
-        [TextArea(14, 30), HideLabel]
-        public string Script;
     }
 
 #if UNITY_EDITOR
     public class EventInspectorData: ShowInspectorData
     {
+        private TimelineFieldView FieldView;
+
         [HideReferenceObjectPicker, HideLabel]
         public EventInfo Info;
+
+        [Button("保存")]
+        public void Save()
+        {
+            FieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() => { }, "Save info", false);
+        }
 
         public EventInspectorData(object target): base(target)
         {
@@ -57,6 +61,7 @@ namespace Timeline
 
         public override void InspectorAwake(TimelineFieldView fieldView)
         {
+            FieldView = fieldView;
         }
 
         public override void InspectorUpdate(TimelineFieldView fieldView)
@@ -104,15 +109,6 @@ namespace Timeline
 
         public override void SetTime(int targetFrame)
         {
-            BBEventTrack eventTrack = Track as BBEventTrack;
-            EventInfo targetInfo = eventTrack.GetInfo(targetFrame);
-            if (targetInfo == null) return;
-
-            //目前的想法是 跟 AnimationEvent保持一致， 同步调用动画帧事件(协程调用当前异步动画帧事件)
-            // EventSystem.Instance?.Invoke(new EventMarkerCallback()
-            // {
-            //     instanceId = timelinePlayer.instanceId, info = targetInfo, track = Track as BBEventTrack
-            // });
         }
     }
 }

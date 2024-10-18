@@ -7,13 +7,11 @@ namespace ET.Client
     {
         protected override void Run(InputWait self)
         {
-            SkillBuffer skillBuffer = self.GetParent<TimelineComponent>().GetComponent<SkillBuffer>();
             BBParser parser = self.GetParent<TimelineComponent>().GetComponent<BBParser>();
 
             if (!self.CheckInput(parser.GetParam<string>("InputCheck")))
             {
-                parser.Cancel();
-                skillBuffer.SetCurrentOrder(-1);
+                EventSystem.Instance.Invoke(new CancelBehaviorCallback(){instanceId = parser.InstanceId});
             }
         }
     }

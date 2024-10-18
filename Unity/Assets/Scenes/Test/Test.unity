@@ -575,7 +575,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3a6a01b90dd50904ea3478b2a9a68c8d,
+      objectReference: {fileID: 21300000, guid: 49c30e950587da8469cad65a7804a868,
         type: 3}
     - target: {fileID: 7728331812354445378, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
@@ -642,13 +642,13 @@ PrefabInstance:
     - target: {fileID: 8477314744438082376, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
       propertyPath: serializationData.ReferencedUnityObjects.Array.size
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8477314744438082376, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
       propertyPath: serializationData.ReferencedUnityObjects.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: f7e2a3955ac3b114e8ddec46da3de190,
+      objectReference: {fileID: 11400000, guid: 172f3c87834c8c34d9a61a68dba43fa0,
         type: 2}
     - target: {fileID: 8477314744438082376, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
@@ -659,7 +659,7 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.ReferencedUnityObjects.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7400000, guid: d99ef0249218f5046aa43e62a60646df, type: 2}
     - target: {fileID: 8477314744438082376, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
       propertyPath: serializationData.ReferencedUnityObjects.Array.data[3]
@@ -667,12 +667,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 820927558192963316, guid: cb941c738eff80e48a47613d914c2780,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1077881805}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb941c738eff80e48a47613d914c2780, type: 3}
 --- !u!1 &985583278 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7728331812354445376, guid: cb941c738eff80e48a47613d914c2780,
+    type: 3}
+  m_PrefabInstance: {fileID: 985583277}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &985583279 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 820927558192963316, guid: cb941c738eff80e48a47613d914c2780,
     type: 3}
   m_PrefabInstance: {fileID: 985583277}
   m_PrefabAsset: {fileID: 0}
@@ -686,6 +696,68 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bfd2cdf17bd9f32449b016861d3df3be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1077881804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1077881805}
+  - component: {fileID: 1077881807}
+  - component: {fileID: 1077881806}
+  m_Layer: 0
+  m_Name: PushBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1077881805
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077881804}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 985583279}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1077881806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077881804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f88562e969b4c649b2c693ec8a1d695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  info:
+    boxName: PushBox
+    hitboxType: 4
+    center: {x: 0, y: -1.2}
+    size: {x: 1, y: 2.5}
+--- !u!114 &1077881807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077881804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5ffc7e59ca90d4c8b8db516e845c50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1702350328

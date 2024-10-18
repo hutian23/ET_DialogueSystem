@@ -114,14 +114,14 @@ namespace Timeline
                 Clip.animationClip = AnimationClip;
                 Clip.rootMotionDict.Clear();
 
-                foreach (var binding in AnimationUtility.GetCurveBindings(Clip.animationClip))
+                foreach (EditorCurveBinding binding in AnimationUtility.GetCurveBindings(Clip.animationClip))
                 {
                     AnimationCurve curve = AnimationUtility.GetEditorCurve(Clip.animationClip, binding);
                     string propertyName = binding.propertyName.Replace(".", "_");
                     AnimationCurve cloneCurve = MongoHelper.Clone(curve);
                     Clip.rootMotionDict.TryAdd(propertyName, cloneCurve);
                 }
-            }, "Extract AnimationCurve", false);
+            }, "Extract AnimationCurve");
         }
 
         public AnimationClipInspectorData(object target): base(target)
@@ -129,6 +129,7 @@ namespace Timeline
             Clip = target as BBAnimationClip;
             AnimationClip = Clip.animationClip;
             ClipName = Clip.Name;
+            ApplyRootMotion = Clip.ApplyRootMotion;
         }
 
         public override void InspectorAwake(TimelineFieldView fieldView)
@@ -277,8 +278,8 @@ namespace Timeline
             //Runtime mode ---> invoke update trans callback
             else
             {
-                var pos = animationClip.CurrentPosition(clipInFrame);
-                var prePos = animationClip.CurrentPosition(clipInFrame - 1);
+                var pos = animationClip.CurrentPosition(clipInFrame + 1);
+                var prePos = animationClip.CurrentPosition(clipInFrame);
                 //dv = dx / dt 
                 var velocity = (pos - prePos) * Global.Settings.Hertz;
 

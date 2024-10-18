@@ -85,6 +85,10 @@ namespace ET.Client
 
         public static void Evaluate(this TimelineComponent self, int targetFrame)
         {
+            //抛出事件
+            EventSystem.Instance.PublishAsync(self.ClientScene().CurrentScene(),
+                new AfterTimelineEvaluated() { instanceId = self.InstanceId, targetFrame = targetFrame }).Coroutine();
+
             RuntimePlayable playable = self.GetTimelinePlayer().RuntimeimePlayable;
             playable.Evaluate(targetFrame);
         }
@@ -93,17 +97,18 @@ namespace ET.Client
 
         public static void Reload(this TimelineComponent self, int behaviorOrder)
         {
-            //3. 执行行为协程
             BBParser parser = self.GetComponent<BBParser>();
             
+            //显示层reload playableGraph
             self.GetTimelinePlayer().Init(behaviorOrder);
             BBTimeline timeline = self.GetCurrentTimeline();
-            
+
             parser.InitScript(timeline.Script);
-            parser.Main().Coroutine();
             
+            EventSystem.Instance.PublishAsync(self.DomainScene(),new BeforeBehaviorReload(){behaviorOrder = behaviorOrder,instanceId = self.GetParent<Unit>().InstanceId}).Coroutine();
+            parser.Main().Coroutine();
             //4. 切换行为后，抛出事件更新组件
-            EventSystem.Instance.PublishAsync(self.DomainScene(),new AfterBehaviorReload(){behaviorOrder = behaviorOrder,instanceId = self.GetParent<Unit>().InstanceId}).Coroutine();
+            EventSystem.Instance.PublishAsync(self.DomainScene(), new AfterBehaviorReload() { behaviorOrder = behaviorOrder, instanceId = self.GetParent<Unit>().InstanceId }).Coroutine();
         }
     }
 }

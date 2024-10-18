@@ -8,8 +8,23 @@ namespace ET.Client
     {
         public BBTimeline Timeline;
 
+        public string behaviorName;
+        public int behaviorOrder;
+        public MoveType moveType;
+        
         public int order;
 
+        //Trigger
         public List<string> opLines = new();
+    }
+
+    public enum MoveType
+    {
+        None = 0,
+        Transition = 1,
+        Move = 2,
+        Normal = 3,
+        Special = 4,
+        Super = 5
     }
 }

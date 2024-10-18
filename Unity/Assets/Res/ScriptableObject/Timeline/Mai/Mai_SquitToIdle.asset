@@ -423,19 +423,26 @@ MonoBehaviour:
   order: 2
   Script: '@Init:
 
+    MoveType: Transition;
+
+    Order: 2;
+
+    Name: ''Mai_SquitToIdle'';
+
     return;
 
 
     @Trigger:
 
-    Transition: ''SquitToIdle'';
+    Transition:
+    ''SquitToIdle'';
 
     return;
 
 
     @Main:
 
-    OpenInputWindow;
+    OpenCancelWindow;
 
     StartTimeline;
 

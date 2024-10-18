@@ -35,6 +35,7 @@ namespace ET.Client
             {
                 kv.Value.Recycle();
             }
+
             self.paramDict.Clear();
         }
 
@@ -132,6 +133,7 @@ namespace ET.Client
             {
                 //运行初始化协程
                 self.InitScript(timeline.Script);
+                self.RegistParam("BehaviorOrder", timeline.order);
                 self.Invoke("Init", self.cancellationToken).Coroutine();
             }
         }

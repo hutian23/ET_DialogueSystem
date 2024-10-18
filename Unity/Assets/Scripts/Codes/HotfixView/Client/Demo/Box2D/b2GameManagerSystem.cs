@@ -39,7 +39,6 @@ namespace ET.Client
         {
             protected override void FixedUpdate(b2GameManager self)
             {
-                self.SyncVelocity();
                 self.B2World.Step();
                 self.SyncTrans();
             }
@@ -62,15 +61,6 @@ namespace ET.Client
             if (Global.Settings.Pause && Global.Settings.SingleStep)
             {
                 self.B2World.SingleStep();
-            }
-        }
-
-        private static void SyncVelocity(this b2GameManager self)
-        {
-            foreach (Entity child in self.Children.Values)
-            {
-                b2Body body = child as b2Body;
-                body.SyncVelocity();
             }
         }
         

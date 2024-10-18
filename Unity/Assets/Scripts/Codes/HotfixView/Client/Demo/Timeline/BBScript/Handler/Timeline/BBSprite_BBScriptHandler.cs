@@ -20,17 +20,18 @@ namespace ET.Client
                 DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
+
             string marker = match.Groups["Sprite"].Value;
             int.TryParse(match.Groups["WaitFrame"].Value, out int waitFrame);
 
+            TimelineComponent timelineComponent = parser.GetParent<TimelineComponent>();
+            BBTimerComponent bbTimer = timelineComponent.GetComponent<BBTimerComponent>();
+            RuntimePlayable runtimePlayable = timelineComponent.GetTimelinePlayer().RuntimeimePlayable;
             
-            TimelinePlayer timelinePlayer = parser.GetParent<TimelineComponent>().GetTimelinePlayer();
-            BBTimerComponent bbTimer = parser.GetParent<TimelineComponent>().GetComponent<BBTimerComponent>();
-            BBTimeline timeline = timelinePlayer.CurrentTimeline;
-            RuntimePlayable runtimePlayable = timelinePlayer.RuntimeimePlayable;
-            foreach (BBTrack track in timeline.Tracks)
+            foreach (RuntimeTrack runtimeTrack in runtimePlayable.RuntimeTracks)
             {
-                if (track is BBEventTrack { Name: "Marker" } eventTrack)
+                if(runtimeTrack.Track is not BBEventTrack eventTrack) continue;
+                if (eventTrack.Name.Equals("Marker"))
                 {
                     EventInfo info = GetInfo(eventTrack, marker);
                     if (info == null)
@@ -38,7 +39,7 @@ namespace ET.Client
                         Log.Error($"not found marker:{marker}");
                     }
 
-                    runtimePlayable.Evaluate(info.frame);
+                    timelineComponent.Evaluate(info.frame);
                     await bbTimer.WaitAsync(waitFrame, token);
                     return token.IsCancel()? Status.Failed : Status.Success;
                 }

@@ -15,9 +15,9 @@ namespace ET.Client
         {
             protected override void Run(SkillBuffer self)
             {
-                foreach (long id in self.Ids)
+                foreach (var kv in self.infoDict)
                 {
-                    SkillInfo info = self.GetChild<SkillInfo>(id);
+                    SkillInfo info = self.GetChild<SkillInfo>(kv.Value);
                     //已经进入当前行为，不会重复检查进入条件
                     //比当前行为权值小的行为也不会进行检查
                     if (info.order == self.currentOrder)
@@ -25,7 +25,7 @@ namespace ET.Client
                         break;
                     }
 
-                    var ret = info.SkillCheck();
+                    bool ret = info.SkillCheck();
                     if (ret)
                     {
                         if (self.currentOrder != info.order)
@@ -41,12 +41,13 @@ namespace ET.Client
 
         public static void Reload(this SkillBuffer self)
         {
-            foreach (long id in self.Ids)
+            foreach (var kv in self.infoDict)
             {
-                self.RemoveChild(id);
+                self.RemoveChild(kv.Value);
             }
 
-            self.Ids.Clear();
+            self.infoDict.Clear();
+
             self.transitionFlags.Clear();
             self.currentOrder = -1;
 
@@ -61,7 +62,11 @@ namespace ET.Client
             {
                 SkillInfo info = self.AddChild<SkillInfo>();
                 info.LoadSkillInfo(timeline);
-                self.Ids.Add(info.Id);
+                if (!self.infoDict.TryAdd(timeline.order, info.Id))
+                {
+                    Log.Error($"Already exist Behavior order: {timeline.order} --- {timeline.name}");
+                    return;
+                }
             }
 
             //启动检测定时器
@@ -113,6 +118,17 @@ namespace ET.Client
         public static int GetCurrentOrder(this SkillBuffer self)
         {
             return self.currentOrder;
+        }
+        
+        public static SkillInfo GetInfo(this SkillBuffer self, int order)
+        {
+            if (!self.infoDict.TryGetValue(order, out long id))
+            {
+                Log.Error($"does not exist skillInfo:{order}");
+                return null;
+            }
+
+            return self.GetChild<SkillInfo>(id);
         }
     }
 }

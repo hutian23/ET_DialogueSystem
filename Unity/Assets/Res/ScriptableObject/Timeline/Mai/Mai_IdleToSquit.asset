@@ -387,22 +387,26 @@ MonoBehaviour:
   order: 203
   Script: '@Init:
 
+    MoveType: Transition;
+
+    Order: 203;
+
+    Name: ''Mai_IdleToSquit'';
+
     return;
 
 
     @Trigger:
 
-    InputType: SquitHold;
-
-    BehaviorOrder:
-    0;
+    InputType:
+    SquitHold;
 
     return;
 
 
     @Main:
 
-    OpenInputWindow;
+    OpenCancelWindow;
 
     StartTimeline;
 

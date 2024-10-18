@@ -9,9 +9,10 @@ namespace ET.Client
     public class SkillBuffer: Entity, IAwake, IDestroy
     {
         public long CheckTimer;
-
-        public List<long> Ids = new();
-
+        
+        //BehaviorOrder ---> EntityId
+        public Dictionary<int, long> infoDict = new();
+        
         //当前行为
         public int currentOrder;
 

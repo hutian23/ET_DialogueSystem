@@ -14,6 +14,9 @@ namespace ET.Client
                 self.order = 0;
                 self.Timeline = null;
                 self.opLines.Clear();
+                self.moveType = MoveType.None;
+                self.behaviorOrder = 0;
+                self.behaviorName = string.Empty;
             }
         }
 
@@ -56,8 +59,12 @@ namespace ET.Client
 
         public static bool SkillCheck(this SkillInfo self)
         {
+            //加特林取消逻辑 
+            //ps: 因为每个行为前置条件都会检查，不需要单独做成一条指令
+            if (!InputBufferHelper.CancelCheck(self)) return false;
+
             bool res = true;
-            foreach (var opline in self.opLines)
+            foreach (string opline in self.opLines)
             {
                 Match match = Regex.Match(opline, @"^\w+");
                 if (!match.Success)
@@ -77,6 +84,7 @@ namespace ET.Client
                     break;
                 }
             }
+
             return res;
         }
     }

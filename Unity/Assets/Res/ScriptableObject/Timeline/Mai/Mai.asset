@@ -22,7 +22,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f8b1d586ff3eabe45b1df8f0c6b31d0d, type: 2}
     - {fileID: 11400000, guid: 444f0650b822440498c1e5e657b0b048, type: 2}
     - {fileID: 11400000, guid: 172f3c87834c8c34d9a61a68dba43fa0, type: 2}
-    - {fileID: 11400000, guid: f7e2a3955ac3b114e8ddec46da3de190, type: 2}
+    - {fileID: 11400000, guid: 1a497faa45b4e54458b671f386b7b0c4, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -236,7 +236,7 @@ MonoBehaviour:
       Data: 6
     - Name: Title
       Entry: 1
-      Data: LightPunch
+      Data: GroundDash_Attack
     - Name: viewDataKey
       Entry: 6
       Data: 

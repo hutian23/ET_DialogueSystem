@@ -19,19 +19,7 @@ namespace ET.Client
                 self.UpdateFlag = false;
             }
         }
-
-        public static void SyncVelocity(this b2Body self)
-        {
-            //根运动
-            RootMotionComponent rootMotion = self.GetComponent<RootMotionComponent>();
-            if (rootMotion == null)
-            {
-                return;
-            }
-
-            self.body.SetLinearVelocity(rootMotion.velocity * self.GetFlip());
-        }
-
+        
         public static void SyncUnitTransform(this b2Body self)
         {
             Unit unit = Root.Instance.Get(self.unitId) as Unit;
