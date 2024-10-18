@@ -488,7 +488,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 21|Timeline.EventInfo, Unity.Loader
@@ -497,7 +497,19 @@ MonoBehaviour:
       Data: 6
     - Name: keyframeName
       Entry: 1
-      Data: Mai_GroundDash_GC
+      Data: Mai_GC
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 22|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 13
+    - Name: keyframeName
+      Entry: 1
+      Data: Mai_GC_Close
     - Name: 
       Entry: 8
       Data: 
@@ -518,7 +530,7 @@ MonoBehaviour:
       Data: 
     - Name: Marks
       Entry: 7
-      Data: 22|System.Collections.Generic.List`1[[Timeline.EventInfo, Unity.Loader]],
+      Data: 23|System.Collections.Generic.List`1[[Timeline.EventInfo, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -554,15 +566,21 @@ MonoBehaviour:
 
     @Main:
 
-    CloseCancelWindow;
+
+    MarkerEvent:
+    (Mai_GC)
+
+    OpenGCWindow;
+
+    AddCancelOption: ''Mai_GroundDash_Attack'';
+
+    EndMarkerEvent:
 
 
     MarkerEvent:
-    (Mai_GroundDash_GC)
+    (Mai_GC_Close)
 
-    OpenCancelWindow;
-
-    AddCancelOption: ''Mai_GroundDash_Attack'';
+    DisposeGCWindow;
 
     EndMarkerEvent:
 

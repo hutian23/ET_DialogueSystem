@@ -9,9 +9,9 @@ namespace ET.Client
     [ComponentOf(typeof (TimelineComponent))]
     public class InputWait: Entity, IAwake, IDestroy
     {
-        public long inputTimer;
+        public long inputHandleTimer;
+        public long inputNotifyTimer;
         public long Ops;
-        public bool IsOpen; //输入窗口中
 
         //BBScript中init协程中注册到这里
         public HashSet<BBInputHandler> handlers = new();

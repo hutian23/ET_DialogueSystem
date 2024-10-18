@@ -2,8 +2,7 @@
 {
     [Event(SceneType.Client)]
     [FriendOf(typeof (SkillBuffer))]
-    [FriendOf(typeof (CancelManager))]
-    public class BeforeBehaviorReload_BufferParam: AEvent<BeforeBehaviorReload>
+    public class BeforeBehaviorReload_BuffParam: AEvent<BeforeBehaviorReload>
     {
         protected override async ETTask Run(Scene scene, BeforeBehaviorReload args)
         {
@@ -14,12 +13,18 @@
 
             //1. 记录CurrentOrder
             bbParser.RegistParam("CurrentOrder", args.behaviorOrder);
+
             //2. 缓存TransitionFlag
             SkillBuffer buffer = timelineComponent.GetComponent<SkillBuffer>();
             foreach (string transitionFlag in buffer.transitionFlags)
             {
                 bbParser.RegistParam($"Transition_{transitionFlag}", true);
             }
+
+            //3. 清空GCOptions
+            //TODO Clear Flag
+            buffer.GCOptions.Clear();
+
             await ETTask.CompletedTask;
         }
     }

@@ -39,13 +39,11 @@
                 SkillBuffer skillBuffer = timelineComponent.GetComponent<SkillBuffer>();
                 BBParser parser = timelineComponent.GetComponent<BBParser>();
                 InputWait inputWait = timelineComponent.GetComponent<InputWait>();
-                CancelManager cancelManager = timelineComponent.GetComponent<CancelManager>();
 
                 //1. 重载子组件, 考虑到执行的先后顺序
                 bbTimer.ReLoad();
                 skillBuffer.Reload();
                 inputWait.Reload();
-                cancelManager.Cancel();
 
                 //2. 执行各个行为的初始化协程
                 parser.Init();

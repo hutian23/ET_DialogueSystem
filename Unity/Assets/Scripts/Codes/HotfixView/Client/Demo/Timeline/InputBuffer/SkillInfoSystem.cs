@@ -59,10 +59,6 @@ namespace ET.Client
 
         public static bool SkillCheck(this SkillInfo self)
         {
-            //加特林取消逻辑 
-            //ps: 因为每个行为前置条件都会检查，不需要单独做成一条指令
-            if (!InputBufferHelper.CancelCheck(self)) return false;
-
             bool res = true;
             foreach (string opline in self.opLines)
             {

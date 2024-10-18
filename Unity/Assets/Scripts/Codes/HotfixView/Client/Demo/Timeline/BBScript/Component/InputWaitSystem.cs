@@ -6,34 +6,37 @@ namespace ET.Client
     [FriendOf(typeof (InputWait))]
     public static class InputWaitSystem
     {
-        [Invoke(BBTimerInvokeType.BBInputTimer)]
+        [Invoke(BBTimerInvokeType.BBInputHandleTimer)]
         [FriendOf(typeof (BBInputComponent))]
         [FriendOf(typeof (InputWait))]
-        public class BBInputTimer: BBTimer<InputWait>
+        public class BBInputHandleTimer: BBTimer<InputWait>
         {
             protected override void Run(InputWait self)
             {
                 self.Ops = BBInputComponent.Instance.Ops;
-
                 //1. 更新按键历史
                 self.UpdatekeyHistory(self.Ops);
+                //2. 更新缓冲区
+                self.UpdateBuffer();
+            }
+        }
 
-                //2. 输入窗口打开,处理预输入逻辑
-                if (self.IsOpen)
+        [Invoke(BBTimerInvokeType.BBInputNotifyTimer)]
+        [FriendOf(typeof (InputWait))]
+        public class BBInputNotifyTimer: BBTimer<InputWait>
+        {
+            protected override void Run(InputWait self)
+            {
+                //输入窗口打开,处理预输入逻辑
+                self.Notify(self.Ops);
+                //检测执行完的输入协程，重新执行
+                foreach (BBInputHandler handler in self.handlers)
                 {
-                    self.Notify(self.Ops);
-                    //检测执行完的输入协程，重新执行
-                    foreach (BBInputHandler handler in self.handlers)
+                    if (!self.runningHandlers.Contains(handler.GetInputType()))
                     {
-                        if (!self.runningHandlers.Contains(handler.GetInputType()))
-                        {
-                            self.InputCheckCor(handler, self.Token).Coroutine();
-                        }
+                        self.InputCheckCor(handler, self.Token).Coroutine();
                     }
                 }
-                
-                //3. 更新缓冲区
-                self.UpdateBuffer();
             }
         }
 
@@ -49,10 +52,10 @@ namespace ET.Client
         {
             #region Init
 
-            self.GetComponent<BBTimerComponent>().Remove(ref self.inputTimer);
+            self.GetComponent<BBTimerComponent>().Remove(ref self.inputHandleTimer);
+            self.GetComponent<BBTimerComponent>().Remove(ref self.inputNotifyTimer);
             self.GetComponent<BBTimerComponent>().ReLoad();
             self.Ops = 0;
-            self.IsOpen = false;
 
             self.handlers.Clear();
             self.runningHandlers.Clear();
@@ -73,12 +76,7 @@ namespace ET.Client
             self.RegistKeyHistory();
 
             //启动定时器
-            self.inputTimer = self.GetComponent<BBTimerComponent>().NewFrameTimer(BBTimerInvokeType.BBInputTimer, self);
-        }
-
-        public static void SetOpenWindow(this InputWait self, bool isOpen)
-        {
-            self.IsOpen = isOpen;
+            self.inputHandleTimer = self.GetComponent<BBTimerComponent>().NewFrameTimer(BBTimerInvokeType.BBInputHandleTimer, self);
         }
 
         #region KeyHistory
@@ -149,8 +147,8 @@ namespace ET.Client
                         break;
                 }
 
-                if(callback.checkFunc!=null && !callback.checkFunc.Invoke()) continue;
-                
+                if (callback.checkFunc != null && !callback.checkFunc.Invoke()) continue;
+
                 //2. 不同技能可能有不同的判定逻辑
                 callback.SetResult(new WaitInput() { frame = bbTimer.GetNow(), Error = WaitTypeError.Success, OP = op });
                 self.tcss.Remove(callback);
@@ -245,6 +243,19 @@ namespace ET.Client
         {
             self.bufferDict.TryGetValue(inputType, out bool value);
             return value;
+        }
+
+        public static void StartNotifyTimer(this InputWait self)
+        {
+            BBTimerComponent bbTimer = self.GetComponent<BBTimerComponent>();
+            bbTimer.Remove(ref self.inputNotifyTimer);
+            self.inputNotifyTimer = bbTimer.NewFrameTimer(BBTimerInvokeType.BBInputNotifyTimer, self);
+        }
+
+        public static void CancelNotifyTimer(this InputWait self)
+        {
+            BBTimerComponent bbTimer = self.GetComponent<BBTimerComponent>();
+            bbTimer.Remove(ref self.inputNotifyTimer);
         }
     }
 }

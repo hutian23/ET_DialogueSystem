@@ -4,7 +4,6 @@ namespace ET.Client
 {
     [FriendOf(typeof (SkillBuffer))]
     [FriendOf(typeof (SkillInfo))]
-    [FriendOf(typeof (CancelManager))]
     public class AddCancelOption_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
@@ -24,13 +23,12 @@ namespace ET.Client
 
             //string behaviorName ---> BehaviorOrder
             SkillBuffer buffer = parser.GetParent<TimelineComponent>().GetComponent<SkillBuffer>();
-            CancelManager cancelManager = parser.GetParent<TimelineComponent>().GetComponent<CancelManager>();
             foreach (var kv in buffer.infoDict)
             {
                 SkillInfo info = buffer.GetChild<SkillInfo>(kv.Value);
                 if (info.behaviorName.Equals(match.Groups["Option"].Value))
                 {
-                    cancelManager.GcOptions.Add(info.behaviorOrder);
+                    buffer.GCOptions.Add(info.behaviorOrder);
                     return Status.Success;
                 }
             }

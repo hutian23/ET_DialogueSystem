@@ -18,7 +18,7 @@ namespace ET.Client
                 DialogueHelper.ScripMatchError(data.opLine);
                 return false;
             }
-
+            
             return parser.GetParent<TimelineComponent>().GetComponent<SkillBuffer>().ContainTransition(match.Groups["transition"].Value);
         }
     }

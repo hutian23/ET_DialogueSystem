@@ -157,7 +157,7 @@ namespace ET.Client
             //TODO 这导致和SkillBufferComponent耦合，希望想到办法优化这里
             if (!self.cancellationToken.IsCancel())
             {
-                self.GetParent<TimelineComponent>().GetComponent<SkillBuffer>().SetCurrentOrder(-1);
+                EventSystem.Instance.Invoke(new CancelBehaviorCallback() { instanceId = self.InstanceId });
             }
         }
 

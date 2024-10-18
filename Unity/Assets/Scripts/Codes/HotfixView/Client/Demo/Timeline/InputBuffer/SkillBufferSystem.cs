@@ -8,7 +8,7 @@ namespace ET.Client
     [FriendOf(typeof (BBTimerComponent))]
     public static class SkillBufferSystem
     {
-        [Invoke(BBTimerInvokeType.SkillCheckTimer)]
+        [Invoke(BBTimerInvokeType.BehaviorCheckTimer)]
         [FriendOf(typeof (SkillBuffer))]
         [FriendOf(typeof (SkillInfo))]
         public class SkillCheckTimer: BBTimer<SkillBuffer>
@@ -31,6 +31,45 @@ namespace ET.Client
                         if (self.currentOrder != info.order)
                         {
                             self.GetParent<TimelineComponent>().Reload(info.order);
+                        }
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        [Invoke(BBTimerInvokeType.GatlingCancelCheckTimer)]
+        [FriendOf(typeof (SkillBuffer))]
+        [FriendOf(typeof (SkillInfo))]
+        public class GatlingCancelCheckTimer: BBTimer<SkillBuffer>
+        {
+            protected override void Run(SkillBuffer self)
+            {
+                SkillInfo curInfo = self.GetInfo(self.currentOrder);
+
+                foreach (var kv in self.infoDict)
+                {
+                    SkillInfo info = self.GetChild<SkillInfo>(kv.Value);
+                    if (info.behaviorOrder == curInfo.behaviorOrder)
+                    {
+                        continue;
+                    }
+
+                    //1. 加特林取消不能取消到该行为
+                    bool ret = (info.moveType > curInfo.moveType) || self.GCOptions.Contains(info.behaviorOrder);
+                    if (!ret)
+                    {
+                        continue;
+                    }
+
+                    //2. 检查先置条件
+                    ret = info.SkillCheck();
+                    if (ret)
+                    {
+                        if (self.currentOrder != info.behaviorOrder)
+                        {
+                            self.GetParent<TimelineComponent>().Reload(info.behaviorOrder);
                         }
 
                         break;
@@ -72,7 +111,7 @@ namespace ET.Client
             //启动检测定时器
             BBTimerComponent timerComponent = self.GetParent<TimelineComponent>().GetComponent<BBTimerComponent>();
             timerComponent.Remove(ref self.CheckTimer);
-            self.CheckTimer = timerComponent.NewFrameTimer(BBTimerInvokeType.SkillCheckTimer, self);
+            self.CheckTimer = timerComponent.NewFrameTimer(BBTimerInvokeType.BehaviorCheckTimer, self);
         }
 
         public static void ClearFlag(this SkillBuffer self)
@@ -119,7 +158,7 @@ namespace ET.Client
         {
             return self.currentOrder;
         }
-        
+
         public static SkillInfo GetInfo(this SkillBuffer self, int order)
         {
             if (!self.infoDict.TryGetValue(order, out long id))
