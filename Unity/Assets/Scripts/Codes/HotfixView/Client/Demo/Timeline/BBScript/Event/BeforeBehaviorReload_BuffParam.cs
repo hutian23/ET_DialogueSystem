@@ -1,4 +1,6 @@
-﻿namespace ET.Client
+﻿using MongoDB.Bson;
+
+namespace ET.Client
 {
     [Event(SceneType.Client)]
     [FriendOf(typeof (SkillBuffer))]
@@ -10,21 +12,20 @@
             Unit unit = Root.Instance.Get(args.instanceId) as Unit;
             TimelineComponent timelineComponent = unit.GetComponent<TimelineComponent>();
             BBParser bbParser = timelineComponent.GetComponent<BBParser>();
+            SkillBuffer buffer = timelineComponent.GetComponent<SkillBuffer>();
 
             //1. 记录CurrentOrder
             bbParser.RegistParam("CurrentOrder", args.behaviorOrder);
-
-            //2. 缓存TransitionFlag
-            SkillBuffer buffer = timelineComponent.GetComponent<SkillBuffer>();
-            foreach (string transitionFlag in buffer.transitionFlags)
+            
+            //2. 缓存共享变量
+            foreach (var kv in buffer.paramDict)
             {
-                bbParser.RegistParam($"Transition_{transitionFlag}", true);
+                SharedVariable variable = kv.Value;
+                bbParser.RegistParam(variable.name, variable.value);
             }
-
-            //3. 清空GCOptions
-            //TODO Clear Flag
+            buffer.ClearParam();
             buffer.GCOptions.Clear();
-
+            
             await ETTask.CompletedTask;
         }
     }

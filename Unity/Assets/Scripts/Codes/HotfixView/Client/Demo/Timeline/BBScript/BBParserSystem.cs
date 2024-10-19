@@ -121,8 +121,7 @@ namespace ET.Client
         {
             Status ret = await self.Invoke("Main", self.cancellationToken);
             self.Exit();
-            // 取消子协程
-            self.cancellationToken?.Cancel();
+            EventSystem.Instance.Invoke(new CancelBehaviorCallback() { instanceId = self.InstanceId });
             return ret;
         }
 
@@ -152,13 +151,6 @@ namespace ET.Client
             }
 
             ExitCoroutine().Coroutine();
-
-            //如果当前行为是正常执行完毕(没有被取消)，则回到默认状态
-            //TODO 这导致和SkillBufferComponent耦合，希望想到办法优化这里
-            if (!self.cancellationToken.IsCancel())
-            {
-                EventSystem.Instance.Invoke(new CancelBehaviorCallback() { instanceId = self.InstanceId });
-            }
         }
 
         public static int GetMarker(this BBParser self, string markerName)
@@ -285,6 +277,11 @@ namespace ET.Client
             return value;
         }
 
+        public static bool ContainParam(this BBParser self, string paramName)
+        {
+            return self.paramDict.ContainsKey(paramName);
+        }
+        
         public static void RemoveParam(this BBParser self, string paramName)
         {
             if (!self.paramDict.ContainsKey(paramName))

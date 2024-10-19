@@ -751,7 +751,7 @@ MonoBehaviour:
     #Transition: Idle ---> Squit
 
     BeginIf:
-    (Transition: ''TransitionToSquit'')
+    (TransitionCached: ''TransitionToSquit'')
 
     BBSprite: ''Mai_Squit_0'', 2;
 
@@ -802,6 +802,6 @@ MonoBehaviour:
     @Exit:
 
     SetTransition:
-    ''SquitToIdle'';
+    ''TransitionToIdle'';
 
     return;'

@@ -1,20 +1,15 @@
 ﻿namespace ET.Client
 {
     [Event(SceneType.Client)]
-    [FriendOf(typeof (InputWait))]
-    [FriendOf(typeof (b2Body))]
-    public class AfterBehaviorReload_UpdatePlayerBehavior: AEvent<AfterBehaviorReload>
+    [FriendOf(typeof(b2Body))]
+    [FriendOf(typeof(InputWait))]
+    public class Before_BehaviorReload_UpdateFlip : AEvent<BeforeBehaviorReload>
     {
-        protected override async ETTask Run(Scene scene, AfterBehaviorReload args)
+        protected override async ETTask Run(Scene scene, BeforeBehaviorReload args)
         {
             Unit unit = Root.Instance.Get(args.instanceId) as Unit;
-            SkillBuffer skillBuffer = unit.GetComponent<TimelineComponent>().GetComponent<SkillBuffer>();
             b2Body b2Body = b2GameManager.Instance.GetBody(unit.InstanceId);
             InputWait inputWait = unit.GetComponent<TimelineComponent>().GetComponent<InputWait>();
-
-            //1. 标记当前行为
-            skillBuffer.SetCurrentOrder(args.behaviorOrder);
-            skillBuffer.ClearTransition();
 
             //2. 转向
             var preFlag = b2Body.Flip;

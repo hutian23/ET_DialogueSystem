@@ -21,21 +21,12 @@ namespace ET.Client
                 return Status.Failed;
             }
 
+            await ETTask.CompletedTask;
+
             //string behaviorName ---> BehaviorOrder
             SkillBuffer buffer = parser.GetParent<TimelineComponent>().GetComponent<SkillBuffer>();
-            foreach (var kv in buffer.infoDict)
-            {
-                SkillInfo info = buffer.GetChild<SkillInfo>(kv.Value);
-                if (info.behaviorName.Equals(match.Groups["Option"].Value))
-                {
-                    buffer.GCOptions.Add(info.behaviorOrder);
-                    return Status.Success;
-                }
-            }
 
-            Log.Error($"does not exist behavior: {match.Groups["Option"].Value}");
-            await ETTask.CompletedTask;
-            return Status.Failed;
+            return buffer.ContainGCOption(match.Groups["Option"].Value)? Status.Success : Status.Failed;
         }
     }
 }

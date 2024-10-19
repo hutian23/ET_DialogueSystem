@@ -18,7 +18,9 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            parser.GetParent<TimelineComponent>().GetComponent<SkillBuffer>().SetTransition(match.Groups["transition"].Value);
+            parser.GetParent<TimelineComponent>()
+                    .GetComponent<SkillBuffer>()
+                    .RegistParam($"Transition_{match.Groups["transition"].Value}", true);
 
             await ETTask.CompletedTask;
             return Status.Success;

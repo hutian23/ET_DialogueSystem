@@ -19,7 +19,15 @@ namespace ET.Client
                 return false;
             }
             
-            return parser.GetParent<TimelineComponent>().GetComponent<SkillBuffer>().ContainTransition(match.Groups["transition"].Value);
+            string transitionFlag = $"Transition_{match.Groups["transition"].Value}";
+            SkillBuffer buffer = parser.GetParent<TimelineComponent>().GetComponent<SkillBuffer>();
+            if (!buffer.ContainParam(transitionFlag))
+            {
+                return false;
+            }
+
+            return buffer.GetParam<bool>($"Transition_{match.Groups["transition"].Value}");
+
         }
     }
 }

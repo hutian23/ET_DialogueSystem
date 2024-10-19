@@ -57,7 +57,7 @@ namespace ET.Client
                     }
 
                     //1. 加特林取消不能取消到该行为
-                    bool ret = (info.moveType > curInfo.moveType) || self.GCOptions.Contains(info.behaviorOrder);
+                    bool ret = (info.moveType > curInfo.moveType) || self.ContainGCOption(info.behaviorOrder);
                     if (!ret)
                     {
                         continue;
@@ -86,8 +86,8 @@ namespace ET.Client
             }
 
             self.infoDict.Clear();
-
-            self.transitionFlags.Clear();
+            self.GCOptions.Clear();
+            self.ClearParam();
             self.currentOrder = -1;
 
             var timelines = self.GetParent<TimelineComponent>()
@@ -114,41 +114,6 @@ namespace ET.Client
             self.CheckTimer = timerComponent.NewFrameTimer(BBTimerInvokeType.BehaviorCheckTimer, self);
         }
 
-        public static void ClearFlag(this SkillBuffer self)
-        {
-            self.flags.Clear();
-        }
-
-        public static void RemoveFlag(this SkillBuffer self, string flag)
-        {
-            self.flags.Remove(flag);
-        }
-
-        public static void AddFlag(this SkillBuffer self, string flag)
-        {
-            self.flags.Add(flag);
-        }
-
-        public static bool ContainFlag(this SkillBuffer self, string flag)
-        {
-            return self.flags.Contains(flag);
-        }
-
-        public static void SetTransition(this SkillBuffer self, string trans)
-        {
-            self.transitionFlags.Add(trans);
-        }
-
-        public static bool ContainTransition(this SkillBuffer self, string trans)
-        {
-            return self.transitionFlags.Contains(trans);
-        }
-
-        public static void ClearTransition(this SkillBuffer self)
-        {
-            self.transitionFlags.Clear();
-        }
-
         public static void SetCurrentOrder(this SkillBuffer self, int order)
         {
             self.currentOrder = order;
@@ -169,5 +134,106 @@ namespace ET.Client
 
             return self.GetChild<SkillInfo>(id);
         }
+
+        #region Param
+
+        public static T RegistParam<T>(this SkillBuffer self, string paramName, T value)
+        {
+            if (self.paramDict.ContainsKey(paramName))
+            {
+                Log.Error($"already contain params:{paramName}");
+                return default;
+            }
+
+            SharedVariable variable = SharedVariable.Create(paramName, value);
+            self.paramDict.Add(paramName, variable);
+            return value;
+        }
+
+        public static T GetParam<T>(this SkillBuffer self, string paramName)
+        {
+            if (!self.paramDict.ContainsKey(paramName))
+            {
+                Log.Error($"does not exist param:{paramName}!");
+                return default;
+            }
+
+            SharedVariable variable = self.paramDict[paramName];
+            if (variable.value is not T value)
+            {
+                Log.Error($"cannot format {variable.name} to {typeof (T)}");
+                return default;
+            }
+
+            return value;
+        }
+
+        public static bool ContainParam(this SkillBuffer self, string paramName)
+        {
+            return self.paramDict.ContainsKey(paramName);
+        }
+
+        public static void RemoveParam(this SkillBuffer self, string paramName)
+        {
+            if (!self.paramDict.ContainsKey(paramName))
+            {
+                Log.Error($"does not exist param:{paramName}!");
+                return;
+            }
+
+            self.paramDict[paramName].Recycle();
+            self.paramDict.Remove(paramName);
+        }
+
+        public static void ClearParam(this SkillBuffer self)
+        {
+            foreach (var kv in self.paramDict)
+            {
+                self.paramDict[kv.Key].Recycle();
+            }
+
+            self.paramDict.Clear();
+        }
+
+        #endregion
+
+        #region GCOption
+
+        public static void AddGCOption(this SkillBuffer self, string behaviorName)
+        {
+            foreach (var kv in self.infoDict)
+            {
+                SkillInfo info = self.GetChild<SkillInfo>(kv.Value);
+                if (info.behaviorName.Equals(behaviorName))
+                {
+                    self.GCOptions.Add(info.behaviorOrder);
+                    return;
+                }
+            }
+
+            Log.Error($"does not exist behavior: {behaviorName}");
+        }
+
+        private static bool ContainGCOption(this SkillBuffer self, int behaviorOrder)
+        {
+            return self.GCOptions.Contains(behaviorOrder);
+        }
+
+        public static bool ContainGCOption(this SkillBuffer self, string behaviorName)
+        {
+            int targetOrder = -1;
+            foreach (var kv in self.infoDict)
+            {
+                SkillInfo info = self.GetChild<SkillInfo>(kv.Value);
+                if (info.behaviorName.Equals(behaviorName))
+                {
+                    targetOrder = info.behaviorOrder;
+                }
+            }
+
+            return self.ContainGCOption(targetOrder);
+        }
+
+        #endregion
     }
 }

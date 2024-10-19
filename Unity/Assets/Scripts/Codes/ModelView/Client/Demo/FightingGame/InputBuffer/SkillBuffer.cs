@@ -16,8 +16,8 @@ namespace ET.Client
         //当前行为
         public int currentOrder;
 
-        public HashSet<string> flags = new();
-        public HashSet<string> transitionFlags = new();
+        //共享变量，当前行为中缓存的一些变量，重载行为时会把缓存的共享变量添加到BBParser组件中
+        public Dictionary<string, SharedVariable> paramDict = new();
         public HashSet<int> GCOptions = new();
     }
 }

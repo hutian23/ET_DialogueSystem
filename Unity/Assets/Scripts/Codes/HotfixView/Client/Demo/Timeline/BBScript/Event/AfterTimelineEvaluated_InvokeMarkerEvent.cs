@@ -3,7 +3,7 @@
 namespace ET.Client
 {
     [Event(SceneType.Current)]
-    public class AfterTimelineEvaluated_UpdateEventTrack: AEvent<AfterTimelineEvaluated>
+    public class AfterTimelineEvaluated_InvokeMarkerEvent: AEvent<AfterTimelineEvaluated>
     {
         protected override async ETTask Run(Scene scene, AfterTimelineEvaluated args)
         {
