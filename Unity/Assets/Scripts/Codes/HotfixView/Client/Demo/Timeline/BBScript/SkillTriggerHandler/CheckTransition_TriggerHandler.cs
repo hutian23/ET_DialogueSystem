@@ -26,7 +26,7 @@ namespace ET.Client
                 return false;
             }
 
-            return buffer.GetParam<bool>($"Transition_{match.Groups["transition"].Value}");
+            return buffer.GetParam<bool>(transitionFlag);
 
         }
     }

@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using Timeline;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     [FriendOf(typeof (SkillInfo))]
     [FriendOf(typeof (SkillBuffer))]
@@ -20,7 +17,7 @@ namespace ET.Client
                     SkillInfo info = self.GetChild<SkillInfo>(kv.Value);
                     //已经进入当前行为，不会重复检查进入条件
                     //比当前行为权值小的行为也不会进行检查
-                    if (info.order == self.currentOrder)
+                    if (info.behaviorOrder == self.currentOrder)
                     {
                         break;
                     }
@@ -28,9 +25,9 @@ namespace ET.Client
                     bool ret = info.SkillCheck();
                     if (ret)
                     {
-                        if (self.currentOrder != info.order)
+                        if (self.currentOrder != info.behaviorOrder)
                         {
-                            self.GetParent<TimelineComponent>().Reload(info.order);
+                            self.GetParent<TimelineComponent>().Reload(info.behaviorOrder);
                         }
 
                         break;
@@ -80,38 +77,7 @@ namespace ET.Client
 
         public static void Reload(this SkillBuffer self)
         {
-            foreach (var kv in self.infoDict)
-            {
-                self.RemoveChild(kv.Value);
-            }
-
-            self.infoDict.Clear();
-            self.GCOptions.Clear();
-            self.ClearParam();
-            self.currentOrder = -1;
-
-            var timelines = self.GetParent<TimelineComponent>()
-                    .GetTimelinePlayer().BBPlayable
-                    .GetTimelines()
-                    .ToList().OrderByDescending(timeline => timeline.order);
-
-            //根据behaviorOrder进行排序(降序)
-            //权值越高的行为越前检查
-            foreach (BBTimeline timeline in timelines)
-            {
-                SkillInfo info = self.AddChild<SkillInfo>();
-                info.LoadSkillInfo(timeline);
-                if (!self.infoDict.TryAdd(timeline.order, info.Id))
-                {
-                    Log.Error($"Already exist Behavior order: {timeline.order} --- {timeline.name}");
-                    return;
-                }
-            }
-
-            //启动检测定时器
-            BBTimerComponent timerComponent = self.GetParent<TimelineComponent>().GetComponent<BBTimerComponent>();
-            timerComponent.Remove(ref self.CheckTimer);
-            self.CheckTimer = timerComponent.NewFrameTimer(BBTimerInvokeType.BehaviorCheckTimer, self);
+            EventSystem.Instance.Invoke(new ReloadSkillBufferCallback() { instanceId = self.InstanceId });
         }
 
         public static void SetCurrentOrder(this SkillBuffer self, int order)
@@ -133,6 +99,11 @@ namespace ET.Client
             }
 
             return self.GetChild<SkillInfo>(id);
+        }
+
+        public static SkillInfo GetInfo(this SkillBuffer self, long infoId)
+        {
+            return self.GetChild<SkillInfo>(infoId);
         }
 
         #region Param
@@ -221,17 +192,7 @@ namespace ET.Client
 
         public static bool ContainGCOption(this SkillBuffer self, string behaviorName)
         {
-            int targetOrder = -1;
-            foreach (var kv in self.infoDict)
-            {
-                SkillInfo info = self.GetChild<SkillInfo>(kv.Value);
-                if (info.behaviorName.Equals(behaviorName))
-                {
-                    targetOrder = info.behaviorOrder;
-                }
-            }
-
-            return self.ContainGCOption(targetOrder);
+            return self.ContainGCOption(self.behaviorMap[behaviorName]);
         }
 
         #endregion

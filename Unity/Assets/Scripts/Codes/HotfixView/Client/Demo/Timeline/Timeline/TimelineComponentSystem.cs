@@ -105,6 +105,7 @@ namespace ET.Client
 
             parser.InitScript(timeline.Script);
             
+            //3. 切换行为前，初始化组件
             EventSystem.Instance.PublishAsync(self.DomainScene(),new BeforeBehaviorReload(){behaviorOrder = behaviorOrder,instanceId = self.GetParent<Unit>().InstanceId}).Coroutine();
             parser.Main().Coroutine();
             //4. 切换行为后，抛出事件更新组件

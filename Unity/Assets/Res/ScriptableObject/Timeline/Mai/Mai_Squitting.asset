@@ -802,6 +802,6 @@ MonoBehaviour:
     @Exit:
 
     SetTransition:
-    ''TransitionToIdle'';
+    ''SquitToIdle'';
 
     return;'

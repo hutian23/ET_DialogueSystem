@@ -21,12 +21,12 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            await ETTask.CompletedTask;
-
             //string behaviorName ---> BehaviorOrder
             SkillBuffer buffer = parser.GetParent<TimelineComponent>().GetComponent<SkillBuffer>();
+            buffer.AddGCOption(match.Groups["Option"].Value);
 
-            return buffer.ContainGCOption(match.Groups["Option"].Value)? Status.Success : Status.Failed;
+            await ETTask.CompletedTask;
+            return Status.Success;
         }
     }
 }

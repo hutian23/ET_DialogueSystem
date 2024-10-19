@@ -12,8 +12,8 @@
             InputWait inputWait = unit.GetComponent<TimelineComponent>().GetComponent<InputWait>();
 
             //2. 转向
-            var preFlag = b2Body.Flip;
-            var curFlag = preFlag;
+            FlipState preFlag = b2Body.Flip;
+            FlipState curFlag = preFlag;
 
             if ((inputWait.Ops & BBOperaType.LEFT) != 0)
             {

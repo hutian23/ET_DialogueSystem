@@ -2,26 +2,27 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof (SkillInfo))]
-    public class BehaviorName_BBScriptHandler: BBScriptHandler
+    public class SetDrive_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "Name";
+            return "SetDrive";
         }
 
+        //SetDrive: 'DashDrive';
+        //派生  dash ---> dashAttack
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"Name: '(?<BehaviorName>\w+)'");
+            Match match = Regex.Match(data.opLine, "SetDrive: '(?<drive>.*?)';");
             if (!match.Success)
             {
                 DialogueHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
-            SkillBuffer buffer = parser.GetParent<TimelineComponent>().GetComponent<SkillBuffer>();
-            SkillInfo info = buffer.GetChild<SkillInfo>(parser.GetParam<long>("InfoId"));
-            info.behaviorName = match.Groups["BehaviorName"].Value;
+            parser.GetParent<TimelineComponent>()
+                    .GetComponent<SkillBuffer>()
+                    .RegistParam($"Drive_{match.Groups["drive"].Value}", true);
 
             await ETTask.CompletedTask;
             return Status.Success;

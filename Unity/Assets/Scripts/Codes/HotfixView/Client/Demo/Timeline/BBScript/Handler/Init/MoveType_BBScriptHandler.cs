@@ -28,7 +28,7 @@ namespace ET.Client
             }
 
             SkillBuffer buffer = parser.GetParent<TimelineComponent>().GetComponent<SkillBuffer>();
-            SkillInfo info = buffer.GetInfo(parser.GetParam<int>("BehaviorOrder"));
+            SkillInfo info = buffer.GetChild<SkillInfo>(parser.GetParam<long>("InfoId"));
             info.moveType = moveType;
 
             await ETTask.CompletedTask;

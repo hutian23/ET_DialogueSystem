@@ -11,8 +11,6 @@ namespace ET.Client
         {
             protected override void Destroy(SkillInfo self)
             {
-                self.order = 0;
-                self.Timeline = null;
                 self.opLines.Clear();
                 self.moveType = MoveType.None;
                 self.behaviorOrder = 0;
@@ -22,9 +20,6 @@ namespace ET.Client
 
         public static void LoadSkillInfo(this SkillInfo self, BBTimeline timeline)
         {
-            self.Timeline = timeline;
-            self.order = timeline.order;
-
             string[] ops = timeline.Script.Split("\n");
             List<string> trims = new();
             foreach (string opline in ops)

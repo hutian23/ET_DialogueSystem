@@ -37,16 +37,13 @@
                 TimelineComponent timelineComponent = Root.Instance.Get(instanceId) as TimelineComponent;
                 BBTimerComponent bbTimer = timelineComponent.GetComponent<BBTimerComponent>();
                 SkillBuffer skillBuffer = timelineComponent.GetComponent<SkillBuffer>();
-                BBParser parser = timelineComponent.GetComponent<BBParser>();
                 InputWait inputWait = timelineComponent.GetComponent<InputWait>();
 
                 //1. 重载子组件, 考虑到执行的先后顺序
                 bbTimer.ReLoad();
-                skillBuffer.Reload();
                 inputWait.Reload();
-
-                //2. 执行各个行为的初始化协程
-                parser.Init();
+                skillBuffer.Reload();
+                
                 //3. 进入默认行为
                 timelineComponent.Reload(0); // Idle
             }

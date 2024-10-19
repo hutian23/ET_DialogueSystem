@@ -566,6 +566,8 @@ MonoBehaviour:
     InputType:
     LightPunch;
 
+    GCOption: ''Mai_GroundDash_Attack'';
+
     return;
 
 

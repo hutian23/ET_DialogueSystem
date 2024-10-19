@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using MongoDB.Bson;
 
 namespace ET.Client
 {
