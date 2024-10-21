@@ -10,5 +10,4 @@ namespace ET.Client
 
         public FixedUpdate fixedUpdate;
     }
-    
 }

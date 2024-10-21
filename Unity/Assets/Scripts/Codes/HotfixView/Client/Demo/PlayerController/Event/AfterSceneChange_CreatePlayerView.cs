@@ -28,8 +28,6 @@ namespace ET.Client
             timelineComponent.AddComponent<HitboxComponent>();
             timelineComponent.AddComponent<SkillBuffer>();
             timelineComponent.AddComponent<InputWait>();
-
-            //4. timeline相关的资源，需要在创建player时加载
         }
     }
 }

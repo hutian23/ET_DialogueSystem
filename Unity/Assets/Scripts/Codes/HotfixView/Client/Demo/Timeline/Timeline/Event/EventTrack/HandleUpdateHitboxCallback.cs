@@ -19,15 +19,15 @@ namespace ET.Client
             long unitId = timelineComponent.GetParent<Unit>().InstanceId;
             b2Body b2Body = b2GameManager.Instance.GetBody(unitId);
 
-            //1. Dispose old fixtures
-            for (int i = 0; i < b2Body.fixtures.Count; i++)
+            //1. Dispose old hitboxFixtures
+            for (int i = 0; i < b2Body.hitboxFixtures.Count; i++)
             {
-                Fixture fixture = b2Body.fixtures[i];
+                Fixture fixture = b2Body.hitboxFixtures[i];
                 b2Body.body.DestroyFixture(fixture);
             }
 
-            b2Body.fixtures.Clear();
-            //2. update fixtures
+            b2Body.hitboxFixtures.Clear();
+            //2. update hitboxFixtures
             foreach (BoxInfo info in args.Keyframe.boxInfos)
             {
                 PolygonShape shape = new();
@@ -41,7 +41,7 @@ namespace ET.Client
                     IsSensor = info.hitboxType is not HitboxType.Squash
                 };
                 Fixture fixture = b2Body.body.CreateFixture(fixtureDef);
-                b2Body.fixtures.Add(fixture);
+                b2Body.hitboxFixtures.Add(fixture);
             }
         }
     }

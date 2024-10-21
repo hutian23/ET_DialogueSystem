@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Box2DSharp.Dynamics;
+using NUnit.Framework;
 using Transform = Box2DSharp.Common.Transform;
 
 namespace ET.Client
@@ -21,6 +22,8 @@ namespace ET.Client
         public Transform trans;
 
         //当前帧建立的hitbox
+        public List<Fixture> hitboxFixtures = new();
+
         public List<Fixture> fixtures = new();
     }
 

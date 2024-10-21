@@ -3,7 +3,7 @@
     [Event(SceneType.Client)]
     [FriendOf(typeof(b2Body))]
     [FriendOf(typeof(InputWait))]
-    public class Before_BehaviorReload_UpdateFlip : AEvent<BeforeBehaviorReload>
+    public class BeforeBehaviorReload_UpdateFlip : AEvent<BeforeBehaviorReload>
     {
         protected override async ETTask Run(Scene scene, BeforeBehaviorReload args)
         {

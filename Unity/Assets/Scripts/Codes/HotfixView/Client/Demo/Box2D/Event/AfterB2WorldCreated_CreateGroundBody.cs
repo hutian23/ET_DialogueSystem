@@ -14,19 +14,19 @@ namespace ET.Client
             World World = args.B2World.World;
 
             //ground
-            var groundBodyDef = new BodyDef { BodyType = BodyType.StaticBody, Position = Vector2.Zero };
-            var groundBody = World.CreateBody(groundBodyDef);
-            var groundBox = new PolygonShape();
+            BodyDef groundBodyDef = new() { BodyType = BodyType.StaticBody, Position = Vector2.Zero, UserData = "Ground" };
+            Body groundBody = World.CreateBody(groundBodyDef);
+            PolygonShape groundBox = new();
             groundBox.SetAsBox(50f, 2.0f);
             groundBody.CreateFixture(groundBox, 0.0f);
-            
+
             //obstacle
             // var obstacleDef = new BodyDef() { BodyType = BodyType.StaticBody, Position = new Vector2(-5, 4f) };
             // var obstacleBody = World.CreateBody(obstacleDef);
             // var box = new PolygonShape();
             // box.SetAsBox(1f, 1f);
             // obstacleBody.CreateFixture(box, 0.0f);
-            
+
             await ETTask.CompletedTask;
         }
     }

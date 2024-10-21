@@ -2,7 +2,7 @@
 {
     [Invoke]
     [FriendOf(typeof(SkillBuffer))]
-    public class HandlerCancelBehaviorCallback : AInvokeHandler<CancelBehaviorCallback>
+    public class HandleCancelBehaviorCallback : AInvokeHandler<CancelBehaviorCallback>
     {
         public override void Handle(CancelBehaviorCallback args)
         {

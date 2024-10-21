@@ -3,6 +3,7 @@ using Box2DSharp.Collision.Collider;
 using Box2DSharp.Collision.Shapes;
 using Box2DSharp.Common;
 using Box2DSharp.Dynamics;
+using Box2DSharp.Dynamics.Contacts;
 using Testbed.Abstractions;
 using Timeline;
 using UnityEngine;
@@ -57,7 +58,7 @@ namespace ET
         public void SingleStep()
         {
             TimeStep = 1.0f / TestSettings.Hertz;
-            
+
             World.AllowSleep = TestSettings.EnableSleep;
             World.WarmStarting = TestSettings.EnableWarmStarting;
             World.SubStepping = TestSettings.EnableSubStepping;
@@ -67,6 +68,16 @@ namespace ET
             PreStep();
             World.Step(TimeStep, TestSettings.VelocityIterations, TestSettings.PositionIterations);
             PostStep();
+        }
+
+        public override void BeginContact(Contact contact)
+        {
+            EventSystem.Instance.Invoke(new BeginContact() { contact = contact });
+        }
+
+        public override void EndContact(Contact contact)
+        {
+            EventSystem.Instance.Invoke(new EndContact() { contact = contact });
         }
 
         #region Render
@@ -359,5 +370,15 @@ namespace ET
         }
 
         #endregion
+    }
+
+    public struct BeginContact
+    {
+        public Contact contact;
+    }
+
+    public struct EndContact
+    {
+        public Contact contact;
     }
 }

@@ -24,6 +24,7 @@ namespace ET.Client
         {
             protected override void Update(GameManager self)
             {
+                // Publish Event --->  Update Game
                 //Input
                 BBInputComponent.Instance.Update();
                 //Single step 

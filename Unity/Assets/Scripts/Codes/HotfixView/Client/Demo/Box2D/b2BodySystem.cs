@@ -1,4 +1,5 @@
-﻿using Box2DSharp.Testbed.Unity.Inspection;
+﻿using Box2DSharp.Dynamics;
+using Box2DSharp.Testbed.Unity.Inspection;
 using UnityEngine;
 using Transform = Box2DSharp.Common.Transform;
 
@@ -13,13 +14,14 @@ namespace ET.Client
             protected override void Destroy(b2Body self)
             {
                 self.unitId = 0;
+                self.hitboxFixtures.Clear();
                 self.fixtures.Clear();
                 self.body = null;
                 self.Flip = FlipState.Left;
                 self.UpdateFlag = false;
             }
         }
-        
+
         public static void SyncUnitTransform(this b2Body self)
         {
             Unit unit = Root.Instance.Get(self.unitId) as Unit;
@@ -45,6 +47,7 @@ namespace ET.Client
             {
                 EventSystem.Instance.Invoke(new UpdateFlipCallback() { instanceId = self.unitId });
             }
+
             self.UpdateFlag = false;
         }
 
@@ -73,6 +76,17 @@ namespace ET.Client
         public static void RemoveUpdateFlag(this b2Body self)
         {
             self.UpdateFlag = false;
+        }
+
+        public static void CreateFixture(this b2Body self, FixtureDef fixtureDef)
+        {
+            Fixture fixture = self.body.CreateFixture(fixtureDef);
+            self.fixtures.Add(fixture);
+        }
+
+        public static System.Numerics.Vector2 GetPosition(this b2Body self)
+        {
+            return self.body.GetPosition();
         }
     }
 }

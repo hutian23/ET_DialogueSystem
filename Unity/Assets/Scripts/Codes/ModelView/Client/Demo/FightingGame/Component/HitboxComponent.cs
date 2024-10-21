@@ -8,10 +8,5 @@ namespace ET.Client
     public class HitboxComponent: Entity, IAwake, IDestroy
     {
         public HitboxKeyframe keyFrame;
-        
-        //b2World
-        public Body B2Body;
-
-        public List<Fixture> Fixtures = new();
     }
 }

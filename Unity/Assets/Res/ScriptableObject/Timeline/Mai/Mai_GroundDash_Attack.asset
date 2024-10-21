@@ -549,7 +549,7 @@ MonoBehaviour:
   order: 802
   Script: '@Init:
 
-    RegistInput: LightPunch;
+    RegistInput: LightPunchPressed;
 
     MoveType: Special;
 
@@ -564,7 +564,7 @@ MonoBehaviour:
     @Trigger:
 
     InputType:
-    LightPunch;
+    LightPunchPressed;
 
     GCOption: ''Mai_GroundDash_Attack'';
 
