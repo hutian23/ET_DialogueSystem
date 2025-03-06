@@ -27,7 +27,6 @@ namespace ET.Client
                 return Status.Failed;
             }
             
-            
             Unit unit = parser.GetParent<Unit>();
             TimelineComponent timelineComponent = unit.GetComponent<TimelineComponent>();
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();

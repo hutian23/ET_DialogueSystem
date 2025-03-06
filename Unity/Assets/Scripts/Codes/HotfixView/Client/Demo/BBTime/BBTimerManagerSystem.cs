@@ -3,6 +3,7 @@
 namespace ET.Client
 {
     [FriendOf(typeof(BBTimerManager))]
+    [FriendOf(typeof(BBTimerComponent))]
     public static class BBTimerManagerSystem
     {
         public class BBTimerManagerAwakeSystem : AwakeSystem<BBTimerManager>
@@ -14,29 +15,29 @@ namespace ET.Client
                 self.Reload();
             }
         }
-        
+
         // 21462  166666
         public class BBTimerManagerUpdateSystem : UpdateSystem<BBTimerManager>
         {
             protected override void Update(BBTimerManager self)
             {
+                self.SceneTimer().SetHertz((int)(Global.Settings.TimeScale * 60));
+
                 long now = self._gameTimer.ElapsedTicks;
                 long Accumulator = now - self.LastTime;
                 self.LastTime = now;
-
-                self.SceneTimer().SetHertz((int)(Global.Settings.TimeScale * 60));
                 self.Step(Accumulator);
             }
         }
-        
+
         public class BBTimerManagerFrameLateUpdateSystem : FrameLateUpdateSystem<BBTimerManager>
         {
             protected override void FrameLateUpdate(BBTimerManager self)
-            { 
+            {
                 self.LateUpdateTimer().Step();
             }
         }
-        
+
         public class BBTimerManagerReloadSystem : LoadSystem<BBTimerManager>
         {
             protected override void Load(BBTimerManager self)
@@ -44,7 +45,7 @@ namespace ET.Client
                 self.Reload();
             }
         }
-        
+
         public static void Step(this BBTimerManager self)
         {
             long Accumulator = self.SceneTimer().GetFrameLength();
@@ -53,32 +54,42 @@ namespace ET.Client
 
         private static void Step(this BBTimerManager self, long Accumulator)
         {
-            //1. 场景计时器的定时器和异步任务
             BBTimerComponent sceneTimer = self.SceneTimer();
-            long preFrame = sceneTimer.GetNow();
-            sceneTimer.TimerUpdate(Accumulator);
-            long curFrame = sceneTimer.GetNow();
-            Global.Settings.StepCount = curFrame;
+            if (sceneTimer.Hertz == 0) return;
             
-            long Dt = curFrame - preFrame;
-            while (Dt-- > 0)
+            //TODO 同一帧内 sceneTimer的timeScale可能发生更改，会有什么影响吗？
+            long Dt = sceneTimer.GetFrameLength();
+            sceneTimer.Accumulator += Accumulator;
+            
+            while (sceneTimer.Accumulator >= Dt)
             {
-                //2. FrameUpdate 生命周期事件
+                sceneTimer.Accumulator -= Dt;
+             
+                //1. FrameUpdate 生命周期事件
                 EventSystem.Instance.FrameUpdate();
-                //3. Timeline相关 定时器和异步任务
+                
+                //2. sceneTimer更新逻辑帧
+                sceneTimer.Step();
+                Global.Settings.StepCount = sceneTimer.GetNow();
+                
+                //3. 取出unitTimer更新逻辑帧
                 int _Dt = self.instanceIds.Count;
                 while (_Dt-- > 0)
                 {
                     long instanceId = self.instanceIds.Dequeue();
-                    // 组件已经销毁
+                    // 组件已销毁，出列
                     BBTimerComponent bbTimer = Root.Instance.Get(instanceId) as BBTimerComponent;
                     if (bbTimer == null || bbTimer.InstanceId == 0) continue;
-                    bbTimer.TimerUpdate(166666);
                     self.instanceIds.Enqueue(instanceId);
+                    
+                    //SceneTimer逻辑帧帧长是固定的， 永远是 1 / 60 s
+                    bbTimer.TimerUpdate(166666);
                 }
+
                 //4. 物理层 PreStep PostStep生命周期事件
                 b2WorldManager.Instance.Step();
-                //5. LateUpdate生命周期事件
+                
+                //5. FrameLateUpdate生命周期事件
                 EventSystem.Instance.FrameLateUpdate();
             }
         }
@@ -90,7 +101,7 @@ namespace ET.Client
             self.instanceIds.Clear();
             self.LateUpdateTimer().Reload();
         }
-        
+
         public static BBTimerComponent SceneTimer(this BBTimerManager self)
         {
             BBTimerComponent sceneTimer = self.GetParent<Scene>().GetComponent<BBTimerComponent>();
@@ -101,18 +112,18 @@ namespace ET.Client
         {
             return self.GetChild<BBTimerComponent>(self.LateUpdateTimer);
         }
-        
+
         //管理timer
         public static void RegistTimer(this BBTimerManager self, long instanceId)
         {
             self.instanceIds.Enqueue(instanceId);
         }
-        
-        public static void Pause(this BBTimerManager self,bool pause)
+
+        public static void Pause(this BBTimerManager self, bool pause)
         {
             if (pause)
             {
-                self._gameTimer.Stop();   
+                self._gameTimer.Stop();
             }
             else
             {

@@ -22,4 +22,8 @@ namespace ET.Client
         HitStun = 6,
         Etc = 7
     }
+    
+    // 不需要维护MoveType了
+    // None = 0, Move = 1, Normal = 3, Special = 5, OverDrive = 6, HitStun = 1000, Etc = 1001;
+    // > 1000 为非控制器层
 }

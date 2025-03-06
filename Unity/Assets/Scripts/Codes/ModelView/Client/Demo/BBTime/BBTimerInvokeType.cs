@@ -48,6 +48,10 @@
         public const int ThrowCheckTimer = 315;
         public const int ThronesTestTimer = 700;
 
+        //BuffTimer
+        public const int BuffTestTimer = 1001;
+        
+        //Gizmos
         public const int CameraGizmosTimer = 2001;
     }
 }

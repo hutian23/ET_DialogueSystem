@@ -16,7 +16,6 @@ namespace ET.Client
         public Dictionary<int, long> behaviorOrderMap = new();
         public SortedSet<long> DescendInfoList = new(Comparer<long>.Create((x, y) => y.CompareTo(x))); //方便倒序获取行为信息组件
         public Dictionary<string, long> behaviorFlagDict = new();
-        
         public ETCancellationToken Token = new(); // 热更新时，负责初始化行为机执行中注册的变量
     }
 

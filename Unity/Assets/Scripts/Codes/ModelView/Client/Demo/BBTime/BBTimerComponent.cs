@@ -47,13 +47,9 @@ namespace ET.Client
     public class BBTimerComponent: Entity, IAwake, IDestroy, IUpdate, ILoad
     {
         public readonly MultiMap<long, long> TimerId = new();
-
         public readonly Queue<long> timeOutTime = new();
-
         public readonly Queue<long> timeOutTimerIds = new();
-
         public readonly Dictionary<long, BBTimerAction> timerActions = new();
-
         public long idGenerator;
 
         // 记录最小事件，不用每次都去MultiMap取第一个值

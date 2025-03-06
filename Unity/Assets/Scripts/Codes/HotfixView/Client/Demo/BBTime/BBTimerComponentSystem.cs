@@ -84,55 +84,13 @@ namespace ET.Client
             while (self.Accumulator >= Dt)
             {
                 self.Accumulator -= Dt;
-                ++self.curFrame;
-                
-                //当前帧没有可执行的定时器，就不进行遍历了
-                if (self.curFrame < self.minFrame)
-                {
-                    return;
-                }
-
-                foreach (long k in self.TimerId.Select(kv => kv.Key))
-                {
-                    // 设置定时器中的最小执行帧号
-                    if (k > self.curFrame)
-                    {
-                        self.minFrame = k;
-                        break;
-                    }
-
-                    self.timeOutTime.Enqueue(k);
-                }
-
-                while (self.timeOutTime.Count > 0)
-                {
-                    long time = self.timeOutTime.Dequeue();
-                    var list = self.TimerId[time];
-                    for (int i = 0; i < list.Count; i++)
-                    {
-                        long timerId = list[i];
-                        self.timeOutTimerIds.Enqueue(timerId);
-                    }
-
-                    self.TimerId.Remove(time);
-                }
-
-                while (self.timeOutTimerIds.Count > 0)
-                {
-                    long timerId = self.timeOutTimerIds.Dequeue();
-
-                    if (!self.timerActions.Remove(timerId, out BBTimerAction timerAction))
-                    {
-                        continue;
-                    }
-                    self.Run(timerAction);
-                }
+                self.Step();
             }
         }
 
-        public static void Step(this BBTimerComponent self)
+        public static void Step(this BBTimerComponent self, int stepCount = 1)
         {
-            self.curFrame++;
+            self.curFrame += stepCount;
             if (self.curFrame < self.minFrame)
             {
                 return;

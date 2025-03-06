@@ -23,7 +23,7 @@ namespace ET.Client
             Unit unit = parser.GetParent<Unit>();
             InputWait inputWait = unit.GetComponent<InputWait>();
             
-            inputWait.BufferFlag = match.Groups["InputBuffer"].Value.Equals("true")? true : false;
+            inputWait.BufferFlag = match.Groups["InputBuffer"].Value.Equals("true");
             token.Add(() =>
             {
                 inputWait.BufferFlag = false;

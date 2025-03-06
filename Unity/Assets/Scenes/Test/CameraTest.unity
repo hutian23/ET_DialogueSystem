@@ -907,6 +907,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1340376429761113669, guid: 6e320dafd0879e541927f3dbb8b97663,
         type: 3}
+      propertyPath: BBPlayable
+      value: 
+      objectReference: {fileID: 11400000, guid: 94b58ded95a18bf49958a695850fae83,
+        type: 2}
+    - target: {fileID: 1340376429761113669, guid: 6e320dafd0879e541927f3dbb8b97663,
+        type: 3}
+      propertyPath: CurrentTimeline
+      value: 
+      objectReference: {fileID: 11400000, guid: b458a6d3716ca96489f7794bcc0bb6d9,
+        type: 2}
+    - target: {fileID: 1340376429761113669, guid: 6e320dafd0879e541927f3dbb8b97663,
+        type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 1340376429761113669, guid: 6e320dafd0879e541927f3dbb8b97663,
@@ -921,6 +933,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dummy
       objectReference: {fileID: 0}
+    - target: {fileID: 4287713381951760773, guid: 6e320dafd0879e541927f3dbb8b97663,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4287713381951760774, guid: 6e320dafd0879e541927f3dbb8b97663,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -934,7 +951,7 @@ PrefabInstance:
     - target: {fileID: 4287713381951760774, guid: 6e320dafd0879e541927f3dbb8b97663,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4287713381951760774, guid: 6e320dafd0879e541927f3dbb8b97663,
         type: 3}
@@ -980,7 +997,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 234fc223273bb7b46961c6519aec1c5b,
+      objectReference: {fileID: -1331877821, guid: a714674fa1a745f47809580dd5aa27ef,
         type: 3}
     - target: {fileID: 4287713381951760775, guid: 6e320dafd0879e541927f3dbb8b97663,
         type: 3}

@@ -118,7 +118,6 @@ namespace ET.Client
                 ops |= BBOperaType.RT;
             }
             
-            
             //LB（组合键）
             if (gamepad.leftShoulder.isPressed)
             {

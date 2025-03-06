@@ -100,6 +100,8 @@ namespace Timeline
 
         [LabelText("大小: ")]
         public Vector2 size = Vector2.one;
+        
+        
     }
 
     //有点套娃 --- > Fixture.UserData ---> FixtureData ---> UserData

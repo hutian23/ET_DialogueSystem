@@ -124,7 +124,8 @@ return;
 @Main:
 SetVelocityX: 0;
 SetVelocityY: -1000;
-IdleAnim: Rg_IdleAnim, 300;
+# 设置一个待机行为，保持idle 300帧之后进入这个行为
+# IdleAnim: Rg_IdleAnim, 300;
 InputBuffer: true;
 CancelWindow: Default;
 SetMarker: 'Loop';
@@ -133,13 +134,14 @@ BBSprite: 'Idle_2', 4;
 BBSprite: 'Idle_3', 4;
 BBSprite: 'Idle_4', 4;
 BBSprite: 'Idle_5', 5;
-BBSprite: 'Idle_6', 5;
-BBSprite: 'Idle_7', 6;
+BBSprite: 'Idle_6', 6;
+BBSprite: 'Idle_7', 5;
 BBSprite: 'Idle_8', 4;
 BBSprite: 'Idle_9', 4;
 BBSprite: 'Idle_10', 4;
 BBSprite: 'Idle_11', 4;
 BBSprite: 'Idle_12', 4;
+BBSprite: 'Idle_13', 4;
 GotoMarker: 'Loop';
 Exit;
 
@@ -474,12 +476,14 @@ Exit;
 
 
 [Rg_6P]
+# 进入行为的判定条件
 @Trigger:
 InAir: false;
 InputType: 5LPPressed;
 return;
 
 @Main:
+# 打开输入缓冲
 InputBuffer: true;
 SetVelocityX: 0;
 BBSprite: 'Start_1', 3;
@@ -500,7 +504,7 @@ HitNotify: Once # 对于同一对象，在持续帧内仅造成一次攻击(Repe
   HitParam: Shake_Frame, 18;
   # 受击者帧冻结(HitStop)的总帧长
   HitParam: HitStopFrame, 18;
-  # HitStop结束后抛出的速度
+  # HitStop结束后抛出的速度(万分制)
   HitParam: StartV_X, -3000;
   HitParam: StartV_Y, 250000;
   # 受击时调整转向
@@ -518,6 +522,7 @@ BBSprite: 'Recovery_4', 3;
 BBSprite: 'Recovery_5', 3;
 BBSprite: 'Recovery_6', 3;
 BBSprite: 'Recovery_7', 3;
+# 退出行为
 Exit;
 
 [Rg_AirDash]
@@ -707,7 +712,6 @@ BBSprite: 'Active_2', 3;
 BBSprite: 'Active_3', 3;
 BBSprite: 'Recover_1', 4;
 # Recover
-LogWarning: 'Enable';
 BBSprite: 'Recover_2', 3;
 CancelOption: Rg_26C;
 CancelOption: Rg_24D_Derive;
