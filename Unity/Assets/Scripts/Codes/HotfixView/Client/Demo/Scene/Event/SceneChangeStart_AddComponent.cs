@@ -21,7 +21,6 @@ namespace ET.Client
             //管理输入
             currentScene.AddComponent<BBInputComponent>();
             //注册SceneTimer
-            currentScene.AddComponent<BBTimerComponent>();
             currentScene.AddComponent<CameraManager>();
             currentScene.AddComponent<EnemyManager>();
             currentScene.AddComponent<BallManager>();

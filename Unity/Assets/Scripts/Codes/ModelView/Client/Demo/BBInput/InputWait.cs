@@ -11,14 +11,14 @@ namespace ET.Client
         public long curOP;
         public const int MaxStack = 100;
         public Queue<InputInfo> infoQueue = new();
-        public List<InputInfo> infoList = new(); //将队列转成List
         public Queue<string> handleQueue = new();
         
-        public bool BufferFlag; // 设置输入缓冲区是否启动
         public Dictionary<string, long> BufferDict = new(); // 记录了输入缓冲有效的最大帧号
         public Dictionary<long, long> PressedDict = new();
         public Dictionary<long, bool> IsPressingDict = new();
         public Dictionary<long, long> PressingDict = new();
+
+        public long CheckInputTimer;
     }
     
     public struct InputInfo

@@ -17,7 +17,7 @@ namespace ET.Client
             parser.RemoveComponent<SceneBoxHandler>();
             
             unit.AddComponent<VirtualCamera>();
-            unit.AddComponent<BBTimerComponent>().IsFrameUpdateTimer();
+            unit.AddComponent<BBTimerComponent>().IsUnitTimer();
             parser.AddComponent<SceneBoxHandler>();
             b2WorldManager.Instance.CreateBody(unit.InstanceId, new BodyDef() { BodyType = BodyType.StaticBody });
             

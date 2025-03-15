@@ -37,7 +37,7 @@
             self.currentOrder = -1;
             self.behaviorOrderMap.Clear();
             self.behaviorNameMap.Clear();
-            self.DescendInfoList.Clear();
+            self.infoList.Clear();
             self.behaviorFlagDict.Clear();
         }
 

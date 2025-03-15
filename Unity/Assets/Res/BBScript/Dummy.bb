@@ -95,7 +95,8 @@ SetVelocityX: 0;
 SetVelocityY: 0;
 Gravity: 0;
 # 帧冻结
-HitStop: 0, {Self.HitStopFrame};
+# HitStop: 0, {Self.HitStopFrame};
+HitStop: 0, 20;
 BBSprite: 'Frame_1', 1;
 # 击飞效果
 SetVelocityX: {Self.StartV_X};

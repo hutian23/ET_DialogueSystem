@@ -20,10 +20,10 @@
         public const int GravityCheckTimer = 102;
         public const int AirMoveXTimer = 103;
         public const int HitPushBackTimer = 104;
-        public const int DefaultWindowTimer = 105;
-        public const int WhiffWindowTimer = 106;
-        public const int GCWindowTimer = 107;
-        public const int CancelWindowTimer = 108;
+        public const int NandemoCancelTimer = 105;
+        public const int GatlingCancelTimer = 106;
+        public const int WhiffCancelTimer = 107;
+        public const int DefaultCancelTimer = 108;
         public const int TransitionWindowTimer = 109;
         public const int LoopTimer = 111;
         public const int CallbackCheckTimer = 112;

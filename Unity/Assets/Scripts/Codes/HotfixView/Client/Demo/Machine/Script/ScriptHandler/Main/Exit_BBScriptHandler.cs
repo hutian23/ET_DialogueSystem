@@ -21,10 +21,10 @@
             if (token.IsCancel()) return Status.Failed;
             
             int targetOrder = 0;
-            foreach (long infoId in machine.DescendInfoList)
+            for(int i = machine.infoList.Count - 1; i >= 0; i--)
             {
-                BehaviorInfo info = machine.GetChild<BehaviorInfo>(infoId);
-                if (info.moveType is MoveType.HitStun || info.moveType is MoveType.Etc)
+                BehaviorInfo info = machine.GetChild<BehaviorInfo>(machine.infoList[i]);
+                if (info.moveType >= MoveType.Other)
                 {
                     continue;
                 }

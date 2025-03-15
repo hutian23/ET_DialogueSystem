@@ -1,22 +1,9 @@
-﻿using System.Linq;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     //https://www.zhihu.com/question/36951135/answer/69880133
     [FriendOf(typeof (InputWait))]
     public static class InputWaitSystem
     {
-        public class InputWaitFrameUpdateSystem: FrameUpdateSystem<InputWait>
-        {
-            protected override void FrameUpdate(InputWait self)
-            {
-                self.curOP = BBInputComponent.Instance.CheckInput();
-                self.UpdateInput(self.curOP);
-                self.UpdateKeyHistory(self.curOP);
-                self.UpdateBuffer();
-            }
-        }
-
         public class InputWaitAwakeSystem : AwakeSystem<InputWait>
         {
             protected override void Awake(InputWait self)
@@ -27,12 +14,13 @@ namespace ET.Client
 
         private static void Init(this InputWait self)
         {
+            BBTimerComponent sceneTimer = BBTimerManager.Instance.SceneTimer();
+            sceneTimer.Remove(ref self.CheckInputTimer);
+            self.CheckInputTimer = sceneTimer.NewFrameTimer(BBTimerInvokeType.CheckInput, self);
+            
             self.curOP = 0;
             self.infoQueue.Clear();
-            self.infoList.Clear();
             self.handleQueue.Clear();
-
-            self.BufferFlag = false;
             self.BufferDict.Clear();
             self.PressedDict.Clear();
             self.IsPressingDict.Clear();
@@ -112,49 +100,6 @@ namespace ET.Client
             self.PressingDict.Add(BBOperaType.MIDDLE, -1);
             self.IsPressingDict.Add(BBOperaType.MIDDLE, false);
         }
-
-        private static void UpdateKeyHistory(this InputWait self, long ops)
-        {
-            self.HandleKeyInput(ops, BBOperaType.X);
-            self.HandleKeyInput(ops, BBOperaType.A);
-            self.HandleKeyInput(ops, BBOperaType.Y);
-            self.HandleKeyInput(ops, BBOperaType.B);
-            self.HandleKeyInput(ops, BBOperaType.RB);
-            self.HandleKeyInput(ops, BBOperaType.RT);
-            self.HandleKeyInput(ops, BBOperaType.LB);
-            self.HandleKeyInput(ops, BBOperaType.LT);
-            self.HandleKeyInput(ops, BBOperaType.DOWNLEFT);
-            self.HandleKeyInput(ops, BBOperaType.LEFT);
-            self.HandleKeyInput(ops, BBOperaType.UPLEFT);
-            self.HandleKeyInput(ops, BBOperaType.UP);
-            self.HandleKeyInput(ops, BBOperaType.UPRIGHT);
-            self.HandleKeyInput(ops, BBOperaType.RIGHT);
-            self.HandleKeyInput(ops, BBOperaType.DOWNRIGHT);
-            self.HandleKeyInput(ops, BBOperaType.DOWN);
-            self.HandleKeyInput(ops, BBOperaType.MIDDLE);
-        }
-        
-        private static void HandleKeyInput(this InputWait self, long ops, int operaType)
-        {
-            BBTimerComponent sceneTimer = BBTimerManager.Instance.SceneTimer();
-            bool ret = (ops & operaType) != 0;
-            if (ret)
-            {
-                //按键持续按住
-                self.PressingDict[operaType] = sceneTimer.GetNow();
-                //记录按键哪一帧按下
-                if (!self.IsPressingDict[operaType])
-                {
-                    self.PressedDict[operaType] = sceneTimer.GetNow();
-                }
-                //按键处于按住状态
-                self.IsPressingDict[operaType] = true;
-            }
-            else
-            {
-                self.IsPressingDict[operaType] = false;
-            }
-        }
         
         public static bool WasPressedThisFrame(this InputWait self, long operaType)
         {
@@ -208,47 +153,28 @@ namespace ET.Client
         
         #endregion
 
-        private static void UpdateInput(this InputWait self,long ops)
+        public static void HandleKeyInput(this InputWait self, long ops, int operaType)
         {
-            self.infoQueue.Enqueue(new InputInfo() { op = ops, frame = BBTimerManager.Instance.SceneTimer().GetNow() });
-            
-            //超出容量部分出列
-            int count = self.infoQueue.Count;
-            while (count-- > InputWait.MaxStack)
+            BBTimerComponent sceneTimer = BBTimerManager.Instance.SceneTimer();
+            bool ret = (ops & operaType) != 0;
+            if (ret)
             {
-                self.infoQueue.Dequeue();
+                //按键持续按住
+                self.PressingDict[operaType] = sceneTimer.GetNow();
+                //记录按键哪一帧按下
+                if (!self.IsPressingDict[operaType])
+                {
+                    self.PressedDict[operaType] = sceneTimer.GetNow();
+                }
+                //按键处于按住状态
+                self.IsPressingDict[operaType] = true;
             }
-            self.infoList = self.infoQueue.ToList();
-        }
-
-        private static void UpdateBuffer(this InputWait self)
-        {
-            //输入缓冲区并未打开
-            if (!self.BufferFlag) return;
-            
-            //RootInit中将InputHandler添加到队列中
-            int count = self.handleQueue.Count;
-            while (count -- > 0)
+            else
             {
-                string handlerName = self.handleQueue.Dequeue();
-                self.handleQueue.Enqueue(handlerName);
-             
-                //找到对应handler
-                InputHandler handler = ScriptDispatcherComponent.Instance.GetInputHandler(handlerName);
-                string bufferType = handler.GetBufferType(); //缓冲类型
-                
-                //更新缓冲最大有效帧
-                long buffFrame = handler.Handle(self);
-                if (!self.BufferDict.ContainsKey(bufferType))
-                {
-                    self.BufferDict.TryAdd(bufferType, -1);
-                }
-                if (buffFrame > self.BufferDict[bufferType])
-                {
-                    self.BufferDict[bufferType] = buffFrame;
-                }
+                self.IsPressingDict[operaType] = false;
             }
         }
+        
         
         public static bool ContainKey(this InputWait self, long op)
         {
@@ -262,13 +188,6 @@ namespace ET.Client
                 return false;
             }
             return timeOutFrame >= curFrame;
-        }
-        
-        public static long GetBuffFrame(this InputWait self, int buffFrame)
-        {
-            // BBTimerComponent bbTimer = self.GetParent<Unit>().GetComponent<BBTimerComponent>();
-            // return bbTimer.GetNow() + buffFrame;
-            return BBTimerManager.Instance.SceneTimer().GetNow() + buffFrame;
         }
     }
 }

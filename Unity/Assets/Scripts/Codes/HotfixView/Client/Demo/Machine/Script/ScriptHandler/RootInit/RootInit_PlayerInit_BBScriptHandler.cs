@@ -22,7 +22,7 @@
             
             //2. 添加需要的组件
             player.AddComponent<TimelineComponent>();
-            player.AddComponent<BBTimerComponent>().IsFrameUpdateTimer();
+            player.AddComponent<BBTimerComponent>().IsUnitTimer();
             player.AddComponent<BBNumeric>();
             player.AddComponent<BehaviorMachine>();
             player.AddComponent<B2Unit, long>(player.InstanceId);

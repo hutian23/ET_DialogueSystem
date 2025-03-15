@@ -40,66 +40,66 @@ RegistInput: JumpCancel;
 RegistMove: (Rg_Idle)
   MoveType: None;
   EndMove:
-RegistMove: (Rg_Land)
-  MoveType: Move;
-  EndMove:
+# RegistMove: (Rg_Land)
+#   MoveType: Move;
+#   EndMove:
 RegistMove: (Rg_Run)
   MoveType: Move;
   EndMove:
-RegistMove: (Rg_Squit)
-  MoveType: Move;
-  EndMove:
-RegistMove: (Rg_AirBrone)
-  MoveType: Move;
-  EndMove:
+# RegistMove: (Rg_Squit)
+#   MoveType: Move;
+#   EndMove:
+# RegistMove: (Rg_AirBrone)
+#   MoveType: Move;
+#   EndMove:
 RegistMove: (Rg_Jump)
   MoveType: Move;
   EndMove:
-RegistMove: (Rg_JumpCancel)
-  MoveType: Move;
-  EndMove:
-# RegistMove: (Rg_5B)
-#   MoveType: Normal;
+# RegistMove: (Rg_JumpCancel)
+#   MoveType: Move;
 #   EndMove:
-RegistMove: (Rg_6P)
+RegistMove: (Rg_5B)
   MoveType: Normal;
   EndMove:
+# RegistMove: (Rg_6P)
+#   MoveType: Normal;
+#   EndMove:
 # RegistMove: (Rg_5C)
 #   MoveType: Normal;
 #   EndMove:
-RegistMove: (Rg_AirDash)
-  MoveType: Normal;
-  EndMove:
+# RegistMove: (Rg_AirDash)
+#   MoveType: Normal;
+#   EndMove:
 RegistMove: (Rg_GroundDash)
   MoveType: Normal;
   EndMove:
-RegistMove: (Rg_24D)
-  MoveType: Special;
-  EndMove:
-RegistMove: (Rg_24D_Derive)
-  MoveType: Special;
-  EndMove:
-RegistMove: (Rg_26C)
-  MoveType: Special;
-  EndMove:
-RegistMove: (Rg_24A)
-  MoveType: Special;
-  EndMove:
+# RegistMove: (Rg_24D)
+#   MoveType: Special;
+#   EndMove:
+# RegistMove: (Rg_24D_Derive)
+#   MoveType: Special;
+#   EndMove:
+# RegistMove: (Rg_26C)
+#   MoveType: Special;
+#   EndMove:
+# RegistMove: (Rg_24A)
+#   MoveType: Special;
+#   EndMove:
 # RegistMove: (Rg_Super)
 #   MoveType: Special;
 #   EndMove:
-RegistMove: (Rg_Super2)
-  MoveType: Special;
-  EndMove:
-RegistMove: (Rg_PlungingAttack)
-  MoveType: Special;
-  EndMove:
-RegistMove: (Rg_QuickFall)
-  MoveType: Special;
-  EndMove:
-RegistMove: (Rg_IdleAnim)
-  MoveType: Etc;
-  EndMove:
+# RegistMove: (Rg_Super2)
+#   MoveType: Special;
+#   EndMove:
+# RegistMove: (Rg_PlungingAttack)
+#   MoveType: Special;
+#   EndMove:
+# RegistMove: (Rg_QuickFall)
+#   MoveType: Special;
+#   EndMove:
+# RegistMove: (Rg_IdleAnim)
+#   MoveType: Etc;
+#   EndMove:
 GotoBehavior: 'Rg_Idle';
 return;
 
@@ -126,8 +126,7 @@ SetVelocityX: 0;
 SetVelocityY: -1000;
 # 设置一个待机行为，保持idle 300帧之后进入这个行为
 # IdleAnim: Rg_IdleAnim, 300;
-InputBuffer: true;
-CancelWindow: Default;
+EnableDefaultCancel: true;
 SetMarker: 'Loop';
 BBSprite: 'Idle_1', 4;
 BBSprite: 'Idle_2', 4;
@@ -152,7 +151,6 @@ return;
 
 @Main:
 SetVelocityX: 0;
-InputBuffer: true;
 CancelWindow: Default;
 BeginIf: (LandVelocity: 400000)
   # ScreenShakeX: 0, 120, 30000, 15;
@@ -173,8 +171,7 @@ return;
 @Main:
 #PreRun
 UpdateFlip: Repeat;
-InputBuffer: true;
-CancelWindow: Default;
+EnableDefaultCancel: true;
 MoveX: 130000;
 BBSprite: 'PreRun_1', 2;
 BBSprite: 'PreRun_2', 2;
@@ -187,13 +184,13 @@ BeginLoop: (InputType: RunHold)
   BBSprite: 'Run_5', 4;
   BBSprite: 'Run_6', 4;
   EndLoop:
+#RunToIdle
 CancelMoveX;
 SetVelocityX: 50000;
 BBSprite: 'RunToIdle_1', 3;
 BBSprite: 'RunToIdle_2', 3;
 SetVelocityX: 0;
 BBSprite: 'RunToIdle_3', 3;
-CancelWindow: Transition;
 BBSprite: 'RunToIdle_4', 3;
 Exit;
 
@@ -207,7 +204,6 @@ return;
 @Main:
 SetVelocityX: 0;
 UpdateFlip: Repeat;
-InputBuffer: true;
 CancelWindow: Default;
 BeginIf: (TransitionCached: 'NoPreSquat', false)
   BBSprite: 'PreSquit_1', 2;
@@ -240,7 +236,6 @@ InAir: true;
 return;
 
 @Main:
-InputBuffer: true;
 CancelWindow: Default;
 UpdateFlip: Repeat;
 Gravity: 100000;
@@ -272,7 +267,6 @@ BeginIf: (InAir: false)
   BBSprite: 'PreJump_2', 2;
   EndIf:
 # Jump
-InputBuffer: true; 
 UpdateFlip: Repeat;
 Gravity: 0;
 AirMoveX: 150000;
@@ -282,8 +276,8 @@ BBSprite: 'Jump_1', 3;
 BBSprite: 'Jump_2', 3;
 BBSprite: 'Jump_1', 3;
 # Jump Cancel
-CancelWindow: Gatling;
-CancelOption: Rg_Jump;
+# CancelWindow: Gatling;
+# CancelOption: Rg_Jump;
 Gravity: 100000;
 BBSprite: 'Jump_2', 3;
 BBSprite: 'Jump_1', 3;
@@ -352,28 +346,6 @@ return;
 
 @Main:
 ApplyRootMotion: true;
-MarkerEvent: (Whiff_Start)
-  InputBuffer: true;
-  CancelWindow: Whiff;
-  CancelOption: Rg_GroundDash;
-  EndMarkerEvent:
-# MarkerEvent: (Hit_Start)
-#   HurtNotify: Once
-#     ShakeX: 1000, 40000, 10;
-#     ScreenShakeX: 800, 20000, 10;
-#     Hit_UpdateFlip;
-#     HitStop: 15, 10;
-#     HitParam: ShakeX_Length, 5000;
-#     HitParam: ShakeX_Frequency, 50000;
-#     HitParam: ShakeX_Frame, 12;
-#     HitParam: HitStopFrame, 12;
-#     HitStun: Hurt2;
-#     EndNotify:
-#   EndMarkerEvent:
-MarkerEvent: (Whiff_End)
-  CancelWindow: Gatling;
-  CancelOption: Rg_5C;
-  EndMarkerEvent:
 StartTimeline;
 Exit;
 
@@ -562,21 +534,23 @@ Numeric: DashCount > 0;
 return;
 
 @Main:
-InputBuffer: true;
 SetVelocityY: 0;
 SetVelocityX: 350000;
 Gravity: 100000;
 NumericAdd: DashCount, -1;
 BBSprite: 'Dash_1', 3;
 BBSprite: 'Dash_2', 3;
-CancelWindow: Gatling;
-CancelOption: Rg_Jump;
+EnableGatlingCancel: true;
+GCOption: Rg_Jump;
+# CancelWindow: Gatling;
+# CancelOption: Rg_Jump;
 BBSprite: 'Dash_1', 3;
 BBSprite: 'Dash_2', 3;
 SetVelocityX: 200000;
 BBSprite: 'Dash_1', 3;
 SetVelocityX: 100000;
-CancelOption: Rg_GroundDash;
+# CancelOption: Rg_GroundDash;
+EnableGatlingCancel: false;
 BBSprite: 'DashEnd_1', 3;
 SetVelocityX: 50000;
 BBSprite: 'DashEnd_1', 6;
@@ -584,7 +558,7 @@ BBSprite: 'DashEnd_2', 3;
 SetVelocityX: 0;
 BBSprite: 'DashEnd_3', 1;
 SetTransition: 'NoPreSquat';
-CancelWindow: Transition;
+# CancelWindow: Transition;
 BBSprite: 'DashEnd_3', 2;
 BBSprite: 'DashEnd_4', 3;
 BBSprite: 'DashEnd_5', 3;

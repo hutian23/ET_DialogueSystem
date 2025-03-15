@@ -59,7 +59,7 @@ namespace ET.Client
             self.idGenerator = 0;
             
             //重新注册进BBTimerManager
-            if (self.IsFrameUpdate)
+            if (self.IsUnitTimer)
             {
                 BBTimerManager.Instance.RegistTimer(self.InstanceId);
             }
@@ -68,7 +68,7 @@ namespace ET.Client
         public static long GetFrameLength(this BBTimerComponent self)
         {
             //Hertz = 0, 完全静止
-            return self.Hertz == 0 ? 0 : (long)(1f / self.Hertz * 10000000);
+            return self.Hertz == 0 ? 0 : 10000000 / self.Hertz;
         }
 
         public static void TimerUpdate(this BBTimerComponent self, long accumulator)
@@ -91,6 +91,14 @@ namespace ET.Client
         public static void Step(this BBTimerComponent self, int stepCount = 1)
         {
             self.curFrame += stepCount;
+            
+            // 当前没有定时任务
+            if (self.TimerId.Count == 0)
+            {
+                return;
+            }
+            
+            // 当前帧小于最小定时任务的目标帧
             if (self.curFrame < self.minFrame)
             {
                 return;
@@ -303,9 +311,9 @@ namespace ET.Client
             return self.Hertz;
         }
 
-        public static void IsFrameUpdateTimer(this BBTimerComponent self)
+        public static void IsUnitTimer(this BBTimerComponent self)
         {
-            self.IsFrameUpdate = true;
+            self.IsUnitTimer = true;
             BBTimerManager.Instance.RegistTimer(self.InstanceId);
         }
     }

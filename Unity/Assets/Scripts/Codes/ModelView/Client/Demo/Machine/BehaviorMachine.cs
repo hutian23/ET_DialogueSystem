@@ -14,7 +14,7 @@ namespace ET.Client
         public Dictionary<string, SharedVariable> tmpParamDict = new(); // 临时变量，当前行为携程中注册，下个行为协程可用
         public Dictionary<string, long> behaviorNameMap = new();
         public Dictionary<int, long> behaviorOrderMap = new();
-        public SortedSet<long> DescendInfoList = new(Comparer<long>.Create((x, y) => y.CompareTo(x))); //方便倒序获取行为信息组件
+        public List<long> infoList = new();
         public Dictionary<string, long> behaviorFlagDict = new();
         public ETCancellationToken Token = new(); // 热更新时，负责初始化行为机执行中注册的变量
     }

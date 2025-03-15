@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ET.Client
 {
-    [Serializable]
     public class BBTimerAction
     {
         public long Id;
@@ -46,6 +44,11 @@ namespace ET.Client
     [ComponentOf]
     public class BBTimerComponent: Entity, IAwake, IDestroy, IUpdate, ILoad
     {
+        /// <summary>
+        /// 内部实现为红黑树排序的字典 SortedDictionary (T, List K) 
+        /// T: 目标帧号
+        /// List K: BBTimerAction.Id的列表
+        /// </summary>
         public readonly MultiMap<long, long> TimerId = new();
         public readonly Queue<long> timeOutTime = new();
         public readonly Queue<long> timeOutTimerIds = new();
@@ -62,6 +65,6 @@ namespace ET.Client
         
         //BBTimerManager组件管理，每帧都会更新
         //一些特殊的Timer，比如SceneTimer, PostStepTimer, PreStepTimer,更新逻辑跟其父组件有关，不需要BBTimerManager管理
-        public bool IsFrameUpdate;
+        public bool IsUnitTimer;
     }
 }

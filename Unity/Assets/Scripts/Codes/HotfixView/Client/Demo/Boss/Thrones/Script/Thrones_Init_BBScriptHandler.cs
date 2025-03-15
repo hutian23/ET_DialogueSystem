@@ -16,7 +16,7 @@ namespace ET.Client
             //1. 添加依赖的组件
             Unit unit = parser.GetParent<Unit>();
             unit.RemoveComponent<BBTimerComponent>();
-            unit.AddComponent<BBTimerComponent>().IsFrameUpdateTimer();
+            unit.AddComponent<BBTimerComponent>().IsUnitTimer();
             
             //2. 缓存子unit的instanceId
             GameObject go = unit.GetComponent<GameObjectComponent>().GameObject;

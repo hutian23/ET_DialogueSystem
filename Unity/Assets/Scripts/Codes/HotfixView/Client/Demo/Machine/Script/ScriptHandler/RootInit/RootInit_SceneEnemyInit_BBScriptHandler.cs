@@ -17,7 +17,7 @@
 
             //2. 行为机相关组件
             enemy.AddComponent<TimelineComponent>();
-            enemy.AddComponent<BBTimerComponent>().IsFrameUpdateTimer();
+            enemy.AddComponent<BBTimerComponent>().IsUnitTimer();
             enemy.AddComponent<BBNumeric>();
             enemy.AddComponent<B2Unit, long>(enemy.InstanceId);
             enemy.AddComponent<ObjectWait>();

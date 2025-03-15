@@ -19,8 +19,9 @@ namespace ET.Client
         Normal = 3,
         Special = 4,
         Super = 5,
-        HitStun = 6,
-        Etc = 7
+        Other = 100, // 非玩家可控制的动作
+        HitStun = 101,
+        Etc = 102
     }
     
     // 不需要维护MoveType了

@@ -1,4 +1,5 @@
-﻿using Testbed.Abstractions;
+﻿using System;
+using Testbed.Abstractions;
 
 namespace ET.Client
 {
@@ -11,6 +12,7 @@ namespace ET.Client
             protected override void Awake(BBTimerManager self)
             {
                 BBTimerManager.Instance = self;
+                self.SceneTimer = self.AddChild<BBTimerComponent>().Id;
                 self.LateUpdateTimer = self.AddChild<BBTimerComponent>().Id;
                 self.Reload();
             }
@@ -23,9 +25,11 @@ namespace ET.Client
             {
                 self.SceneTimer().SetHertz((int)(Global.Settings.TimeScale * 60));
 
+                // 发生卡顿时，不希望进行追帧，1次Update最多更新1帧
                 long now = self._gameTimer.ElapsedTicks;
-                long Accumulator = now - self.LastTime;
+                long Accumulator = Math.Clamp(now - self.LastTime, 0 , self.SceneTimer().GetFrameLength());
                 self.LastTime = now;
+                
                 self.Step(Accumulator);
             }
         }
@@ -57,7 +61,6 @@ namespace ET.Client
             BBTimerComponent sceneTimer = self.SceneTimer();
             if (sceneTimer.Hertz == 0) return;
             
-            //TODO 同一帧内 sceneTimer的timeScale可能发生更改，会有什么影响吗？
             long Dt = sceneTimer.GetFrameLength();
             sceneTimer.Accumulator += Accumulator;
             
@@ -104,8 +107,9 @@ namespace ET.Client
 
         public static BBTimerComponent SceneTimer(this BBTimerManager self)
         {
-            BBTimerComponent sceneTimer = self.GetParent<Scene>().GetComponent<BBTimerComponent>();
-            return sceneTimer;
+            // BBTimerComponent sceneTimer = self.GetParent<Scene>().GetComponent<BBTimerComponent>();
+            // return sceneTimer;
+            return self.GetChild<BBTimerComponent>(self.SceneTimer);
         }
 
         public static BBTimerComponent LateUpdateTimer(this BBTimerManager self)

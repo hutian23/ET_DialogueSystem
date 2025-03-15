@@ -183,7 +183,6 @@ namespace ET
                     {
                         throw new Exception($"action type duplicate: {iInvoke.Type.Name} {invokeAttribute.Type}", e);
                     }
-                    
                 }
             }
         }

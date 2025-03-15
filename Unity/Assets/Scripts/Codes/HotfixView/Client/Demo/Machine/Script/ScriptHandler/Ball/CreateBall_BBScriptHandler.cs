@@ -36,7 +36,7 @@ namespace ET.Client
 
             //3. 添加组件
             // TimelineComponent timelineComponent = ball.AddComponent<TimelineComponent>();
-            // timelineComponent.AddComponent<BBTimerComponent>().IsFrameUpdateTimer();
+            // timelineComponent.AddComponent<BBTimerComponent>().IsUnitTimer();
             // timelineComponent.AddComponent<b2Unit, long>(ball.InstanceId);
             // timelineComponent.AddComponent<ObjectWait>();
             // timelineComponent.AddComponent<BehaviorBuffer>();

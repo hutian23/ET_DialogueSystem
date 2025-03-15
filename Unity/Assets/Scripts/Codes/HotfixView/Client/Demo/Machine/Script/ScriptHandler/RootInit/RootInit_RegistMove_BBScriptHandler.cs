@@ -35,7 +35,7 @@ namespace ET.Client
             info.behaviorName = match.Groups["behaviorName"].Value;
             machine.behaviorNameMap.Add(info.behaviorName,info.Id); //快速访问到组件
             machine.behaviorOrderMap.Add(info.behaviorOrder, info.Id);
-            machine.DescendInfoList.Add(info.Id);
+            machine.infoList.Add(info.Id);
             
             //3. 跳过Move代码块
             int index = parser.Coroutine_Pointers[data.CoroutineID];

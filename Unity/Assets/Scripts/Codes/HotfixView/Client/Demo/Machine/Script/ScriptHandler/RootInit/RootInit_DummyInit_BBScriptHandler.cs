@@ -21,7 +21,7 @@
 
             //2. 添加依赖的组件
             dummy.AddComponent<TimelineComponent>();
-            dummy.AddComponent<BBTimerComponent>().IsFrameUpdateTimer();
+            dummy.AddComponent<BBTimerComponent>().IsUnitTimer();
             dummy.AddComponent<BBNumeric>();
             dummy.AddComponent<BehaviorMachine>();
             dummy.AddComponent<B2Unit, long>(dummy.InstanceId);

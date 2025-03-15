@@ -66,8 +66,6 @@ namespace ET
             
             IsLocked = false;
             EventSystem.Instance.Invoke(new PostStepCallback());
-            
-            //FrameUpdate期间添加绘制曲线， PostStep中清空绘制的曲线(否则会出现曲线闪烁的问题)
         }
         
         public override void BeginContact(Contact contact)
