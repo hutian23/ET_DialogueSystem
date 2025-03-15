@@ -31,11 +31,10 @@ namespace ET.Client
                     currentOrder = info.behaviorOrder;
                 }
             } 
-            if (currentOrder != -1)
+            if (currentOrder == -1)
             {
                 return;
             }
-            
 
             //2. 关闭取消窗口
             long timer = bbParser.GetParam<long>("WhiffCancel_Timer");

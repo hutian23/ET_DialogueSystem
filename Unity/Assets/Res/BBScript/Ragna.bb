@@ -40,18 +40,18 @@ RegistInput: JumpCancel;
 RegistMove: (Rg_Idle)
   MoveType: None;
   EndMove:
-# RegistMove: (Rg_Land)
-#   MoveType: Move;
-#   EndMove:
+RegistMove: (Rg_Land)
+  MoveType: Move;
+  EndMove:
 RegistMove: (Rg_Run)
   MoveType: Move;
   EndMove:
-# RegistMove: (Rg_Squit)
-#   MoveType: Move;
-#   EndMove:
-# RegistMove: (Rg_AirBrone)
-#   MoveType: Move;
-#   EndMove:
+RegistMove: (Rg_Squit)
+  MoveType: Move;
+  EndMove:
+RegistMove: (Rg_AirBrone)
+  MoveType: Move;
+  EndMove:
 RegistMove: (Rg_Jump)
   MoveType: Move;
   EndMove:
@@ -91,9 +91,9 @@ RegistMove: (Rg_GroundDash)
 # RegistMove: (Rg_Super2)
 #   MoveType: Special;
 #   EndMove:
-# RegistMove: (Rg_PlungingAttack)
-#   MoveType: Special;
-#   EndMove:
+RegistMove: (Rg_PlungingAttack)
+  MoveType: Special;
+  EndMove:
 # RegistMove: (Rg_QuickFall)
 #   MoveType: Special;
 #   EndMove:
@@ -151,7 +151,7 @@ return;
 
 @Main:
 SetVelocityX: 0;
-CancelWindow: Default;
+EnableDefaultCancel: true;
 BeginIf: (LandVelocity: 400000)
   # ScreenShakeX: 0, 120, 30000, 15;
   BBSprite: 'MiddleLand_1', 3;
@@ -204,7 +204,7 @@ return;
 @Main:
 SetVelocityX: 0;
 UpdateFlip: Repeat;
-CancelWindow: Default;
+EnableDefaultCancel: true;
 BeginIf: (TransitionCached: 'NoPreSquat', false)
   BBSprite: 'PreSquit_1', 2;
   BBSprite: 'PreSquit_2', 2;
@@ -225,7 +225,7 @@ BeginLoop: (InputType: SquatHold)
   BBSprite: 'Squit_2', 4;
   EndLoop:
 RemoveTransition: 'SquatToJump';
-CancelWindow: Transition;
+# CancelWindow: Transition;
 BBSprite: 'PreSquit_2', 2;
 BBSprite: 'PreSquit_1', 2;
 Exit;
@@ -236,7 +236,7 @@ InAir: true;
 return;
 
 @Main:
-CancelWindow: Default;
+EnableDefaultCancel: true;
 UpdateFlip: Repeat;
 Gravity: 100000;
 AirMoveX: 150000;
@@ -276,8 +276,8 @@ BBSprite: 'Jump_1', 3;
 BBSprite: 'Jump_2', 3;
 BBSprite: 'Jump_1', 3;
 # Jump Cancel
-# CancelWindow: Gatling;
-# CancelOption: Rg_Jump;
+EnableGatlingCancel: true;
+GCOption: Rg_Jump;
 Gravity: 100000;
 BBSprite: 'Jump_2', 3;
 BBSprite: 'Jump_1', 3;
@@ -346,7 +346,14 @@ return;
 
 @Main:
 ApplyRootMotion: true;
-StartTimeline;
+MarkerEvent: (Whiff_Start)
+  EnableWhiffCancel: true;
+  WhiffOption: Rg_GroundDash;
+  EndMarkerEvent:
+MarkerEvent: (Hit_Start)
+  EnableGatlingCancel: true;
+  EndMarkerEvent:
+PlayTimeline: 0, 30;
 Exit;
 
 [Rg_5C]
@@ -572,45 +579,43 @@ InputType: 2LPPressed;
 return;
 
 @Main:
-Gravity: 0;
-SetVelocityX: 100000;
-SetVelocityY: 10000;
-InputBuffer: true;
-BBSprite: 'Pre_1', 3;
-BBSprite: 'Pre_2', 3;
-Gravity: 60000;
-BBSprite: 'Pre_3', 3;
-# WhiffWindow;
-# WhiffOption: 'Rg_AirDash';
-BBSprite: 'Pre_4', 3;
-BBSprite: 'Attack_1', 2;
-# DisposeWindow;
-Gravity: 0;
-SetVelocityX: 50000;
-SetVelocityY: -700000;
-HurtNotify: Once
-  ShakeX: 500, 35000, 13;
-  HitStop: 0, 13;
-  Hit_UpdateFlip;
-  HitParam: ShakeX_Length, 2000;
-  HitParam: ShakeX_Frequency, 40000;
-  HitParam: ShakeX_Frame, 13;
-  HitParam: HitStopFrame, 8;
-  HitParam: Push_V, -200000;
-  HitParam: Push_F, 950000;
-  HitStun: Hurt2;
-  EndNotify:
-BeginLoop: (InAir: true)
-  BBSprite: 'Attack_2', 3;
-  EndLoop:
-SetVelocityX: 0;
-BBSprite: 'Land_1', 5;
-BBSprite: 'Land_2', 8;
-BBSprite: 'Land_3', 5;
-BBSprite: 'Land_4', 3;
-BBSprite: 'Land_5', 3;
-BBSprite: 'Land_6', 3;
-BBSprite: 'Land_7', 3;
+# Gravity: 0;
+# SetVelocityX: 100000;
+# SetVelocityY: 10000;
+# BBSprite: 'Pre_1', 3;
+# BBSprite: 'Pre_2', 3;
+# Gravity: 60000;
+# BBSprite: 'Pre_3', 3;
+# BBSprite: 'Pre_4', 3;
+# BBSprite: 'Attack_1', 2;
+# Gravity: 0;
+# SetVelocityX: 50000;
+# SetVelocityY: -700000;
+# # HurtNotify: Once
+# #   ShakeX: 500, 35000, 13;
+# #   HitStop: 0, 13;
+# #   Hit_UpdateFlip;
+# #   HitParam: ShakeX_Length, 2000;
+# #   HitParam: ShakeX_Frequency, 40000;
+# #   HitParam: ShakeX_Frame, 13;
+# #   HitParam: HitStopFrame, 8;
+# #   HitParam: Push_V, -200000;
+# #   HitParam: Push_F, 950000;
+# #   HitStun: Hurt2;
+# #   EndNotify:
+# BeginLoop: (InAir: true)
+#   BBSprite: 'Attack_2', 3;
+#   EndLoop:
+# SetVelocityX: 0;
+# BBSprite: 'Land_1', 5;
+# BBSprite: 'Land_2', 8;
+# BBSprite: 'Land_3', 5;
+# BBSprite: 'Land_4', 3;
+# BBSprite: 'Land_5', 3;
+# BBSprite: 'Land_6', 3;
+# BBSprite: 'Land_7', 3;
+ApplyRootMotion: true;
+PlayTimeline: 0, 
 Exit;
 
 [Rg_QuickFall]
