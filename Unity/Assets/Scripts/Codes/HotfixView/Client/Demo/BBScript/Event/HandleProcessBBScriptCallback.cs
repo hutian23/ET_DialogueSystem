@@ -26,7 +26,7 @@ namespace ET.Client
             }
             else
             {
-                //TODO 打包后
+                //TODO 打包后如何解析BBScript
             }
             if (string.IsNullOrEmpty(script))
             {

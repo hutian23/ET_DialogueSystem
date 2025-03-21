@@ -29,3 +29,23 @@ return;
 @RootInit:
 CM_Priority: DefaultCamera, 100;
 return;
+
+[UIBinder]
+@ButtonClick:
+LogWarning: 'HelloWorld';
+WaitFrame: 20;
+LogWarning: 'World';
+return;
+
+@ButtonStay:
+ButtonHighLight: true;
+return;
+
+@ButtonExit:
+ButtonHighLight: false;
+Invoke: Test;
+return;
+
+@Test:
+LogWarning: 'HelloWorld';
+return;

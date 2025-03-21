@@ -762,6 +762,55 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 774582121}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &790576866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 790576867}
+  - component: {fileID: 790576868}
+  m_Layer: 0
+  m_Name: SquashBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &790576867
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790576866}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1671955193}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &790576868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790576866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f88562e969b4c649b2c693ec8a1d695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  info:
+    boxName: SquashBox
+    hitboxType: 4
+    center: {x: 0, y: -0.62}
+    size: {x: 1.35, y: 3.14}
 --- !u!1 &948465025
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,6 +861,55 @@ MonoBehaviour:
     hitboxType: 6
     center: {x: 7.5, y: -18}
     size: {x: 100, y: 10}
+--- !u!1 &1218146883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1218146884}
+  - component: {fileID: 1218146885}
+  m_Layer: 0
+  m_Name: Hurt_Head
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1218146884
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218146883}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1671955194}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1218146885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218146883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f88562e969b4c649b2c693ec8a1d695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  info:
+    boxName: Hurt_Head
+    hitboxType: 2
+    center: {x: 0, y: 1.275}
+    size: {x: 1.5, y: 0.65}
 --- !u!1 &1342651524
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,7 +1095,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1331877821, guid: a714674fa1a745f47809580dd5aa27ef,
+      objectReference: {fileID: 21300000, guid: ba4b120f55d6e364d8bd61a568ad6cb3,
         type: 3}
     - target: {fileID: 4287713381951760775, guid: 6e320dafd0879e541927f3dbb8b97663,
         type: 3}
@@ -1006,7 +1104,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7921161678347364947, guid: 6e320dafd0879e541927f3dbb8b97663,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1781271931}
+    - targetCorrespondingSourceObject: {fileID: 7921161678347364947, guid: 6e320dafd0879e541927f3dbb8b97663,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1218146884}
+    - targetCorrespondingSourceObject: {fileID: 8173683230465771605, guid: 6e320dafd0879e541927f3dbb8b97663,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 790576867}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e320dafd0879e541927f3dbb8b97663, type: 3}
 --- !u!4 &1671955192 stripped
@@ -1015,6 +1125,67 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1671955191}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1671955193 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8173683230465771605, guid: 6e320dafd0879e541927f3dbb8b97663,
+    type: 3}
+  m_PrefabInstance: {fileID: 1671955191}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1671955194 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7921161678347364947, guid: 6e320dafd0879e541927f3dbb8b97663,
+    type: 3}
+  m_PrefabInstance: {fileID: 1671955191}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1781271930
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1781271931}
+  - component: {fileID: 1781271932}
+  m_Layer: 0
+  m_Name: Hurt_Body
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1781271931
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781271930}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1671955194}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1781271932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781271930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f88562e969b4c649b2c693ec8a1d695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  info:
+    boxName: Hurt_Body
+    hitboxType: 2
+    center: {x: 0, y: -0.62}
+    size: {x: 1.75, y: 3.14}
 --- !u!1 &1843085390
 GameObject:
   m_ObjectHideFlags: 0

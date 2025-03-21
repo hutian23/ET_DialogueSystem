@@ -34,8 +34,6 @@ namespace ET.Client
             //1. 方向键
             Vector2 direction = gamepad.leftStick.ReadValue();
             
-            // Log.Warning(gamepad.leftStickButton.isPressed.ToString());
-            
             if (direction.magnitude <= 0.45f) //手柄漂移问题
             {
                 ops |= BBOperaType.MIDDLE;

@@ -206,6 +206,7 @@ SetVelocityX: 0;
 UpdateFlip: Repeat;
 EnableDefaultCancel: true;
 BeginIf: (TransitionCached: 'NoPreSquat', false)
+  LogWarning: 'NoSquat';
   BBSprite: 'PreSquit_1', 2;
   BBSprite: 'PreSquit_2', 2;
   EndIf:
@@ -565,7 +566,7 @@ BBSprite: 'DashEnd_2', 3;
 SetVelocityX: 0;
 BBSprite: 'DashEnd_3', 1;
 SetTransition: 'NoPreSquat';
-# CancelWindow: Transition;
+EnableNandemoCancel: true;
 BBSprite: 'DashEnd_3', 2;
 BBSprite: 'DashEnd_4', 3;
 BBSprite: 'DashEnd_5', 3;
