@@ -1007,7 +1007,7 @@ PrefabInstance:
         type: 3}
       propertyPath: BBPlayable
       value: 
-      objectReference: {fileID: 11400000, guid: 94b58ded95a18bf49958a695850fae83,
+      objectReference: {fileID: 11400000, guid: 3f67fb43bb788f5478a54fd60e06dfd6,
         type: 2}
     - target: {fileID: 1340376429761113669, guid: 6e320dafd0879e541927f3dbb8b97663,
         type: 3}
@@ -1034,7 +1034,7 @@ PrefabInstance:
     - target: {fileID: 4287713381951760773, guid: 6e320dafd0879e541927f3dbb8b97663,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4287713381951760774, guid: 6e320dafd0879e541927f3dbb8b97663,
         type: 3}

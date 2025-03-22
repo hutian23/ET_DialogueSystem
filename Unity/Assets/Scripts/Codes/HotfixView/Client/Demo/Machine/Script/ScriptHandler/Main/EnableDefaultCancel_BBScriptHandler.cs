@@ -15,16 +15,12 @@ namespace ET.Client
 
             //1. 
             int currentOrder = machine.GetCurrentOrder();
-            for (int i = machine.infoList.Count - 1; i >= 0; i--)
+            for (int i = machine.infoList.Count - 1; i > machine.GetCurrentOrder(); i--)
             {
                 BehaviorInfo info = machine.GetChild<BehaviorInfo>(machine.infoList[i]);
                 if (info.moveType >= MoveType.Other)
                 {
                     continue;
-                }
-                if (info.behaviorOrder == currentOrder)
-                {
-                    break;
                 }
                 if (info.Trigger())
                 {

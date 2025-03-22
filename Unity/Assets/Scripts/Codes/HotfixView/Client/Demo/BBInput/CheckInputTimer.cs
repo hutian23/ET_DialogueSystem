@@ -9,7 +9,7 @@
             BBTimerComponent sceneTimer = BBTimerManager.Instance.SceneTimer();
             
             self.curOP = BBInputComponent.Instance.CheckInput();
-
+            
             //1. 缓存输入
             self.infoQueue.Enqueue(new InputInfo() { op = self.curOP, frame = sceneTimer.GetNow() });
             //超出容量的部分出列

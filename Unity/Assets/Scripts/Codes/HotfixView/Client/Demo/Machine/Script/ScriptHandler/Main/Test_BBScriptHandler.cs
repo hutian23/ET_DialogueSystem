@@ -32,17 +32,19 @@ namespace ET.Client
             // Log.Warning(timelineComponent.GetTimelinePlayer().GetTimeline("Dummy_Idle").ToJson());
 
             Unit unit = parser.GetParent<Unit>();
-            TimelineComponent timelineComponent = unit.GetComponent<TimelineComponent>();
-            BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
+            // TimelineComponent timelineComponent = unit.GetComponent<TimelineComponent>();
+            // BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
             BehaviorMachine machine = unit.GetComponent<BehaviorMachine>();
-            BehaviorInfo behaviorInfo = machine.GetInfoByOrder(machine.GetCurrentOrder());
+            // BehaviorInfo behaviorInfo = machine.GetInfoByOrder(machine.GetCurrentOrder());
+            //
+            // BBTimeline _timeline = timelineComponent.GetTimelinePlayer().GetTimeline(behaviorInfo.behaviorName);
+            //
+            // timelineComponent.GetTimelinePlayer().Init(_timeline);
+            //
+            // Log.Warning(_timeline.ToJson());
 
-            BBTimeline _timeline = timelineComponent.GetTimelinePlayer().GetTimeline(behaviorInfo.behaviorName);
-
-            timelineComponent.GetTimelinePlayer().Init(_timeline);
+            Log.Warning(machine.GetCurrentOrder().ToString());
             
-            Log.Warning(_timeline.ToJson());
-
             await ETTask.CompletedTask;
             return Status.Success;
         }

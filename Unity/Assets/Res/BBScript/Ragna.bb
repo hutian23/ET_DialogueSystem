@@ -67,9 +67,9 @@ RegistMove: (Rg_5B)
 # RegistMove: (Rg_5C)
 #   MoveType: Normal;
 #   EndMove:
-# RegistMove: (Rg_AirDash)
-#   MoveType: Normal;
-#   EndMove:
+RegistMove: (Rg_AirDash)
+  MoveType: Normal;
+  EndMove:
 RegistMove: (Rg_GroundDash)
   MoveType: Normal;
   EndMove:
@@ -97,15 +97,14 @@ RegistMove: (Rg_PlungingAttack)
 # RegistMove: (Rg_QuickFall)
 #   MoveType: Special;
 #   EndMove:
-# RegistMove: (Rg_IdleAnim)
-#   MoveType: Etc;
-#   EndMove:
+RegistMove: (Rg_IdleAnim)
+  MoveType: Etc;
+  EndMove:
 GotoBehavior: 'Rg_Idle';
 return;
 
 @BeforeReload:
 UpdateFlip: Once;
-NumericSet: Hertz, 60;
 return;
 
 @LandCallback:
@@ -125,7 +124,7 @@ return;
 SetVelocityX: 0;
 SetVelocityY: -1000;
 # 设置一个待机行为，保持idle 300帧之后进入这个行为
-# IdleAnim: Rg_IdleAnim, 300;
+IdleAnim: Rg_IdleAnim, 300;
 EnableDefaultCancel: true;
 SetMarker: 'Loop';
 BBSprite: 'Idle_1', 4;
@@ -206,7 +205,6 @@ SetVelocityX: 0;
 UpdateFlip: Repeat;
 EnableDefaultCancel: true;
 BeginIf: (TransitionCached: 'NoPreSquat', false)
-  LogWarning: 'NoSquat';
   BBSprite: 'PreSquit_1', 2;
   BBSprite: 'PreSquit_2', 2;
   EndIf:
@@ -226,7 +224,7 @@ BeginLoop: (InputType: SquatHold)
   BBSprite: 'Squit_2', 4;
   EndLoop:
 RemoveTransition: 'SquatToJump';
-# CancelWindow: Transition;
+EnableNandemoCancel: true;
 BBSprite: 'PreSquit_2', 2;
 BBSprite: 'PreSquit_1', 2;
 Exit;
@@ -352,9 +350,28 @@ MarkerEvent: (Whiff_Start)
   WhiffOption: Rg_GroundDash;
   EndMarkerEvent:
 MarkerEvent: (Hit_Start)
-  EnableGatlingCancel: true;
+  # 这里开始，受击回调
+  HitNotify: Once # 对于同一对象，在持续帧内仅造成一次攻击(Repeat则为持续帧内，只要发生碰撞，每帧都会回调受击回调)
+    Shake: 500, 0, 8000, 18; # 振动
+    HitStop: 0, 18; # 打击停顿
+    # 受击行为协程需要使用的变量
+    HitParam: Shake_LengthX, 1200;
+    HitParam: Shake_LengthY, 1000;
+    HitParam: Shake_Frequency, 10000;
+    HitParam: Shake_Frame, 18;
+    # 受击者帧冻结(HitStop)的总帧长
+    HitParam: HitStopFrame, 18;
+    # HitStop结束后抛出的速度(万分制)
+    HitParam: StartV_X, -3000;
+    HitParam: StartV_Y, 250000;
+    # 受击时调整转向
+    Hit_UpdateFlip;
+    # 受击者进入哪个硬直状态
+    HitStun: Hurt3;
+    EndNotify:
   EndMarkerEvent:
 PlayTimeline: 0, 30;
+LogWarning: 'HelloWorld';
 Exit;
 
 [Rg_5C]
@@ -513,10 +530,9 @@ Numeric: DashCount > 0;
 return;
 
 @Main:
-InputBuffer: true;
 MarkerEvent: (GC_Start)
-  CancelWindow: Gatling;
-  CancelOption: Rg_Jump;
+  # CancelWindow: Gatling;
+  # CancelOption: Rg_Jump;
   # GCOption: 'Rg_AirDashAttack';
   # GCOption: 'Rg_PlungingAttack';
   EndMarkerEvent:
@@ -526,12 +542,13 @@ MarkerEvent: (RootMotion_Start)
   EndMarkerEvent:
 MarkerEvent: (RootMotion_End)
   # Inertia
-  CancelWindow: Transition;
+  # CancelWindow: Transition;
   ApplyRootMotion: false;
   SetVelocityX: 80000;
   SetTransition: 'AirToLand';
   EndMarkerEvent:
-StartTimeline;
+# StartTimeline;
+PlayTimeline: 0, 24;
 Exit;
 
 [Rg_GroundDash]
@@ -1037,7 +1054,6 @@ Exit;
 
 [Rg_IdleAnim]
 @Main:
-InputBuffer: true;
-CancelWindow: Transition;
-StartTimeline;
+EnableNandemoCancel: true;
+PlayTimeline: 0, 81;
 Exit;
