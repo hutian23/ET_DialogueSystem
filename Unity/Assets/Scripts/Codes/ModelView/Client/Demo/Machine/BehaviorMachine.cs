@@ -5,7 +5,7 @@ namespace ET.Client
     /// <summary>
     /// 该组件用于管理行为切换
     /// </summary>
-    [ComponentOf]
+    [ComponentOf(typeof(Unit))]
     public class BehaviorMachine: Entity, IAwake, IDestroy
     {
         //当前行为

@@ -10,15 +10,25 @@
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
             Unit player = parser.GetParent<Unit>();
-
-            //1. 初始化组件
-            player.RemoveComponent<TimelineComponent>();
-            player.RemoveComponent<BBTimerComponent>();
-            player.RemoveComponent<BBNumeric>();
-            player.RemoveComponent<BehaviorMachine>();
-            player.RemoveComponent<B2Unit>();
-            player.RemoveComponent<ObjectWait>();
-            player.RemoveComponent<InputWait>();
+            
+            //1. 热重载时，只保留实现了IController接口的组件
+            ListComponent<Entity> removeList = ListComponent<Entity>.Create();
+            foreach (Entity child in player.Children.Values)
+            {
+                if(typeof(IController).IsAssignableFrom(child.GetType())) continue;
+                removeList.Add(child);
+            }
+            foreach (Entity component in player.Components.Values)
+            {
+                if (typeof(IController).IsAssignableFrom(component.GetType())) continue;
+                removeList.Add(component);
+            }
+            foreach (Entity entity in removeList)
+            {
+                entity.Dispose();
+            }
+            removeList.Dispose();
+            
             
             //2. 添加需要的组件
             player.AddComponent<TimelineComponent>();

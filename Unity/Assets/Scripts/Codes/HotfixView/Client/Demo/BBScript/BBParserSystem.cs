@@ -43,7 +43,7 @@ namespace ET.Client
             }
             self.GroupDict.Clear();
             self.GroupPointerSet.Clear();
-            //取消当前写成
+            //取消当前协程
             self.Cancel();
         }
 
@@ -51,7 +51,7 @@ namespace ET.Client
         {
             self.CancellationToken?.Cancel();
             self.Coroutine_Pointers.Clear();
-            //回收变量
+            //回收共享变量
             foreach (var kv in self.ParamDict)
             {
                 kv.Value.Recycle();
@@ -62,7 +62,6 @@ namespace ET.Client
             {
                 child.Dispose();
             }
-            
             self.CancellationToken = new ETCancellationToken();
         }
         
