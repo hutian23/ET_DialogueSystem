@@ -31,7 +31,7 @@ namespace ET.Client
                     {
                         machine.UpdateParam("InAir", false);
                         //落地回调
-                        EventSystem.Instance.Invoke(new LandCallback() { instanceId = machine.InstanceId });
+                        EventSystem.Instance.Invoke(new LandCallback() { instanceId = self.InstanceId });
                     }
                     return;
                 }

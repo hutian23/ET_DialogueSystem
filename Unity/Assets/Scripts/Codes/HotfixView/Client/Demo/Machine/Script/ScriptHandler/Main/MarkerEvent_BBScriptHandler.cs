@@ -22,7 +22,7 @@ namespace ET.Client
                 return Status.Failed;
             }
             
-            //跳过动画帧事件的代码块
+            //跳过帧事件的代码块
             int index = parser.Coroutine_Pointers[data.CoroutineID];
             int endIndex = index, startIndex = index;
             while (++index < parser.OpDict.Count)
@@ -40,6 +40,7 @@ namespace ET.Client
             TimelineMarkerEvent markerEvent = timelineComponent.AddChild<TimelineMarkerEvent>();
             timelineComponent.markerEventDict.Add(match.Groups[1].Value, markerEvent.Id);
 
+            //记录帧时间代码块的起始指针和结束指针
             markerEvent.startIndex = startIndex;
             markerEvent.endIndex = endIndex;
             markerEvent.markerName = match.Groups[1].Value;

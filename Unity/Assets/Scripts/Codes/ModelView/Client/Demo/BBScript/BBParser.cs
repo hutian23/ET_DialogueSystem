@@ -5,7 +5,6 @@ namespace ET.Client
 {
     //运行时解析BBScript然后执行
     [ComponentOf]
-    [ChildOf]
     public class BBParser: Entity, IAwake, IDestroy, ILoad
     {
         public Dictionary<int, string> OpDict = new();
@@ -32,25 +31,23 @@ namespace ET.Client
     {
         public string opLine; //指令码
         public long CoroutineID; //协程ID
-        public object userData; //数据体
 
-        public static BBScriptData Create(string opLine, long functionID, object userData)
+        public static BBScriptData Create(string opLine, long functionID)
         {
             BBScriptData scriptData = ObjectPool.Instance.Fetch<BBScriptData>();
             scriptData.opLine = opLine;
             scriptData.CoroutineID = functionID;
-            scriptData.userData = userData;
             return scriptData;
         }
 
         public void Recycle()
         {
             opLine = string.Empty;
-            this.CoroutineID = 0;
-            userData = null;
+            CoroutineID = 0;
             ObjectPool.Instance.Recycle(this);
         }
     }
+    
 
     #region DataGroup
     public class DataGroup

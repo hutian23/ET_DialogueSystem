@@ -4,7 +4,7 @@
     [FriendOf(typeof(BBNumeric))]
     [FriendOf(typeof(NumericCallback))]
     [FriendOf(typeof(BBParser))]
-    public class Numeric_HandleBBNumericChangedCallback : AInvokeHandler<BBNumericChangedCallback>
+    public class HandleBBNumericChangedCallback : AInvokeHandler<BBNumericChangedCallback>
     {
         public override void Handle(BBNumericChangedCallback args)
         {

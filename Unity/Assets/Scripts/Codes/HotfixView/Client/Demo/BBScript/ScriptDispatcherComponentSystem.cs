@@ -5,7 +5,7 @@ namespace ET.Client
     [FriendOf(typeof (ScriptDispatcherComponent))]
     public static class ScriptDispatcherComponentSystem
     {
-        public class DialogueDispatcherComponentAwakeSystem: AwakeSystem<ScriptDispatcherComponent>
+        public class ScriptDispatcherComponentAwakeSystem: AwakeSystem<ScriptDispatcherComponent>
         {
             protected override void Awake(ScriptDispatcherComponent self)
             {
@@ -14,7 +14,7 @@ namespace ET.Client
             }
         }
 
-        public class DialogueDispatcherComponentLoadSystem: LoadSystem<ScriptDispatcherComponent>
+        public class ScriptDispatcherComponentLoadSystem: LoadSystem<ScriptDispatcherComponent>
         {
             protected override void Load(ScriptDispatcherComponent self)
             {
@@ -22,10 +22,14 @@ namespace ET.Client
             }
         }
 
-        public class DialogueDispatcherComponentDestroySystem: DestroySystem<ScriptDispatcherComponent>
+        public class ScriptDispatcherComponentDestroySystem: DestroySystem<ScriptDispatcherComponent>
         {
             protected override void Destroy(ScriptDispatcherComponent self)
             {
+                self.BBScriptHandlers.Clear();
+                self.BBTriggerHandlers.Clear();
+                self.InputHandlers.Clear();
+                self.BBParamHandlers.Clear();
                 ScriptDispatcherComponent.Instance = null;
             }
         }
@@ -89,6 +93,16 @@ namespace ET.Client
             }
         }
 
+        public static BBScriptHandler GetScriptHandler(this ScriptDispatcherComponent self, string name)
+        {
+            if (!self.BBScriptHandlers.TryGetValue(name, out BBScriptHandler handler))
+            {
+                Log.Error($"not found scriptHandler: {name}");
+                return null;
+            }
+            return handler;
+        }
+        
         public static BBTriggerHandler GetTrigger(this ScriptDispatcherComponent self, string name)
         {
             if (!self.BBTriggerHandlers.TryGetValue(name, out BBTriggerHandler handler))
@@ -96,7 +110,6 @@ namespace ET.Client
                 Log.Error($"not found triggerHandler: {name}");
                 return null;
             }
-
             return handler;
         }
 

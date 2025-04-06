@@ -38,7 +38,6 @@ namespace Timeline
         private Animator Animator { get; set; }
         public PlayableGraph PlayableGraph { get; private set; }
         public AnimationLayerMixerPlayable AnimationRootPlayable { get; private set; }
-        // private AudioMixerPlayable AudioRootPlayable { get; set; }
 
         [ShowIf("HasNotBindUnit")]
         public BBPlayableGraph BBPlayable;

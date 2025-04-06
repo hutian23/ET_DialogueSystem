@@ -92,7 +92,7 @@ namespace ET.Client
                             return Status.Failed;
                         }
 
-                        BBScriptData _data = BBScriptData.Create(op, data.CoroutineID, null);
+                        BBScriptData _data = BBScriptData.Create(op, data.CoroutineID);
                         //判定失败, 跳过整个if块中的代码
                         bool ret = ScriptDispatcherComponent.Instance.GetTrigger(triggerMatch.Groups[1].Value).Check(parser, _data);
                         _data.Recycle();
@@ -121,7 +121,7 @@ namespace ET.Client
                         return Status.Failed;
                     }
 
-                    BBScriptData _data = BBScriptData.Create(opLine, data.CoroutineID, null);
+                    BBScriptData _data = BBScriptData.Create(opLine, data.CoroutineID);
                     Status ret = await handler.Handle(parser, _data, token);
                     _data.Recycle();
                     

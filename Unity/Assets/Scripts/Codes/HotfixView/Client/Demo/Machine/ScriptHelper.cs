@@ -46,7 +46,7 @@ namespace ET.Client
                 
                 //执行TriggerHandler
                 BBTriggerHandler handler = ScriptDispatcherComponent.Instance.GetTrigger(match.Value);
-                BBScriptData data = BBScriptData.Create(opLine, 0, 0);
+                BBScriptData data = BBScriptData.Create(opLine, 0);
                 bool ret = handler.Check(parser, data);
                 if (ret is false)
                 {

@@ -45,7 +45,7 @@
         
         //物理模拟相关的生命周期函数
         public const int HitCheckTimer = 313;
-        public const int HurtNotifyTimer = 314;
+        public const int HitNotifyTimer = 314;
         public const int ThrowCheckTimer = 315;
         public const int ThronesTestTimer = 700;
 

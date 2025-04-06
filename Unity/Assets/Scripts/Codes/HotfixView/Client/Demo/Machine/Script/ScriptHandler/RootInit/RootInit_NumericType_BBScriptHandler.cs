@@ -26,7 +26,7 @@ namespace ET.Client
             }
             
             BBNumeric numeric = parser.GetParent<Unit>().GetComponent<BBNumeric>();
-            numeric.Set(match.Groups["NumericType"].Value, value);
+            numeric.Set(match.Groups["NumericType"].Value, value, true);
             
             await ETTask.CompletedTask;
             return Status.Success;

@@ -63,9 +63,6 @@ MonoBehaviour:
     - Name: animationClip
       Entry: 10
       Data: 0
-    - Name: ApplyRootMotion
-      Entry: 5
-      Data: false
     - Name: rootMotionDict
       Entry: 7
       Data: 4|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.AnimationCurve,
@@ -458,72 +455,3 @@ MonoBehaviour:
       Entry: 8
       Data: 
   timelineName: Rg_Run
-  Script: '@Trigger:
-
-    InAir: false;
-
-    InputType: RunHold;
-
-    return;
-
-
-    @Main:
-
-    #PreRun
-
-    UpdateFlip;
-
-    SetTransition:
-    ''PreSquit'';
-
-    InputBuffer: true;
-
-    DefaultWindow;
-
-    MoveX:13000;
-
-    BBSprite:
-    ''PreRun_1'', 1;
-
-    BBSprite: ''PreRun_2'', 2;
-
-    #Run
-
-    BeginLoop: (InputType:
-    RunHold)
-
-    BBSprite: ''Run_1'', 4;
-
-    BBSprite: ''Run_2'', 4;
-
-    BBSprite:
-    ''Run_3'', 4;
-
-    BBSprite: ''Run_4'', 4;
-
-    BBSprite: ''Run_5'', 4;
-
-    BBSprite:
-    ''Run_6'', 4;
-
-    EndLoop:
-
-    CancelMoveX;
-
-    SetVelocityX: 0;
-
-    #Transition
-
-    TransitionWindow;
-
-    BBSprite:
-    ''RunToIdle_1'', 3;
-
-    BBSprite: ''RunToIdle_2'', 3;
-
-    BBSprite: ''RunToIdle_3'',
-    3;
-
-    BBSprite: ''RunToIdle_4'', 3;
-
-    Exit;'

@@ -1,9 +1,10 @@
 [Root]
 @RootInit:
+# PlayerInit中挂载组件(NumericComponent、InputComponent...)
 PlayerInit;
 SetPos: 280000, -90000;
 Gravity: 100000;
-# Numeric
+# 动态注册数值
 NumericType: Hertz, 60;
 NumericType: MaxGravity, 150000;
 NumericType: MaxFall, -450000;
@@ -12,7 +13,7 @@ NumericType: MaxDash, 2;
 NumericType: DashCount, 2;
 NumericType: JumpCount, 2;
 NumericType: Hertz, 60;
-# NumericChange
+# 数值更新事件
 NumericChange: Hertz
   UpdateHertz;
   EndNumericChange:
@@ -24,7 +25,7 @@ NumericChange: DashCount
   EndNumericChange:
 # 创建碰撞盒: (Center), (Size)
 AirCheckBox: 0, -1850, 1250, 1000;
-# Input
+# 注册输入缓冲
 RegistInput: RunHold;
 RegistInput: SquatHold;
 RegistInput: 2LPPressed;
@@ -36,7 +37,7 @@ RegistInput: ShouRyuKen;
 RegistInput: JumpPressed;
 RegistInput: QuickFallPressed;
 RegistInput: JumpCancel;
-# Move
+# 注册动作
 RegistMove: (Rg_Idle)
   MoveType: None;
   EndMove:
@@ -55,51 +56,25 @@ RegistMove: (Rg_AirBrone)
 RegistMove: (Rg_Jump)
   MoveType: Move;
   EndMove:
-# RegistMove: (Rg_JumpCancel)
-#   MoveType: Move;
-#   EndMove:
 RegistMove: (Rg_5B)
   MoveType: Normal;
   EndMove:
-# RegistMove: (Rg_6P)
-#   MoveType: Normal;
-#   EndMove:
-# RegistMove: (Rg_5C)
-#   MoveType: Normal;
-#   EndMove:
 RegistMove: (Rg_AirDash)
   MoveType: Normal;
   EndMove:
 RegistMove: (Rg_GroundDash)
   MoveType: Normal;
   EndMove:
-# RegistMove: (Rg_24D)
-#   MoveType: Special;
-#   EndMove:
-# RegistMove: (Rg_24D_Derive)
-#   MoveType: Special;
-#   EndMove:
-# RegistMove: (Rg_26C)
-#   MoveType: Special;
-#   EndMove:
-# RegistMove: (Rg_24A)
-#   MoveType: Special;
-#   EndMove:
-# RegistMove: (Rg_Super)
-#   MoveType: Special;
-#   EndMove:
-# RegistMove: (Rg_Super2)
-#   MoveType: Special;
-#   EndMove:
+RegistMove: (Rg_Super2)
+  MoveType: Special;
+  EndMove:
 RegistMove: (Rg_PlungingAttack)
   MoveType: Special;
   EndMove:
-# RegistMove: (Rg_QuickFall)
-#   MoveType: Special;
-#   EndMove:
 RegistMove: (Rg_IdleAnim)
   MoveType: Etc;
   EndMove:
+# 进入默认动作
 GotoBehavior: 'Rg_Idle';
 return;
 
@@ -142,6 +117,12 @@ BBSprite: 'Idle_12', 4;
 BBSprite: 'Idle_13', 4;
 GotoMarker: 'Loop';
 Exit;
+
+@Test:
+LogWarning: 'Before';
+WaitFrame: 10;
+LogWarning: 'After';
+return;
 
 [Rg_Land]
 @Trigger:
@@ -371,7 +352,6 @@ MarkerEvent: (Hit_Start)
     EndNotify:
   EndMarkerEvent:
 PlayTimeline: 0, 30;
-LogWarning: 'HelloWorld';
 Exit;
 
 [Rg_5C]
@@ -597,43 +577,28 @@ InputType: 2LPPressed;
 return;
 
 @Main:
-# Gravity: 0;
-# SetVelocityX: 100000;
-# SetVelocityY: 10000;
-# BBSprite: 'Pre_1', 3;
-# BBSprite: 'Pre_2', 3;
-# Gravity: 60000;
-# BBSprite: 'Pre_3', 3;
-# BBSprite: 'Pre_4', 3;
-# BBSprite: 'Attack_1', 2;
-# Gravity: 0;
-# SetVelocityX: 50000;
-# SetVelocityY: -700000;
-# # HurtNotify: Once
-# #   ShakeX: 500, 35000, 13;
-# #   HitStop: 0, 13;
-# #   Hit_UpdateFlip;
-# #   HitParam: ShakeX_Length, 2000;
-# #   HitParam: ShakeX_Frequency, 40000;
-# #   HitParam: ShakeX_Frame, 13;
-# #   HitParam: HitStopFrame, 8;
-# #   HitParam: Push_V, -200000;
-# #   HitParam: Push_F, 950000;
-# #   HitStun: Hurt2;
-# #   EndNotify:
-# BeginLoop: (InAir: true)
-#   BBSprite: 'Attack_2', 3;
-#   EndLoop:
-# SetVelocityX: 0;
-# BBSprite: 'Land_1', 5;
-# BBSprite: 'Land_2', 8;
-# BBSprite: 'Land_3', 5;
-# BBSprite: 'Land_4', 3;
-# BBSprite: 'Land_5', 3;
-# BBSprite: 'Land_6', 3;
-# BBSprite: 'Land_7', 3;
+Gravity: 0;
+# PreAttack
 ApplyRootMotion: true;
-PlayTimeline: 0, 
+PlayTimeline: 0, 16;
+ApplyRootMotion: false;
+#Attack
+SetVelocityX: 0;
+SetVelocityY: -600000;
+Test;
+BBSprite: 'Attack_1', 2;
+BeginLoop: (InAir: true)
+  BBSprite: 'Attack_2', 3;
+  BBSprite: 'Attack_3', 3;
+EndLoop:
+#Recovery
+BBSprite: 'Recovery_1', 4;
+BBSprite: 'Recovery_2', 4;
+BBSprite: 'Recovery_3', 4;
+BBSprite: 'Recovery_4', 4;
+BBSprite: 'Recovery_5', 4;
+BBSprite: 'Recovery_6', 4;
+BBSprite: 'Recovery_7', 4;
 Exit;
 
 [Rg_QuickFall]
@@ -843,7 +808,7 @@ Exit;
 
 [Rg_Super]
 @Trigger:
-InputType: 5LPPressed;
+InputType: 2LPPressed;
 return;
 
 @Main:
@@ -948,7 +913,7 @@ Exit;
 
 [Rg_Super2]
 @Trigger:
-InputType: 5LPPressed;
+InputType: 5MPPressed;
 return;
 
 @Main:
@@ -1040,16 +1005,16 @@ HitNotify: Once
   HitStun: Hurt3;
 EndNotify:
 BBSprite: 'Frame_21', 4;
-BBSprite: 'Frame_22', 3;
-BBSprite: 'Frame_23', 3;
-BBSprite: 'Frame_24', 3;
-BBSprite: 'Frame_25', 3;
-BBSprite: 'Frame_26', 3;
-BBSprite: 'Frame_27', 3;
-BBSprite: 'Frame_28', 3;
-BBSprite: 'Frame_29', 3;
-BBSprite: 'Frame_30', 3;
-BBSprite: 'Frame_31', 3;
+BBSprite: 'Frame_22', 4;
+BBSprite: 'Frame_23', 4;
+BBSprite: 'Frame_24', 4;
+BBSprite: 'Frame_25', 4;
+BBSprite: 'Frame_26', 4;
+BBSprite: 'Frame_27', 4;
+BBSprite: 'Frame_28', 4;
+BBSprite: 'Frame_29', 4;
+BBSprite: 'Frame_30', 4;
+BBSprite: 'Frame_31', 4;
 Exit;
 
 [Rg_IdleAnim]
@@ -1057,3 +1022,27 @@ Exit;
 EnableNandemoCancel: true;
 PlayTimeline: 0, 81;
 Exit;
+
+[Test]
+@Main:
+SetMarker: 'Loop';
+WaitFrame: 30;
+LogWarning: 'HelloWorld';
+WaitFrame: 10;
+LogWarning: 'test';
+GotoMarker: 'Loop';
+return;
+
+@Test_111:
+LogWarning: 'Test_111';
+return;
+
+@Test_222:
+LogWarning: 'Test_222';
+return;
+
+[Test2]
+@Main:
+WaitFrame: 10;
+LogWarning: 'Hello';
+return;

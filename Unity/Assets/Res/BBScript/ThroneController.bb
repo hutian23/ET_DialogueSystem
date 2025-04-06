@@ -377,19 +377,22 @@ BeginIf: (Random: ran <= 100), (Random: ran >= 80)
   EndIf:
 Thrones_WaitFrame: 100;
 #Exit
+# 注册一个随机变量ran
 Random: ran, 0, 100;
+# Ran < 50，Boss进入Thrones_Step2_Random这个技能
 BeginIf: (Random: ran < 50)
   Thrones_Goto: Thrones_Step2_Random;
-  EndIf:
+EndIf:
+# 50 <= Ran < 70
 BeginIf: (Random: ran < 70), (Random: ran >= 50)
   Thrones_Goto: Thrones_Step2_TwoDash;
-  EndIf:
+EndIf:
 BeginIf: (Random: ran < 85), (Random: ran >= 70)
   Thrones_Goto: Thrones_Step2_TwoWallThrow;
-  EndIf:
+EndIf:
 BeginIf: (Random: ran <= 100), (Random: ran >= 85)
   Thrones_Goto: Thrones_Step2_Dstab;
-  EndIf:
+EndIf:
 
 [Thrones_Exit]
 @Main:

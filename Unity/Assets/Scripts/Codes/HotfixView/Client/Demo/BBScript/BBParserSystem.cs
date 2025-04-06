@@ -10,7 +10,14 @@ namespace ET.Client
         {
             protected override void Awake(BBParser self)
             {
-                self.Init();
+                EventSystem.Instance.Invoke(new ProcessBBScriptCallback(){ instanceId = self.InstanceId });
+            }
+        }
+
+        public class BBParserLoadSystem : LoadSystem<BBParser>
+        {
+            protected override void Load(BBParser self)
+            {
                 EventSystem.Instance.Invoke(new ProcessBBScriptCallback(){ instanceId = self.InstanceId });
             }
         }
@@ -20,14 +27,6 @@ namespace ET.Client
             protected override void Destroy(BBParser self)
             {
                 self.Init();
-            }
-        }
-
-        public class BBParserLoadSystem : LoadSystem<BBParser>
-        {
-            protected override void Load(BBParser self)
-            {
-                EventSystem.Instance.Invoke(new ProcessBBScriptCallback(){ instanceId = self.InstanceId });
             }
         }
         
@@ -44,28 +43,27 @@ namespace ET.Client
             }
             self.GroupDict.Clear();
             self.GroupPointerSet.Clear();
-            self.CancellationToken?.Cancel();
-            self.Coroutine_Pointers.Clear();
-            //回收变量
-            foreach (var kv in self.ParamDict)
-            {
-                kv.Value.Recycle();
-            }
-            self.ParamDict.Clear();
-            self.CancellationToken = new ETCancellationToken();
+            //取消当前写成
+            self.Cancel();
         }
 
         public static void Cancel(this BBParser self)
         {
             self.CancellationToken?.Cancel();
-            self.CancellationToken = new ETCancellationToken();
             self.Coroutine_Pointers.Clear();
             //回收变量
             foreach (var kv in self.ParamDict)
             {
                 kv.Value.Recycle();
             }
+            //销毁子组件
             self.ParamDict.Clear();
+            foreach (Entity child in self.Children.Values)
+            {
+                child.Dispose();
+            }
+            
+            self.CancellationToken = new ETCancellationToken();
         }
         
         /// <summary>
@@ -108,7 +106,7 @@ namespace ET.Client
                 }
 
                 // 执行当前指针的语句
-                BBScriptData data = BBScriptData.Create(self.ReplaceParam(opLine), funcId, null); //池化，不然GC很高
+                BBScriptData data = BBScriptData.Create(self.ReplaceParam(opLine), funcId); //池化，不然GC很高
                 ret = await handler.Handle(self, data, token);
                 data.Recycle();
                 
@@ -162,7 +160,7 @@ namespace ET.Client
                 }
                 
                 //执行语句
-                BBScriptData data = BBScriptData.Create(self.ReplaceParam(opLine), funcId, null);
+                BBScriptData data = BBScriptData.Create(self.ReplaceParam(opLine), funcId);
                 ret = await handler.Handle(self, data, token);
                 data.Recycle();
                 

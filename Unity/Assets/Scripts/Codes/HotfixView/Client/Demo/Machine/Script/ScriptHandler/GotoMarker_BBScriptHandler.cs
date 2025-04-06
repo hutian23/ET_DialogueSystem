@@ -26,6 +26,7 @@ namespace ET.Client
             int pointer = parser.GetMarkerPointer(info.behaviorName, match.Groups["marker"].Value);
             parser.Coroutine_Pointers[data.CoroutineID] = pointer;
 
+            //这里防止卡死
             await TimerComponent.Instance.WaitFrameAsync(token);
             return token.IsCancel()? Status.Failed : Status.Success;
         }

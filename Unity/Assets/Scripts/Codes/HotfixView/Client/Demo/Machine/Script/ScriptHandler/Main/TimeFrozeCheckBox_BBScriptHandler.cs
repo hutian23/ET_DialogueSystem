@@ -73,7 +73,7 @@ namespace ET.Client
         {
             return "TimeFrozeCheckBox";
         }
-
+        
         //TimeFrozeCheckBox: 0, 0, 200000, 100000, 4;(Center, Size, Hertz, LastFrame)
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {

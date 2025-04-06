@@ -5,7 +5,7 @@ namespace ET.Client
     [Invoke]
     [FriendOf(typeof(TimelineMarkerEvent))]
     [FriendOf(typeof(BBParser))]
-    public class Timeline_HandleUpdateMarkerEventCallback : AInvokeHandler<UpdateEventTrackCallback>
+    public class HandleUpdateMarkerEventCallback : AInvokeHandler<UpdateEventTrackCallback>
     {
         public override void Handle(UpdateEventTrackCallback args)
         {

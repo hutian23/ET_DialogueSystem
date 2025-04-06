@@ -33,7 +33,7 @@ namespace ET.Client
                     break; 
                 }
                 
-                BBScriptData _data = BBScriptData.Create(self.ReplaceParam(op), 0, null);
+                BBScriptData _data = BBScriptData.Create(self.ReplaceParam(op), 0);
                 bool ret = ScriptDispatcherComponent.Instance.GetTrigger(triggerMatch.Groups[1].Value).Check(self, _data);
                 if (!ret)
                 {
@@ -58,7 +58,7 @@ namespace ET.Client
             self.TryRemoveParam("BeginLoop_Token");
         }
     }
-
+    
     [FriendOf(typeof(BBParser))]
     [FriendOf(typeof(ScriptDispatcherComponent))]
     public class BeginLoop_BBScriptHandler : BBScriptHandler
@@ -81,7 +81,7 @@ namespace ET.Client
             }
             
             BBTimerComponent bbTimer = parser.GetParent<Unit>().GetComponent<BBTimerComponent>();
-
+            
             //跳过BeginLoop代码块
             int index = parser.Coroutine_Pointers[data.CoroutineID];
             int endIndex = index, startIndex = index;
