@@ -4372,7 +4372,7 @@
         </member>
         <member name="M:Sirenix.OdinInspector.Editor.Drawers.FolderPathAttributeDrawer.PopulateGenericMenu(Sirenix.OdinInspector.Editor.InspectorProperty,UnityEditor.GenericMenu)">
             <summary>
-            Adds customs generic menu options.
+            Adds customs generic menu Options.
             </summary>
         </member>
         <member name="T:Sirenix.OdinInspector.Editor.Drawers.GUIColorAttributeDrawer">

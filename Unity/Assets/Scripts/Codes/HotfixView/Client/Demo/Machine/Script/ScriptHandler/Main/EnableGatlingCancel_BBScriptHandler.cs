@@ -21,37 +21,13 @@ namespace ET.Client
             }
             
             //1. 初始化
-            Unit unit = parser.GetParent<Unit>();
-            BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
-
-            if (parser.ContainParam("GatlingCancel_Timer"))
-            {
-                long _timer = parser.GetParam<long>("GatlingCancel_Timer");
-                bbTimer.Remove(ref _timer);
-                parser.TryRemoveParam("GatlingCancel_Timer");
-            }
-            if (parser.ContainParam("GatlingCancel_Options"))
-            {
-                HashSetComponent<string> GCOptions = parser.GetParam<HashSetComponent<string>>("GatlingCancel_Options");
-                GCOptions.Dispose();
-                parser.TryRemoveParam("GatlingCancel_Options");
-            }
-            if (match.Groups["Enable"].Value.Equals("false"))
-            {
-                return Status.Success;
-            }
+            parser.RemoveComponent<GatlingCancelComponent>();
             
-            //2. 注册定时器
-            long timer = bbTimer.NewFrameTimer(BBTimerInvokeType.GatlingCancelTimer, unit);
-            HashSetComponent<string> hashSetComponent = HashSetComponent<string>.Create();
-            parser.RegistParam("GatlingCancel_Timer", timer);
-            parser.RegistParam("GatlingCancel_Options", hashSetComponent);
-            
-            token.Add(() =>
+            //2. 启动取消窗口
+            if (match.Groups["Enable"].Value.Equals("true"))
             {
-                bbTimer.Remove(ref timer);
-                hashSetComponent?.Dispose();
-            });
+                parser.AddComponent<GatlingCancelComponent>();
+            }
             
             await ETTask.CompletedTask;
             return Status.Success;

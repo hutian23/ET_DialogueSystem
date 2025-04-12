@@ -20,28 +20,13 @@ namespace ET.Client
             }
             
             //1. 初始化
-            Unit unit = parser.GetParent<Unit>();
-            BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
+            parser.RemoveComponent<NandemoCancelComponent>();
            
-            if (parser.ContainParam("NandemoCancel_Timer"))
+            //2. 启动取消窗口
+            if (match.Groups["Enable"].Value.Equals("true"))
             {
-                long _timer = parser.GetParam<long>("NandemoCancel_Timer");
-                bbTimer.Remove(ref _timer);
-                parser.TryRemoveParam("NandemoCancel_Timer");
+                parser.AddComponent<NandemoCancelComponent>();   
             }
-            if (match.Groups["Enable"].Value.Equals("false"))
-            {
-                return Status.Success;
-            }
-            
-            //2. 注册定时器
-            long timer = bbTimer.NewFrameTimer(BBTimerInvokeType.NandemoCancelTimer, unit);
-            parser.RegistParam("NandemoCancel_Timer", timer);
-            
-            token.Add(() =>
-            {
-                bbTimer.Remove(ref timer);
-            });
             
             await ETTask.CompletedTask;
             return Status.Success;

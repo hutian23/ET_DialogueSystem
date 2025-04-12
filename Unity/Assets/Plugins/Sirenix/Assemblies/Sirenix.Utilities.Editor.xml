@@ -2687,7 +2687,7 @@
             <param name="value">The Unity object.</param>
             <param name="objectType">The Unity object type. This supports inheritance.</param>
             <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.UnityObjectField(System.String,UnityEngine.Object,System.Type,System.Boolean,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -2697,7 +2697,7 @@
             <param name="value">The Unity object.</param>
             <param name="objectType">The Unity object type. This supports inheritance.</param>
             <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.UnityObjectField(UnityEngine.Object,System.Type,System.Boolean,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -2706,7 +2706,7 @@
             <param name="value">The Unity object.</param>
             <param name="objectType">The Unity object type. This supports inheritance.</param>
             <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.PreviewObjectField``1(UnityEngine.Rect,``0,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
@@ -2855,7 +2855,7 @@
             <param name="value">The value.</param>
             <param name="type">The object type. This supports inheritance.</param>
             <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.PolymorphicObjectField(UnityEngine.GUIContent,System.Object,System.Type,System.String,System.Boolean,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -2866,7 +2866,7 @@
             <param name="type">The object type. This supports inheritance.</param>
             <param name="title">The title to be shown in the object picker.</param>
             <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.PolymorphicObjectField(UnityEngine.Rect,UnityEngine.GUIContent,System.Object,System.Type,System.Boolean)">
             <summary>
@@ -2886,7 +2886,7 @@
             <param name="value">The value.</param>
             <param name="type">The object type. This supports inheritance.</param>
             <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.PolymorphicObjectField(System.Object,System.Type,System.Boolean,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -2895,7 +2895,7 @@
             <param name="value">The value.</param>
             <param name="type">The object type. This supports inheritance.</param>
             <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.PolymorphicObjectField(System.Object,System.Type,System.String,System.Boolean,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -2905,7 +2905,7 @@
             <param name="type">The object type. This supports inheritance.</param>
             <param name="title">The title to be shown in the object picker.</param>
             <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.LayerMaskField(UnityEngine.Rect,UnityEngine.GUIContent,UnityEngine.LayerMask)">
             <summary>
@@ -2936,7 +2936,7 @@
             </summary>
             <param name="label">The label to use, or null if no label should be used.</param>
             <param name="layerMask">The layer mask to draw.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.LayerMaskField(System.String,UnityEngine.LayerMask,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -2944,14 +2944,14 @@
             </summary>
             <param name="label">The label to use, or null if no label should be used.</param>
             <param name="layerMask">The layer mask to draw.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.LayerMaskField(UnityEngine.LayerMask,UnityEngine.GUILayoutOption[])">
             <summary>
             Draws a field for a layer mask.
             </summary>
             <param name="layerMask">The layer mask to draw.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.GuidField(UnityEngine.Rect,UnityEngine.GUIContent,System.Guid)">
             <summary>
@@ -2984,7 +2984,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.GuidField(UnityEngine.GUIContent,System.Guid,UnityEngine.GUIStyle,UnityEngine.GUILayoutOption[])">
@@ -2994,7 +2994,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.GuidField(UnityEngine.Rect,UnityEngine.GUIContent,System.Guid,UnityEngine.GUIStyle)">
@@ -3050,7 +3050,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.IntField(UnityEngine.GUIContent,System.Int32,UnityEngine.GUILayoutOption[])">
@@ -3059,7 +3059,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.IntField(System.String,System.Int32,UnityEngine.GUILayoutOption[])">
@@ -3068,7 +3068,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.IntField(System.Int32,UnityEngine.GUILayoutOption[])">
@@ -3076,7 +3076,7 @@
             Draws an int field.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedIntField(UnityEngine.Rect,UnityEngine.GUIContent,System.Int32,UnityEngine.GUIStyle)">
@@ -3122,7 +3122,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedIntField(UnityEngine.GUIContent,System.Int32,UnityEngine.GUILayoutOption[])">
@@ -3131,7 +3131,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedIntField(System.String,System.Int32,UnityEngine.GUILayoutOption[])">
@@ -3140,7 +3140,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedIntField(System.Int32,UnityEngine.GUILayoutOption[])">
@@ -3148,7 +3148,7 @@
             Draws a delayed int field.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.RangeIntField(UnityEngine.Rect,UnityEngine.GUIContent,System.Int32,System.Int32,System.Int32,UnityEngine.GUIStyle)">
@@ -3204,7 +3204,7 @@
             <param name="min">Minimum value.</param>
             <param name="max">Maximum value.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.RangeIntField(UnityEngine.GUIContent,System.Int32,System.Int32,System.Int32,UnityEngine.GUILayoutOption[])">
@@ -3215,7 +3215,7 @@
             <param name="value">Current value.</param>
             <param name="min">Minimum value.</param>
             <param name="max">Maximum value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.RangeIntField(System.String,System.Int32,System.Int32,System.Int32,UnityEngine.GUILayoutOption[])">
@@ -3226,7 +3226,7 @@
             <param name="value">Current value.</param>
             <param name="min">Minimum value.</param>
             <param name="max">Maximum value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.RangeIntField(System.Int32,System.Int32,System.Int32,UnityEngine.GUILayoutOption[])">
@@ -3236,7 +3236,7 @@
             <param name="value">Current value.</param>
             <param name="min">Minimum value.</param>
             <param name="max">Maximum value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.ProgressBarField(UnityEngine.Rect,UnityEngine.GUIContent,System.Double,System.Double,System.Double,Sirenix.Utilities.Editor.ProgressBarConfig,System.String)">
@@ -3321,7 +3321,7 @@
             <param name="minValue">The left hand side value of the progress bar.</param>
             <param name="maxValue">The right hand side value of the progress bar.</param>
             <param name="config">The configuration for the progress bar field.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.ProgressBarField(System.String,System.Double,System.Double,System.Double,Sirenix.Utilities.Editor.ProgressBarConfig,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -3332,7 +3332,7 @@
             <param name="minValue">The left hand side value of the progress bar.</param>
             <param name="maxValue">The right hand side value of the progress bar.</param>
             <param name="config">The configuration for the progress bar field.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.ProgressBarField(System.Double,System.Double,System.Double,Sirenix.Utilities.Editor.ProgressBarConfig,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -3342,7 +3342,7 @@
             <param name="minValue">The left hand side value of the progress bar.</param>
             <param name="maxValue">The right hand side value of the progress bar.</param>
             <param name="config">The configuration for the progress bar field.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.ProgressBarField(UnityEngine.GUIContent,System.Double,System.Double,System.Double,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -3352,7 +3352,7 @@
             <param name="value">The current value of the progress bar.</param>
             <param name="minValue">The left hand side value of the progress bar.</param>
             <param name="maxValue">The right hand side value of the progress bar.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.ProgressBarField(System.String,System.Double,System.Double,System.Double,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -3362,7 +3362,7 @@
             <param name="value">The current value of the progress bar.</param>
             <param name="minValue">The left hand side value of the progress bar.</param>
             <param name="maxValue">The right hand side value of the progress bar.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.ProgressBarField(System.Double,System.Double,System.Double,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -3371,7 +3371,7 @@
             <param name="value">The current value of the progress bar.</param>
             <param name="minValue">The left hand side value of the progress bar.</param>
             <param name="maxValue">The right hand side value of the progress bar.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SegmentedProgressBarField(UnityEngine.Rect,UnityEngine.GUIContent,System.Int64,System.Int64,System.Int64,Sirenix.Utilities.Editor.ProgressBarConfig,System.String)">
             <summary>
@@ -3455,7 +3455,7 @@
             <param name="minValue">The left hand side value of the progress bar.</param>
             <param name="maxValue">The right hand side value of the progress bar.</param>
             <param name="config">The configuration for the progress bar field.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SegmentedProgressBarField(System.String,System.Int64,System.Int64,System.Int64,Sirenix.Utilities.Editor.ProgressBarConfig,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -3466,7 +3466,7 @@
             <param name="minValue">The left hand side value of the progress bar.</param>
             <param name="maxValue">The right hand side value of the progress bar.</param>
             <param name="config">The configuration for the progress bar field.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SegmentedProgressBarField(System.Int64,System.Int64,System.Int64,Sirenix.Utilities.Editor.ProgressBarConfig,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -3476,7 +3476,7 @@
             <param name="minValue">The left hand side value of the progress bar.</param>
             <param name="maxValue">The right hand side value of the progress bar.</param>
             <param name="config">The configuration for the progress bar field.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SegmentedProgressBarField(UnityEngine.GUIContent,System.Int64,System.Int64,System.Int64,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -3486,7 +3486,7 @@
             <param name="value">The current value of the progress bar.</param>
             <param name="minValue">The left hand side value of the progress bar.</param>
             <param name="maxValue">The right hand side value of the progress bar.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SegmentedProgressBarField(System.String,System.Int64,System.Int64,System.Int64,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -3496,7 +3496,7 @@
             <param name="value">The current value of the progress bar.</param>
             <param name="minValue">The left hand side value of the progress bar.</param>
             <param name="maxValue">The right hand side value of the progress bar.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SegmentedProgressBarField(System.Int64,System.Int64,System.Int64,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -3505,7 +3505,7 @@
             <param name="value">The current value of the progress bar.</param>
             <param name="minValue">The left hand side value of the progress bar.</param>
             <param name="maxValue">The right hand side value of the progress bar.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.ProgressBarOverlayLabel(UnityEngine.Rect,UnityEngine.GUIContent,System.Single,Sirenix.Utilities.Editor.ProgressBarConfig)">
             <summary>
@@ -3568,7 +3568,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.LongField(UnityEngine.GUIContent,System.Int64,UnityEngine.GUILayoutOption[])">
@@ -3577,7 +3577,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.LongField(System.String,System.Int64,UnityEngine.GUILayoutOption[])">
@@ -3586,7 +3586,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.LongField(System.Int64,UnityEngine.GUILayoutOption[])">
@@ -3594,7 +3594,7 @@
             Draws an long field.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedLongField(UnityEngine.Rect,UnityEngine.GUIContent,System.Int64,UnityEngine.GUIStyle)">
@@ -3640,7 +3640,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedLongField(UnityEngine.GUIContent,System.Int64,UnityEngine.GUILayoutOption[])">
@@ -3649,7 +3649,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedLongField(System.String,System.Int64,UnityEngine.GUILayoutOption[])">
@@ -3658,7 +3658,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedLongField(System.Int64,UnityEngine.GUILayoutOption[])">
@@ -3666,7 +3666,7 @@
             Draws a delayed long field.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.FloatField(UnityEngine.Rect,UnityEngine.GUIContent,System.Single,UnityEngine.GUIStyle)">
@@ -3712,7 +3712,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.FloatField(UnityEngine.GUIContent,System.Single,UnityEngine.GUILayoutOption[])">
@@ -3721,7 +3721,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.FloatField(System.String,System.Single,UnityEngine.GUILayoutOption[])">
@@ -3730,7 +3730,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.FloatField(System.Single,UnityEngine.GUILayoutOption[])">
@@ -3738,7 +3738,7 @@
             Draws a float field.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedFloatField(UnityEngine.Rect,UnityEngine.GUIContent,System.Single,UnityEngine.GUIStyle)">
@@ -3784,7 +3784,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedFloatField(UnityEngine.GUIContent,System.Single,UnityEngine.GUILayoutOption[])">
@@ -3793,7 +3793,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedFloatField(System.String,System.Single,UnityEngine.GUILayoutOption[])">
@@ -3802,7 +3802,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedFloatField(System.Single,UnityEngine.GUILayoutOption[])">
@@ -3810,7 +3810,7 @@
             Draws a delayed float field.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.RangeFloatField(UnityEngine.Rect,UnityEngine.GUIContent,System.Single,System.Single,System.Single,UnityEngine.GUIStyle)">
@@ -3866,7 +3866,7 @@
             <param name="min">Minimum value.</param>
             <param name="max">Maximum value.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.RangeFloatField(UnityEngine.GUIContent,System.Single,System.Single,System.Single,UnityEngine.GUILayoutOption[])">
@@ -3877,7 +3877,7 @@
             <param name="value">Current value.</param>
             <param name="min">Minimum value.</param>
             <param name="max">Maximum value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.RangeFloatField(System.String,System.Single,System.Single,System.Single,UnityEngine.GUILayoutOption[])">
@@ -3888,7 +3888,7 @@
             <param name="value">Current value.</param>
             <param name="min">Minimum value.</param>
             <param name="max">Maximum value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.RangeFloatField(System.Single,System.Single,System.Single,UnityEngine.GUILayoutOption[])">
@@ -3898,7 +3898,7 @@
             <param name="value">Current value.</param>
             <param name="min">Minimum value.</param>
             <param name="max">Maximum value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DoubleField(UnityEngine.Rect,UnityEngine.GUIContent,System.Double,UnityEngine.GUIStyle)">
@@ -3944,7 +3944,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DoubleField(UnityEngine.GUIContent,System.Double,UnityEngine.GUILayoutOption[])">
@@ -3953,7 +3953,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DoubleField(System.String,System.Double,UnityEngine.GUILayoutOption[])">
@@ -3962,7 +3962,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DoubleField(System.Double,UnityEngine.GUILayoutOption[])">
@@ -3970,7 +3970,7 @@
             Draws a double field.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedDoubleField(UnityEngine.Rect,UnityEngine.GUIContent,System.Double,UnityEngine.GUIStyle)">
@@ -4016,7 +4016,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedDoubleField(UnityEngine.GUIContent,System.Double,UnityEngine.GUILayoutOption[])">
@@ -4025,7 +4025,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedDoubleField(System.String,System.Double,UnityEngine.GUILayoutOption[])">
@@ -4034,7 +4034,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedDoubleField(System.Double,UnityEngine.GUILayoutOption[])">
@@ -4042,7 +4042,7 @@
             Draws a delayed double field.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DecimalField(UnityEngine.Rect,UnityEngine.GUIContent,System.Decimal,UnityEngine.GUIStyle)">
@@ -4088,7 +4088,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DecimalField(UnityEngine.GUIContent,System.Decimal,UnityEngine.GUILayoutOption[])">
@@ -4097,7 +4097,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DecimalField(System.String,System.Decimal,UnityEngine.GUILayoutOption[])">
@@ -4106,7 +4106,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DecimalField(System.Decimal,UnityEngine.GUILayoutOption[])">
@@ -4114,7 +4114,7 @@
             Draws a decimal field.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.TextField(UnityEngine.Rect,UnityEngine.GUIContent,System.String,UnityEngine.GUIStyle)">
@@ -4160,7 +4160,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.TextField(UnityEngine.GUIContent,System.String,UnityEngine.GUILayoutOption[])">
@@ -4169,7 +4169,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.TextField(System.String,System.String,UnityEngine.GUILayoutOption[])">
@@ -4178,7 +4178,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.TextField(System.String,UnityEngine.GUILayoutOption[])">
@@ -4186,7 +4186,7 @@
             Draws a text field for strings.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedTextField(UnityEngine.Rect,UnityEngine.GUIContent,System.String,UnityEngine.GUIStyle)">
@@ -4232,7 +4232,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedTextField(UnityEngine.GUIContent,System.String,UnityEngine.GUILayoutOption[])">
@@ -4241,7 +4241,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedTextField(System.String,System.String,UnityEngine.GUILayoutOption[])">
@@ -4250,7 +4250,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DelayedTextField(System.String,UnityEngine.GUILayoutOption[])">
@@ -4258,7 +4258,7 @@
             Draws a delayed text field.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.FilePathField(UnityEngine.Rect,UnityEngine.GUIContent,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean)">
@@ -4298,7 +4298,7 @@
             <param name="extensions">Comma separated list of allowed file extensions. Use <c>null</c> to allow any file extension.</param>
             <param name="absolutePath">If <c>true</c> the path will be absolute. Otherwise the path will be relative to parentPath or to the Unity project directory.</param>
             <param name="useBackslashes">If <c>true</c> the path will be enforced to use backslashes. Otherwise the path will be enforced to use forward slashes.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>A path to a file.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.FilePathField(UnityEngine.GUIContent,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,UnityEngine.GUILayoutOption[])">
@@ -4311,7 +4311,7 @@
             <param name="extensions">Comma separated list of allowed file extensions. Use <c>null</c> to allow any file extension.</param>
             <param name="absolutePath">If <c>true</c> the path will be absolute. Otherwise the path will be relative to parentPath or to the Unity project directory.</param>
             <param name="useBackslashes">If <c>true</c> the path will be enforced to use backslashes. Otherwise the path will be enforced to use forward slashes.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <param name="includeFileExtension">If <c>true</c> the file path will include the file's extension.</param>
             <returns>A path to a file.</returns>
         </member>
@@ -4324,7 +4324,7 @@
             <param name="extensions">Comma separated list of allowed file extensions. Use <c>null</c> to allow any file extension.</param>
             <param name="absolutePath">If <c>true</c> the path will be absolute. Otherwise the path will be relative to parentPath or to the Unity project directory.</param>
             <param name="useBackslashes">If <c>true</c> the path will be enforced to use backslashes. Otherwise the path will be enforced to use forward slashes.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <param name="includeFileExtension">If <c>true</c> the file path will include the file's extension.</param>
             <returns>A path to a file.</returns>
         </member>
@@ -4337,7 +4337,7 @@
             <param name="extensions">Comma separated list of allowed file extensions. Use <c>null</c> to allow any file extension.</param>
             <param name="absolutePath">If <c>true</c> the path will be absolute. Otherwise the path will be relative to parentPath or to the Unity project directory.</param>
             <param name="useBackslashes">If <c>true</c> the path will be enforced to use backslashes. Otherwise the path will be enforced to use forward slashes.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>A path to a file.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.FolderPathField(UnityEngine.Rect,UnityEngine.GUIContent,System.String,System.String,System.Boolean,System.Boolean)">
@@ -4372,7 +4372,7 @@
             <param name="parentPath">A parent path the path needs to be relative to. Use <c>null</c> for Unity project directory.</param>
             <param name="absolutePath">If <c>true</c> the path will be absolute. Otherwise the path will be relative to parentPath or to the Unity project directory.</param>
             <param name="useBackslashes">If <c>true</c> the path will be enforced to use backslashes. Otherwise the path will be enforced to use forward slashes.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>A path to a folder.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.FolderPathField(System.String,System.String,System.Boolean,System.Boolean,UnityEngine.GUILayoutOption[])">
@@ -4383,7 +4383,7 @@
             <param name="parentPath">A parent path the path needs to be relative to. Use <c>null</c> for Unity project directory.</param>
             <param name="absolutePath">If <c>true</c> the path will be absolute. Otherwise the path will be relative to parentPath or to the Unity project directory.</param>
             <param name="useBackslashes">If <c>true</c> the path will be enforced to use backslashes. Otherwise the path will be enforced to use forward slashes.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>A path to a folder.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.VectorPrefixSlideRect(UnityEngine.Rect,UnityEngine.Vector4)">
@@ -4457,7 +4457,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Vector2Field(System.String,UnityEngine.Vector2,UnityEngine.GUILayoutOption[])">
@@ -4466,7 +4466,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Vector2Field(UnityEngine.Vector2,UnityEngine.GUILayoutOption[])">
@@ -4474,7 +4474,7 @@
             Draws a Vector2 field.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Vector3Field(UnityEngine.Rect,UnityEngine.GUIContent,UnityEngine.Vector3)">
@@ -4509,7 +4509,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Vector3Field(System.String,UnityEngine.Vector3,UnityEngine.GUILayoutOption[])">
@@ -4518,7 +4518,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Vector3Field(UnityEngine.Vector3,UnityEngine.GUILayoutOption[])">
@@ -4526,7 +4526,7 @@
             Draws a Vector3 field.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Vector4Field(UnityEngine.Rect,UnityEngine.GUIContent,UnityEngine.Vector4)">
@@ -4561,7 +4561,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Vector4Field(System.String,UnityEngine.Vector4,UnityEngine.GUILayoutOption[])">
@@ -4570,7 +4570,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Vector4Field(UnityEngine.Vector4,UnityEngine.GUILayoutOption[])">
@@ -4578,7 +4578,7 @@
             Draws a Vector4 field.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.ColorField(UnityEngine.Rect,UnityEngine.GUIContent,UnityEngine.Color)">
@@ -4613,7 +4613,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value"></param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.ColorField(System.String,UnityEngine.Color,UnityEngine.GUILayoutOption[])">
@@ -4622,7 +4622,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value"></param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.ColorField(UnityEngine.Color,UnityEngine.GUILayoutOption[])">
@@ -4630,7 +4630,7 @@
             Draws a Color field.
             </summary>
             <param name="value"></param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.MinMaxSlider(UnityEngine.Rect,UnityEngine.GUIContent,UnityEngine.Vector2,UnityEngine.Vector2,System.Boolean)">
@@ -4673,7 +4673,7 @@
             <param name="value">Current value.</param>
             <param name="limits">The min and max limit for the value.</param>
             <param name="showFields">Show fields for min and max value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>A Vector2 with X set as min value, and Y to set as max value.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.MinMaxSlider(System.String,UnityEngine.Vector2,UnityEngine.Vector2,System.Boolean,UnityEngine.GUILayoutOption[])">
@@ -4684,7 +4684,7 @@
             <param name="value">Current value.</param>
             <param name="limits">The min and max limit for the value.</param>
             <param name="showFields">Show fields for min and max value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>A Vector2 with X set as min value, and Y to set as max value.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.MinMaxSlider(UnityEngine.Vector2,UnityEngine.Vector2,System.Boolean,UnityEngine.GUILayoutOption[])">
@@ -4694,7 +4694,7 @@
             <param name="value">Current value.</param>
             <param name="limits">The min and max limit for the value.</param>
             <param name="showFields">Show fields for min and max value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>A Vector2 with X set as min value, and Y to set as max value.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.MinMaxSlider(UnityEngine.Rect,UnityEngine.GUIContent,System.Single@,System.Single@,System.Single,System.Single,System.Boolean)">
@@ -4742,7 +4742,7 @@
             <param name="minLimit">The min limit for the value.</param>
             <param name="maxLimit">The max limit for the value.</param>
             <param name="showFields">Show fields for min and max value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.MinMaxSlider(System.String,System.Single@,System.Single@,System.Single,System.Single,System.Boolean,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -4754,7 +4754,7 @@
             <param name="minLimit">The min limit for the value.</param>
             <param name="maxLimit">The max limit for the value.</param>
             <param name="showFields">Show fields for min and max value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.MinMaxSlider(System.Single@,System.Single@,System.Single,System.Single,System.Boolean,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -4765,7 +4765,7 @@
             <param name="minLimit">The min limit for the value.</param>
             <param name="maxLimit">The max limit for the value.</param>
             <param name="showFields">Show fields for min and max value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.RotationField(UnityEngine.Rect,UnityEngine.GUIContent,UnityEngine.Quaternion,Sirenix.Utilities.Editor.QuaternionDrawMode)">
             <summary>
@@ -4803,7 +4803,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
             <param name="mode">Draw mode for rotation field.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.RotationField(System.String,UnityEngine.Quaternion,Sirenix.Utilities.Editor.QuaternionDrawMode,UnityEngine.GUILayoutOption[])">
@@ -4813,7 +4813,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
             <param name="mode">Draw mode for rotation field.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.RotationField(UnityEngine.Quaternion,Sirenix.Utilities.Editor.QuaternionDrawMode,UnityEngine.GUILayoutOption[])">
@@ -4822,7 +4822,7 @@
             </summary>
             <param name="value">Current value.</param>
             <param name="mode">Draw mode for rotation field.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.EulerField(UnityEngine.Rect,UnityEngine.GUIContent,UnityEngine.Quaternion)">
@@ -4857,7 +4857,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.EulerField(System.String,UnityEngine.Quaternion,UnityEngine.GUILayoutOption[])">
@@ -4866,7 +4866,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.EulerField(UnityEngine.Quaternion,UnityEngine.GUILayoutOption[])">
@@ -4874,7 +4874,7 @@
             Draws an euler field for a quaternion.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.AngleAxisField(UnityEngine.Rect,UnityEngine.GUIContent,UnityEngine.Quaternion)">
@@ -4909,7 +4909,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.AngleAxisField(System.String,UnityEngine.Quaternion,UnityEngine.GUILayoutOption[])">
@@ -4918,7 +4918,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.AngleAxisField(UnityEngine.Quaternion,UnityEngine.GUILayoutOption[])">
@@ -4926,7 +4926,7 @@
             Draws an angle axis field for a quaternion.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.QuaternionField(UnityEngine.Rect,UnityEngine.GUIContent,UnityEngine.Quaternion)">
@@ -4961,7 +4961,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.QuaternionField(System.String,UnityEngine.Quaternion,UnityEngine.GUILayoutOption[])">
@@ -4970,7 +4970,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.QuaternionField(UnityEngine.Quaternion,UnityEngine.GUILayoutOption[])">
@@ -4978,7 +4978,7 @@
             Draws a quaternion field.
             </summary>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Dropdown(UnityEngine.Rect,UnityEngine.GUIContent,System.Int32,System.String[],UnityEngine.GUIStyle)">
@@ -5029,7 +5029,7 @@
             <param name="selected">Current value.</param>
             <param name="itemNames">Names of selectable items.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Dropdown(UnityEngine.GUIContent,System.Int32,System.String[],UnityEngine.GUILayoutOption[])">
@@ -5039,7 +5039,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="selected">Current value.</param>
             <param name="itemNames">Names of selectable items.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Dropdown(System.String,System.Int32,System.String[],UnityEngine.GUILayoutOption[])">
@@ -5049,7 +5049,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="selected">Current value.</param>
             <param name="itemNames">Names of selectable items.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Dropdown(System.Int32,System.String[],UnityEngine.GUILayoutOption[])">
@@ -5058,7 +5058,7 @@
             </summary>
             <param name="selected">Current value.</param>
             <param name="itemNames">Names of selectable items.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Dropdown``1(UnityEngine.Rect,UnityEngine.GUIContent,``0,System.Collections.Generic.IList{``0})">
@@ -5140,7 +5140,7 @@
             <param name="items"></param>
             <param name="itemNames">Names of selectable items. If <c>null</c> ToString() will be used instead.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Dropdown``1(UnityEngine.GUIContent,``0,``0[],System.String[],UnityEngine.GUILayoutOption[])">
@@ -5152,7 +5152,7 @@
             <param name="selected">Current value.</param>
             <param name="items"></param>
             <param name="itemNames">Names of selectable items. If <c>null</c> ToString() will be used instead.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Dropdown``1(System.String,``0,``0[],System.String[],UnityEngine.GUILayoutOption[])">
@@ -5164,7 +5164,7 @@
             <param name="selected">Current value.</param>
             <param name="items"></param>
             <param name="itemNames">Names of selectable items. If <c>null</c> ToString() will be used instead.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Dropdown``1(``0,``0[],System.String[],UnityEngine.GUILayoutOption[])">
@@ -5175,7 +5175,7 @@
             <param name="selected">Current value.</param>
             <param name="items"></param>
             <param name="itemNames">Names of selectable items. If <c>null</c> ToString() will be used instead.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.EnumDropdown(UnityEngine.Rect,UnityEngine.GUIContent,System.Enum,UnityEngine.GUIStyle)">
@@ -5221,7 +5221,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="selected">Current value.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.EnumDropdown(UnityEngine.GUIContent,System.Enum,UnityEngine.GUILayoutOption[])">
@@ -5230,7 +5230,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="selected">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.EnumDropdown(System.String,System.Enum,UnityEngine.GUILayoutOption[])">
@@ -5239,7 +5239,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="selected">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.EnumDropdown(System.Enum,UnityEngine.GUILayoutOption[])">
@@ -5247,7 +5247,7 @@
             Draws a dropdown for an enum or an enum mask.
             </summary>
             <param name="selected">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Dropdown``1(UnityEngine.Rect,UnityEngine.GUIContent,System.Collections.Generic.IList{System.Int32},System.Collections.Generic.IList{``0},System.Boolean)">
@@ -5294,7 +5294,7 @@
             <param name="selected">Current selection.</param>
             <param name="items">Avaible items in the dropdown.</param>
             <param name="multiSelection">If <c>true</c> then the user can select multiple items. Otherwise the user can only select one item.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns><c>true</c> when the user has changed the selection. Otherwise <c>false</c>.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Dropdown``1(System.String,System.Collections.Generic.IList{System.Int32},System.Collections.Generic.IList{``0},System.Boolean,UnityEngine.GUILayoutOption[])">
@@ -5306,7 +5306,7 @@
             <param name="selected">Current selection.</param>
             <param name="items">Avaible items in the dropdown.</param>
             <param name="multiSelection">If <c>true</c> then the user can select multiple items. Otherwise the user can only select one item.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns><c>true</c> when the user has changed the selection. Otherwise <c>false</c>.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Dropdown``1(System.Collections.Generic.IList{System.Int32},System.Collections.Generic.IList{``0},System.Boolean,UnityEngine.GUILayoutOption[])">
@@ -5317,7 +5317,7 @@
             <param name="selected">Current selection.</param>
             <param name="items">Avaible items in the dropdown.</param>
             <param name="multiSelection">If <c>true</c> then the user can select multiple items. Otherwise the user can only select one item.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns><c>true</c> when the user has changed the selection. Otherwise <c>false</c>.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartDecimalField(Sirenix.Utilities.Editor.FieldExpressionContext@,UnityEngine.Rect,UnityEngine.GUIContent,System.Decimal,UnityEngine.GUIStyle)">
@@ -5358,7 +5358,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartDecimalField(Sirenix.Utilities.Editor.FieldExpressionContext@,UnityEngine.GUIContent,System.Decimal,UnityEngine.GUILayoutOption[])">
@@ -5368,7 +5368,7 @@
             <param name="expressionContext">Context for expression support.</param>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartDecimalField(Sirenix.Utilities.Editor.FieldExpressionContext@,System.String,System.Decimal,UnityEngine.GUILayoutOption[])">
@@ -5378,7 +5378,7 @@
             <param name="expressionContext">Context for expression support.</param>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartDecimalField(Sirenix.Utilities.Editor.FieldExpressionContext@,System.Decimal,UnityEngine.GUILayoutOption[])">
@@ -5387,7 +5387,7 @@
             </summary>
             <param name="expressionContext">Context for expression support.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartDoubleField(Sirenix.Utilities.Editor.FieldExpressionContext@,UnityEngine.Rect,UnityEngine.GUIContent,System.Double,UnityEngine.GUIStyle)">
@@ -5426,7 +5426,7 @@
             <param name="expressionContext">Context for expression support.</param>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartDoubleField(Sirenix.Utilities.Editor.FieldExpressionContext@,UnityEngine.GUIContent,System.Double,UnityEngine.GUILayoutOption[])">
@@ -5436,7 +5436,7 @@
             <param name="expressionContext">Context for expression support.</param>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartDoubleField(Sirenix.Utilities.Editor.FieldExpressionContext@,System.String,System.Double,UnityEngine.GUILayoutOption[])">
@@ -5446,7 +5446,7 @@
             <param name="expressionContext">Context for expression support.</param>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartDoubleField(Sirenix.Utilities.Editor.FieldExpressionContext@,System.Double,UnityEngine.GUILayoutOption[])">
@@ -5455,7 +5455,7 @@
             </summary>
             <param name="expressionContext">Context for expression support.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartFloatField(Sirenix.Utilities.Editor.FieldExpressionContext@,UnityEngine.Rect,UnityEngine.GUIContent,System.Single,UnityEngine.GUIStyle)">
@@ -5494,7 +5494,7 @@
             <param name="expressionContext">Context for expression support.</param>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartFloatField(Sirenix.Utilities.Editor.FieldExpressionContext@,UnityEngine.GUIContent,System.Single,UnityEngine.GUILayoutOption[])">
@@ -5504,7 +5504,7 @@
             <param name="expressionContext">Context for expression support.</param>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartFloatField(Sirenix.Utilities.Editor.FieldExpressionContext@,System.String,System.Single,UnityEngine.GUILayoutOption[])">
@@ -5514,7 +5514,7 @@
             <param name="expressionContext">Context for expression support.</param>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartFloatField(Sirenix.Utilities.Editor.FieldExpressionContext@,System.Single,UnityEngine.GUILayoutOption[])">
@@ -5523,7 +5523,7 @@
             </summary>
             <param name="expressionContext">Context for expression support.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartLongField(Sirenix.Utilities.Editor.FieldExpressionContext@,UnityEngine.Rect,UnityEngine.GUIContent,System.Int64,UnityEngine.GUIStyle)">
@@ -5562,7 +5562,7 @@
             <param name="expressionContext">Context for expression support.</param>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartLongField(Sirenix.Utilities.Editor.FieldExpressionContext@,UnityEngine.GUIContent,System.Int64,UnityEngine.GUILayoutOption[])">
@@ -5572,7 +5572,7 @@
             <param name="expressionContext">Context for expression support.</param>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartLongField(Sirenix.Utilities.Editor.FieldExpressionContext@,System.String,System.Int64,UnityEngine.GUILayoutOption[])">
@@ -5582,7 +5582,7 @@
             <param name="expressionContext">Context for expression support.</param>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartLongField(Sirenix.Utilities.Editor.FieldExpressionContext@,System.Int64,UnityEngine.GUILayoutOption[])">
@@ -5591,7 +5591,7 @@
             </summary>
             <param name="expressionContext">Context for expression support.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartIntField(Sirenix.Utilities.Editor.FieldExpressionContext@,UnityEngine.Rect,UnityEngine.GUIContent,System.Int32,UnityEngine.GUIStyle)">
@@ -5630,7 +5630,7 @@
             <param name="expressionContext">Context for expression support.</param>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartIntField(Sirenix.Utilities.Editor.FieldExpressionContext@,UnityEngine.GUIContent,System.Int32,UnityEngine.GUILayoutOption[])">
@@ -5640,7 +5640,7 @@
             <param name="expressionContext">Context for expression support.</param>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartIntField(Sirenix.Utilities.Editor.FieldExpressionContext@,System.String,System.Int32,UnityEngine.GUILayoutOption[])">
@@ -5650,7 +5650,7 @@
             <param name="expressionContext">Context for expression support.</param>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartIntField(Sirenix.Utilities.Editor.FieldExpressionContext@,System.Int32,UnityEngine.GUILayoutOption[])">
@@ -5659,7 +5659,7 @@
             </summary>
             <param name="expressionContext">Context for expression support.</param>
             <param name="value">Current value.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartDecimalUnitField(Sirenix.Utilities.Editor.FieldExpressionContext@,UnityEngine.Rect,UnityEngine.GUIContent,System.Decimal,Sirenix.Utilities.Editor.UnitInfo,Sirenix.Utilities.Editor.UnitInfo,UnityEngine.GUIStyle)">
@@ -5716,7 +5716,7 @@
             <param name="value">Current value.</param>
             <param name="baseUnitInfo">UnitInfo of the <c>value</c> and <c>return value</c>. Must have same <c>UnitCategory</c> as <c>displayUnitInfo</c>.</param>
             <param name="displayUnitInfo">UnitInfo of the displayed value in the field, converted from <c>baseUnitInfo</c>. Must have same <c>UnitCategory</c> as <c>baseUnitInfo</c>.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartDecimalUnitField(Sirenix.Utilities.Editor.FieldExpressionContext@,UnityEngine.GUIContent,System.Decimal,Sirenix.Utilities.Editor.UnitInfo,Sirenix.Utilities.Editor.UnitInfo,UnityEngine.GUILayoutOption[])">
@@ -5728,7 +5728,7 @@
             <param name="value">Current value.</param>
             <param name="baseUnitInfo">UnitInfo of the <c>value</c> and <c>return value</c>. Must have same <c>UnitCategory</c> as <c>displayUnitInfo</c>.</param>
             <param name="displayUnitInfo">UnitInfo of the displayed value in the field, converted from <c>baseUnitInfo</c>. Must have same <c>UnitCategory</c> as <c>baseUnitInfo</c>.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartDecimalUnitField(Sirenix.Utilities.Editor.FieldExpressionContext@,System.String,System.Decimal,Sirenix.Utilities.Editor.UnitInfo,Sirenix.Utilities.Editor.UnitInfo,UnityEngine.GUILayoutOption[])">
@@ -5740,7 +5740,7 @@
             <param name="value">Current value.</param>
             <param name="baseUnitInfo">UnitInfo of the <c>value</c> and <c>return value</c>. Must have same <c>UnitCategory</c> as <c>displayUnitInfo</c>.</param>
             <param name="displayUnitInfo">UnitInfo of the displayed value in the field, converted from <c>baseUnitInfo</c>. Must have same <c>UnitCategory</c> as <c>baseUnitInfo</c>.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartDecimalUnitField(Sirenix.Utilities.Editor.FieldExpressionContext@,System.Decimal,Sirenix.Utilities.Editor.UnitInfo,Sirenix.Utilities.Editor.UnitInfo,UnityEngine.GUILayoutOption[])">
@@ -5751,7 +5751,7 @@
             <param name="value">Current value.</param>
             <param name="baseUnitInfo">UnitInfo of the <c>value</c> and <c>return value</c>. Must have same <c>UnitCategory</c> as <c>displayUnitInfo</c>.</param>
             <param name="displayUnitInfo">UnitInfo of the displayed value in the field, converted from <c>baseUnitInfo</c>. Must have same <c>UnitCategory</c> as <c>baseUnitInfo</c>.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DecimalUnitField(UnityEngine.Rect,UnityEngine.GUIContent,System.Decimal,Sirenix.Utilities.Editor.UnitInfo,Sirenix.Utilities.Editor.UnitInfo,UnityEngine.GUIStyle)">
@@ -5803,7 +5803,7 @@
             <param name="value">Current value.</param>
             <param name="baseUnitInfo">UnitInfo of the <c>value</c> and <c>return value</c>. Must have same <c>UnitCategory</c> as <c>displayUnitInfo</c>.</param>
             <param name="displayUnitInfo">UnitInfo of the displayed value in the field, converted from <c>baseUnitInfo</c>. Must have same <c>UnitCategory</c> as <c>baseUnitInfo</c>.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DecimalUnitField(UnityEngine.GUIContent,System.Decimal,Sirenix.Utilities.Editor.UnitInfo,Sirenix.Utilities.Editor.UnitInfo,UnityEngine.GUILayoutOption[])">
@@ -5814,7 +5814,7 @@
             <param name="value">Current value.</param>
             <param name="baseUnitInfo">UnitInfo of the <c>value</c> and <c>return value</c>. Must have same <c>UnitCategory</c> as <c>displayUnitInfo</c>.</param>
             <param name="displayUnitInfo">UnitInfo of the displayed value in the field, converted from <c>baseUnitInfo</c>. Must have same <c>UnitCategory</c> as <c>baseUnitInfo</c>.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DecimalUnitField(System.String,System.Decimal,Sirenix.Utilities.Editor.UnitInfo,Sirenix.Utilities.Editor.UnitInfo,UnityEngine.GUILayoutOption[])">
@@ -5824,7 +5824,7 @@
             <param name="value">Current value.</param>
             <param name="baseUnitInfo">UnitInfo of the <c>value</c> and <c>return value</c>. Must have same <c>UnitCategory</c> as <c>displayUnitInfo</c>.</param>
             <param name="displayUnitInfo">UnitInfo of the displayed value in the field, converted from <c>baseUnitInfo</c>. Must have same <c>UnitCategory</c> as <c>baseUnitInfo</c>.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.DecimalUnitField(System.Decimal,Sirenix.Utilities.Editor.UnitInfo,Sirenix.Utilities.Editor.UnitInfo,UnityEngine.GUILayoutOption[])">
@@ -5834,7 +5834,7 @@
             <param name="value">Current value.</param>
             <param name="baseUnitInfo">UnitInfo of the <c>value</c> and <c>return value</c>. Must have same <c>UnitCategory</c> as <c>displayUnitInfo</c>.</param>
             <param name="displayUnitInfo">UnitInfo of the displayed value in the field, converted from <c>baseUnitInfo</c>. Must have same <c>UnitCategory</c> as <c>baseUnitInfo</c>.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartLongUnitField(Sirenix.Utilities.Editor.FieldExpressionContext@,UnityEngine.Rect,UnityEngine.GUIContent,System.Int64,Sirenix.Utilities.Editor.UnitInfo,Sirenix.Utilities.Editor.UnitInfo,UnityEngine.GUIStyle)">
@@ -5894,7 +5894,7 @@
             <param name="value">Current value.</param>
             <param name="baseUnitInfo">UnitInfo of the <c>value</c> and <c>return value</c>. Must have same <c>UnitCategory</c> as <c>displayUnitInfo</c>.</param>
             <param name="displayUnitInfo">UnitInfo of the displayed value in the field, converted from <c>baseUnitInfo</c>. Must have same <c>UnitCategory</c> as <c>baseUnitInfo</c>.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartLongUnitField(Sirenix.Utilities.Editor.FieldExpressionContext@,UnityEngine.GUIContent,System.Int64,Sirenix.Utilities.Editor.UnitInfo,Sirenix.Utilities.Editor.UnitInfo,UnityEngine.GUILayoutOption[])">
@@ -5906,7 +5906,7 @@
             <param name="value">Current value.</param>
             <param name="baseUnitInfo">UnitInfo of the <c>value</c> and <c>return value</c>. Must have same <c>UnitCategory</c> as <c>displayUnitInfo</c>.</param>
             <param name="displayUnitInfo">UnitInfo of the displayed value in the field, converted from <c>baseUnitInfo</c>. Must have same <c>UnitCategory</c> as <c>baseUnitInfo</c>.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartLongUnitField(Sirenix.Utilities.Editor.FieldExpressionContext@,System.String,System.Int64,Sirenix.Utilities.Editor.UnitInfo,Sirenix.Utilities.Editor.UnitInfo,UnityEngine.GUILayoutOption[])">
@@ -5918,7 +5918,7 @@
             <param name="value">Current value.</param>
             <param name="baseUnitInfo">UnitInfo of the <c>value</c> and <c>return value</c>. Must have same <c>UnitCategory</c> as <c>displayUnitInfo</c>.</param>
             <param name="displayUnitInfo">UnitInfo of the displayed value in the field, converted from <c>baseUnitInfo</c>. Must have same <c>UnitCategory</c> as <c>baseUnitInfo</c>.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <!-- Badly formed XML comment ignored for member "M:Sirenix.Utilities.Editor.SirenixEditorFields.SmartLongUnitField(Sirenix.Utilities.Editor.FieldExpressionContext@,System.Int64,Sirenix.Utilities.Editor.UnitInfo,Sirenix.Utilities.Editor.UnitInfo,UnityEngine.GUILayoutOption[])" -->
@@ -5971,7 +5971,7 @@
             <param name="value">Current value.</param>
             <param name="baseUnitInfo">UnitInfo of the <c>value</c> and <c>return value</c>. Must have same <c>UnitCategory</c> as <c>displayUnitInfo</c>.</param>
             <param name="displayUnitInfo">UnitInfo of the displayed value in the field, converted from <c>baseUnitInfo</c>. Must have same <c>UnitCategory</c> as <c>baseUnitInfo</c>.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.LongUnitField(UnityEngine.GUIContent,System.Int64,Sirenix.Utilities.Editor.UnitInfo,Sirenix.Utilities.Editor.UnitInfo,UnityEngine.GUILayoutOption[])">
@@ -5982,7 +5982,7 @@
             <param name="value">Current value.</param>
             <param name="baseUnitInfo">UnitInfo of the <c>value</c> and <c>return value</c>. Must have same <c>UnitCategory</c> as <c>displayUnitInfo</c>.</param>
             <param name="displayUnitInfo">UnitInfo of the displayed value in the field, converted from <c>baseUnitInfo</c>. Must have same <c>UnitCategory</c> as <c>baseUnitInfo</c>.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.LongUnitField(System.String,System.Int64,Sirenix.Utilities.Editor.UnitInfo,Sirenix.Utilities.Editor.UnitInfo,UnityEngine.GUILayoutOption[])">
@@ -5992,7 +5992,7 @@
             <param name="value">Current value.</param>
             <param name="baseUnitInfo">UnitInfo of the <c>value</c> and <c>return value</c>. Must have same <c>UnitCategory</c> as <c>displayUnitInfo</c>.</param>
             <param name="displayUnitInfo">UnitInfo of the displayed value in the field, converted from <c>baseUnitInfo</c>. Must have same <c>UnitCategory</c> as <c>baseUnitInfo</c>.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.LongUnitField(System.Int64,Sirenix.Utilities.Editor.UnitInfo,Sirenix.Utilities.Editor.UnitInfo,UnityEngine.GUILayoutOption[])">
@@ -6002,7 +6002,7 @@
             <param name="value">Current value.</param>
             <param name="baseUnitInfo">UnitInfo of the <c>value</c> and <c>return value</c>. Must have same <c>UnitCategory</c> as <c>displayUnitInfo</c>.</param>
             <param name="displayUnitInfo">UnitInfo of the displayed value in the field, converted from <c>baseUnitInfo</c>. Must have same <c>UnitCategory</c> as <c>baseUnitInfo</c>.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.EnumMaskDropdown(UnityEngine.Rect,UnityEngine.GUIContent,System.Enum,UnityEngine.GUIStyle)">
@@ -6048,7 +6048,7 @@
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="selected">Current selection.</param>
             <param name="style">GUIStyle for drawing the field. Set to <c>null</c> for default.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.EnumMaskDropdown(UnityEngine.GUIContent,System.Enum,UnityEngine.GUILayoutOption[])">
@@ -6057,7 +6057,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="selected">Current selection.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.EnumMaskDropdown(System.String,System.Enum,UnityEngine.GUILayoutOption[])">
@@ -6066,7 +6066,7 @@
             </summary>
             <param name="label">Label of field. Set to <c>null</c> for no label.</param>
             <param name="selected">Current selection.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.EnumMaskDropdown(System.Enum,UnityEngine.GUILayoutOption[])">
@@ -6074,7 +6074,7 @@
             Draws a dropdown field for enum masks.
             </summary>
             <param name="selected">Current selection.</param>
-            <param name="options">Layout options.</param>
+            <param name="Options">Layout Options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
         <member name="T:Sirenix.Utilities.Editor.SirenixEditorFields.InternalExpressionEvaluator">
@@ -6786,14 +6786,14 @@
             <summary>
             Begins a horizontal indentation. Remember to end with <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndIndentedHorizontal"/>.
             </summary>
-            <param name="options">The GUI layout options.</param>
+            <param name="Options">The GUI layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginIndentedHorizontal(UnityEngine.GUIStyle,UnityEngine.GUILayoutOption[])">
             <summary>
             Begins a horizontal indentation. Remember to end with <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndIndentedHorizontal"/>.
             </summary>
             <param name="style">The style of the indentation.</param>
-            <param name="options">The GUI layout options.</param>
+            <param name="Options">The GUI layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndIndentedHorizontal">
             <summary>
@@ -6804,14 +6804,14 @@
             <summary>
             Begins a vertical indentation. Remember to end with <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndIndentedVertical"/>.
             </summary>
-            <param name="options">The GUI layout options.</param>
+            <param name="Options">The GUI layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginIndentedVertical(UnityEngine.GUIStyle,UnityEngine.GUILayoutOption[])">
             <summary>
             Begins a vertical indentation. Remember to end with <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndIndentedVertical"/>.
             </summary>
             <param name="style">The style of the indentation.</param>
-            <param name="options">The GUI layout options.</param>
+            <param name="Options">The GUI layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndIndentedVertical">
             <summary>
@@ -6953,7 +6953,7 @@
             </summary>
             <param name="label">The label of the box.</param>
             <param name="centerLabel">If set to <c>true</c> then center label.</param>
-            <param name="options">The GUI layout options.</param>
+            <param name="Options">The GUI layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginBox(UnityEngine.GUIContent,System.Boolean,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -6961,14 +6961,14 @@
             </summary>
             <param name="label">The label of the box.</param>
             <param name="centerLabel">If set to <c>true</c> then center label.</param>
-            <param name="options">The GUI layout options.</param>
+            <param name="Options">The GUI layout Options.</param>
             <returns>The rect of the box.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginBox(UnityEngine.GUILayoutOption[])">
             <summary>
             Begins drawing a box. Remember to end with <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndToolbarBox"/>.
             </summary>
-            <param name="options">The GUI layout options.</param>
+            <param name="Options">The GUI layout Options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndBox">
             <summary>
@@ -6991,7 +6991,7 @@
             </summary>
             <param name="label">Label for box header.</param>
             <param name="centerLabel">If <c>true</c> the label will be drawn in the center of the box header.</param>
-            <param name="options">GUILayout options.</param>
+            <param name="Options">GUILayout Options.</param>
             <returns>The rect of the box.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginToolbarBox(UnityEngine.GUIContent,System.Boolean,UnityEngine.GUILayoutOption[])">
@@ -7000,14 +7000,14 @@
             </summary>
             <param name="label">Label for box header.</param>
             <param name="centerLabel">If <c>true</c> the label will be drawn in the center of the box header.</param>
-            <param name="options">GUILayout options.</param>
+            <param name="Options">GUILayout Options.</param>
             <returns>The rect of the box.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginToolbarBox(UnityEngine.GUILayoutOption[])">
             <summary>
             Begins drawing a box with toolbar style header. Remember to end with <seealso cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndToolbarBox"/>.
             </summary>
-            <param name="options">GUILayout options.</param>
+            <param name="Options">GUILayout Options.</param>
             <returns>The rect of the box.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndToolbarBox">
@@ -7032,7 +7032,7 @@
             </summary>
             <param name="label">The label for the legend style box.</param>
             <param name="centerLabel">If <c>true</c> the label will be drawn in the center of the box.</param>
-            <param name="options">GUILayout options.</param>
+            <param name="Options">GUILayout Options.</param>
             <returns>The rect of the box.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginLegendBox(UnityEngine.GUIContent,System.Boolean,UnityEngine.GUILayoutOption[])">
@@ -7041,14 +7041,14 @@
             </summary>
             <param name="label">The label for the legend style box.</param>
             <param name="centerLabel">If <c>true</c> the label will be drawn in the center of the box.</param>
-            <param name="options">GUILayout options.</param>
+            <param name="Options">GUILayout Options.</param>
             <returns>The rect of the box.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginLegendBox(UnityEngine.GUILayoutOption[])">
             <summary>
             Begins drawing a legend style box. Remember to end with <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndLegendBox"/>.
             </summary>
-            <param name="options">GUILayout options.</param>
+            <param name="Options">GUILayout Options.</param>
             <returns>The rect of the box.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndLegendBox">
@@ -7060,7 +7060,7 @@
             <summary>
             Begins drawing an inline box. Remember to end with <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndInlineBox"/>.
             </summary>
-            <param name="options">The GUI layout options.</param>
+            <param name="Options">The GUI layout Options.</param>
             <returns>The rect of the box.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndInlineBox">
@@ -7140,7 +7140,7 @@
             </summary>
             <param name="drawBorder">If set to <c>true</c> borders will be drawn around the vertical list.</param>
             <param name="drawDarkBg">If set to <c>true</c> a dark background will be drawn.</param>
-            <param name="options">The GUI layout options.</param>
+            <param name="Options">The GUI layout Options.</param>
             <returns>The rect used for the list.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndVerticalList">
@@ -7154,7 +7154,7 @@
             </summary>
             <param name="allowHover">If set to <c>true</c> the item can be hovered with the mouse.</param>
             <param name="style">The style for the vertical list item.</param>
-            <param name="options">The GUI layout options.</param>
+            <param name="Options">The GUI layout Options.</param>
             <returns>The rect used for the item.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginListItem(System.Boolean,UnityEngine.GUIStyle,UnityEngine.Color,UnityEngine.Color,UnityEngine.Color,UnityEngine.Color,UnityEngine.GUILayoutOption[])">
@@ -7163,7 +7163,7 @@
             </summary>
             <param name="allowHover">If set to <c>true</c> the item can be hovered with the mouse.</param>
             <param name="style">The style for the vertical list item.</param>
-            <param name="options">The GUI layout options.</param>
+            <param name="Options">The GUI layout Options.</param>
             <param name="evenColor">The color for even elements.</param>
             <param name="oddColor">The color for odd elements.</param>
             <param name="evenHoverColor">The color for even elements when hovered.</param>
@@ -7213,7 +7213,7 @@
             Begins drawing a horizontal auto scroll box. Remember to end with <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndHorizontalAutoScrollBox"/>.
             </summary>
             <param name="key">The for the field.</param>
-            <param name="options">The GUILayout options.</param>
+            <param name="Options">The GUILayout Options.</param>
             <returns>The rect used for the field.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndHorizontalAutoScrollBox">
@@ -7293,7 +7293,7 @@
             <typeparam name="T">The type of the value to draw.</typeparam>
             <param name="label">The label of the fields.</param>
             <param name="value">The value to draw.</param>
-            <param name="options">The layout options.</param>
+            <param name="Options">The layout Options.</param>
             <returns>The possibly changed value.</returns>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.DynamicPrimitiveFieldCanDraw``1">

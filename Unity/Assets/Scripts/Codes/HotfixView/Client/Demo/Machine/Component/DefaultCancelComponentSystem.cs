@@ -41,7 +41,7 @@
             protected override void Awake(DefaultCancelComponent self)
             {
                 Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
-                BBTimerComponent bbTimer = self.GetComponent<BBTimerComponent>();
+                BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
                 self.timer = bbTimer.NewFrameTimer(BBTimerInvokeType.DefaultCancelTimer, unit);
             }
         }

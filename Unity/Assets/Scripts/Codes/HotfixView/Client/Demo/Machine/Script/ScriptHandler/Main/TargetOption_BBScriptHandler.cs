@@ -2,27 +2,26 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof(WhiffCancelComponent))]
-    public class WhiffOption_BBScriptHandler : BBScriptHandler
+    public class TargetOption_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "WhiffOption";
+            return "TCOption";
         }
 
-        //WhiffOption: Rg_Jump;
+        //TargetOption: Rg_Test;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"WhiffOption: (?<Option>\w+);");
+            Match match = Regex.Match(data.opLine, @"TCOption: (?<Option>\w+);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
-                return Status.Failed;
+                return Status.Success;
             }
 
-            WhiffCancelComponent whiff = parser.GetComponent<WhiffCancelComponent>();
-            whiff.Options.Add(match.Groups["Option"].Value);
-
+            TargetCancelComponent tc = parser.GetComponent<TargetCancelComponent>();
+            tc.Add(match.Groups["Option"].Value);
+            
             await ETTask.CompletedTask;
             return Status.Success;
         }

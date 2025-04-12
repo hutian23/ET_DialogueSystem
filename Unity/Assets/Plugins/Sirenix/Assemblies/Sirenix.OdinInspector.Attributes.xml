@@ -626,7 +626,7 @@
         <member name="T:Sirenix.OdinInspector.ColorPaletteAttribute">
             <summary>
             <para>ColorPalette is used on any Color property, and allows for choosing colors from different definable palettes.</para>
-            <para>Use this to allow the user to choose from a set of predefined color options.</para>
+            <para>Use this to allow the user to choose from a set of predefined color Options.</para>
             </summary>
             <remarks>
             <para>See and edit the color palettes in Tools > Odin > Inspector > Preferences > Drawers > Color Palettes.</para>
@@ -667,18 +667,18 @@
         </member>
         <member name="M:Sirenix.OdinInspector.ColorPaletteAttribute.#ctor">
             <summary>
-            Adds a color palette options to a Color property.
+            Adds a color palette Options to a Color property.
             </summary>
         </member>
         <member name="M:Sirenix.OdinInspector.ColorPaletteAttribute.#ctor(System.String)">
             <summary>
-            Adds color options to a Color property from a specific palette.
+            Adds color Options to a Color property from a specific palette.
             </summary>
             <param name="paletteName">Name of the palette.</param>
         </member>
         <member name="T:Sirenix.OdinInspector.CustomContextMenuAttribute">
              <summary>
-             <para>CustomContextMenu is used on any property, and adds a custom options to the context menu for the property.</para>
+             <para>CustomContextMenu is used on any property, and adds a custom Options to the context menu for the property.</para>
              <para>Use this for when you want to add custom actions to the context menu of a property.</para>
              </summary>
              <remarks>
@@ -4401,7 +4401,7 @@
         </member>
         <member name="F:Sirenix.OdinInspector.SearchableAttribute.FilterOptions">
             <summary>
-            The options for which things to use to filter the search.
+            The Options for which things to use to filter the search.
             Default value: All.
             </summary>
         </member>
@@ -5115,7 +5115,7 @@
                 [InfoBox(
                     "The Title attribute has the same purpose as Unity's Header attribute," +
                     "but it also supports properties, and methods." +
-                    "\n\nTitle also offers more features such as subtitles, options for horizontal underline, bold text and text alignment." +
+                    "\n\nTitle also offers more features such as subtitles, Options for horizontal underline, bold text and text alignment." +
                     "\n\nBoth attributes, with Odin, supports either static strings, or refering to members strings by adding a $ in front.")]
                 public string MyTitle = "My Dynamic Title";
                 public string MySubtitle = "My Dynamic Subtitle";
@@ -5297,8 +5297,8 @@
         </member>
         <member name="T:Sirenix.OdinInspector.ToggleGroupAttribute">
              <summary>
-             <para>ToggleGroup is used on any field, and create a toggleable group of options.</para>
-             <para>Use this to create options that can be enabled or disabled.</para>
+             <para>ToggleGroup is used on any field, and create a toggleable group of Options.</para>
+             <para>Use this to create Options that can be enabled or disabled.</para>
              </summary>
              <remarks>
              <para>The <see cref="P:Sirenix.OdinInspector.ToggleGroupAttribute.ToggleMemberName"/> functions as the ID for the ToggleGroup, and therefore all members of a toggle group must specify the same toggle member.</para>
@@ -5625,8 +5625,8 @@
         </member>
         <member name="T:Sirenix.OdinInspector.ValueDropdownAttribute">
              <summary>
-             <para>ValueDropdown is used on any property and creates a dropdown with configurable options.</para>
-             <para>Use this to give the user a specific set of options to select from.</para>
+             <para>ValueDropdown is used on any property and creates a dropdown with configurable Options.</para>
+             <para>Use this to give the user a specific set of Options to select from.</para>
              </summary>
              <remarks>
              <note type="note">Due to a bug in Unity, enums will sometimes not work correctly. The last example shows how this can be fixed.</note>

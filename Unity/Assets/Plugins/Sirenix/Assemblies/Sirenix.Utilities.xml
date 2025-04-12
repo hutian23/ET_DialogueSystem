@@ -2362,7 +2362,7 @@
         </member>
         <member name="M:Sirenix.Utilities.GUILayoutOptions.GUILayoutOptionsInstance.op_Implicit(Sirenix.Utilities.GUILayoutOptions.GUILayoutOptionsInstance)~UnityEngine.GUILayoutOption[]">
             <summary>
-            Gets or creates the cached GUILayoutOption array based on the layout options specified.
+            Gets or creates the cached GUILayoutOption array based on the layout Options specified.
             </summary>
         </member>
         <member name="M:Sirenix.Utilities.GUILayoutOptions.GUILayoutOptionsInstance.Width(System.Single)">

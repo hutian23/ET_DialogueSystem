@@ -13,8 +13,8 @@ namespace Sirenix.OdinInspector.Demos
 
     // Example component demonstating how new generic context menus can be created with drawers.
     [TypeInfoBox(
-        "In this example, we have an attribute drawer that adds new options to the generic context menu.\n" +
-        "In this case, we're adding options to select a color.")]
+        "In this example, we have an attribute drawer that adds new Options to the generic context menu.\n" +
+        "In this case, we're adding Options to select a color.")]
     public class GenericMenuExample : MonoBehaviour
     {
         [ColorPicker]

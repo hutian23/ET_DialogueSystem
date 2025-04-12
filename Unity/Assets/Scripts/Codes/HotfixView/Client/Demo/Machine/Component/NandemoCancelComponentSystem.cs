@@ -12,12 +12,11 @@
             {
                 BehaviorMachine machine = self.GetComponent<BehaviorMachine>();
             
-                //1. 
+                //1. 可以被除了Idle以外的所有动作取消
                 int currentOrder = machine.GetCurrentOrder();
                 for(int i = machine.infoList.Count - 1; i > 0; i--)
                 {
                     BehaviorInfo info = machine.GetChild<BehaviorInfo>(machine.infoList[i]);
-                    //非控制器层的动作
                     if (info.moveType >= MoveType.Other)
                     {
                         continue;

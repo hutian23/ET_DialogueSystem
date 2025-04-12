@@ -24,7 +24,7 @@
         public const int GatlingCancelTimer = 106;
         public const int WhiffCancelTimer = 107;
         public const int DefaultCancelTimer = 108;
-        public const int TransitionWindowTimer = 109;
+        public const int TargetCancelTimer = 109;
         public const int LoopTimer = 111;
         public const int CallbackCheckTimer = 112;
         public const int AirCheckTimer = 113;

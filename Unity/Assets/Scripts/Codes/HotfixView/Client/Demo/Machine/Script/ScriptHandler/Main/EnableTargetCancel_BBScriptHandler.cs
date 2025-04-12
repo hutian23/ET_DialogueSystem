@@ -2,17 +2,17 @@
 
 namespace ET.Client
 {
-    public class EnableDefaultCancel_BBScriptHandler : BBScriptHandler
+    public class EnableTargetCancel_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "EnableDefaultCancel";
+            return "EnableTargetCancel";
         }
 
-        //处于中立状态，可以切换进权值比自己高的动作
+        //EnableTargetCancel: true;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"EnableDefaultCancel: (?<Enable>\w+);");
+            Match match = Regex.Match(data.opLine, @"EnableTargetCancel: (?<Enable>\w+);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -20,12 +20,12 @@ namespace ET.Client
             }
             
             //1. 初始化
-            parser.RemoveComponent<DefaultCancelComponent>();
+            parser.RemoveComponent<TargetCancelComponent>();
             
             //2. 启动取消窗口
             if (match.Groups["Enable"].Value.Equals("true"))
             {
-                parser.AddComponent<DefaultCancelComponent>();
+                parser.AddComponent<TargetCancelComponent>();
             }
             
             await ETTask.CompletedTask;

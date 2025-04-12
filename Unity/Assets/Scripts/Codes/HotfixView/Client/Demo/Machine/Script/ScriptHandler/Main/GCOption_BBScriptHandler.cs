@@ -2,6 +2,7 @@
 
 namespace ET.Client
 {
+    [FriendOf(typeof(GatlingCancelComponent))]
     public class GCOption_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
@@ -18,10 +19,10 @@ namespace ET.Client
                 ScriptHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
-            
-            HashSetComponent<string> options = parser.GetParam<HashSetComponent<string>>("GatlingCancel_Options");
-            options.Add(match.Groups["Option"].Value);
-            
+
+            GatlingCancelComponent gc = parser.GetComponent<GatlingCancelComponent>();
+            gc.Options.Add(match.Groups["Option"].Value);
+
             await ETTask.CompletedTask;
             return Status.Success;
         }
