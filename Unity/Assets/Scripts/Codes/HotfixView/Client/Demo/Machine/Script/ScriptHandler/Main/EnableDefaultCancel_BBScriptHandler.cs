@@ -2,47 +2,6 @@
 
 namespace ET.Client
 {
-    [Invoke(BBTimerInvokeType.DefaultCancelTimer)]
-    [FriendOf(typeof(BehaviorMachine))]
-    [FriendOf(typeof(BehaviorInfo))]
-    public class DefaultCancelTimer : BBTimer<Unit>
-    {
-        protected override void Run(Unit self)
-        {
-            BehaviorMachine machine = self.GetComponent<BehaviorMachine>();
-            BBTimerComponent bbTimer = self.GetComponent<BBTimerComponent>();
-            BBParser bbParser = self.GetComponent<BBParser>();
-
-            //1. 
-            int currentOrder = machine.GetCurrentOrder();
-            for (int i = machine.infoList.Count - 1; i > machine.GetCurrentOrder(); i--)
-            {
-                BehaviorInfo info = machine.GetChild<BehaviorInfo>(machine.infoList[i]);
-                if (info.moveType >= MoveType.Other)
-                {
-                    continue;
-                }
-                if (info.Trigger())
-                {
-                    currentOrder = info.behaviorOrder;
-                    break;
-                }
-            }
-            if (currentOrder == machine.GetCurrentOrder())
-            {
-                return;
-            }
-
-            //2. 初始化
-            long timer = bbParser.GetParam<long>("DefaultCancel_Timer");
-            bbTimer.Remove(ref timer);
-            bbParser.TryRemoveParam("DefaultCancel_Timer");
-
-            //3. 进入行为
-            machine.Reload(currentOrder);
-        }
-    }
-
     public class EnableDefaultCancel_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()

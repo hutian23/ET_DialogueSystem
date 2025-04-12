@@ -2,53 +2,6 @@
 
 namespace ET.Client
 {
-    [Invoke(BBTimerInvokeType.GatlingCancelTimer)]
-    [FriendOf(typeof(BehaviorMachine))]
-    [FriendOf(typeof(BehaviorInfo))]
-    public class GatlingCancelTimer : BBTimer<Unit>
-    {
-        protected override void Run(Unit self)
-        {
-            //1. 找到能够取消的行为
-            BehaviorMachine machine = self.GetComponent<BehaviorMachine>();
-            BBTimerComponent bbTimer = self.GetComponent<BBTimerComponent>();
-            BBParser bbParser = self.GetComponent<BBParser>();
-            
-            int currentOrder = -1;
-            BehaviorInfo curInfo = machine.GetInfoByOrder(machine.GetCurrentOrder());
-            HashSetComponent<string> options = bbParser.GetParam<HashSetComponent<string>>("GatlingCancel_Options");
-            
-            for(int i = machine.infoList.Count - 1; i >= 0; i--)
-            {
-                BehaviorInfo info = machine.GetChild<BehaviorInfo>(machine.infoList[i]);
-                if (info.moveType >= MoveType.Other)
-                {
-                    continue;
-                }
-                //只能被同层的 or 添加了CancelTag的动作取消
-                if ((info.moveType > curInfo.moveType || options.Contains(info.behaviorName)) && info.Trigger())
-                {
-                    currentOrder = info.behaviorOrder;
-                    break;
-                }
-            }
-            if (currentOrder == -1)
-            {
-                return;
-            }
-
-            //2. 关闭取消窗口
-            long timer = bbParser.GetParam<long>("GatlingCancel_Timer");
-            bbTimer.Remove(ref timer);
-            bbParser.TryRemoveParam("CancelCancel_Timer");
-            options.Dispose();
-            bbParser.TryRemoveParam("CancelCancel_Options");
-            
-            //3. 进入行为
-            machine.Reload(currentOrder);
-        }
-    }
-    
     // 加特林取消，当前动作只能被比自己层级高 or 添加了取消标签的动作取消
     public class EnableGatlingCancel_BBScriptHandler : BBScriptHandler
     {
