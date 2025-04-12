@@ -58,9 +58,9 @@ RegistMove: (Rg_Jump)
 RegistMove: (Rg_5B)
   MoveType: Normal;
   EndMove:
-RegistMove: (Rg_5C)
-  MoveType: Normal;
-  EndMove:
+# RegistMove: (Rg_5C)
+#   MoveType: Normal;
+#   EndMove:
 RegistMove: (Rg_AirDash)
   MoveType: Normal;
   EndMove:

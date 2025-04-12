@@ -56,10 +56,10 @@ MonoBehaviour:
       Data: Rg_5C
     - Name: StartFrame
       Entry: 3
-      Data: 0
+      Data: 6
     - Name: EndFrame
       Entry: 3
-      Data: 48
+      Data: 54
     - Name: animationClip
       Entry: 10
       Data: 0
@@ -1256,7 +1256,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 3
     - Name: 
       Entry: 7
       Data: 34|Timeline.EventInfo, Unity.Loader
@@ -1274,10 +1274,10 @@ MonoBehaviour:
       Data: 35|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 16
+      Data: 15
     - Name: keyframeName
       Entry: 1
-      Data: Whiff_End
+      Data: Hit_Start
     - Name: 
       Entry: 8
       Data: 
@@ -1286,22 +1286,10 @@ MonoBehaviour:
       Data: 36|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 40
+      Data: 20
     - Name: keyframeName
       Entry: 1
-      Data: GC_End
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 37|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 15
-    - Name: keyframeName
-      Entry: 1
-      Data: Hit_Start
+      Data: Hit_End
     - Name: 
       Entry: 8
       Data: 
