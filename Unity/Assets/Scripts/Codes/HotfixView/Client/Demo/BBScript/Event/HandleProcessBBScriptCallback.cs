@@ -16,10 +16,27 @@ namespace ET.Client
             BBScript bbScript = unit.GetComponent<GameObjectComponent>().GameObject.GetComponent<BBScript>();
 
             //2. 初始化
+            //2-1 取消当前行为协程
             bbParser.Init();
+            //2-2 热重载时，只保留实现了IController接口的组件
+            ListComponent<Entity> removeList = ListComponent<Entity>.Create();
+            foreach (Entity child in unit.Children.Values)
+            {
+                if(typeof(IController).IsAssignableFrom(child.GetType())) continue;
+                removeList.Add(child);
+            }
+            foreach (Entity component in unit.Components.Values)
+            {
+                if (typeof(IController).IsAssignableFrom(component.GetType())) continue;
+                removeList.Add(component);
+            }
+            foreach (Entity entity in removeList)
+            {
+                entity.Dispose();
+            }
+            removeList.Dispose();
 
-            //3. 解析bbScript
-            // TODO 这里还没想好打包后如何解析BBScript
+            //3. 解析bbScript  TODO 这里还没想好打包后如何解析BBScript
             string script = Define.IsEditor ? File.ReadAllText(bbScript.Script.GetPath()) : string.Empty;
      
             if (string.IsNullOrEmpty(script))
@@ -94,7 +111,7 @@ namespace ET.Client
                 bbParser.GroupDict.TryAdd(group.groupName, group);
             }
             
-            //fin. 执行Root.RootInit协程，相当于入口函数
+            //fin. 执行入口函数
             bbParser.Invoke(bbParser.GetFunctionPointer("Root","RootInit"), bbParser.CancellationToken).Coroutine();
         }
     }

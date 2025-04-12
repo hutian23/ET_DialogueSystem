@@ -30,9 +30,6 @@ namespace ET.Client
             }
         }
         
-        /// <summary>
-        /// 取消当前所有子协程
-        /// </summary>
         public static void Init(this BBParser self)
         {
             self.OpDict.Clear();
@@ -47,22 +44,29 @@ namespace ET.Client
             self.Cancel();
         }
 
+        /// <summary>
+        /// 取消BBParser当前所有协程
+        /// </summary>
         public static void Cancel(this BBParser self)
         {
             self.CancellationToken?.Cancel();
             self.Coroutine_Pointers.Clear();
+            self.CancellationToken = new ETCancellationToken();
             //回收共享变量
             foreach (var kv in self.ParamDict)
             {
                 kv.Value.Recycle();
             }
-            //销毁子组件
             self.ParamDict.Clear();
-            foreach (Entity child in self.Children.Values)
+            //销毁子组件
+            ListComponent<Entity> removeList = ListComponent<Entity>.Create();
+            removeList.AddRange(self.Children.Values);
+            removeList.AddRange(self.Components.Values);
+            foreach (Entity entity in removeList)
             {
-                child.Dispose();
+                entity.Dispose();
             }
-            self.CancellationToken = new ETCancellationToken();
+            removeList.Dispose();
         }
         
         /// <summary>

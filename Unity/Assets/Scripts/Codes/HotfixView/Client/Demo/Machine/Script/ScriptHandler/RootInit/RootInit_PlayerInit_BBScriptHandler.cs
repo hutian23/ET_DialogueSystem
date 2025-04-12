@@ -11,26 +11,7 @@
         {
             Unit player = parser.GetParent<Unit>();
             
-            //1. 热重载时，只保留实现了IController接口的组件
-            ListComponent<Entity> removeList = ListComponent<Entity>.Create();
-            foreach (Entity child in player.Children.Values)
-            {
-                if(typeof(IController).IsAssignableFrom(child.GetType())) continue;
-                removeList.Add(child);
-            }
-            foreach (Entity component in player.Components.Values)
-            {
-                if (typeof(IController).IsAssignableFrom(component.GetType())) continue;
-                removeList.Add(component);
-            }
-            foreach (Entity entity in removeList)
-            {
-                entity.Dispose();
-            }
-            removeList.Dispose();
-            
-            
-            //2. 添加需要的组件
+            //添加玩家控制器依赖的组件
             player.AddComponent<TimelineComponent>();
             player.AddComponent<BBTimerComponent>().IsUnitTimer();
             player.AddComponent<BBNumeric>();

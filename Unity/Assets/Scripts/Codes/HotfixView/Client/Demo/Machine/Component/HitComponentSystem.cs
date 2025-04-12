@@ -18,7 +18,7 @@ namespace ET.Client
             {
                 //1. 相关组件
                 B2Unit b2Unit = self.GetParent<Unit>().GetComponent<B2Unit>();
-                HitComponent hit = self.GetParent<HitComponent>();
+                HitComponent hit = self.GetComponent<HitComponent>();
 
                 //2. 获取缓冲区中的碰撞数据
                 Queue<CollisionInfo> infoQueue = b2Unit.CollisionBuffer;

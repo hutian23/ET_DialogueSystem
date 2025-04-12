@@ -23,7 +23,7 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            //1. 跳过这个代码块
+            //1. 跳过代码块
             int index = parser.Coroutine_Pointers[data.CoroutineID];
             int endIndex = index, startIndex = index;
             while (++index < parser.OpDict.Count)

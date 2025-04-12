@@ -12,7 +12,6 @@ NumericType: MaxJump, 5;
 NumericType: MaxDash, 2;
 NumericType: DashCount, 2;
 NumericType: JumpCount, 2;
-NumericType: Hertz, 60;
 # 数值更新事件
 NumericChange: Hertz
   UpdateHertz;
@@ -57,6 +56,9 @@ RegistMove: (Rg_Jump)
   MoveType: Move;
   EndMove:
 RegistMove: (Rg_5B)
+  MoveType: Normal;
+  EndMove:
+RegistMove: (Rg_5C)
   MoveType: Normal;
   EndMove:
 RegistMove: (Rg_AirDash)
@@ -326,13 +328,15 @@ return;
 
 @Main:
 ApplyRootMotion: true;
-MarkerEvent: (Whiff_Start)
-  EnableWhiffCancel: true;
-  WhiffOption: Rg_GroundDash;
-  EndMarkerEvent:
+# MarkerEvent: (Whiff_Start)
+#   EnableWhiffCancel: true;
+#   WhiffOption: Rg_GroundDash;
+#   EndMarkerEvent:
 MarkerEvent: (Hit_Start)
   # 这里开始，受击回调
   HitNotify: Once # 对于同一对象，在持续帧内仅造成一次攻击(Repeat则为持续帧内，只要发生碰撞，每帧都会回调受击回调)
+    EnableGatlingCancel: true;
+    GCOption: Rg_5C;
     Shake: 500, 0, 8000, 18; # 振动
     HitStop: 0, 18; # 打击停顿
     # 受击行为协程需要使用的变量
@@ -350,44 +354,23 @@ MarkerEvent: (Hit_Start)
     # 受击者进入哪个硬直状态
     HitStun: Hurt3;
     EndNotify:
-  EndMarkerEvent:
+EndMarkerEvent:
+MarkerEvent: (Whiff_End)
+  EnableGatlingCancel: false;
+EndMarkerEvent:
 PlayTimeline: 0, 30;
 Exit;
 
 [Rg_5C]
 @Trigger: 
-InputType: 2LPPressed;
+InputType: 5LPPressed;
 InAir: false;
-# CancelOption: 'Rg_5C';
 return;
 
 @Main:
 ApplyRootMotion: true;
-MarkerEvent: (Whiff_Start)
-  InputBuffer: true;
-  CancelWindow: Whiff;
-  CancelOption: Rg_GroundDash;
-  EndMarkerEvent:
-MarkerEvent: (Hit_Start)
-  HurtNotify: Once
-    ShakeX: 2000, 40000, 15;
-    # ScreenShakeX: 1500, 35000, 15;
-    HitStop: 5, 15;
-    Hit_UpdateFlip;
-    HitParam: ShakeX_Length, 8500;
-    HitParam: ShakeX_Frequency, 60000;
-    HitParam: ShakeX_Frame, 18;
-    HitParam: HitStopFrame, 9;
-    HitParam: Push_V, -200000;
-    HitParam: Push_F, 950000;
-    HitStun: Hurt3;
-    EndNotify:
-  EndMarkerEvent:
-MarkerEvent: (Whiff_End)
-  # GCWindow;
-  # GCOption: 'Rg_5D';
-  EndMarkerEvent:
-StartTimeline;
+PlayTimeline: 0, 48;
+ApplyRootMotion: false;
 Exit;
 
 [Rg_5D]
@@ -1046,3 +1029,32 @@ return;
 WaitFrame: 10;
 LogWarning: 'Hello';
 return;
+
+[轻波动]
+@Main:
+WaitFrame: 15;
+CreateFireBall: 1003, 1000, 5000, 10000;
+WaitFrame: 34;
+Exit;
+
+[中波动]
+@Main:
+WaitFrame: 13;
+CreateFireBall: 1003, 1000, 5000, 15000;
+WaitFrame: 36;
+Exit;
+
+[重波动]
+@Main:
+WaitFrame: 11;
+CreateFireBall: 1003, 1000, 5000, 20000;
+WaitFrame: 38;
+Exit
+
+[od波动]
+@Main:
+SpCost: 20;
+WaitFrame: 11;
+CreateFireBall: 1004, 1000, 5000, 25000;
+WaitFrame: 29;
+Exit
