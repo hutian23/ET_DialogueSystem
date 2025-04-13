@@ -61,18 +61,21 @@ RegistMove: (Rg_5B)
 RegistMove: (Rg_5C)
   MoveType: Normal;
   EndMove:
+RegistMove: (Rg_5D)
+  MoveType: Normal;
+  EndMove:
 RegistMove: (Rg_AirDash)
   MoveType: Special;
   EndMove:
 RegistMove: (Rg_GroundDash)
   MoveType: Special;
   EndMove:
-RegistMove: (Rg_Super2)
-  MoveType: Special;
-  EndMove:
-RegistMove: (Rg_PlungingAttack)
-  MoveType: Special;
-  EndMove:
+# RegistMove: (Rg_Super2)
+#   MoveType: Special;
+#   EndMove:
+# RegistMove: (Rg_PlungingAttack)
+#   MoveType: Special;
+#   EndMove:
 RegistMove: (Rg_IdleAnim)
   MoveType: Etc;
   EndMove:
@@ -327,6 +330,10 @@ InAir: false;
 return;
 
 @Main:
+MarkerEvent: (Whiff_Start)
+  EnableWhiffCancel: true;
+  WhiffOption: Rg_GroundDash;
+EndMarkerEvent:
 MarkerEvent: (Hit_Start)
   # 这里开始，受击回调
   HitNotify: Once # 对于同一对象，在持续帧内仅造成一次攻击(Repeat则为持续帧内，只要发生碰撞，每帧都会回调受击回调)
@@ -335,25 +342,26 @@ MarkerEvent: (Hit_Start)
     TCOption: Rg_5C;
     Shake: 500, 0, 8000, 10; # 振动
     HitStop: 0, 10; # 打击停顿
-    # 受击行为协程需要使用的变量
-    HitParam: Shake_LengthX, 1200;
-    HitParam: Shake_LengthY, 1000;
-    HitParam: Shake_Frequency, 10000;
-    HitParam: Shake_Frame, 18;
-    # 受击者帧冻结(HitStop)的总帧长
-    HitParam: HitStopFrame, 18;
-    # HitStop结束后抛出的速度(万分制)
-    HitParam: StartV_X, -3000;
-    HitParam: StartV_Y, 250000;
-    # 受击时调整转向
-    Hit_UpdateFlip;
-    # 受击者进入哪个硬直状态
-    HitStun: Hurt3;
+    # # 受击行为协程需要使用的变量
+    # HitParam: Shake_LengthX, 1200;
+    # HitParam: Shake_LengthY, 1000;
+    # HitParam: Shake_Frequency, 10000;
+    # HitParam: Shake_Frame, 18;
+    # # 受击者帧冻结(HitStop)的总帧长
+    # HitParam: HitStopFrame, 18;
+    # # HitStop结束后抛出的速度(万分制)
+    # HitParam: StartV_X, -3000;
+    # HitParam: StartV_Y, 250000;
+    # # 受击时调整转向
+    # Hit_UpdateFlip;
+    # # 受击者进入哪个硬直状态
+    # HitStun: Hurt3;
     EndNotify:
 EndMarkerEvent:
 MarkerEvent: (Hit_End)
   EnableGatlingCancel: false;
   EnableTargetCancel: false;
+  EnableWhiffCancel: false;
 EndMarkerEvent:
 ApplyRootMotion: true;
 PlayTimeline: 0, 30;
@@ -368,11 +376,13 @@ InAir: false;
 return;
 
 @Main:
+SetVelocityX: 0;
 # 攻击持续第一帧
 MarkerEvent: (Hit_Start)
   # 攻击检测
   HitNotify: Once
     EnableTargetCancel: true;
+    TCOption: Rg_5D;
     Shake: 500, 0, 8000, 14; # 振动
     HitStop: 1, 14; # 打击停顿
   EndNotify:
@@ -381,36 +391,38 @@ EndMarkerEvent:
 MarkerEvent: (Hit_End)
   EnableTargetCancel: false;
 EndMarkerEvent:
-ApplyRootMotion: true;
+# ApplyRootMotion: true;
 PlayTimeline: 0, 48;
-ApplyRootMotion: false;
+# ApplyRootMotion: false;
 Exit;
 
 [Rg_5D]
 @Trigger:
+TCOption: Rg_5D;
 InputType: 5LPPressed;
 InAir: false;
-GCOption: 'Rg_5D';
 return;
 
 @Main:
-MarkerEvent: (Whiff_Start)
-  InputBuffer: true;
-  WhiffWindow;
-  WhiffOption: 'Rg_GroundDash';
-  EndMarkerEvent:
-MarkerEvent: (Whiff_End)
-  GCWindow;
-  GCOption: 'Rg_TC_End';
-  EndMarkerEvent:
-StartTimeline;
+SetVelocityX: 0;
+MarkerEvent: (Hit_Start)
+  HitNotify: Once
+    EnableGatlingCancel: true;
+    Shake: 800, 0, 10000, 18;
+    HitStop: 2, 18;
+  EndNotify:
+EndMarkerEvent:
+MarkerEvent: (Hit_End)
+  EnableGatlingCancel: false;
+EndMarkerEvent:
+PlayTimeline: 0, 39;
 Exit;
 
 [Rg_TC_End]
 @Trigger:
+TCOption: Rg_TC_End;
 InputType: 5LPPressed;
 InAir: false;
-GCOption: 'Rg_TC_End';
 return;
 
 @Main:
