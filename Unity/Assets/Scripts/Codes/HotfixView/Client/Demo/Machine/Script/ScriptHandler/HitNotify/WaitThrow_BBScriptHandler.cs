@@ -14,7 +14,7 @@ namespace ET.Client
             BBTimerComponent postStepTimer = b2WorldManager.Instance.GetPostStepTimer();
             B2Unit b2Unit = self.GetParent<Unit>().GetComponent<B2Unit>();
 
-            Queue<CollisionInfo> infoQueue = b2Unit.CollisionBuffer;
+            Queue<CollisionInfo> infoQueue = b2Unit.TriggerBuffer;
             int count = infoQueue.Count;
 
             while (count-- > 0)

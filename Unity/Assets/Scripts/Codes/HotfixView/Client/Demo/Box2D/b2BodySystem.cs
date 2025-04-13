@@ -237,6 +237,15 @@ namespace ET.Client
 
             return fixture;
         }
+
+        public static Fixture GetFixture(this b2Body self, string name)
+        {
+            if (!self.FixtureDict.TryGetValue(name, out Fixture fixture))
+            {
+                Log.Error($"not found fixture: {name}");
+            }
+            return fixture;
+        }
         #endregion
     }
 }

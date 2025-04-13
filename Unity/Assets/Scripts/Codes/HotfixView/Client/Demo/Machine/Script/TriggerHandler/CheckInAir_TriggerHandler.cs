@@ -10,15 +10,36 @@ namespace ET.Client
             return "InAir";
         }
 
-        //InAir: true;
+        //inAir: true;
         public override bool Check(BBParser parser, BBScriptData data)
         {
+            //1. 匹配参数
             Match match = Regex.Match(data.opLine, @"InAir: (?<InAir>\w+)");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
                 return false;
             }
+            
+            //2. 查询组件
+            // Unit unit = parser.GetParent<Unit>();
+            // AirCheckComponent airCheck = unit.GetComponent<AirCheckComponent>();
+            // if (airCheck == null)
+            // {
+            //     Log.Error($"does not exist AirCheckComponent!");
+            //     return false;
+            // }
+            //
+            // switch (match.Groups["inAir"].Value)
+            // {
+            //     case "true":
+            //         return airCheck.GetInAir();
+            //     case "false":
+            //         return !airCheck.GetInAir();
+            //     default:
+            //         Log.Error("does not match inAir!");
+            //         return false;
+            // }
 
             Unit unit = parser.GetParent<Unit>();
             BehaviorMachine machine = unit.GetComponent<BehaviorMachine>();

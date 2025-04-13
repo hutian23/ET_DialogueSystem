@@ -17,11 +17,11 @@ namespace ET.Client
         {
             B2Unit b2Unit = parser.GetParent<Unit>().GetComponent<B2Unit>();
             
-            int count = b2Unit.CollisionBuffer.Count;
+            int count = b2Unit.TriggerBuffer.Count;
             while (count-- > 0)
             {
-                CollisionInfo info = b2Unit.CollisionBuffer.Dequeue();
-                b2Unit.CollisionBuffer.Enqueue(info);
+                CollisionInfo info = b2Unit.TriggerBuffer.Dequeue();
+                b2Unit.TriggerBuffer.Enqueue(info);
                 
                 BoxInfo boxInfoA = info.dataA.UserData as BoxInfo;
                 BoxInfo boxInfoB = info.dataB.UserData as BoxInfo;

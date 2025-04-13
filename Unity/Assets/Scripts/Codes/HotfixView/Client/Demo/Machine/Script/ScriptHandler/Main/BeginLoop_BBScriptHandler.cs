@@ -69,7 +69,7 @@ namespace ET.Client
         }
 
         //只能在Main携程中使用
-        //BeginLoop: (None), (InAir: true), (TransitionCached: 'RunToIdle')
+        //BeginLoop: (None), (inAir: true), (TransitionCached: 'RunToIdle')
         //EndLoop
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {

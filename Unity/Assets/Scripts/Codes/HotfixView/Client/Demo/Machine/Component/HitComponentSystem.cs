@@ -21,7 +21,7 @@ namespace ET.Client
                 HitComponent hit = self.GetComponent<HitComponent>();
 
                 //2. 获取缓冲区中的碰撞数据
-                Queue<CollisionInfo> infoQueue = b2Unit.CollisionBuffer;
+                Queue<CollisionInfo> infoQueue = b2Unit.TriggerBuffer;
                 int count = infoQueue.Count;
                 while (count-- > 0)
                 {

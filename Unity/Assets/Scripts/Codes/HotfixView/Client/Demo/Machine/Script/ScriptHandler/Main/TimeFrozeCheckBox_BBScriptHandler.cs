@@ -23,7 +23,7 @@ namespace ET.Client
             int hertz = self.GetParam<int>("TimeFroze_Hertz");
             self.UpdateParam("TimeFroze_LastFrame", --lastFrame);
             
-            Queue<CollisionInfo> infoQueue = b2Unit.CollisionBuffer;
+            Queue<CollisionInfo> infoQueue = b2Unit.TriggerBuffer;
             int count = infoQueue.Count;
             while (count-- > 0)
             {

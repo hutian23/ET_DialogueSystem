@@ -44,7 +44,7 @@ namespace ET.Client
                 {
                     EventSystem.Instance.Invoke(dataA.CollisionStayId, new CollisionStayCallback() { info = new CollisionInfo() 
                     {
-                            fixtureA = fixtureA, fixtureB = fixtureB, dataA = dataA, dataB = dataB,Contact = args.Contact
+                        fixtureA = fixtureA, fixtureB = fixtureB, dataA = dataA, dataB = dataB, Contact = args.Contact
                     }});
                 }
 

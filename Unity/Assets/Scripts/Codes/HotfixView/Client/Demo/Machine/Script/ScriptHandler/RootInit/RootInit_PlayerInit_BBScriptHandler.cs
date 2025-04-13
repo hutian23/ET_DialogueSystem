@@ -19,6 +19,7 @@
             player.AddComponent<B2Unit, long>(player.InstanceId);
             player.AddComponent<ObjectWait>();
             player.AddComponent<InputWait>();
+            player.AddComponent<BuffManager>();
             
             await ETTask.CompletedTask;
             return Status.Success;

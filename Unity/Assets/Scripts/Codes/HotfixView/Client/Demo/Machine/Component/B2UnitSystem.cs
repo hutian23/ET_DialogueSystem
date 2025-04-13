@@ -17,6 +17,7 @@ namespace ET.Client
         public static void Init(this B2Unit self)
         {
             self.ApplyRootMotion = false;
+            self.TriggerBuffer.Clear();
             self.CollisionBuffer.Clear();
         }
 
@@ -34,6 +35,7 @@ namespace ET.Client
             protected override void PosStepUpdate(B2Unit self)
             {
                 //清空碰撞信息缓冲区
+                self.TriggerBuffer.Clear();
                 self.CollisionBuffer.Clear();
             }
         }

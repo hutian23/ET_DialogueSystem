@@ -15,20 +15,21 @@ NumericType: JumpCount, 2;
 # 数值更新事件
 NumericChange: Hertz
   UpdateHertz;
-  EndNumericChange:
+EndNumericChange:
 NumericChange: DashCount
   #OnGround---> DashRecharge
   BeginIf: (Numeric: DashCount <= 0), (InAir: false)
     DashRecharge: 2, 40;
-    EndIf:
-  EndNumericChange:
-# 创建碰撞盒: (Center), (Size)
+  EndIf:
+EndNumericChange:
+# 落地检测
 AirCheckBox: 0, -1850, 1250, 1000;
 # 注册输入缓冲
 RegistInput: RunHold;
 RegistInput: SquatHold;
 RegistInput: 2LPPressed;
 RegistInput: 5LPPressed;
+RegistInput: 5LPHold;
 RegistInput: 5MPPressed;
 RegistInput: 5MPHold;
 RegistInput: DashPressed;
@@ -60,6 +61,9 @@ RegistMove: (Rg_5C)
   MoveType: Normal;
   EndMove:
 RegistMove: (Rg_5D)
+  MoveType: Normal;
+  EndMove:
+RegistMove: (Rg_5BHold)
   MoveType: Normal;
   EndMove:
 RegistMove: (Rg_AirDash)
@@ -382,6 +386,7 @@ SetVelocityX: 0;
 MarkerEvent: (Hit_Start)
   # 攻击检测
   HitNotify: Once
+    EnableGatlingCancel: true;
     EnableTargetCancel: true;
     TCOption: Rg_5D;
     Shake: 500, 0, 8000, 14; # 振动
@@ -390,6 +395,7 @@ MarkerEvent: (Hit_Start)
 EndMarkerEvent:
 # 攻击持续最后一帧
 MarkerEvent: (Hit_End)
+  EnableGatlingCancel: false;
   EnableTargetCancel: false;
 EndMarkerEvent:
 # ApplyRootMotion: true;
@@ -417,6 +423,35 @@ MarkerEvent: (Hit_End)
   EnableGatlingCancel: false;
 EndMarkerEvent:
 PlayTimeline: 0, 39;
+Exit;
+
+[Rg_5BHold]
+@Trigger:
+InputType: 5LPHold;
+InAir: false;
+return;
+
+@Main:
+BBSprite: 'Frame_1', 3;
+BBSprite: 'Frame_2', 3;
+BBSprite: 'Frame_3', 3;
+BBSprite: 'Frame_4', 3;
+BBSprite: 'Frame_5', 3;
+BBSprite: 'Frame_6', 3;
+BBSprite: 'Frame_7', 3;
+BBSprite: 'Frame_8', 3;
+BBSprite: 'Frame_9', 3;
+BBSprite: 'Frame_10', 4;
+BBSprite: 'Frame_11', 4;
+BBSprite: 'Frame_12', 4;
+BBSprite: 'Frame_13', 4;
+BBSprite: 'Frame_14', 4;
+BBSprite: 'Frame_15', 4;
+BBSprite: 'Frame_16', 4;
+BBSprite: 'Frame_17', 4;
+BBSprite: 'Frame_18', 4;
+BBSprite: 'Frame_19', 4;
+BBSprite: 'Frame_20', 4;
 Exit;
 
 [Rg_TC_End]
@@ -1019,6 +1054,7 @@ BBSprite: 'Frame_23', 4;
 BBSprite: 'Frame_24', 4;
 BBSprite: 'Frame_25', 4;
 BBSprite: 'Frame_26', 4;
+EnableNandemoCancel: true;
 BBSprite: 'Frame_27', 4;
 BBSprite: 'Frame_28', 4;
 BBSprite: 'Frame_29', 4;
@@ -1043,13 +1079,14 @@ BeginLoop: (InputType: 5MPHold), (Counter: Value > 0)
 EndLoop:
 BBSprite: 'Frame_5', 4;
 BBSprite: 'Frame_6', 4;
-BBSprite: 'Frame_33', 5;
+BBSprite: 'Frame_33', 4;
 BBSprite: 'Frame_34', 4;
 BBSprite: 'Frame_35', 4;
 BBSprite: 'Frame_36', 4;
 BBSprite: 'Frame_37', 4;
 BBSprite: 'Frame_38', 4;
 BBSprite: 'Frame_39', 4;
+EnableNandemoCancel: true;
 BBSprite: 'Frame_40', 4;
 BBSprite: 'Frame_41', 4;
 BBSprite: 'Frame_42', 2;

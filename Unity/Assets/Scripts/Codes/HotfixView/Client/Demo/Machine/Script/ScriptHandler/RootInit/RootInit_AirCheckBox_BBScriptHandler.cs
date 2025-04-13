@@ -17,14 +17,14 @@ namespace ET.Client
         {
             B2Unit b2Unit = self.GetComponent<B2Unit>(); // 碰撞信息缓存组件
             BehaviorMachine machine = self.GetComponent<BehaviorMachine>(); // 控制器逻辑组件
-
-            Queue<CollisionInfo> infoQueue = b2Unit.CollisionBuffer;
+    
+            Queue<CollisionInfo> infoQueue = b2Unit.TriggerBuffer;
             int count = infoQueue.Count;
             while (count-- > 0)
             {
                 CollisionInfo info = infoQueue.Dequeue();
                 infoQueue.Enqueue(info);
-
+    
                 if (info.dataA.Name.Equals("AirCheckBox") && info.dataB.LayerMask is LayerType.Ground && !info.dataB.IsTrigger)
                 {
                     if (machine.GetParam<bool>("InAir"))
@@ -36,7 +36,7 @@ namespace ET.Client
                     return;
                 }
             }
-
+    
             machine.UpdateParam("InAir", true);
         }
     }

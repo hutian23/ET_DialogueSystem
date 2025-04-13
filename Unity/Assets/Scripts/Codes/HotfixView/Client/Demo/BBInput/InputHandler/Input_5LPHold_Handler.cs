@@ -15,10 +15,11 @@
         public override long Handle(InputWait self)
         {
             BBTimerComponent sceneTimer = BBTimerManager.Instance.SceneTimer();
+            
+            //1. 按住X超过20帧，如果超过30帧认为没有按下
             long curFrame = sceneTimer.GetNow();
             long pressedFrame = self.GetPressedFrame(BBOperaType.X);
-            
-            return self.IsPressing(BBOperaType.X) && curFrame - pressedFrame> 25 && curFrame - pressedFrame < 30? self.GetBuffFrame(30): -1;
+            return self.IsPressing(BBOperaType.X) && curFrame - pressedFrame >= 20 && curFrame - pressedFrame <= 30? self.GetBuffFrame(30): -1;
         }
     }
 }

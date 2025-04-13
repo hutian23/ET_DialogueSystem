@@ -15,7 +15,7 @@ namespace ET.Client
             B2Unit b2Unit = self.GetParent<Unit>().GetComponent<B2Unit>();
 
             //PostStep生命周期中，取出碰撞缓冲区中碰撞信息
-            Queue<CollisionInfo> infoQueue = b2Unit.CollisionBuffer;
+            Queue<CollisionInfo> infoQueue = b2Unit.TriggerBuffer;
             int count = infoQueue.Count;
 
             bool wasHit = false;

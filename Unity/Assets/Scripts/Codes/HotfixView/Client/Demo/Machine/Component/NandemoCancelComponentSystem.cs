@@ -22,6 +22,7 @@
                         continue;
                     }
                 
+                    //符合前置条件
                     if (info.Trigger())
                     {
                         currentOrder = info.behaviorOrder;
