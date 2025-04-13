@@ -30,12 +30,10 @@ RegistInput: SquatHold;
 RegistInput: 2LPPressed;
 RegistInput: 5LPPressed;
 RegistInput: 5MPPressed;
+RegistInput: 5MPHold;
 RegistInput: DashPressed;
-RegistInput: 5LPHold;
-RegistInput: ShouRyuKen;
 RegistInput: JumpPressed;
 RegistInput: QuickFallPressed;
-RegistInput: JumpCancel;
 # 注册动作
 RegistMove: (Rg_Idle)
   MoveType: None;
@@ -68,6 +66,9 @@ RegistMove: (Rg_AirDash)
   MoveType: Special;
   EndMove:
 RegistMove: (Rg_GroundDash)
+  MoveType: Special;
+  EndMove:
+RegistMove: (Rg_Super3)
   MoveType: Special;
   EndMove:
 # RegistMove: (Rg_Super2)
@@ -1023,6 +1024,35 @@ BBSprite: 'Frame_28', 4;
 BBSprite: 'Frame_29', 4;
 BBSprite: 'Frame_30', 4;
 BBSprite: 'Frame_31', 4;
+Exit;
+
+[Rg_Super3]
+@Trigger:
+InAir: false;
+InputType: 5MPPressed;
+return;
+
+@Main:
+SetVelocityX: 0;
+BBSprite: 'Frame_1', 4;
+BBSprite: 'Frame_2', 4;
+BBSprite: 'Frame_3', 4;
+RegistCounter:  20;
+BeginLoop: (InputType: 5MPHold), (Counter: Value > 0)
+  BBSprite: 'Frame_4', 4;
+EndLoop:
+BBSprite: 'Frame_5', 4;
+BBSprite: 'Frame_6', 4;
+BBSprite: 'Frame_33', 5;
+BBSprite: 'Frame_34', 4;
+BBSprite: 'Frame_35', 4;
+BBSprite: 'Frame_36', 4;
+BBSprite: 'Frame_37', 4;
+BBSprite: 'Frame_38', 4;
+BBSprite: 'Frame_39', 4;
+BBSprite: 'Frame_40', 4;
+BBSprite: 'Frame_41', 4;
+BBSprite: 'Frame_42', 2;
 Exit;
 
 [Rg_IdleAnim]

@@ -9,10 +9,11 @@ namespace ET.Client
             return "Counter";
         }
 
-        
+        //Counter: Value > 10
         public override bool Check(BBParser parser, BBScriptData data)
         {
-            Match match = Regex.Match(data.opLine, @"Counter: (?<Cnt>\w+) (?<Sign>[><=]+) (?<CheckVel>-?\d+)");
+            //1. 匹配参数
+            Match match = Regex.Match(data.opLine, @"Counter: Value (?<Sign>[><=]+) (?<CheckVel>-?\d+)");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -23,13 +24,16 @@ namespace ET.Client
                 Log.Error($"cannot format {match.Groups["Position"].Value} to int !!!");
                 return false;
             }
-            
-            if (!parser.ContainParam($"Counter_{match.Groups["Cnt"].Value}"))
+
+            //2. 查询组件
+            Counter counter = parser.GetComponent<Counter>();
+            if (counter == null)
             {
+                Log.Error($"does not exist component: Counter");
                 return false;
             }
-
-            int targetVel = parser.GetParam<int>($"Counter_{match.Groups["Cnt"].Value}");
+            
+            int targetVel = counter.GetCounter();
             switch (match.Groups["Sign"].Value)
             {
                 case "=":

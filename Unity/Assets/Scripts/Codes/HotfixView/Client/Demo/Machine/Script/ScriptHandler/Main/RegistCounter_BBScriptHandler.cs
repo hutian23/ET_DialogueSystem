@@ -9,10 +9,10 @@ namespace ET.Client
             return "RegistCounter";
         }
 
-        // RegistCounter: Cnt_1, 30;
+        // RegistCounter: 30;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"RegistCounter: (?<Counter>\w+), (?<WaitFrame>.*?);");
+            Match match = Regex.Match(data.opLine, @"RegistCounter: (?<WaitFrame>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -23,26 +23,9 @@ namespace ET.Client
                 Log.Error($"cannot format {match.Groups["WaitFrame"].Value} to int!");
                 return Status.Failed;
             }
-
-            parser.TryRemoveParam($"Counter_{match.Groups["Counter"].Value}");
-            parser.RegistParam($"Counter_{match.Groups["Counter"].Value}", waitFrame);
             
-            // 计时器协程
-            async ETTask CounterCor()
-            {
-                BBTimerComponent bbTimer = parser.GetParent<Unit>().GetComponent<BBTimerComponent>();
-                int counter = waitFrame;
-                while (counter-- > 0)
-                {
-                    parser.UpdateParam($"Counter_{match.Groups["Counter"].Value}", counter);
-                    await bbTimer.WaitFrameAsync(token);
-                    if (token.IsCancel())
-                    {
-                        return;
-                    }
-                }   
-            }
-            CounterCor().Coroutine();
+            parser.RemoveComponent<Counter>();
+            parser.AddComponent<Counter, int>(waitFrame);
             
             await ETTask.CompletedTask;
             return Status.Success;
