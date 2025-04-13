@@ -1274,18 +1274,6 @@ MonoBehaviour:
       Data: 35|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 16
-    - Name: keyframeName
-      Entry: 1
-      Data: Whiff_End
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 36|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
       Data: 40
     - Name: keyframeName
       Entry: 1
@@ -1295,13 +1283,25 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 37|Timeline.EventInfo, Unity.Loader
+      Data: 36|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 15
     - Name: keyframeName
       Entry: 1
       Data: Hit_Start
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 37|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 20
+    - Name: keyframeName
+      Entry: 1
+      Data: Hit_End
     - Name: 
       Entry: 8
       Data: 

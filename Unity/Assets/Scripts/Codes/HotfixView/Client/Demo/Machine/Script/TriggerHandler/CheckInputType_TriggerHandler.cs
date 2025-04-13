@@ -18,13 +18,12 @@ namespace ET.Client
                 ScriptHelper.ScripMatchError(data.opLine);
                 return false;
             }
-
+            
             Unit unit = parser.GetParent<Unit>();
             InputWait inputWait = unit.GetComponent<InputWait>();
+            BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
             
-            // BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
-            // return wait.CheckBuffer(match.Groups["InputType"].Value,bbTimer.GetNow());
-            return inputWait.CheckBuffer(match.Groups["InputType"].Value, BBTimerManager.Instance.SceneTimer().GetNow());
+            return inputWait.CheckBuffer(match.Groups["InputType"].Value, bbTimer.GetNow());
         }
     }
 }

@@ -330,27 +330,29 @@ return;
 MarkerEvent: (Hit_Start)
   # 这里开始，受击回调
   HitNotify: Once # 对于同一对象，在持续帧内仅造成一次攻击(Repeat则为持续帧内，只要发生碰撞，每帧都会回调受击回调)
+    EnableGatlingCancel: true;
     EnableTargetCancel: true;
     TCOption: Rg_5C;
     Shake: 500, 0, 8000, 10; # 振动
     HitStop: 0, 10; # 打击停顿
-    # # 受击行为协程需要使用的变量
-    # HitParam: Shake_LengthX, 1200;
-    # HitParam: Shake_LengthY, 1000;
-    # HitParam: Shake_Frequency, 10000;
-    # HitParam: Shake_Frame, 18;
-    # # 受击者帧冻结(HitStop)的总帧长
-    # HitParam: HitStopFrame, 18;
-    # # HitStop结束后抛出的速度(万分制)
-    # HitParam: StartV_X, -3000;
-    # HitParam: StartV_Y, 250000;
-    # # 受击时调整转向
-    # Hit_UpdateFlip;
-    # # 受击者进入哪个硬直状态
-    # HitStun: Hurt3;
+    # 受击行为协程需要使用的变量
+    HitParam: Shake_LengthX, 1200;
+    HitParam: Shake_LengthY, 1000;
+    HitParam: Shake_Frequency, 10000;
+    HitParam: Shake_Frame, 18;
+    # 受击者帧冻结(HitStop)的总帧长
+    HitParam: HitStopFrame, 18;
+    # HitStop结束后抛出的速度(万分制)
+    HitParam: StartV_X, -3000;
+    HitParam: StartV_Y, 250000;
+    # 受击时调整转向
+    Hit_UpdateFlip;
+    # 受击者进入哪个硬直状态
+    HitStun: Hurt3;
     EndNotify:
 EndMarkerEvent:
 MarkerEvent: (Hit_End)
+  EnableGatlingCancel: false;
   EnableTargetCancel: false;
 EndMarkerEvent:
 ApplyRootMotion: true;

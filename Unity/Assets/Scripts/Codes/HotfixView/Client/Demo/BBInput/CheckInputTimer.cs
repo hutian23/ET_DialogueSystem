@@ -8,9 +8,8 @@
         {
             BBTimerComponent sceneTimer = BBTimerManager.Instance.SceneTimer();
             
-            self.curOP = BBInputComponent.Instance.CheckInput();
-            
             //1. 缓存输入
+            self.curOP = BBInputComponent.Instance.CheckInput();
             self.infoQueue.Enqueue(new InputInfo() { op = self.curOP, frame = sceneTimer.GetNow() });
             //超出容量的部分出列
             int count = self.infoQueue.Count;
@@ -48,13 +47,13 @@
                 InputHandler handler = ScriptDispatcherComponent.Instance.GetInputHandler(handlerName);
 
                 //更新缓冲最大有效帧
-                string bufferType = handler.GetBufferType(); // 缓冲类型
+                string bufferType = handler.GetBufferType(); //缓冲类型
                 long buffFrame = handler.Handle(self);
                 if (!self.BufferDict.ContainsKey(bufferType))
                 {
                     self.BufferDict.TryAdd(bufferType, -1);
                 }
-
+                
                 if (buffFrame > self.BufferDict[bufferType])
                 {
                     self.BufferDict[bufferType] = buffFrame;

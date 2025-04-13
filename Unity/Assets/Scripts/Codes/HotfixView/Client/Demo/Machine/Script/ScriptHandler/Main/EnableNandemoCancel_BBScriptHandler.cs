@@ -21,11 +21,11 @@ namespace ET.Client
             
             //1. 初始化
             parser.RemoveComponent<NandemoCancelComponent>();
-           
+            
             //2. 启动取消窗口
             if (match.Groups["Enable"].Value.Equals("true"))
             {
-                parser.AddComponent<NandemoCancelComponent>();   
+                parser.AddComponent<NandemoCancelComponent>();
             }
             
             await ETTask.CompletedTask;
