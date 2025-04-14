@@ -15,7 +15,7 @@
         public const int BBInputHandleTimer = 8;
 
         //和行为有关的计时器
-        public const int UpdateFlipTimer = 100;
+        public const int FlipCheckTimer = 100;
         public const int MoveXTimer = 101;
         public const int GravityCheckTimer = 102;
         public const int AirMoveXTimer = 103;

@@ -87,7 +87,7 @@ GotoBehavior: 'Rg_Idle';
 return;
 
 @BeforeReload:
-UpdateFlip: Once;
+# UpdateFlip: Once;
 return;
 
 @LandCallback:
@@ -105,10 +105,10 @@ return;
 
 @Main:
 SetVelocityX: 0;
-# SetVelocityY: -1000;
 # 设置一个待机行为，保持idle 300帧之后进入这个行为
 IdleAnim: Rg_IdleAnim, 300;
 EnableDefaultCancel: true;
+EnableFlip: true;
 SetMarker: 'Loop';
 BBSprite: 'Idle_1', 4;
 BBSprite: 'Idle_2', 4;
@@ -152,7 +152,7 @@ return;
 
 @Main:
 #PreRun
-UpdateFlip: Repeat;
+EnableFlip: true;
 EnableDefaultCancel: true;
 MoveX: 130000;
 BBSprite: 'PreRun_1', 2;
@@ -185,7 +185,7 @@ return;
 
 @Main:
 SetVelocityX: 0;
-UpdateFlip: Repeat;
+EnableFlip: true;
 EnableDefaultCancel: true;
 BeginIf: (TransitionCached: 'NoPreSquat', false)
   BBSprite: 'PreSquit_1', 2;
@@ -219,7 +219,7 @@ return;
 
 @Main:
 EnableDefaultCancel: true;
-UpdateFlip: Repeat;
+EnableFlip: true;
 Gravity: 100000;
 AirMoveX: 150000;
 # Airbrone
@@ -249,7 +249,7 @@ BeginIf: (InAir: false)
   BBSprite: 'PreJump_2', 2;
   EndIf:
 # Jump
-UpdateFlip: Repeat;
+EnableFlip: true;
 Gravity: 0;
 AirMoveX: 150000;
 SetVelocityY: 200000;

@@ -12,6 +12,7 @@
             Unit player = parser.GetParent<Unit>();
             
             //添加玩家控制器依赖的组件
+            player.AddComponent<BuffManager>();
             player.AddComponent<TimelineComponent>();
             player.AddComponent<BBTimerComponent>().IsUnitTimer();
             player.AddComponent<BBNumeric>();
@@ -19,7 +20,6 @@
             player.AddComponent<B2Unit, long>(player.InstanceId);
             player.AddComponent<ObjectWait>();
             player.AddComponent<InputWait>();
-            player.AddComponent<BuffManager>();
             
             await ETTask.CompletedTask;
             return Status.Success;
