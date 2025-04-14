@@ -87,7 +87,6 @@ GotoBehavior: 'Rg_Idle';
 return;
 
 @BeforeReload:
-# UpdateFlip: Once;
 return;
 
 @LandCallback:
@@ -441,10 +440,10 @@ BBSprite: 'Frame_14', 4;
 BBSprite: 'Frame_15', 4;
 BBSprite: 'Frame_16', 4;
 BBSprite: 'Frame_17', 4;
-BBSprite: 'Frame_18', 3;
+BBSprite: 'Frame_18', 4;
 Test;
 BBSprite: 'Frame_19', 3;
-BBSprite: 'Frame_20', 2;
+BBSprite: 'Frame_20', 3;
 Exit;
 
 [Rg_TC_End]

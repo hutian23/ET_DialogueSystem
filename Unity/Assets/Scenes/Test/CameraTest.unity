@@ -580,6 +580,7 @@ Transform:
   - {fileID: 1671955192}
   - {fileID: 774582122}
   - {fileID: 971958970}
+  - {fileID: 1102066119}
   m_Father: {fileID: 374000357}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &603205785
@@ -982,6 +983,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 971958967}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1102066119 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5399380034041836498, guid: 686370c0ae142a642a7b285e466e51b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 7736598800481993572}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1342651524
 GameObject:
   m_ObjectHideFlags: 0
@@ -998,7 +1005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1342651525
 Transform:
   m_ObjectHideFlags: 0
@@ -1008,8 +1015,8 @@ Transform:
   m_GameObject: {fileID: 1342651524}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.768, y: -2.902, z: 2.1322978}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -2.95, y: -2.57, z: 2.1322978}
+  m_LocalScale: {x: 9.2847, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 603205786}
@@ -1408,6 +1415,415 @@ MonoBehaviour:
     hitboxType: 2
     center: {x: 0, y: -0.62}
     size: {x: 1.75, y: 3.14}
+--- !u!1001 &7736598800481993572
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 495028255}
+    m_Modifications:
+    - target: {fileID: 3342649288318214352, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: m_Name
+      value: DeadSpike
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.size
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.ReferencedUnityObjects.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.ReferencedUnityObjects.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[8].Data
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[8].Name
+      value: target
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[9].Data
+      value: 3|System.RuntimeType, mscorlib
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[9].Name
+      value: declaringType
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[10].Data
+      value: Timeline.RuntimePlayable, Unity.Loader
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[11].Data
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[11].Name
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[12].Data
+      value: Rebind
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[12].Name
+      value: methodName
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[13].Data
+      value: 4|System.RuntimeType, mscorlib
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[13].Name
+      value: delegateType
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[14].Data
+      value: System.Action, mscorlib
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[15].Data
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[15].Name
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[16].Data
+      value: 5|System.Type[], mscorlib
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[16].Name
+      value: signature
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[17].Data
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[19].Data
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[19].Name
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[20].Data
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[24].Data
+      value: 8|System.Action, mscorlib
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[25].Data
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[25].Name
+      value: target
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[26].Data
+      value: 9|System.RuntimeType, mscorlib
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[26].Name
+      value: declaringType
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[27].Data
+      value: Timeline.Editor.TimelineEditorWindow, Unity.Editor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[29].Data
+      value: PopulateView
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[29].Name
+      value: methodName
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[30].Data
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[30].Name
+      value: delegateType
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[31].Data
+      value: 10|System.Type[], mscorlib
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[31].Name
+      value: signature
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[32].Data
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[8].Entry
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[9].Entry
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[10].Entry
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[11].Entry
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[12].Entry
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[13].Entry
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[14].Entry
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[15].Entry
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[17].Entry
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[18].Entry
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[19].Entry
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[20].Entry
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[21].Entry
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[22].Entry
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[23].Entry
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[24].Entry
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[25].Entry
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[26].Entry
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[27].Entry
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[28].Entry
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[29].Entry
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[30].Entry
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[31].Entry
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[32].Entry
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[33].Entry
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[34].Entry
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[35].Entry
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[36].Entry
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[37].Entry
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[38].Entry
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074324931885866675, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: serializationData.SerializationNodes.Array.data[39].Entry
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399380034041836498, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.8072178
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399380034041836498, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.029823303
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399380034041836498, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0043468177
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399380034041836498, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399380034041836498, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399380034041836498, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399380034041836498, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399380034041836498, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399380034041836498, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399380034041836498, guid: 686370c0ae142a642a7b285e466e51b6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 686370c0ae142a642a7b285e466e51b6, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
