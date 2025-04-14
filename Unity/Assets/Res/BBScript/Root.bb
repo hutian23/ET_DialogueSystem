@@ -1,0 +1,4 @@
+[Root]
+@RootInit:
+BattleSceneInit;
+return;

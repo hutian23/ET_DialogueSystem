@@ -14,16 +14,14 @@ namespace ET.Client
             // 切换到map场景
             await SceneManager.LoadSceneAsync(currentScene.Name);
             
-            //管理逻辑帧
+            // 逻辑帧
             currentScene.AddComponent<BBTimerManager>();
-            //管理物理帧
+            // 物理帧
             currentScene.AddComponent<b2WorldManager>();
-            //管理输入
+            // 输入
             currentScene.AddComponent<BBInputComponent>();
-            //注册SceneTimer
+            // 相机
             currentScene.AddComponent<CameraManager>();
-            currentScene.AddComponent<EnemyManager>();
-            currentScene.AddComponent<BallManager>();
         }
     }
 }

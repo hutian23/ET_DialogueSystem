@@ -82,7 +82,9 @@ RegistMove: (Rg_Super3)
 RegistMove: (Rg_IdleAnim)
   MoveType: Etc;
   EndMove:
-#7. 进入默认动作
+#7. bullet池化
+PoolObject: DeadSpike, 3;
+#8. 进入默认动作
 GotoBehavior: 'Rg_Idle';
 return;
 
@@ -435,13 +437,13 @@ BBSprite: 'Frame_9', 3;
 BBSprite: 'Frame_10', 4;
 BBSprite: 'Frame_11', 4;
 BBSprite: 'Frame_12', 4;
+CreateBullet;
 BBSprite: 'Frame_13', 4;
 BBSprite: 'Frame_14', 4;
 BBSprite: 'Frame_15', 4;
 BBSprite: 'Frame_16', 4;
 BBSprite: 'Frame_17', 4;
 BBSprite: 'Frame_18', 4;
-Test;
 BBSprite: 'Frame_19', 3;
 BBSprite: 'Frame_20', 3;
 Exit;
