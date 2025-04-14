@@ -437,7 +437,7 @@ BBSprite: 'Frame_9', 3;
 BBSprite: 'Frame_10', 4;
 BBSprite: 'Frame_11', 4;
 BBSprite: 'Frame_12', 4;
-CreateBullet;
+CreateBullet: DeadSpike;
 BBSprite: 'Frame_13', 4;
 BBSprite: 'Frame_14', 4;
 BBSprite: 'Frame_15', 4;
