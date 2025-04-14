@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class Root_PoolObject_BBScriptHandler : BBScriptHandler
+    public class RootInit_PoolObject_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {

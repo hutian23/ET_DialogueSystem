@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using Box2DSharp.Dynamics;
-using ET.Event;
-using Timeline;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     [FriendOf(typeof(AirCheckComponent))]
     public static class AirCheckComponentSystem
@@ -41,14 +36,10 @@ namespace ET.Client
         //     }
         // }
 
-        public class AirCheckComponentAwakeSystem : AwakeSystem<AirCheckComponent,Fixture>
+        public class AirCheckComponentAwakeSystem : AwakeSystem<AirCheckComponent>
         {
-            protected override void Awake(AirCheckComponent self, Fixture fixture)
+            protected override void Awake(AirCheckComponent self)
             {
-                BBTimerComponent postStepTimer = b2WorldManager.Instance.GetPostStepTimer();
-                self.timer = postStepTimer.NewFrameTimer(BBTimerInvokeType.AirCheckTimer, self.GetParent<Unit>());
-                self.inAir = true;
-                self.checkBox = fixture;
             }
         }
 
@@ -56,13 +47,6 @@ namespace ET.Client
         {
             protected override void Destroy(AirCheckComponent self)
             {
-                Unit unit = self.GetParent<Unit>();
-                BBTimerComponent postStepTimer = b2WorldManager.Instance.GetPostStepTimer();
-                b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-                
-                postStepTimer.Remove(ref self.timer);
-                self.inAir = false;
-                body.DestroyFixture(self.checkBox);
             }
         }
 

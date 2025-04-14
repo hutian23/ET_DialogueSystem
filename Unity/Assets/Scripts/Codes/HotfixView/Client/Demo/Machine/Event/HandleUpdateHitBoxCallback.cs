@@ -11,7 +11,7 @@ namespace ET.Client
     [FriendOf(typeof(b2Body))]
     [FriendOf(typeof(b2WorldManager))]
     //HitboxTrack的回调
-    public class Timeline_HandleUpdateHitBoxCallback : AInvokeHandler<UpdateHitboxCallback>
+    public class HandleUpdateHitBoxCallback : AInvokeHandler<UpdateHitboxCallback>
     {
         public override void Handle(UpdateHitboxCallback args)
         {
@@ -21,8 +21,10 @@ namespace ET.Client
             {
                 return;
             }
+            
             //1. 销毁旧的夹具
-            b2Body.ClearHitBoxes();
+            b2Body.ClearFixtures(FixtureType.Hitbox);
+            
             //2. 更新hitbox
             foreach (BoxInfo info in args.Keyframe.boxInfos)
             {
@@ -41,8 +43,7 @@ namespace ET.Client
                         LayerMask = LayerType.Unit,
                         IsTrigger = info.hitboxType is not HitboxType.Squash,
                         UserData = info,
-                        TriggerStayId = TriggerStayType.CollisionEvent,
-                        // CollisionStayId = CollisionStayType.CollisionEvent
+                        TriggerStayId = TriggerStayType.CollisionEvent
                     }
                 };
                 b2Body.CreateFixture(fixtureDef);

@@ -24,6 +24,7 @@ NumericChange: DashCount
 EndNumericChange:
 # 落地检测
 AirCheckBox: 0, -1850, 1250, 1000;
+# AirCheck: 0, -1850, 1250, 1000;
 # 注册输入缓冲
 RegistInput: RunHold;
 RegistInput: SquatHold;

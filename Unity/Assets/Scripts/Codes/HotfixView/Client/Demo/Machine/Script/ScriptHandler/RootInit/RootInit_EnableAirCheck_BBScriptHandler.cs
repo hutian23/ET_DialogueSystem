@@ -11,14 +11,14 @@ namespace ET.Client
     {
         public override string GetOPType()
         {
-            return "AirCheck";
+            return "EnableAirCheck";
         }
 
         //EnableAirCheck: true;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
             //1. 匹配参数
-            Match match = Regex.Match(data.opLine, @"AirCheck: (?<CenterX>-?\d+), (?<CenterY>-?\d+), (?<SizeX>-?\d+), (?<SizeY>-?\d+);");
+            Match match = Regex.Match(data.opLine, @"EnableAirCheck: (?<CenterX>-?\d+), (?<CenterY>-?\d+), (?<SizeX>-?\d+), (?<SizeY>-?\d+);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -36,7 +36,8 @@ namespace ET.Client
             //2. 初始化
             Unit unit = parser.GetParent<Unit>();
             b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-            unit.RemoveComponent<AirCheckComponent>();
+            unit.RemoveComponent<AirCheckComponent>(); //移除组件
+            body.ClearFixtures(FixtureType.AirCheckBox); //移除夹具
             
             //3. 创建夹具
             PolygonShape shape = new();
@@ -50,7 +51,7 @@ namespace ET.Client
                 {
                     InstanceId = body.InstanceId,
                     Name = "AirCheckBox",
-                    Type = FixtureType.Default,
+                    Type = FixtureType.AirCheckBox,
                     LayerMask = LayerType.Unit,
                     IsTrigger = true,
                     UserData = new BoxInfo()
@@ -63,9 +64,11 @@ namespace ET.Client
                     TriggerStayId = TriggerStayType.CollisionEvent
                 }
             };
-            Fixture fixture = body.CreateFixture(fixtureDef);
-            unit.AddComponent<AirCheckComponent, Fixture>(fixture);
-
+            body.CreateFixture(fixtureDef);
+            
+            //4. 添加组件
+            unit.AddComponent<AirCheckComponent>();
+            
             await ETTask.CompletedTask;
             return Status.Success;
         }

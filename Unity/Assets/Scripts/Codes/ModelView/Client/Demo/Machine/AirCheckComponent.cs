@@ -1,11 +1,8 @@
-﻿using Box2DSharp.Dynamics;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     [ComponentOf(typeof(Unit))]
-    public class AirCheckComponent : Entity, IAwake<Fixture>, IDestroy
+    public class AirCheckComponent : Entity, IAwake, IDestroy
     {
-        public Fixture checkBox;
         public long timer;
         public bool inAir;
     }

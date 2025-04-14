@@ -36,7 +36,7 @@ namespace ET.Client
                 if (self.trans.Equals(curTrans) && !self.UpdateFlag) return;
                 self.UpdateFlag = false;
                 
-                // 渲染层同步逻辑层刚体的位置
+                //渲染层同步逻辑层刚体的位置
                 self.SyncTrans();
             }
         }
@@ -84,7 +84,7 @@ namespace ET.Client
             if ((int)flipState == self.GetFlip()) return;
             self.Flip = flipState;
             
-            //1. 翻转类型为hitbox的夹具
+            //1. 获取类型为Hitbox的夹具
             QueueComponent<FixtureData> dataQueue = new QueueComponent<FixtureData>();
             foreach (Fixture fixture in self.Fixtures)
             {
@@ -95,8 +95,9 @@ namespace ET.Client
                 }
                 dataQueue.Enqueue(data);
             }
-            self.ClearHitBoxes();
+            self.ClearFixtures(FixtureType.Hitbox);
 
+            //2. 水平翻转夹具
             int count = dataQueue.Count;
             while (count -- > 0)
             {
@@ -105,7 +106,8 @@ namespace ET.Client
                 {
                     continue;
                 }
-                //reset param of fixtureDef
+                
+                //3. 实际上，转向需要重新创建夹具
                 PolygonShape shape = new();
                 shape.SetAsBox(info.size.x / 2, info.size.y / 2, new Vector2(info.center.x * self.GetFlip(), info.center.y), 0f);
                 FixtureDef fixtureDef = new()
@@ -119,10 +121,8 @@ namespace ET.Client
             }
             dataQueue.Dispose();
             
-            //2. 渲染层同步朝向
-            Unit unit = Root.Instance.Get(self.unitId) as Unit;
-            UnityEngine.GameObject go = unit.GetComponent<GameObjectComponent>().GameObject;
-            go.transform.localScale = new UnityEngine.Vector3(self.GetFlip(), 1, 1);
+            //3. 渲染层同步朝向
+            self.SyncTrans();
         }
 
         public static int GetFlip(this b2Body self)
@@ -141,52 +141,6 @@ namespace ET.Client
         }
 
         #region Fixture
-        /// <summary>
-        /// 取消行为时，销毁hitbox
-        /// </summary>
-        /// <param name="self"></param>
-        public static void ClearHitBoxes(this b2Body self)
-        {
-            //销毁hitbox
-            QueueComponent<Fixture> removeQueue = QueueComponent<Fixture>.Create();
-            for (int i = 0; i < self.Fixtures.Count; i++)
-            {
-                Fixture fixture = self.Fixtures[i];
-                FixtureData data = (FixtureData)fixture.UserData;
-                if (data.Type is FixtureType.Hitbox)
-                {
-                    removeQueue.Enqueue(fixture);
-                }
-            }
-            int count = removeQueue.Count;
-            while (count-- > 0)
-            {
-                Fixture fixture = removeQueue.Dequeue();
-                self.DestroyFixture(fixture);
-            }
-            removeQueue.Dispose();
-        }
-        
-        /// <summary>
-        /// 热重载时调用，销毁所有夹具
-        /// </summary>
-        /// <param name="self"></param>
-        private static void ClearFixtures(this b2Body self)
-        {
-            if (b2WorldManager.Instance.IsLocked())
-            {
-                Log.Error($"cannot dispose fixture while b2World is locked!!");
-                return;
-            }
-            for (int i = 0; i < self.Fixtures.Count; i++)
-            {
-                Fixture fixture = self.Fixtures[i];
-                self.body.DestroyFixture(fixture);
-            }
-            self.Fixtures.Clear();
-            self.FixtureDict.Clear();
-        }
-
         private static void DestroyFixture(this b2Body self, string fixtureName)
         {
             if (b2WorldManager.Instance.IsLocked())
@@ -210,6 +164,57 @@ namespace ET.Client
         {
             FixtureData data = (FixtureData)fixture.UserData;
             self.DestroyFixture(data.Name);
+        }
+
+        /// <summary>
+        /// 热重载时调用，销毁所有夹具
+        /// </summary>
+        /// <param name="self"></param>
+        private static void ClearFixtures(this b2Body self)
+        {
+            if (b2WorldManager.Instance.IsLocked())
+            {
+                Log.Error($"cannot dispose fixture while b2World is locked!!");
+                return;
+            }
+            for (int i = 0; i < self.Fixtures.Count; i++)
+            {
+                Fixture fixture = self.Fixtures[i];
+                self.body.DestroyFixture(fixture);
+            }
+            self.Fixtures.Clear();
+            self.FixtureDict.Clear();
+        }
+        
+        /// <summary>
+        /// 根据夹具类型移除夹具
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="fixtureType">eg. FixtureType.Hitbox</param>
+        public static void ClearFixtures(this b2Body self, int fixtureType)
+        {
+            QueueComponent<Fixture> removeQueue = QueueComponent<Fixture>.Create();
+            
+            //1. 找到指定类型的夹具
+            for (int i = 0; i < self.Fixtures.Count; i++)
+            {
+                Fixture fixture = self.Fixtures[i];
+                FixtureData data = (FixtureData)fixture.UserData;
+                if (data.Type == fixtureType)
+                {
+                    removeQueue.Enqueue(fixture);
+                }
+            }
+         
+            //2. 移除
+            int count = removeQueue.Count;
+            while (count-- > 0)
+            {
+                Fixture fixture = removeQueue.Dequeue();
+                self.DestroyFixture(fixture);
+            }
+            
+            removeQueue.Dispose();
         }
         
         public static Fixture CreateFixture(this b2Body self,FixtureDef fixtureDef)
@@ -246,6 +251,7 @@ namespace ET.Client
             }
             return fixture;
         }
+        
         #endregion
     }
 }

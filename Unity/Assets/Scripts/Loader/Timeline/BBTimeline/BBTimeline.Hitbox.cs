@@ -140,6 +140,7 @@ namespace Timeline
         public const int None = 0;
         public const int Default = 1;
         public const int Hitbox = 2;
+        public const int AirCheckBox = 3;
     }
 
     public struct UpdateHitboxCallback
