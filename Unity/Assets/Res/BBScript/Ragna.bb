@@ -23,9 +23,7 @@ NumericChange: DashCount
   EndIf:
 EndNumericChange:
 # 落地检测
-# AirCheckBox: 0, -1850, 1250, 1000;
 AirCheck: 0, -1850, 1250, 1000;
-# AirCheck: 0, -1850, 1250, 1000;
 # 注册输入缓冲
 RegistInput: RunHold;
 RegistInput: SquatHold;
@@ -53,9 +51,9 @@ RegistMove: (Rg_Squit)
 RegistMove: (Rg_AirBrone)
   MoveType: Move;
   EndMove:
-RegistMove: (Rg_Jump)
-  MoveType: Move;
-  EndMove:
+# RegistMove: (Rg_Jump)
+#   MoveType: Move;
+#   EndMove:
 RegistMove: (Rg_5B)
   MoveType: Normal;
   EndMove:
@@ -370,9 +368,9 @@ MarkerEvent: (Hit_End)
   EnableTargetCancel: false;
   EnableWhiffCancel: false;
 EndMarkerEvent:
-ApplyRootMotion: true;
+# ApplyRootMotion: true;
 PlayTimeline: 0, 30;
-ApplyRootMotion: false;
+# ApplyRootMotion: false;
 Exit;
 
 [Rg_5C]
@@ -451,9 +449,10 @@ BBSprite: 'Frame_14', 4;
 BBSprite: 'Frame_15', 4;
 BBSprite: 'Frame_16', 4;
 BBSprite: 'Frame_17', 4;
-BBSprite: 'Frame_18', 4;
-BBSprite: 'Frame_19', 4;
-BBSprite: 'Frame_20', 4;
+BBSprite: 'Frame_18', 3;
+Test;
+BBSprite: 'Frame_19', 3;
+BBSprite: 'Frame_20', 2;
 Exit;
 
 [Rg_TC_End]

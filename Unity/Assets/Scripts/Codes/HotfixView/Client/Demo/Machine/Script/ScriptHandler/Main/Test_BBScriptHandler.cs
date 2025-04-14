@@ -1,5 +1,9 @@
-﻿namespace ET.Client
+﻿using Box2DSharp.Dynamics;
+using MongoDB.Bson;
+
+namespace ET.Client
 {
+    [FriendOfAttribute(typeof(ET.Client.b2Body))]
     public class Test_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
@@ -9,14 +13,11 @@
 
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            await parser.GetParent<Unit>().GetComponent<BBTimerComponent>().WaitAsync(3, token);
-            if (token.IsCancel())
-            {
-                return Status.Failed;
-            }
+            Unit unit = parser.GetParent<Unit>();
+            b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
             
-            Log.Warning("HelloWorld");
-            
+            Log.Warning("Exit");
+
             await ETTask.CompletedTask;
             return Status.Success;
         }

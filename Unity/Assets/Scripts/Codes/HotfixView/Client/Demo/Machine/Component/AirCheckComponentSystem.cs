@@ -17,7 +17,7 @@ namespace ET.Client
                 //1. 查询组件 
                 Unit unit = self.GetParent<BuffManager>().GetParent<Unit>();
                 B2Unit b2Unit = unit.GetComponent<B2Unit>();
-                
+
                 //2. 从碰撞缓冲区中取出碰撞信息，逐个检测
                 Queue<CollisionInfo> infoQueue = b2Unit.TriggerBuffer;
                 int count = infoQueue.Count;
@@ -36,10 +36,11 @@ namespace ET.Client
                     //触发落地回调
                     if (self.inAir)
                     {
-                        EventSystem.Instance.Invoke(new LandCallback(){instanceId = unit.InstanceId});
+                        EventSystem.Instance.Invoke(new LandCallback() { instanceId = unit.InstanceId });
                     }
                     //落地
                     self.inAir = false;
+                    Log.Warning("11");
                     return;
                 }
 
