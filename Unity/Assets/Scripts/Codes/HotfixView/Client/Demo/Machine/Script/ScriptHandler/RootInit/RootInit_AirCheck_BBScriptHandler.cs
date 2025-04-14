@@ -7,18 +7,18 @@ using Timeline;
 
 namespace ET.Client
 {
-    public class RootInit_EnableAirCheck_BBScriptHandler : BBScriptHandler
+    public class RootInit_AirCheck_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "EnableAirCheck";
+            return "AirCheck";
         }
 
         //EnableAirCheck: true;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
             //1. 匹配参数
-            Match match = Regex.Match(data.opLine, @"EnableAirCheck: (?<CenterX>-?\d+), (?<CenterY>-?\d+), (?<SizeX>-?\d+), (?<SizeY>-?\d+);");
+            Match match = Regex.Match(data.opLine, @"AirCheck: (?<CenterX>-?\d+), (?<CenterY>-?\d+), (?<SizeX>-?\d+), (?<SizeY>-?\d+);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -36,7 +36,7 @@ namespace ET.Client
             //2. 初始化
             Unit unit = parser.GetParent<Unit>();
             b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-            unit.RemoveComponent<AirCheckComponent>(); //移除组件
+            unit.RemoveBuff<AirCheckComponent>();
             body.ClearFixtures(FixtureType.AirCheckBox); //移除夹具
             
             //3. 创建夹具
@@ -61,13 +61,13 @@ namespace ET.Client
                         size = new UnityEngine.Vector2(sizeX, sizeY) / 1000f,
                         hitboxType = HitboxType.Other
                     },
-                    TriggerStayId = TriggerStayType.CollisionEvent
+                    TriggerStayId = TriggerStayType.TriggerEvent
                 }
             };
             body.CreateFixture(fixtureDef);
             
             //4. 添加组件
-            unit.AddComponent<AirCheckComponent>();
+            unit.AddBuff<AirCheckComponent>();
             
             await ETTask.CompletedTask;
             return Status.Success;

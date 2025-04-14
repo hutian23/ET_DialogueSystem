@@ -7,18 +7,18 @@ namespace ET.Client
     [FriendOf(typeof(BBParser))]
     public static class ScriptHelper
     {
-        public static void ScripMatchError(string text)
-        {
-            Log.Error($"{text}匹配失败！请检查格式");
-        }
-
         public static void Reload()
         {
             CodeLoader.Instance.LoadHotfix();
             EventSystem.Instance.Load();
             Log.Debug("hot reload success");
         }
-
+        
+        public static void ScripMatchError(string text)
+        {
+            Log.Error($"{text}匹配失败！请检查格式");
+        }
+        
         public static bool Trigger(this BehaviorInfo self)
         {
             BBParser parser = self.GetParent<BehaviorMachine>().GetParent<Unit>().GetComponent<BBParser>();
@@ -73,6 +73,25 @@ namespace ET.Client
             EventSystem.Instance.Invoke(new BeforeBehaviorReloadCallback(){instanceId = self.InstanceId});
             // 执行行为协程
             parser.Invoke(parser.GetFunctionPointer(info.behaviorName,"Main"),parser.CancellationToken).Coroutine();
+        }
+        
+        public static T GetBuff<T>(this Unit self) where T : Entity
+        {
+            BuffManager buffManager = self.GetComponent<BuffManager>();
+            return buffManager.GetComponent<T>();
+        }
+
+        //new() 表示泛型类型参数必须有一个公共的无参数构造函数
+        public static T AddBuff<T>(this Unit self) where T : Entity, IAwake, new()
+        {
+            BuffManager buffManager = self.GetComponent<BuffManager>();
+            return buffManager.AddComponent<T>();
+        }
+
+        public static void RemoveBuff<T>(this Unit self) where T : Entity
+        {
+            BuffManager buffManager = self.GetComponent<BuffManager>();
+            buffManager.RemoveComponent<T>();
         }
     }
 }

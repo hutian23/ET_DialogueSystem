@@ -2,10 +2,10 @@
 
 namespace ET.Client
 {
-    [Invoke(TriggerStayType.CollisionEvent)]
+    [Invoke(TriggerStayType.TriggerEvent)]
     [FriendOf(typeof(B2Unit))]
     [FriendOf(typeof(b2Body))]
-    public class TriggerStay_HandleCollisionEvent : AInvokeHandler<TriggerStayCallback>
+    public class TriggerStay_HandleTriggerEvent : AInvokeHandler<TriggerStayCallback>
     {
         public override void Handle(TriggerStayCallback args)
         {

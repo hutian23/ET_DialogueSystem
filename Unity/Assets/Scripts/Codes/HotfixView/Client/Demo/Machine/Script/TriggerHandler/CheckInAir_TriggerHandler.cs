@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace ET.Client
 {
@@ -22,43 +21,23 @@ namespace ET.Client
             }
             
             //2. 查询组件
-            // Unit unit = parser.GetParent<Unit>();
-            // AirCheckComponent airCheck = unit.GetComponent<AirCheckComponent>();
-            // if (airCheck == null)
-            // {
-            //     Log.Error($"does not exist AirCheckComponent!");
-            //     return false;
-            // }
-            //
-            // switch (match.Groups["inAir"].Value)
-            // {
-            //     case "true":
-            //         return airCheck.GetInAir();
-            //     case "false":
-            //         return !airCheck.GetInAir();
-            //     default:
-            //         Log.Error("does not match inAir!");
-            //         return false;
-            // }
-
-            Unit unit = parser.GetParent<Unit>();
-            BehaviorMachine machine = unit.GetComponent<BehaviorMachine>();
+            AirCheckComponent airCheck = parser.GetParent<Unit>().GetBuff<AirCheckComponent>();
+            if (airCheck == null)
+            {
+                Log.Error($"does not exist AirCheckComponent!");
+                return false;
+            }
             
-            bool ret = false;
             switch (match.Groups["InAir"].Value)
             {
                 case "true":
-                    ret = machine.GetParam<bool>("InAir");
-                    break;
+                    return airCheck.GetInAir();
                 case "false":
-                    ret = !machine.GetParam<bool>("InAir");
-                    break;
+                    return !airCheck.GetInAir();
                 default:
-                    ScriptHelper.ScripMatchError(data.opLine);
-                    throw new Exception();
+                    Log.Error("does not match inAir!");
+                    return false;
             }
-            
-            return ret;
         }
     }
 }

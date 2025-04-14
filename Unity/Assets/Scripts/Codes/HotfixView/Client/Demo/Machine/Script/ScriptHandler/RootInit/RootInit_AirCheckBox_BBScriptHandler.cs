@@ -8,38 +8,38 @@ using Timeline;
 
 namespace ET.Client
 {
-    [Invoke(BBTimerInvokeType.AirCheckTimer)]
-    [FriendOf(typeof(B2Unit))]
-    [FriendOf(typeof(BBParser))]
-    public class AirCheckTimer : BBTimer<Unit>
-    {
-        protected override void Run(Unit self)
-        {
-            B2Unit b2Unit = self.GetComponent<B2Unit>(); // 碰撞信息缓存组件
-            BehaviorMachine machine = self.GetComponent<BehaviorMachine>(); // 控制器逻辑组件
-    
-            Queue<CollisionInfo> infoQueue = b2Unit.TriggerBuffer;
-            int count = infoQueue.Count;
-            while (count-- > 0)
-            {
-                CollisionInfo info = infoQueue.Dequeue();
-                infoQueue.Enqueue(info);
-    
-                if (info.dataA.Name.Equals("AirCheckBox") && info.dataB.LayerMask is LayerType.Ground && !info.dataB.IsTrigger)
-                {
-                    if (machine.GetParam<bool>("InAir"))
-                    {
-                        machine.UpdateParam("InAir", false);
-                        //落地回调
-                        EventSystem.Instance.Invoke(new LandCallback() { instanceId = self.InstanceId });
-                    }
-                    return;
-                }
-            }
-    
-            machine.UpdateParam("InAir", true);
-        }
-    }
+    // [Invoke(BBTimerInvokeType.AirCheckTimer)]
+    // [FriendOf(typeof(B2Unit))]
+    // [FriendOf(typeof(BBParser))]
+    // public class AirCheckTimer : BBTimer<Unit>
+    // {
+    //     protected override void Run(Unit self)
+    //     {
+    //         B2Unit b2Unit = self.GetComponent<B2Unit>(); // 碰撞信息缓存组件
+    //         BehaviorMachine machine = self.GetComponent<BehaviorMachine>(); // 控制器逻辑组件
+    //
+    //         Queue<CollisionInfo> infoQueue = b2Unit.TriggerBuffer;
+    //         int count = infoQueue.Count;
+    //         while (count-- > 0)
+    //         {
+    //             CollisionInfo info = infoQueue.Dequeue();
+    //             infoQueue.Enqueue(info);
+    //
+    //             if (info.dataA.Name.Equals("AirCheckBox") && info.dataB.LayerMask is LayerType.Ground && !info.dataB.IsTrigger)
+    //             {
+    //                 if (machine.GetParam<bool>("InAir"))
+    //                 {
+    //                     machine.UpdateParam("InAir", false);
+    //                     //落地回调
+    //                     EventSystem.Instance.Invoke(new LandCallback() { instanceId = self.InstanceId });
+    //                 }
+    //                 return;
+    //             }
+    //         }
+    //
+    //         machine.UpdateParam("InAir", true);
+    //     }
+    // }
     
     [FriendOf(typeof(BehaviorMachine))]
     public class RootInit_AirCheckBox_BBScriptHandler : BBScriptHandler
@@ -97,7 +97,7 @@ namespace ET.Client
                         size = new UnityEngine.Vector2(sizeX, sizeY) / 1000f,
                         hitboxType = HitboxType.Other
                     },
-                    TriggerStayId = TriggerStayType.CollisionEvent
+                    TriggerStayId = TriggerStayType.TriggerEvent
                 }
             };
             Fixture fixture = body.CreateFixture(fixtureDef);

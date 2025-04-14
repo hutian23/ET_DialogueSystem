@@ -99,7 +99,7 @@ namespace ET.Event
     public static class TriggerStayType
     {
         public const int None = 0;
-        public const int CollisionEvent = 1;
+        public const int TriggerEvent = 1;
         public const int SceneBoxEvent = 2;
         public const int CameraEvent = 3;
     }

@@ -137,7 +137,7 @@ namespace ET.Client
                         size = new UnityEngine.Vector2(sizeX / 10000f, sizeY / 10000f),
                         hitboxType = HitboxType.Other
                     },
-                    TriggerStayId = TriggerStayType.CollisionEvent
+                    TriggerStayId = TriggerStayType.TriggerEvent
                 }
             };
             Fixture fixture = body.CreateFixture(fixtureDef);

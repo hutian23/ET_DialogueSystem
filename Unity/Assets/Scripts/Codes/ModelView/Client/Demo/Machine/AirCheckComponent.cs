@@ -1,6 +1,6 @@
 ﻿namespace ET.Client
 {
-    [ComponentOf(typeof(Unit))]
+    [ComponentOf(typeof(BuffManager))]
     public class AirCheckComponent : Entity, IAwake, IDestroy
     {
         public long timer;
