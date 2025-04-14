@@ -40,7 +40,6 @@ namespace ET.Client
                     }
                     //落地
                     self.inAir = false;
-                    Log.Warning("11");
                     return;
                 }
 

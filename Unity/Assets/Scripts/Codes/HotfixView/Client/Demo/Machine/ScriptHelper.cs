@@ -78,6 +78,11 @@ namespace ET.Client
         public static T GetBuff<T>(this Unit self) where T : Entity
         {
             BuffManager buffManager = self.GetComponent<BuffManager>();
+            if (buffManager == null)
+            {
+                Log.Error($"please add buffManager to Unit!");
+                return null;
+            }
             return buffManager.GetComponent<T>();
         }
 
@@ -85,12 +90,22 @@ namespace ET.Client
         public static T AddBuff<T>(this Unit self) where T : Entity, IAwake, new()
         {
             BuffManager buffManager = self.GetComponent<BuffManager>();
+            if (buffManager == null)
+            {
+                Log.Error($"please add buffManager to Unit!");
+                return null;
+            }
             return buffManager.AddComponent<T>();
         }
 
         public static void RemoveBuff<T>(this Unit self) where T : Entity
         {
             BuffManager buffManager = self.GetComponent<BuffManager>();
+            if (buffManager == null)
+            {
+                Log.Error($"please add buffManager to Unit!");
+                return;
+            }
             buffManager.RemoveComponent<T>();
         }
     }

@@ -16,7 +16,6 @@ namespace ET.Client
 
         public static void Init(this B2Unit self)
         {
-            self.ApplyRootMotion = false;
             self.TriggerBuffer.Clear();
             self.CollisionBuffer.Clear();
         }
@@ -45,18 +44,17 @@ namespace ET.Client
             return self.Velocity;
         }
 
-        public static void SetVelocity(this B2Unit self, Vector2 velocity, bool IsRootMotion = false)
+        public static void SetVelocity(this B2Unit self, Vector2 velocity)
         {
-            if (self.ApplyRootMotion && !IsRootMotion) return;
             self.Velocity = velocity;
         }
         
-        public static void SetVelocityY(this B2Unit self, float velocityY, bool IsRootMotion = false)
+        public static void SetVelocityY(this B2Unit self, float velocityY)
         {
             self.SetVelocity(new Vector2(self.Velocity.X, velocityY));
         }
 
-        public static void SetVelocityX(this B2Unit self, float velocityX, bool IsRootMotion = false)
+        public static void SetVelocityX(this B2Unit self, float velocityX)
         {
             self.SetVelocity(new Vector2(velocityX, self.Velocity.Y));
         }
@@ -69,11 +67,6 @@ namespace ET.Client
         public static void SetHertz(this B2Unit self, int hertz)
         {
             self.Hertz = hertz;
-        }
-
-        public static void SetApplyRootMotion(this B2Unit self, bool applyRootMotion)
-        {
-            self.ApplyRootMotion = applyRootMotion;
         }
     }
 }

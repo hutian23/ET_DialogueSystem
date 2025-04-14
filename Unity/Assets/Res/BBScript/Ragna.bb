@@ -1,18 +1,15 @@
 [Root]
 @RootInit:
-# PlayerInit中挂载组件(NumericComponent、InputComponent...)
+#1. PlayerInit中挂载组件(NumericComponent、InputComponent...)
 PlayerInit;
 SetPos: 280000, -90000;
-Gravity: 100000;
-# 动态注册数值
+#2. 注册数值
 NumericType: Hertz, 60;
-NumericType: MaxGravity, 150000;
-NumericType: MaxFall, -450000;
 NumericType: MaxJump, 5;
 NumericType: MaxDash, 2;
 NumericType: DashCount, 2;
 NumericType: JumpCount, 2;
-# 数值更新事件
+#3. 注册数值更新事件
 NumericChange: Hertz
   UpdateHertz;
 EndNumericChange:
@@ -22,9 +19,10 @@ NumericChange: DashCount
     DashRecharge: 2, 40;
   EndIf:
 EndNumericChange:
-# 落地检测
-AirCheck: 0, -1850, 1250, 1000;
-# 注册输入缓冲
+#4. 添加初始Buff
+EnableGravityCheck: 100000, 150000, 450000;             
+EnableAirCheck: 0, -1850, 1250, 1000; 
+#5. 注册输入缓冲
 RegistInput: RunHold;
 RegistInput: SquatHold;
 RegistInput: 2LPPressed;
@@ -35,7 +33,7 @@ RegistInput: 5MPHold;
 RegistInput: DashPressed;
 RegistInput: JumpPressed;
 RegistInput: QuickFallPressed;
-# 注册动作
+#6. 注册动作
 RegistMove: (Rg_Idle)
   MoveType: None;
   EndMove:
@@ -51,9 +49,9 @@ RegistMove: (Rg_Squit)
 RegistMove: (Rg_AirBrone)
   MoveType: Move;
   EndMove:
-# RegistMove: (Rg_Jump)
-#   MoveType: Move;
-#   EndMove:
+RegistMove: (Rg_Jump)
+  MoveType: Move;
+  EndMove:
 RegistMove: (Rg_5B)
   MoveType: Normal;
   EndMove:
@@ -84,7 +82,7 @@ RegistMove: (Rg_Super3)
 RegistMove: (Rg_IdleAnim)
   MoveType: Etc;
   EndMove:
-# 进入默认动作
+#7. 进入默认动作
 GotoBehavior: 'Rg_Idle';
 return;
 
@@ -97,8 +95,8 @@ RecordLandVelocity;
 RemoveDashRecharge;
 NumericSet: DashCount, 2;
 NumericSet: JumpCount, 2;
-SetVelocityY: -20000;
-Gravity: 0;
+# SetVelocityY: -20000;
+# Gravity: 0;
 return;
 
 [Rg_Idle]
@@ -107,7 +105,7 @@ return;
 
 @Main:
 SetVelocityX: 0;
-SetVelocityY: -1000;
+# SetVelocityY: -1000;
 # 设置一个待机行为，保持idle 300帧之后进入这个行为
 IdleAnim: Rg_IdleAnim, 300;
 EnableDefaultCancel: true;
@@ -127,12 +125,6 @@ BBSprite: 'Idle_12', 4;
 BBSprite: 'Idle_13', 4;
 GotoMarker: 'Loop';
 Exit;
-
-@Test:
-LogWarning: 'Before';
-WaitFrame: 10;
-LogWarning: 'After';
-return;
 
 [Rg_Land]
 @Trigger:
@@ -368,9 +360,9 @@ MarkerEvent: (Hit_End)
   EnableTargetCancel: false;
   EnableWhiffCancel: false;
 EndMarkerEvent:
-# ApplyRootMotion: true;
+ApplyRootMotion: true;
 PlayTimeline: 0, 30;
-# ApplyRootMotion: false;
+ApplyRootMotion: false;
 Exit;
 
 [Rg_5C]

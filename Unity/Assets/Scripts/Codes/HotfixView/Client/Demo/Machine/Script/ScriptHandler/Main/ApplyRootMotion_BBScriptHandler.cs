@@ -19,18 +19,13 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            B2Unit b2Unit = parser.GetParent<Unit>().GetComponent<B2Unit>();
-            switch (match.Groups["Apply"].Value)
+            //1. 初始化
+            parser.TryRemoveParam("ApplyRootMotion");
+            
+            //2. 添加RootMotion标签
+            if (match.Groups["Apply"].Value.Equals("true"))
             {
-                case "true":
-                    b2Unit.SetApplyRootMotion(true);
-                    break;
-                case "false":
-                    b2Unit.SetApplyRootMotion(false);
-                    break;
-                default:
-                    Log.Warning("cannot match ApplyRootMotion!!");
-                    return Status.Failed;
+                parser.RegistParam("ApplyRootMotion", true);
             }
             
             await ETTask.CompletedTask;
