@@ -2,19 +2,17 @@
 @RootInit:
 DummyInit;
 SetPos: 300000, -90000;
-Gravity: 100000;
 # Cinemachine
 CM_TargetGroup_Member: TG_Camera, 110, 250;
 # Numeric
 NumericType: Hertz, 60;
-NumericType: MaxGravity, 150000;
-NumericType: MaxFall, -450000;
 # NumericChange
 NumericChange: Hertz
   UpdateHertz;
   EndNumericChange:
-# 创建碰撞盒: (Center), (Size)
-AirCheckBox: 0, -1850, 1250, 1000;
+# 添加初始buff
+EnableGravityCheck: 100000, 150000, 450000;             
+EnableAirCheck: 0, -1850, 1250, 1000; 
 # Move
 RegistMove: (Dummy_Idle)
   MoveType: None;
@@ -39,7 +37,6 @@ RegistMove: (Dummy_ThrowHurt)
   MoveType: HitStun;
   MoveFlag: ThrowHurt;
   EndMove:
-SetFlip: Right;
 GotoBehavior: 'Dummy_Idle';
 return;
 

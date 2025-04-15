@@ -12,6 +12,7 @@
             Unit dummy = parser.GetParent<Unit>();
             
             //添加依赖的组件
+            dummy.AddComponent<BuffManager>();
             dummy.AddComponent<TimelineComponent>();
             dummy.AddComponent<BBTimerComponent>().IsUnitTimer();
             dummy.AddComponent<BBNumeric>();

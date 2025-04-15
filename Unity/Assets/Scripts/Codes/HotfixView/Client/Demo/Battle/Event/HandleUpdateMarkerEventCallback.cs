@@ -3,8 +3,8 @@
 namespace ET.Client
 {
     [Invoke]
-    [FriendOf(typeof(TimelineMarkerEvent))]
     [FriendOf(typeof(BBParser))]
+    [FriendOf(typeof(MarkerEventComponent))]
     public class HandleUpdateMarkerEventCallback : AInvokeHandler<UpdateEventTrackCallback>
     {
         public override void Handle(UpdateEventTrackCallback args)
@@ -16,16 +16,17 @@ namespace ET.Client
                 return;
             }
 
-            //不存在帧事件
-            TimelineMarkerEvent markerEvent = timelineComponent.GetMarkerEvent(args.markerName);
-            if (markerEvent == null)
+            //1. 查询组件
+            Unit unit = timelineComponent.GetParent<Unit>();
+            BBParser bbParser = unit.GetComponent<BBParser>();
+            MarkerEventComponent _event = bbParser.GetComponent<MarkerEventComponent>();
+
+            //2. 调用事件
+            if(_event == null || !_event.markerDict.TryGetValue(args.markerName, out MarkerEvent _markerEvent))
             {
                 return;
             }
-
-            Unit unit = timelineComponent.GetParent<Unit>();
-            BBParser bbParser = unit.GetComponent<BBParser>();
-            bbParser.RegistSubCoroutine(markerEvent.startIndex, markerEvent.endIndex, bbParser.CancellationToken).Coroutine();
+            bbParser.RegistSubCoroutine(_markerEvent.startIndex, _markerEvent.endIndex, bbParser.CancellationToken).Coroutine();
         }
     }
 }

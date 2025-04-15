@@ -52,9 +52,9 @@ RegistMove: (Rg_AirBrone)
 RegistMove: (Rg_Jump)
   MoveType: Move;
   EndMove:
-# RegistMove: (Rg_5B)
-#   MoveType: Normal;
-#   EndMove:
+RegistMove: (Rg_5B)
+  MoveType: Normal;
+  EndMove:
 RegistMove: (Rg_5C)
   MoveType: Normal;
   EndMove:
@@ -139,7 +139,7 @@ BeginIf: (LandVelocity: 400000)
   # ScreenShakeX: 0, 120, 30000, 15;
   BBSprite: 'MiddleLand_1', 3;
   BBSprite: 'MiddleLand_2', 3;
-  EndIf:
+EndIf:
 BBSprite: 'MiddleLand_3', 5;
 BBSprite: 'MiddleLand_4', 4;
 BBSprite: 'MiddleLand_5', 4;
@@ -328,11 +328,11 @@ InAir: false;
 return;
 
 @Main:
-MarkerEvent: (Whiff_Start)
+Event: (Whiff_Start)
   EnableWhiffCancel: true;
   WhiffOption: Rg_GroundDash;
-EndMarkerEvent:
-MarkerEvent: (Hit_Start)
+EndEvent:
+Event: (Hit_Start)
   # 这里开始，受击回调
   HitNotify: Once # 对于同一对象，在持续帧内仅造成一次攻击(Repeat则为持续帧内，只要发生碰撞，每帧都会回调受击回调)
     EnableGatlingCancel: true;
@@ -355,12 +355,12 @@ MarkerEvent: (Hit_Start)
     # # 受击者进入哪个硬直状态
     # HitStun: Hurt3;
     EndNotify:
-EndMarkerEvent:
-MarkerEvent: (Hit_End)
+EndEvent:
+Event: (Hit_End)
   EnableGatlingCancel: false;
   EnableTargetCancel: false;
   EnableWhiffCancel: false;
-EndMarkerEvent:
+EndEvent:
 ApplyRootMotion: true;
 PlayTimeline: 0, 30;
 ApplyRootMotion: false;
@@ -376,7 +376,7 @@ return;
 @Main:
 SetVelocityX: 0;
 # 攻击持续第一帧
-MarkerEvent: (Hit_Start)
+Event: (Hit_Start)
   # 攻击检测
   HitNotify: Once
     EnableGatlingCancel: true;
@@ -385,12 +385,12 @@ MarkerEvent: (Hit_Start)
     Shake: 500, 0, 8000, 14; # 振动
     HitStop: 1, 14; # 打击停顿
   EndNotify:
-EndMarkerEvent:
+EndEvent:
 # 攻击持续最后一帧
-MarkerEvent: (Hit_End)
+Event: (Hit_End)
   EnableGatlingCancel: false;
   EnableTargetCancel: false;
-EndMarkerEvent:
+EndEvent:
 # ApplyRootMotion: true;
 PlayTimeline: 0, 48;
 # ApplyRootMotion: false;
@@ -405,16 +405,16 @@ return;
 
 @Main:
 SetVelocityX: 0;
-MarkerEvent: (Hit_Start)
+Event: (Hit_Start)
   HitNotify: Once
     EnableGatlingCancel: true;
     Shake: 800, 0, 10000, 18;
     HitStop: 2, 18;
   EndNotify:
-EndMarkerEvent:
-MarkerEvent: (Hit_End)
+EndEvent:
+Event: (Hit_End)
   EnableGatlingCancel: false;
-EndMarkerEvent:
+EndEvent:
 PlayTimeline: 0, 39;
 Exit;
 
@@ -425,6 +425,7 @@ InAir: false;
 return;
 
 @Main:
+SetVelocityX: 0;
 BBSprite: 'Frame_1', 3;
 BBSprite: 'Frame_2', 3;
 BBSprite: 'Frame_3', 3;
@@ -448,8 +449,8 @@ BBSprite: 'Frame_15', 4;
 BBSprite: 'Frame_16', 4;
 BBSprite: 'Frame_17', 4;
 BBSprite: 'Frame_18', 4;
-BBSprite: 'Frame_19', 3;
-BBSprite: 'Frame_20', 3;
+BBSprite: 'Frame_19', 4;
+BBSprite: 'Frame_20', 4;
 Exit;
 
 [Rg_TC_End]
@@ -552,23 +553,23 @@ Numeric: DashCount > 0;
 return;
 
 @Main:
-MarkerEvent: (GC_Start)
+Event: (GC_Start)
   # CancelWindow: Gatling;
   # CancelOption: Rg_Jump;
   # GCOption: 'Rg_AirDashAttack';
   # GCOption: 'Rg_PlungingAttack';
-  EndMarkerEvent:
+EndEvent:
 NumericAdd: DashCount, -1;
-MarkerEvent: (RootMotion_Start)
+Event: (RootMotion_Start)
   ApplyRootMotion: true;
-  EndMarkerEvent:
-MarkerEvent: (RootMotion_End)
+EndEvent:
+Event: (RootMotion_End)
   # Inertia
   # CancelWindow: Transition;
   ApplyRootMotion: false;
   SetVelocityX: 80000;
   SetTransition: 'AirToLand';
-  EndMarkerEvent:
+EndEvent:
 # StartTimeline;
 PlayTimeline: 0, 24;
 Exit;

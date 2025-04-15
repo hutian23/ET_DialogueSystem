@@ -42,13 +42,6 @@ namespace ET.Client
         
         public static void Init(this TimelineComponent self)
         {
-            foreach (var kv in self.markerEventDict)
-            {
-                TimelineMarkerEvent markerEvent = self.GetChild<TimelineMarkerEvent>(kv.Value);
-                markerEvent?.Dispose();
-            }
-            self.markerEventDict.Clear();
-            
             //初始化
             GameObjectComponent component = self.GetParent<Unit>().GetComponent<GameObjectComponent>();
             TimelinePlayer timelinePlayer = component.GameObject.GetComponent<TimelinePlayer>();
@@ -70,15 +63,5 @@ namespace ET.Client
         }
 
         #endregion
-        
-        public static TimelineMarkerEvent GetMarkerEvent(this TimelineComponent self, string eventName)
-        {
-            if (!self.markerEventDict.TryGetValue(eventName, out long id))
-            {
-                return null;
-            }
-
-            return self.GetChild<TimelineMarkerEvent>(id);
-        }
     }
 }

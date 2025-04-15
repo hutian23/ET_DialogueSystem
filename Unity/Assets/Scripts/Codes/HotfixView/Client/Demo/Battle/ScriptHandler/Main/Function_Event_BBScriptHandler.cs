@@ -3,32 +3,30 @@
 namespace ET.Client
 {
     [FriendOf(typeof(BBParser))]
-    [FriendOf(typeof(TimelineComponent))]
-    [FriendOf(typeof(TimelineMarkerEvent))]
-    public class MarkerEvent_BBScriptHandler : BBScriptHandler
+    public class Function_Event_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "MarkerEvent";
+            return "Event";
         }
 
-        //MarkerEvent: (Mai_GroundDash_GC);
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"MarkerEvent: \((.*?)\)");
+            //1. 匹配参数
+            Match match = Regex.Match(data.opLine, @"Event: \((.*?)\)");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
-            
-            //跳过帧事件的代码块
+
+            //2. 跳过代码块
             int index = parser.Coroutine_Pointers[data.CoroutineID];
             int endIndex = index, startIndex = index;
             while (++index < parser.OpDict.Count)
             {
                 string opLine = parser.OpDict[index];
-                if (opLine.Equals("EndMarkerEvent:"))
+                if (opLine.Equals("EndEvent:"))
                 {
                     endIndex = index;
                     break;
@@ -36,15 +34,21 @@ namespace ET.Client
             }
             parser.Coroutine_Pointers[data.CoroutineID] = endIndex;
 
-            TimelineComponent timelineComponent = parser.GetParent<Unit>().GetComponent<TimelineComponent>();
-            TimelineMarkerEvent markerEvent = timelineComponent.AddChild<TimelineMarkerEvent>();
-            timelineComponent.markerEventDict.Add(match.Groups[1].Value, markerEvent.Id);
-
-            //记录帧时间代码块的起始指针和结束指针
-            markerEvent.startIndex = startIndex;
-            markerEvent.endIndex = endIndex;
-            markerEvent.markerName = match.Groups[1].Value;
-
+            //3. 添加组件 
+            if (parser.GetComponent<MarkerEventComponent>() == null)
+            {
+                parser.AddComponent<MarkerEventComponent>();
+            }
+            
+            //4. 添加帧事件
+            MarkerEventComponent markerEventComponent = parser.GetComponent<MarkerEventComponent>();
+            markerEventComponent.RegistMarkerEvent(new MarkerEvent()
+            {
+                markerName = match.Groups[1].Value,
+                startIndex = startIndex,
+                endIndex = endIndex
+            });
+            
             await ETTask.CompletedTask;
             return Status.Success;
         }
