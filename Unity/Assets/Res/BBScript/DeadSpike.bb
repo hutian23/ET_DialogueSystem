@@ -1,5 +1,4 @@
 [Root]
 @RootInit:
-PoolObject: 'SlashRing', 4;
-
+LogWarning: 'HelloWorld';
 return;

@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class EnableTargetCancel_BBScriptHandler : BBScriptHandler
+    public class Function_EnableTargetCancel_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {

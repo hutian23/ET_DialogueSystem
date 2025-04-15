@@ -3,7 +3,7 @@
     [FriendOf(typeof(BBParser))]
     [FriendOf(typeof(BehaviorMachine))]
     [FriendOf(typeof(BehaviorInfo))]
-    public class Exit_BBScriptHandler : BBScriptHandler
+    public class Function_Exit_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
