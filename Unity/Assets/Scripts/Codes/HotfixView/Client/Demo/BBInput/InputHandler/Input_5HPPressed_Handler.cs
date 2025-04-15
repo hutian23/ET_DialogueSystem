@@ -1,20 +1,20 @@
 ﻿namespace ET.Client
 {
-    public class Input_5MPHold_Handler : InputHandler
+    public class Input_5HPPressed_Handler : InputHandler
     {
         public override string GetHandlerType()
         {
-            return "5MPHold";
+            return "5HPPressed";
         }
 
         public override string GetBufferType()
         {
-            return "5MPHold";
+            return "5HPPressed";
         }
 
         public override long Handle(InputWait self)
         {
-            return self.IsPressing(BBOperaType.Y)? self.GetBuffFrame(10) : -1;
+            return self.WasPressedThisFrame(BBOperaType.RB)? self.GetBuffFrame(10) : -1;
         }
     }
 }

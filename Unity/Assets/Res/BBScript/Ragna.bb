@@ -29,7 +29,9 @@ RegistInput: 2LPPressed;
 RegistInput: 5LPPressed;
 RegistInput: 5LPHold;
 RegistInput: 5MPPressed;
-RegistInput: 5MPHold;
+RegistInput: 5MPPressing;
+RegistInput: 5HPPressed;
+RegistInput: 5HPPressing;
 RegistInput: DashPressed;
 RegistInput: JumpPressed;
 RegistInput: QuickFallPressed;
@@ -63,6 +65,9 @@ RegistMove: (Rg_5D)
   EndMove:
 RegistMove: (Rg_5BHold)
   MoveType: Normal;
+  EndMove:
+RegistMove: (Rg_DustAttack)
+  MoveType: Special;
   EndMove:
 RegistMove: (Rg_AirDash)
   MoveType: Special;
@@ -544,6 +549,76 @@ BBSprite: 'Recovery_6', 3;
 BBSprite: 'Recovery_7', 3;
 # 退出行为
 Exit;
+
+[Rg_DustAttack]
+@Trigger:
+InAir: false;
+InputType: 5HPPressed;
+return;
+
+@Main:
+SetVelocityX: 0;
+BBSprite: 'Frame_1', 4;
+BBSprite: 'Frame_2', 4;
+# 蓄力阶段
+Segment: (InputType: 5HPPressing)
+  BBSprite: 'Frame_3', 4;
+  BBSprite: 'Frame_4', 4;
+  BBSprite: 'Frame_5', 4;
+  BBSprite: 'Frame_3', 4;
+  BBSprite: 'Frame_4', 4;
+  AddFlag: Charge;
+  BBSprite: 'Frame_5', 4;
+  BBSprite: 'Frame_3', 4;
+  BBSprite: 'Frame_4', 4;
+  BBSprite: 'Frame_5', 4;
+EndSegment:
+BBSprite: 'Frame_6', 3;
+BBSprite: 'Frame_7', 3;
+BBSprite: 'Frame_8', 3;
+HitNotify: Once
+  BeginIf: (Flag: Charge, false)
+    Shake: 500, 0, 8000, 10; # 振动
+    HitStop: 0, 10; # 打击停顿
+    HitParam: Shake_LengthX, 1000;
+    HitParam: Shake_LengthY, 1000;
+    HitParam: Shake_Frequency, 10000;
+    HitParam: Shake_Frame, 10;
+    # 受击者帧冻结(HitStop)的总帧长
+    HitParam: HitStopFrame, 10;
+    HitParam: LastFrame, 40;
+    Hit_UpdateFlip;
+    HitStun: Hurt4;
+  EndIf:
+  BeginIf: (Flag: Charge, true)
+    Shake: 800, 0, 12000, 25;
+    HitStop: 0, 25;
+    # 受击行为协程需要使用的变量
+    HitParam: Shake_LengthX, 1200;
+    HitParam: Shake_LengthY, 1000;
+    HitParam: Shake_Frequency, 10000;
+    HitParam: Shake_Frame, 25;
+    # 受击者帧冻结(HitStop)的总帧长
+    HitParam: HitStopFrame, 25;
+    # HitStop结束后抛出的速度(万分制)
+    HitParam: StartV_X, -400000;
+    HitParam: StartV_Y, 200000;
+    # 受击时调整转向
+    Hit_UpdateFlip;
+    # 受击者进入哪个硬直状态
+    HitStun: Hurt5;
+  EndIf:
+EndNotify:
+BBSprite: 'Frame_9', 4;
+BBSprite: 'Frame_10', 4;
+BBSprite: 'Frame_11', 4;
+BBSprite: 'Frame_12', 4;
+BBSprite: 'Frame_13', 4;
+BBSprite: 'Frame_14', 4;
+BBSprite: 'Frame_15', 4;
+BBSprite: 'Frame_16', 4;
+Exit;
+
 
 [Rg_AirDash]
 @Trigger:
@@ -1072,8 +1147,8 @@ SetVelocityX: 0;
 BBSprite: 'Frame_1', 4;
 BBSprite: 'Frame_2', 4;
 BBSprite: 'Frame_3', 4;
-RegistCounter:  20;
-BeginLoop: (InputType: 5MPHold), (Counter: Value > 0)
+RegistCounter:  30;
+BeginLoop: (InputType: 5MPPressing), (Counter: Value > 0)
   BBSprite: 'Frame_4', 4;
 EndLoop:
 BBSprite: 'Frame_5', 4;
