@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Timeline;
 using UnityEngine;
 
 namespace ET.Client
@@ -21,8 +22,9 @@ namespace ET.Client
             }
 
             //1. 创建Bullet Unit
+            Unit caster = parser.GetParent<Unit>();
             Unit unit = BulletManager.Instance.AddChild<Unit, int>(1001);
-
+            
             //2. 添加组件
             GameObject bullet = GameObjectPoolHelper.GetObjectFromPool(match.Groups["BulletName"].Value);
             unit.AddComponent<GameObjectComponent>().GameObject = bullet;
@@ -43,11 +45,17 @@ namespace ET.Client
             }
             parser.Coroutine_Pointers[data.CoroutineID] = index;
             
-            //3-2 执行代码块
+            //3-2 更新Bullet朝向
+            b2Body bodyA = b2WorldManager.Instance.GetBody(caster.InstanceId);
+            b2Body bodyB = b2WorldManager.Instance.GetBody(unit.InstanceId);
+            bodyB.SetFlip((FlipState)bodyA.GetFlip());
+            
+            //3-3 执行代码块
             parser.RegistParam("CreateBullet_UnitId", unit.InstanceId);
             parser.RegistSubCoroutine(startIndex, endIndex, token).Coroutine();
             parser.TryRemoveParam("CreateBullet_UnitId");
-
+            
+            
             await ETTask.CompletedTask;
             return Status.Success;
         }

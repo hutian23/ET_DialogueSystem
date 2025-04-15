@@ -52,9 +52,9 @@ RegistMove: (Rg_AirBrone)
 RegistMove: (Rg_Jump)
   MoveType: Move;
   EndMove:
-RegistMove: (Rg_5B)
-  MoveType: Normal;
-  EndMove:
+# RegistMove: (Rg_5B)
+#   MoveType: Normal;
+#   EndMove:
 RegistMove: (Rg_5C)
   MoveType: Normal;
   EndMove:
@@ -434,13 +434,14 @@ BBSprite: 'Frame_6', 3;
 BBSprite: 'Frame_7', 3;
 BBSprite: 'Frame_8', 3;
 BBSprite: 'Frame_9', 3;
-BBSprite: 'Frame_10', 4;
-BBSprite: 'Frame_11', 4;
-BBSprite: 'Frame_12', 4;
+BBSprite: 'Frame_10', 2;
 # 创建Bullet
 CreateBullet: DeadSpike
-  BulletPos: 1, 1;
+  BulletPos: -28000, -5000;
 EndCreateBullet:
+BBSprite: 'Frame_10', 2;
+BBSprite: 'Frame_11', 3;
+BBSprite: 'Frame_12', 3;
 BBSprite: 'Frame_13', 4;
 BBSprite: 'Frame_14', 4;
 BBSprite: 'Frame_15', 4;

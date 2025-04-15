@@ -4,7 +4,7 @@ CM_Init;
 # DefaultCamera
 CM_2DCamera: DefaultCamera;
 CM_Priority: DefaultCamera, 100;
-CM_OrthoSize: DefaultCamera, 65000;
+CM_OrthoSize: DefaultCamera, 85000;
 CM_XDamping: DefaultCamera, 25000;
 CM_YDamping: DefaultCamera, 8000;
 CM_DeadZone: DefaultCamera, 60, 20;

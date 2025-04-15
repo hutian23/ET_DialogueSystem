@@ -10,13 +10,16 @@ namespace ET.Client
         {
             protected override void Awake(TimelineComponent self)
             {
-                //渲染层传入unit.instanceId，方便渲染层回调事件
-                TimelinePlayer timelinePlayer = self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject.GetComponent<TimelinePlayer>();
+                //1. 查询TimelinePlayer
+                GameObjectComponent component = self.GetParent<Unit>().GetComponent<GameObjectComponent>();
+                TimelinePlayer timelinePlayer = component.GameObject.GetComponent<TimelinePlayer>();
                 if (timelinePlayer == null)
                 {
-                    Log.Error($"gameObject must add timelineComponent!!");
+                    Log.Error($"gameObject must add TimelinePlayer!!");
                     return;
                 }
+                
+                //2. 渲染层传入unit.instanceId，方便渲染层回调事件
                 timelinePlayer.instanceId = self.InstanceId;
             }
         }
@@ -45,6 +48,12 @@ namespace ET.Client
                 markerEvent?.Dispose();
             }
             self.markerEventDict.Clear();
+            
+            //初始化
+            GameObjectComponent component = self.GetParent<Unit>().GetComponent<GameObjectComponent>();
+            TimelinePlayer timelinePlayer = component.GameObject.GetComponent<TimelinePlayer>();
+            timelinePlayer.RuntimePlayable = null;
+            timelinePlayer.CurrentTimeline = null;
         }
         
         #region TimelinePlayer

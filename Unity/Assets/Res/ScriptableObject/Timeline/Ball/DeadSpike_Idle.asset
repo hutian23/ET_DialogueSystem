@@ -129,7 +129,7 @@ MonoBehaviour:
       Data: 9|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: keyframeName
       Entry: 1
       Data: 
@@ -154,7 +154,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -3
+      Data: 0
     - Name: 
       Entry: 4
       Data: 0
@@ -166,7 +166,7 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 9
+      Data: 6.8
     - Name: 
       Entry: 4
       Data: 4

@@ -62,7 +62,7 @@ namespace Timeline
         public void ClearTimelineGenerate()
         {
             var goSet = new HashSet<GameObject>();
-            foreach (var component in GetComponentsInChildren<Component>())
+            foreach (Component component in GetComponentsInChildren<Component>())
             {
                 if (typeof(ITimelineGenerate).IsAssignableFrom(component.GetType()))
                 {
@@ -105,7 +105,7 @@ namespace Timeline
         {
             RuntimePlayable.Evaluate(targetFrame);
         }
-        
+
 
         public void Dispose()
         {

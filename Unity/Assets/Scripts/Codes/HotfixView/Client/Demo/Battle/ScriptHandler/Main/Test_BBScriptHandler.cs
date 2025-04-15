@@ -1,9 +1,8 @@
-﻿using Box2DSharp.Dynamics;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
+using Timeline;
 
 namespace ET.Client
 {
-    [FriendOfAttribute(typeof(ET.Client.b2Body))]
     public class Test_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
@@ -13,11 +12,12 @@ namespace ET.Client
 
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Unit unit = parser.GetParent<Unit>();
-            b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
+            foreach (RuntimeTrack runtimeTrack in parser.GetParent<Unit>().GetComponent<TimelineComponent>().GetTimelinePlayer().RuntimePlayable.RuntimeTracks)
+            {
+                Log.Warning(runtimeTrack.Track.ToJson());
+            }
+            Log.Warning(parser.GetParent<Unit>().GetComponent<TimelineComponent>().GetTimelinePlayer().RuntimePlayable.RuntimeTracks.Count.ToString());
             
-            Log.Warning("Exit");
-
             await ETTask.CompletedTask;
             return Status.Success;
         }
