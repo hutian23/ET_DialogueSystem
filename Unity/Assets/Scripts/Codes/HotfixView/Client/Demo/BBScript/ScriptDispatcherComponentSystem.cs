@@ -30,6 +30,7 @@ namespace ET.Client
                 self.BBTriggerHandlers.Clear();
                 self.InputHandlers.Clear();
                 self.BBParamHandlers.Clear();
+                self.BBValueDict.Clear();
                 ScriptDispatcherComponent.Instance = null;
             }
         }

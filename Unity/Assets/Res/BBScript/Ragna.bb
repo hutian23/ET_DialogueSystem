@@ -190,6 +190,7 @@ InputType: SquatHold;
 return;
 
 @Main:
+Test;
 SetVelocityX: 0;
 EnableFlip: true;
 EnableDefaultCancel: true;
@@ -412,12 +413,14 @@ return;
 SetVelocityX: 0;
 Event: (Hit_Start)
   HitNotify: Once
+    # 挂载GatlingCancel组件
     EnableGatlingCancel: true;
     Shake: 800, 0, 10000, 18;
     HitStop: 2, 18;
   EndNotify:
 EndEvent:
 Event: (Hit_End)
+  # 销毁GatlingCancel组件
   EnableGatlingCancel: false;
 EndEvent:
 PlayTimeline: 0, 39;

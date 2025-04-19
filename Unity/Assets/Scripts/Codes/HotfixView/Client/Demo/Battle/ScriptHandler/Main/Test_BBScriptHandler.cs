@@ -1,5 +1,4 @@
 ﻿using MongoDB.Bson;
-using Timeline;
 
 namespace ET.Client
 {
@@ -12,11 +11,12 @@ namespace ET.Client
 
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            foreach (RuntimeTrack runtimeTrack in parser.GetParent<Unit>().GetComponent<TimelineComponent>().GetTimelinePlayer().RuntimePlayable.RuntimeTracks)
-            {
-                Log.Warning(runtimeTrack.Track.ToJson());
-            }
-            Log.Warning(parser.GetParent<Unit>().GetComponent<TimelineComponent>().GetTimelinePlayer().RuntimePlayable.RuntimeTracks.Count.ToString());
+            BlackBoard blackBoard = parser.GetParent<Unit>().GetComponent<BlackBoard>();
+            blackBoard.RegistValue("Test", 2);
+            blackBoard.RegistValue("Test2", new LandCallback(){instanceId = 100001});
+
+            LandCallback landCallback = blackBoard.GetValue<LandCallback>("Test2");
+            Log.Warning(landCallback.ToJson());
             
             await ETTask.CompletedTask;
             return Status.Success;

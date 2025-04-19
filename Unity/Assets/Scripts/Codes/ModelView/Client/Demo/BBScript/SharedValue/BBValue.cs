@@ -1,46 +1,34 @@
-﻿using System;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     public abstract class BBValue
     {
-        public abstract Type ValueType { get; }
+        public abstract void Recycle();
     }
 
-    public interface BBValue<T> where T : struct
+    public class BBValueBase<T>: BBValue where T : struct
     {
-        public T GetValue();
-        public void SetValue(T value);
+        private T _value;
 
-        public BBValue<T> Create(T value);
-        
-        public void Destroy();
-    }
-
-    public abstract class BBValueBase<T>: BBValue, BBValue<T> where T : struct
-    {
-        protected T Value;
-        
         public T GetValue()
         {
-            return Value;
+            return _value;
         }
 
         public void SetValue(T value)
         {
-            Value = value;
+            _value = value;
         }
-
-        public BBValue<T> Create(T value)
+        
+        public static BBValueBase<T> Create(T value)
         {
             BBValueBase<T> valueBase = ObjectPool.Instance.Fetch<BBValueBase<T>>();
             valueBase.SetValue(value);
             return valueBase;
         }
 
-        public void Destroy()
+        public override void Recycle()
         {
-            Value = default;
+            _value = default;
             ObjectPool.Instance.Recycle(this);
         }
     }

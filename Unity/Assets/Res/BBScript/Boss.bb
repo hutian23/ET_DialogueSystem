@@ -1,6 +1,7 @@
 [Root]
 @RootInit:
 PoolObject: 'SlashRing', 4;
+# 注册一个BehaviorInfo组件
 RegistMove: (Boss_Idle)
   MoveType: None;
   EndMove:

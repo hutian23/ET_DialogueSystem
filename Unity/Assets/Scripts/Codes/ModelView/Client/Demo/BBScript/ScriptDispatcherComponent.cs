@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ET.Client
 {
@@ -11,5 +12,6 @@ namespace ET.Client
         public Dictionary<string, BBTriggerHandler> BBTriggerHandlers = new();
         public Dictionary<string, InputHandler> InputHandlers = new();
         public Dictionary<string, BBParamHandler> BBParamHandlers = new();
+        public Dictionary<Type, Type> BBValueDict = new();
     }
 }

@@ -20,6 +20,7 @@
             player.AddComponent<B2Unit, long>(player.InstanceId);
             player.AddComponent<ObjectWait>();
             player.AddComponent<InputWait>();
+            player.AddComponent<BlackBoard>();
             
             await ETTask.CompletedTask;
             return Status.Success;
