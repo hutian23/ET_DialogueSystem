@@ -1,10 +1,10 @@
 ﻿namespace ET.Client
 {
-    public class Test_BBScriptHandler : BBScriptHandler
+    public class Function_EnableAirDash_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "Test";
+            return "EnableAirDash";
         }
 
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)

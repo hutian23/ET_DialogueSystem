@@ -6,22 +6,16 @@ SetPos: 280000, -90000;
 #2. 注册数值
 NumericType: Hertz, 60;
 NumericType: MaxJump, 5;
-NumericType: MaxDash, 2;
-NumericType: DashCount, 2;
 NumericType: JumpCount, 2;
 #3. 注册数值更新事件
 NumericChange: Hertz
   UpdateHertz;
 EndNumericChange:
-NumericChange: DashCount
-  #OnGround---> DashRecharge
-  BeginIf: (Numeric: DashCount <= 0), (InAir: false)
-    DashRecharge: 2, 40;
-  EndIf:
-EndNumericChange:
 #4. 添加初始Buff
 EnableGravityCheck: 100000, 150000, 450000;             
 EnableAirCheck: 0, -1850, 1250, 1000; 
+EnableGroundDash: 2, 40;
+# EnableAirDash: 2;
 #5. 注册输入缓冲
 RegistInput: RunHold;
 RegistInput: SquatHold;
@@ -656,27 +650,23 @@ Exit;
 @Trigger:
 InAir: false;
 InputType: DashPressed;
-Numeric: DashCount > 0;
+CanGroundDash: true;
 return;
 
 @Main:
 SetVelocityY: 0;
 SetVelocityX: 350000;
 Gravity: 100000;
-NumericAdd: DashCount, -1;
+GroundDashOP: -1;
 BBSprite: 'Dash_1', 3;
 BBSprite: 'Dash_2', 3;
 EnableGatlingCancel: true;
 GCOption: Rg_Jump;
-# CancelWindow: Gatling;
-# CancelOption: Rg_Jump;
 BBSprite: 'Dash_1', 3;
 BBSprite: 'Dash_2', 3;
 SetVelocityX: 200000;
 BBSprite: 'Dash_1', 3;
 SetVelocityX: 100000;
-# CancelOption: Rg_GroundDash;
-EnableGatlingCancel: false;
 BBSprite: 'DashEnd_1', 3;
 SetVelocityX: 50000;
 BBSprite: 'DashEnd_1', 6;
@@ -684,6 +674,7 @@ BBSprite: 'DashEnd_2', 3;
 SetVelocityX: 0;
 BBSprite: 'DashEnd_3', 1;
 SetTransition: 'NoPreSquat';
+EnableGatlingCancel: false;
 EnableNandemoCancel: true;
 BBSprite: 'DashEnd_3', 2;
 BBSprite: 'DashEnd_4', 3;
