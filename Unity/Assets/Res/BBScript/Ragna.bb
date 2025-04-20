@@ -78,6 +78,9 @@ RegistMove: (Rg_Super3)
 # RegistMove: (Rg_PlungingAttack)
 #   MoveType: Special;
 #   EndMove:
+RegistMove: (Rg_Test)
+  MoveType: Etc;
+  EndMove:
 RegistMove: (Rg_IdleAnim)
   MoveType: Etc;
   EndMove:
@@ -87,8 +90,13 @@ PoolObject: DeadSpike, 3;
 GotoBehavior: 'Rg_Idle';
 return;
 
-@ReloadCallback:
-UpdateFlip;
+@BeforeReloadCallback:
+UpdateBehavior;
+LogWarning: 'BeforeReload';
+return;
+
+@AfterReloadCallback:
+LogWarning: 'AfterReload';
 return;
 
 @LandCallback:
@@ -107,7 +115,7 @@ return;
 @Main:
 SetVelocityX: 0;
 # 设置一个待机行为，保持idle 300帧之后进入这个行为
-IdleAnim: Rg_IdleAnim, 300;
+# IdleAnim: Rg_IdleAnim, 300;
 EnableDefaultCancel: true;
 EnableFlip: true;
 SetMarker: 'Loop';

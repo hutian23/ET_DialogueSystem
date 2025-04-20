@@ -35,8 +35,10 @@ namespace ET.Client
             
             //2. 初始化
             Unit unit = parser.GetParent<Unit>();
+            BuffManager buffManager = unit.GetComponent<BuffManager>();
             b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-            unit.RemoveBuff<AirCheckComponent>();
+            
+            buffManager.RemoveComponent<AirCheckAbility>();
             body.ClearFixtures(FixtureType.AirCheckBox); //移除夹具
             
             //3. 创建夹具
@@ -67,7 +69,7 @@ namespace ET.Client
             body.CreateFixture(fixtureDef);
             
             //4. 添加组件
-            unit.AddBuff<AirCheckComponent>();
+            buffManager.AddComponent<AirCheckAbility>();
             
             await ETTask.CompletedTask;
             return Status.Success;

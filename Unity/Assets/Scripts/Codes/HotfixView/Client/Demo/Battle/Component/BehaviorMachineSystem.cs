@@ -196,5 +196,17 @@
         }
         
         #endregion
+
+        public static void Reload(this BehaviorMachine self, string behaviorName)
+        {
+            BehaviorInfo info = self.GetInfoByName(behaviorName);
+            EventSystem.Instance.Invoke(new BehaviorReloadCallback(){ unitId = self.GetParent<Unit>().InstanceId, infoId = info.InstanceId });
+        }
+
+        public static void Reload(this BehaviorMachine self, int behaviorOrder)
+        {
+            BehaviorInfo info = self.GetInfoByOrder(behaviorOrder);
+            EventSystem.Instance.Invoke(new BehaviorReloadCallback(){ unitId = self.GetParent<Unit>().InstanceId, infoId = info.InstanceId });
+        }
     }
 }

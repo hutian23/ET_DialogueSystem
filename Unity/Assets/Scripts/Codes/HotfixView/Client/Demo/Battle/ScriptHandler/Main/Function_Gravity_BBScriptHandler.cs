@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof(GravityCheckComponent))]
+    [FriendOf(typeof(GravityCheckAbility))]
     public class Function_Gravity_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
@@ -26,7 +26,9 @@ namespace ET.Client
             }
 
             //2. 设置重力
-            GravityCheckComponent gc = parser.GetParent<Unit>().GetBuff<GravityCheckComponent>();
+            Unit unit = parser.GetParent<Unit>();
+            BuffManager buffManager = unit.GetComponent<BuffManager>();
+            GravityCheckAbility gc = buffManager.GetComponent<GravityCheckAbility>();
             if (gc == null)
             {
                 Log.Error($"does not exist buff GravityCheckComponent!");

@@ -20,10 +20,12 @@ namespace ET.Client
     }
 
     #region 行为机相关事件
-    
-    public struct ReloadCallback
+
+    public struct BehaviorReloadCallback
     {
-        public long instanceId;
+        //传入BehaviorInfo组件的instanceId
+        public long unitId;
+        public long infoId;
     }
 
     public struct LandCallback

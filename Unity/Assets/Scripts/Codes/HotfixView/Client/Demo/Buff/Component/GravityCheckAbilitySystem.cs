@@ -1,12 +1,12 @@
 ﻿namespace ET.Client
 {
-    public static class GravityCheckComponentSystem
+    public static class GravityCheckAbilitySystem
     {
         [Invoke(BBTimerInvokeType.GravityCheckTimer)]
-        [FriendOf(typeof(GravityCheckComponent))]
-        public class GravityCheckTimer : BBTimer<GravityCheckComponent>
+        [FriendOf(typeof(GravityCheckAbility))]
+        public class GravityCheckTimer : BBTimer<GravityCheckAbility>
         {
-            protected override void Run(GravityCheckComponent self)
+            protected override void Run(GravityCheckAbility self)
             {
                 Unit unit = self.GetParent<BuffManager>().GetParent<Unit>();
                 B2Unit b2Unit = unit.GetComponent<B2Unit>();
@@ -24,18 +24,18 @@
             }
         }
 
-        public class GravityCheckComponentAwakeSystem : AwakeSystem<GravityCheckComponent>
+        public class GravityCheckComponentAwakeSystem : AwakeSystem<GravityCheckAbility>
         {
-            protected override void Awake(GravityCheckComponent self)
+            protected override void Awake(GravityCheckAbility self)
             {
                 BBTimerComponent postStepTimer = b2WorldManager.Instance.GetPostStepTimer();
                 self.timer = postStepTimer.NewFrameTimer(BBTimerInvokeType.GravityCheckTimer, self);
             }
         }
         
-        public class GravityCheckComponentDestroySystem : DestroySystem<GravityCheckComponent>
+        public class GravityCheckComponentDestroySystem : DestroySystem<GravityCheckAbility>
         {
-            protected override void Destroy(GravityCheckComponent self)
+            protected override void Destroy(GravityCheckAbility self)
             {
                 BBTimerComponent postStepTimer = b2WorldManager.Instance.GetPostStepTimer();
                 postStepTimer.Remove(ref self.timer);

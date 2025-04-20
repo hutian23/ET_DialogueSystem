@@ -4,15 +4,15 @@ using Timeline;
 
 namespace ET.Client
 {
-    [FriendOf(typeof(AirCheckComponent))]
-    public static class AirCheckComponentSystem
+    [FriendOf(typeof(AirCheckAbility))]
+    public static class AirCheckAbilitySystem
     {
         [Invoke(BBTimerInvokeType.AirCheckTimer)]
         [FriendOf(typeof(B2Unit))]
-        [FriendOf(typeof(AirCheckComponent))]
-        public class AirCheckTimer : BBTimer<AirCheckComponent>
+        [FriendOf(typeof(AirCheckAbility))]
+        public class AirCheckTimer : BBTimer<AirCheckAbility>
         {
-            protected override void Run(AirCheckComponent self)
+            protected override void Run(AirCheckAbility self)
             {
                 //1. 查询组件 
                 Unit unit = self.GetParent<BuffManager>().GetParent<Unit>();
@@ -48,9 +48,9 @@ namespace ET.Client
             }
         }
 
-        public class AirCheckComponentAwakeSystem : AwakeSystem<AirCheckComponent>
+        public class AirCheckComponentAwakeSystem : AwakeSystem<AirCheckAbility>
         {
-            protected override void Awake(AirCheckComponent self)
+            protected override void Awake(AirCheckAbility self)
             {
                 BBTimerComponent postStepTimer = b2WorldManager.Instance.GetPostStepTimer();
                 self.timer = postStepTimer.NewFrameTimer(BBTimerInvokeType.AirCheckTimer, self);
@@ -58,16 +58,16 @@ namespace ET.Client
             }
         }
 
-        public class AirCheckComponentDestroySystem : DestroySystem<AirCheckComponent>
+        public class AirCheckComponentDestroySystem : DestroySystem<AirCheckAbility>
         {
-            protected override void Destroy(AirCheckComponent self)
+            protected override void Destroy(AirCheckAbility self)
             {
                 b2WorldManager.Instance.GetPostStepTimer().Remove(ref self.timer);
                 self.inAir = false;
             }
         }
 
-        public static bool GetInAir(this AirCheckComponent self)
+        public static bool GetInAir(this AirCheckAbility self)
         {
             return self.inAir;
         }

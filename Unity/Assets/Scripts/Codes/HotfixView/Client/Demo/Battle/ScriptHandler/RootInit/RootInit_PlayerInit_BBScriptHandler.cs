@@ -13,6 +13,7 @@
             
             //添加玩家控制器依赖的组件
             player.AddComponent<BuffManager>();
+            // player.AddComponent<>()
             player.AddComponent<TimelineComponent>();
             player.AddComponent<BBTimerComponent>().IsUnitTimer();
             player.AddComponent<BBNumeric>();

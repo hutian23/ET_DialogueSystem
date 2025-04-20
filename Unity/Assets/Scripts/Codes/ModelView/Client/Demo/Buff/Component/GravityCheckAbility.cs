@@ -1,7 +1,7 @@
 ﻿namespace ET.Client
 {
     [ComponentOf(typeof(BuffManager))]
-    public class GravityCheckComponent : Entity, IAwake, IDestroy
+    public class GravityCheckAbility : Entity, IAwake, IDestroy
     {
         public long timer;
         

@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof(GravityCheckComponent))]
+    [FriendOf(typeof(GravityCheckAbility))]
     public class RootInit_EnableGravityCheck_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
@@ -28,10 +28,11 @@ namespace ET.Client
             }
             
             Unit unit = parser.GetParent<Unit>();
-
+            BuffManager buffManager = unit.GetComponent<BuffManager>();
+            
             //2. 组件初始化
-            unit.RemoveBuff<GravityCheckComponent>();
-            GravityCheckComponent gc = unit.AddBuff<GravityCheckComponent>();
+            buffManager.RemoveComponent<GravityCheckAbility>();
+            GravityCheckAbility gc = buffManager.AddComponent<GravityCheckAbility>();
             gc.gravity = gravity / 1000f;
             gc.maxGravity = maxGravity / 1000f;
             gc.maxFall = maxFall / 10000f;

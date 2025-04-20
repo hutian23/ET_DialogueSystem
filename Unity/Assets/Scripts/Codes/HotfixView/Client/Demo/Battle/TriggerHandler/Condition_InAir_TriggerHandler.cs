@@ -21,7 +21,8 @@ namespace ET.Client
             }
             
             //2. 查询组件
-            AirCheckComponent airCheck = parser.GetParent<Unit>().GetBuff<AirCheckComponent>();
+            BuffManager buffManager = parser.GetParent<Unit>().GetComponent<BuffManager>();
+            AirCheckAbility airCheck = buffManager.GetComponent<AirCheckAbility>();
             if (airCheck == null)
             {
                 Log.Error($"does not exist AirCheckComponent!");
