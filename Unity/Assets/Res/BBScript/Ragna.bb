@@ -279,50 +279,6 @@ EndLoop:
 SetTransition: AirToLand;
 Exit;
 
-[Rg_JumpCancel]
-@Trigger: 
-CancelOption: Rg_JumpCancel;
-Numeric: JumpCount > 0;
-InputType: JumpCancel;
-return;
-
-@Main:
-SetVelocityX: 0;
-# OnGround PreJump
-BeginIf: (TransitionCached: SquatToJump)
-  BBSprite: SquatToJump_1, 2;
-  BBSprite: SquatToJump_2, 2;
-EndIf:
-BeginIf: (InAir: false)
-  BBSprite: PreJump_1, 2;
-  BBSprite: PreJump_2, 2;
-EndIf:
-# Jump
-InputBuffer: true; 
-Gravity: 0;
-SetVelocityX: 50000;
-SetVelocityY: 300000;
-NumericAdd: JumpCount, -1;
-BBSprite: Jump_1, 3;
-BBSprite: Jump_2, 3;
-BBSprite: Jump_1, 3;
-# Jump Cancel
-Gravity: 100000;
-BBSprite: Jump_2, 3;
-BBSprite: Jump_1, 3;
-# JumpToFall
-BeginLoop: (InAir: true)
-  BBSprite: JumpToFall_1, 3;
-  BBSprite: JumpToFall_2, 3;
-  BBSprite: JumpToFall_3, 3;
-  BBSprite: JumpToFall_4, 3;
-  BBSprite: JumpToFall_5, 3;
-  Break;
-EndLoop:
-#Land
-SetTransition: AirToLand;
-Exit;
-
 [Rg_5B]
 @Trigger:
 InputType: 5LPPressed;

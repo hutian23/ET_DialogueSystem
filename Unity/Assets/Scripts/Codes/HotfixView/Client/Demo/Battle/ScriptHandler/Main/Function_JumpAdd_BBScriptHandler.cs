@@ -28,7 +28,7 @@ namespace ET.Client
             //2. 设置当前跳跃次数
             Unit unit = parser.GetParent<Unit>();
             BuffManager buffManager = unit.GetComponent<BuffManager>();
-            JumpAbility ja = buffManager.AddComponent<JumpAbility>();
+            JumpAbility ja = buffManager.GetComponent<JumpAbility>();
             if (ja == null)
             {
                 Log.Error("cannot found JumpAbility !!!");

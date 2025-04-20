@@ -14,13 +14,22 @@
             
             //1. Dash充能
             AirDashAbility ad = buffManager.GetComponent<AirDashAbility>();
+            if (ad != null)
+            {
+                ad.SetDashCount(ad.GetMaxDashCount());
+            }
             GroundDashAbility gd = buffManager.GetComponent<GroundDashAbility>();
-            ad.SetDashCount(ad.GetMaxDashCount());
-            gd.SetDashCount(gd.GetMaxDashCount());
+            if (gd != null)
+            {
+                gd.SetDashCount(gd.GetMaxDashCount());
+            }
             
             //2. Jump充能
             JumpAbility ja = buffManager.GetComponent<JumpAbility>();
-            ja.SetJumpCount(ja.GetMaxJumpCount());
+            if (ja != null)
+            {
+                ja.SetJumpCount(ja.GetMaxJumpCount());
+            }
             
             await ETTask.CompletedTask;
             return Status.Success;
