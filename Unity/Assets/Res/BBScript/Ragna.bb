@@ -91,12 +91,10 @@ GotoBehavior: 'Rg_Idle';
 return;
 
 @BeforeReloadCallback:
-UpdateBehavior;
-LogWarning: 'BeforeReload';
+BeforeReload;
 return;
 
 @AfterReloadCallback:
-LogWarning: 'AfterReload';
 return;
 
 @LandCallback:
@@ -115,7 +113,7 @@ return;
 @Main:
 SetVelocityX: 0;
 # 设置一个待机行为，保持idle 300帧之后进入这个行为
-# IdleAnim: Rg_IdleAnim, 300;
+IdleAnim: Rg_IdleAnim, 300;
 EnableDefaultCancel: true;
 EnableFlip: true;
 SetMarker: 'Loop';
@@ -144,7 +142,6 @@ return;
 SetVelocityX: 0;
 EnableDefaultCancel: true;
 BeginIf: (LandVelocity: 400000)
-  # ScreenShakeX: 0, 120, 30000, 15;
   BBSprite: 'MiddleLand_1', 3;
   BBSprite: 'MiddleLand_2', 3;
 EndIf:
@@ -201,7 +198,7 @@ BeginIf: (TransitionCached: 'NoPreSquat', false)
   BBSprite: 'PreSquit_1', 2;
   BBSprite: 'PreSquit_2', 2;
   EndIf:
-SetTransition: 'SquatToJump';
+SetTransition: SquatToJump;
 BeginLoop: (InputType: SquatHold)
   BBSprite: 'Squit_1', 4;
   BBSprite: 'Squit_2', 4;
