@@ -15,7 +15,7 @@ namespace ET.Client
             }
         }
 
-        public static void Set(this GroundDashAbility self, int dashCount)
+        public static void SetDashCount(this GroundDashAbility self, int dashCount)
         {
             int preCount = self.dashCount;
             int curCount = Math.Clamp(dashCount, 0, self.maxDashCount); 
@@ -26,12 +26,12 @@ namespace ET.Client
             EventSystem.Instance.Invoke(new GroundDashChangeCallback(){instanceId = self.InstanceId});
         }
 
-        public static int Get(this GroundDashAbility self)
+        public static int GetDashCount(this GroundDashAbility self)
         {
             return self.dashCount;
         }
 
-        public static int GetMaxDash(this GroundDashAbility self)
+        public static int GetMaxDashCount(this GroundDashAbility self)
         {
             return self.maxDashCount;
         }

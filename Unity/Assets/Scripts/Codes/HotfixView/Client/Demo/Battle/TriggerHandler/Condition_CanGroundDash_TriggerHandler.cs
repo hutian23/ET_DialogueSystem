@@ -2,7 +2,6 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof(GroundDashAbility))]
     public class Condition_CanGroundDash_TriggerHandler : BBTriggerHandler
     {
         public override string GetTriggerType()
@@ -23,22 +22,11 @@ namespace ET.Client
             Unit unit = parser.GetParent<Unit>();
             GroundDashAbility gd = unit.GetComponent<BuffManager>().GetComponent<GroundDashAbility>();
 
-            if (gd == null)
-            {
-                Log.Error($"does not exist GroundDashAbility!!!");
-                return false;
-            }
+            //1. 未查询到能力组件，认为不能进行地面冲刺
+            if (gd == null) return false;
 
-            switch (match.Groups["CanDash"].Value)
-            {
-                case "true":
-                    return gd.dashCount > 0;
-                case "false":
-                    return gd.dashCount <= 0;
-                default:
-                    Log.Error($"Trigger: CanGroundDash Match Failed: {data.opLine} ");
-                    return false;
-            }
+            //2. 地面冲刺次数不为0
+            return match.Groups["CanDash"].Value.Equals("true") ? gd.GetDashCount() > 0 : gd.GetDashCount() <= 0;
         }
     }
 }

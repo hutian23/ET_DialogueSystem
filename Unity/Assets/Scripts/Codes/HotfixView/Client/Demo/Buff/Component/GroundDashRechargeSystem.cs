@@ -39,7 +39,7 @@
             }
 
             //2. 充能
-            gd.Set(gd.GetMaxDash());
+            gd.SetDashCount(gd.GetMaxDashCount());
             
             //3. 移除自己
             self.Dispose();

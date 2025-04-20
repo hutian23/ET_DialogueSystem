@@ -5,14 +5,13 @@ PlayerInit;
 SetPos: 280000, -90000;
 #2. 注册数值
 NumericType: Hertz, 60;
-NumericType: MaxJump, 5;
-NumericType: JumpCount, 2;
 #3. 注册数值更新事件
 NumericChange: Hertz
   UpdateHertz;
 EndNumericChange:
 #4. 添加初始Buff
-EnableGroundDash: 2, 80;
+EnableJump: 2;
+EnableGroundDash: 2, 120;
 EnableAirDash: 2;
 EnableGravityCheck: 100000, 150000, 450000;             
 EnableAirCheck: 0, -1850, 1250, 1000; 
@@ -98,10 +97,7 @@ return;
 return;
 
 @LandCallback:
-# RecordLandVelocity;
-# RemoveDashRecharge;
-# NumericSet: DashCount, 2;
-# NumericSet: JumpCount, 2;
+LandCallback;
 # SetVelocityY: -20000;
 # Gravity: 0;
 return;
@@ -241,17 +237,18 @@ Exit;
 
 [Rg_Jump]
 @Trigger:
-Numeric: JumpCount > 0;
+CanJump: true;
 InputType: JumpPressed;
 return;
 
 @Main:
 SetVelocityX: 0;
 # OnGround PreJump
-BeginIf: (TransitionCached: SquatToJump, true)
-  BBSprite: SquatToJump_1, 2;
-  BBSprite: SquatToJump_2, 2;
-EndIf:
+# BeginIf: (TransitionCached: SquatToJump, true)
+#   BBSprite: SquatToJump_1, 2;
+#   BBSprite: SquatToJump_2, 2;
+# EndIf:
+# PreJump
 BeginIf: (InAir: false)
   BBSprite: PreJump_1, 2;
   BBSprite: PreJump_2, 2;
@@ -261,11 +258,10 @@ EnableFlip: true;
 Gravity: 0;
 AirMoveX: 150000;
 SetVelocityY: 200000;
-NumericAdd: JumpCount, -1;
+JumpAdd: -1;
 BBSprite: Jump_1, 3;
 BBSprite: Jump_2, 3;
 BBSprite: Jump_1, 3;
-# Jump Cancel
 EnableGatlingCancel: true;
 GCOption: Rg_Jump;
 Gravity: 100000;
@@ -280,7 +276,6 @@ BeginLoop: (InAir: true)
   BBSprite: JumpToFall_5, 3;
   Break;
 EndLoop:
-#Land
 SetTransition: AirToLand;
 Exit;
 

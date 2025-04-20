@@ -2,18 +2,17 @@
 
 namespace ET.Client
 {
-    public class Function_GroundDashAdd_BBScriptHandler : BBScriptHandler
+    public class Function_AirDashAdd_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "GroundDashAdd";
+            return "AirDashAdd";
         }
 
-        //GroundDashAdd: -1; 
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
             //1. 匹配参数
-            Match match = Regex.Match(data.opLine, @"GroundDashAdd: (?<Count>.*?);");
+            Match match = Regex.Match(data.opLine, @"AirDashAdd: (?<Count>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -27,15 +26,15 @@ namespace ET.Client
 
             //2. 设置当前冲刺次数
             Unit unit = parser.GetParent<Unit>();
-            GroundDashAbility gd = unit.GetComponent<BuffManager>().GetComponent<GroundDashAbility>();
-            if (gd == null)
+            AirDashAbility ad = unit.GetComponent<BuffManager>().GetComponent<AirDashAbility>();
+            if (ad == null)
             {
-                Log.Error($"cannot found GroundDashAbility !!!");
+                Log.Error($"cannot found AirDashAbility !!!");
                 return Status.Failed;
             }
-
-            int curCount = gd.GetDashCount();
-            gd.SetDashCount(curCount + count);
+            
+            int curCount = ad.GetDashCount();
+            ad.SetDashCount(curCount + count);
 
             await ETTask.CompletedTask;
             return Status.Success;

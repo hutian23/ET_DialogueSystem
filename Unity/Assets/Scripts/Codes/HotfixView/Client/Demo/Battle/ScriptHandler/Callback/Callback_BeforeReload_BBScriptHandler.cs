@@ -1,6 +1,6 @@
 ﻿namespace ET.Client
 {
-    public class RootInit_BeforeReload_BBScriptHandler : BBScriptHandler
+    public class Callback_BeforeReload_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
