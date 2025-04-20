@@ -21,8 +21,7 @@ namespace ET.Client
             }
 
             Unit unit = parser.GetParent<Unit>();
-            BuffManager buffManager = unit.GetComponent<BuffManager>();
-            GroundDashAbility gd = buffManager.GetComponent<GroundDashAbility>();
+            GroundDashAbility gd = unit.GetComponent<BuffManager>().GetComponent<GroundDashAbility>();
 
             if (gd == null)
             {
@@ -37,6 +36,7 @@ namespace ET.Client
                 case "false":
                     return gd.dashCount <= 0;
                 default:
+                    Log.Error($"Trigger: CanGroundDash Match Failed: {data.opLine} ");
                     return false;
             }
         }

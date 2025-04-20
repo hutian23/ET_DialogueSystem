@@ -1,7 +1,6 @@
 ﻿namespace ET.Client
 {
     [FriendOf(typeof(GroundDashRecharge))]
-    [FriendOf(typeof(GroundDashAbility))]
     public static class GroundDashRechargeSystem
     {
         public class GroundDashRechargeAwakeSystem : AwakeSystem<GroundDashRecharge, int>
@@ -25,9 +24,9 @@
 
         private static async ETTask DashRechargeCor(this GroundDashRecharge self)
         {
-            BuffManager buffManager = self.GetParent<BuffManager>();
-            Unit unit = buffManager.GetParent<Unit>();
+            Unit unit = self.GetParent<BuffManager>().GetParent<Unit>();
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
+            GroundDashAbility gd = unit.GetComponent<BuffManager>().GetComponent<GroundDashAbility>();
 
             //1. 等待
             while (self.counter-- >= 0)
@@ -40,8 +39,7 @@
             }
 
             //2. 充能
-            GroundDashAbility gd = buffManager.GetComponent<GroundDashAbility>();
-            gd.dashCount = gd.maxDashCount;
+            gd.Set(gd.GetMaxDash());
             
             //3. 移除自己
             self.Dispose();

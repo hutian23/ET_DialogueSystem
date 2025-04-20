@@ -23,7 +23,7 @@ namespace ET.Client
         }
 
         private static async ETTask FlipCoroutine(this FlipCheckComponent self)
-        {
+        {                       
             //1. 查询组件
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
             b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
@@ -32,7 +32,11 @@ namespace ET.Client
 
             while (true)
             {
-                //2. 更新刚体朝向
+                //2. 等待一帧
+                await bbTimer.WaitFrameAsync(self.cancelToken);
+                if (self.cancelToken.IsCancel()) return;   
+                
+                //3. 更新刚体朝向
                 if (inputWait.IsPressing(BBOperaType.LEFT) ||
                     inputWait.IsPressing(BBOperaType.DOWNLEFT) ||
                     inputWait.IsPressing(BBOperaType.UPLEFT))
@@ -45,10 +49,6 @@ namespace ET.Client
                 {
                     body.SetFlip(FlipState.Right);
                 }
-
-                //3. 等待一帧
-                await bbTimer.WaitFrameAsync(self.cancelToken);
-                if (self.cancelToken.IsCancel()) return;   
             }
         }
     }

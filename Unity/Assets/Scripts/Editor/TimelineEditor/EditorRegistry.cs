@@ -80,7 +80,6 @@ namespace ET
             TrackViewMap.Add(typeof(BBEventTrack), typeof(EventTrackView));
             TrackViewMap.Add(typeof(BBHitboxTrack), typeof(HitboxTrackView));
             TrackViewMap.Add(typeof(SubTimelineTrack), typeof(SubTimelineTrack));
-            TrackViewMap.Add(typeof(BBTargetBindTrack), typeof(TargetBindTrackView));
             
             //注册
             ClipViewMap.Clear();

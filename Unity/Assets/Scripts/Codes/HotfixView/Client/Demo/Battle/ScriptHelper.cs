@@ -70,7 +70,7 @@ namespace ET.Client
             self.SetCurrentOrder(behaviorOrder);
             
             // 切换行为前的回调
-            EventSystem.Instance.Invoke(new BeforeBehaviorReloadCallback(){instanceId = self.InstanceId});
+            EventSystem.Instance.Invoke(new ReloadCallback(){instanceId = self.InstanceId});
             // 执行行为协程
             parser.Invoke(parser.GetFunctionPointer(info.behaviorName,"Main"),parser.CancellationToken).Coroutine();
         }

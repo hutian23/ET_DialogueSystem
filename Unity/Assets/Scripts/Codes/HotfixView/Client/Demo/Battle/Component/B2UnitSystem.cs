@@ -14,12 +14,6 @@ namespace ET.Client
             }
         }
 
-        public static void Init(this B2Unit self)
-        {
-            self.TriggerBuffer.Clear();
-            self.CollisionBuffer.Clear();
-        }
-
         public class B2UnitPreStepSystem : PreStepSystem<B2Unit>
         {
             protected override void PreStepUpdate(B2Unit self)
@@ -33,7 +27,7 @@ namespace ET.Client
         {
             protected override void PosStepUpdate(B2Unit self)
             {
-                //清空碰撞信息缓冲区
+                //清空碰撞缓冲区
                 self.TriggerBuffer.Clear();
                 self.CollisionBuffer.Clear();
             }

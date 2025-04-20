@@ -12,9 +12,9 @@ NumericChange: Hertz
   UpdateHertz;
 EndNumericChange:
 #4. 添加初始Buff
+EnableGroundDash: 2, 80;
 EnableGravityCheck: 100000, 150000, 450000;             
 EnableAirCheck: 0, -1850, 1250, 1000; 
-EnableGroundDash: 2, 40;
 # EnableAirDash: 2;
 #5. 注册输入缓冲
 RegistInput: RunHold;
@@ -87,7 +87,8 @@ PoolObject: DeadSpike, 3;
 GotoBehavior: 'Rg_Idle';
 return;
 
-@BeforeReload:
+@ReloadCallback:
+UpdateFlip;
 return;
 
 @LandCallback:
@@ -657,7 +658,7 @@ return;
 SetVelocityY: 0;
 SetVelocityX: 350000;
 Gravity: 100000;
-GroundDashOP: -1;
+GroundDashAdd: -1;
 BBSprite: 'Dash_1', 3;
 BBSprite: 'Dash_2', 3;
 EnableGatlingCancel: true;
@@ -669,6 +670,7 @@ BBSprite: 'Dash_1', 3;
 SetVelocityX: 100000;
 BBSprite: 'DashEnd_1', 3;
 SetVelocityX: 50000;
+GCOption: Rg_GroundDash;
 BBSprite: 'DashEnd_1', 6;
 BBSprite: 'DashEnd_2', 3;
 SetVelocityX: 0;
@@ -1165,56 +1167,3 @@ Exit;
 EnableNandemoCancel: true;
 PlayTimeline: 0, 81;
 Exit;
-
-[Test]
-@Main:
-SetMarker: 'Loop';
-WaitFrame: 30;
-LogWarning: 'HelloWorld';
-WaitFrame: 10;
-LogWarning: 'test';
-GotoMarker: 'Loop';
-return;
-
-@Test_111:
-LogWarning: 'Test_111';
-return;
-
-@Test_222:
-LogWarning: 'Test_222';
-return;
-
-[Test2]
-@Main:
-WaitFrame: 10;
-LogWarning: 'Hello';
-return;
-
-[轻波动]
-@Main:
-WaitFrame: 15;
-CreateFireBall: 1003, 1000, 5000, 10000;
-WaitFrame: 34;
-Exit;
-
-[中波动]
-@Main:
-WaitFrame: 13;
-CreateFireBall: 1003, 1000, 5000, 15000;
-WaitFrame: 36;
-Exit;
-
-[重波动]
-@Main:
-WaitFrame: 11;
-CreateFireBall: 1003, 1000, 5000, 20000;
-WaitFrame: 38;
-Exit
-
-[od波动]
-@Main:
-SpCost: 20;
-WaitFrame: 11;
-CreateFireBall: 1004, 1000, 5000, 25000;
-WaitFrame: 29;
-Exit

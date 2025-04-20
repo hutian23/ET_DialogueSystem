@@ -21,7 +21,7 @@ namespace ET.Client
 
     #region 行为机相关事件
     
-    public struct BeforeBehaviorReloadCallback
+    public struct ReloadCallback
     {
         public long instanceId;
     }
@@ -30,5 +30,6 @@ namespace ET.Client
     {
         public long instanceId;
     }
+    
     #endregion
 }

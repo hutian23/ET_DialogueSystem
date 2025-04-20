@@ -6,6 +6,5 @@
         public int dashCount;
         public int maxDashCount;
         public int chargeFrame;
-        public ETCancellationToken cancelToken;
     }
 }
