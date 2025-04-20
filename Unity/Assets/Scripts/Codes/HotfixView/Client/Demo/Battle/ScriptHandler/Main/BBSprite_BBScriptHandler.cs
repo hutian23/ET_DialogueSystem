@@ -12,10 +12,10 @@ namespace ET.Client
             return "BBSprite";
         }
 
-        //BBSprite: 'Rg00_1',3;
+        //BBSprite: Rg00_1,3;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, "BBSprite: '(?<Sprite>.*?)', (?<WaitFrame>.*?);");
+            Match match = Regex.Match(data.opLine, "BBSprite: (?<Sprite>.*?), (?<WaitFrame>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);

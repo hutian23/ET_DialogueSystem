@@ -33,14 +33,13 @@ namespace ET.Client
         public static void Init(this BBParser self)
         {
             self.OpDict.Clear();
-            //回收代码块
             foreach (var kv in self.GroupDict)
             {
                 kv.Value.Recycle();
             }
             self.GroupDict.Clear();
             self.GroupPointerSet.Clear();
-            //取消当前协程
+            
             self.Cancel();
         }
 
@@ -49,16 +48,19 @@ namespace ET.Client
         /// </summary>
         public static void Cancel(this BBParser self)
         {
+            //1. 取消当前协程
             self.CancellationToken?.Cancel();
             self.Coroutine_Pointers.Clear();
             self.CancellationToken = new ETCancellationToken();
-            //回收共享变量
+            
+            //2. 回收共享变量
             foreach (var kv in self.ParamDict)
             {
                 kv.Value.Recycle();
             }
             self.ParamDict.Clear();
-            //销毁子组件
+           
+            //3. 销毁子组件
             ListComponent<Entity> removeList = ListComponent<Entity>.Create();
             removeList.AddRange(self.Children.Values);
             removeList.AddRange(self.Components.Values);

@@ -9,27 +9,21 @@ namespace ET.Client
             return "TransitionCached";
         }
 
+        //TransitionCached: NoSquat;
         public override bool Check(BBParser parser, BBScriptData data)
         {
-            Match match = Regex.Match(data.opLine, @"TransitionCached: '(?<transition>\w+)', (?<exist>\w+)");
+            Match match = Regex.Match(data.opLine, @"TransitionCached: (?<transition>\w+), (?<enable>\w+)");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
                 return false;
             }
-            
-            string transitionFlag = $"Transition_{match.Groups["transition"].Value}";
 
-            switch (match.Groups["exist"].Value)
-            {
-                case "true":
-                    return parser.ContainParam(transitionFlag);
-                case "false":
-                    return !parser.ContainParam(transitionFlag);
-                default:
-                    Log.Error($"cannot match flag exist state");
-                    return false;
-            }
+            Unit unit = parser.GetParent<Unit>();
+            Transition transition = unit.GetComponent<Transition>();
+            
+            string transitionFlag = match.Groups["transition"].Value;
+            return match.Groups["enable"].Value.Equals("true")? transition.CheckCachedFlag(transitionFlag) : !transition.CheckCachedFlag(transitionFlag);
         }
     }
 }

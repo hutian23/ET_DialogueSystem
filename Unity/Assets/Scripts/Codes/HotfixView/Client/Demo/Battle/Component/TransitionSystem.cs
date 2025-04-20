@@ -29,6 +29,17 @@
             {
                 self.cachedFlags.Add(flag);
             }
+            self.Flags.Clear();
+        }
+
+        public static void AddFlag(this Transition self, string flag)
+        {
+            self.Flags.Add(flag);
+        }
+
+        public static void RemoveFlag(this Transition self, string flag)
+        {
+            self.Flags.Remove(flag);
         }
     }
 }

@@ -9,10 +9,10 @@ namespace ET.Client
             return "Transition";
         }
 
-        //Transition: RunToIdle
+        //Transition: RunToIdle, true
         public override bool Check(BBParser parser, BBScriptData data)
         {
-            Match match = Regex.Match(data.opLine, @"Transition: (?<transition>\w+)");
+            Match match = Regex.Match(data.opLine, @"Transition: (?<transition>\w+), (?<enable>\w+)");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -22,8 +22,8 @@ namespace ET.Client
             Unit unit = parser.GetParent<Unit>();
             Transition transition = unit.GetComponent<Transition>();
             
-            string transitionFlag = $"{match.Groups["transition"].Value}";
-            return transition.CheckFlag(transitionFlag);
+            string transitionFlag = match.Groups["transition"].Value;
+            return match.Groups["enable"].Value.Equals("true")? transition.CheckFlag(transitionFlag) : !transition.CheckFlag(transitionFlag);
         }
     }
 }

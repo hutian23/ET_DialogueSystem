@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class RemoveTransition_BBScriptHandler: BBScriptHandler
+    public class Function_RemoveTransition_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
         {
@@ -11,16 +11,17 @@ namespace ET.Client
 
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, "RemoveTransition: '(?<transition>.*?)';");
+            Match match = Regex.Match(data.opLine, @"RemoveTransition: (?<transition>\w+);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
-            string transition = $"Transition_{match.Groups["transition"].Value}";
-            parser.GetParent<Unit>().GetComponent<BehaviorMachine>().TryRemoveTmpParam(transition);
-
+            Unit unit = parser.GetParent<Unit>();
+            Transition transition = unit.GetComponent<Transition>();
+            transition.RemoveFlag(match.Groups["transition"].Value);
+            
             await ETTask.CompletedTask;
             return Status.Success;
         }

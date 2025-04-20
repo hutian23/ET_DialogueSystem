@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Timeline;
 
@@ -20,30 +21,19 @@ namespace ET.Client
             bbParser.Init();
             //2-2 热重载时，只保留实现了IController接口的组件
             ListComponent<Entity> removeList = ListComponent<Entity>.Create();
-            foreach (Entity child in unit.Children.Values)
-            {
-                if(typeof(IController).IsAssignableFrom(child.GetType())) continue;
-                removeList.Add(child);
-            }
-            foreach (Entity component in unit.Components.Values)
-            {
-                if (typeof(IController).IsAssignableFrom(component.GetType())) continue;
-                removeList.Add(component);
-            }
-            foreach (Entity entity in removeList)
-            {
-                entity.Dispose();
-            }
+            removeList.AddRange(unit.Children.Values.Where(child => !typeof (IController).IsAssignableFrom(child.GetType())));
+            removeList.AddRange(unit.Components.Values.Where(component => !typeof (IController).IsAssignableFrom(component.GetType())));
+            removeList.ForEach(entity => entity.Dispose());
             removeList.Dispose();
 
             //3. 解析bbScript  TODO 这里还没想好打包后如何解析BBScript
             string script = Define.IsEditor ? File.ReadAllText(bbScript.Script.GetPath()) : string.Empty;
-     
             if (string.IsNullOrEmpty(script))
             {
                 Log.Error($"cannot format bbScript!!");
                 return;
             }
+            
             string[] opLines = script.Split('\n');
             int pointer = 0;
             for (int i = 0; i < opLines.Length; i++)
@@ -98,7 +88,7 @@ namespace ET.Client
                     }
 
                     //匹配Marker指针
-                    string _pattern2 = @"SetMarker:\s+'([^']*)'";
+                    string _pattern2 = @"SetMarker:\s+(\w+)";
                     Match _match2 = Regex.Match(_opLine, _pattern2);
                     if (_match2.Success)
                     {

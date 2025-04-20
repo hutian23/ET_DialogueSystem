@@ -14,7 +14,7 @@ namespace ET.Client
         //GotoMarker: 'Loop';
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, "GotoMarker: '(?<marker>.*?)';");
+            Match match = Regex.Match(data.opLine, @"GotoMarker: (?<marker>\w+);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
