@@ -11,7 +11,7 @@ NumericChange: Hertz
 EndNumericChange:
 #4. 添加初始Buff
 EnableJump: 2;
-EnableGroundDash: 2, 120;
+EnableGroundDash: 2, 70;
 EnableAirDash: 2;
 EnableGravityCheck: 100000, 150000, 450000;             
 EnableAirCheck: 0, -1850, 1250, 1000; 
@@ -98,8 +98,6 @@ return;
 
 @LandCallback:
 LandCallback;
-# SetVelocityY: -20000;
-# Gravity: 0;
 return;
 
 [Rg_Idle]
@@ -137,7 +135,7 @@ return;
 @Main:
 SetVelocityX: 0;
 EnableDefaultCancel: true;
-BeginIf: (LandVelocity: 400000)
+BeginIf: (LandVel: Y < 400000)
   BBSprite: MiddleLand_1, 3;
   BBSprite: MiddleLand_2, 3;
 EndIf:
@@ -580,29 +578,22 @@ Exit;
 @Trigger:
 InAir: true;
 InputType: DashPressed;
-Numeric: DashCount > 0;
+CanAirDash: true;
 return;
 
 @Main:
-Event: (GC_Start)
-  # CancelWindow: Gatling;
-  # CancelOption: Rg_Jump;
-  # GCOption: Rg_AirDashAttack;
-  # GCOption: Rg_PlungingAttack;
-EndEvent:
-NumericAdd: DashCount, -1;
-Event: (RootMotion_Start)
-  ApplyRootMotion: true;
-EndEvent:
-Event: (RootMotion_End)
-  # Inertia
-  # CancelWindow: Transition;
+AirDashAdd: -1;
+Event: (FallEvent)
+  # 空中冲刺衔接冲刺
+  EnableGatlingCancel: true;
+  GCOption: Rg_AirDash;
+  # 设置冲刺惯性
   ApplyRootMotion: false;
   SetVelocityX: 80000;
-  SetTransition: AirToLand;
 EndEvent:
-# StartTimeline;
+ApplyRootMotion: true;
 PlayTimeline: 0, 24;
+SetTransition: AirToLand;
 Exit;
 
 [Rg_GroundDash]

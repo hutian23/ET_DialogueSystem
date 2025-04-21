@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Numerics;
+using Box2DSharp.Collision.Collider;
 using ET.Event;
 using Timeline;
 
@@ -17,32 +19,40 @@ namespace ET.Client
                 //1. 查询组件 
                 Unit unit = self.GetParent<BuffManager>().GetParent<Unit>();
                 B2Unit b2Unit = unit.GetComponent<B2Unit>();
-
+                
                 //2. 从碰撞缓冲区中取出碰撞信息，逐个检测
-                Queue<CollisionInfo> infoQueue = b2Unit.TriggerBuffer;
+                Queue<CollisionInfo> infoQueue = b2Unit.CollisionBuffer;
                 int count = infoQueue.Count;
-                while (count-- > 0)
+                
+                while (count -- > 0)
                 {
                     CollisionInfo info = infoQueue.Dequeue();
                     infoQueue.Enqueue(info);
-
-                    if (info.dataA.Type is not FixtureType.AirCheckBox || // 地面检测盒
-                        info.dataB.LayerMask is not LayerType.Ground ||   // 和地面碰撞
-                        info.dataB.IsTrigger)                             // 非触发器，实心的
+                    
+                    //2-1. PushBox和地面碰撞
+                    BoxInfo infoA = info.dataA.UserData as BoxInfo;
+                    if (infoA.hitboxType is not HitboxType.Squash || info.dataB.LayerMask is not LayerType.Ground)
                     {
                         continue;
                     }
-
-                    //触发落地回调
-                    if (self.inAir)
+                    
+                    //2-2. 碰撞法向量竖直向下
+                    info.Contact.GetWorldManifold(out WorldManifold manifold);
+                    if (!B2SHelper.IsVectorEqual(manifold.Normal, new Vector2(0, -1)))
                     {
-                        EventSystem.Instance.Invoke(new LandCallback() { instanceId = unit.InstanceId });
+                        continue;
                     }
-                    //落地
+                    
+                    //2-3. 落地回调
+                    if (!self.inAir)
+                    {
+                        return;
+                    }
                     self.inAir = false;
+                    EventSystem.Instance.Invoke(new LandCallback() { instanceId = unit.InstanceId });
                     return;
                 }
-
+                
                 //3. 在空中
                 self.inAir = true;
             }
@@ -64,12 +74,25 @@ namespace ET.Client
             {
                 b2WorldManager.Instance.GetPostStepTimer().Remove(ref self.timer);
                 self.inAir = false;
+                self.landV_X = 0f;
+                self.landV_Y = 0f;
             }
         }
 
         public static bool GetInAir(this AirCheckAbility self)
         {
             return self.inAir;
+        }
+
+        public static void SetLandVel(this AirCheckAbility self, Vector2 vel)
+        {
+            self.landV_X = vel.X;
+            self.landV_Y = vel.Y;
+        }
+
+        public static Vector2 GetLandVel(this AirCheckAbility self)
+        {
+            return new Vector2(self.landV_X, self.landV_Y);
         }
     }
 }

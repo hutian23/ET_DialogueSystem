@@ -651,16 +651,16 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 7
       Data: 21|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 3
+      Data: 7
     - Name: keyframeName
       Entry: 1
-      Data: GC_Start
+      Data: CancelEvent
     - Name: 
       Entry: 8
       Data: 
@@ -669,22 +669,10 @@ MonoBehaviour:
       Data: 22|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 0
+      Data: 14
     - Name: keyframeName
       Entry: 1
-      Data: RootMotion_Start
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 23|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 16
-    - Name: keyframeName
-      Entry: 1
-      Data: RootMotion_End
+      Data: FallEvent
     - Name: 
       Entry: 8
       Data: 

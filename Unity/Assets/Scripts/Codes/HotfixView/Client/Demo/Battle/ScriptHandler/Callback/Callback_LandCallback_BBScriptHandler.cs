@@ -11,6 +11,7 @@
         {
             Unit unit = parser.GetParent<Unit>();
             BuffManager buffManager = unit.GetComponent<BuffManager>();
+            B2Unit b2Unit = unit.GetComponent<B2Unit>();
             
             //1. Dash充能
             AirDashAbility ad = buffManager.GetComponent<AirDashAbility>();
@@ -30,6 +31,10 @@
             {
                 ja.SetJumpCount(ja.GetMaxJumpCount());
             }
+            
+            //3. 记录落地速度
+            AirCheckAbility ac = buffManager.GetComponent<AirCheckAbility>();
+            ac.SetLandVel(b2Unit.GetVelocity());
             
             await ETTask.CompletedTask;
             return Status.Success;

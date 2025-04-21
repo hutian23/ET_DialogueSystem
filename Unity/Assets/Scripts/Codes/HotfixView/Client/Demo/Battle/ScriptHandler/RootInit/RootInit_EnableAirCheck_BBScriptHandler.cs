@@ -36,39 +36,9 @@ namespace ET.Client
             //2. 初始化
             Unit unit = parser.GetParent<Unit>();
             BuffManager buffManager = unit.GetComponent<BuffManager>();
-            b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-            
-            buffManager.RemoveComponent<AirCheckAbility>();
-            body.ClearFixtures(FixtureType.AirCheckBox); //移除夹具
-            
-            //3. 创建夹具
-            PolygonShape shape = new();
-            shape.SetAsBox(sizeX / 2000f, sizeY / 2000f, new Vector2(centerX, centerY) / 1000f, 0f);
-            FixtureDef fixtureDef = new()
-            {
-                Shape = shape,
-                Density = 1.0f,
-                Friction = 0.0f,
-                UserData = new FixtureData()
-                {
-                    InstanceId = body.InstanceId,
-                    Name = "AirCheckBox",
-                    Type = FixtureType.AirCheckBox,
-                    LayerMask = LayerType.Unit,
-                    IsTrigger = true,
-                    UserData = new BoxInfo()
-                    {
-                        boxName = "AirCheckBox",
-                        center = new UnityEngine.Vector2(centerX, centerY) / 1000f,
-                        size = new UnityEngine.Vector2(sizeX, sizeY) / 1000f,
-                        hitboxType = HitboxType.Other
-                    },
-                    TriggerStayId = TriggerStayType.TriggerEvent
-                }
-            };
-            body.CreateFixture(fixtureDef);
             
             //4. 添加组件
+            buffManager.RemoveComponent<AirCheckAbility>();
             buffManager.AddComponent<AirCheckAbility>();
             
             await ETTask.CompletedTask;
