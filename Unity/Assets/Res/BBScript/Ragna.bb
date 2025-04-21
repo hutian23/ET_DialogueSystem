@@ -3,18 +3,12 @@
 #1. PlayerInit中挂载组件(NumericComponent、InputComponent...)
 PlayerInit;
 SetPos: 280000, -90000;
-#2. 注册数值
-NumericType: Hertz, 60;
-#3. 注册数值更新事件
-NumericChange: Hertz
-  UpdateHertz;
-EndNumericChange:
 #4. 添加初始Buff
 EnableJump: 2;
 EnableAirCheck;
 EnableGroundDash: 2, 70;
 EnableAirDash: 2;
-EnableGravityCheck: 100000, 150000, 450000;             
+EnableGravityCheck: 100000, 150000, 450000;          
 #5. 注册输入缓冲
 RegistInput: RunHold;
 RegistInput: SquatHold;
@@ -573,7 +567,6 @@ BBSprite: Frame_15, 4;
 BBSprite: Frame_16, 4;
 Exit;
 
-
 [Rg_AirDash]
 @Trigger:
 InAir: true;
@@ -587,6 +580,7 @@ Event: (FallEvent)
   # 空中冲刺衔接冲刺
   EnableGatlingCancel: true;
   GCOption: Rg_AirDash;
+  GCOption: Rg_Jump;
   # 设置冲刺惯性
   ApplyRootMotion: false;
   SetVelocityX: 80000;

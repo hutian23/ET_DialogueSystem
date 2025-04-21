@@ -22,6 +22,9 @@
             player.AddComponent<ObjectWait>();
             player.AddComponent<InputWait>();
             
+            BuffManager buffManager = player.GetComponent<BuffManager>();
+            buffManager.AddComponent<HertzAbility>();
+            
             await ETTask.CompletedTask;
             return Status.Success;
         }

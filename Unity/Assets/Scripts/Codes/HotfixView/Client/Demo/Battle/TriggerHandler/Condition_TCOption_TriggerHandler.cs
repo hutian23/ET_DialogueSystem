@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class Condition_TargetCancelOption_TriggerHandler : BBTriggerHandler
+    public class Condition_TCOption_TriggerHandler : BBTriggerHandler
     {
         public override string GetTriggerType()
         {
