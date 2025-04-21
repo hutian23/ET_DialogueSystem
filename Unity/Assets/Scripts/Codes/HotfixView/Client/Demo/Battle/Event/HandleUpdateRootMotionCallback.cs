@@ -13,17 +13,15 @@ namespace ET.Client
             //1. 查询组件
             TimelineComponent timelineComponent = Root.Instance.Get(args.instanceId) as TimelineComponent;
             Unit unit = timelineComponent.GetParent<Unit>();
-            B2Unit b2Unit = unit.GetComponent<B2Unit>();
             BBParser bbParser = unit.GetComponent<BBParser>();
+            RootMotionComponent rootMotion = bbParser.GetComponent<RootMotionComponent>();
 
-            //2. 是否使用AnimTrack中的移动数据?
-            if (!bbParser.ContainParam("ApplyRootMotion"))
+            //2. RootMotion在PreStep中更新刚体速度
+            if (rootMotion == null)
             {
                 return;
             }
-            
-            //3. 因为资源中默认朝向为左,横向速度需要翻转
-            b2Unit.SetVelocity(args.velocity.ToVector2() * new Vector2(-1, 1));
+            rootMotion.SetVel(args.velocity.ToVector2());
         }
     }
 }

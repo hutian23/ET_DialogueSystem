@@ -1,6 +1,4 @@
-﻿using Timeline;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     [Invoke]
     public class HandleUpdateHertzCallback : AInvokeHandler<Timeline.UpdateHertzCallback>
@@ -15,8 +13,8 @@ namespace ET.Client
             }
 
             Unit unit = timelineComponent.GetParent<Unit>();
-            BBNumeric numeric = unit.GetComponent<BBNumeric>();
-            numeric.Set("Hertz", args.Hertz);
+            HertzAbility ability = unit.GetComponent<BuffManager>().GetComponent<HertzAbility>();
+            ability.SetHertz(args.Hertz);
         }
     }
 }

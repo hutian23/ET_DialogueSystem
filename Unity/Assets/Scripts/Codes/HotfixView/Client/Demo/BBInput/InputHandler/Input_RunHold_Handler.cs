@@ -17,7 +17,7 @@
         {
             return self.IsPressing(BBOperaType.LEFT) || self.IsPressing(BBOperaType.DOWNLEFT) || self.IsPressing(BBOperaType.UPLEFT) || 
                    self.IsPressing(BBOperaType.RIGHT)|| self.IsPressing(BBOperaType.UPRIGHT)  || self.IsPressing(BBOperaType.DOWNRIGHT)
-                           ? self.GetBuffFrame(5) : -1;
+                           ? self.GetBuffFrame(8) : -1;
         }
     }
 }
