@@ -52,7 +52,8 @@ namespace ET.Client
         {
             self.SetVelocity(new Vector2(velocityX, self.Velocity.Y));
         }
-
+        
+        
         public static int GetHertz(this B2Unit self)
         {
             return self.Hertz;

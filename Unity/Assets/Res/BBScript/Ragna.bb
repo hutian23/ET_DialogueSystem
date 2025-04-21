@@ -11,10 +11,10 @@ NumericChange: Hertz
 EndNumericChange:
 #4. 添加初始Buff
 EnableJump: 2;
+EnableAirCheck;
 EnableGroundDash: 2, 70;
 EnableAirDash: 2;
 EnableGravityCheck: 100000, 150000, 450000;             
-EnableAirCheck: 0, -1850, 1250, 1000; 
 #5. 注册输入缓冲
 RegistInput: RunHold;
 RegistInput: SquatHold;
@@ -134,8 +134,8 @@ return;
 
 @Main:
 SetVelocityX: 0;
-EnableDefaultCancel: true;
-BeginIf: (LandVel: Y < 400000)
+# EnableDefaultCancel: true;
+BeginIf: (LandVel: 400000)
   BBSprite: MiddleLand_1, 3;
   BBSprite: MiddleLand_2, 3;
 EndIf:

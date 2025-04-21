@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 using Box2DSharp.Collision.Collider;
 using ET.Event;
@@ -19,6 +20,7 @@ namespace ET.Client
                 //1. 查询组件 
                 Unit unit = self.GetParent<BuffManager>().GetParent<Unit>();
                 B2Unit b2Unit = unit.GetComponent<B2Unit>();
+                b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
                 
                 //2. 从碰撞缓冲区中取出碰撞信息，逐个检测
                 Queue<CollisionInfo> infoQueue = b2Unit.CollisionBuffer;
@@ -36,9 +38,10 @@ namespace ET.Client
                         continue;
                     }
                     
-                    //2-2. 碰撞法向量竖直向下
+                    //2-2. 这里写的比较简单，只要两个接触点的Y坐标小于中心点即认为落地 
                     info.Contact.GetWorldManifold(out WorldManifold manifold);
-                    if (!B2SHelper.IsVectorEqual(manifold.Normal, new Vector2(0, -1)))
+                    float yMax = Math.Max(manifold.Points[0].Y, manifold.Points[1].Y);
+                    if (body.GetPosition().Y - yMax < 0f)
                     {
                         continue;
                     }
