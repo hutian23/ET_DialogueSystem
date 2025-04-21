@@ -603,6 +603,7 @@ SetVelocityX: 350000;
 Gravity: 100000;
 GroundDashAdd: -1;
 BBSprite: Dash_1, 3;
+HitStop: 2, 40;
 BBSprite: Dash_2, 3;
 EnableGatlingCancel: true;
 GCOption: Rg_Jump;
