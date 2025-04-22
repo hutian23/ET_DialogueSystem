@@ -5,7 +5,7 @@ using Timeline;
 namespace ET.Client
 {
     [FriendOf(typeof(BehaviorInfo))]
-    public class BBSprite_BBScriptHandler : BBScriptHandler
+    public class Function_BBSprite_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {

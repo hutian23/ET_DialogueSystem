@@ -17,11 +17,11 @@ RegistInput: 5LPPressed;
 RegistInput: 5LPHold;
 RegistInput: 5MPPressed;
 RegistInput: 5MPPressing;
+RegistInput: QuickFallPressed;
 RegistInput: 5HPPressed;
 RegistInput: 5HPPressing;
 RegistInput: DashPressed;
 RegistInput: JumpPressed;
-RegistInput: QuickFallPressed;
 #6. 注册动作
 RegistMove: (Rg_Idle)
   MoveType: None;
