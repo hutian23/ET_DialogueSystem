@@ -14,7 +14,7 @@
 
         public override long Handle(InputWait self)
         {
-            return self.IsPressing(BBOperaType.DOWN) || self.IsPressing(BBOperaType.DOWNLEFT) || self.IsPressing(BBOperaType.DOWNRIGHT) ? self.GetBuffFrame(5) : -1;
+            return self.IsPressing(BBOperaType.DOWN) || self.IsPressing(BBOperaType.DOWNLEFT) || self.IsPressing(BBOperaType.DOWNRIGHT) ? self.GetBuffFrame(9) : -1;
         }
     }
 }

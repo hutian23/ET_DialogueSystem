@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     [FriendOf(typeof(BBParser))]
     [FriendOf(typeof(LoopComponent))]
@@ -14,13 +12,6 @@ namespace ET.Client
         //Loop: (Transition: Squat, true), (InAir: true)
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            MatchCollection matches = Regex.Matches(data.opLine, @"\((.*?)\)");
-            if (matches.Count == 0)
-            {
-                Log.Error($"Loop_Handler must have at least one triggerHandler!");
-                return Status.Failed;
-            }
-
             int index = parser.Coroutine_Pointers[data.CoroutineID];
             int endIndex = index, startIndex = index;
             while (++index < parser.OpDict.Count)
@@ -32,20 +23,24 @@ namespace ET.Client
                     break;
                 }
             }
+            //1. 跳过代码块
+            parser.Coroutine_Pointers[data.CoroutineID] = endIndex;
             
-            //1. 初始化组件
+            //2. 初始化组件
             parser.RemoveComponent<LoopComponent>();
-            LoopComponent loopComponent = parser.GetComponent<LoopComponent>();
+            LoopComponent loopComponent = parser.AddComponent<LoopComponent>();
             loopComponent.triggerIndex = startIndex;
             loopComponent.startIndex = startIndex;
             loopComponent.endIndex = endIndex;
             loopComponent.token = new ETCancellationToken();
             
-            //2. 启动协程
-            
-            
-            await ETTask.CompletedTask;
-            return Status.Success;
+            //3. 启动检测协程
+            loopComponent.TriggerCor().Coroutine();
+
+            //4. 启动Loop协程
+            Status ret = await loopComponent.LoopCor();
+            loopComponent.Dispose();
+            return ret;
         }
     }
 }

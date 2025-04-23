@@ -152,14 +152,14 @@ MoveX: 130000;
 BBSprite: PreRun_1, 2;
 BBSprite: PreRun_2, 2;
 #Run
-BeginLoop: (InputType: RunHold)
+Loop: (InputType: RunHold)
   BBSprite: Run_1, 4;
   BBSprite: Run_2, 4;
   BBSprite: Run_3, 4;
   BBSprite: Run_4, 4;
   BBSprite: Run_5, 4;
   BBSprite: Run_6, 4;
-  EndLoop:
+EndLoop:
 #RunToIdle
 CancelMoveX;
 SetVelocityX: 50000;
