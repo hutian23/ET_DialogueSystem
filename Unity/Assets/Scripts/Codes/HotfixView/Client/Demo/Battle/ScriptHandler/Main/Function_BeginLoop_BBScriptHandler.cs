@@ -2,11 +2,11 @@
 {
     [FriendOf(typeof(BBParser))]
     [FriendOf(typeof(LoopComponent))]
-    public class Function_Loop_BBScriptHandler : BBScriptHandler
+    public class Function_BeginLoop_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "Loop";
+            return "BeginLoop";
         }
 
         //Loop: (Transition: Squat, true), (InAir: true)
@@ -28,7 +28,7 @@
             
             //2. 初始化组件
             parser.RemoveComponent<LoopComponent>();
-            LoopComponent loopComponent = parser.AddComponent<LoopComponent>();
+            LoopComponent loopComponent = parser.AddComponent<LoopComponent>(true);
             loopComponent.triggerIndex = startIndex;
             loopComponent.startIndex = startIndex;
             loopComponent.endIndex = endIndex;
@@ -39,7 +39,7 @@
 
             //4. 启动Loop协程
             Status ret = await loopComponent.LoopCor();
-            loopComponent.Dispose();
+            parser.RemoveComponent<LoopComponent>();
             return ret;
         }
     }

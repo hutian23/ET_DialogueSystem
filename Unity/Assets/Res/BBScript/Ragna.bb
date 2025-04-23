@@ -148,11 +148,11 @@ return;
 #PreRun
 EnableFlip: true;
 EnableDefaultCancel: true;
-MoveX: 130000;
+EnableMoveX: 130000, true;
 BBSprite: PreRun_1, 2;
 BBSprite: PreRun_2, 2;
 #Run
-Loop: (InputType: RunHold)
+BeginLoop: (InputType: RunHold)
   BBSprite: Run_1, 4;
   BBSprite: Run_2, 4;
   BBSprite: Run_3, 4;
@@ -161,7 +161,7 @@ Loop: (InputType: RunHold)
   BBSprite: Run_6, 4;
 EndLoop:
 #RunToIdle
-CancelMoveX;
+EnableMoveX: 0, false;
 SetVelocityX: 50000;
 BBSprite: RunToIdle_1, 3;
 BBSprite: RunToIdle_2, 3;
@@ -217,7 +217,7 @@ return;
 EnableDefaultCancel: true;
 EnableFlip: true;
 Gravity: 100000;
-AirMoveX: 150000;
+EnableAirMoveX: 150000, true;
 # Airbrone
 BeginLoop: (InAir: true)
   BBSprite: Fall_1, 3;
@@ -248,7 +248,7 @@ EndIf:
 # Jump
 EnableFlip: true;
 Gravity: 0;
-AirMoveX: 150000;
+EnableAirMoveX: 150000, true;
 SetVelocityY: 200000;
 JumpAdd: -1;
 BBSprite: Jump_1, 3;
@@ -509,7 +509,7 @@ SetVelocityX: 0;
 BBSprite: Frame_1, 4;
 BBSprite: Frame_2, 4;
 # 蓄力阶段
-Segment: (InputType: 5HPPressing)
+BeginLoop: (InputType: 5HPPressing)
   BBSprite: Frame_3, 4;
   BBSprite: Frame_4, 4;
   BBSprite: Frame_5, 4;
@@ -520,7 +520,8 @@ Segment: (InputType: 5HPPressing)
   BBSprite: Frame_3, 4;
   BBSprite: Frame_4, 4;
   BBSprite: Frame_5, 4;
-EndSegment:
+  Break;
+EndLoop:
 BBSprite: Frame_6, 3;
 BBSprite: Frame_7, 3;
 BBSprite: Frame_8, 3;
@@ -739,7 +740,7 @@ BBSprite: Recover_3, 3;
 BBSprite: Recover_4, 3;
 BeginLoop: (InAir: true)
   BBSprite: Recover_5, 1;
-  EndLoop:
+EndLoop:
 DisposeWindow;
 SetVelocityX: 0;
 BBSprite: Recover_6, 4;
@@ -788,7 +789,7 @@ BBSprite: Recover2_1, 3;
 BBSprite: Recover_4, 3;
 BeginLoop: (InAir: true)
   BBSprite: Recover_5, 1;
-  EndLoop:
+EndLoop:
 SetVelocityX: 0;
 BBSprite: Recover_6, 4;
 BBSprite: Recover_7, 4;

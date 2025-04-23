@@ -2,26 +2,27 @@
 
 namespace ET.Client
 {
-    public class AddFlag_BBScriptHandler : BBScriptHandler
+    [FriendOf(typeof(GatlingCancelComponent))]
+    public class Function_GCOption_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "AddFlag";
+            return "GCOption";
         }
 
-        // AddFlag: Hit;
+        //GCOption: Rg_Cancel;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"AddFlag: (?<Flag>\w+);");
+            Match match = Regex.Match(data.opLine, @"GCOption: (?<Option>\w+);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
-            parser.TryRemoveParam($"Flag_{match.Groups["Flag"].Value}");
-            parser.RegistParam($"Flag_{match.Groups["Flag"].Value}", true);
-            
+            GatlingCancelComponent gc = parser.GetComponent<GatlingCancelComponent>();
+            gc.Options.Add(match.Groups["Option"].Value);
+
             await ETTask.CompletedTask;
             return Status.Success;
         }

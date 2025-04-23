@@ -23,24 +23,12 @@ namespace ET.Client
                 Log.Error($"cannot format {match.Groups["WaitFrame"].Value} to int!!");
                 return Status.Failed;
             }
-            
-            IdleAnimCor(parser.GetParent<Unit>(), match.Groups["Animation"].Value, waitFrame, token).Coroutine();
+
+            parser.RemoveComponent<IdleAnimComponent>();
+            parser.AddComponent<IdleAnimComponent, int, string>(waitFrame, match.Groups["Animation"].Value);
             
             await ETTask.CompletedTask;
             return Status.Success;
-        }
-
-        private async ETTask IdleAnimCor(Unit unit, string behaviorName, int waitFrame, ETCancellationToken token)
-        {
-            BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
-            BehaviorMachine machine = unit.GetComponent<BehaviorMachine>();
-            
-            await bbTimer.WaitAsync(waitFrame, token);
-            if (token.IsCancel())
-            {
-                return;
-            }
-            machine.Reload(behaviorName);
         }
     }
 }

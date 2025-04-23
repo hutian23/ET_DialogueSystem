@@ -4,7 +4,7 @@ namespace ET.Client
 {
     [FriendOf(typeof(BehaviorInfo))]
     [FriendOf(typeof(BehaviorMachine))]
-    public class GotoBehavior_BBScriptHandler : BBScriptHandler
+    public class Function_GotoBehavior_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
