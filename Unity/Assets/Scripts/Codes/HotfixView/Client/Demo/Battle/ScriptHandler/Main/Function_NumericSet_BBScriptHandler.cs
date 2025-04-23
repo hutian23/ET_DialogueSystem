@@ -2,17 +2,17 @@
 
 namespace ET.Client
 {
-    public class NumericAdd_BBScriptHandler: BBScriptHandler
+    public class Function_NumericSet_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "NumericAdd";
+            return "NumericSet";
         }
 
-        //NumericAdd: DashCount, -1;
+        //NumericSet: JumpCount, 2;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, "NumericAdd: (?<NumericType>.*?), (?<Count>.*?);");
+            Match match = Regex.Match(data.opLine, @"NumericSet: (?<NumericType>.*?), (?<Count>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -24,11 +24,8 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            Unit unit = parser.GetParent<Unit>();
-            BBNumeric numeric = unit.GetComponent<BBNumeric>();
-            
-            long oldValue = numeric.GetAsLong(match.Groups["NumericType"].Value);
-            numeric.Set(match.Groups["NumericType"].Value, oldValue + count);
+            BBNumeric numeric = parser.GetParent<Unit>().GetComponent<BBNumeric>();
+            numeric.Set(match.Groups["NumericType"].Value, count);
             
             await ETTask.CompletedTask;
             return Status.Success;

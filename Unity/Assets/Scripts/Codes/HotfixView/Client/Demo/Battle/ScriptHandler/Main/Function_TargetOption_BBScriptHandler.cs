@@ -1,28 +1,26 @@
 ﻿using System.Text.RegularExpressions;
-using Timeline;
 
 namespace ET.Client
 {
-    public class SetFlip_BBScriptHandler : BBScriptHandler
+    public class Function_TargetOption_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "SetFlip";
+            return "TCOption";
         }
 
-        // SetFlip: Left;
+        //TargetOption: Rg_Test;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"SetFlip: (?<Flip>\w+);");
+            Match match = Regex.Match(data.opLine, @"TCOption: (?<Option>\w+);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
-                return Status.Failed;
+                return Status.Success;
             }
 
-            b2Body body = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
-            FlipState flip = match.Groups["Flip"].Value.Equals("Left")? FlipState.Left : FlipState.Right;
-            body.SetFlip(flip);
+            TargetCancelComponent tc = parser.GetComponent<TargetCancelComponent>();
+            tc.Add(match.Groups["Option"].Value);
             
             await ETTask.CompletedTask;
             return Status.Success;

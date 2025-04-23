@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace ET.Client
 {
-    public class Random_BBScriptHandler : BBScriptHandler
+    public class Function_Random_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {

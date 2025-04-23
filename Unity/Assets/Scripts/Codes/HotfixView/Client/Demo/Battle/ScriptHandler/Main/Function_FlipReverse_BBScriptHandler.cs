@@ -1,12 +1,10 @@
-﻿using Timeline;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
-    public class Reverse_BBScriptHandler : BBScriptHandler
+    public class Function_FlipReverse_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "Reverse";
+            return "FlipReverse";
         }
         
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)

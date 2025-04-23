@@ -9,10 +9,13 @@ namespace ET.Client
             return "SetTransition";
         }
 
-        //SetTransition: NoPreSquat;
+        //SetTransition: TransitionFlag, 开启 / 关闭;
+        //SetTransition: NoPreSquat, true / false;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"SetTransition: (?<transition>\w+);");
+            await ETTask.CompletedTask;
+            
+            Match match = Regex.Match(data.opLine, @"SetTransition: (?<transition>\w+), (?<enable>\w+);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -21,10 +24,19 @@ namespace ET.Client
 
             Unit unit = parser.GetParent<Unit>();
             Transition transition = unit.GetComponent<Transition>();
-            transition.AddFlag(match.Groups["transition"].Value);
-            
-            await ETTask.CompletedTask;
-            return Status.Success;
+
+            switch (match.Groups["enable"].Value)
+            {
+                case "true":
+                    transition.RemoveFlag(match.Groups["transition"].Value);
+                    return Status.Success;
+                case "false":
+                    transition.AddFlag(match.Groups["transition"].Value);
+                    return Status.Success;
+                default:
+                    Log.Error($"match failed: {data.opLine}");
+                    return Status.Failed;
+            }
         }
     }
 }

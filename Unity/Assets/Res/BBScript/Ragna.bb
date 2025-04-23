@@ -224,7 +224,7 @@ BeginLoop: (InAir: true)
   BBSprite: Fall_2, 3;
 EndLoop:
 # Land
-SetTransition: AirToLand;
+SetTransition: AirToLand, true;
 Exit;
 
 [Rg_Jump]
@@ -268,7 +268,7 @@ BeginLoop: (InAir: true)
   BBSprite: JumpToFall_5, 3;
   Break;
 EndLoop:
-SetTransition: AirToLand;
+SetTransition: AirToLand, true;
 Exit;
 
 [Rg_5B]
@@ -588,7 +588,7 @@ Event: (FallEvent)
 EndEvent:
 ApplyRootMotion: true;
 PlayTimeline: 0, 24;
-SetTransition: AirToLand;
+SetTransition: AirToLand, true;
 Exit;
 
 [Rg_GroundDash]
@@ -620,7 +620,7 @@ BBSprite: DashEnd_1, 6;
 BBSprite: DashEnd_2, 3;
 SetVelocityX: 0;
 BBSprite: DashEnd_3, 1;
-SetTransition: NoPreSquat;
+SetTransition: NoPreSquat, true;
 EnableGatlingCancel: false;
 EnableNandemoCancel: true;
 BBSprite: DashEnd_3, 2;
@@ -677,7 +677,7 @@ BBSprite: Land_1, 10;
 BBSprite: Land_2, 4;
 BBSprite: Land_3, 4;
 #ToSquat
-SetTransition: NoPreSquat;
+SetTransition: NoPreSquat, true;
 InputBuffer: true;
 CancelWindow: Transition;
 BBSprite: Land_3, 2;

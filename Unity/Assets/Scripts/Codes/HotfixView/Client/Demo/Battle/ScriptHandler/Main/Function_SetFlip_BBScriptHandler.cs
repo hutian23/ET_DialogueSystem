@@ -2,25 +2,26 @@
 
 namespace ET.Client
 {
-    public class TargetOption_BBScriptHandler : BBScriptHandler
+    public class Function_SetFlip_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "TCOption";
+            return "SetFlip";
         }
 
-        //TargetOption: Rg_Test;
+        // SetFlip: Left;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"TCOption: (?<Option>\w+);");
+            Match match = Regex.Match(data.opLine, @"SetFlip: (?<Flip>\w+);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
-                return Status.Success;
+                return Status.Failed;
             }
 
-            TargetCancelComponent tc = parser.GetComponent<TargetCancelComponent>();
-            tc.Add(match.Groups["Option"].Value);
+            b2Body body = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
+            FlipState flip = match.Groups["Flip"].Value.Equals("Left")? FlipState.Left : FlipState.Right;
+            body.SetFlip(flip);
             
             await ETTask.CompletedTask;
             return Status.Success;

@@ -2,30 +2,30 @@
 
 namespace ET.Client
 {
-    public class IdleAnim_BBScriptHandler : BBScriptHandler
+    public class Function_SetVelocityY_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "IdleAnim";
+            return "SetVelocityY";
         }
 
-        //IdleAnim: Rg_IdleAnim;
+        //SetVelocityY: 30;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, "IdleAnim: (?<Animation>.*?), (?<WaitFrame>.*?);");
+            Match match = Regex.Match(data.opLine, @"SetVelocityY: (?<Velocity>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
-            if (!int.TryParse(match.Groups["WaitFrame"].Value, out int waitFrame))
+            if (!long.TryParse(match.Groups["Velocity"].Value, out long velocity))
             {
-                Log.Error($"cannot format {match.Groups["WaitFrame"].Value} to int!!");
+                Log.Error($"cannot format {match.Groups["Velocity"].Value} to long");
                 return Status.Failed;
             }
-
-            parser.RemoveComponent<IdleAnimComponent>();
-            parser.AddComponent<IdleAnimComponent, int, string>(waitFrame, match.Groups["Animation"].Value);
+            
+            B2Unit b2Unit = parser.GetParent<Unit>().GetComponent<B2Unit>();
+            b2Unit.SetVelocityY(velocity / 10000f);
             
             await ETTask.CompletedTask;
             return Status.Success;
