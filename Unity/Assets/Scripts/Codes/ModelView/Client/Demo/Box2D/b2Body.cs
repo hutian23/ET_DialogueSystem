@@ -16,9 +16,7 @@ namespace ET.Client
         public Dictionary<string, Fixture> FixtureDict = new(); // 方便通过夹具名称查询夹具
         
         public Transform trans; // 当前step中b2World中刚体的位置转换信息
-        public Vector2 offset;
         public FlipState Flip = FlipState.Left;
-        public bool UpdateFlag; // 手动刷新渲染层
     }
     
     [Flags]

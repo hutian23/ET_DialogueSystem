@@ -2,7 +2,6 @@
 using Box2DSharp.Collision.Shapes;
 using Box2DSharp.Dynamics;
 using Timeline;
-using Transform = Box2DSharp.Common.Transform;
 
 namespace ET.Client
 {
@@ -18,9 +17,7 @@ namespace ET.Client
                 self.Fixtures.Clear();
                 self.FixtureDict.Clear();
                 self.trans = default;
-                self.offset = Vector2.Zero;
                 self.Flip = FlipState.Left;
-                self.UpdateFlag = false;
             }
         }
         
@@ -28,14 +25,6 @@ namespace ET.Client
         {
             protected override void PosStepUpdate(b2Body self)
             {
-                //static body
-                if (self.unitId == 0) return;
-                
-                //未发生更新，渲染层无需刷新
-                Transform curTrans = self.body.GetTransform();
-                if (self.trans.Equals(curTrans) && !self.UpdateFlag) return;
-                self.UpdateFlag = false;
-                
                 //渲染层同步逻辑层刚体的位置
                 self.SyncTrans();
             }
@@ -48,12 +37,9 @@ namespace ET.Client
             Unit unit = Root.Instance.Get(self.unitId) as Unit;
             UnityEngine.GameObject go = unit.GetComponent<GameObjectComponent>().GameObject;
             
-            Vector2 position = self.trans.Position + self.offset;
-            go.transform.position = new UnityEngine.Vector3(position.X, position.Y);
+            go.transform.position = self.trans.Position.ToUnityVector3();
             go.transform.eulerAngles = new UnityEngine.Vector3(0, 0, self.trans.Rotation.Angle * UnityEngine.Mathf.Rad2Deg);
             go.transform.localScale = new UnityEngine.Vector3(self.GetFlip(), 1, 1);
-                
-            self.offset = Vector2.Zero;
         }
         
         public static Vector2 GetVelocity(this b2Body self)

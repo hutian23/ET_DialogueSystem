@@ -27,10 +27,10 @@ namespace ET.Client
 
             switch (match.Groups["enable"].Value)
             {
-                case "true":
+                case "false":
                     transition.RemoveFlag(match.Groups["transition"].Value);
                     return Status.Success;
-                case "false":
+                case "true":
                     transition.AddFlag(match.Groups["transition"].Value);
                     return Status.Success;
                 default:
