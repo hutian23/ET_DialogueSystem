@@ -25,7 +25,7 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            BBParser _parser = VirtualCamera.Instance.GetParent<Unit>().GetComponent<BBParser>();
+            BBParser _parser = VirtualCameraManager.Instance.GetParent<Unit>().GetComponent<BBParser>();
             //1. 初始化
             _parser.TryRemoveParam("VC_DeadZone_X");
             _parser.TryRemoveParam("VC_DeadZone_Y");

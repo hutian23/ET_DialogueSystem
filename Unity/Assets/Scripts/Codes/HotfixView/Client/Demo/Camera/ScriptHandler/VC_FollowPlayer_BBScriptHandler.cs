@@ -14,7 +14,7 @@ namespace ET.Client
         {
             Unit player = TODUnitHelper.GetPlayer(parser.ClientScene());
 
-            BBParser _parser = VirtualCamera.Instance.GetParent<Unit>().GetComponent<BBParser>();
+            BBParser _parser = VirtualCameraManager.Instance.GetParent<Unit>().GetComponent<BBParser>();
             //1. 初始化变量
             _parser.TryRemoveParam("VC_Follow_Id");
             _parser.RegistParam("VC_Follow_Id", player.InstanceId);

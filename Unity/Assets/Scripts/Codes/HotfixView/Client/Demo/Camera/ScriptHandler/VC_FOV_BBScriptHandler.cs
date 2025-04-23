@@ -35,7 +35,7 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            BBParser _parser = VirtualCamera.Instance.GetParent<Unit>().GetComponent<BBParser>();
+            BBParser _parser = VirtualCameraManager.Instance.GetParent<Unit>().GetComponent<BBParser>();
             _parser.TryRemoveParam("VC_CurrentFOV");
             _parser.RegistParam("VC_CurrentFOV", size / 10000f);
             

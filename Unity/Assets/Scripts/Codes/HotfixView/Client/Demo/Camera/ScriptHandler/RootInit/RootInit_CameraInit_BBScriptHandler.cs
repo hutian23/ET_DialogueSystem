@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ET.Client
 {
-    public class CM_Init_BBScriptHandler : BBScriptHandler
+    public class RootInit_CameraInit_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
@@ -13,11 +13,10 @@ namespace ET.Client
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
             Unit unit = parser.GetParent<Unit>();
-            BBTimerComponent lateUpdateTimer = BBTimerManager.Instance.LateUpdateTimer();
             BBTimerComponent gizmosTimer = b2WorldManager.Instance.GetGizmosTimer();
             
-            unit.RemoveComponent<VirtualCamera>();
-            unit.AddComponent<VirtualCamera>();
+            unit.RemoveComponent<VirtualCameraManager>();
+            unit.AddComponent<VirtualCameraManager>();
             GameObject _camera = unit.GetComponent<GameObjectComponent>().GameObject;
 
             //1. 清空运行时生成的相机go

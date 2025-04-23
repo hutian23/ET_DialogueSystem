@@ -24,7 +24,7 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            BBParser _parser = VirtualCamera.Instance.GetParent<Unit>().GetComponent<BBParser>();
+            BBParser _parser = VirtualCameraManager.Instance.GetParent<Unit>().GetComponent<BBParser>();
             ListComponent<CameraTarget> targetGroup = _parser.GetParam<ListComponent<CameraTarget>>("VC_TargetGroup");
             
             CameraTarget _target = new()

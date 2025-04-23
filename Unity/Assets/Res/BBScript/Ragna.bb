@@ -128,7 +128,7 @@ return;
 
 @Main:
 SetVelocityX: 0;
-# EnableDefaultCancel: true;
+EnableDefaultCancel: true;
 BeginIf: (LandVel: 400000)
   BBSprite: MiddleLand_1, 3;
   BBSprite: MiddleLand_2, 3;
@@ -278,6 +278,7 @@ InAir: false;
 return;
 
 @Main:
+ScreenShake: 0, 650, 10000, 60;
 Event: (Whiff_Start)
   EnableWhiffCancel: true;
   WhiffOption: Rg_GroundDash;

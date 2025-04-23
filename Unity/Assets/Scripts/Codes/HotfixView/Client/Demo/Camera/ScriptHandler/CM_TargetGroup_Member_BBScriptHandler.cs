@@ -28,7 +28,7 @@ namespace ET.Client
             }
             
             //1. 查询相机
-            BBParser _parser = VirtualCamera.Instance.GetParent<Unit>().GetComponent<BBParser>();
+            BBParser _parser = VirtualCameraManager.Instance.GetParent<Unit>().GetComponent<BBParser>();
             Dictionary<string, GameObject> cameraDict = _parser.GetParam<Dictionary<string, GameObject>>("CM_CameraDict");
             if (!cameraDict.TryGetValue(match.Groups["Camera"].Value, out GameObject camera))
             {

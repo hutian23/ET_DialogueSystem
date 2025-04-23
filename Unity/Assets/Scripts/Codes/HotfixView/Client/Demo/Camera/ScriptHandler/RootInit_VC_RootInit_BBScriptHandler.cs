@@ -12,11 +12,11 @@ namespace ET.Client
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
             Unit unit = parser.GetParent<Unit>();
-            unit.RemoveComponent<VirtualCamera>();
+            unit.RemoveComponent<VirtualCameraManager>();
             unit.RemoveComponent<BBTimerComponent>();
             parser.RemoveComponent<SceneBoxHandler>();
             
-            unit.AddComponent<VirtualCamera>();
+            unit.AddComponent<VirtualCameraManager>();
             unit.AddComponent<BBTimerComponent>().IsUnitTimer();
             parser.AddComponent<SceneBoxHandler>();
             b2WorldManager.Instance.CreateBody(unit.InstanceId, new BodyDef() { BodyType = BodyType.StaticBody });

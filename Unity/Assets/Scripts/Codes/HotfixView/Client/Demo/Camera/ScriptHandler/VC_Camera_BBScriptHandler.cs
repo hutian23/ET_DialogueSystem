@@ -20,7 +20,7 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            BBParser _parser = VirtualCamera.Instance.GetParent<Unit>().GetComponent<BBParser>();
+            BBParser _parser = VirtualCameraManager.Instance.GetParent<Unit>().GetComponent<BBParser>();
             _parser.Cancel();
             _parser.Invoke(_parser.GetFunctionPointer(match.Groups["Name"].Value, "Main"), _parser.CancellationToken).Coroutine();
 

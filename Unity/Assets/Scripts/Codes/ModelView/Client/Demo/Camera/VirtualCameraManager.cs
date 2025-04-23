@@ -1,10 +1,10 @@
 ﻿namespace ET.Client
 {
     [ComponentOf(typeof(Unit))]
-    public class VirtualCamera: Entity, IAwake, IDestroy, ILoad, IFrameLateUpdate
+    public class VirtualCameraManager: Entity, IAwake, IDestroy, ILoad, IFrameLateUpdate
     {
         [StaticField]
-        public static VirtualCamera Instance;
+        public static VirtualCameraManager Instance;
     }
 
     public struct UpdateFollowOffsetCallback
