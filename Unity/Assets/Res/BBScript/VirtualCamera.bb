@@ -1,6 +1,6 @@
 [Root]
 @RootInit:
-CM_Init;
+CameraInit;
 # DefaultCamera
 CM_2DCamera: DefaultCamera;
 CM_Priority: DefaultCamera, 100;
@@ -19,7 +19,7 @@ CM_YDamping: TG_Camera, 8000;
 CM_DeadZone: TG_Camera, 8, 10;
 CM_SoftZone: TG_Camera, 15, 20;
 CM_Bias: TG_Camera, 0, 50;
-CM_TargetGroup_FOV: TG_Camera, 50000, 150000;
+CM_FOV: TG_Camera, 50000, 150000;
 # Follow
 CM_FollowPlayer;
 return;
