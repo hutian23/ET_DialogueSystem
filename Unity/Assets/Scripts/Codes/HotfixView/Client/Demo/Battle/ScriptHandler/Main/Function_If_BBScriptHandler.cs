@@ -9,7 +9,7 @@ namespace ET.Client
     {
         public override string GetOPType()
         {
-            return "BeginIf";
+            return "If";
         }
 
         //BeginIf: HP > 10

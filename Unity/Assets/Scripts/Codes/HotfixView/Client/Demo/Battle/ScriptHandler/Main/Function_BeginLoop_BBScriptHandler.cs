@@ -23,10 +23,8 @@
                     break;
                 }
             }
-            //1. 跳过代码块
-            parser.Coroutine_Pointers[data.CoroutineID] = endIndex;
             
-            //2. 初始化组件
+            //1. 初始化组件
             parser.RemoveComponent<LoopComponent>();
             LoopComponent loopComponent = parser.AddComponent<LoopComponent>(true);
             loopComponent.triggerIndex = startIndex;
@@ -34,12 +32,16 @@
             loopComponent.endIndex = endIndex;
             loopComponent.token = new ETCancellationToken();
             
-            //3. 启动检测协程
+            //2. 启动检测协程
             loopComponent.TriggerCor().Coroutine();
 
-            //4. 启动Loop协程
+            //3. 启动Loop协程
             Status ret = await loopComponent.LoopCor();
             parser.RemoveComponent<LoopComponent>();
+        
+            //4. 跳过代码块
+            parser.Coroutine_Pointers[data.CoroutineID] = endIndex;
+            
             return ret;
         }
     }

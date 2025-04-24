@@ -12,7 +12,7 @@ namespace ET.Client
         //LogWarning: 'Hello world';
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, "LogWarning: '(?<Info>.*?)';");
+            Match match = Regex.Match(data.opLine, @"LogWarning: (?<info>\w+);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
