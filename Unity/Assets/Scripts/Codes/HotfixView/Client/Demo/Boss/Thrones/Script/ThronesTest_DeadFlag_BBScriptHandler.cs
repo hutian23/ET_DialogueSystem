@@ -22,9 +22,9 @@ namespace ET.Client
             long instanceId = parser.GetParam<long>($"Throne_{match.Groups["No"].Value}");
             TimelineComponent timelineComponent = Root.Instance.Get(instanceId) as TimelineComponent;
             BehaviorMachine machine = timelineComponent.GetParent<Unit>().GetComponent<BehaviorMachine>();
-            
-            machine.TryRemoveParam("DeadFlag");
-            machine.RegistParam("DeadFlag", true);
+            //
+            // machine.TryRemoveParam("DeadFlag");
+            // machine.RegistParam("DeadFlag", true);
             
             await ETTask.CompletedTask;
             return Status.Success;

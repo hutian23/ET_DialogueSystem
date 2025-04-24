@@ -111,7 +111,7 @@ namespace ET.Client
                 }
 
                 // 执行当前指针的语句
-                BBScriptData data = BBScriptData.Create(self.ReplaceParam(opLine), funcId); //池化，不然GC很高
+                BBScriptData data = BBScriptData.Create(opLine, funcId); //池化，不然GC很高
                 ret = await handler.Handle(self, data, token);
                 data.Recycle();
                 
@@ -165,7 +165,7 @@ namespace ET.Client
                 }
                 
                 //执行语句
-                BBScriptData data = BBScriptData.Create(self.ReplaceParam(opLine), funcId);
+                BBScriptData data = BBScriptData.Create(opLine, funcId);
                 ret = await handler.Handle(self, data, token);
                 data.Recycle();
                 

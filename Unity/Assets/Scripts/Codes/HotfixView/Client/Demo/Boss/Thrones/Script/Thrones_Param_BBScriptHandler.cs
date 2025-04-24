@@ -24,13 +24,13 @@ namespace ET.Client
             TimelineComponent timelineComponent = Root.Instance.Get(instanceId) as TimelineComponent;
             BehaviorMachine machine = timelineComponent.GetParent<Unit>().GetComponent<BehaviorMachine>();
 
-            if (machine.ContainParam("DeadFlag"))
-            {
-                return Status.Success;
-            }
-            machine.TryRemoveParam(match.Groups["Param"].Value);
-            machine.RegistParam(match.Groups["Param"].Value, match.Groups["Value"].Value);
-            
+            // if (machine.ContainParam("DeadFlag"))
+            // {
+            //     return Status.Success;
+            // }
+            // machine.TryRemoveParam(match.Groups["Param"].Value);
+            // machine.RegistParam(match.Groups["Param"].Value, match.Groups["Value"].Value);
+            //
             await ETTask.CompletedTask;
             return Status.Success;
         }

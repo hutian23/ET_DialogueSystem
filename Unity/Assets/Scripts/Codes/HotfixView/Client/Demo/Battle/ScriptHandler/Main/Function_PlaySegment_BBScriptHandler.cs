@@ -84,7 +84,7 @@ namespace ET.Client
                     }
                 
                     //执行检测
-                    BBScriptData _data = BBScriptData.Create(self.ReplaceParam(op), 0);
+                    BBScriptData _data = BBScriptData.Create(op, 0);
                     bool ret = ScriptDispatcherComponent.Instance.GetTrigger(triggerMatch.Groups[1].Value).Check(self, _data);
                     if (!ret)
                     {

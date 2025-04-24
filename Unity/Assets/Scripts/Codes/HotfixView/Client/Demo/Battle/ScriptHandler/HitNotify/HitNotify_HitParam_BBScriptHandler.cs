@@ -26,8 +26,8 @@ namespace ET.Client
             Unit unit = Root.Instance.Get(body.unitId) as Unit;
             BehaviorMachine machine = unit.GetComponent<BehaviorMachine>();
 
-            machine.TryRemoveTmpParam(match.Groups["ParamName"].Value);
-            machine.RegistTmpParam(match.Groups["ParamName"].Value, match.Groups["ParamValue"].Value);
+            // machine.TryRemoveTmpParam(match.Groups["ParamName"].Value);
+            // machine.RegistTmpParam(match.Groups["ParamName"].Value, match.Groups["ParamValue"].Value);
             
             await ETTask.CompletedTask;
             return Status.Success;

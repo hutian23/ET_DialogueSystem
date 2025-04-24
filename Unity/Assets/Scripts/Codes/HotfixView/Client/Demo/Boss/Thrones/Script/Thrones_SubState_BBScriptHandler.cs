@@ -18,16 +18,16 @@ namespace ET.Client
                 ScriptHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
-            
-            long instanceId = parser.GetParam<long>($"Throne_{match.Groups["No"].Value}");
-            TimelineComponent timelineComponent = Root.Instance.Get(instanceId) as TimelineComponent;
-            BehaviorMachine machine = timelineComponent.GetParent<Unit>().GetComponent<BehaviorMachine>();
-
-            if (machine.ContainParam("DeadFlag"))
-            {
-                return Status.Success;
-            }
-            machine.Reload(match.Groups["SubState"].Value);
+            //
+            // long instanceId = parser.GetParam<long>($"Throne_{match.Groups["No"].Value}");
+            // TimelineComponent timelineComponent = Root.Instance.Get(instanceId) as TimelineComponent;
+            // BehaviorMachine machine = timelineComponent.GetParent<Unit>().GetComponent<BehaviorMachine>();
+            //
+            // if (machine.ContainParam("DeadFlag"))
+            // {
+            //     return Status.Success;
+            // }
+            // machine.Reload(match.Groups["SubState"].Value);
             
             await ETTask.CompletedTask;
             return Status.Success;

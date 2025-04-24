@@ -10,8 +10,6 @@ namespace ET.Client
     {
         //当前行为
         public int currentOrder;
-        public Dictionary<string, SharedVariable> paramDict = new();
-        public Dictionary<string, SharedVariable> tmpParamDict = new(); // 临时变量，当前行为携程中注册，下个行为协程可用
         public Dictionary<string, long> behaviorNameMap = new();
         public Dictionary<int, long> behaviorOrderMap = new();
         public List<long> infoList = new();
