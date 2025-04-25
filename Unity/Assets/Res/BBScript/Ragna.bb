@@ -278,7 +278,7 @@ InAir: false;
 return;
 
 @Main:
-ScreenShake: 0, 650, 10000, 60;
+PushX: 40000, 125000;
 Event: (Whiff_Start)
   EnableWhiffCancel: true;
   WhiffOption: Rg_GroundDash;
@@ -313,9 +313,9 @@ Event: (Hit_End)
   EnableTargetCancel: false;
   EnableWhiffCancel: false;
 EndEvent:
-ApplyRootMotion: true;
+# ApplyRootMotion: true;
 PlayTimeline: 0, 30;
-ApplyRootMotion: false;
+# ApplyRootMotion: false;
 Exit;
 
 [Rg_5C]
@@ -581,6 +581,7 @@ AirDashAdd: -1;
 Event: (FallEvent)
   # 空中冲刺衔接冲刺
   EnableGatlingCancel: true;
+  EnableFlip: true;
   GCOption: Rg_AirDash;
   GCOption: Rg_Jump;
   # 设置冲刺惯性
@@ -605,7 +606,6 @@ SetVelocityX: 350000;
 Gravity: 100000;
 GroundDashAdd: -1;
 BBSprite: Dash_1, 3;
-HitStop: 2, 40;
 BBSprite: Dash_2, 3;
 EnableGatlingCancel: true;
 GCOption: Rg_Jump;

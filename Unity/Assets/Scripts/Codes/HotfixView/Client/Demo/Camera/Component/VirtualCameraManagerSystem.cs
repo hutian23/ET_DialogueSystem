@@ -19,11 +19,9 @@ namespace ET.Client
             protected override void Destroy(VirtualCameraManager self)
             {
                 VirtualCameraManager.Instance = null;
-                self.cameraList.Clear();
-                
-                //销毁Go
-                UnityEngine.Object.Destroy(self.Global);
                 UnityEngine.Object.Destroy(self.Target);
+                self.Target = null;
+                self.cameraList.Clear();
             }
         }
 
@@ -53,6 +51,11 @@ namespace ET.Client
             }
             
             return self.GetChild<VirtualCamera>(Id);
+        }
+
+        public static GameObject Global(this VirtualCameraManager self)
+        {
+            return self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject;
         }
     }
 }

@@ -15,14 +15,14 @@ namespace ET.Client
             Unit unit = parser.GetParent<Unit>();
             GameObject go = unit.GetComponent<GameObjectComponent>().GameObject;
             
-            //1. 虚拟相机根Go
+            //1. 添加虚拟相机管理器
             unit.AddComponent<VirtualCameraManager>();
-            VirtualCameraManager.Instance.Global = go;
 
             //2. 生成CameraTarget
             GameObject target = new("_CameraTarget");
             target.transform.SetParent(go.transform);
             target.transform.localPosition = new Vector3(0, 0, -10);
+            VirtualCameraManager.Instance.Target = target;
             
             await ETTask.CompletedTask;
             return Status.Success;

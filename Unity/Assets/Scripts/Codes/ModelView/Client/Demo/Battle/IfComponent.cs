@@ -4,15 +4,13 @@ using System.Collections.Generic;
 namespace ET.Client
 {
     [ComponentOf(typeof(BBParser))]
-    public class IfComponent : Entity, IAwake<int, int>, IDestroy
+    public class IfComponent : Entity, IAwake, IDestroy
     {
         public SyntaxNode Root;
         
         public int startIndex;
         public int endIndex;
         public int curIndex;
-        
-        public ETCancellationToken token;
     }
     
     #region If

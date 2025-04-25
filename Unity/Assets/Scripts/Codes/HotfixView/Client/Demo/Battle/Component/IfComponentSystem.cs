@@ -7,25 +7,14 @@ namespace ET.Client
     [FriendOf(typeof(BBParser))]
     public static class IfComponentSystem
     {
-        public class IfComponentAwakeSystem : AwakeSystem<IfComponent, int, int>
-        {
-            protected override void Awake(IfComponent self, int startIndex, int endIndex)
-            {
-                self.startIndex = startIndex;
-                self.endIndex = endIndex;
-                self.Root = self.GenerateSyntaxNode();
-                self.token = new ETCancellationToken();
-            }
-        }
-        
         public class IfComponentDestroySystem : DestroySystem<IfComponent>
         {
             protected override void Destroy(IfComponent self)
             {
                 self.startIndex = 0;
+                self.curIndex = 0;
                 self.endIndex = 0;
                 self.RecycleSyntaxTree();
-                self.token.Cancel();
             }
         }
         
@@ -33,12 +22,14 @@ namespace ET.Client
         {
             BBParser parser = self.GetParent<BBParser>();
 
+            //1. 生成Root节点
             Stack<SyntaxNode> conditionStack = new Stack<SyntaxNode>();
             SyntaxNode rootNode = SyntaxNode.Create(SyntaxType.Condition, self.startIndex);
             conditionStack.Push(rootNode);
             
+            //2. 生成子节点
             int index = self.startIndex;
-            while (++index < self.endIndex)
+            while (++index < parser.OpDict.Count && conditionStack.Count != 0)
             {
                 string opLine = parser.OpDict[index];
                 Match match = Regex.Match(opLine, @"^\w+\b(?:\(\))?");
@@ -48,36 +39,59 @@ namespace ET.Client
                     return null;
                 }
                 
-                string opType = match.Value;
-                switch (opType)
+                switch (match.Value)
                 {
+                    // If作为父节点
                     case "BeginIf":
-                        SyntaxNode child = SyntaxNode.Create(SyntaxType.Condition, index);
-                        conditionStack.Peek().children.Add(child);
-                        conditionStack.Push(child);
+                        SyntaxNode parent = SyntaxNode.Create(SyntaxType.Condition, index);
+                        conditionStack.Peek().children.Add(parent);
+                        conditionStack.Push(parent);
                         break;
+                    // 结束If代码块
                     case "EndIf":
                         SyntaxNode conditionNode = conditionStack.Pop();
                         conditionNode.endIndex = index;
                         break;
+                    // Action为子节点
                     default:
-                        SyntaxNode child_normal = SyntaxNode.Create(SyntaxType.Normal, index);
-                        conditionStack.Peek().children.Add(child_normal);
+                        SyntaxNode normal = SyntaxNode.Create(SyntaxType.Normal, index);
+                        conditionStack.Peek().children.Add(normal);
                         break;
                 }
             }
-
+            
             return rootNode;
         }
 
-        public static async ETTask<Status> HandleSyntaxTree(this IfComponent self, SyntaxNode node)
+        public static async ETTask<Status> IfCor(this IfComponent self)
         {
             BBParser parser = self.GetParent<BBParser>();
-
-            string opLine = parser.OpDict[node.index];
-
+            
+            //1. 生成If协程Id
+            long funcId = IdGenerater.Instance.GenerateInstanceId();
+            parser.Coroutine_Pointers.Add(funcId, self.startIndex);
+            
+            //2. 取消行为协程时，取消If协程
+            parser.CancellationToken.Add(() => { parser.Coroutine_Pointers.Remove(funcId); });
+            
+            //3. 执行If协程
+            Status ret = await self.HandleSyntaxNode(self.Root, funcId);
+            return ret;
+        }
+        
+        private static async ETTask<Status> HandleSyntaxNode(this IfComponent self, SyntaxNode node, long funcId)
+        {
+            BBParser parser = self.GetParent<BBParser>();
+            
+            //1. 更新指针位置
+            parser.Coroutine_Pointers[funcId] = node.index;
+            self.curIndex = node.index;
+            string opLine = parser.OpDict[self.curIndex];
+            
+            //2. 执行节点
             switch (node.nodeType)
             {
+                // Condition节点
                 case SyntaxType.Condition:
                 {
                     // BeginIf: (InputType: RunHold), (MoveType: Special),....()
@@ -100,13 +114,43 @@ namespace ET.Client
                             return Status.Failed;
                         }
 
-                        BBScriptData _data = BBScriptData.Create(op, self.startIndex);
-                        // 判定失败，跳过整个if块中的代码
+                        BBScriptData _data = BBScriptData.Create(op, funcId);
                         bool ret = ScriptDispatcherComponent.Instance.GetTrigger(triggerMatch.Groups[1].Value).Check(parser, _data);
+                        _data.Recycle();
+
+                        // 判定失败，跳过整个if块
+                        if (!ret) return Status.Success;
                     }
-                }
                     break;
+                }
+
+                // Normal节点
+                case SyntaxType.Normal:
+                {
+                    Match match2 = Regex.Match(opLine,@"^\w+\b(?:\(\))?");
+                    if (!match2.Success)
+                    {
+                        Log.Error($"not found bbScriptHandler: {opLine}");
+                        return Status.Failed;
+                    }
+                    
+                    BBScriptData _data = BBScriptData.Create(opLine, funcId);
+                    Status ret = await ScriptDispatcherComponent.Instance.GetScriptHandler(match2.Value).Handle(parser, _data, parser.CancellationToken);
+                    _data.Recycle();
+
+                    if (parser.CancellationToken.IsCancel()) return Status.Failed;
+                    if (ret != Status.Success) return ret;
+                    break;
+                }
             }
+            
+            //3. 递归执行子节点
+            foreach (SyntaxNode n in node.children)
+            {
+                Status ret = await self.HandleSyntaxNode(n, funcId);
+                if (ret != Status.Success) return ret; // 子节点执行失败，停止递归
+            }
+            
             return Status.Success;
         }
 
@@ -123,7 +167,7 @@ namespace ET.Client
         private static void RecycleSyntaxNode(this IfComponent self, Stack<SyntaxNode> stack, SyntaxNode node)
         {
             stack.Push(node);
-            node.children.ForEach(child => {self.RecycleSyntaxNode(stack, child);});
+            node.children.ForEach(child => { self.RecycleSyntaxNode(stack, child); });
         }
     }
 }

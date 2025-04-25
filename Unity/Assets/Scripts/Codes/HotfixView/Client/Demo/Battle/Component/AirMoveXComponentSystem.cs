@@ -8,7 +8,6 @@
             protected override void Awake(AirMoveXComponent self, float vel)
             {
                 self.vel = vel;
-                self.inertiaEffect = true;
                 self.token = new ETCancellationToken();
                 self.MoveCor().Coroutine();
             }
@@ -19,7 +18,6 @@
             protected override void Destroy(AirMoveXComponent self)
             {
                 self.vel = 0;
-                self.inertiaEffect = false;
                 self.token.Cancel();
             }
         }
@@ -38,11 +36,6 @@
 
                 //输入左右相关的指令才会生效水平移动的效果
                 bool direction = inputWait.IsPressing(BBOperaType.MIDDLE) || inputWait.IsPressing(BBOperaType.UP) || inputWait.IsPressing(BBOperaType.DOWN);
-                
-                //当前回中，则不会进行移动
-                if (self.inertiaEffect && direction) return;
-                self.inertiaEffect = false;
-
                 b2Unit.SetVelocityX(direction? 0 : self.vel);
             }
         }

@@ -19,7 +19,8 @@ namespace ET.Client
                 return Status.Failed;
             }
             
-            Log.Warning(match.Groups["Info"].Value);
+            Log.Warning(match.Groups["info"].Value);
+            
             await ETTask.CompletedTask;
             return Status.Success;
         }

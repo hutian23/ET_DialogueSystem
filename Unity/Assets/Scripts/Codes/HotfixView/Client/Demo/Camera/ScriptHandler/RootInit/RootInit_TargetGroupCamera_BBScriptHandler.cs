@@ -27,10 +27,9 @@ namespace ET.Client
             VirtualCameraManager.Instance.AddCamera(match.Groups["Name"].Value, camera);
 
             //2. 生成相机Go
-            GameObject parent = parser.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject;
             GameObject go = new(match.Groups["Name"].Value);
             camera.gameObject = go;
-            go.transform.SetParent(parent.transform);
+            go.transform.SetParent(VirtualCameraManager.Instance.Global().transform);
 
             //3. Go初始化
             CinemachineVirtualCamera vc = go.AddComponent<CinemachineVirtualCamera>();

@@ -8,10 +8,7 @@ namespace ET.Client
     {
         [StaticField]
         public static VirtualCameraManager Instance;
-
-        public GameObject Global;
         public GameObject Target;
-        
         public Dictionary<string, long> cameraList = new();
     }
 
