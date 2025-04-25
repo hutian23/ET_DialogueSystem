@@ -29,7 +29,6 @@ namespace ET.Client
                 self.BBScriptHandlers.Clear();
                 self.BBTriggerHandlers.Clear();
                 self.InputHandlers.Clear();
-                self.BBParamHandlers.Clear();
                 self.BBValueDict.Clear();
                 ScriptDispatcherComponent.Instance = null;
             }
@@ -78,20 +77,6 @@ namespace ET.Client
 
                 self.InputHandlers.Add(handler.GetHandlerType(), handler);
             } 
-            
-            self.BBParamHandlers.Clear();
-            var paramHandlers = EventSystem.Instance.GetTypes(typeof (BBParamAttribute));
-            foreach (var paramHandler in paramHandlers)
-            {
-                BBParamHandler handler = Activator.CreateInstance(paramHandler) as BBParamHandler;
-                if (handler == null)
-                {
-                    Log.Error($"this obj is not a paramHandler: {paramHandler.Name}");
-                    continue;
-                }
-                
-                self.BBParamHandlers.Add(handler.GetRefType(), handler);
-            }
         }
 
         public static BBScriptHandler GetScriptHandler(this ScriptDispatcherComponent self, string name)
@@ -119,17 +104,6 @@ namespace ET.Client
             if (!self.InputHandlers.TryGetValue(name, out InputHandler handler))
             {
                 Log.Error($"not found inputHandler: {name}");
-                return null;
-            }
-
-            return handler;
-        }
-
-        public static BBParamHandler GetParamHandler(this ScriptDispatcherComponent self, string name)
-        {
-            if (!self.BBParamHandlers.TryGetValue(name, out BBParamHandler handler))
-            {
-                Log.Error($"not found paramHandler: {name}");
                 return null;
             }
 

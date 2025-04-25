@@ -11,7 +11,6 @@ namespace ET.Client
         public Dictionary<string, BBScriptHandler> BBScriptHandlers = new();
         public Dictionary<string, BBTriggerHandler> BBTriggerHandlers = new();
         public Dictionary<string, InputHandler> InputHandlers = new();
-        public Dictionary<string, BBParamHandler> BBParamHandlers = new();
         public Dictionary<Type, Type> BBValueDict = new();
     }
 }
