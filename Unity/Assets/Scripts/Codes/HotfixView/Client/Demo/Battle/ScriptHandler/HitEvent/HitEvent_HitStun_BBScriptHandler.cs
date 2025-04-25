@@ -5,15 +5,14 @@ namespace ET.Client
 {
     [FriendOf(typeof(b2Body))]
     [FriendOf(typeof(BehaviorInfo))]
-    public class HitNotify_HitStun_BBScriptHandler : BBScriptHandler
+    public class HitEvent_HitStun_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
             return "HitStun";
         }
-
-        //代码块中可执行，需要注册Hurt_CollisionInfo变量
-        //Hit_GotoState: 'KnockBack';
+        
+        //Hit_GotoState: KnockBack;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
             Match match = Regex.Match(data.opLine, @"HitStun: (?<hitFlag>\w+);");
@@ -22,13 +21,15 @@ namespace ET.Client
                 ScriptHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
-            CollisionInfo info = parser.GetParam<CollisionInfo>("HitNotify_CollisionInfo");
-            b2Body body = Root.Instance.Get(info.dataB.InstanceId) as b2Body;
-            Unit unit = Root.Instance.Get(body.unitId) as Unit;
-            BehaviorMachine machine = unit.GetComponent<BehaviorMachine>();
-
-            BehaviorInfo _info = machine.GetInfoByFlag(match.Groups["hitFlag"].Value);
-            machine.Reload(_info.behaviorOrder);
+            
+            CollisionInfo info = parser.GetComponent<HitComponent>().GetInfo();
+            
+            b2Body _body = Root.Instance.Get(info.dataB.InstanceId) as b2Body;
+            Unit _unit = Root.Instance.Get(_body.unitId) as Unit;
+            BehaviorMachine _machine = _unit.GetComponent<BehaviorMachine>();
+            BehaviorInfo _info = _machine.GetInfoByFlag(match.Groups["hitFlag"].Value);
+            
+            _machine.Reload(_info.behaviorOrder);
 
             await ETTask.CompletedTask;
             return Status.Success;

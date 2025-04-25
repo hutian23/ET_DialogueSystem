@@ -4,7 +4,7 @@ namespace ET.Client
 {
     [FriendOf(typeof(BBParser))]
     [FriendOf(typeof(HitComponent))]
-    public class Function_HitNotify_BBScriptHandler : BBScriptHandler
+    public class HitEvent_HitNotify_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {

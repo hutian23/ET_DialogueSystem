@@ -42,10 +42,10 @@ namespace ET.Client
                     hit.buffSet.Add(unit.InstanceId);
 
                     //6. 把碰撞信息注册到共享变量中，供代码块使用
-                    self.RegistParam("HitNotify_CollisionInfo", info);
+                    hit.curInfo = info;
                     //这里实际上是同步调用的,HitNotify代码块中不能声明 等待相关的指令
                     self.RegistSubCoroutine(hit.startIndex, hit.endIndex, self.CancellationToken).Coroutine();
-                    self.TryRemoveParam("HitNotify_CollisionInfo");
+                    hit.curInfo = default;
                 }
             }
         }
@@ -75,6 +75,12 @@ namespace ET.Client
             self.endIndex = 0;
             self.checkType = string.Empty;
             self.buffSet.Clear();
+            self.curInfo = default;
+        }
+
+        public static CollisionInfo GetInfo(this HitComponent self)
+        {
+            return self.curInfo;
         }
     }
 }

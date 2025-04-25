@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ET.Event;
 
 namespace ET.Client
 {
@@ -12,5 +13,7 @@ namespace ET.Client
         
         //缓存已经触发过受击的unit的instanceId
         public HashSet<long> buffSet = new ();
+
+        public CollisionInfo curInfo;
     }
 }

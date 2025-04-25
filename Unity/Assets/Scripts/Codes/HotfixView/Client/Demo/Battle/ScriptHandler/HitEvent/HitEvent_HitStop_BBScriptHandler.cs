@@ -1,10 +1,12 @@
 ﻿using System.Text.RegularExpressions;
+using ET.Event;
 
 namespace ET.Client
 {
-    
+
     [FriendOf(typeof(BBParser))]
-    public class Function_HitStop_BBScriptHandler : BBScriptHandler
+    [FriendOf(typeof(b2Body))]
+    public class HitEvent_HitStop_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
@@ -31,12 +33,19 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            Unit unit = parser.GetParent<Unit>();
-            HertzAbility ability = unit.GetComponent<BuffManager>().GetComponent<HertzAbility>();
+            //1. 获取攻击的碰撞信息
+            CollisionInfo info = parser.GetComponent<HitComponent>().GetInfo();
+
+            //2. 获取受击方的Hertz组件
+            b2Body _body = Root.Instance.Get(info.dataB.InstanceId) as b2Body;
+            Unit _unit = Root.Instance.Get(_body.unitId) as Unit;
+            BBParser _parser = _unit.GetComponent<BBParser>();
+            HertzAbility _ability = _unit.GetComponent<BuffManager>().GetComponent<HertzAbility>();
             
-            parser.RemoveComponent<TimeFrozeComponent>();
-            parser.AddComponent<TimeFrozeComponent, int, int, long>(hertz, hitStop, ability.InstanceId);
-            
+            //3. 添加HitStop Buff
+            _parser.RemoveComponent<TimeFrozeComponent>();
+            _parser.AddComponent<TimeFrozeComponent, int, int, long>(hertz, hitStop, _ability.InstanceId);
+
             await ETTask.CompletedTask;
             return Status.Success;
         }

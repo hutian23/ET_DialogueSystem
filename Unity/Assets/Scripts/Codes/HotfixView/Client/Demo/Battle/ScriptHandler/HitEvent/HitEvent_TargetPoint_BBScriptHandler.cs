@@ -3,17 +3,17 @@ using System.Text.RegularExpressions;
 
 namespace ET.Client
 {
-    public class TargetPoint_BBScriptHandler : BBScriptHandler
+    public class HitEvent_TargetPoint_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
             return "TargetPoint";
         }
 
-        //ThrowPoint: -1400, 1000;
+        //TargetPoint: -1400, 1000;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"TargetPoint: (?<BindX>-?\d+), (?<BindY>-?\d+);");
+            Match match = Regex.Match(data.opLine, @"TargetPoint: (?<BindX>.*?), (?<BindY>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -28,9 +28,10 @@ namespace ET.Client
 
             if (!parser.ContainParam("TargetBind")) return Status.Failed;
             
-            long bodyId = parser.GetParam<long>("TargetBind");
+            long unitId = parser.GetParam<long>("TargetBind");
             b2Body bodyA = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
-            b2Body bodyB = Root.Instance.Get(bodyId) as b2Body;
+            Unit _unit = Root.Instance.Get(unitId) as Unit;
+            b2Body bodyB = Root.Instance.Get(_unit.InstanceId) as b2Body;
 
             Vector2 BindPos = bodyA.GetPosition() + new Vector2(-bodyA.GetFlip() * (x / 10000f), y / 10000f);
             bodyB.SetPosition(BindPos);

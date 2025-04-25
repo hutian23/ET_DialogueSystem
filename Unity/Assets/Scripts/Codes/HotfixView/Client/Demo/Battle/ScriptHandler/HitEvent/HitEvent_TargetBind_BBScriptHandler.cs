@@ -2,7 +2,8 @@
 
 namespace ET.Client
 {
-    public class TargetBind_BBScriptHandler : BBScriptHandler
+    [FriendOf(typeof(b2Body))]
+    public class HitEvent_TargetBind_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
@@ -11,12 +12,13 @@ namespace ET.Client
 
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            CollisionInfo info = parser.GetParam<CollisionInfo>("HitNotify_CollisionInfo");
+            CollisionInfo info = parser.GetComponent<HitComponent>().GetInfo();
             b2Body bodyB = Root.Instance.Get(info.dataB.InstanceId) as b2Body;
+            Unit unit = Root.Instance.Get(bodyB.unitId) as Unit;
 
             parser.TryRemoveParam("TargetBind");
-            parser.RegistParam("TargetBind", bodyB.InstanceId);
-            
+            parser.RegistParam("TargetBind", unit.InstanceId);
+
             await ETTask.CompletedTask;
             return Status.Success;
         }
