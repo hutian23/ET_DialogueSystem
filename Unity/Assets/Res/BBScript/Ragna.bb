@@ -4,6 +4,8 @@
 PlayerInit;
 SetPos: 280000, -90000;
 #4. 添加初始Buff
+EnableHP: 2500;
+EnableSP: 1000;
 EnableJump: 2;
 EnableAirCheck;
 EnableGroundDash: 2, 70;
@@ -313,9 +315,9 @@ Event: (Hit_End)
   EnableTargetCancel: false;
   EnableWhiffCancel: false;
 EndEvent:
-# ApplyRootMotion: true;
+ApplyRootMotion: true;
 PlayTimeline: 0, 30;
-# ApplyRootMotion: false;
+ApplyRootMotion: false;
 Exit;
 
 [Rg_5C]

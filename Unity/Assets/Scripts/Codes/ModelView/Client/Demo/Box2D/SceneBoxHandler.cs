@@ -12,5 +12,7 @@ namespace ET.Client
         public Queue<CollisionInfo> CollisionEnterQueue = new();
         public Queue<CollisionInfo> CollisionStayQueue = new();
         public Queue<CollisionInfo> CollisionExitQueue = new();
+
+        public CollisionInfo info;
     }
 }
