@@ -4,7 +4,7 @@ CameraInit;
 # DefaultCamera
 Camera: DefaultCamera;
 Camera_Priority: DefaultCamera, 100;
-Camera_OrthoSize: DefaultCamera, 55000;
+Camera_OrthoSize: DefaultCamera, 85000;
 Camera_XDamping: DefaultCamera, 25000;
 Camera_YDamping: DefaultCamera, 8000;
 Camera_DeadZone: DefaultCamera, 60, 20;

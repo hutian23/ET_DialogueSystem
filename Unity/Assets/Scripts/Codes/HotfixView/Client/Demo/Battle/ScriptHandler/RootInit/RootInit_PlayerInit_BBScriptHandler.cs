@@ -22,8 +22,11 @@
             player.AddComponent<ObjectWait>();
             player.AddComponent<InputWait>();
             
+            //添加能力
             BuffManager buffManager = player.GetComponent<BuffManager>();
             buffManager.AddComponent<HertzAbility>();
+            buffManager.AddComponent<HPAbility, int>(100);
+            buffManager.AddComponent<SPAbility, int>(100);
             
             await ETTask.CompletedTask;
             return Status.Success;

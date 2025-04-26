@@ -1,7 +1,7 @@
 ﻿namespace ET.Client
 {
     [ComponentOf(typeof(BuffManager))]
-    public class HPAbility : Entity, IAwake, IDestroy
+    public class HPAbility : Entity, IAwake<int>, IDestroy
     {
         public int MaxHP;
         public int CurrentHP;

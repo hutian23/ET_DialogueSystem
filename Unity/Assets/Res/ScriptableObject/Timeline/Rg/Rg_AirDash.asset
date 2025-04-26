@@ -657,7 +657,7 @@ MonoBehaviour:
       Data: 21|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 7
+      Data: 10
     - Name: keyframeName
       Entry: 1
       Data: CancelEvent

@@ -5,6 +5,15 @@ namespace ET.Client
     [FriendOf(typeof(SPAbility))]
     public static class SPAbilitySystem
     {
+        public class SPAbilityAwakeSystem : AwakeSystem<SPAbility, int>
+        {
+            protected override void Awake(SPAbility self, int sp)
+            {
+                self.MaxSP = sp;
+                self.CurrentSP = sp;
+            }
+        }
+        
         public class SPAbilityDestroySystem : DestroySystem<SPAbility>
         {
             protected override void Destroy(SPAbility self)
@@ -22,7 +31,7 @@ namespace ET.Client
             //回调SP更新事件
             if (self.CurrentSP != preSP)
             {
-                EventSystem.Instance.Invoke(new SpChangeCallback() { instanceId = self.InstanceId, preSP = preSP, curSP = self.CurrentSP });
+                EventSystem.Instance.Invoke(new SPChangeCallback() { instanceId = self.InstanceId, preSP = preSP, curSP = self.CurrentSP });
             }
         }
 

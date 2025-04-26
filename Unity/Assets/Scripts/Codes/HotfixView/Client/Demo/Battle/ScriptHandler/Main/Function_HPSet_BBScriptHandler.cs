@@ -2,17 +2,18 @@
 
 namespace ET.Client
 {
-    public class Function_HPAdd_BBScriptHandler : BBScriptHandler
+    public class Function_HPSet_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "HPAdd";
+            return "HPSet";
         }
 
-        //HPAdd: -10;
+        //HPSet: HP, InvokeEvent?;
+        //HPSet: 1000, true;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"HPAdd: (?<Count>.*?);");
+            Match match = Regex.Match(data.opLine, @"HPAdd: (?<Count>.*?), (?<IsEvent>\w+);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -33,9 +34,9 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            int curHP = ability.GetHP();
-            ability.SetHP(curHP + count);
-            
+            bool isEvent = match.Groups["IsEvent"].Value.Equals("true");
+            ability.SetHP(count, isEvent);
+
             await ETTask.CompletedTask;
             return Status.Success;
         }

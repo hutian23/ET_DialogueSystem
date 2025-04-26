@@ -4,8 +4,9 @@
 PlayerInit;
 SetPos: 280000, -90000;
 #4. 添加初始Buff
-EnableHP: 2500;
-EnableSP: 1000;
+HP: 10000;
+SP: 200;
+HPAdd: -1000;
 EnableJump: 2;
 EnableAirCheck;
 EnableGroundDash: 2, 70;
@@ -581,8 +582,8 @@ return;
 @Main:
 AirDashAdd: -1;
 Event: (FallEvent)
-  # 空中冲刺衔接冲刺
   EnableGatlingCancel: true;
+  # 空中冲刺衔接冲刺
   EnableFlip: true;
   GCOption: Rg_AirDash;
   GCOption: Rg_Jump;

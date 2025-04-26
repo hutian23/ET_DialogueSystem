@@ -2,36 +2,34 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof(HPAbility))]
-    public class RootInit_EnableHP_BBScriptHandler : BBScriptHandler
+    [FriendOf(typeof(SPAbility))]
+    public class RootInit_SP_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "EnableHP";
+            return "SP";
         }
 
-        //EnableHP: 10000;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, "EnableHP: (?<MaxHP>.*?);");
+            Match match = Regex.Match(data.opLine, "SP: (?<MaxSP>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
-            if (!int.TryParse(match.Groups["MaxHP"].Value, out int MaxHP))
+
+            if (!int.TryParse(match.Groups["MaxSP"].Value, out int MaxSP))
             {
-                Log.Error($"cannot format {match.Groups["MaxHP"].Value} to int!!!");
+                Log.Error($"cannot format {match.Groups["MaxSP"].Value} to int!!!");
                 return Status.Failed;
             }
 
             Unit unit = parser.GetParent<Unit>();
             BuffManager buffManager = unit.GetComponent<BuffManager>();
-
-            buffManager.RemoveComponent<HPAbility>();
-            HPAbility ability = buffManager.AddComponent<HPAbility>();
-            ability.MaxHP = MaxHP;
-            ability.CurrentHP = MaxHP;
+            SPAbility ability = buffManager.GetComponent<SPAbility>();
+            ability.MaxSP = MaxSP;
+            ability.CurrentSP = MaxSP;
 
             await ETTask.CompletedTask;
             return Status.Success;
