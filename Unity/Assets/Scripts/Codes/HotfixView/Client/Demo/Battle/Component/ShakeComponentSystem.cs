@@ -19,9 +19,9 @@ namespace ET.Client
             }
         }
         
-        public class ShakeComponentPostStepSystem : PostStepSystem<ShakeComponent>
+        public class ShakeComponentFrameLateUpdateSystem : FrameLateUpdateSystem<ShakeComponent>
         {
-            protected override void PosStepUpdate(ShakeComponent self)
+            protected override void FrameLateUpdate(ShakeComponent self)
             {
                 Unit unit = Root.Instance.Get(self.unitId) as Unit;
                 GameObject go = unit.GetComponent<GameObjectComponent>().GameObject;

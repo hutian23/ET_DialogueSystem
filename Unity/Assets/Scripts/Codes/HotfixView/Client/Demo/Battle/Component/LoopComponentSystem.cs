@@ -21,11 +21,13 @@ namespace ET.Client
         public static async ETTask TriggerCor(this LoopComponent self)
         {
             BBParser parser = self.GetParent<BBParser>();
-            BBTimerComponent bbTimer = parser.GetParent<Unit>().GetComponent<BBTimerComponent>();
+            // BBTimerComponent bbTimer = parser.GetParent<Unit>().GetComponent<BBTimerComponent>();
+            BBTimerComponent postStepTimer = b2WorldManager.Instance.GetPostStepTimer();    
             
             while (true)
             {
-                await bbTimer.WaitFrameAsync(self.token);
+                // await bbTimer.WaitFrameAsync(self.token);
+                await postStepTimer.WaitFrameAsync(self.token);
                 if (self.token.IsCancel()) break;
                 
                 //1. Match trigger

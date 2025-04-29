@@ -19,9 +19,9 @@ namespace ET.Client
             }
         }
         
-        public class ScreenShakeComponentPostStepSystem : PostStepSystem<ScreenShakeComponent>
+        public class ScreenShakeComponentFrameLateUpdateSystem : FrameLateUpdateSystem<ScreenShakeComponent>
         {
-            protected override void PosStepUpdate(ScreenShakeComponent self)
+            protected override void FrameLateUpdate(ScreenShakeComponent self)
             {
                 CinemachineCameraOffset cameraOffset = self.activeCamera.GetComponent<CinemachineCameraOffset>();
 

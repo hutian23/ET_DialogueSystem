@@ -38,13 +38,19 @@ namespace ET.Client
 
             //2. 获取受击方的Hertz组件
             b2Body _body = Root.Instance.Get(info.dataB.InstanceId) as b2Body;
+            
             Unit _unit = Root.Instance.Get(_body.unitId) as Unit;
+            Unit unit = parser.GetParent<Unit>();
             BBParser _parser = _unit.GetComponent<BBParser>();
+            
             HertzAbility _ability = _unit.GetComponent<BuffManager>().GetComponent<HertzAbility>();
+            HertzAbility ability = unit.GetComponent<BuffManager>().GetComponent<HertzAbility>();
             
             //3. 添加HitStop Buff
             _parser.RemoveComponent<TimeFrozeComponent>();
             _parser.AddComponent<TimeFrozeComponent, int, int, long>(hertz, hitStop, _ability.InstanceId);
+            parser.RemoveComponent<TimeFrozeComponent>();
+            parser.AddComponent<TimeFrozeComponent, int, int, long>(hertz, hitStop, ability.InstanceId);
 
             await ETTask.CompletedTask;
             return Status.Success;

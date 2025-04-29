@@ -39,8 +39,8 @@ namespace ET.Client
                 self.Init();
             }
         }
-        
-        public static void Init(this TimelineComponent self)
+
+        private static void Init(this TimelineComponent self)
         {
             //初始化
             GameObjectComponent component = self.GetParent<Unit>().GetComponent<GameObjectComponent>();

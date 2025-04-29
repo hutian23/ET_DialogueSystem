@@ -180,23 +180,6 @@ namespace ET.Client
             return ret;
         }
         
-        public static string ReplaceParam(this BBParser self, string opLine)
-        {
-            MatchCollection matches = Regex.Matches(opLine, @"\{(.*?)\}");
-            string result = opLine;
-            for (int i = 0; i < matches.Count; i++)
-            {
-                string content = matches[i].Groups[1].Value;
-                string replace = EventSystem.Instance.Invoke<ReplaceParamCallback, string>(new ReplaceParamCallback()
-                {
-                    instanceId = self.InstanceId,
-                    content = content, 
-                });
-                result = result.Replace(matches[i].Value, replace);
-            }
-            return result;
-        }
-        
         public static T RegistParam<T>(this BBParser self, string paramName, T value)
         {
             if (self.ParamDict.ContainsKey(paramName))
@@ -327,3 +310,5 @@ namespace ET.Client
         }
     }
 }
+
+

@@ -6,26 +6,6 @@ using UnityEngine.Playables;
 
 namespace Timeline
 {
-    #region Event
-
-    public struct BehaviorControllerReloadCallback
-    {
-        public long instanceId;
-    }
-    
-    public struct PreviewReloadCallback
-    {
-        public long instanceId;
-        public BehaviorClip Clip;
-    }
-
-    public struct UpdateHertzCallback
-    {
-        public long instanceId;
-        public int Hertz;
-    }
-    #endregion
-    
     public sealed class TimelinePlayer: SerializedMonoBehaviour
     {
         [HideInInspector]
@@ -128,5 +108,11 @@ namespace Timeline
         {
             get => !HasBindUnit;
         }
+    }
+    
+    public struct UpdateHertzCallback
+    {
+        public long instanceId;
+        public int Hertz;
     }
 }

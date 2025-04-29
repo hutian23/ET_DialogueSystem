@@ -68,12 +68,6 @@ RegistMove: (Rg_GroundDash)
 RegistMove: (Rg_Super3)
   MoveType: Special;
   EndMove:
-# RegistMove: (Rg_Super2)
-#   MoveType: Special;
-#   EndMove:
-# RegistMove: (Rg_PlungingAttack)
-#   MoveType: Special;
-#   EndMove:
 RegistMove: (Rg_Test)
   MoveType: Etc;
   EndMove:
@@ -181,7 +175,6 @@ InputType: SquatHold;
 return;
 
 @Main:
-Test;
 SetVelocityX: 0;
 EnableFlip: true;
 EnableDefaultCancel: true;
@@ -281,7 +274,6 @@ InAir: false;
 return;
 
 @Main:
-PushX: 40000, 125000;
 Event: (Whiff_Start)
   EnableWhiffCancel: true;
   WhiffOption: Rg_GroundDash;
@@ -293,22 +285,12 @@ Event: (Hit_Start)
     EnableGatlingCancel: true;
     EnableTargetCancel: true;
     TCOption: Rg_5C;
-    Shake: 500, 0, 8000, 10; # 振动
-    HitStop: 0, 10; # 打击停顿
-    # # 受击行为协程需要使用的变量
-    # HitParam: Shake_LengthX, 1200;
-    # HitParam: Shake_LengthY, 1000;
-    # HitParam: Shake_Frequency, 10000;
-    # HitParam: Shake_Frame, 18;
-    # # 受击者帧冻结(HitStop)的总帧长
-    # HitParam: HitStopFrame, 18;
-    # # HitStop结束后抛出的速度(万分制)
-    # HitParam: StartV_X, -3000;
-    # HitParam: StartV_Y, 250000;
-    # # 受击时调整转向
-    # Hit_UpdateFlip;
-    # # 受击者进入哪个硬直状态
-    # HitStun: Hurt3;
+    # 受击方切换到受击动作
+    HitStun: BounceHurt; 
+    HitStop: 0, 10; 
+    Shake: 800, 0, 8000, 18; 
+    HitShake: 1200, 1000, 10000, 18; 
+    HitVel: -300000, 250000;
     EndNotify:
 EndEvent:
 Event: (Hit_End)
@@ -346,9 +328,9 @@ Event: (Hit_End)
   EnableGatlingCancel: false;
   EnableTargetCancel: false;
 EndEvent:
-#ApplyRootMotion: true;
+ApplyRootMotion: true;
 PlayTimeline: 0, 48;
-#ApplyRootMotion: false;
+ApplyRootMotion: false;
 Exit;
 
 [Rg_5D]
@@ -531,35 +513,17 @@ BBSprite: Frame_7, 3;
 BBSprite: Frame_8, 3;
 HitNotify: Once
   BeginIf: (Flag: Charge, false)
-    Shake: 500, 0, 8000, 10; # 振动
-    HitStop: 0, 10; # 打击停顿
-    HitParam: Shake_LengthX, 1000;
-    HitParam: Shake_LengthY, 1000;
-    HitParam: Shake_Frequency, 10000;
-    HitParam: Shake_Frame, 10;
-    # 受击者帧冻结(HitStop)的总帧长
-    HitParam: HitStopFrame, 10;
-    HitParam: LastFrame, 40;
-    Hit_UpdateFlip;
-    HitStun: Hurt4;
+    # HitStun: GroundHurt;
+    HitStop: 0, 15; # 打击停顿
+    Shake: 500, 0, 8000, 15; # 振动
+    HitShake: 1000, 1000, 10000, 15;
   EndIf:
   BeginIf: (Flag: Charge, true)
-    Shake: 800, 0, 12000, 25;
+    HitStun: BounceHurt;
     HitStop: 0, 25;
-    # 受击行为协程需要使用的变量
-    HitParam: Shake_LengthX, 1200;
-    HitParam: Shake_LengthY, 1000;
-    HitParam: Shake_Frequency, 10000;
-    HitParam: Shake_Frame, 25;
-    # 受击者帧冻结(HitStop)的总帧长
-    HitParam: HitStopFrame, 25;
-    # HitStop结束后抛出的速度(万分制)
-    HitParam: StartV_X, -400000;
-    HitParam: StartV_Y, 200000;
-    # 受击时调整转向
-    Hit_UpdateFlip;
-    # 受击者进入哪个硬直状态
-    HitStun: Hurt5;
+    Shake: 800, 0, 12000, 25;
+    HitShake: 1200, 1000, 10000, 25;
+    HitVel: -400000, 250000;
   EndIf:
 EndNotify:
 BBSprite: Frame_9, 4;

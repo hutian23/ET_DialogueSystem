@@ -3,7 +3,7 @@
 namespace ET.Client
 {
     [ComponentOf(typeof(VirtualCameraManager))]
-    public class ScreenShakeComponent : Entity, IAwake, IDestroy, IPostStep
+    public class ScreenShakeComponent : Entity, IAwake, IDestroy, IFrameLateUpdate
     {
         public float shakeLength_X;
         public float shakeLength_Y;

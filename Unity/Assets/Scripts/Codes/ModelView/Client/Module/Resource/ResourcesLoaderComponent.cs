@@ -5,9 +5,9 @@ namespace ET.Client
     [FriendOf(typeof(ResourcesLoaderComponent))]
     public static class ResourcesLoaderComponentSystem
     {
-        [ObjectSystem]
-            public class ResourcesLoaderComponentDestroySystem: DestroySystem<ResourcesLoaderComponent>
-            {
+        [ObjectSystem] 
+        public class ResourcesLoaderComponentDestroySystem: DestroySystem<ResourcesLoaderComponent>
+        {
                 protected override void Destroy(ResourcesLoaderComponent self)
                 {
                     async ETTask UnLoadAsync()
@@ -43,7 +43,7 @@ namespace ET.Client
         
                     UnLoadAsync().Coroutine();
                 }
-            }
+        }
         
         public static async ETTask LoadAsync(this ResourcesLoaderComponent self, string ab)
         {

@@ -11,8 +11,8 @@
         {
             Unit dummy = parser.GetParent<Unit>();
             
-            //添加依赖的组件
             dummy.AddComponent<BuffManager>();
+            dummy.AddComponent<Transition>();
             dummy.AddComponent<TimelineComponent>();
             dummy.AddComponent<BBTimerComponent>().IsUnitTimer();
             dummy.AddComponent<BBNumeric>();
@@ -20,6 +20,11 @@
             dummy.AddComponent<B2Unit, long>(dummy.InstanceId);
             dummy.AddComponent<ObjectWait>();
             dummy.GetComponent<GameObjectComponent>().GameObject.transform.SetParent(GlobalComponent.Instance.Unit);
+
+            BuffManager buffManager = dummy.GetComponent<BuffManager>();
+            buffManager.AddComponent<HertzAbility>();
+            buffManager.AddComponent<HPAbility, int>(100);
+            buffManager.AddComponent<SPAbility, int>(100);
             
             await ETTask.CompletedTask;
             return Status.Success;

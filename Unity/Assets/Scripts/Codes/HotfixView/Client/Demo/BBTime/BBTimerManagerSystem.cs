@@ -107,8 +107,6 @@ namespace ET.Client
 
         public static BBTimerComponent SceneTimer(this BBTimerManager self)
         {
-            // BBTimerComponent sceneTimer = self.GetParent<Scene>().GetComponent<BBTimerComponent>();
-            // return sceneTimer;
             return self.GetChild<BBTimerComponent>(self.SceneTimer);
         }
 

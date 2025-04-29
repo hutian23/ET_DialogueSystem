@@ -10,11 +10,11 @@ namespace ET.Client
             return "EnableBounceCheck";
         }
 
-        //EnableBounceCheck: offsetX, offsetY, sizeX, sizeY, waitFrame;
-        //EnableBounceCheck: 10000, 10000, 10000, 10000, 10;
+        //EnableBounceCheck: offsetX, offsetY, sizeX, sizeY, active;
+        //EnableBounceCheck: 10000, 10000, 10000, 10000, true;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"EnableBounceCheck: (?<offsetX>.*?),(?<offsetY>.*?), (?<sizeX>.*?), (?<sizeY>.*?), (?<WaitFrame>.*?);");
+            Match match = Regex.Match(data.opLine, @"EnableBounceCheck: (?<offsetX>.*?),(?<offsetY>.*?), (?<sizeX>.*?), (?<sizeY>.*?), (?<active>\w+);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -27,14 +27,13 @@ namespace ET.Client
                 Log.Error($"cannot format {match.Groups["offsetX"].Value} / {match.Groups["offsetY"].Value} / {match.Groups["sizeX"].Value} / {match.Groups["sizeY"].Value} to long!!!");
                 return Status.Failed;
             }
-            if (!int.TryParse(match.Groups["WaitFrame"].Value, out int waitFrame))
-            {
-                Log.Error($"cannot format {match.Groups["WaitFrame"].Value} to int!!");
-                return Status.Failed;
-            }
 
             parser.RemoveComponent<BounceCheckComponent>();
-            parser.AddComponent<BounceCheckComponent, int, Vector2, Vector2>(waitFrame, new Vector2(offsetX, offsetY), new Vector2(sizeX, sizeY));
+
+            if (match.Groups["active"].Value.Equals("true"))
+            {
+                parser.AddComponent<BounceCheckComponent, Vector2, Vector2>(new Vector2(offsetX, offsetY) / 10000f, new Vector2(sizeX, sizeY) / 10000f);   
+            }
             
             await ETTask.CompletedTask;
             return Status.Success;

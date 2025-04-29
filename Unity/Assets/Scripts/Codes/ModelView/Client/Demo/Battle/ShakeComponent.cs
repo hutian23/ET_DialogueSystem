@@ -1,7 +1,7 @@
 ﻿namespace ET.Client
 {
     [ComponentOf]
-    public class ShakeComponent : Entity, IAwake, IDestroy, IPostStep
+    public class ShakeComponent : Entity, IAwake, IDestroy, IFrameLateUpdate
     {
         public float shakeLength_X;
         public float shakeLength_Y;

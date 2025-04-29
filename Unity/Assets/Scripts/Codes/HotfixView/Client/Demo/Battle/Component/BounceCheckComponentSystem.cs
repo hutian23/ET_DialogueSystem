@@ -11,12 +11,10 @@ namespace ET.Client
     [FriendOf(typeof(BounceCheckComponent))]
     public static class BounceCheckComponentSystem
     {
-        public class BounceCheckAwakeSystem : AwakeSystem<BounceCheckComponent, int, Vector2, Vector2>
+        public class BounceCheckAwakeSystem : AwakeSystem<BounceCheckComponent, Vector2, Vector2>
         {
-            protected override void Awake(BounceCheckComponent self, int waitFrame, Vector2 offset, Vector2 size)
+            protected override void Awake(BounceCheckComponent self, Vector2 offset, Vector2 size)
             {
-                self.waitFrame = waitFrame;
-                self.curFrame = waitFrame;
                 self.offsetX = offset.X;
                 self.offsetY = offset.Y;
                 self.sizeX = size.X;
@@ -32,15 +30,12 @@ namespace ET.Client
         {
             protected override void Destroy(BounceCheckComponent self)
             {
-                self.waitFrame = 0;
-                self.curFrame = 0;
                 self.offsetX = 0;
                 self.offsetY = 0;
                 self.sizeX = 0;
                 self.sizeY = 0;
-                
-                self.token.Cancel();
                 self.DestroyCheckBox();
+                self.token.Cancel();
             }
         }
 
@@ -81,9 +76,11 @@ namespace ET.Client
 
         private static void DestroyCheckBox(this BounceCheckComponent self)
         {
+            if(self.token.IsCancel()) return;
+            
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
             b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-
+            
             if (self.checkBox == null || body == null) return;
             
             body.DestroyFixture(self.checkBox);
@@ -97,7 +94,7 @@ namespace ET.Client
             BBParser parser = unit.GetComponent<BBParser>();
             
             bool ret = false;
-            while (self.curFrame -- > 0)
+            while (true)
             {
                 await postStepTimer.WaitFrameAsync(self.token);
                 if (self.token.IsCancel()) return;
@@ -113,8 +110,8 @@ namespace ET.Client
                     // BounceCheckBox和墙体发生重叠
                     if (!info.fixtureA.Equals(self.checkBox) || info.dataB.LayerMask is not LayerType.Ground || info.dataB.InstanceId == 0) continue;
 
-                    parser.TryRemoveParam("Bounce");
-                    parser.RegistParam("Bounce", true);
+                    parser.TryRemoveParam("Flag_Bounce");
+                    parser.RegistParam("Flag_Bounce", true);
                     ret = true;
                     break;
                 }
