@@ -524,7 +524,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Troupe Master Grimm_0
+      name: Teleport_1
       rect:
         serializedVersion: 2
         x: 4
@@ -532,7 +532,7 @@ TextureImporter:
         width: 232
         height: 424
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -545,7 +545,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Troupe Master Grimm_1
+      name: Teleport_2
       rect:
         serializedVersion: 2
         x: 241
@@ -553,7 +553,7 @@ TextureImporter:
         width: 232
         height: 424
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -566,7 +566,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Troupe Master Grimm_2
+      name: Teleport_3
       rect:
         serializedVersion: 2
         x: 478
@@ -574,7 +574,7 @@ TextureImporter:
         width: 232
         height: 424
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -587,7 +587,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Troupe Master Grimm_3
+      name: Teleport_4
       rect:
         serializedVersion: 2
         x: 715
@@ -595,7 +595,7 @@ TextureImporter:
         width: 232
         height: 424
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -608,7 +608,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Troupe Master Grimm_4
+      name: Teleport_5
       rect:
         serializedVersion: 2
         x: 952
@@ -616,7 +616,7 @@ TextureImporter:
         width: 232
         height: 424
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -624,6 +624,426 @@ TextureImporter:
       bones: []
       spriteID: 6d8f6d35b46855542a41954a64c49329
       internalID: -2135405103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 5314
+        width: 250
+        height: 423
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49408984}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf26d316d83679049b4d834f65ff03d4
+      internalID: 1560091058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast_2
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 5314
+        width: 250
+        height: 423
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49408984}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bbbdd9d631ff4747be2fad707f2b557
+      internalID: -1457970013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast_3
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 5314
+        width: 250
+        height: 423
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49408984}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef51008228932624a949c55b04f10587
+      internalID: -376846986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast_4
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 5314
+        width: 250
+        height: 423
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49408984}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e12610bf63223f4da91986634864c5d
+      internalID: -927945643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast_5
+      rect:
+        serializedVersion: 2
+        x: 1056
+        y: 5340
+        width: 421
+        height: 397
+      alignment: 9
+      pivot: {x: 0.6413302, y: 0.5163728}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2ce11d967a06904295390f047db7d6c
+      internalID: 923492010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast_6
+      rect:
+        serializedVersion: 2
+        x: 1482
+        y: 5340
+        width: 421
+        height: 397
+      alignment: 9
+      pivot: {x: 0.6413302, y: 0.5163728}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5052611dc084e464d87139be4b7335ec
+      internalID: -232854880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast_7
+      rect:
+        serializedVersion: 2
+        x: 1908
+        y: 5340
+        width: 421
+        height: 397
+      alignment: 9
+      pivot: {x: 0.6413302, y: 0.5163728}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49b3ac7e09734064ba588d040cc494db
+      internalID: -2033546589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast_8
+      rect:
+        serializedVersion: 2
+        x: 2334
+        y: 5340
+        width: 421
+        height: 397
+      alignment: 9
+      pivot: {x: 0.6413302, y: 0.5163728}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8aca1b3a6810fc46a2e2bb8b869d920
+      internalID: 917646835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Teleport_6
+      rect:
+        serializedVersion: 2
+        x: 1221
+        y: 8139
+        width: 257
+        height: 424
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d6a190b7f15d164fb2024c063198beb
+      internalID: 1873842964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Teleport_7
+      rect:
+        serializedVersion: 2
+        x: 1483
+        y: 8139
+        width: 257
+        height: 424
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56cd2a7e358cfcd429923f5df0a4d17c
+      internalID: -1820303625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capespike_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 1784
+        width: 338
+        height: 407
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5110565}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0bac105030170c4aa201c988d2a7e30
+      internalID: -1563338036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capespike_2
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 1784
+        width: 338
+        height: 407
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5110565}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd8cf3576bb203640b45caee6d97ce76
+      internalID: -1641695700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capespike_3
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1784
+        width: 338
+        height: 407
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5110565}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80cbf454888be614484adcc8263f2df9
+      internalID: 1315784694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capespike_4
+      rect:
+        serializedVersion: 2
+        x: 1033
+        y: 1784
+        width: 338
+        height: 407
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5110565}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54c92d86dc441564ba290e2d5752c329
+      internalID: 408127870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capespike_5
+      rect:
+        serializedVersion: 2
+        x: 1376
+        y: 1784
+        width: 338
+        height: 407
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5110565}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dd5c30e363ae9640bc5f6c6e97f4b79
+      internalID: 1751720300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capespike_6
+      rect:
+        serializedVersion: 2
+        x: 1719
+        y: 1784
+        width: 338
+        height: 407
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5110565}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14ad046808d32cc4d9004fa6e043e998
+      internalID: 528137322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capespike_7
+      rect:
+        serializedVersion: 2
+        x: 2062
+        y: 1784
+        width: 338
+        height: 407
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5110565}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 586e8fd0a9e747242ba7707878eef67f
+      internalID: 1441144398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capespike_8
+      rect:
+        serializedVersion: 2
+        x: 2405
+        y: 1784
+        width: 338
+        height: 407
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5110565}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e7592cc93f1421478386bfd7d8a6221
+      internalID: 306105677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capespike_9
+      rect:
+        serializedVersion: 2
+        x: 2748
+        y: 1784
+        width: 338
+        height: 407
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5110565}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a38b81ea06fb6e46b2677ae54f20049
+      internalID: 1067007532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Capespike_10
+      rect:
+        serializedVersion: 2
+        x: 3091
+        y: 1784
+        width: 338
+        height: 407
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5110565}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3abb69b3ca89e44ba5aa8cbb1265f8f
+      internalID: -634888679
       vertices: []
       indices: 
       edges: []
@@ -646,6 +1066,24 @@ TextureImporter:
       Bow_5: 415478225
       Bow_6: -1238759337
       Bow_7: 1318200261
+      Capespike_1: -1563338036
+      Capespike_10: -634888679
+      Capespike_2: -1641695700
+      Capespike_3: 1315784694
+      Capespike_4: 408127870
+      Capespike_5: 1751720300
+      Capespike_6: 528137322
+      Capespike_7: 1441144398
+      Capespike_8: 306105677
+      Capespike_9: 1067007532
+      Cast_1: 472317054
+      Cast_2: -1457970013
+      Cast_3: -376846986
+      Cast_4: -927945643
+      Cast_5: 923492010
+      Cast_6: -232854880
+      Cast_7: -2033546589
+      Cast_8: 917646835
       Idle_1: 941579680
       Idle_10: 823632318
       Idle_11: 748048021
@@ -658,12 +1096,13 @@ TextureImporter:
       Idle_7: 719151919
       Idle_8: -770638817
       Idle_9: 463663235
-      PC Computer - Hollow Knight - Troupe Master Grimm_0: -464873366
-      PC Computer - Hollow Knight - Troupe Master Grimm_1: -1993139458
-      PC Computer - Hollow Knight - Troupe Master Grimm_2: 425417501
-      PC Computer - Hollow Knight - Troupe Master Grimm_3: 1656992301
-      PC Computer - Hollow Knight - Troupe Master Grimm_4: -2135405103
-      PC Computer - Hollow Knight - Troupe Master Grimm_5: 472317054
+      Teleport_1: -464873366
+      Teleport_2: -1993139458
+      Teleport_3: 425417501
+      Teleport_4: 1656992301
+      Teleport_5: -2135405103
+      Teleport_6: 1873842964
+      Teleport_7: -1820303625
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -517,9 +517,10 @@ HitNotify: Once
     HitStop: 0, 15; # 打击停顿
     Shake: 500, 0, 8000, 15; # 振动
     HitShake: 1000, 1000, 10000, 15;
+    # Damage: 10000;
   EndIf:
   BeginIf: (Flag: Charge, true)
-    HitStun: BounceHurt;
+    # HitStun: BounceHurt;
     HitStop: 0, 25;
     Shake: 800, 0, 12000, 25;
     HitShake: 1200, 1000, 10000, 25;
