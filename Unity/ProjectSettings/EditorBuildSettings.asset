@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Test/BossSceneTest.unity
     guid: aae7c34316f10f545a028b0de069562e
   - enabled: 1
+    path: Assets/Scenes/Test/GlinTest.unity
+    guid: 5d7416313405e314fb08b1767ad06598
+  - enabled: 1
     path: Assets/Scenes/Test/CameraTest.unity
     guid: 150bd29768a652741b16ba92b143dfde
   m_configObjects: {}

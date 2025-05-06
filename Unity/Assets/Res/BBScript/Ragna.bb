@@ -2,7 +2,7 @@
 @RootInit:
 #1. PlayerInit中挂载组件(NumericComponent、InputComponent...)
 PlayerInit;
-SetPos: 280000, -90000;
+SetPos: 0, -90000;
 #4. 添加初始Buff
 HP: 10000;
 SP: 200;
@@ -159,10 +159,9 @@ BeginLoop: (InputType: RunHold)
 EndLoop:
 #RunToIdle
 EnableMoveX: 0, false;
-SetVelocityX: 50000;
+SetVelocityX: 0;
 BBSprite: RunToIdle_1, 3;
 BBSprite: RunToIdle_2, 3;
-SetVelocityX: 0;
 BBSprite: RunToIdle_3, 3;
 BBSprite: RunToIdle_4, 3;
 Exit;

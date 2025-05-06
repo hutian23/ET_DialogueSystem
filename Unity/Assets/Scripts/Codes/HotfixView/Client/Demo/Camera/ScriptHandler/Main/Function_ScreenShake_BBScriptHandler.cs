@@ -31,7 +31,7 @@ namespace ET.Client
             }
 
             VirtualCameraManager.Instance.RemoveComponent<ScreenShakeComponent>();
-            ScreenShakeComponent screenShake = VirtualCameraManager.Instance.AddComponent<ScreenShakeComponent>();
+            ScreenShakeComponent screenShake = VirtualCameraManager.Instance.AddComponent<ScreenShakeComponent>(true);
             screenShake.shakeLength_X = shakeLength_X / 10000f;
             screenShake.shakeLength_Y = shakeLength_Y / 10000f;
             screenShake.frequency = frequency / 10000f;

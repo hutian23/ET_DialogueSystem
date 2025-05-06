@@ -313,70 +313,70 @@
       <HintPath>D:\Unity\2022.3.16f1c1\Editor\Data\PlaybackEngines\LinuxStandaloneSupport\UnityEditor.LinuxStandalone.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.Reflection.Editor">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\Sirenix\Assemblies\Sirenix.Reflection.Editor.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\Sirenix\Assemblies\Sirenix.Reflection.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\PackageCache\com.unity.collections@1.2.4\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Library\PackageCache\com.unity.collections@1.2.4\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.Serialization">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\NLog.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\NLog.dll</HintPath>
     </Reference>
     <Reference Include="SharpCompress">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\SharpCompress.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\SharpCompress.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.Serialization.Config">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.Config.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.Config.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.OdinInspector.Editor">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.dll</HintPath>
     </Reference>
     <Reference Include="System.Text.Encoding.CodePages">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\System.Text.Encoding.CodePages.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\System.Text.Encoding.CodePages.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Driver.Core">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\MongoDB.Driver.Core.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\MongoDB.Driver.Core.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.OdinInspector.Attributes">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.Utilities">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Bson">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\MongoDB.Bson.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\MongoDB.Bson.dll</HintPath>
     </Reference>
     <Reference Include="dnlib">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\PackageCache\com.code-philosophy.hybridclr@8e571d594d\Plugins\dnlib.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Library\PackageCache\com.code-philosophy.hybridclr@8e571d594d\Plugins\dnlib.dll</HintPath>
     </Reference>
     <Reference Include="CommandLine">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\CommandLine.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\CommandLine.dll</HintPath>
     </Reference>
     <Reference Include="LZ4">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\PackageCache\com.code-philosophy.hybridclr@8e571d594d\Plugins\LZ4.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Library\PackageCache\com.code-philosophy.hybridclr@8e571d594d\Plugins\LZ4.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="Sirenix.Utilities.Editor">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.dll</HintPath>
     </Reference>
     <Reference Include="DnsClient">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\DnsClient.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\DnsClient.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Libmongocrypt">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\MongoDB.Libmongocrypt.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\MongoDB.Libmongocrypt.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Driver">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\MongoDB.Driver.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Assets\Plugins\MongoDB\MongoDB.Driver.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Android.Types">
       <HintPath>D:\Unity\2022.3.16f1c1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
@@ -763,19 +763,19 @@
       <HintPath>D:\Unity\2022.3.16f1c1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XPath.XDocument.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.TestRunner">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
-      <HintPath>C:\Users\25046\Desktop\TOD\ET_HollowKnight\Unity\Library\ScriptAssemblies\UnityEngine.TestRunner.dll</HintPath>
+      <HintPath>D:\UnityProject\ET_HollowKnight\Unity\Library\ScriptAssemblies\UnityEngine.TestRunner.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
