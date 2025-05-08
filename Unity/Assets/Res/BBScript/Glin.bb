@@ -3,6 +3,7 @@
 GlinInit;
 EnableAirCheck;
 SetPos: 0, -100000;
+PoolObject: GlinBullet, 5;
 PoolObject: GlinSpike, 3;
 RegistMove: (Glin_Slash)
   MoveType: Normal;
@@ -13,9 +14,10 @@ EndMove:
 RegistMove: (Glin_AirDash)
   MoveType: Normal;
 EndMove:
-# GotoBehavior: Glin_Capespike;
-# GotoBehavior: Glin_Slash;
-GotoBehavior: Glin_AirDash;
+RegistMove: (Glin_Cast)
+  MoveType: Normal;
+EndMove:
+GotoBehavior: Glin_Cast;
 return;
 
 [Glin_Slash]
@@ -151,4 +153,28 @@ BBSprite: GroundDash_Anticipate_2, 5;
 SetVelocityX: 0;
 BBSprite: GroundDash_Anticipate_3, 5;
 BBSprite: GroundDash_Anticipate_4, 7;
+Exit;
+
+[Glin_Cast]
+@Trigger:
+return;
+
+@Main:
+# Start
+BBSprite: Start_1, 4;
+BBSprite: Start_2, 4;
+BBSprite: Start_3, 4;
+BBSprite: Start_4, 4;
+# Active
+CreateBullet: GlinBullet
+  BulletPos: 0, 0;
+EndCreateBullet:
+BBSprite: Active_1, 4;
+BBSprite: Active_2, 4;
+BBSprite: Active_3, 4;
+BBSprite: Active_4, 20;
+BBSprite: Start_4, 4;
+BBSprite: Start_3, 4;
+BBSprite: Start_2, 4;
+BBSprite: Start_1, 4;
 Exit;

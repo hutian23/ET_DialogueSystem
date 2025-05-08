@@ -8,10 +8,13 @@ namespace ET.Client
     [FriendOf(typeof(b2Body))]
     public static class b2BodySystem
     {
-        public class b2BodyDestroySystem: DestroySystem<b2Body>
+        [FriendOf(typeof(b2WorldManager))]
+        public class b2BodyDestroySystem : DestroySystem<b2Body>
         {
             protected override void Destroy(b2Body self)
             {
+                //PreStep生命周期中移除body
+                b2WorldManager.Instance.DisposeQueue.Enqueue(self.body);
                 self.body = null;
                 self.unitId = 0;
                 self.Fixtures.Clear();
@@ -20,7 +23,7 @@ namespace ET.Client
                 self.Flip = FlipState.Left;
             }
         }
-        
+
         public class B2bodyPostStepSystem : PostStepSystem<b2Body>
         {
             protected override void PosStepUpdate(b2Body self)
@@ -150,26 +153,6 @@ namespace ET.Client
         {
             FixtureData data = (FixtureData)fixture.UserData;
             self.DestroyFixture(data.Name);
-        }
-
-        /// <summary>
-        /// 热重载时调用，销毁所有夹具
-        /// </summary>
-        /// <param name="self"></param>
-        private static void ClearFixtures(this b2Body self)
-        {
-            if (b2WorldManager.Instance.IsLocked())
-            {
-                Log.Error($"cannot dispose fixture while b2World is locked!!");
-                return;
-            }
-            for (int i = 0; i < self.Fixtures.Count; i++)
-            {
-                Fixture fixture = self.Fixtures[i];
-                self.body.DestroyFixture(fixture);
-            }
-            self.Fixtures.Clear();
-            self.FixtureDict.Clear();
         }
         
         /// <summary>

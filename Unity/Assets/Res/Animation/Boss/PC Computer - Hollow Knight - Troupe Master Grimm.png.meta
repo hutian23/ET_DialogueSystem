@@ -2224,6 +2224,111 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Firebat_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 5075
+        width: 251
+        height: 215
+      alignment: 9
+      pivot: {x: 0.3984064, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e59e43755dbe144eb3cac0942b7b86a
+      internalID: -739550676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Firebat_2
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 5075
+        width: 251
+        height: 215
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3360cea454180de4c88cae40a7e780b6
+      internalID: 1742550548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Firebat_3
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 5075
+        width: 251
+        height: 215
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed9e6622463ccd74b9fa3ab273c6ac61
+      internalID: -763381734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Firebat_4
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 5076
+        width: 251
+        height: 215
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00a9c2684f1aba047baf9ff1e40f59a4
+      internalID: 1916601977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Firebat_5
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 5075
+        width: 251
+        height: 215
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6563c1a1912d7474fa80b7845cf6eecd
+      internalID: 1450021345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2270,6 +2375,11 @@ TextureImporter:
       Cast_6: -232854880
       Cast_7: -2033546589
       Cast_8: 917646835
+      Firebat_1: -739550676
+      Firebat_2: 1742550548
+      Firebat_3: -763381734
+      Firebat_4: 1916601977
+      Firebat_5: 1450021345
       GroundDash_Active_1: 771798175
       GroundDash_Active_2: 415747465
       GroundDash_Active_3: -682968255

@@ -21,4 +21,9 @@ namespace ET.Client
     {
         public long instanceId;
     }
+
+    public struct DisposeB2bodyCallback
+    {
+        public long instanceId;
+    }
 }

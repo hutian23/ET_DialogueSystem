@@ -45,18 +45,11 @@ namespace ET.Client
         {
             protected override void PreStepUpdate(b2WorldManager self)
             {
-                int count = self.BodyQueue.Count;
+                int count = self.DisposeQueue.Count;
                 while (count-- > 0)
                 {
-                    long instanceId = self.BodyQueue.Dequeue();
-                    //映射的unit已经销毁,销毁对应刚体
-                    Unit unit = Root.Instance.Get(instanceId) as Unit;
-                    if (unit == null)
-                    {
-                        self.DestroyBody(instanceId);
-                        continue;
-                    }
-                    self.BodyQueue.Enqueue(instanceId);
+                    Body body = self.DisposeQueue.Dequeue();
+                    self.B2World.World.DestroyBody(body);
                 }
             }
         }
@@ -76,11 +69,11 @@ namespace ET.Client
 
             foreach (var kv in self.BodyDict)
             {
-                b2Body body = self.GetChild<b2Body>(kv.Value);
+                b2Body body = Root.Instance.Get(kv.Value) as b2Body;
                 body.Dispose();
             }
             self.BodyDict.Clear();
-            self.BodyQueue.Clear();
+            self.DisposeQueue.Clear();
             
             //reload timer
             BBTimerComponent PreStepTimer = self.GetChild<BBTimerComponent>(self.PreStepTimer);
@@ -115,38 +108,44 @@ namespace ET.Client
             b2Body b2Body = b2WorldManager.Instance.AddChild<b2Body>();
             b2Body.body = b2WorldManager.Instance.B2World.World.CreateBody(bodyDef);
             b2Body.unitId = unitId;
-            self.BodyDict.TryAdd(b2Body.unitId, b2Body.Id);
-            self.BodyQueue.Enqueue(b2Body.unitId);
+            
+            self.BodyDict.Add(b2Body.unitId, b2Body.InstanceId);
             return b2Body;
         }
         
         /// <summary>
         /// 通过Unit.InstanceId查找对应的b2Body
         /// </summary>
-        public static b2Body GetBody(this b2WorldManager self, long instanceId)
+        public static b2Body GetBody(this b2WorldManager self, long unitId)
         {
-            if (!self.BodyDict.TryGetValue(instanceId, out long id))
+            if (!self.BodyDict.TryGetValue(unitId, out long instanceId))
             {
-                Log.Error($"does not exist b2Body, unit.InstanceId: {instanceId}");
+                Log.Error($"does not exist b2Body, unit.InstanceId: {unitId}");
                 return null;
             }
-            return self.GetChild<b2Body>(id);
+            
+            return Root.Instance.Get(instanceId) as b2Body;
         }
 
         /// <summary>
-        /// 移除B2Body, 该方法不能在B2World.isLocked时调用
+        /// 通过Unit.InstanceId删除对应b2Body
         /// </summary>
         /// <param name="self"></param>
-        /// <param name="instanceId">Unit.InstanceId</param>
-        private static void DestroyBody(this b2WorldManager self, long instanceId)
+        /// <param name="unitId"></param>
+        public static void DestroyBody(this b2WorldManager self, long unitId)
         {
-            b2Body b2Body = self.GetBody(instanceId);
-            if (b2Body == null) return;
-            self.B2World.World.DestroyBody(b2Body.body);
+            if (!self.BodyDict.TryGetValue(unitId, out long instanceId))
+            {
+                Log.Error($"does not exist b2Body, unit.InstanceId: {unitId}");
+                return;
+            }
+            
+            b2Body b2Body = Root.Instance.Get(instanceId) as b2Body;
             b2Body.Dispose();
-            self.BodyDict.Remove(instanceId);
+            
+            self.BodyDict.Remove(unitId);
         }
-
+        
         /// <summary>
         /// 激活刚体
         /// </summary>
@@ -159,6 +158,7 @@ namespace ET.Client
             b2Body b2Body = self.GetBody(instanceId);
             b2Body.SetEnable(enable);
         }
+        
         #endregion
         
         public static void Step(this b2WorldManager self)

@@ -16,7 +16,8 @@ namespace ET.Client
         public override void Handle(UpdateHitboxCallback args)
         {
             TimelineComponent timelineComponent = Root.Instance.Get(args.instanceId) as TimelineComponent;
-            b2Body b2Body = b2WorldManager.Instance.GetBody(timelineComponent.GetParent<Unit>().InstanceId);
+            Unit unit = timelineComponent.GetParent<Unit>();
+            b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
             if (args.Keyframe == null)
             {
                 return;

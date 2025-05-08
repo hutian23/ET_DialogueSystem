@@ -14,6 +14,15 @@ namespace ET.Client
             }
         }
 
+        public class B2UnitDestroySystem : DestroySystem<B2Unit>
+        {
+            protected override void Destroy(B2Unit self)
+            {
+                EventSystem.Instance.Invoke(new DisposeB2bodyCallback() { instanceId = self.unitId });
+                self.unitId = 0;
+            }
+        }
+        
         public class B2UnitPreStepSystem : PreStepSystem<B2Unit>
         {
             protected override void PreStepUpdate(B2Unit self)

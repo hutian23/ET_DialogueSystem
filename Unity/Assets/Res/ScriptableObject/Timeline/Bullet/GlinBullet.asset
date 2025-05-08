@@ -10,16 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c5b3524ad82f7148a06c6c02bdf2e1a, type: 3}
-  m_Name: Glin
+  m_Name: GlinBullet
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 0d3f41799ae6b2a468fbb59c6c3bb8e6, type: 2}
-    - {fileID: 11400000, guid: d989c1ec93f50b34b9343bcc2560beb5, type: 2}
-    - {fileID: 11400000, guid: 2017b0ca67ef0514692dec88934e147f, type: 2}
-    - {fileID: 11400000, guid: 1fe0e01a363da374c8c18e2c109a0aaa, type: 2}
+    - {fileID: 11400000, guid: 4a6d5a83cb964934e9b11ec479034211, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -38,52 +35,16 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 1
     - Name: 
       Entry: 7
       Data: 
     - Name: $k
       Entry: 1
-      Data: Glin_Slash
+      Data: GlinBullet_Idle
     - Name: $v
       Entry: 10
       Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Glin_Capespike
-    - Name: $v
-      Entry: 10
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Glin_AirDash
-    - Name: $v
-      Entry: 10
-      Data: 2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Glin_Cast
-    - Name: $v
-      Entry: 10
-      Data: 3
     - Name: 
       Entry: 8
       Data: 
