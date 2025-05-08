@@ -60,6 +60,12 @@ namespace Timeline
         public Vector2 velocity;
     }
 
+    public struct UpdateRotationCallback
+    {
+        public long instanceId;
+        public Vector3 eulerAngles;
+    }
+    
     public class RuntimeAnimationTrack: RuntimeTrack
     {
         public BBAnimationTrack AnimationTrack => Track as BBAnimationTrack;
@@ -168,29 +174,36 @@ namespace Timeline
             int clipInFrame = targetFrame - Clip.StartFrame;
             ClipPlayable.SetTime(clipInFrame / 60f);
             PrepareFrame(default, default);
-
-            //Edit mode ---> play animation curve
+            
             TimelinePlayer timelinePlayer = runtimePlayable.TimelinePlayer;
             BBAnimationClip animationClip = Clip as BBAnimationClip;
-
+            
+            //Edit mode ---> play animation curve
             if (!timelinePlayer.HasBindUnit)
             {
                 if (timelinePlayer.ApplyRootMotion)
                 {
                     timelinePlayer.transform.localPosition = animationClip.CurrentPosition(clipInFrame);   
                 }
+                timelinePlayer.transform.localEulerAngles = animationClip.CurrentRotation(clipInFrame);
             }
             //Runtime mode ---> invoke update trans callback
             else
             {
                 Vector3 pos = animationClip.CurrentPosition(clipInFrame + 1);
                 Vector3 prePos = animationClip.CurrentPosition(clipInFrame);
-                //dv = dx / dt 
-                Vector3 velocity = (pos - prePos) * 60;
+                Vector3 velocity = (pos - prePos) * 60; // dv = dx / dt 
 
+                // 更新速度
                 EventSystem.Instance.Invoke(new UpdateRootMotionCallback()
                 {
                     instanceId = timelinePlayer.instanceId, velocity = velocity
+                });
+                
+                // 更新朝向
+                EventSystem.Instance.Invoke(new UpdateRotationCallback()
+                {
+                    instanceId = timelinePlayer.instanceId, eulerAngles = animationClip.CurrentRotation(clipInFrame)
                 });
             }
         }

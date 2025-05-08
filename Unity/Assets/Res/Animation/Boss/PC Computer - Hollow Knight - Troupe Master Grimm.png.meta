@@ -1699,6 +1699,531 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Pillar_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 7217
+        width: 249
+        height: 898
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7b6af9cef3558043bc63aa70947a4bb
+      internalID: 11226741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pillar_2
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 7217
+        width: 249
+        height: 898
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 110dd69b33e2d44488f6b19fb29e74fe
+      internalID: 1326170797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pillar_3
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 7217
+        width: 249
+        height: 898
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5177e5fe87a730548af15e38bf271b7d
+      internalID: 1637662626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pillar_4
+      rect:
+        serializedVersion: 2
+        x: 766
+        y: 7217
+        width: 249
+        height: 898
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c355ff559f2b1474ab085e8f61dfc66a
+      internalID: -1035578791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pillar_5
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 7217
+        width: 249
+        height: 898
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 429b01080cac64b47824827c2dae2c5b
+      internalID: -619571979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pillar_6
+      rect:
+        serializedVersion: 2
+        x: 1274
+        y: 7218
+        width: 249
+        height: 897
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f85659d5d91df8d4b9986ce115066af2
+      internalID: -455997080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AirDash_Anticipate_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 4613
+        width: 267
+        height: 438
+      alignment: 9
+      pivot: {x: 0.4494382, y: 0.6849315}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aafa834f488db1c48acf9fb9d2c40e3c
+      internalID: -202930013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AirDash_Anticipate_2
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 4613
+        width: 267
+        height: 438
+      alignment: 9
+      pivot: {x: 0.4494382, y: 0.6849315}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6e6d9c652ff39243acdc0baed4340b1
+      internalID: -1217340851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AirDash_Anticipate_3
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 4613
+        width: 267
+        height: 438
+      alignment: 9
+      pivot: {x: 0.4494382, y: 0.6849315}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a0037a86043c54459727e0bc8cb00cc
+      internalID: -1714452685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AirDash_Anticipate_4
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 4613
+        width: 267
+        height: 438
+      alignment: 9
+      pivot: {x: 0.4494382, y: 0.6849315}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f69f2a3f69115d41915812ede1ad7a9
+      internalID: 335645149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AirDash_Anticipate_5
+      rect:
+        serializedVersion: 2
+        x: 1092
+        y: 4613
+        width: 267
+        height: 438
+      alignment: 9
+      pivot: {x: 0.4494382, y: 0.6849315}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bed90b905d4c1d248b00258e950aeb15
+      internalID: -92470757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AirDash_Anticipate_6
+      rect:
+        serializedVersion: 2
+        x: 1364
+        y: 4613
+        width: 267
+        height: 438
+      alignment: 9
+      pivot: {x: 0.4494382, y: 0.6849315}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7522973dd10baf0488572e709f7b3f28
+      internalID: -257375609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AirDash_Anticipate_7
+      rect:
+        serializedVersion: 2
+        x: 1636
+        y: 4613
+        width: 267
+        height: 438
+      alignment: 9
+      pivot: {x: 0.4494382, y: 0.6849315}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4733238243f9f024fb4810469a8bc553
+      internalID: -1162294454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AirDash_Active_1
+      rect:
+        serializedVersion: 2
+        x: 1940
+        y: 4632
+        width: 167
+        height: 419
+      alignment: 9
+      pivot: {x: 0.53892213, y: 0.6682578}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd37dab82c4354c488105a922309c694
+      internalID: -1372922525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AirDash_Active_2
+      rect:
+        serializedVersion: 2
+        x: 2113
+        y: 4632
+        width: 166
+        height: 419
+      alignment: 9
+      pivot: {x: 0.5421687, y: 0.6682578}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f811f75aff34094e9984127cf062ead
+      internalID: -1102999915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AirDash_Active_3
+      rect:
+        serializedVersion: 2
+        x: 2284
+        y: 4632
+        width: 167
+        height: 419
+      alignment: 9
+      pivot: {x: 0.53892213, y: 0.6682578}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26771acd21aee904cb8e3da314ca160e
+      internalID: -580009307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroundDash_Anticipate_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 4279
+        width: 407
+        height: 310
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6451613}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55bf46efdb130be42b4cc7ce72a93d62
+      internalID: -935842991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroundDash_Anticipate_2
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 4279
+        width: 406
+        height: 310
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6451613}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adc389925c19fda4196456c60a1272ef
+      internalID: 799703058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroundDash_Anticipate_3
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 4279
+        width: 407
+        height: 310
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6451613}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51fa8ed12079c5b49bacfa4ba0847fb7
+      internalID: 287574524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroundDash_Anticipate_4
+      rect:
+        serializedVersion: 2
+        x: 1240
+        y: 4279
+        width: 407
+        height: 310
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6451613}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c7387ed22dcc8c4e81ece00032556f0
+      internalID: -103561556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroundDash_Active_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 3992
+        width: 707
+        height: 263
+      alignment: 9
+      pivot: {x: 0.6364922, y: 0.76045626}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39c4238099e8fe94082126af18761c0c
+      internalID: 771798175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroundDash_Active_2
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 3992
+        width: 707
+        height: 263
+      alignment: 9
+      pivot: {x: 0.6364922, y: 0.76045626}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b928affd84c7a645bd12c6e6f90fccb
+      internalID: 415747465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroundDash_Active_3
+      rect:
+        serializedVersion: 2
+        x: 1428
+        y: 3992
+        width: 707
+        height: 263
+      alignment: 9
+      pivot: {x: 0.6364922, y: 0.76045626}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c634c72776780e48a6836303d65f358
+      internalID: -682968255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroundDash_Active_4
+      rect:
+        serializedVersion: 2
+        x: 2140
+        y: 3992
+        width: 707
+        height: 263
+      alignment: 9
+      pivot: {x: 0.6364922, y: 0.76045626}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ba92051dfc0e444cbd06586ad46b8a9
+      internalID: 1567759941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Troupe Master Grimm_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 3402
+        width: 449
+        height: 566
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e1f2420a9bd99643b49033c16c08545
+      internalID: -989844064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1710,6 +2235,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      AirDash_Active_1: -1372922525
+      AirDash_Active_2: -1102999915
+      AirDash_Active_3: -580009307
+      AirDash_Anticipate_1: -202930013
+      AirDash_Anticipate_2: -1217340851
+      AirDash_Anticipate_3: -1714452685
+      AirDash_Anticipate_4: 335645149
+      AirDash_Anticipate_5: -92470757
+      AirDash_Anticipate_6: -257375609
+      AirDash_Anticipate_7: -1162294454
       Bow_1: -1641891047
       Bow_2: -1489986228
       Bow_3: -540738116
@@ -1735,6 +2270,14 @@ TextureImporter:
       Cast_6: -232854880
       Cast_7: -2033546589
       Cast_8: 917646835
+      GroundDash_Active_1: 771798175
+      GroundDash_Active_2: 415747465
+      GroundDash_Active_3: -682968255
+      GroundDash_Active_4: 1567759941
+      GroundDash_Anticipate_1: -935842991
+      GroundDash_Anticipate_2: 799703058
+      GroundDash_Anticipate_3: 287574524
+      GroundDash_Anticipate_4: -103561556
       Idle_1: 941579680
       Idle_10: 823632318
       Idle_11: 748048021
@@ -1747,6 +2290,13 @@ TextureImporter:
       Idle_7: 719151919
       Idle_8: -770638817
       Idle_9: 463663235
+      PC Computer - Hollow Knight - Troupe Master Grimm_0: -989844064
+      Pillar_1: 11226741
+      Pillar_2: 1326170797
+      Pillar_3: 1637662626
+      Pillar_4: -1035578791
+      Pillar_5: -619571979
+      Pillar_6: -455997080
       Slash_1: -611117121
       Slash_10: 799995478
       Slash_2: 582400235

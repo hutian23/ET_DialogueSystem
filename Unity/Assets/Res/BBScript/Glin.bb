@@ -1,6 +1,7 @@
 [Root]
 @RootInit:
 GlinInit;
+EnableAirCheck;
 SetPos: 0, -100000;
 PoolObject: GlinSpike, 3;
 RegistMove: (Glin_Slash)
@@ -9,7 +10,12 @@ EndMove:
 RegistMove: (Glin_Capespike)
   MoveType: Normal;
 EndMove:
-GotoBehavior: Glin_Capespike;
+RegistMove: (Glin_AirDash)
+  MoveType: Normal;
+EndMove:
+# GotoBehavior: Glin_Capespike;
+# GotoBehavior: Glin_Slash;
+GotoBehavior: Glin_AirDash;
 return;
 
 [Glin_Slash]
@@ -92,4 +98,57 @@ BBSprite: Capespike_4, 5;
 BBSprite: Capespike_3, 5;
 BBSprite: Capespike_2, 5;
 BBSprite: Capespike_1, 5;
+Exit;
+
+[Glin_AirDash]
+@Trigger:
+return;
+
+@Main:
+SetVelocity: 0, 0;
+SetPos: 0, 50000;
+# AirDash Start
+BBSprite: AirDash_Anticipate_1, 3;
+BBSprite: AirDash_Anticipate_2, 3;
+BBSprite: AirDash_Anticipate_3, 3;
+BBSprite: AirDash_Anticipate_4, 3;
+BBSprite: AirDash_Anticipate_5, 3;
+BBSprite: AirDash_Anticipate_6, 3;
+BBSprite: AirDash_Anticipate_7, 3;
+# AirDash Active
+ApplyRotation: true;
+SetVelocity: 450000, -700000;
+BeginLoop: (InAir: true)
+  BBSprite: AirDash_Active_1, 4;
+  BBSprite: AirDash_Active_2, 4;
+  BBSprite: AirDash_Active_3, 4;
+EndLoop:
+ApplyRotation: false;
+# GroundDash Start
+SetVelocity: 0, 0;
+ScreenShake: 1550, 550, 10000, 15;
+BBSprite: GroundDash_Anticipate_1, 5;
+BBSprite: GroundDash_Anticipate_2, 5;
+BBSprite: GroundDash_Anticipate_3, 5;
+BBSprite: GroundDash_Anticipate_4, 10;
+# GroundDash Active
+SetVelocityX: 100000;
+BBSprite: GroundDash_Active_1, 1;
+SetVelocityX: 400000;
+BBSprite: GroundDash_Active_1, 1;
+SetVelocityX: 700000;
+BBSprite: GroundDash_Active_1, 1;
+SetVelocityX: 800000;
+BBSprite: GroundDash_Active_1, 1;
+SetVelocityX: 850000;
+BBSprite: GroundDash_Active_2, 4;
+BBSprite: GroundDash_Active_3, 4;
+BBSprite: GroundDash_Active_4, 4;
+SetVelocityX: 200000;
+BBSprite: GroundDash_Anticipate_1, 5;
+SetVelocityX: 80000;
+BBSprite: GroundDash_Anticipate_2, 5;
+SetVelocityX: 0;
+BBSprite: GroundDash_Anticipate_3, 5;
+BBSprite: GroundDash_Anticipate_4, 7;
 Exit;

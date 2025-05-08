@@ -772,6 +772,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Glin
       objectReference: {fileID: 0}
+    - target: {fileID: 2590399751512662588, guid: 1e967154c1c675c4db4fc8fe00e0426f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3232430713921780771, guid: 1e967154c1c675c4db4fc8fe00e0426f,
         type: 3}
       propertyPath: CurrentTimeline
@@ -784,11 +789,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3232430713921780771, guid: 1e967154c1c675c4db4fc8fe00e0426f,
         type: 3}
+    - target: {fileID: 6784489107827199543, guid: 1e967154c1c675c4db4fc8fe00e0426f,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7943463070172916650, guid: 1e967154c1c675c4db4fc8fe00e0426f,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1563338036, guid: 164326bd0c55b6d48adffadca289d667,
+      objectReference: {fileID: 771798175, guid: 164326bd0c55b6d48adffadca289d667,
         type: 3}
     - target: {fileID: 8900287240697859852, guid: 1e967154c1c675c4db4fc8fe00e0426f,
         type: 3}
