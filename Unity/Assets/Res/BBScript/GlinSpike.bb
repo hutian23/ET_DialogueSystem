@@ -1,7 +1,6 @@
 [Root]
 @RootInit:
 BulletInit;
-SetPos: -50000, -120000;
 RegistMove: (GlinSpike_Idle)
   MoveType: None;
 EndMove:
@@ -27,4 +26,5 @@ BBSprite: Down_1, 4;
 BBSprite: Down_2, 4;
 BBSprite: Down_3, 4;
 BBSprite: Down_4, 4;
+BBSprite: Down_5, 4;
 Dispose;

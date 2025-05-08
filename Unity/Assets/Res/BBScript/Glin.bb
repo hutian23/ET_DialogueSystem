@@ -2,15 +2,14 @@
 @RootInit:
 GlinInit;
 SetPos: 0, -100000;
+PoolObject: GlinSpike, 3;
 RegistMove: (Glin_Slash)
   MoveType: Normal;
 EndMove:
-# RegistMove: (Glin_Capespike)
-#   MoveType: Normal;
-# EndMove:
-PoolObject: GlinSpike, 10;
-# GotoBehavior: Glin_Capespike;
-GotoBehavior: Glin_Slash;
+RegistMove: (Glin_Capespike)
+  MoveType: Normal;
+EndMove:
+GotoBehavior: Glin_Capespike;
 return;
 
 [Glin_Slash]
@@ -18,7 +17,7 @@ return;
 return;
 
 @Main:
-SetPos: 0, -100000;
+SetPos: 100000, -100000;
 BBSprite: Slash_1, 4;
 BBSprite: Slash_2, 4;
 BBSprite: Slash_3, 4;
@@ -78,12 +77,13 @@ BBSprite: Capespike_7, 5;
 ScreenShake: 450, 0, 8000, 10;
 BBSprite: Capespike_8, 5;
 # Cast Spike
-GlinSpike: 10, 45000;
 RegistCounter: 150;
+CastGlinSpike: 0, -3000;
 BeginLoop: (Counter: Value > 0)
   BBSprite: Capespike_9, 7;
   BBSprite: Capespike_10, 7;
 EndLoop:
+# Cast End
 BBSprite: Capespike_8, 5;
 BBSprite: Capespike_7, 5;
 BBSprite: Capespike_6, 5;
