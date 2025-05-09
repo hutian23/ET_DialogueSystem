@@ -10,14 +10,14 @@
             HertzAbility hertzAbility = Root.Instance.Get(args.instanceId) as HertzAbility;
             Unit unit = hertzAbility.GetParent<BuffManager>().GetParent<Unit>();
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
-            B2Unit b2Unit = unit.GetComponent<B2Unit>();
+            b2Body b2Body = unit.GetComponent<b2Body>();
 
             //2. 更新战斗定时器Hertz
             bbTimer.SetHertz(args.hertz);
             bbTimer.Accumulator = 0;
 
             //3. 移速随Hertz缩放
-            b2Unit.SetHertz(args.hertz);
+            b2Body.SetHertz(args.hertz);
         }
     }
 }

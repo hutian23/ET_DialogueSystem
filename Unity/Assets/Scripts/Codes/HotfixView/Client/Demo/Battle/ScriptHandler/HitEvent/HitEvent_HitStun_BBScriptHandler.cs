@@ -25,7 +25,7 @@ namespace ET.Client
             CollisionInfo info = parser.GetComponent<HitComponent>().GetInfo();
             
             b2Body _body = Root.Instance.Get(info.dataB.InstanceId) as b2Body;
-            Unit _unit = Root.Instance.Get(_body.unitId) as Unit;
+            Unit _unit = _body.GetParent<Unit>();
             BehaviorMachine _machine = _unit.GetComponent<BehaviorMachine>();
             BehaviorInfo _info = _machine.GetInfoByFlag(match.Groups["hitFlag"].Value);
             

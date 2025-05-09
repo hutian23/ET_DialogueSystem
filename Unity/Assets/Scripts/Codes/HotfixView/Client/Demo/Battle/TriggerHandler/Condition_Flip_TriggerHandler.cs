@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using Timeline;
 
 namespace ET.Client
 {
@@ -20,8 +19,7 @@ namespace ET.Client
                 return false;
             }
 
-            Unit unit = parser.GetParent<Unit>();
-            b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
+            b2Body body = parser.GetParent<Unit>().GetComponent<b2Body>();
             FlipState checkFlip = match.Groups["Flip"].Value.Equals("Left")? FlipState.Left : FlipState.Right;
             return body.GetFlip() == (int)checkFlip;
         }

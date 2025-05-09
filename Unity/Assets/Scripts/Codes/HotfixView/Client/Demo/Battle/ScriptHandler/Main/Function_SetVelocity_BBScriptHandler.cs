@@ -24,9 +24,9 @@ namespace ET.Client
                 Log.Error($"cannot format {match.Groups["Velocity"].Value} to long");
                 return Status.Failed;
             }
-            
-            B2Unit b2Unit = parser.GetParent<Unit>().GetComponent<B2Unit>();
-            b2Unit.SetVelocity(new Vector2(velocityX, velocityY) / 10000f);
+
+            b2Body body = parser.GetParent<Unit>().GetComponent<b2Body>();
+            body.SetVelocity(new Vector2(velocityX, velocityY) / 10000f);
             
             await ETTask.CompletedTask;
             return Status.Success;

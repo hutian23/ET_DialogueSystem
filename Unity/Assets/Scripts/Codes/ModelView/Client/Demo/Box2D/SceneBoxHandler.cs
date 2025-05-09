@@ -3,7 +3,7 @@ using ET.Event;
 
 namespace ET.Client
 {
-    [ComponentOf(typeof(BBParser))]
+    [ComponentOf(typeof(Unit))]
     public class SceneBoxHandler : Entity, IAwake, IDestroy, IPostStep, IGizmosUpdate
     {
         public Queue<CollisionInfo> TriggerEnterQueue = new();

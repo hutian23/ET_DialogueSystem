@@ -32,7 +32,7 @@
         {
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
-            B2Unit b2Unit = unit.GetComponent<B2Unit>();
+            b2Body b2Body = unit.GetComponent<b2Body>();
             
             while (self.curVel > 0f)
             {
@@ -41,10 +41,10 @@
 
                 float dv = self.friction * (1 / 60f);
                 self.curVel -= dv;
-                b2Unit.SetVelocityX(self.direction * self.curVel);
+                b2Body.SetVelocityX(self.direction * self.curVel);
             }
             
-            b2Unit.SetVelocityX(0);
+            b2Body.SetVelocityX(0);
             self.Dispose();
         }
     }

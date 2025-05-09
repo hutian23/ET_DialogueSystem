@@ -26,7 +26,7 @@
         {
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
             InputWait inputWait = unit.GetComponent<InputWait>();
-            B2Unit b2Unit = unit.GetComponent<B2Unit>();
+            b2Body b2Body = unit.GetComponent<b2Body>();
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
 
             while (true)
@@ -36,7 +36,7 @@
 
                 //输入左右相关的指令才会生效水平移动的效果
                 bool direction = inputWait.IsPressing(BBOperaType.MIDDLE) || inputWait.IsPressing(BBOperaType.UP) || inputWait.IsPressing(BBOperaType.DOWN);
-                b2Unit.SetVelocityX(direction? 0 : self.vel);
+                b2Body.SetVelocityX(direction? 0 : self.vel);
             }
         }
     }

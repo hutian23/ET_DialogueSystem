@@ -8,7 +8,6 @@ namespace ET.Client
     public static class HitComponentSystem
     {
         [Invoke(BBTimerInvokeType.HitNotifyTimer)]
-        [FriendOf(typeof(B2Unit))]
         [FriendOf(typeof(b2Body))]
         [FriendOf(typeof(BBParser))]
         [FriendOf(typeof(HitComponent))]
@@ -17,11 +16,11 @@ namespace ET.Client
             protected override void Run(BBParser self)
             {
                 //1. 相关组件
-                B2Unit b2Unit = self.GetParent<Unit>().GetComponent<B2Unit>();
                 HitComponent hit = self.GetComponent<HitComponent>();
-
+                b2Body b2Body = self.GetParent<Unit>().GetComponent<b2Body>();
+                
                 //2. 获取缓冲区中的碰撞数据
-                Queue<CollisionInfo> infoQueue = b2Unit.TriggerBuffer;
+                Queue<CollisionInfo> infoQueue = b2Body.TriggerStayBuffer;
                 int count = infoQueue.Count;
                 while (count-- > 0)
                 {
@@ -34,12 +33,12 @@ namespace ET.Client
                     if (infoA.hitboxType is not HitboxType.Hit || infoB.hitboxType is not HitboxType.Hurt || info.dataB.InstanceId == 0) continue;
 
                     //4. 根据instanceId找到对应unit
-                    b2Body b2Body = Root.Instance.Get(info.dataB.InstanceId) as b2Body;
-                    Unit unit = Root.Instance.Get(b2Body.unitId) as Unit;
+                    b2Body bodyB = Root.Instance.Get(info.dataB.InstanceId) as b2Body;
+                    Unit unitB = bodyB.GetParent<Unit>();
 
                     //5. 如果受击的Unit已经触发过该攻击回调，是否还要再次调用?
-                    if (hit.buffSet.Contains(unit.InstanceId) && hit.checkType.Equals("Once")) continue;
-                    hit.buffSet.Add(unit.InstanceId);
+                    if (hit.buffSet.Contains(unitB.InstanceId) && hit.checkType.Equals("Once")) continue;
+                    hit.buffSet.Add(unitB.InstanceId);
 
                     //6. 把碰撞信息注册到共享变量中，供代码块使用
                     hit.curInfo = info;

@@ -1,59 +1,116 @@
-﻿using System.Numerics;
-using Box2DSharp.Collision.Shapes;
+﻿using Box2DSharp.Collision.Shapes;
+using Box2DSharp.Common;
 using Box2DSharp.Dynamics;
 using Timeline;
+using Vector2 = System.Numerics.Vector2;
 
 namespace ET.Client
 {
     [FriendOf(typeof(b2Body))]
     public static class b2BodySystem
     {
-        [FriendOf(typeof(b2WorldManager))]
+        // 创建刚体
+        public class b2BodyAwakeSystem: AwakeSystem<b2Body, BodyDef>
+        {
+            protected override void Awake(b2Body self, BodyDef bodyDef)
+            {
+                self.body = b2WorldManager.Instance.CreateBody(bodyDef);
+            }
+        }
+        
         public class b2BodyDestroySystem : DestroySystem<b2Body>
         {
             protected override void Destroy(b2Body self)
             {
-                //PreStep生命周期中移除body
-                b2WorldManager.Instance.DisposeQueue.Enqueue(self.body);
                 self.body = null;
-                self.unitId = 0;
                 self.Fixtures.Clear();
                 self.FixtureDict.Clear();
-                self.trans = default;
+                
                 self.Flip = FlipState.Left;
+                self.VelocityX = 0f;
+                self.VelocityY = 0f;
+                self.Hertz = 60;
+                
+                self.TriggerEnterBuffer.Clear();
+                self.TriggerStayBuffer.Clear();
+                self.TriggerExitBuffer.Clear();
+                self.CollisionEnterBuffer.Clear();
+                self.CollisionStayBuffer.Clear();
+                self.CollisionExitBuffer.Clear();
             }
         }
 
+        public class B2bodyPreStepSystem : PreStepSystem<b2Body>
+        {
+            protected override void PreStepUpdate(b2Body self)
+            {
+                self.SetLinearVelocity(new Vector2(-self.VelocityX, self.VelocityY));
+            }
+        }
+        
         public class B2bodyPostStepSystem : PostStepSystem<b2Body>
         {
             protected override void PosStepUpdate(b2Body self)
             {
-                //渲染层同步逻辑层刚体的位置
+                //1. 渲染层同步逻辑层刚体的位置
                 self.SyncTrans();
             }
         }
 
+        public class B2bodyLateUpdateSystem : FrameLateUpdateSystem<b2Body>
+        {
+            protected override void FrameLateUpdate(b2Body self)
+            {
+                //2. 清空当前帧缓冲区
+                self.TriggerEnterBuffer.Clear();
+                self.TriggerStayBuffer.Clear();
+                self.TriggerExitBuffer.Clear();
+                
+                self.CollisionEnterBuffer.Clear();
+                self.CollisionStayBuffer.Clear();
+                self.CollisionExitBuffer.Clear();
+            }
+        }
+        
         private static void SyncTrans(this b2Body self)
         {
-            //同步渲染层GameObject和逻辑层b2World中刚体的位置旋转信息
-            self.trans = self.body.GetTransform();
-            Unit unit = Root.Instance.Get(self.unitId) as Unit;
-            UnityEngine.GameObject go = unit.GetComponent<GameObjectComponent>().GameObject;
-            
-            go.transform.position = self.trans.Position.ToUnityVector3();
-            go.transform.eulerAngles = new UnityEngine.Vector3(0, 0, self.trans.Rotation.Angle * UnityEngine.Mathf.Rad2Deg);
+            UnityEngine.GameObject go = self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject;
+
+            Transform trans = self.body.GetTransform();
+            go.transform.position = trans.Position.ToUnityVector3();
+            go.transform.eulerAngles = new UnityEngine.Vector3(0, 0, trans.Rotation.Angle * UnityEngine.Mathf.Rad2Deg);
             go.transform.localScale = new UnityEngine.Vector3(self.GetFlip(), 1, 1);
+        }
+
+        #region Velocity
+        //真实速度 = 当前帧速度 * 朝向 * TimeScale
+        public static void SetLinearVelocity(this b2Body self, Vector2 velocity)
+        {
+            self.body.SetLinearVelocity(velocity * (self.Hertz / 60f) * new Vector2(self.GetFlip(), 1));
         }
         
         public static Vector2 GetVelocity(this b2Body self)
         {
-            return self.body.LinearVelocity;
+            return new Vector2(self.VelocityX, self.VelocityY);
         }
 
         public static void SetVelocity(this b2Body self, Vector2 value)
         {
-            self.body.SetLinearVelocity(value);
+            //真实速度 = 当前帧速度 * 朝向 * TimeScale
+            self.VelocityX = value.X;
+            self.VelocityY = value.Y;
         }
+        
+        public static void SetVelocityY(this b2Body self, float velocityY)
+        {
+            self.SetVelocity(new Vector2(self.VelocityX, velocityY));
+        }
+
+        public static void SetVelocityX(this b2Body self, float velocityX)
+        {
+            self.SetVelocity(new Vector2(velocityX, self.VelocityY));
+        }
+        #endregion
 
         /// <summary>
         /// 激活刚体
@@ -64,7 +121,8 @@ namespace ET.Client
         {
             self.body.IsEnabled = isEnable;
         }
-        
+
+        #region Flip
         /// <summary>
         /// 设置刚体朝向，渲染层同步朝向
         /// </summary>
@@ -118,7 +176,9 @@ namespace ET.Client
         {
             return (int)self.Flip;
         }
+        #endregion
 
+        #region Position
         public static void SetPosition(this b2Body self, Vector2 position)
         {
             self.body.SetTransform(position, 0f);
@@ -128,7 +188,20 @@ namespace ET.Client
         {
             return self.body.GetPosition();
         }
+        #endregion
 
+        #region Hertz
+        public static int GetHertz(this b2Body self)
+        {
+            return self.Hertz;
+        }
+
+        public static void SetHertz(this b2Body self, int hertz)
+        {
+            self.Hertz = hertz;
+        }
+        #endregion
+        
         #region Fixture
         private static void DestroyFixture(this b2Body self, string fixtureName)
         {

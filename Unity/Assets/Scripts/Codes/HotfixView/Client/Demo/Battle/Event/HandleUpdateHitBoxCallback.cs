@@ -7,7 +7,6 @@ using Timeline;
 namespace ET.Client
 {
     [Invoke]
-    [FriendOf(typeof(B2Unit))]
     [FriendOf(typeof(b2Body))]
     [FriendOf(typeof(b2WorldManager))]
     //HitboxTrack的回调
@@ -17,7 +16,7 @@ namespace ET.Client
         {
             TimelineComponent timelineComponent = Root.Instance.Get(args.instanceId) as TimelineComponent;
             Unit unit = timelineComponent.GetParent<Unit>();
-            b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
+            b2Body b2Body = unit.GetComponent<b2Body>();
             if (args.Keyframe == null)
             {
                 return;
@@ -44,8 +43,8 @@ namespace ET.Client
                         LayerMask = LayerType.Unit,
                         IsTrigger = info.hitboxType is not HitboxType.Squash,
                         UserData = info,
-                        TriggerStayId = TriggerStayType.TriggerEvent,
-                        CollisionStayId = CollisionStayType.CollisionEvent
+                        TriggerStayId = TriggerStayType.HandleCallback,
+                        CollisionStayId = CollisionStayType.HandleCallback,
                     }
                 };
                 b2Body.CreateFixture(fixtureDef);

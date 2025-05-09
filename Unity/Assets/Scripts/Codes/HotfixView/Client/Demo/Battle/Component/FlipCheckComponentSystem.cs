@@ -1,6 +1,4 @@
-﻿using Timeline;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     [FriendOf(typeof(FlipCheckComponent))]
     public static class FlipCheckComponentSystem
@@ -26,7 +24,7 @@ namespace ET.Client
         {                       
             //1. 查询组件
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
-            b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
+            b2Body body = unit.GetComponent<b2Body>();
             InputWait inputWait = unit.GetComponent<InputWait>();
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
 

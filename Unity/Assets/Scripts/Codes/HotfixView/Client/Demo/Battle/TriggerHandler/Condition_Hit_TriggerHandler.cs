@@ -3,7 +3,7 @@ using Timeline;
 
 namespace ET.Client
 {
-    [FriendOf(typeof(B2Unit))]
+    [FriendOf(typeof(b2Body))]
     public class Condition_Hit_TriggerHandler : BBTriggerHandler
     {
         public override string GetTriggerType()
@@ -15,14 +15,14 @@ namespace ET.Client
         //RegistCallback: (Hit: xxx), 'HitCheck'
         public override bool Check(BBParser parser, BBScriptData data)
         {
-            B2Unit b2Unit = parser.GetParent<Unit>().GetComponent<B2Unit>();
-            
-            int count = b2Unit.TriggerBuffer.Count;
+            b2Body b2Body = parser.GetParent<Unit>().GetComponent<b2Body>();
+
+            int count = b2Body.TriggerStayBuffer.Count;
             while (count-- > 0)
             {
-                CollisionInfo info = b2Unit.TriggerBuffer.Dequeue();
-                b2Unit.TriggerBuffer.Enqueue(info);
-                
+                CollisionInfo info = b2Body.TriggerStayBuffer.Dequeue();
+                b2Body.TriggerStayBuffer.Enqueue(info);
+
                 BoxInfo boxInfoA = info.dataA.UserData as BoxInfo;
                 BoxInfo boxInfoB = info.dataB.UserData as BoxInfo;
                 if (boxInfoA.hitboxType is HitboxType.Hit && boxInfoB.hitboxType is HitboxType.Hurt)

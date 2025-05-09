@@ -9,8 +9,8 @@ using Timeline;
 namespace ET.Client
 {
     [Invoke(BBTimerInvokeType.TimeFrozeCheckTimer)]
-    [FriendOf(typeof(B2Unit))]
-    [FriendOf(typeof(b2Body))]
+    // [FriendOf(typeof(B2Unit))]
+    // [FriendOf(typeof(b2Body))]
     public class TimeFrozeCheckTimer : BBTimer<BBParser>
     {
         protected override void Run(BBParser self)

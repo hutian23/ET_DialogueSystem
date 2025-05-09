@@ -1,4 +1,6 @@
-﻿namespace ET.Client
+﻿using Box2DSharp.Dynamics;
+
+namespace ET.Client
 {
     public class RootInit_PlayerInit_BBScriptHandler : BBScriptHandler
     {
@@ -18,7 +20,15 @@
             player.AddComponent<BBTimerComponent>().IsUnitTimer();
             player.AddComponent<BBNumeric>();
             player.AddComponent<BehaviorMachine>();
-            player.AddComponent<B2Unit, long>(player.InstanceId);
+            player.AddComponent<b2Body, BodyDef>(new BodyDef()
+            { 
+                BodyType = BodyType.DynamicBody,
+                GravityScale = 0f,
+                LinearDamping = 0f,
+                AngularDamping = 0f,
+                AllowSleep = true,
+                FixedRotation = true,
+            });
             player.AddComponent<ObjectWait>();
             player.AddComponent<InputWait>();
             

@@ -4,7 +4,6 @@ namespace ET.Client
 {
     [Invoke]
     [FriendOf(typeof(b2Body))]
-    [FriendOf(typeof(B2Unit))]
     public class HandleUpdateRootMotionCallback : AInvokeHandler<UpdateRootMotionCallback>
     {
         public override void Handle(UpdateRootMotionCallback args)

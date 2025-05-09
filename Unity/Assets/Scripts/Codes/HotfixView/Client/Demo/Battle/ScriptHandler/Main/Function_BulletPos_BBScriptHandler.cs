@@ -25,9 +25,11 @@ namespace ET.Client
                 return Status.Failed;
             }
             
+            b2Body bodyA = parser.GetParent<Unit>().GetComponent<b2Body>();
+            
             long instanceId = parser.GetParam<long>("CreateBullet_UnitId");
-            b2Body bodyA = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
-            b2Body bodyB = b2WorldManager.Instance.GetBody(instanceId);
+            Unit unit = Root.Instance.Get(instanceId) as Unit;
+            b2Body bodyB = unit.GetComponent<b2Body>();
             
             //1. Caster Position
             Vector2 pos = bodyA.GetPosition();

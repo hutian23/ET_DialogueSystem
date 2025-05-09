@@ -13,7 +13,7 @@
             
             //1. 切换行为时，根据按键输入更新朝向
             InputWait inputWait = unit.GetComponent<InputWait>();
-            b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
+            b2Body body = unit.GetComponent<b2Body>();
             if (inputWait.IsPressing(BBOperaType.LEFT) ||
                 inputWait.IsPressing(BBOperaType.DOWNLEFT) ||
                 inputWait.IsPressing(BBOperaType.UPLEFT))

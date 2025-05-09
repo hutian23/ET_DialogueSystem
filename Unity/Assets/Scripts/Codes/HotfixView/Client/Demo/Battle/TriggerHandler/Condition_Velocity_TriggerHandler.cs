@@ -25,10 +25,9 @@ namespace ET.Client
                 return false;
             }
             
-            Unit unit = parser.GetParent<Unit>();
-            B2Unit b2Unit = unit.GetComponent<B2Unit>();
+            b2Body b2Body = parser.GetParent<Unit>().GetComponent<b2Body>();
 
-            float _targetValue = match.Groups["XY"].Value.Equals("X")? b2Unit.GetVelocity().X : b2Unit.GetVelocity().Y;
+            float _targetValue = match.Groups["XY"].Value.Equals("X")? b2Body.GetVelocity().X : b2Body.GetVelocity().Y;
             long targetVel = (long)(_targetValue * 10000);
             
             switch (match.Groups["Sign"].Value)

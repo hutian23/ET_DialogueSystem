@@ -24,9 +24,8 @@ namespace ET.Client
                 Log.Error($"cannot format {match.Groups["Position"].Value} to long !!!");
                 return false;
             }
-            
-            Unit unit = parser.GetParent<Unit>();
-            b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
+
+            b2Body b2Body = parser.GetParent<Unit>().GetComponent<b2Body>();
 
             float _targetValue = match.Groups["XY"].Value.Equals("X")? b2Body.GetPosition().X : b2Body.GetPosition().Y;
             long targetPosition = (long)(_targetValue * 10000);

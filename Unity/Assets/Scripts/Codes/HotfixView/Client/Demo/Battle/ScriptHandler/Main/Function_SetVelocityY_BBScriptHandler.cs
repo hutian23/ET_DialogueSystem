@@ -24,8 +24,8 @@ namespace ET.Client
                 return Status.Failed;
             }
             
-            B2Unit b2Unit = parser.GetParent<Unit>().GetComponent<B2Unit>();
-            b2Unit.SetVelocityY(velocity / 10000f);
+            b2Body body = parser.GetParent<Unit>().GetComponent<b2Body>();
+            body.SetVelocityY(velocity / 10000f);
             
             await ETTask.CompletedTask;
             return Status.Success;

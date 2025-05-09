@@ -14,10 +14,10 @@ namespace ET.Client
         {
             CollisionInfo info = parser.GetComponent<HitComponent>().GetInfo();
             b2Body bodyB = Root.Instance.Get(info.dataB.InstanceId) as b2Body;
-            Unit unit = Root.Instance.Get(bodyB.unitId) as Unit;
+            Unit unitB = bodyB.GetParent<Unit>();
 
             parser.TryRemoveParam("TargetBind");
-            parser.RegistParam("TargetBind", unit.InstanceId);
+            parser.RegistParam("TargetBind", unitB.InstanceId);
 
             await ETTask.CompletedTask;
             return Status.Success;

@@ -25,7 +25,7 @@ namespace ET.Client
                 return false;
             }
 
-            b2Body body = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
+            b2Body body = parser.GetParent<Unit>().GetComponent<b2Body>();
             float curPosX = body.GetPosition().X;
             
             switch (match.Groups["transition"].Value)

@@ -26,14 +26,14 @@
         {
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
-            B2Unit b2Unit = unit.GetComponent<B2Unit>();
+            b2Body b2Body = unit.GetComponent<b2Body>();
             
             while (true)
             {
                 await bbTimer.WaitFrameAsync(self.token);
                 if(self.token.IsCancel()) return;
 
-                b2Unit.SetVelocityX(self.MoveX);
+                b2Body.SetVelocityX(self.MoveX);
             }
         }
     }

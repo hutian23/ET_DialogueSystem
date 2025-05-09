@@ -1,22 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
 using Box2DSharp.Dynamics;
-using Transform = Box2DSharp.Common.Transform;
+using ET.Event;
 
 namespace ET.Client
 {
     // 管理物理层的刚体
-    [ChildOf(typeof (b2WorldManager))]
-    public class b2Body: Entity, IAwake, IDestroy, IPostStep, IPreStep, IFrameUpdate
+    [ComponentOf(typeof (Unit))]
+    public class b2Body: Entity, IAwake<BodyDef>, IDestroy, IPostStep, IPreStep, IFrameLateUpdate
     {
-        public Body body;
-        public long unitId; // 记录unit的instanceId
-        public List<Fixture> Fixtures = new();
-        public Dictionary<string, Fixture> FixtureDict = new(); // 方便通过夹具名称查询夹具
+        // note: 刚体会在PreStep生命周期删除
+        public Body body; 
         
-        public Transform trans; // 当前step中b2World中刚体的位置转换信息
+        public List<Fixture> Fixtures = new();
+        public Dictionary<string, Fixture> FixtureDict = new(); 
+        
         public FlipState Flip = FlipState.Left;
+        public float VelocityX;
+        public float VelocityY;
+        public int Hertz = 60;
+
+        // B2World.Step()期间收集碰撞信息，PostStep中执行事件
+        public Queue<CollisionInfo> TriggerEnterBuffer = new();
+        public Queue<CollisionInfo> TriggerStayBuffer = new(); 
+        public Queue<CollisionInfo> TriggerExitBuffer = new();
+        
+        public Queue<CollisionInfo> CollisionEnterBuffer = new();
+        public Queue<CollisionInfo> CollisionStayBuffer = new();
+        public Queue<CollisionInfo> CollisionExitBuffer = new();
     }
     
     [Flags]
@@ -25,5 +36,4 @@ namespace ET.Client
         Left = 1,
         Right = -1
     }
-
 }

@@ -11,41 +11,40 @@ namespace ET.Client
     public static class AirCheckAbilitySystem
     {
         [Invoke(BBTimerInvokeType.AirCheckTimer)]
-        [FriendOf(typeof(B2Unit))]
         [FriendOf(typeof(AirCheckAbility))]
+        [FriendOf(typeof(b2Body))]
         public class AirCheckTimer : BBTimer<AirCheckAbility>
         {
             protected override void Run(AirCheckAbility self)
             {
                 //1. 查询组件 
                 Unit unit = self.GetParent<BuffManager>().GetParent<Unit>();
-                B2Unit b2Unit = unit.GetComponent<B2Unit>();
-                b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-                
+                b2Body b2Body = unit.GetComponent<b2Body>();
+
                 //2. 从碰撞缓冲区中取出碰撞信息，逐个检测
-                Queue<CollisionInfo> infoQueue = b2Unit.CollisionBuffer;
+                Queue<CollisionInfo> infoQueue = b2Body.CollisionStayBuffer;
                 int count = infoQueue.Count;
-                
-                while (count -- > 0)
+
+                while (count-- > 0)
                 {
                     CollisionInfo info = infoQueue.Dequeue();
                     infoQueue.Enqueue(info);
-                    
+
                     //2-1. PushBox和地面碰撞
                     BoxInfo infoA = info.dataA.UserData as BoxInfo;
                     if (infoA.hitboxType is not HitboxType.Squash || info.dataB.LayerMask is not LayerType.Ground)
                     {
                         continue;
                     }
-                    
+
                     //2-2. 这里写的比较简单，只要两个接触点的Y坐标小于中心点即认为落地 
                     info.Contact.GetWorldManifold(out WorldManifold manifold);
                     float yMax = Math.Max(manifold.Points[0].Y, manifold.Points[1].Y);
-                    if (body.GetPosition().Y - yMax < 0f)
+                    if (b2Body.GetPosition().Y - yMax < 0f)
                     {
                         continue;
                     }
-                    
+
                     //2-3. 落地回调
                     if (!self.inAir)
                     {
@@ -55,7 +54,7 @@ namespace ET.Client
                     EventSystem.Instance.Invoke(new LandCallback() { instanceId = unit.InstanceId });
                     return;
                 }
-                
+
                 //3. 在空中
                 self.inAir = true;
             }

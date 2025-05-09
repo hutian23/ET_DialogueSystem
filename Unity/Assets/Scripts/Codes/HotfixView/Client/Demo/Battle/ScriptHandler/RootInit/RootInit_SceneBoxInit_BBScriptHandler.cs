@@ -17,12 +17,10 @@ namespace ET.Client
         {
             Unit unit = parser.GetParent<Unit>();
             GameObject _World = unit.GetComponent<GameObjectComponent>().GameObject;
-         
-            //0. 初始化
-            parser.RemoveComponent<SceneBoxHandler>();
-            
-            //1. 场景内的static刚体当成一个部分
-            b2Body sceneBody = b2WorldManager.Instance.CreateBody(unit.InstanceId, new BodyDef() { BodyType = BodyType.StaticBody});
+
+            //1. 添加组件
+            // unit.AddComponent<SceneBoxHandler>(); // 处理碰撞事件
+            b2Body sceneBody = unit.AddComponent<b2Body, BodyDef>(new BodyDef(){ BodyType =  BodyType.StaticBody});
             
             //2. SceneBox 作为SceneBody的Fixture
             foreach (b2BoxCollider2D box2D in _World.GetComponentsInChildren<b2BoxCollider2D>())
@@ -42,19 +40,12 @@ namespace ET.Client
                         LayerMask = LayerType.Ground,
                         IsTrigger = box2D.IsTrigger,
                         UserData = box2D.info,
-                        TriggerEnterId = TriggerEnterType.SceneBoxEvent,
-                        TriggerStayId = TriggerStayType.SceneBoxEvent,
-                        TriggerExitId = TriggerExitType.SceneBoxEvent,
-                        CollisionEnterId = CollisionEnterType.SceneBoxEvent,
-                        CollisionStayId = CollisionStayType.SceneBoxEvent,
-                        CollisionExitId = CollisionExitType.SceneBoxEvent,
+                        TriggerStayId = TriggerStayType.HandleCallback,
+                        CollisionStayId = TriggerStayType.HandleCallback
                     }
                 };
                 sceneBody.CreateFixture(fixtureDef);
             }
-            
-            //3. 处理碰撞事件
-            parser.AddComponent<SceneBoxHandler>();
             
             await ETTask.CompletedTask;
             return Status.Success;

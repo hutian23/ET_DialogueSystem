@@ -40,19 +40,6 @@ namespace ET.Client
                 self.Reload();
             }
         }
-
-        public class b2WorldManagerPreStepSystem : PreStepSystem<b2WorldManager>
-        {
-            protected override void PreStepUpdate(b2WorldManager self)
-            {
-                int count = self.DisposeQueue.Count;
-                while (count-- > 0)
-                {
-                    Body body = self.DisposeQueue.Dequeue();
-                    self.B2World.World.DestroyBody(body);
-                }
-            }
-        }
         
         public class b2WorldManagerGizmosUpdateSystem : GizmosUpdateSystem<b2WorldManager>
         {
@@ -66,16 +53,7 @@ namespace ET.Client
         {
             self.Game = null;
             self.B2World?.Dispose();
-
-            foreach (var kv in self.BodyDict)
-            {
-                b2Body body = Root.Instance.Get(kv.Value) as b2Body;
-                body.Dispose();
-            }
-            self.BodyDict.Clear();
-            self.DisposeQueue.Clear();
             
-            //reload timer
             BBTimerComponent PreStepTimer = self.GetChild<BBTimerComponent>(self.PreStepTimer);
             BBTimerComponent PostStepTimer = self.GetChild<BBTimerComponent>(self.PostStepTimer);
             BBTimerComponent GizmosTimer = self.GetChild<BBTimerComponent>(self.GizmosTimer);
@@ -95,71 +73,15 @@ namespace ET.Client
             EventSystem.Instance.PublishAsync(self.DomainScene(), new AfterB2WorldCreated() { B2World = self.B2World }).Coroutine();
         }
 
-        #region B2body
-
-        public static b2Body CreateBody(this b2WorldManager self, long unitId, BodyDef bodyDef)
+        public static Body CreateBody(this b2WorldManager self, BodyDef def)
         {
-            if (self.BodyDict.ContainsKey(unitId))
-            {
-                Log.Error($"already exist b2body with unitId: {unitId}");
-                return null;
-            }
-
-            b2Body b2Body = b2WorldManager.Instance.AddChild<b2Body>();
-            b2Body.body = b2WorldManager.Instance.B2World.World.CreateBody(bodyDef);
-            b2Body.unitId = unitId;
-            
-            self.BodyDict.Add(b2Body.unitId, b2Body.InstanceId);
-            return b2Body;
-        }
-        
-        /// <summary>
-        /// 通过Unit.InstanceId查找对应的b2Body
-        /// </summary>
-        public static b2Body GetBody(this b2WorldManager self, long unitId)
-        {
-            if (!self.BodyDict.TryGetValue(unitId, out long instanceId))
-            {
-                Log.Error($"does not exist b2Body, unit.InstanceId: {unitId}");
-                return null;
-            }
-            
-            return Root.Instance.Get(instanceId) as b2Body;
+            return self.B2World.World.CreateBody(def);
         }
 
-        /// <summary>
-        /// 通过Unit.InstanceId删除对应b2Body
-        /// </summary>
-        /// <param name="self"></param>
-        /// <param name="unitId"></param>
-        public static void DestroyBody(this b2WorldManager self, long unitId)
+        public static void DestroyBody(this b2WorldManager self, Body body)
         {
-            if (!self.BodyDict.TryGetValue(unitId, out long instanceId))
-            {
-                Log.Error($"does not exist b2Body, unit.InstanceId: {unitId}");
-                return;
-            }
-            
-            b2Body b2Body = Root.Instance.Get(instanceId) as b2Body;
-            b2Body.Dispose();
-            
-            self.BodyDict.Remove(unitId);
+            self.B2World.World.DestroyBody(body);
         }
-        
-        /// <summary>
-        /// 激活刚体
-        /// </summary>
-        public static void EnableBody(this b2WorldManager self, long instanceId,bool enable)
-        {
-            if (!self.BodyDict.ContainsKey(instanceId))
-            {
-                return;
-            }
-            b2Body b2Body = self.GetBody(instanceId);
-            b2Body.SetEnable(enable);
-        }
-        
-        #endregion
         
         public static void Step(this b2WorldManager self)
         {

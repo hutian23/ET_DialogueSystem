@@ -7,8 +7,8 @@ using Timeline;
 
 namespace ET.Client
 {
-    [FriendOf(typeof(B2Unit))]
     [FriendOf(typeof(BounceCheckComponent))]
+    [FriendOf(typeof(b2Body))]
     public static class BounceCheckComponentSystem
     {
         public class BounceCheckAwakeSystem : AwakeSystem<BounceCheckComponent, Vector2, Vector2>
@@ -20,12 +20,12 @@ namespace ET.Client
                 self.sizeX = size.X;
                 self.sizeY = size.Y;
                 self.token = new ETCancellationToken();
-                
+
                 self.GenerateCheckBox();
                 self.BounceCheckCor().Coroutine();
             }
         }
-        
+
         public class BounceCheckDestroySystem : DestroySystem<BounceCheckComponent>
         {
             protected override void Destroy(BounceCheckComponent self)
@@ -42,7 +42,7 @@ namespace ET.Client
         private static void GenerateCheckBox(this BounceCheckComponent self)
         {
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
-            b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
+            b2Body body = unit.GetComponent<b2Body>();
 
             //1. 夹具定义
             PolygonShape shape = new();
@@ -69,20 +69,25 @@ namespace ET.Client
                     TriggerStayId = TriggerStayType.TriggerEvent
                 }
             };
-            
+
             //2. 生成夹具
             self.checkBox = body.CreateFixture(fixtureDef);
         }
 
         private static void DestroyCheckBox(this BounceCheckComponent self)
         {
-            if(self.token.IsCancel()) return;
-            
+            if (self.token.IsCancel())
+            {
+                return;
+            }
+
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
-            b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-            
-            if (self.checkBox == null || body == null) return;
-            
+            b2Body body = unit.GetComponent<b2Body>();
+
+            if (self.checkBox == null || body == null)
+            {
+                return;
+            }
             body.DestroyFixture(self.checkBox);
         }
 
@@ -90,17 +95,17 @@ namespace ET.Client
         {
             BBTimerComponent postStepTimer = b2WorldManager.Instance.GetPostStepTimer();
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
-            B2Unit b2Unit = unit.GetComponent<B2Unit>();
+            b2Body b2Body = unit.GetComponent<b2Body>();
             BBParser parser = unit.GetComponent<BBParser>();
-            
+
             bool ret = false;
             while (true)
             {
                 await postStepTimer.WaitFrameAsync(self.token);
                 if (self.token.IsCancel()) return;
-                
+
                 // 取出缓冲区的碰撞信息，逐个检测
-                Queue<CollisionInfo> infoQueue = b2Unit.TriggerBuffer;
+                Queue<CollisionInfo> infoQueue = b2Body.TriggerStayBuffer;
                 int count = infoQueue.Count;
                 while (count-- > 0)
                 {
@@ -118,7 +123,7 @@ namespace ET.Client
 
                 if (ret) break;
             }
-            
+
             self.Dispose();
         }
     }

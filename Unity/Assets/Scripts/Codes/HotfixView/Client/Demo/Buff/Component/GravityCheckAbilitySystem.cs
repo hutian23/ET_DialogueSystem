@@ -26,7 +26,7 @@
         private static async ETTask GravityCheckCor(this GravityCheckAbility self)
         {
             Unit unit = self.GetParent<BuffManager>().GetParent<Unit>();
-            B2Unit b2Unit = unit.GetComponent<B2Unit>();
+            b2Body b2Body = unit.GetComponent<b2Body>();
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
 
             while (true)
@@ -41,9 +41,9 @@
                 float dv = -(1 / 60f) * self.gravity;
 
                 //3. 约束最大下落速度
-                float curV = b2Unit.GetVelocity().Y + dv;
-                float maxV = -self.maxFall;
-                b2Unit.SetVelocityY(curV < maxV ? maxV : curV);
+                float curV = b2Body.GetVelocity().Y + dv;
+                float maxV = -self.maxFall; 
+                b2Body.SetVelocityY(curV < maxV ? maxV : curV);
             }
         }
     }

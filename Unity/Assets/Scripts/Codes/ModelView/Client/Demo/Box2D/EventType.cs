@@ -62,6 +62,7 @@ namespace ET.Event
         public const int None = 0;
         public const int SceneBoxEvent = 1;
         public const int CameraEvent = 2;
+        public const int HandleCallback = 3;
     }
     
     public static class CollisionExitType
@@ -69,6 +70,7 @@ namespace ET.Event
         public const int None = 0;
         public const int SceneBoxEvent = 1;
         public const int CameraEvent = 2;
+        public const int HandleCallback = 3;
     }
     
     public static class CollisionStayType
@@ -77,6 +79,7 @@ namespace ET.Event
         public const int SceneBoxEvent = 1;
         public const int CameraEvent = 2;
         public const int CollisionEvent = 3;
+        public const int HandleCallback = 4;
     }
     
     public static class TriggerEnterType
@@ -86,6 +89,7 @@ namespace ET.Event
         public const int CollisionEvent = 2;
         public const int SceneBoxEvent = 3;
         public const int CameraEvent = 4;
+        public const int HandleCallback = 5;
     }
     
     public static class TriggerExitType
@@ -94,6 +98,7 @@ namespace ET.Event
         public const int AirCheck = 1;
         public const int SceneBoxEvent = 2;
         public const int CameraEvent = 3;
+        public const int HandleCallback = 4;
     }
     
     public static class TriggerStayType
@@ -102,5 +107,6 @@ namespace ET.Event
         public const int TriggerEvent = 1;
         public const int SceneBoxEvent = 2;
         public const int CameraEvent = 3;
+        public const int HandleCallback = 4;
     }
 }
