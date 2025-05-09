@@ -19,7 +19,7 @@ namespace ET.Client
                 return false;
             }
 
-            b2Body body = parser.GetParent<Unit>().GetComponent<b2Body>();
+            b2Body body = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
             FlipState checkFlip = match.Groups["Flip"].Value.Equals("Left")? FlipState.Left : FlipState.Right;
             return body.GetFlip() == (int)checkFlip;
         }

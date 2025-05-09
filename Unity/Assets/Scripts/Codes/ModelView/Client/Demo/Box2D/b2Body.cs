@@ -6,11 +6,12 @@ using ET.Event;
 namespace ET.Client
 {
     // 管理物理层的刚体
-    [ComponentOf(typeof (Unit))]
-    public class b2Body: Entity, IAwake<BodyDef>, IDestroy, IPostStep, IPreStep, IFrameLateUpdate
+    [ChildOf(typeof (b2WorldManager))]
+    public class b2Body: Entity, IAwake, IDestroy, IPostStep, IPreStep, IFrameLateUpdate
     {
         // note: 刚体会在PreStep生命周期删除
-        public Body body; 
+        public Body body;
+        public long unitId;
         
         public List<Fixture> Fixtures = new();
         public Dictionary<string, Fixture> FixtureDict = new(); 
@@ -29,7 +30,7 @@ namespace ET.Client
         public Queue<CollisionInfo> CollisionStayBuffer = new();
         public Queue<CollisionInfo> CollisionExitBuffer = new();
     }
-    
+
     [Flags]
     public enum FlipState
     {

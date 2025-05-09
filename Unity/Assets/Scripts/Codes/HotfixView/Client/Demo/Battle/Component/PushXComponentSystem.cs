@@ -32,7 +32,7 @@
         {
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
-            b2Body b2Body = unit.GetComponent<b2Body>();
+            b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
             
             while (self.curVel > 0f)
             {

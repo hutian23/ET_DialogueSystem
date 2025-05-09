@@ -42,7 +42,7 @@ namespace ET.Client
         private static void GenerateCheckBox(this BounceCheckComponent self)
         {
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
-            b2Body body = unit.GetComponent<b2Body>();
+            b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
 
             //1. 夹具定义
             PolygonShape shape = new();
@@ -82,7 +82,7 @@ namespace ET.Client
             }
 
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
-            b2Body body = unit.GetComponent<b2Body>();
+            b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
 
             if (self.checkBox == null || body == null)
             {
@@ -95,7 +95,7 @@ namespace ET.Client
         {
             BBTimerComponent postStepTimer = b2WorldManager.Instance.GetPostStepTimer();
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
-            b2Body b2Body = unit.GetComponent<b2Body>();
+            b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
             BBParser parser = unit.GetComponent<BBParser>();
 
             bool ret = false;

@@ -14,13 +14,12 @@ namespace ET.Client
     {
         public override void Handle(UpdateHitboxCallback args)
         {
+            // 查询组件
             TimelineComponent timelineComponent = Root.Instance.Get(args.instanceId) as TimelineComponent;
             Unit unit = timelineComponent.GetParent<Unit>();
-            b2Body b2Body = unit.GetComponent<b2Body>();
-            if (args.Keyframe == null)
-            {
-                return;
-            }
+            if (unit == null || unit.InstanceId == 0) return;
+            
+            b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
             
             //1. 销毁旧的夹具
             b2Body.ClearFixtures(FixtureType.Hitbox);

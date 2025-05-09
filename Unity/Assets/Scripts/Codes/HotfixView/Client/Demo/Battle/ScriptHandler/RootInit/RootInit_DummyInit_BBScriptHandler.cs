@@ -19,15 +19,7 @@ namespace ET.Client
             dummy.AddComponent<BBTimerComponent>().IsUnitTimer();
             dummy.AddComponent<BBNumeric>();
             dummy.AddComponent<BehaviorMachine>();
-            dummy.AddComponent<b2Body, BodyDef>(new BodyDef()
-            { 
-                BodyType = BodyType.DynamicBody,
-                GravityScale = 0f,
-                LinearDamping = 0f,
-                AngularDamping = 0f,
-                AllowSleep = true,
-                FixedRotation = true,
-            });
+            dummy.AddComponent<B2Unit>();
             dummy.AddComponent<ObjectWait>();
             dummy.GetComponent<GameObjectComponent>().GameObject.transform.SetParent(GlobalComponent.Instance.Unit);
 

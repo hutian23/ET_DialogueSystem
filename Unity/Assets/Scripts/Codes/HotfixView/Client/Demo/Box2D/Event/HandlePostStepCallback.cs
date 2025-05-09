@@ -5,7 +5,6 @@
     {
         public override void Handle(PostStepCallback args)
         {
-            b2WorldManager.Instance.GetPostStepTimer().Step();
             EventSystem.Instance.PostStepUpdate();
         }
     }

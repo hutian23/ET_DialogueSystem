@@ -17,7 +17,7 @@ namespace ET.Client
             {
                 //1. 相关组件
                 HitComponent hit = self.GetComponent<HitComponent>();
-                b2Body b2Body = self.GetParent<Unit>().GetComponent<b2Body>();
+                b2Body b2Body = b2WorldManager.Instance.GetBody(self.GetParent<Unit>().InstanceId);
                 
                 //2. 获取缓冲区中的碰撞数据
                 Queue<CollisionInfo> infoQueue = b2Body.TriggerStayBuffer;

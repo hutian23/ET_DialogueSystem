@@ -9,28 +9,22 @@ namespace ET.Client
     [FriendOf(typeof(b2Body))]
     public static class b2BodySystem
     {
-        // 创建刚体
-        public class b2BodyAwakeSystem: AwakeSystem<b2Body, BodyDef>
-        {
-            protected override void Awake(b2Body self, BodyDef bodyDef)
-            {
-                self.body = b2WorldManager.Instance.CreateBody(bodyDef);
-            }
-        }
-        
+        [FriendOf(typeof(b2WorldManager))]
         public class b2BodyDestroySystem : DestroySystem<b2Body>
         {
             protected override void Destroy(b2Body self)
             {
+                self.unitId = 0;
+                
                 self.body = null;
                 self.Fixtures.Clear();
                 self.FixtureDict.Clear();
-                
+
                 self.Flip = FlipState.Left;
                 self.VelocityX = 0f;
                 self.VelocityY = 0f;
                 self.Hertz = 60;
-                
+
                 self.TriggerEnterBuffer.Clear();
                 self.TriggerStayBuffer.Clear();
                 self.TriggerExitBuffer.Clear();
@@ -74,7 +68,8 @@ namespace ET.Client
         
         private static void SyncTrans(this b2Body self)
         {
-            UnityEngine.GameObject go = self.GetParent<Unit>().GetComponent<GameObjectComponent>().GameObject;
+            Unit unit = Root.Instance.Get(self.unitId) as Unit;
+            UnityEngine.GameObject go = unit.GetComponent<GameObjectComponent>().GameObject;
 
             Transform trans = self.body.GetTransform();
             go.transform.position = trans.Position.ToUnityVector3();

@@ -19,7 +19,7 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            b2Body body = parser.GetParent<Unit>().GetComponent<b2Body>();
+            b2Body body = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
             FlipState flip = match.Groups["Flip"].Value.Equals("Left")? FlipState.Left : FlipState.Right;
             body.SetFlip(flip);
             

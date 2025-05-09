@@ -29,7 +29,7 @@ namespace ET.Client
             if (!parser.ContainParam("TargetBind")) return Status.Failed;
             
             long unitId = parser.GetParam<long>("TargetBind");
-            b2Body bodyA = parser.GetParent<Unit>().GetComponent<b2Body>();
+            b2Body bodyA = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
             Unit _unit = Root.Instance.Get(unitId) as Unit;
             b2Body bodyB = Root.Instance.Get(_unit.InstanceId) as b2Body;
 

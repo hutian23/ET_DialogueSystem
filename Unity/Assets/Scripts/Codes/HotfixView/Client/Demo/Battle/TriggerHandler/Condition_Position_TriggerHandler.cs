@@ -25,7 +25,7 @@ namespace ET.Client
                 return false;
             }
 
-            b2Body b2Body = parser.GetParent<Unit>().GetComponent<b2Body>();
+            b2Body b2Body = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
 
             float _targetValue = match.Groups["XY"].Value.Equals("X")? b2Body.GetPosition().X : b2Body.GetPosition().Y;
             long targetPosition = (long)(_targetValue * 10000);

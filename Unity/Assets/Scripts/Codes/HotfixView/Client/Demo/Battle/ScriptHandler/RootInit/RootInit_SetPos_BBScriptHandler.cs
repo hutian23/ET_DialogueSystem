@@ -27,7 +27,7 @@ namespace ET.Client
             }
             Vector2 pos = new Vector2(posX, posY) / 10000f;
 
-            b2Body b2Body = parser.GetParent<Unit>().GetComponent<b2Body>();
+            b2Body b2Body = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
             b2Body.SetPosition(pos);
             
             await ETTask.CompletedTask;

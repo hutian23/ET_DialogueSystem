@@ -25,7 +25,7 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            b2Body body = parser.GetParent<Unit>().GetComponent<b2Body>();
+            b2Body body = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
             body.SetVelocity(new Vector2(velocityX, velocityY) / 10000f);
             
             await ETTask.CompletedTask;

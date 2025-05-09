@@ -11,7 +11,7 @@
         {
             Unit unit = parser.GetParent<Unit>();
             BuffManager buffManager = unit.GetComponent<BuffManager>();
-            b2Body b2Body = unit.GetComponent<b2Body>();
+            b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
             
             //1. Dash充能
             AirDashAbility ad = buffManager.GetComponent<AirDashAbility>();

@@ -9,7 +9,7 @@
         
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            b2Body body = parser.GetParent<Unit>().GetComponent<b2Body>();
+            b2Body body = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
 
             int curFlip = body.GetFlip();
             body.SetFlip((FlipState)(-curFlip));

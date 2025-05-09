@@ -9,7 +9,7 @@ namespace ET.Client
         {
             protected override void PreStepUpdate(RootMotionComponent self)
             {
-                b2Body body = self.GetParent<BBParser>().GetParent<Unit>().GetComponent<b2Body>();
+                b2Body body = b2WorldManager.Instance.GetBody(self.GetParent<BBParser>().GetParent<Unit>().InstanceId);
                 
                 //(-1,1)是因为Timeline中角色的默认朝向为左
                 body.SetLinearVelocity(self.MotionVel);

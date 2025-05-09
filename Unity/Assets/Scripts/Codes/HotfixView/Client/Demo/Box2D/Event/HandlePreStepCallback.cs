@@ -5,7 +5,6 @@
     {
         public override void Handle(PreStepCallback args)
         {
-            b2WorldManager.Instance.GetPreStepTimer().Step();
             EventSystem.Instance.PreStepUpdate();
         }
     }

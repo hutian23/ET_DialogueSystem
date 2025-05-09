@@ -26,7 +26,7 @@
         {
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
             InputWait inputWait = unit.GetComponent<InputWait>();
-            b2Body b2Body = unit.GetComponent<b2Body>();
+            b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
 
             while (true)

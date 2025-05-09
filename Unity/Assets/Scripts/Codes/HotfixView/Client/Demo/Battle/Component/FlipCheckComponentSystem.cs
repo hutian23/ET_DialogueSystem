@@ -24,7 +24,7 @@
         {                       
             //1. 查询组件
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
-            b2Body body = unit.GetComponent<b2Body>();
+            b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
             InputWait inputWait = unit.GetComponent<InputWait>();
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
 

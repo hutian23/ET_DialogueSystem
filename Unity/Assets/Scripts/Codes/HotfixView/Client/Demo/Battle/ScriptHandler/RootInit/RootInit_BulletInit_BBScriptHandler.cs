@@ -18,15 +18,7 @@ namespace ET.Client
             unit.AddComponent<BBTimerComponent>().IsUnitTimer();
             unit.AddComponent<BBNumeric>();
             unit.AddComponent<BehaviorMachine>();
-            unit.AddComponent<b2Body, BodyDef>(new BodyDef()
-            { 
-                BodyType = BodyType.DynamicBody,
-                GravityScale = 0f,
-                LinearDamping = 0f,
-                AngularDamping = 0f,
-                AllowSleep = true,
-                FixedRotation = true,
-            });
+            unit.AddComponent<B2Unit>();
             unit.AddComponent<ObjectWait>();
 
             await ETTask.CompletedTask;

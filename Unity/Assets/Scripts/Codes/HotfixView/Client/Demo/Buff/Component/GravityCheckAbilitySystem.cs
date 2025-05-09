@@ -26,7 +26,7 @@
         private static async ETTask GravityCheckCor(this GravityCheckAbility self)
         {
             Unit unit = self.GetParent<BuffManager>().GetParent<Unit>();
-            b2Body b2Body = unit.GetComponent<b2Body>();
+            b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
 
             while (true)

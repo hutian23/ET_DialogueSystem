@@ -27,7 +27,7 @@ namespace ET.Client
 
             parser.RemoveComponent<PushXComponent>();
             
-            b2Body body = parser.GetParent<Unit>().GetComponent<b2Body>();
+            b2Body body = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
             
             //TODO: 关于PushX的方向，要考虑拉回和推远的情况
             //拉回: 艾德的鞭子

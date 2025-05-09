@@ -19,7 +19,7 @@ namespace ET.Client
             {
                 //1. 查询组件 
                 Unit unit = self.GetParent<BuffManager>().GetParent<Unit>();
-                b2Body b2Body = unit.GetComponent<b2Body>();
+                b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
 
                 //2. 从碰撞缓冲区中取出碰撞信息，逐个检测
                 Queue<CollisionInfo> infoQueue = b2Body.CollisionStayBuffer;

@@ -1,4 +1,6 @@
-﻿namespace ET.Client
+﻿using System.Collections.Generic;
+
+namespace ET.Client
 {
     [ComponentOf(typeof (Scene))]
     public class b2WorldManager: Entity, IAwake, IDestroy, IFixedUpdate, IPostStep, ILoad, IPreStep, IGizmosUpdate
@@ -13,5 +15,7 @@
         public long PreStepTimer;
         public long PostStepTimer;
         public long GizmosTimer;
+
+        public Dictionary<long, long> BodyDict = new();
     }
 }

@@ -166,13 +166,14 @@ BBSprite: Start_2, 4;
 BBSprite: Start_3, 4;
 BBSprite: Start_4, 4;
 # Active
-CreateBullet: GlinBullet
-  BulletPos: 0, 0;
-EndCreateBullet:
 BBSprite: Active_1, 4;
 BBSprite: Active_2, 4;
-BBSprite: Active_3, 4;
-BBSprite: Active_4, 20;
+CastGlinBullet: 30, -10000, 5000, 7000, 3, 550, 550, 10000, 15;
+RegistCounter: 80;
+BeginLoop: (Counter: Value > 0)
+  BBSprite: Active_3, 8;
+  BBSprite: Active_4, 8;
+EndLoop:
 BBSprite: Start_4, 4;
 BBSprite: Start_3, 4;
 BBSprite: Start_2, 4;

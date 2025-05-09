@@ -20,15 +20,7 @@ namespace ET.Client
             enemy.AddComponent<TimelineComponent>();
             enemy.AddComponent<BBTimerComponent>().IsUnitTimer();
             enemy.AddComponent<BBNumeric>();
-            enemy.AddComponent<b2Body, BodyDef>(new BodyDef()
-            { 
-                BodyType = BodyType.DynamicBody,
-                GravityScale = 0f,
-                LinearDamping = 0f,
-                AngularDamping = 0f,
-                AllowSleep = true,
-                FixedRotation = true,
-            });
+            enemy.AddComponent<B2Unit>();
             enemy.AddComponent<ObjectWait>();
             enemy.AddComponent<BehaviorMachine>();
             

@@ -48,40 +48,111 @@ namespace ET.Client
                 self.GetGizmosTimer().Step();
             }
         }
+        
+        public class b2WorldManagerPreStepSystem : PostStepSystem<b2WorldManager>
+        {
+            protected override void PosStepUpdate(b2WorldManager self)
+            {
+                b2WorldManager.Instance.GetPreStepTimer().Step();
+            }
+        }
+        
+        public class b2WorldManagerPostStepSystem : PostStepSystem<b2WorldManager>
+        {
+            protected override void PosStepUpdate(b2WorldManager self)
+            {
+                b2WorldManager.Instance.GetPostStepTimer().Step();
+            }
+        }
 
         private static void Init(this b2WorldManager self)
         {
+            // 销毁子Entity
+            ListComponent<long> removeList = ListComponent<long>.Create();
+            removeList.AddRange(self.BodyDict.Values);
+            foreach (long id in removeList)
+            {
+                b2Body body = self.GetChild<b2Body>(id);
+                body.Dispose();
+            }
+            self.BodyDict.Clear();
+            
+            // 销毁物理世界
             self.Game = null;
             self.B2World?.Dispose();
             
-            BBTimerComponent PreStepTimer = self.GetChild<BBTimerComponent>(self.PreStepTimer);
-            BBTimerComponent PostStepTimer = self.GetChild<BBTimerComponent>(self.PostStepTimer);
-            BBTimerComponent GizmosTimer = self.GetChild<BBTimerComponent>(self.GizmosTimer);
-            PreStepTimer.Reload();
-            PostStepTimer.Reload();
-            GizmosTimer.Reload();
-            
+            // Editor相关
             Global.Settings.Pause = false;
             Global.Settings.SingleStep = false;
         }
         
         private static void Reload(this b2WorldManager self)
         {
+            //1. 初始化
             self.Init();
+
+            //2. 新建物理世界
             self.Game = Camera.main.GetComponent<b2Game>();
             self.B2World = new b2World(self.Game);
             EventSystem.Instance.PublishAsync(self.DomainScene(), new AfterB2WorldCreated() { B2World = self.B2World }).Coroutine();
+            
+            //3. 生命周期
+            self.GetPreStepTimer().Reload();
+            self.GetPostStepTimer().Reload();
+            self.GetGizmosTimer().Reload();
         }
 
-        public static Body CreateBody(this b2WorldManager self, BodyDef def)
+        public static b2Body CreateBody(this b2WorldManager self, long unitId, BodyDef bodyDef)
         {
-            return self.B2World.World.CreateBody(def);
+            if (self.BodyDict.ContainsKey(unitId))
+            {
+                Log.Error($"already exist b2Body, unit.InstanceId: {unitId}");
+                return null;
+            }
+
+            b2Body b2Body = self.AddChild<b2Body>();
+            b2Body.unitId = unitId;
+            b2Body.body = b2WorldManager.Instance.B2World.World.CreateBody(bodyDef);
+            self.BodyDict.TryAdd(unitId, b2Body.Id);
+
+            return b2Body;
         }
 
-        public static void DestroyBody(this b2WorldManager self, Body body)
+        public static void DestroyBody(this b2WorldManager self, long unitId)
         {
-            self.B2World.World.DestroyBody(body);
+            if (!self.BodyDict.TryGetValue(unitId, out long id))
+            {
+                // Log.Error($"does not exist b2Body, unit.InstanceId: {unitId}");
+                return;
+            }
+
+            b2Body b2Body = self.GetChild<b2Body>(id);
+            b2WorldManager.Instance.B2World.World.DestroyBody(b2Body.body);
+            b2WorldManager.Instance.BodyDict.Remove(unitId);
+            
+            b2Body.Dispose();
         }
+
+        public static void TryDestroyBody(this b2WorldManager self, long unitId)
+        {
+            if (!self.BodyDict.ContainsKey(unitId))
+            {
+                return;
+            }
+            self.DestroyBody(unitId);
+        }
+        
+        public static b2Body GetBody(this b2WorldManager self, long unitId)
+        {
+            if (!self.BodyDict.TryGetValue(unitId, out long id))
+            {
+                Log.Error($"cannot found b2Body, unit.InstanceId: {unitId}");
+                return null;
+            }
+
+            return self.GetChild<b2Body>(id);
+        }
+        
         
         public static void Step(this b2WorldManager self)
         {

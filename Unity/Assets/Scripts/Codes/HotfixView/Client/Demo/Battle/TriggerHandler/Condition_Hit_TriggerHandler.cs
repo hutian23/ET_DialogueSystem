@@ -15,7 +15,7 @@ namespace ET.Client
         //RegistCallback: (Hit: xxx), 'HitCheck'
         public override bool Check(BBParser parser, BBScriptData data)
         {
-            b2Body b2Body = parser.GetParent<Unit>().GetComponent<b2Body>();
+            b2Body b2Body = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
 
             int count = b2Body.TriggerStayBuffer.Count;
             while (count-- > 0)
