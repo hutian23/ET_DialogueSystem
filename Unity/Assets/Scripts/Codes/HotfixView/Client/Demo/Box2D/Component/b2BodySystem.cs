@@ -81,7 +81,8 @@ namespace ET.Client
         //真实速度 = 当前帧速度 * 朝向 * TimeScale
         public static void SetLinearVelocity(this b2Body self, Vector2 velocity)
         {
-            self.body.SetLinearVelocity(velocity * (self.Hertz / 60f) * new Vector2(self.GetFlip(), 1));
+            Vector2 realVelocity = velocity * (self.Hertz / 60f) * new Vector2(self.GetFlip(), 1);
+            self.body.SetLinearVelocity(realVelocity);
         }
         
         public static Vector2 GetVelocity(this b2Body self)

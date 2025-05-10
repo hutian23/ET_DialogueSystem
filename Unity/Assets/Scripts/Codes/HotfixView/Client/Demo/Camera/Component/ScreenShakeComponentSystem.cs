@@ -31,7 +31,7 @@ namespace ET.Client
                     return;
                 }
                 
-                cameraOffset.m_Offset = new Vector3(self.shakeLength_X * Mathf.Cos(self.curFrame * self.frequency) * (self.curFrame / (float)self.totalFrame), self.shakeLength_Y * Mathf.Sin(self.curFrame * self.frequency), 0);
+                cameraOffset.m_Offset = new Vector3(self.shakeLength_X * Mathf.Cos(self.curFrame * self.frequency), self.shakeLength_Y * Mathf.Sin(self.curFrame * self.frequency), 0) * (self.curFrame / (float)self.totalFrame);
             }
         }
     }

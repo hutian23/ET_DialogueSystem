@@ -2329,6 +2329,111 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Ballon_Anticipate_1
+      rect:
+        serializedVersion: 2
+        x: 1350
+        y: 1461
+        width: 245
+        height: 299
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6354515}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9b1ed39bdf375e4199ca1ffcd50ad53
+      internalID: -1652105260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ballon_Active_1
+      rect:
+        serializedVersion: 2
+        x: 1632
+        y: 1316
+        width: 397
+        height: 444
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6306306}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e06ecccd1d34a546ab867a225f7ba8c
+      internalID: -2049545557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ballon_Active_2
+      rect:
+        serializedVersion: 2
+        x: 2034
+        y: 1316
+        width: 397
+        height: 444
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6306306}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 982cf7f0bfc51074c9cf85ab36a05c03
+      internalID: -378989631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ballon_Active_3
+      rect:
+        serializedVersion: 2
+        x: 2436
+        y: 1316
+        width: 397
+        height: 444
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6306306}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e952ad8facc17b49a0dbfa862df7d96
+      internalID: 803024260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ballon_Active_4
+      rect:
+        serializedVersion: 2
+        x: 2838
+        y: 1316
+        width: 397
+        height: 444
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6306306}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f1e4c1e38eca21418bc8502045240e7
+      internalID: -1012867057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2350,6 +2455,11 @@ TextureImporter:
       AirDash_Anticipate_5: -92470757
       AirDash_Anticipate_6: -257375609
       AirDash_Anticipate_7: -1162294454
+      Ballon_Active_1: -2049545557
+      Ballon_Active_2: -378989631
+      Ballon_Active_3: 803024260
+      Ballon_Active_4: -1012867057
+      Ballon_Anticipate_1: -1652105260
       Bow_1: -1641891047
       Bow_2: -1489986228
       Bow_3: -540738116

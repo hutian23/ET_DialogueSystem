@@ -193,5 +193,11 @@ namespace ET.Client
         {
             self.B2World.Draw.DrawSegment(start, end, color);
         }
+        
+        //TODO 
+        public static void DrawText(this b2WorldManager self, Vector2 position, string text, Color color)
+        {
+            
+        }
     }
 }

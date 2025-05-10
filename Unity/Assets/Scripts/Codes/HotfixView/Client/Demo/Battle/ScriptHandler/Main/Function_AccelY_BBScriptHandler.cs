@@ -28,13 +28,9 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            parser.RemoveComponent<AccelYComponent>();
-            AccelYComponent accelY = parser.AddComponent<AccelYComponent>(true);
-            accelY.startY = startV / 10000f;
-            accelY.lastFrame = lastFrame;
-            accelY.cnt = 0;
-            accelY.accelY = accel / 10000f;
-            
+            parser.RemoveComponent<AccelYComponent>(); 
+            parser.AddComponent<AccelYComponent, float, float, int>(startV / 10000f, accel / 10000f, lastFrame, true);
+
             await ETTask.CompletedTask;
             return Status.Success;
         }

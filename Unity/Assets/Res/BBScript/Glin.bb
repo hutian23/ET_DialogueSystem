@@ -5,6 +5,7 @@ EnableAirCheck;
 SetPos: 0, -100000;
 PoolObject: GlinBullet, 5;
 PoolObject: GlinSpike, 3;
+PoolObject: GlinFireball, 20;
 RegistMove: (Glin_Slash)
   MoveType: Normal;
 EndMove:
@@ -17,7 +18,11 @@ EndMove:
 RegistMove: (Glin_Cast)
   MoveType: Normal;
 EndMove:
-GotoBehavior: Glin_Cast;
+RegistMove: (Glin_Ballon)
+  MoveType: Normal;
+EndMove:
+# GotoBehavior: Glin_Cast;
+GotoBehavior: Glin_Ballon;
 return;
 
 [Glin_Slash]
@@ -108,7 +113,7 @@ return;
 
 @Main:
 SetVelocity: 0, 0;
-SetPos: 0, 50000;
+SetPos: 0, 0000;
 # AirDash Start
 BBSprite: AirDash_Anticipate_1, 3;
 BBSprite: AirDash_Anticipate_2, 3;
@@ -168,7 +173,7 @@ BBSprite: Start_4, 4;
 # Active
 BBSprite: Active_1, 4;
 BBSprite: Active_2, 4;
-CastGlinBullet: 30, -10000, 5000, 7000, 3, 550, 550, 10000, 15;
+CastGlinBullet: 30, -10000, 5000, 7000, 3, 350, 350, 10000, 15;
 RegistCounter: 80;
 BeginLoop: (Counter: Value > 0)
   BBSprite: Active_3, 8;
@@ -178,4 +183,31 @@ BBSprite: Start_4, 4;
 BBSprite: Start_3, 4;
 BBSprite: Start_2, 4;
 BBSprite: Start_1, 4;
+Exit;
+
+[Glin_Ballon]
+@Trigger:
+return;
+
+@Main:
+SetPos: 0, -20000;
+SetVelocity: 0, 0;
+BBSprite: Anticipate_1, 5;
+# 发射飞弹时屏幕振动
+EnableGlinShake: true, 250, 250, 8000;
+# 纵向飞弹，y轴速度不变，x轴速度飞行过程中略微增大
+# 横向飞弹，x轴速度不变，y轴速度逐渐趋于0
+Enable_CastGlinFireball: true, 35, -85000, 20000, 160000;
+BBSprite: Anticipate_2, 5;
+RegistCounter: 200;
+BeginLoop: (Counter: Value > 0)
+  BBSprite: Active_1, 5;
+  BBSprite: Active_2, 5;
+  BBSprite: Active_3, 5;
+EndLoop:
+EnableGlinShake: false, 0, 0, 0;
+Enable_CastGlinFireball: false, 0, 0, 0, 0;
+BBSprite: Anticipate_2, 7;
+BBSprite: Anticipate_1, 5;
+WaitFrame: 100;
 Exit;

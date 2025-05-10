@@ -1,39 +1,46 @@
-using ET;
-using MongoDB.Bson;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class Test : MonoBehaviour {
-	
-	[Button("Test")]
-	public void Test_111()
-	{
-		TestAAAA test = new(){a = 100, _test = new TestBBBB(){b = 1000}};
-		TestAAAA test2 = MongoHelper.Clone(test);
-		test2._test = new TestBBBB() { b = 100 };
-		
-		Debug.LogWarning(test.ToJson());
-		Debug.LogWarning(test2.ToJson());
-	}
-	
-	// public float speed = 2f; // 控制动画速度
-	// public float amplitude = 3f; // 控制振幅
-	
-	void Update()
-	{
-		// 使用 Mathf.Cos 计算物体的垂直移动
-		// float y = amplitude * Mathf.Cos(Time.time * speed);
-		// transform.position = new Vector3(transform.position.x, y, transform.position.z);
-	}
-}
-
-public class TestAAAA
+public class Test : MonoBehaviour
 {
-	public int a = 10;
-	public TestBBBB _test;
-}
+    public Transform StartPoint;
+    public Transform MidPoint;
+    public Transform EndPoint;
+    public Transform Sphere;
+    private int speed = 2;
+    private float percentSpeed;//百分比速度
+    private float percent = 0;//路径百分比
+    void Start()
+    {
+        percent = 0;
+        percentSpeed = speed / (EndPoint.position - StartPoint.position).magnitude;
+    }
 
-public class TestBBBB
-{
-	public int b = 10;
+    [Button("Test")]
+    public void ButtonTest()
+    {
+        this.percent = 0;
+    }
+    
+    // Update is called once per frame
+    void Update()
+    {
+        if (percent >= 1)
+        {
+            return;
+        }
+
+        percent += percentSpeed * Time.deltaTime;   
+        if (percent > 1)
+            percent = 1;
+
+        Sphere.position = Bezier(percent, StartPoint.position, MidPoint.position, EndPoint.position);
+    }
+
+    private static Vector3 Bezier(float t, Vector3 a,Vector3 b,Vector3 c)
+    {
+        var ab = Vector3.Lerp(a,b,t);
+        var bc = Vector3.Lerp(b,c,t);
+        return Vector3.Lerp(ab,bc,t);
+    }
 }

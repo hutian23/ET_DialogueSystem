@@ -2,6 +2,17 @@
 {
     public static class AccelYComponentSystem
     {
+        public class AccelYComponentAwakeSystem : AwakeSystem<AccelYComponent, float, float, int>
+        {
+            protected override void Awake(AccelYComponent self, float startY, float accelY, int lastFrame)
+            {
+                self.startY = startY;
+                self.lastFrame = lastFrame;
+                self.accelY = accelY;
+                self.cnt = 0;
+            }
+        }
+        
         public class AccelYComponentDestroySystem : DestroySystem<AccelYComponent>
         {
             protected override void Destroy(AccelYComponent self)
