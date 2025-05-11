@@ -384,8 +384,8 @@ TextureImporter:
         y: 8587
         width: 245
         height: 405
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5510204, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -405,8 +405,8 @@ TextureImporter:
         y: 8587
         width: 245
         height: 405
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5510204, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -426,8 +426,8 @@ TextureImporter:
         y: 8587
         width: 245
         height: 405
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5510204, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -447,8 +447,8 @@ TextureImporter:
         y: 8587
         width: 245
         height: 405
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5510204, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -468,8 +468,8 @@ TextureImporter:
         y: 8587
         width: 245
         height: 405
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5510204, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -489,8 +489,8 @@ TextureImporter:
         y: 8587
         width: 245
         height: 405
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5510204, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -506,12 +506,12 @@ TextureImporter:
       name: Bow_7
       rect:
         serializedVersion: 2
-        x: 1503
+        x: 1504
         y: 8587
         width: 246
         height: 405
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5487805, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1329,8 +1329,8 @@ TextureImporter:
         y: 5761
         width: 314
         height: 628
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35031846}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1350,8 +1350,8 @@ TextureImporter:
         y: 5761
         width: 314
         height: 628
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35031846}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1372,7 +1372,7 @@ TextureImporter:
         width: 192
         height: 450
       alignment: 9
-      pivot: {x: 0.5, y: 0.6666667}
+      pivot: {x: 0.5, y: 0.46666667}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1834,7 +1834,7 @@ TextureImporter:
         width: 267
         height: 438
       alignment: 9
-      pivot: {x: 0.4494382, y: 0.6849315}
+      pivot: {x: 0.35580525, y: 0.5707763}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1855,7 +1855,7 @@ TextureImporter:
         width: 267
         height: 438
       alignment: 9
-      pivot: {x: 0.4494382, y: 0.6849315}
+      pivot: {x: 0.35580525, y: 0.5707763}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1876,7 +1876,7 @@ TextureImporter:
         width: 267
         height: 438
       alignment: 9
-      pivot: {x: 0.4494382, y: 0.6849315}
+      pivot: {x: 0.35580525, y: 0.5707763}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1897,7 +1897,7 @@ TextureImporter:
         width: 267
         height: 438
       alignment: 9
-      pivot: {x: 0.4494382, y: 0.6849315}
+      pivot: {x: 0.35580525, y: 0.5707763}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1918,7 +1918,7 @@ TextureImporter:
         width: 267
         height: 438
       alignment: 9
-      pivot: {x: 0.4494382, y: 0.6849315}
+      pivot: {x: 0.35580525, y: 0.5707763}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1939,7 +1939,7 @@ TextureImporter:
         width: 267
         height: 438
       alignment: 9
-      pivot: {x: 0.4494382, y: 0.6849315}
+      pivot: {x: 0.35580525, y: 0.5707763}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1960,7 +1960,7 @@ TextureImporter:
         width: 267
         height: 438
       alignment: 9
-      pivot: {x: 0.4494382, y: 0.6849315}
+      pivot: {x: 0.35580525, y: 0.5707763}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1981,7 +1981,7 @@ TextureImporter:
         width: 167
         height: 419
       alignment: 9
-      pivot: {x: 0.53892213, y: 0.6682578}
+      pivot: {x: 0.38922155, y: 0.548926}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2002,7 +2002,7 @@ TextureImporter:
         width: 166
         height: 419
       alignment: 9
-      pivot: {x: 0.5421687, y: 0.6682578}
+      pivot: {x: 0.39156628, y: 0.548926}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2023,7 +2023,7 @@ TextureImporter:
         width: 167
         height: 419
       alignment: 9
-      pivot: {x: 0.53892213, y: 0.6682578}
+      pivot: {x: 0.38922155, y: 0.548926}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2434,6 +2434,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Troupe Master Grimm_1
+      rect:
+        serializedVersion: 2
+        x: 1786
+        y: 8639
+        width: 257
+        height: 353
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ceb7d2c6f914d6d4284c4ff8d5f08a9e
+      internalID: 872102556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Troupe Master Grimm_2
+      rect:
+        serializedVersion: 2
+        x: 2071
+        y: 8665
+        width: 380
+        height: 327
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aaa3fa59458924d4ba308be1fcb3da12
+      internalID: -2049334114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Troupe Master Grimm_3
+      rect:
+        serializedVersion: 2
+        x: 2456
+        y: 8665
+        width: 380
+        height: 327
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 277276610fab41c4cb5292a47562f5ab
+      internalID: 1574881697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Troupe Master Grimm_4
+      rect:
+        serializedVersion: 2
+        x: 2841
+        y: 8665
+        width: 380
+        height: 327
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c4ac757dd0adc1498035b4346f2a9a4
+      internalID: 1064313897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2511,6 +2595,10 @@ TextureImporter:
       Idle_8: -770638817
       Idle_9: 463663235
       PC Computer - Hollow Knight - Troupe Master Grimm_0: -989844064
+      PC Computer - Hollow Knight - Troupe Master Grimm_1: 872102556
+      PC Computer - Hollow Knight - Troupe Master Grimm_2: -2049334114
+      PC Computer - Hollow Knight - Troupe Master Grimm_3: 1574881697
+      PC Computer - Hollow Knight - Troupe Master Grimm_4: 1064313897
       Pillar_1: 11226741
       Pillar_2: 1326170797
       Pillar_3: 1637662626

@@ -277,21 +277,21 @@ Event: (Whiff_Start)
   EnableWhiffCancel: true;
   WhiffOption: Rg_GroundDash;
 EndEvent:
-Event: (Hit_Start)
-  # 这里开始，受击回调
-  # 对于同一对象，在持续帧内仅造成一次攻击(Repeat则为持续帧内，只要发生碰撞，每帧都会回调受击回调)
-  HitNotify: Once 
-    EnableGatlingCancel: true;
-    EnableTargetCancel: true;
-    TCOption: Rg_5C;
-    # 受击方切换到受击动作
-    HitStun: BounceHurt; 
-    HitStop: 0, 10; 
-    Shake: 800, 0, 8000, 18; 
-    HitShake: 1200, 1000, 10000, 18; 
-    HitVel: -300000, 250000;
-    EndNotify:
-EndEvent:
+# Event: (Hit_Start)
+#   # 这里开始，受击回调
+#   # 对于同一对象，在持续帧内仅造成一次攻击(Repeat则为持续帧内，只要发生碰撞，每帧都会回调受击回调)
+#   HitNotify: Once 
+#     EnableGatlingCancel: true;
+#     EnableTargetCancel: true;
+#     TCOption: Rg_5C;
+#     # 受击方切换到受击动作
+#     HitStun: BounceHurt; 
+#     HitStop: 0, 10; 
+#     Shake: 800, 0, 8000, 18; 
+#     HitShake: 1200, 1000, 10000, 18; 
+#     HitVel: -300000, 250000;
+#     EndNotify:
+# EndEvent:
 Event: (Hit_End)
   EnableGatlingCancel: false;
   EnableTargetCancel: false;

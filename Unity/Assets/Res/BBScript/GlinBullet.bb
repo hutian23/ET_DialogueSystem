@@ -22,5 +22,4 @@ BeginLoop: (Counter: Value > 0)
   BBSprite: Frame_4, 4;
   BBSprite: Frame_5, 4;
 EndLoop:
-BBSprite: Frame_6, 5;
 Dispose;

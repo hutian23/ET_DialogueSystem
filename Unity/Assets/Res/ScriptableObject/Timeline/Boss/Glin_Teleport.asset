@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dad01b398c6f634c9e134265baa14a1, type: 3}
-  m_Name: Glin_Capespike
+  m_Name: Glin_Teleport
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 7400000, guid: f1b17c6aab390c64fb2bc094b3457797, type: 2}
+    - {fileID: 7400000, guid: 801c196aff1b5594d94fc1808de39471, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -53,13 +53,13 @@ MonoBehaviour:
       Data: false
     - Name: Name
       Entry: 1
-      Data: Glin_Capespike
+      Data: Glin_Teleport
     - Name: StartFrame
       Entry: 3
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 10
+      Data: 6
     - Name: animationClip
       Entry: 10
       Data: 0
@@ -154,10 +154,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: -0.1
+      Data: -0.100000024
     - Name: 
       Entry: 4
-      Data: -0.2
+      Data: -0.95
     - Name: 
       Entry: 8
       Data: 
@@ -169,7 +169,7 @@ MonoBehaviour:
       Data: 2.5
     - Name: 
       Entry: 4
-      Data: 5.6
+      Data: 4.1
     - Name: 
       Entry: 8
       Data: 
@@ -258,7 +258,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 10
+      Data: 7
     - Name: 
       Entry: 7
       Data: 16|Timeline.EventInfo, Unity.Loader
@@ -267,7 +267,7 @@ MonoBehaviour:
       Data: 0
     - Name: keyframeName
       Entry: 1
-      Data: Capespike_1
+      Data: Frame_1
     - Name: 
       Entry: 8
       Data: 
@@ -279,7 +279,7 @@ MonoBehaviour:
       Data: 1
     - Name: keyframeName
       Entry: 1
-      Data: Capespike_2
+      Data: Frame_2
     - Name: 
       Entry: 8
       Data: 
@@ -291,7 +291,7 @@ MonoBehaviour:
       Data: 2
     - Name: keyframeName
       Entry: 1
-      Data: Capespike_3
+      Data: Frame_3
     - Name: 
       Entry: 8
       Data: 
@@ -303,7 +303,7 @@ MonoBehaviour:
       Data: 3
     - Name: keyframeName
       Entry: 1
-      Data: Capespike_4
+      Data: Frame_4
     - Name: 
       Entry: 8
       Data: 
@@ -315,7 +315,7 @@ MonoBehaviour:
       Data: 4
     - Name: keyframeName
       Entry: 1
-      Data: Capespike_5
+      Data: Frame_5
     - Name: 
       Entry: 8
       Data: 
@@ -327,7 +327,7 @@ MonoBehaviour:
       Data: 5
     - Name: keyframeName
       Entry: 1
-      Data: Capespike_6
+      Data: Frame_6
     - Name: 
       Entry: 8
       Data: 
@@ -339,43 +339,7 @@ MonoBehaviour:
       Data: 6
     - Name: keyframeName
       Entry: 1
-      Data: Capespike_7
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 23|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 7
-    - Name: keyframeName
-      Entry: 1
-      Data: Capespike_8
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 24|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 8
-    - Name: keyframeName
-      Entry: 1
-      Data: Capespike_9
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 25|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 9
-    - Name: keyframeName
-      Entry: 1
-      Data: Capespike_10
+      Data: Frame_7
     - Name: 
       Entry: 8
       Data: 
@@ -394,4 +358,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  timelineName: Glin_Capespike
+  timelineName: Glin_Teleport
