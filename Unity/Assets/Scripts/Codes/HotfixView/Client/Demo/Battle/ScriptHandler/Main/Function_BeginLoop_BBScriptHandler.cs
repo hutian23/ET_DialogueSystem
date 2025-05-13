@@ -13,7 +13,7 @@
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
             int index = parser.Coroutine_Pointers[data.CoroutineID];
-            int endIndex = index, startIndex = index;
+            int endIndex = index, triggerIndex = index;
             while (++index < parser.OpDict.Count)
             {
                 string opLine = parser.OpDict[index];
@@ -26,15 +26,8 @@
             
             //1. 初始化组件
             parser.RemoveComponent<LoopComponent>();
-            LoopComponent loopComponent = parser.AddComponent<LoopComponent>(true);
-            loopComponent.triggerIndex = startIndex;
-            loopComponent.startIndex = startIndex;
-            loopComponent.endIndex = endIndex;
-            loopComponent.token = new ETCancellationToken();
+            LoopComponent loopComponent = parser.AddComponent<LoopComponent, int, int>(triggerIndex, endIndex, true);
             
-            //2. 启动检测协程
-            loopComponent.TriggerCor().Coroutine();
-
             //3. 启动Loop协程
             Status ret = await loopComponent.LoopCor();
             parser.RemoveComponent<LoopComponent>();

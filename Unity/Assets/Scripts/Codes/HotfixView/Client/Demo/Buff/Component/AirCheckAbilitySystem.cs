@@ -36,10 +36,11 @@ namespace ET.Client
                     {
                         continue;
                     }
-
+                    
                     //2-2. 这里写的比较简单，只要两个接触点的Y坐标小于中心点即认为落地 
                     info.Contact.GetWorldManifold(out WorldManifold manifold);
                     float yMax = Math.Max(manifold.Points[0].Y, manifold.Points[1].Y);
+                    
                     if (b2Body.GetPosition().Y - yMax < 0f)
                     {
                         continue;

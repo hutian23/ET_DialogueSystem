@@ -1,7 +1,7 @@
 ﻿namespace ET.Client
 {
     [ComponentOf(typeof(BBParser))]
-    public class LoopComponent : Entity, IAwake, IDestroy
+    public class LoopComponent : Entity, IAwake<int, int>, IDestroy, IFrameLateUpdate
     {
         public int triggerIndex;
         public int startIndex;

@@ -42,7 +42,6 @@ namespace ET.Client
                 //3. 横向飞弹
                 self.SpawnHorizontalFireball();
                 
-                //3. 等待帧数随机
                 await bbTimer.WaitAsync(self.waitFrame, self.token);
                 if (self.token.IsCancel()) return;
             }

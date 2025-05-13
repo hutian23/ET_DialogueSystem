@@ -31,6 +31,7 @@
                 Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
                 b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
                 
+                //TODO 设置一个常量FrameLength = 0.016666;
                 float dv = (1 / 60f) * self.accelY;
                 float curY = self.startY * dv * self.cnt;
                 b2Body.SetVelocityY(curY);

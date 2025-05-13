@@ -4,12 +4,13 @@ CameraInit;
 # DefaultCamera
 Camera: DefaultCamera;
 Camera_Priority: DefaultCamera, 100;
-Camera_OrthoSize: DefaultCamera, 155000;
+Camera_OrthoSize: DefaultCamera, 95000;
 Camera_XDamping: DefaultCamera, 25000;
 Camera_YDamping: DefaultCamera, 8000;
-Camera_DeadZone: DefaultCamera, 60, 20;
-Camera_SoftZone: DefaultCamera, 80, 40;
-Camera_Bias: DefaultCamera, 0, 50;
+Camera_DeadZone: DefaultCamera, 20, 5;
+Camera_SoftZone: DefaultCamera, 40, 20;
+Camera_Screen: DefaultCamera, 50, 75;
+Camera_Bias: DefaultCamera, 0, 0;
 # TargetGroupCamera
 TargetGroupCamera: TG_Camera;
 Camera_Priority: TG_Camera, 11;

@@ -197,7 +197,6 @@ namespace ET.Client
         //TODO 
         public static void DrawText(this b2WorldManager self, Vector2 position, string text, Color color)
         {
-            
         }
     }
 }

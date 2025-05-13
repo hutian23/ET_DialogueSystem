@@ -355,7 +355,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 19
+      Data: 18
     - Name: 
       Entry: 7
       Data: 20|Timeline.EventInfo, Unity.Loader
@@ -565,22 +565,10 @@ MonoBehaviour:
       Data: 37|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 82
-    - Name: keyframeName
-      Entry: 1
-      Data: Bow_6
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 38|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
       Data: 85
     - Name: keyframeName
       Entry: 1
-      Data: Bow_7
+      Data: Bow_6
     - Name: 
       Entry: 8
       Data: 

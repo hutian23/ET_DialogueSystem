@@ -10,7 +10,7 @@
 
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Unit player = TODUnitHelper.GetPlayer(parser.ClientScene());
+            Unit player = BBUnitHelper.GetPlayer(parser.ClientScene());
 
             VirtualCameraManager.Instance.RemoveComponent<FollowComponent>();
             VirtualCameraManager.Instance.AddComponent<FollowComponent, long>(player.InstanceId);

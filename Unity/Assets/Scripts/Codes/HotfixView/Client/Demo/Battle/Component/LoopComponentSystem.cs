@@ -6,6 +6,19 @@ namespace ET.Client
     [FriendOf(typeof(LoopComponent))]
     public static class LoopComponentSystem
     {
+        public class LoopComponentAwakeSystem : AwakeSystem<LoopComponent, int, int>
+        {
+            protected override void Awake(LoopComponent self, int triggerIndex, int endIndex)
+            {
+                self.triggerIndex = triggerIndex;
+                self.startIndex = triggerIndex + 1;
+                self.curIndex = triggerIndex;
+                self.endIndex = endIndex;
+                self.token = new ETCancellationToken();
+                self.LoopCor().Coroutine();
+            }
+        }
+        
         public class LoopComponentDestroySystem : DestroySystem<LoopComponent>
         {
             protected override void Destroy(LoopComponent self)
@@ -17,33 +30,28 @@ namespace ET.Client
                 self.token.Cancel();
             }
         }
-
-        public static async ETTask TriggerCor(this LoopComponent self)
+        
+        [FriendOf(typeof(BBParser))]
+        public class LoopComponentFrameLateUpdateSystem : FrameLateUpdateSystem<LoopComponent>
         {
-            BBParser parser = self.GetParent<BBParser>();
-            // BBTimerComponent bbTimer = parser.GetParent<Unit>().GetComponent<BBTimerComponent>();
-            BBTimerComponent postStepTimer = b2WorldManager.Instance.GetPostStepTimer();    
-            
-            while (true)
+            protected override void FrameLateUpdate(LoopComponent self)
             {
-                // await bbTimer.WaitFrameAsync(self.token);
-                await postStepTimer.WaitFrameAsync(self.token);
-                if (self.token.IsCancel()) break;
-                
+                BBParser parser = self.GetParent<BBParser>();
+
                 //1. Match trigger
                 string loopTrigger = parser.OpDict[self.triggerIndex];
-                MatchCollection matches = Regex.Matches(loopTrigger,@"\((.*?)\)");
+                MatchCollection matches = Regex.Matches(loopTrigger, @"\((.*?)\)");
                 if (matches.Count == 0)
                 {
                     Log.Error($"Loop_Handler must have at least one triggerHandler!");
-                    break;
+                    return;
                 }
                 
-                //2. Run TriggerHandler
+                //2. Exec trigger
                 for (int i = 0; i < matches.Count; i++)
                 {
                     string op = matches[i].Groups[1].Value;
-                    Match triggerMatch = Regex.Match(op, @"(.*?):");
+                    Match triggerMatch = Regex.Match(op, "(.*?):");
                     
                     // Match Failed
                     if (!triggerMatch.Success)

@@ -12,13 +12,13 @@ namespace ET.Client
         //Position: Y >= 10000
         public override bool Check(BBParser parser, BBScriptData data)
         {
-            Match match = Regex.Match(data.opLine, @"Position: (?<XY>\w+) (?<Sign>[><=]+) (?<Position>\d+)");
+            Match match = Regex.Match(data.opLine, @"Position: (?<XY>\w+) (?<Sign>[><=]+) (?<Position>-?\d+)");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
                 return false;
             }
-
+            
             if (!long.TryParse(match.Groups["Position"].Value, out long Position))
             {
                 Log.Error($"cannot format {match.Groups["Position"].Value} to long !!!");

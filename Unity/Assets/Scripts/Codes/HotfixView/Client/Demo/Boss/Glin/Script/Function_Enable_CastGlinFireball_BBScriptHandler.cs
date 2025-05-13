@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class Enable_CastGlinFireball_BBScriptHandler : BBScriptHandler
+    public class Function_Enable_CastGlinFireball_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {

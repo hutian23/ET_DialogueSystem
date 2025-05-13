@@ -6,6 +6,8 @@ EnableAirCheck;
 PoolObject: GlinBullet, 5;
 PoolObject: GlinSpike, 3;
 PoolObject: GlinFireball, 20;
+PoolObject: ADust, 1;
+PoolObject: GDust, 1;
 RegistMove: (Glin_Slash)
   MoveType: Normal;
 EndMove:
@@ -15,21 +17,19 @@ EndMove:
 RegistMove: (Glin_AirDash)
   MoveType: Normal;
 EndMove:
-RegistMove: (Glin_Cast)
-  MoveType: Normal;
-EndMove:
+# RegistMove: (Glin_Cast)
+#   MoveType: Normal;
+# EndMove:
 RegistMove: (Glin_Ballon)
   MoveType: Normal;
 EndMove:
 RegistMove: (Glin_TeleportOut)
   MoveType: Normal;
 EndMove:
-RegistMove: (Glin_Bow)
-  MoveType: Normal;
-EndMove:
-# Test
-Visible: true;
-GotoBehavior: Glin_Bow;
+# RegistMove: (Glin_Bow)
+#   MoveType: Normal;
+# EndMove:
+GotoBehavior: Glin_AirDash;
 return;
 
 [Glin_Slash]
@@ -37,50 +37,43 @@ return;
 return;
 
 @Main:
-SetPos: 0, -100000;
-# Teleport In
-BBSprite: Teleport_1, 4;
-BBSprite: Teleport_2, 4;
-BBSprite: Teleport_3, 4;
-BBSprite: Teleport_4, 4;
-# Slash
-BBSprite: Slash_1, 6;
+# Slash Start
+BBSprite: Slash_1, 10;
 BBSprite: Slash_2, 4;
 BBSprite: Slash_3, 4;
-BBSprite: Slash_4, 8;
-# Dash
-SetVelocityX: 600000;
-BBSprite: Slash_5, 3;
+# 蓄力
+RegistCounter: 30;
+BeginLoop: (Counter: Value > 0)
+  BBSprite: Slash_4, 6;
+  BBSprite: Slash_5, 6;
+EndLoop:
+# Slash Active
+SetVelocityX: 700000;
+BBSprite: Slash_6, 4;
 SetVelocityX: 400000;
-BBSprite: Slash_6, 3;
-SetVelocityX: 200000;
 BBSprite: Slash_7, 4;
-SetVelocityX: 100000;
-BBSprite: Slash_8, 2;
+SetVelocityX: 200000;
+BBSprite: Slash_8, 4;
 SetVelocityX: 50000;
-BBSprite: Slash_8, 2;
+BBSprite: Slash_9, 4;
 SetVelocityX: 0;
-BBSprite: Slash_9, 5;
 # UpperCut_Start
 BBSprite: UpperCut_Start_1, 4;
-BBSprite: UpperCut_Start_2, 5;
-BBSprite: UpperCut_Start_3, 5;
-BBSprite: UpperCut_Start_4, 5;
-BBSprite: UpperCut_Start_5, 8;
+BBSprite: UpperCut_Start_2, 8;
+BBSprite: UpperCut_Start_3, 4;
+BBSprite: UpperCut_Start_4, 4;
+BBSprite: UpperCut_Start_5, 4;
 # UpperCut Active
-SetVelocity: 100000, 900000;
+SetVelocity: 200000, 800000;
 BBSprite: UpperCut_Active_1, 5;
-SetVelocity: 50000, 600000;
+SetVelocity: 100000, 400000;
+BBSprite: UpperCut_Active_1, 5;
+SetVelocity: 50000, 200000;
 BBSprite: UpperCut_Active_1, 4;
-SetVelocity: 40000, 300000;
-BBSprite: UpperCut_Active_1, 3;
-SetVelocity: 10000, 100000;
-BBSprite: UpperCut_Active_1, 3;
-BBSprite: UpperCut_Active_1, 3;
+SetVelocity: 10000, 20000;
+BBSprite: UpperCut_Active_1, 4;
 # UpperCut End
 SetVelocity: 0, 0;
-BBSprite: UpperCut_End_1, 5;
-BBSprite: UpperCut_End_2, 4;
 GotoBehavior: Glin_TeleportOut;
 
 [Glin_Capespike]
@@ -88,12 +81,6 @@ GotoBehavior: Glin_TeleportOut;
 return;
 
 @Main:
-SetPos: 50000, -100000;
-# Teleport In
-BBSprite: Teleport_1, 4;
-BBSprite: Teleport_2, 4;
-BBSprite: Teleport_3, 4;
-BBSprite: Teleport_4, 4;
 # first seven frames reversed for end
 # Pre Cast
 BBSprite: Capespike_1, 5;
@@ -106,6 +93,7 @@ BBSprite: Capespike_7, 5;
 ScreenShake: 450, 0, 8000, 10;
 BBSprite: Capespike_8, 5;
 # Cast Spike
+CastGlinSpike;
 RegistCounter: 150;
 # CastGlinSpike: 0, -3000;
 BeginLoop: (Counter: Value > 0)
@@ -126,56 +114,64 @@ GotoBehavior: Glin_TeleportOut;
 return;
 
 @Main:
-SetPos: 0, 0;
-# Teleport In
-BBSprite: Teleport_1, 4;
-BBSprite: Teleport_2, 4;
-BBSprite: Teleport_3, 4;
+SetFlip: Left;
+AirDashPos: 15000;
 # AirDash Start
-BBSprite: AirDash_Anticipate_1, 3;
-BBSprite: AirDash_Anticipate_2, 3;
-BBSprite: AirDash_Anticipate_3, 3;
-BBSprite: AirDash_Anticipate_4, 3;
-BBSprite: AirDash_Anticipate_5, 3;
-BBSprite: AirDash_Anticipate_6, 3;
-BBSprite: AirDash_Anticipate_7, 3;
+BBSprite: AirDash_Anticipate_1, 5;
+BBSprite: AirDash_Anticipate_2, 5;
+BBSprite: AirDash_Anticipate_3, 5;
+BBSprite: AirDash_Anticipate_4, 5;
+BBSprite: AirDash_Anticipate_5, 5;
+BBSprite: AirDash_Anticipate_6, 5;
+BBSprite: AirDash_Anticipate_7, 5;
+# 悬停在空中，空箭朝向玩家
+EnableGlinChase: true, -450000, 450000, 100000;
+EnableGlinShake: true, 450, 450, 8000;
+RegistCounter: 60;
+BeginLoop: (Counter: Value > 0)
+  BBSprite: AirDash_Active_1, 5;
+  BBSprite: AirDash_Active_2, 5;
+  BBSprite: AirDash_Active_3, 5;
+EndLoop:
+EnableGlinShake: false, 0, 0, 0;
+EnableGlinChase: false, 0, 0, 0;
 # AirDash Active
-ApplyRotation: true;
-SetVelocity: 450000, -700000;
-BeginLoop: (InAir: true)
+AirDashVelocity: -700000;
+SpawnADust: 0, 27000, 8000, 12000;
+# 下落过程中持续检测地面
+EnableAirDashToGroundCheck: true;
+BeginLoop: (AirDashToGround: false)
   BBSprite: AirDash_Active_1, 4;
   BBSprite: AirDash_Active_2, 4;
   BBSprite: AirDash_Active_3, 4;
 EndLoop:
-ApplyRotation: false;
+EnableAirDashToGroundCheck: false;
+SetRotate: 0;
+EnemyUpdateFlip;
 # GroundDash Start
-SetVelocity: 0, 0;
-ScreenShake: 1550, 550, 10000, 15;
+SpawnGDust: -65000, -20000, -8000, 4000;
+SpawnGDust: 65000, -20000, 8000, 4000;
+SetVelocity: 0, -10000;
+ScreenShake: 1550, 550, 10000, 20;
 BBSprite: GroundDash_Anticipate_1, 5;
+BBSprite: GroundDash_Anticipate_2, 5;
+BBSprite: GroundDash_Anticipate_3, 14;
+BBSprite: GroundDash_Anticipate_4, 5;
+# GroundDash Active
+BBSprite: GroundDash_Active_1, 5;
+SpawnGDust: 80000, -15000, 10000, 6000;
+SetVelocity: 700000, 0;
+BBSprite: GroundDash_Active_2, 5;
+AccelX: 700000, 15, -2800000;
+BBSprite: GroundDash_Active_3, 5;
+BBSprite: GroundDash_Active_4, 5;
+BBSprite: GroundDash_Anticipate_1, 5;
+SetVelocityX: 0;
 BBSprite: GroundDash_Anticipate_2, 5;
 BBSprite: GroundDash_Anticipate_3, 5;
-BBSprite: GroundDash_Anticipate_4, 10;
-# GroundDash Active
-SetVelocityX: 100000;
-BBSprite: GroundDash_Active_1, 1;
-SetVelocityX: 400000;
-BBSprite: GroundDash_Active_1, 1;
-SetVelocityX: 700000;
-BBSprite: GroundDash_Active_1, 1;
-SetVelocityX: 800000;
-BBSprite: GroundDash_Active_1, 1;
-SetVelocityX: 850000;
-BBSprite: GroundDash_Active_2, 4;
-BBSprite: GroundDash_Active_3, 4;
-BBSprite: GroundDash_Active_4, 4;
-SetVelocityX: 200000;
-BBSprite: GroundDash_Anticipate_1, 5;
-SetVelocityX: 80000;
-BBSprite: GroundDash_Anticipate_2, 5;
-SetVelocityX: 0;
-BBSprite: GroundDash_Anticipate_3, 4;
-BBSprite: GroundDash_Anticipate_4, 4;
-GotoBehavior: Glin_TeleportOut;
+BBSprite: GroundDash_Anticipate_4, 5;
+# GotoBehavior: Glin_TeleportOut;
+GotoBehavior: Glin_AirDash;
 
 [Glin_Cast]
 @Trigger:
@@ -214,12 +210,6 @@ GotoBehavior: Glin_TeleportOut;
 return;
 
 @Main:
-SetPos: 0, 0;
-# Teleport In
-BBSprite: Teleport_1, 4;
-BBSprite: Teleport_2, 4;
-BBSprite: Teleport_3, 4;
-BBSprite: Anticipate_1, 7;
 # Cast Fireball
 # 发射飞弹时屏幕振动
 EnableGlinShake: true, 250, 250, 8000;
@@ -268,10 +258,8 @@ BBSprite: Bow_2, 5;
 BBSprite: Bow_3, 5;
 BBSprite: Bow_4, 5;
 BBSprite: Bow_5, 5;
-BBSprite: Bow_6, 5;
-BBSprite: Bow_7, 40;
+BBSprite: Bow_6, 30;
 # Bow_2
-BBSprite: Bow_6, 4;
 BBSprite: Bow_5, 4;
 BBSprite: Bow_4, 4;
 BBSprite: Bow_3, 4;
@@ -292,22 +280,16 @@ ScreenShake: 750, 750, 10000, 15;
 BBSprite: Frame_3, 5;
 BBSprite: Frame_2, 5;
 BBSprite: Frame_1, 5;
-Visible: false;
+SetPos: -1000000, -1000000;
 WaitFrame: 50;
-Visible: true;
-# Teleport In
-ScreenShake: 750, 750, 10000, 15;
+# Select Next Behavior
 Random: ran1, 0, 100;
-BeginIf: (Random: ran1 >= 0), (Random: ran1 < 10)
-  GotoBehavior: Glin_Ballon;
-EndIf:
-BeginIf: (Random: ran1 >= 10), (Random: ran1 < 50)
-  GotoBehavior: Glin_Slash;
-EndIf:
-BeginIf: (Random: ran1 >= 50), (Random: ran1 < 80)
-  GotoBehavior: Glin_Cast;
-EndIf:
-BeginIf: (Random: ran1 >= 80), (Random: ran1 < 90)
-  GotoBehavior: Glin_Capespike;
-EndIf:
+GlinPos: -140000, 140000, 80000, 0; 
+# Teleport In
+BBSprite: Frame_1, 5;
+BBSprite: Frame_2, 5;
+ScreenShake: 750, 750, 10000, 15;
+BBSprite: Frame_3, 5;
+BBSprite: Frame_4, 5;
+# Enter Next Behavior
 GotoBehavior: Glin_AirDash;

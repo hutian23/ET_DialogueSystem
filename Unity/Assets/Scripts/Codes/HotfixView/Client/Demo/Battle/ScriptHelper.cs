@@ -7,6 +7,9 @@ namespace ET.Client
     [FriendOf(typeof(BBParser))]
     public static class ScriptHelper
     {
+        public const float FrameLength = 0.0166666f;
+        public const int FrameTick = 166666;
+        
         public static void Reload()
         {
             CodeLoader.Instance.LoadHotfix();

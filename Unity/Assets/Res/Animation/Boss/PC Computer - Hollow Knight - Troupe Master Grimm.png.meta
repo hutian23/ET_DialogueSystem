@@ -2204,7 +2204,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Troupe Master Grimm_0
+      name: A_Dash_Effect_1
       rect:
         serializedVersion: 2
         x: 4
@@ -2435,14 +2435,14 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Troupe Master Grimm_1
+      name: Roar_Anticipate_1
       rect:
         serializedVersion: 2
         x: 1786
         y: 8639
         width: 257
         height: 353
-      alignment: 0
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -2456,7 +2456,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Troupe Master Grimm_2
+      name: Roar_1
       rect:
         serializedVersion: 2
         x: 2071
@@ -2477,7 +2477,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Troupe Master Grimm_3
+      name: Roar_2
       rect:
         serializedVersion: 2
         x: 2456
@@ -2498,7 +2498,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Troupe Master Grimm_4
+      name: Roar_3
       rect:
         serializedVersion: 2
         x: 2841
@@ -2518,6 +2518,216 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: A_Dash_Effect_2
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 3402
+        width: 449
+        height: 566
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ded5843ae1b36744afee1fd38e5e613
+      internalID: -1972334819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A_Dash_Effect_3
+      rect:
+        serializedVersion: 2
+        x: 912
+        y: 3402
+        width: 449
+        height: 566
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8e47f47cb62fa146a02b9fe37d360dc
+      internalID: -378526450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A_Dash_Effect_4
+      rect:
+        serializedVersion: 2
+        x: 1366
+        y: 3402
+        width: 449
+        height: 566
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bac3c67ab3c95d4ab1f63e9465add32
+      internalID: -1386436698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A_Dash_Effect_5
+      rect:
+        serializedVersion: 2
+        x: 1820
+        y: 3402
+        width: 449
+        height: 566
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b3030dfebc58864389f34063000c3de
+      internalID: -1176395537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: G_Dash_Effect_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 3010
+        width: 831
+        height: 368
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0345be2b9938452498b78e0d531822f1
+      internalID: -1714279655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: G_Dash_Effect_2
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 3010
+        width: 831
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59d34b0d1ad69f5499f6761217df8945
+      internalID: -1553474140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: G_Dash_Effect_3
+      rect:
+        serializedVersion: 2
+        x: 1676
+        y: 3010
+        width: 831
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d06f2278858db44d896ce15cb4f93d5
+      internalID: -1337474790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: G_Dash_Effect_4
+      rect:
+        serializedVersion: 2
+        x: 2512
+        y: 3010
+        width: 831
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1ad9970cf2deaf419ab5e21ce77f023
+      internalID: 1106460466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: G_Dash_Effect_5
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 2637
+        width: 831
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e617052de42db34bbec8c742d61a242
+      internalID: 1249977428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: G_Dash_Effect_6
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 2637
+        width: 831
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2f6e879904415749908c8a546c0dcf8
+      internalID: 1653255131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2529,6 +2739,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      A_Dash_Effect_1: -989844064
+      A_Dash_Effect_2: -1972334819
+      A_Dash_Effect_3: -378526450
+      A_Dash_Effect_4: -1386436698
+      A_Dash_Effect_5: -1176395537
       AirDash_Active_1: -1372922525
       AirDash_Active_2: -1102999915
       AirDash_Active_3: -580009307
@@ -2574,6 +2789,12 @@ TextureImporter:
       Firebat_3: -763381734
       Firebat_4: 1916601977
       Firebat_5: 1450021345
+      G_Dash_Effect_1: -1714279655
+      G_Dash_Effect_2: -1553474140
+      G_Dash_Effect_3: -1337474790
+      G_Dash_Effect_4: 1106460466
+      G_Dash_Effect_5: 1249977428
+      G_Dash_Effect_6: 1653255131
       GroundDash_Active_1: 771798175
       GroundDash_Active_2: 415747465
       GroundDash_Active_3: -682968255
@@ -2594,17 +2815,16 @@ TextureImporter:
       Idle_7: 719151919
       Idle_8: -770638817
       Idle_9: 463663235
-      PC Computer - Hollow Knight - Troupe Master Grimm_0: -989844064
-      PC Computer - Hollow Knight - Troupe Master Grimm_1: 872102556
-      PC Computer - Hollow Knight - Troupe Master Grimm_2: -2049334114
-      PC Computer - Hollow Knight - Troupe Master Grimm_3: 1574881697
-      PC Computer - Hollow Knight - Troupe Master Grimm_4: 1064313897
       Pillar_1: 11226741
       Pillar_2: 1326170797
       Pillar_3: 1637662626
       Pillar_4: -1035578791
       Pillar_5: -619571979
       Pillar_6: -455997080
+      Roar_1: -2049334114
+      Roar_2: 1574881697
+      Roar_3: 1064313897
+      Roar_Anticipate_1: 872102556
       Slash_1: -611117121
       Slash_10: 799995478
       Slash_2: 582400235

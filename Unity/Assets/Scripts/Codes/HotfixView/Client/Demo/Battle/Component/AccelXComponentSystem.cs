@@ -7,6 +7,7 @@
             protected override void Awake(AccelXComponent self, float startX, float accelX, int lastFrame)
             {
                 self.startX = startX;
+                self.currentX = self.startX;
                 self.lastFrame = lastFrame;
                 self.accelX = accelX;
                 self.cnt = 0;
@@ -18,6 +19,7 @@
             protected override void Destroy(AccelXComponent self)
             {
                 self.startX = 0f;
+                self.currentX = 0f;
                 self.accelX = 0f;
                 self.lastFrame = 0;
                 self.cnt = 0;
@@ -32,8 +34,8 @@
                 b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
                 
                 float dv = (1 / 60f) * self.accelX;
-                float curX = self.startX + dv * self.cnt;
-                b2Body.SetVelocityX(curX);
+                self.currentX = self.startX + dv * self.cnt;
+                b2Body.SetVelocityX(self.currentX);
                 
                 self.cnt++;
                 if (self.cnt >= self.lastFrame)

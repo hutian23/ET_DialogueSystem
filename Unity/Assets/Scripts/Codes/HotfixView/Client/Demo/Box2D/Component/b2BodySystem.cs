@@ -186,6 +186,21 @@ namespace ET.Client
         }
         #endregion
 
+        #region Rotation
+
+        public static void SetRotation(this b2Body self, float angle)
+        {
+            self.body.SetTransform(self.GetPosition(), angle);
+            self.SyncTrans();
+        }
+
+        public static float GetRotation(this b2Body self)
+        {
+            return self.body.GetAngle();
+        }
+        
+        #endregion
+        
         #region Hertz
         public static int GetHertz(this b2Body self)
         {

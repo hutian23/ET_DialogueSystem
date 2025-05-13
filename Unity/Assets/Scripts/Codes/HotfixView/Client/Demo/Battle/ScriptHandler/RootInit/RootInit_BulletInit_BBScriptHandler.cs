@@ -1,6 +1,4 @@
-﻿using Box2DSharp.Dynamics;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     public class RootInit_BulletInit_BBScriptHandler : BBScriptHandler
     {

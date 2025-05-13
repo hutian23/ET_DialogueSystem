@@ -13,6 +13,7 @@
 
             //1. 初始化
             unit.AddComponent<BulletManager>();
+            unit.AddComponent<EffectManager>();
             
             await ETTask.CompletedTask;
             return Status.Success;
