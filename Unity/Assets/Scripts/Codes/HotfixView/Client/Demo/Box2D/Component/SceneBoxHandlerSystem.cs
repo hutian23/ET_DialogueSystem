@@ -42,6 +42,7 @@ namespace ET.Client
                     };
                     sceneBody.CreateFixture(fixtureDef);
                 }
+                self.unitId = unit.InstanceId;
             }
         }
         
@@ -50,7 +51,7 @@ namespace ET.Client
             protected override void Destroy(SceneBoxHandler self)
             {
                 self.info = default;
-                b2WorldManager.Instance.DestroyBody(self.GetParent<Unit>().InstanceId);
+                b2WorldManager.Instance.DestroyBody(self.unitId);
             }
         }
         

@@ -20,7 +20,7 @@ namespace ET.Client
                 b2Body b2Body = b2WorldManager.Instance.GetBody(self.GetParent<Unit>().InstanceId);
                 
                 //2. 获取缓冲区中的碰撞数据
-                Queue<CollisionInfo> infoQueue = b2Body.TriggerStayBuffer;
+                Queue<CollisionInfo> infoQueue = b2Body.triggerStayBuffer;
                 int count = infoQueue.Count;
                 while (count-- > 0)
                 {

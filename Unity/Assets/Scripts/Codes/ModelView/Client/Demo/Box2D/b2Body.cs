@@ -14,21 +14,22 @@ namespace ET.Client
         public long unitId;
         
         public List<Fixture> Fixtures = new();
-        public Dictionary<string, Fixture> FixtureDict = new(); 
+        public Dictionary<string, Fixture> FixtureDict = new();
+        public Dictionary<string, long> b2BoxDict = new();
         
-        public FlipState Flip = FlipState.Left;
-        public float VelocityX;
-        public float VelocityY;
-        public int Hertz = 60;
+        public FlipState flip = FlipState.Left;
+        public float velocityX;
+        public float velocityY;
+        public int hertz = 60;
 
         // B2World.Step()期间收集碰撞信息，PostStep中执行事件
-        public Queue<CollisionInfo> TriggerEnterBuffer = new();
-        public Queue<CollisionInfo> TriggerStayBuffer = new(); 
-        public Queue<CollisionInfo> TriggerExitBuffer = new();
+        public Queue<CollisionInfo> triggerEnterBuffer = new();
+        public Queue<CollisionInfo> triggerStayBuffer = new(); 
+        public Queue<CollisionInfo> triggerExitBuffer = new();
         
-        public Queue<CollisionInfo> CollisionEnterBuffer = new();
-        public Queue<CollisionInfo> CollisionStayBuffer = new();
-        public Queue<CollisionInfo> CollisionExitBuffer = new();
+        public Queue<CollisionInfo> collisionEnterBuffer = new();
+        public Queue<CollisionInfo> collisionStayBuffer = new();
+        public Queue<CollisionInfo> collisionExitBuffer = new();
     }
 
     [Flags]

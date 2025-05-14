@@ -40,25 +40,39 @@ GotoBehavior: Glin_Idle;
 return;
 
 @Main:
-EnableTargetCheck: true;
-WaitFrame: 30;
-EnableTargetCheck: false;
+EnableRangeCheck: true, 80000, 0, 0;
 SetPos: 90000, -95000;
-SetMarker: Loop;
-BBSprite: Idle_1, 5;
-BBSprite: Idle_2, 5;
-BBSprite: Idle_3, 5;
-BBSprite: Idle_4, 5;
-BBSprite: Idle_5, 5;
-BBSprite: Idle_6, 5;
-BBSprite: Idle_7, 5;
-BBSprite: Idle_8, 5;
-BBSprite: Idle_9, 5;
-BBSprite: Idle_10, 5;
-BBSprite: Idle_11, 5;
-BBSprite: Idle_12, 5;
-GotoMarker: Loop;
-return;
+BeginLoop: (InRange: false)
+  BBSprite: Idle_1, 5;
+  BBSprite: Idle_2, 5;
+  BBSprite: Idle_3, 5;
+  BBSprite: Idle_4, 5;
+  BBSprite: Idle_5, 5;
+  BBSprite: Idle_6, 5;
+  BBSprite: Idle_7, 5;
+  BBSprite: Idle_8, 5;
+  BBSprite: Idle_9, 5;
+  BBSprite: Idle_10, 5;
+  BBSprite: Idle_11, 5;
+  BBSprite: Idle_12, 5;
+EndLoop:
+EnableRangeCheck: false, 0, 0, 0;
+RegistCounter: 100;
+BeginLoop: (Counter: Value > 0)
+  BBSprite: Idle_1, 5;
+  BBSprite: Idle_2, 5;
+  BBSprite: Idle_3, 5;
+  BBSprite: Idle_4, 5;
+  BBSprite: Idle_5, 5;
+  BBSprite: Idle_6, 5;
+  BBSprite: Idle_7, 5;
+  BBSprite: Idle_8, 5;
+  BBSprite: Idle_9, 5;
+  BBSprite: Idle_10, 5;
+  BBSprite: Idle_11, 5;
+  BBSprite: Idle_12, 5;
+EndLoop:
+GotoBehavior: Glin_Bow;
 
 [Glin_Slash]
 @Trigger:
@@ -205,13 +219,16 @@ return;
 
 @Main:
 # Start
-BBSprite: Start_1, 4;
-BBSprite: Start_2, 4;
-BBSprite: Start_3, 4;
-BBSprite: Start_4, 4;
+BBSprite: Start_1, 5;
+BBSprite: Start_2, 5;
+RegistCounter: 20;
+BeginLoop: (Counter: Value > 0) 
+  BBSprite: Start_3, 5;
+  BBSprite: Start_4, 5;
+EndLoop: 
 # Active
-BBSprite: Active_1, 4;
-BBSprite: Active_2, 4;
+BBSprite: Active_1, 5;
+BBSprite: Active_2, 5;
 CastGlinBullet: 30, -10000, 5000, 7000, 3, 350, 350, 10000, 15;
 RegistCounter: 80;
 BeginLoop: (Counter: Value > 0)
@@ -229,14 +246,20 @@ GotoBehavior: Glin_TeleportOut;
 return;
 
 @Main:
-WaitFrame: 1;
 # Cast Fireball
 # 发射飞弹时屏幕振动
+BBSprite: Anticipate_1, 5;
+BBSprite: Anticipate_2, 5;
 EnableGlinShake: true, 250, 250, 8000;
+RegistCounter: 40;
+BeginLoop: (Counter: Value > 0)
+  BBSprite: Active_1, 5;
+  BBSprite: Active_2, 5;
+  BBSprite: Active_3, 5;
+EndLoop:
 # 纵向飞弹，y轴速度不变，x轴速度飞行过程中略微增大
 # 横向飞弹，x轴速度不变，y轴速度逐渐趋于0
 Enable_CastGlinFireball: true, 35, -85000, 20000, 160000;
-BBSprite: Anticipate_2, 5;
 RegistCounter: 200;
 BeginLoop: (Counter: Value > 0)
   BBSprite: Active_1, 5;
@@ -255,23 +278,6 @@ GotoBehavior: Glin_TeleportOut;
 return;
 
 @Main:
-SetPos: 60000, -100000;
-# Idle
-RegistCounter: 100;
-BeginLoop: (Counter: Value > 0)
-  BBSprite: Idle_1, 5;
-  BBSprite: Idle_2, 5;
-  BBSprite: Idle_3, 5;
-  BBSprite: Idle_4, 5;
-  BBSprite: Idle_5, 5;
-  BBSprite: Idle_6, 5;
-  BBSprite: Idle_7, 5;
-  BBSprite: Idle_8, 5;
-  BBSprite: Idle_9, 5;
-  BBSprite: Idle_10, 5;
-  BBSprite: Idle_11, 5;
-  BBSprite: Idle_12, 5;
-EndLoop:
 # Bow_1
 BBSprite: Bow_1, 5;
 BBSprite: Bow_2, 5;

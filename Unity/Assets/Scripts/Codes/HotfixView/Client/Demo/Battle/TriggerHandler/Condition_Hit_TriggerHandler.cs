@@ -17,11 +17,11 @@ namespace ET.Client
         {
             b2Body b2Body = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
 
-            int count = b2Body.TriggerStayBuffer.Count;
+            int count = b2Body.triggerStayBuffer.Count;
             while (count-- > 0)
             {
-                CollisionInfo info = b2Body.TriggerStayBuffer.Dequeue();
-                b2Body.TriggerStayBuffer.Enqueue(info);
+                CollisionInfo info = b2Body.triggerStayBuffer.Dequeue();
+                b2Body.triggerStayBuffer.Enqueue(info);
 
                 BoxInfo boxInfoA = info.dataA.UserData as BoxInfo;
                 BoxInfo boxInfoB = info.dataB.UserData as BoxInfo;

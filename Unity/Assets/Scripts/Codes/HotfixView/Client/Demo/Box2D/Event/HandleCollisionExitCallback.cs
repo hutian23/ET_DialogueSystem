@@ -9,7 +9,7 @@ namespace ET.Client
         public override void Handle(CollisionExitCallback args)
         {
             b2Body b2Body = Root.Instance.Get(args.info.dataA.InstanceId) as b2Body;
-            b2Body.CollisionExitBuffer.Enqueue(args.info);
+            b2Body.collisionExitBuffer.Enqueue(args.info);
         }
     }
 }

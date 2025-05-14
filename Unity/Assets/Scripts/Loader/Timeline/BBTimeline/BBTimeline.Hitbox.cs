@@ -118,7 +118,7 @@ namespace Timeline
         //传入碰撞事件时调用的组件instanceId
         public long InstanceId;
         public string Name;
-        public int Type;
+        public FixtureType Type;
 
         //碰撞事件
         public int TriggerEnterId;
@@ -143,11 +143,11 @@ namespace Timeline
         public const int Camera = 2 << 2;
     }
 
-    public static class FixtureType
+    public enum FixtureType
     {
-        public const int None = 0;
-        public const int Default = 1;
-        public const int Hitbox = 2;
+        None = 0,
+        Default = 1,
+        Hitbox = 2
     }
 
     public struct UpdateHitboxCallback

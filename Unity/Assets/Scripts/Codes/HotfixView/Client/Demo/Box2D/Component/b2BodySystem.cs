@@ -19,18 +19,19 @@ namespace ET.Client
                 self.body = null;
                 self.Fixtures.Clear();
                 self.FixtureDict.Clear();
+                self.b2BoxDict.Clear();
+                
+                self.flip = FlipState.Left;
+                self.velocityX = 0f;
+                self.velocityY = 0f;
+                self.hertz = 60;
 
-                self.Flip = FlipState.Left;
-                self.VelocityX = 0f;
-                self.VelocityY = 0f;
-                self.Hertz = 60;
-
-                self.TriggerEnterBuffer.Clear();
-                self.TriggerStayBuffer.Clear();
-                self.TriggerExitBuffer.Clear();
-                self.CollisionEnterBuffer.Clear();
-                self.CollisionStayBuffer.Clear();
-                self.CollisionExitBuffer.Clear();
+                self.triggerEnterBuffer.Clear();
+                self.triggerStayBuffer.Clear();
+                self.triggerExitBuffer.Clear();
+                self.collisionEnterBuffer.Clear();
+                self.collisionStayBuffer.Clear();
+                self.collisionExitBuffer.Clear();
             }
         }
 
@@ -38,7 +39,7 @@ namespace ET.Client
         {
             protected override void PreStepUpdate(b2Body self)
             {
-                self.SetLinearVelocity(new Vector2(-self.VelocityX, self.VelocityY));
+                self.SetLinearVelocity(new Vector2(-self.velocityX, self.velocityY));
             }
         }
         
@@ -56,13 +57,13 @@ namespace ET.Client
             protected override void FrameLateUpdate(b2Body self)
             {
                 //2. 清空当前帧缓冲区
-                self.TriggerEnterBuffer.Clear();
-                self.TriggerStayBuffer.Clear();
-                self.TriggerExitBuffer.Clear();
+                self.triggerEnterBuffer.Clear();
+                self.triggerStayBuffer.Clear();
+                self.triggerExitBuffer.Clear();
                 
-                self.CollisionEnterBuffer.Clear();
-                self.CollisionStayBuffer.Clear();
-                self.CollisionExitBuffer.Clear();
+                self.collisionEnterBuffer.Clear();
+                self.collisionStayBuffer.Clear();
+                self.collisionExitBuffer.Clear();
             }
         }
         
@@ -81,30 +82,30 @@ namespace ET.Client
         //真实速度 = 当前帧速度 * 朝向 * TimeScale
         public static void SetLinearVelocity(this b2Body self, Vector2 velocity)
         {
-            Vector2 realVelocity = velocity * (self.Hertz / 60f) * new Vector2(self.GetFlip(), 1);
+            Vector2 realVelocity = velocity * (self.hertz / 60f) * new Vector2(self.GetFlip(), 1);
             self.body.SetLinearVelocity(realVelocity);
         }
         
         public static Vector2 GetVelocity(this b2Body self)
         {
-            return new Vector2(self.VelocityX, self.VelocityY);
+            return new Vector2(self.velocityX, self.velocityY);
         }
 
         public static void SetVelocity(this b2Body self, Vector2 value)
         {
             //真实速度 = 当前帧速度 * 朝向 * TimeScale
-            self.VelocityX = value.X;
-            self.VelocityY = value.Y;
+            self.velocityX = value.X;
+            self.velocityY = value.Y;
         }
         
         public static void SetVelocityY(this b2Body self, float velocityY)
         {
-            self.SetVelocity(new Vector2(self.VelocityX, velocityY));
+            self.SetVelocity(new Vector2(self.velocityX, velocityY));
         }
 
         public static void SetVelocityX(this b2Body self, float velocityX)
         {
-            self.SetVelocity(new Vector2(velocityX, self.VelocityY));
+            self.SetVelocity(new Vector2(velocityX, self.velocityY));
         }
         #endregion
 
@@ -125,7 +126,7 @@ namespace ET.Client
         public static void SetFlip(this b2Body self, FlipState flipState)
         {
             if ((int)flipState == self.GetFlip()) return;
-            self.Flip = flipState;
+            self.flip = flipState;
             
             //1. 获取类型为Hitbox的夹具
             QueueComponent<FixtureData> dataQueue = new QueueComponent<FixtureData>();
@@ -170,7 +171,7 @@ namespace ET.Client
 
         public static int GetFlip(this b2Body self)
         {
-            return (int)self.Flip;
+            return (int)self.flip;
         }
         #endregion
 
@@ -204,12 +205,12 @@ namespace ET.Client
         #region Hertz
         public static int GetHertz(this b2Body self)
         {
-            return self.Hertz;
+            return self.hertz;
         }
 
         public static void SetHertz(this b2Body self, int hertz)
         {
-            self.Hertz = hertz;
+            self.hertz = hertz;
         }
         #endregion
         
@@ -244,7 +245,7 @@ namespace ET.Client
         /// </summary>
         /// <param name="self"></param>
         /// <param name="fixtureType">eg. FixtureType.Hitbox</param>
-        public static void ClearFixtures(this b2Body self, int fixtureType)
+        public static void ClearFixtures(this b2Body self, FixtureType fixtureType)
         {
             QueueComponent<Fixture> removeQueue = QueueComponent<Fixture>.Create();
             
@@ -303,6 +304,69 @@ namespace ET.Client
                 Log.Error($"not found fixture: {name}");
             }
             return fixture;
+        }
+        
+        #endregion
+
+        #region Box
+        public static b2Box CreateBox(this b2Body self, FixtureDef def)
+        {       
+            //World.Step()上锁期间不能操作夹具
+            if (b2WorldManager.Instance.IsLocked())
+            {
+                Log.Error($"cannot create fixture while b2World is locked!!");
+                return null;
+            }
+            
+            FixtureData data = (FixtureData)def.UserData;
+            if (string.IsNullOrEmpty(data.Name))
+            {
+                Log.Error($"fixture name should not be null or empty!!");
+                return null;
+            }
+            if (self.b2BoxDict.TryGetValue(data.Name, out long id))
+            {
+                Log.Error($"already contain b2Box!!! Name: {data.Name}  Entity.Id: {id}");
+                return null;
+            }
+
+            b2Box b2Box = self.AddChild<b2Box, FixtureDef>(def);
+            self.b2BoxDict.Add(data.Name, b2Box.Id);
+
+            return b2Box;
+        }
+
+        public static void DestroyBox(this b2Body self, string boxName)
+        {
+            if (b2WorldManager.Instance.IsLocked())
+            {
+                Log.Error($"cannot destroy fixture while b2World is locked!!");
+                return;
+            }
+            if (!self.b2BoxDict.Remove(boxName, out long id))
+            {
+                Log.Error($"does not contain b2Box!!! Name: {boxName}");
+                return;
+            }
+
+            b2Box b2Box = self.GetChild<b2Box>(id);
+            b2Box.Dispose();
+        }
+
+        public static b2Box GetBox(this b2Body self, string boxName)
+        {
+            if (!self.b2BoxDict.TryGetValue(boxName, out long id))
+            {
+                Log.Error($"not found b2Box!!! Name: {boxName}");
+                return null;
+            }
+
+            return self.GetChild<b2Box>(id);
+        }
+
+        public static bool ContainBox(this b2Body self, string boxName)
+        {
+            return self.b2BoxDict.ContainsKey(boxName);
         }
         
         #endregion

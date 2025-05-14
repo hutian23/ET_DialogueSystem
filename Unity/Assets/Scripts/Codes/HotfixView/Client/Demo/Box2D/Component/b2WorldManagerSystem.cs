@@ -68,9 +68,7 @@ namespace ET.Client
         private static void Init(this b2WorldManager self)
         {
             // 销毁子Entity
-            ListComponent<long> removeList = ListComponent<long>.Create();
-            removeList.AddRange(self.BodyDict.Values);
-            foreach (long id in removeList)
+            foreach (long id in self.BodyDict.Values)
             {
                 b2Body body = self.GetChild<b2Body>(id);
                 body.Dispose();
@@ -122,7 +120,7 @@ namespace ET.Client
         {
             if (!self.BodyDict.TryGetValue(unitId, out long id))
             {
-                // Log.Error($"does not exist b2Body, unit.InstanceId: {unitId}");
+                Log.Error($"does not exist b2Body, unit.InstanceId: {unitId}");
                 return;
             }
 
@@ -133,13 +131,9 @@ namespace ET.Client
             b2Body.Dispose();
         }
 
-        public static void TryDestroyBody(this b2WorldManager self, long unitId)
+        public static bool ContainBody(this b2WorldManager self, long unitId)
         {
-            if (!self.BodyDict.ContainsKey(unitId))
-            {
-                return;
-            }
-            self.DestroyBody(unitId);
+            return self.BodyDict.ContainsKey(unitId);
         }
         
         public static b2Body GetBody(this b2WorldManager self, long unitId)
@@ -197,6 +191,11 @@ namespace ET.Client
         public static void DrawSegment(this b2WorldManager self, Vector2 start, Vector2 end, Color color)
         {
             self.B2World.Draw.DrawSegment(start, end, color);
+        }
+
+        public static void DrawCircle(this b2WorldManager self, Vector2 position, float radius, Color color)
+        {
+            self.B2World.Draw.DrawCircle(position, radius, color);
         }
         
         //TODO 

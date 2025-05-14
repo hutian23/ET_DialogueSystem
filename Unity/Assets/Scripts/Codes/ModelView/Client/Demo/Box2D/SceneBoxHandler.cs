@@ -6,5 +6,6 @@ namespace ET.Client
     public class SceneBoxHandler : Entity, IAwake, IDestroy, IPostStep, IGizmosUpdate
     {
         public CollisionInfo info;
+        public long unitId;
     }
 }
