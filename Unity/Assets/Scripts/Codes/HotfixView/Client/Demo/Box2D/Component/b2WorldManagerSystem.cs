@@ -179,6 +179,11 @@ namespace ET.Client
             return self.B2World.IsLocked;
         }
 
+        public static void Raycast(this b2WorldManager self, IRayCastCallback callback, Vector2 point1, Vector2 point2)
+        {
+            self.B2World.World.RayCast(callback, point1, point2);
+        }
+        
         public static void DrawShape(this b2WorldManager self, Shape shape, Vector2 position, float angle, Color color)
         {
             self.B2World.DrawShape(shape, position, angle, color);

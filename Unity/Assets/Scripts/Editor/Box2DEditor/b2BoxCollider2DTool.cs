@@ -101,6 +101,7 @@ namespace ET
         private SerializedProperty m_hitboxName;
         private SerializedProperty m_hitboxType;
         private SerializedProperty m_IsTrigger;
+        private SerializedProperty m_TagType;
 
         private void OnEnable()
         {
@@ -108,6 +109,7 @@ namespace ET
             m_size = serializedObject.FindProperty("info.size");
             m_hitboxName = serializedObject.FindProperty("info.boxName");
             m_hitboxType = serializedObject.FindProperty("info.hitboxType");
+            m_TagType = serializedObject.FindProperty("info.tagType");
             m_IsTrigger= serializedObject.FindProperty("IsTrigger");
         }
 
@@ -125,6 +127,10 @@ namespace ET
             // hitboxType
             HitboxType newType = (HitboxType)EditorGUILayout.EnumPopup("Hitbox Type", (HitboxType)m_hitboxType.enumValueIndex);
             m_hitboxType.enumValueIndex = (int)newType;
+            
+            // Tag
+            TagType tagType = (TagType)EditorGUILayout.EnumPopup("Tag Type", (TagType)m_TagType.enumValueIndex);
+            this.m_TagType.enumValueIndex = (int)tagType;
             
             //IsTrigger
             bool IsTrigger = EditorGUILayout.Toggle("IsTrigger",m_IsTrigger.boolValue);

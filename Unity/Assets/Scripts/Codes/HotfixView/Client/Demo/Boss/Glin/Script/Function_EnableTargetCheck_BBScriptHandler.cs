@@ -2,27 +2,27 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof(AirDashToGroundComponent))]
-    public class Function_EnableAirDashToGroundCheck_BBScriptHandler : BBScriptHandler
+    public class Function_EnableTargetCheck_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "EnableAirDashToGroundCheck";
+            return "EnableTargetCheck";
         }
 
+        // EnableTargetCheck: true;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"EnableAirDashToGroundCheck: (?<Active>\w+);");
+            Match match = Regex.Match(data.opLine, @"EnableTargetCheck: (?<Active>\w+);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
-
-            parser.RemoveComponent<AirDashToGroundComponent>();
-            if (!match.Groups["Active"].Value.Equals("true")) return Status.Success;
-
-            parser.AddComponent<AirDashToGroundComponent>();
+            
+            parser.RemoveComponent<TargetCancelComponent>();
+            if(!match.Groups["Active"].Value.Equals("true")) return Status.Success;
+            
+            parser.AddComponent<TargetCheckComponent>();
             
             await ETTask.CompletedTask;
             return Status.Success;

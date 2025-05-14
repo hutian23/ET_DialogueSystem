@@ -85,7 +85,14 @@ namespace Timeline
         Other,
         Gizmos
     }
-
+    
+    public enum TagType
+    {
+        None,
+        Wall, 
+        Ground
+    }
+    
     [Serializable]
     public class BoxInfo
     {
@@ -100,8 +107,9 @@ namespace Timeline
 
         [LabelText("大小: ")]
         public Vector2 size = Vector2.one;
-        
-        
+
+        [LabelText("标签：")]
+        public TagType tagType = TagType.None;
     }
 
     //有点套娃 --- > Fixture.UserData ---> FixtureData ---> UserData
@@ -140,7 +148,6 @@ namespace Timeline
         public const int None = 0;
         public const int Default = 1;
         public const int Hitbox = 2;
-        public const int AirCheckBox = 3;
     }
 
     public struct UpdateHitboxCallback

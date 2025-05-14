@@ -275,6 +275,7 @@ MonoBehaviour:
     hitboxType: 6
     center: {x: 0, y: 15}
     size: {x: 60, y: 5}
+    tagType: 2
 --- !u!1 &495028254
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,7 +450,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -2049545557, guid: 164326bd0c55b6d48adffadca289d667,
+      objectReference: {fileID: 941579680, guid: 164326bd0c55b6d48adffadca289d667,
         type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -520,7 +521,7 @@ GameObject:
   - component: {fileID: 794490285}
   m_Layer: 0
   m_Name: Ground_C
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -558,6 +559,7 @@ MonoBehaviour:
     hitboxType: 6
     center: {x: -25, y: -2.5}
     size: {x: 10, y: 30}
+    tagType: 1
 --- !u!1001 &930058541
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -699,6 +701,7 @@ MonoBehaviour:
     hitboxType: 6
     center: {x: 0, y: -15}
     size: {x: 40, y: 5}
+    tagType: 2
 --- !u!1 &1211498376
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,6 +752,7 @@ MonoBehaviour:
     hitboxType: 6
     center: {x: 25, y: -2.5}
     size: {x: 10, y: 30}
+    tagType: 1
 --- !u!1 &1843085390
 GameObject:
   m_ObjectHideFlags: 0

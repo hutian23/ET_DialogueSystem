@@ -1,7 +1,9 @@
 ﻿using MongoDB.Bson;
+using UnityEngine;
 
 namespace ET.Client
 {
+    [FriendOfAttribute(typeof(ET.Client.AirDashToGroundComponent))]
     public class Test_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
@@ -11,10 +13,6 @@ namespace ET.Client
 
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            AirCheckAbility ability = parser.GetParent<Unit>().GetComponent<BuffManager>().GetComponent<AirCheckAbility>();
-            Log.Warning(ability.ToJson());
-            
-            
             await ETTask.CompletedTask;
             return Status.Success;
         }

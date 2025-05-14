@@ -11,11 +11,10 @@ namespace ET.Client
             protected override void Awake(LoopComponent self, int triggerIndex, int endIndex)
             {
                 self.triggerIndex = triggerIndex;
-                self.startIndex = triggerIndex + 1;
+                self.startIndex = triggerIndex;
                 self.curIndex = triggerIndex;
                 self.endIndex = endIndex;
                 self.token = new ETCancellationToken();
-                self.LoopCor().Coroutine();
             }
         }
         
@@ -30,22 +29,25 @@ namespace ET.Client
                 self.token.Cancel();
             }
         }
-        
-        [FriendOf(typeof(BBParser))]
-        public class LoopComponentFrameLateUpdateSystem : FrameLateUpdateSystem<LoopComponent>
-        {
-            protected override void FrameLateUpdate(LoopComponent self)
-            {
-                BBParser parser = self.GetParent<BBParser>();
 
-                //1. Match trigger
-                string loopTrigger = parser.OpDict[self.triggerIndex];
-                MatchCollection matches = Regex.Matches(loopTrigger, @"\((.*?)\)");
-                if (matches.Count == 0)
-                {
-                    Log.Error($"Loop_Handler must have at least one triggerHandler!");
-                    return;
-                }
+        public static async ETTask TriggerCor(this LoopComponent self)
+        {
+            BBParser parser = self.GetParent<BBParser>();
+            BBTimerComponent lateUpdateTimer = BBTimerManager.Instance.LateUpdateTimer();
+
+            //1. Match trigger
+            string loopTrigger = parser.OpDict[self.triggerIndex];
+            MatchCollection matches = Regex.Matches(loopTrigger, @"\((.*?)\)");
+            if (matches.Count == 0)
+            {
+                Log.Error($"Loop_Handler must have at least one triggerHandler!");
+                return;
+            }
+
+            while (true)
+            {
+                await lateUpdateTimer.WaitFrameAsync(self.token);
+                if (self.token.IsCancel()) return;
                 
                 //2. Exec trigger
                 for (int i = 0; i < matches.Count; i++)
@@ -71,7 +73,7 @@ namespace ET.Client
                 }
             }
         }
-
+        
         public static async ETTask<Status> LoopCor(this LoopComponent self)
         {
             BBParser parser = self.GetParent<BBParser>();

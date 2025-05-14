@@ -8,6 +8,13 @@ PoolObject: GlinSpike, 3;
 PoolObject: GlinFireball, 20;
 PoolObject: ADust, 1;
 PoolObject: GDust, 1;
+# 注册行为
+RegistMove: (Glin_Idle)
+  MoveType: Normal;
+EndMove:
+RegistMove: (Glin_Bow)
+  MoveType: Normal;
+EndMove:
 RegistMove: (Glin_Slash)
   MoveType: Normal;
 EndMove:
@@ -17,19 +24,40 @@ EndMove:
 RegistMove: (Glin_AirDash)
   MoveType: Normal;
 EndMove:
-# RegistMove: (Glin_Cast)
-#   MoveType: Normal;
-# EndMove:
+RegistMove: (Glin_Cast)
+  MoveType: Normal;
+EndMove:
 RegistMove: (Glin_Ballon)
   MoveType: Normal;
 EndMove:
 RegistMove: (Glin_TeleportOut)
   MoveType: Normal;
 EndMove:
-# RegistMove: (Glin_Bow)
-#   MoveType: Normal;
-# EndMove:
-GotoBehavior: Glin_AirDash;
+GotoBehavior: Glin_Idle;
+
+[Glin_Idle]
+@Trigger:
+return;
+
+@Main:
+EnableTargetCheck: true;
+WaitFrame: 30;
+EnableTargetCheck: false;
+SetPos: 90000, -95000;
+SetMarker: Loop;
+BBSprite: Idle_1, 5;
+BBSprite: Idle_2, 5;
+BBSprite: Idle_3, 5;
+BBSprite: Idle_4, 5;
+BBSprite: Idle_5, 5;
+BBSprite: Idle_6, 5;
+BBSprite: Idle_7, 5;
+BBSprite: Idle_8, 5;
+BBSprite: Idle_9, 5;
+BBSprite: Idle_10, 5;
+BBSprite: Idle_11, 5;
+BBSprite: Idle_12, 5;
+GotoMarker: Loop;
 return;
 
 [Glin_Slash]
@@ -95,7 +123,7 @@ BBSprite: Capespike_8, 5;
 # Cast Spike
 CastGlinSpike;
 RegistCounter: 150;
-# CastGlinSpike: 0, -3000;
+CastGlinSpike: -20000, -2000;
 BeginLoop: (Counter: Value > 0)
   BBSprite: Capespike_9, 7;
   BBSprite: Capespike_10, 7;
@@ -114,8 +142,6 @@ GotoBehavior: Glin_TeleportOut;
 return;
 
 @Main:
-SetFlip: Left;
-AirDashPos: 15000;
 # AirDash Start
 BBSprite: AirDash_Anticipate_1, 5;
 BBSprite: AirDash_Anticipate_2, 5;
@@ -125,7 +151,7 @@ BBSprite: AirDash_Anticipate_5, 5;
 BBSprite: AirDash_Anticipate_6, 5;
 BBSprite: AirDash_Anticipate_7, 5;
 # 悬停在空中，空箭朝向玩家
-EnableGlinChase: true, -450000, 450000, 100000;
+EnableGlinChase: true, -450000, 450000, 80000;
 EnableGlinShake: true, 450, 450, 8000;
 RegistCounter: 60;
 BeginLoop: (Counter: Value > 0)
@@ -151,11 +177,11 @@ EnemyUpdateFlip;
 # GroundDash Start
 SpawnGDust: -65000, -20000, -8000, 4000;
 SpawnGDust: 65000, -20000, 8000, 4000;
-SetVelocity: 0, -10000;
+SetVelocity: 0, -50000;
 ScreenShake: 1550, 550, 10000, 20;
-BBSprite: GroundDash_Anticipate_1, 5;
+BBSprite: GroundDash_Anticipate_1, 15;
 BBSprite: GroundDash_Anticipate_2, 5;
-BBSprite: GroundDash_Anticipate_3, 14;
+BBSprite: GroundDash_Anticipate_3, 15;
 BBSprite: GroundDash_Anticipate_4, 5;
 # GroundDash Active
 BBSprite: GroundDash_Active_1, 5;
@@ -170,21 +196,14 @@ SetVelocityX: 0;
 BBSprite: GroundDash_Anticipate_2, 5;
 BBSprite: GroundDash_Anticipate_3, 5;
 BBSprite: GroundDash_Anticipate_4, 5;
-# GotoBehavior: Glin_TeleportOut;
-GotoBehavior: Glin_AirDash;
+GotoBehavior: Glin_TeleportOut;
+return;
 
 [Glin_Cast]
 @Trigger:
 return;
 
 @Main:
-SetPos: 0, -100000;
-# Teleport In
-BBSprite: Teleport_1, 5;
-BBSprite: Teleport_2, 5;
-BBSprite: Teleport_3, 5;
-BBSprite: Teleport_4, 5;
-BBSprite: Teleport_5, 5;
 # Start
 BBSprite: Start_1, 4;
 BBSprite: Start_2, 4;
@@ -210,6 +229,7 @@ GotoBehavior: Glin_TeleportOut;
 return;
 
 @Main:
+WaitFrame: 1;
 # Cast Fireball
 # 发射飞弹时屏幕振动
 EnableGlinShake: true, 250, 250, 8000;
@@ -284,7 +304,29 @@ SetPos: -1000000, -1000000;
 WaitFrame: 50;
 # Select Next Behavior
 Random: ran1, 0, 100;
-GlinPos: -140000, 140000, 80000, 0; 
+# 1. AirDash
+BeginIf: (Random: ran1 >= 0), (Random: ran1 < 20)
+  AirDashPos: 15000;
+  SetFlip: Left;
+EndIf:
+# 2. Slash
+BeginIf: (Random: ran1 >= 20), (Random: ran1 < 40)
+  GlinPos: -140000, 140000, 60000, -95000;
+EndIf:
+# 3. Cast
+BeginIf: (Random: ran1 >= 40), (Random: ran1 < 70)
+  GlinPos: -140000, 140000, 80000, -95000;
+EndIf:
+# 4. CapeSpike
+BeginIf: (Random: ran1 >= 70), (Random: ran1 < 90)
+  SetPos: 0, -95000;
+  SetFlip: Left;
+EndIf:
+# 5. Ballon
+BeginIf: (Random: ran1 >= 90), (Random: ran1 <= 100)
+  SetPos: 0, 0;
+  SetFlip: Left;
+EndIf:
 # Teleport In
 BBSprite: Frame_1, 5;
 BBSprite: Frame_2, 5;
@@ -292,4 +334,23 @@ ScreenShake: 750, 750, 10000, 15;
 BBSprite: Frame_3, 5;
 BBSprite: Frame_4, 5;
 # Enter Next Behavior
-GotoBehavior: Glin_AirDash;
+# 1. AirDash
+BeginIf: (Random: ran1 >= 0), (Random: ran1 < 20)
+  GotoBehavior: Glin_AirDash;
+EndIf:
+# 2. Slash
+BeginIf: (Random: ran1 >= 20), (Random: ran1 < 40)
+  GotoBehavior: Glin_Slash;
+EndIf:
+# 3. Cast
+BeginIf: (Random: ran1 >= 40), (Random: ran1 < 70)
+  GotoBehavior: Glin_Cast;
+EndIf:
+# 4. CapeSpike
+BeginIf: (Random: ran1 >= 70), (Random: ran1 < 90)
+  GotoBehavior: Glin_Capespike;
+EndIf:
+# 5. Ballon
+BeginIf: (Random: ran1 >= 90), (Random: ran1 <= 100)
+  GotoBehavior: Glin_Ballon;
+EndIf:

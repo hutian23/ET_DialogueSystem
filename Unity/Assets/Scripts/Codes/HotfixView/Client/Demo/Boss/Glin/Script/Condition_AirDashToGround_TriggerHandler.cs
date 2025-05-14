@@ -18,9 +18,8 @@ namespace ET.Client
                 ScriptHelper.ScripMatchError(data.opLine);
                 return false;
             }
-
-            AirDashToGroundComponent airDash = parser.GetComponent<AirDashToGroundComponent>();
             
+            AirDashToGroundComponent airDash = parser.GetComponent<AirDashToGroundComponent>();
             switch (match.Groups["AirDashToGround"].Value)
             {
                 case "true":
