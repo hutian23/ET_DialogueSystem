@@ -34,7 +34,7 @@ namespace ET.Client
 
                     //4. 根据instanceId找到对应unit
                     b2Body bodyB = Root.Instance.Get(info.dataB.InstanceId) as b2Body;
-                    Unit unitB = bodyB.GetParent<Unit>();
+                    Unit unitB = Root.Instance.Get(bodyB.unitId) as Unit;
 
                     //5. 如果受击的Unit已经触发过该攻击回调，是否还要再次调用?
                     if (hit.buffSet.Contains(unitB.InstanceId) && hit.checkType.Equals("Once")) continue;

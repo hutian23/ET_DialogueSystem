@@ -9,6 +9,7 @@ PoolObject: GlinFireball, 20;
 PoolObject: ADust, 1;
 PoolObject: GDust, 1;
 # 注册行为
+# Step1
 RegistMove: (Glin_Idle)
   MoveType: Normal;
 EndMove:
@@ -31,6 +32,10 @@ RegistMove: (Glin_Ballon)
   MoveType: Normal;
 EndMove:
 RegistMove: (Glin_TeleportOut)
+  MoveType: Normal;
+EndMove:
+# Step2
+RegistMove: (Glin_Roar)
   MoveType: Normal;
 EndMove:
 GotoBehavior: Glin_Idle;
@@ -73,6 +78,46 @@ BeginLoop: (Counter: Value > 0)
   BBSprite: Idle_12, 5;
 EndLoop:
 GotoBehavior: Glin_Bow;
+
+[Glin_Bow]
+@Trigger:
+return;
+
+@Main:
+# 受攻击切换到二阶段
+HurtNotify: Once
+  GotoBehavior: Glin_Roar;
+EndNotify:
+# Bow_1
+BBSprite: Bow_1, 5;
+BBSprite: Bow_2, 5;
+BBSprite: Bow_3, 5;
+BBSprite: Bow_4, 5;
+BBSprite: Bow_5, 5;
+BBSprite: Bow_6, 30;
+# Bow_2
+BBSprite: Bow_5, 4;
+BBSprite: Bow_4, 4;
+BBSprite: Bow_3, 4;
+BBSprite: Bow_2, 4;
+BBSprite: Bow_1, 10;
+GotoBehavior: Glin_TeleportOut;
+
+[Glin_Roar]
+@Trigger:
+return;
+
+@Main:
+BBSprite: InitFrame, 1;
+EnableGlinShake: true, 550, 550, 10000;
+RegistCounter: 100;
+BeginLoop: (Counter: Value > 0)
+  BBSprite: Roar_1, 5;
+  BBSprite: Roar_2, 5;
+  BBSprite: Roar_3, 5;
+EndLoop:
+EnableGlinShake: false, 0, 0, 0;
+GotoBehavior: Glin_TeleportOut;
 
 [Glin_Slash]
 @Trigger:
@@ -211,7 +256,6 @@ BBSprite: GroundDash_Anticipate_2, 5;
 BBSprite: GroundDash_Anticipate_3, 5;
 BBSprite: GroundDash_Anticipate_4, 5;
 GotoBehavior: Glin_TeleportOut;
-return;
 
 [Glin_Cast]
 @Trigger:
@@ -271,26 +315,6 @@ EnableGlinShake: false, 0, 0, 0;
 Enable_CastGlinFireball: false, 0, 0, 0, 0;
 BBSprite: Anticipate_2, 7;
 BBSprite: Anticipate_1, 5;
-GotoBehavior: Glin_TeleportOut;
-
-[Glin_Bow]
-@Trigger:
-return;
-
-@Main:
-# Bow_1
-BBSprite: Bow_1, 5;
-BBSprite: Bow_2, 5;
-BBSprite: Bow_3, 5;
-BBSprite: Bow_4, 5;
-BBSprite: Bow_5, 5;
-BBSprite: Bow_6, 30;
-# Bow_2
-BBSprite: Bow_5, 4;
-BBSprite: Bow_4, 4;
-BBSprite: Bow_3, 4;
-BBSprite: Bow_2, 4;
-BBSprite: Bow_1, 10;
 GotoBehavior: Glin_TeleportOut;
 
 [Glin_TeleportOut]

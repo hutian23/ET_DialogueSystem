@@ -39,7 +39,7 @@ namespace ET.Client
             //2. 获取受击方的Hertz组件
             b2Body _body = Root.Instance.Get(info.dataB.InstanceId) as b2Body;
 
-            Unit _unit = _body.GetParent<Unit>();
+            Unit _unit = Root.Instance.Get(_body.unitId) as Unit;
             Unit unit = parser.GetParent<Unit>();
             BBParser _parser = _unit.GetComponent<BBParser>();
             

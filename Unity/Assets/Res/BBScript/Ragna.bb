@@ -510,22 +510,22 @@ EndLoop:
 BBSprite: Frame_6, 3;
 BBSprite: Frame_7, 3;
 BBSprite: Frame_8, 3;
-HitNotify: Once
-  BeginIf: (Flag: Charge, false)
-    # HitStun: GroundHurt;
-    HitStop: 0, 15; # 打击停顿
-    Shake: 500, 0, 8000, 15; # 振动
-    HitShake: 10000, 10000, 10000, 15;
-    # Damage: 10000;
-  EndIf:
-  BeginIf: (Flag: Charge, true)
-    # HitStun: BounceHurt;
-    HitStop: 0, 25;
-    Shake: 800, 0, 12000, 25;
-    HitShake: 1200, 1000, 10000, 25;
-    HitVel: -400000, 250000;
-  EndIf:
-EndNotify:
+# HitNotify: Once
+#   BeginIf: (Flag: Charge, false)
+#     # HitStun: GroundHurt;
+#     HitStop: 0, 15; # 打击停顿
+#     Shake: 500, 0, 8000, 15; # 振动
+#     HitShake: 10000, 10000, 10000, 15;
+#     # Damage: 10000;
+#   EndIf:
+#   BeginIf: (Flag: Charge, true)
+#     # HitStun: BounceHurt;
+#     HitStop: 0, 25;
+#     Shake: 800, 0, 12000, 25;
+#     HitShake: 1200, 1000, 10000, 25;
+#     HitVel: -400000, 250000;
+#   EndIf:
+# EndNotify:
 BBSprite: Frame_9, 4;
 BBSprite: Frame_10, 4;
 BBSprite: Frame_11, 4;

@@ -3,12 +3,12 @@
 namespace ET.Client
 {
     [FriendOf(typeof(BBParser))]
-    [FriendOf(typeof(HitComponent))]
-    public class HitEvent_HitNotify_BBScriptHandler : BBScriptHandler
+    [FriendOf(typeof(HurtComponent))]
+    public class Function_HurtNotify_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "HitNotify";
+            return "HurtNotify";
         }
 
         //Once: 在判定框持续持续窗口内，对于同一unit只会产生1hit
@@ -16,7 +16,7 @@ namespace ET.Client
         //HitNotify: Once;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"HitNotify: (?<CheckType>\w+)");
+            Match match = Regex.Match(data.opLine, @"HurtNotify: (?<CheckType>\w+)");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -37,15 +37,14 @@ namespace ET.Client
             }
             parser.Coroutine_Pointers[data.CoroutineID] = index;
 
-            //2. 添加攻击检测组件
-            parser.RemoveComponent<HitComponent>(); //移除旧的攻击回调
-            HitComponent hit = parser.AddComponent<HitComponent>();
+            //2. 添加受击检测组件
+            parser.RemoveComponent<HurtComponent>();
+            HurtComponent hurt = parser.AddComponent<HurtComponent>();
 
-            //3. 组件数据初始化
-            hit.startIndex = startIndex;
-            hit.endIndex = endIndex;
-            hit.timer = b2WorldManager.Instance.GetPostStepTimer().NewFrameTimer(BBTimerInvokeType.HitNotifyTimer, parser);
-            hit.checkType =match.Groups["CheckType"].Value;
+            //3. 初始化
+            hurt.startIndex = startIndex;
+            hurt.endIndex = endIndex;
+            hurt.checkType = match.Groups["CheckType"].Value;
 
             await ETTask.CompletedTask;
             return Status.Success;
