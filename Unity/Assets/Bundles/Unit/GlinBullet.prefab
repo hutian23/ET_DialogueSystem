@@ -136,8 +136,8 @@ GameObject:
   - component: {fileID: 655623599558384260}
   - component: {fileID: 2961002378418967261}
   - component: {fileID: 5522160278377250253}
-  - component: {fileID: 6924161574310848696}
   - component: {fileID: 3926155341962090761}
+  - component: {fileID: 8629808745706967303}
   m_Layer: 0
   m_Name: GlinBullet
   m_TagString: Untagged
@@ -154,7 +154,7 @@ Transform:
   m_GameObject: {fileID: 2894483910555267542}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.57, y: -9.7, z: 0.3242582}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -263,7 +263,21 @@ MonoBehaviour:
     gameObject: {fileID: 2938336796747182026}
   - key: Other
     gameObject: {fileID: 1082701483316220950}
---- !u!114 &6924161574310848696
+--- !u!114 &3926155341962090761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2894483910555267542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85515fbd351c4f0448693853f9165f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instanceId: 0
+  Script: {fileID: 1042094116111776886, guid: 86ecb506f02529246832aca0f1943bb2, type: 3}
+--- !u!114 &8629808745706967303
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -291,21 +305,7 @@ MonoBehaviour:
   Hertz: 60
   ApplyRootMotion: 0
   BBPlayable: {fileID: 11400000, guid: e64b252ac115a8a469097cd2e4bfc263, type: 2}
-  CurrentTimeline: {fileID: 11400000, guid: 4a6d5a83cb964934e9b11ec479034211, type: 2}
---- !u!114 &3926155341962090761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2894483910555267542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85515fbd351c4f0448693853f9165f51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  instanceId: 0
-  Script: {fileID: 1042094116111776886, guid: 86ecb506f02529246832aca0f1943bb2, type: 3}
+  CurrentTimeline: {fileID: 0}
 --- !u!1 &2938336796747182026
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,17 +3,17 @@ using System.Text.RegularExpressions;
 
 namespace ET.Client
 {
-    public class Function_BulletPos_BBScriptHandler : BBScriptHandler
+    public class Function_BulletPosition_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "BulletPos";
+            return "BulletPosition";
         }
 
         //BulletPos: 10000, 10000;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"BulletPos: (?<PosX>.*?), (?<PosY>.*?);");
+            Match match = Regex.Match(data.opLine, @"BulletPosition: (?<PosX>.*?), (?<PosY>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -25,11 +25,11 @@ namespace ET.Client
                 return Status.Failed;
             }
             
-            b2Body bodyA = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
-            
             long instanceId = parser.GetParam<long>("CreateBullet_UnitId");
-            Unit unit = Root.Instance.Get(instanceId) as Unit;
-            b2Body bodyB = b2WorldManager.Instance.GetBody(unit.InstanceId);
+            Unit unitA = parser.GetParent<Unit>();
+            Unit unitB = Root.Instance.Get(instanceId) as Unit;
+            b2Body bodyA = b2WorldManager.Instance.GetBody(unitA.InstanceId);
+            b2Body bodyB = b2WorldManager.Instance.GetBody(unitB.InstanceId);
             
             //1. Caster Position
             Vector2 pos = bodyA.GetPosition();

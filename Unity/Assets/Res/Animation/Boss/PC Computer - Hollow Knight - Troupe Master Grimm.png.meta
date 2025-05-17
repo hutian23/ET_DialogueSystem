@@ -2728,6 +2728,132 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Evade_Anticipate_1
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 2215
+        width: 217
+        height: 398
+      alignment: 9
+      pivot: {x: 0.50691247, y: 0.5276382}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85c1098c2411afb43af29da2722b9d69
+      internalID: 1598094522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evade_1
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 2294
+        width: 487
+        height: 319
+      alignment: 9
+      pivot: {x: 0.513347, y: 0.6583072}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f934b51131f27f54aa75041bc08a3361
+      internalID: 2122708014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evade_2
+      rect:
+        serializedVersion: 2
+        x: 751
+        y: 2294
+        width: 487
+        height: 319
+      alignment: 9
+      pivot: {x: 0.513347, y: 0.6583072}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 697348f2b3f161649b377d7b3d7ade4f
+      internalID: -797730901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evade_3
+      rect:
+        serializedVersion: 2
+        x: 1243
+        y: 2294
+        width: 487
+        height: 319
+      alignment: 9
+      pivot: {x: 0.513347, y: 0.6583072}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8c533ed1b9a31c4bb95e91a8f2e9a93
+      internalID: -1996726332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evade_4
+      rect:
+        serializedVersion: 2
+        x: 1735
+        y: 2294
+        width: 487
+        height: 319
+      alignment: 9
+      pivot: {x: 0.513347, y: 0.6583072}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f19499450cd06eb46b4517930e399bf1
+      internalID: 1157821677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evade_End
+      rect:
+        serializedVersion: 2
+        x: 2259
+        y: 2216
+        width: 258
+        height: 397
+      alignment: 9
+      pivot: {x: 0.42635658, y: 0.6297229}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 688b3fa20afd1d847979526842d175bd
+      internalID: -139636823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2784,6 +2910,12 @@ TextureImporter:
       Cast_6: -232854880
       Cast_7: -2033546589
       Cast_8: 917646835
+      Evade_1: 2122708014
+      Evade_2: -797730901
+      Evade_3: -1996726332
+      Evade_4: 1157821677
+      Evade_Anticipate_1: 1598094522
+      Evade_End: -139636823
       Firebat_1: -739550676
       Firebat_2: 1742550548
       Firebat_3: -763381734

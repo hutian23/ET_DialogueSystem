@@ -12,8 +12,6 @@ return;
 return;
 
 @Main:
-SetVelocityX: -300000;
-AccelY: 20000, 80, 50000;
 BBSprite: Frame_1, 5;
 RegistCounter: 100;
 BeginLoop: (Counter: Value > 0)

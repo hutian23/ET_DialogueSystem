@@ -33,7 +33,7 @@
                 
                 //TODO 设置一个常量FrameLength = 0.016666;
                 float dv = (1 / 60f) * self.accelY;
-                float curY = self.startY * dv * self.cnt;
+                float curY = self.startY + dv * self.cnt;
                 b2Body.SetVelocityY(curY);
                 
                 self.cnt++;
