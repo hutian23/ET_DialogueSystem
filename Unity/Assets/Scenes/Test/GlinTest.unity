@@ -767,7 +767,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -103153679, guid: 5575ff4a4d2bde148a37aa6b563b3391,
+      objectReference: {fileID: 1612395021, guid: 5575ff4a4d2bde148a37aa6b563b3391,
         type: 3}
     - target: {fileID: 1826032042207204326, guid: a4599eed6a6041849926cd081d7f222d,
         type: 3}
@@ -800,6 +800,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Zako1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6175282846835592957, guid: a4599eed6a6041849926cd081d7f222d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7230307531318159101, guid: a4599eed6a6041849926cd081d7f222d,
         type: 3}

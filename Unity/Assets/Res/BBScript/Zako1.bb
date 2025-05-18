@@ -2,10 +2,12 @@
 @RootInit:
 GlinInit;
 PoolObject: ADust, 1;
+PoolObject: GlinFireball, 5;
+PoolObject: GlinSpike_Step2, 5;
 RegistMove: (Zako1_Idle)
   MoveType: None;
 EndMove:
-RegistMove: (Zako1_Teleport)
+RegistMove: (Zako1_TeleportIn)
   MoveType: None;
 EndMove:
 RegistMove: (Zako1_Dash)
@@ -14,10 +16,13 @@ EndMove:
 RegistMove: (Zako1_Throw)
   MoveType: None;
 EndMove:
-RegistMove: (Zako1_Death)
+RegistMove: (Zako1_CastSpike)
   MoveType: None;
 EndMove:
-GotoBehavior: Zako1_Dash;
+RegistMove: (Zako1_Death)
+  MoveType: HitStun;
+EndMove:
+GotoBehavior: Zako1_CastSpike;
 return;
 
 [Zako1_Idle]
@@ -26,6 +31,7 @@ return;
 
 @Main:
 # 更新判定框
+EnableWaitFrameCallback: true, 50, Zako1_Idle, WaitFrameCallback;
 BBSprite: Idle_0, 1;
 SetMarker: Loop;
 # Idle
@@ -51,13 +57,17 @@ BBSprite: Turn_3, 5;
 GotoMarker: Loop;
 Exit;
 
-[Zako1_Teleport]
+@WaitFrameCallback:
+GotoBehavior: Zako1_Throw;
+return;
+
+[Zako1_TeleportIn]
 @Trigger:
 return;
 
 @Main:
 PlayTimeline: 0, 40;
-GotoBehavior: Zako1_Death;
+GotoBehavior: Zako1_Idle;
 
 [Zako1_Dash]
 @Trigger:
@@ -78,8 +88,6 @@ SpawnADust: 28000, 0, 8000, 5000, 0;
 BBSprite: Active_1, 4;
 # 注册回调
 EnableGroundCollisionCallback: true, Zako1_Dash, GroundCollisionCallback;
-EnableRepeatedTimerCallback: true, 40, Zako1_Dash, RepeatedTimerCallback;
-EnableWaitFrameCallback: true, 100, Zako1_Dash, WaitFrameCallback;
 RegistCounter: 200;
 BeginLoop: (Counter: Value > 0)
   BBSprite: Active_2, 3;
@@ -88,8 +96,6 @@ BeginLoop: (Counter: Value > 0)
   BBSprite: Active_5, 3;
 EndLoop:
 EnableGroundCollisionCallback: false, 0, 0;
-EnableRepeatedTimerCallback: false, 0, 0, 0;
-EnableWaitFrameCallback: false, 0, 0, 0;
 SetRotate: 0;
 SetVelocity: 0, 0;
 BBSprite: End_1, 5;
@@ -105,14 +111,6 @@ SpawnADust: 8000, 3000, 5000, 5000, 0;
 GroundCollisionVelocity;
 return;
 
-@RepeatedTimerCallback:
-LogWarning: RepeatedTimer;
-return;
-
-@WaitFrameCallback:
-LogWarning: WaitFrameCallback;
-return;
-
 [Zako1_Throw]
 @Trigger:
 return;
@@ -120,13 +118,28 @@ return;
 @Main:
 BBSprite: Anticipate_1, 5;
 BBSprite: Anticipate_2, 5;
-BBSprite: Anticipate_3, 5;
-BBSprite: Anticipate_4, 5;
+BBSprite: Anticipate_3, 6;
+BBSprite: Anticipate_4, 6;
 BBSprite: Anticipate_5, 10;
-BBSprite: Active_1, 5;
+# 1
+CreateBullet: GlinFireball
+  BulletVelocity: 180000, -150000;
+  BulletPosition: -12000, -12000;
+EndCreateBullet:
+# 2
+CreateBullet: GlinFireball
+  BulletVelocity: 120000, -200000;
+  BulletPosition: -12000, -12000;
+EndCreateBullet:
+# 3
+CreateBullet: GlinFireball
+  BulletVelocity: 240000, -100000;
+  BulletPosition: -12000, -12000;
+EndCreateBullet:
+BBSprite: Active_1, 10;
 BBSprite: Active_2, 5;
 BBSprite: End_1, 5;
-Exit;
+GotoBehavior: Zako1_Idle;
 
 [Zako1_Death]
 @Trigger:
@@ -147,3 +160,36 @@ BBSprite: End_5, 5;
 BBSprite: End_6, 5;
 BBSprite: End_7, 5;
 Exit;
+
+[Zako1_CastSpike]
+@Trigger:
+return;
+
+@Main:
+RegistCounter: 200;
+CallSubCoroutine: Zako1_CastSpike, CastSpikeCor;
+BeginLoop: (Counter: Value > 0)
+  BBSprite: Death_1, 5;
+  BBSprite: Death_2, 5;
+  BBSprite: Death_3, 5;
+EndLoop:
+Exit;
+
+@CastSpikeCor:
+WaitFrame: 50;
+CreateBullet: GlinSpike_Step2
+  BulletPosition: 50000, -115000;
+EndCreateBullet:
+WaitFrame: 50;
+CreateBullet: GlinSpike_Step2
+  BulletPosition: 0, -115000;
+EndCreateBullet:
+WaitFrame: 50;
+CreateBullet: GlinSpike_Step2
+  BulletPosition: -50000, -115000;
+EndCreateBullet:
+WaitFrame: 50;
+CreateBullet: GlinSpike_Step2
+  BulletPosition: -100000, -115000;
+EndCreateBullet:
+return;

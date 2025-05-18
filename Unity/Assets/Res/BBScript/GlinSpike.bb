@@ -12,9 +12,9 @@ return;
 return;
 
 @Main:
-BBSprite: Ready_1, 4;
-BBSprite: Ready_2, 4;
-BBSprite: Ready_3, 40;
+BBSprite: Ready_1, 5;
+BBSprite: Ready_2, 5;
+BBSprite: Ready_3, 30;
 BBSprite: Anticipate_1, 3;
 BBSprite: Anticipate_2, 3;
 BBSprite: Anticipate_3, 3;

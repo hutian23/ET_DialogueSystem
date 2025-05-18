@@ -15,7 +15,7 @@ return;
 BBSprite: Idle_1, 2;
 BBSprite: Idle_2, 2;
 BBSprite: Idle_3, 2;
-BBSprite: Idle_4, 4;
-BBSprite: Idle_5, 5;
+BBSprite: Idle_4, 2;
+BBSprite: Idle_5, 2;
 #TODO Dust的初始化指令
 Dispose;

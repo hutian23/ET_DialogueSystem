@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 6110267835468706475}
   - component: {fileID: 6777975401792437802}
   - component: {fileID: 5518383810653655493}
-  - component: {fileID: 8090780773718081294}
+  - component: {fileID: 3005519064518750812}
   m_Layer: 0
   m_Name: GlinFireball
   m_TagString: Untagged
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instanceId: 0
   Script: {fileID: 1042094116111776886, guid: e053400442237cc4792386dc71ffa05a, type: 3}
---- !u!114 &8090780773718081294
+--- !u!114 &3005519064518750812
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
