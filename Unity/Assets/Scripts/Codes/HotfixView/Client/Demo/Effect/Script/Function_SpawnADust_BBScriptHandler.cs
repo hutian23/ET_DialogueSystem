@@ -10,7 +10,7 @@ namespace ET.Client
             return "SpawnADust";
         }
 
-        //SpawnADust: PosX, PosY, ScaleX, ScaleY;
+        //SpawnADust: PosX, PosY, ScaleX, ScaleY, Angle;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
             Match match = Regex.Match(data.opLine, "SpawnADust: (?<posX>.*?), (?<posY>.*?), (?<scaleX>.*?), (?<scaleY>.*?), (?<angle>.*?);");

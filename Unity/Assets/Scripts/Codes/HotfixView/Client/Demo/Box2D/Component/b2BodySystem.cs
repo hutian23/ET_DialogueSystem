@@ -189,9 +189,9 @@ namespace ET.Client
 
         #region Rotation
 
-        public static void SetRotation(this b2Body self, float angle)
+        public static void SetRotation(this b2Body self, float radian)
         {
-            self.body.SetTransform(self.GetPosition(), angle);
+            self.body.SetTransform(self.GetPosition(), radian);
             self.SyncTrans();
         }
 

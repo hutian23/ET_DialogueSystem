@@ -36,8 +36,12 @@ namespace ET.Client
                             LayerMask = LayerType.Ground,
                             IsTrigger = box2D.IsTrigger,
                             UserData = box2D.info,
+                            TriggerEnterId =  TriggerEnterType.HandleCallback,
                             TriggerStayId = TriggerStayType.HandleCallback,
+                            TriggerExitId =  TriggerExitType.HandleCallback,
+                            CollisionEnterId = CollisionEnterType.HandleCallback,
                             CollisionStayId = CollisionStayType.HandleCallback,
+                            CollisionExitId = CollisionExitType.HandleCallback,
                         }
                     };
                     sceneBody.CreateFixture(fixtureDef);

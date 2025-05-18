@@ -22,10 +22,6 @@ namespace ET.Client
 
             parser.RemoveComponent<EnemyFlipCheckComponent>();
             if (!match.Groups["Active"].Value.Equals("true")) return Status.Success;
-
-            Unit unit = parser.GetParent<Unit>();
-            b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-            
             parser.AddComponent<EnemyFlipCheckComponent>(true);
 
             await ETTask.CompletedTask;

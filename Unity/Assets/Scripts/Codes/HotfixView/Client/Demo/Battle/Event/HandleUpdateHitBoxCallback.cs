@@ -42,8 +42,12 @@ namespace ET.Client
                         LayerMask = LayerType.Unit,
                         IsTrigger = info.hitboxType is not HitboxType.Squash,
                         UserData = info,
+                        TriggerEnterId = TriggerEnterType.HandleCallback,
                         TriggerStayId = TriggerStayType.HandleCallback,
+                        TriggerExitId = TriggerExitType.HandleCallback,
+                        CollisionEnterId = CollisionEnterType.HandleCallback,
                         CollisionStayId = CollisionStayType.HandleCallback,
+                        CollisionExitId = CollisionExitType.HandleCallback,
                     }
                 };
                 b2Body.CreateFixture(fixtureDef);
