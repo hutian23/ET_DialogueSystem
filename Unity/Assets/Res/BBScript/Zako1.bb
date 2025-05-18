@@ -78,7 +78,8 @@ SpawnADust: 28000, 0, 8000, 5000, 0;
 BBSprite: Active_1, 4;
 # 注册回调
 EnableGroundCollisionCallback: true, Zako1_Dash, GroundCollisionCallback;
-EnableRepeatedTimerCallback: true, 40, Zako1_Dash, Test;
+EnableRepeatedTimerCallback: true, 40, Zako1_Dash, RepeatedTimerCallback;
+EnableWaitFrameCallback: true, 100, Zako1_Dash, WaitFrameCallback;
 RegistCounter: 200;
 BeginLoop: (Counter: Value > 0)
   BBSprite: Active_2, 3;
@@ -88,6 +89,7 @@ BeginLoop: (Counter: Value > 0)
 EndLoop:
 EnableGroundCollisionCallback: false, 0, 0;
 EnableRepeatedTimerCallback: false, 0, 0, 0;
+EnableWaitFrameCallback: false, 0, 0, 0;
 SetRotate: 0;
 SetVelocity: 0, 0;
 BBSprite: End_1, 5;
@@ -103,8 +105,12 @@ SpawnADust: 8000, 3000, 5000, 5000, 0;
 GroundCollisionVelocity;
 return;
 
-@Test:
+@RepeatedTimerCallback:
 LogWarning: RepeatedTimer;
+return;
+
+@WaitFrameCallback:
+LogWarning: WaitFrameCallback;
 return;
 
 [Zako1_Throw]
