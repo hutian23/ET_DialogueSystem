@@ -1,7 +1,9 @@
 [Root]
 @RootInit:
-EnemyInit;
 PoolObject: GDust, 1;
+EnemyInit;
+EnableAirCheck;
+EnableGravityCheck: 100000, 150000, 450000;    
 RegistMove: (Zako2_Spawn)
   MoveType: None;
 EndMove:
@@ -17,10 +19,16 @@ EndMove:
 RegistMove: (Zako2_Charge)
   MoveType: None;
 EndMove:
+RegistMove: (Zako2_Attack)
+  MoveType: None;
+EndMove:
+RegistMove: (Zako2_JumpAttack)
+  MoveType: None;
+EndMove:
 RegistMove: (Zako2_BattleIdle)
   MoveType: None;
 EndMove:
-GotoBehavior: Zako2_Spawn;
+GotoBehavior: Zako2_Charge;
 return;
 
 [Zako2_Spawn]
@@ -98,7 +106,7 @@ BeginLoop: (InRange: false), (EnemyFlipChange: false)
   BBSprite: Run_7, 5;
 EndLoop:
 BeginIf: (InRange: true)
-  GotoBehavior: Zako2_Charge;
+  GotoBehavior: Zako2_Attack;
 EndIf:
 BBSprite: Turn_1, 5;
 BBSprite: Turn_2, 5;
@@ -142,6 +150,61 @@ SetVelocityX: 0;
 BBSprite: End_5, 5;
 GotoBehavior: Zako2_BattleIdle;
 
+[Zako2_Attack]
+@Trigger:
+return;
+
+@Main:
+SetVelocityX: 0;
+BBSprite: Anticipate_1, 4;
+BBSprite: Anticipate_2, 4;
+BBSprite: Anticipate_3, 4;
+BBSprite: Anticipate_4, 4;
+BBSprite: Anticipate_5, 4;
+BBSprite: Anticipate_6, 8;
+BBSprite: Anticipate_7, 4;
+BBSprite: Active_1, 4;
+ScreenShake: 1000, 1000, 12000, 15;
+BBSprite: Active_2, 4;
+BBSprite: End_1, 4;
+BBSprite: End_2, 4;
+BBSprite: End_3, 4;
+GotoBehavior: Zako2_BattleIdle;
+
+[Zako2_JumpAttack]
+@Trigger:
+return;
+
+@Main:
+# PreJump
+SetPos: 0, -120000;
+BBSprite: Anticipate_1, 4;
+BBSprite: Anticipate_2, 4;
+BBSprite: Anticipate_3, 8;
+# Jump
+SetVelocity: 40000, 200000;
+Gravity: 0;
+BBSprite: Jump_1, 4;
+Gravity: 120000;
+BBSprite: Jump_2, 4;
+# Fall
+BBSprite: Jump_3, 3;
+BBSprite: Jump_4, 3;
+BBSprite: Jump_5, 3;
+BBSprite: Jump_6, 3;
+BBSprite: Jump_7, 3;
+BBSprite: Jump_8, 3;
+BeginLoop: (InAir: true)
+  BBSprite: Jump_8, 5;
+EndLoop:
+# Land
+Gravity: 100000;
+SetVelocity: 0, 0;
+ScreenShake: 1600, 1600, 10000, 15;
+BBSprite: Land_1, 4;
+BBSprite: Land_2, 10;
+GotoBehavior: Zako2_JumpAttack;
+
 [Zako2_BattleIdle]
 @Trigger:
 return;
@@ -150,6 +213,7 @@ return;
 #1. 待机
 SetVelocityX: 0;
 EnableEnemyFlipCheck: true;
+EnableRangeCheck: true, 35000, 0, 0;
 RegistCounter: 15;
 BeginLoop: (Counter: Value > 0)
   BBSprite: Idle_1, 5;
@@ -164,5 +228,9 @@ BeginIf: (EnemyFlipChange: true)
   BBSprite: Turn_1, 5;
   BBSprite: Turn_2, 5;
   FlipReverse;
+EndIf:
+#3. 切换动作
+BeginIf: (InRange: true)
+  GotoBehavior: Zako2_Attack;
 EndIf:
 GotoBehavior: Zako2_Chase;

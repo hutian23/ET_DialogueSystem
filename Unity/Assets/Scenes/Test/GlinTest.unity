@@ -936,7 +936,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 6ff1dfdfbec9ccf4aaecd4bd9bd5d2f2, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5116699315351158511, guid: 2c749573fc94b89409b27dd2d3f82e96,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -1282,7 +1282,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 74089088, guid: 5e57ba664c212614992980c0fd912ca5,
+      objectReference: {fileID: -1557800383, guid: 5e57ba664c212614992980c0fd912ca5,
         type: 3}
     - target: {fileID: 9104166991352309559, guid: 2c749573fc94b89409b27dd2d3f82e96,
         type: 3}

@@ -22,6 +22,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 6304f5f43a8fe8f4d9aff9ab2c13d63b, type: 2}
     - {fileID: 11400000, guid: eb95e048187567a49a78f6947a7f0b2d, type: 2}
     - {fileID: 11400000, guid: 59136d66e7f1c074e85c7a2e7260b241, type: 2}
+    - {fileID: 11400000, guid: 767e09d99f01a1948be9f1a88e32becf, type: 2}
+    - {fileID: 11400000, guid: 2b538a43888335440b42888d807ab868, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -40,7 +42,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 6
+      Data: 9
     - Name: 
       Entry: 7
       Data: 
@@ -58,7 +60,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Zako2_Walk
+      Data: Zako2_Patrol
     - Name: $v
       Entry: 10
       Data: 1
@@ -82,7 +84,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Zako2_Run
+      Data: Zako2_Chase
     - Name: $v
       Entry: 10
       Data: 3
@@ -110,6 +112,42 @@ MonoBehaviour:
     - Name: $v
       Entry: 10
       Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Zako2_BattleIdle
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Zako2_Attack
+    - Name: $v
+      Entry: 10
+      Data: 6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Zako2_JumpAttack
+    - Name: $v
+      Entry: 10
+      Data: 7
     - Name: 
       Entry: 8
       Data: 
