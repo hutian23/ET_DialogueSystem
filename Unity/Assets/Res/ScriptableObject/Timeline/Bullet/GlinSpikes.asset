@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c5b3524ad82f7148a06c6c02bdf2e1a, type: 3}
-  m_Name: GlinSpike
+  m_Name: GlinSpikes
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 735839192e9913c4f902a60ed6e9bb69, type: 2}
+    - {fileID: 11400000, guid: 023f2aa995f7e7e43865583167312652, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -41,7 +41,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: GlinSpike_Idle
+      Data: GlinSpikes_Idle
     - Name: $v
       Entry: 10
       Data: 0

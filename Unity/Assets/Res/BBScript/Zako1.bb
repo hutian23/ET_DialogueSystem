@@ -3,7 +3,7 @@
 GlinInit;
 PoolObject: ADust, 1;
 PoolObject: GlinFireball, 5;
-PoolObject: GlinSpike_Step2, 5;
+PoolObject: GlinSpike, 5;
 RegistMove: (Zako1_Idle)
   MoveType: None;
 EndMove:
@@ -22,7 +22,7 @@ EndMove:
 RegistMove: (Zako1_Death)
   MoveType: HitStun;
 EndMove:
-GotoBehavior: Zako1_CastSpike;
+GotoBehavior: Zako1_Throw;
 return;
 
 [Zako1_Idle]
@@ -58,7 +58,7 @@ GotoMarker: Loop;
 Exit;
 
 @WaitFrameCallback:
-GotoBehavior: Zako1_Throw;
+GotoBehavior: Zako1_CastSpike;
 return;
 
 [Zako1_TeleportIn]
@@ -121,25 +121,11 @@ BBSprite: Anticipate_2, 5;
 BBSprite: Anticipate_3, 6;
 BBSprite: Anticipate_4, 6;
 BBSprite: Anticipate_5, 10;
-# 1
-CreateBullet: GlinFireball
-  BulletVelocity: 180000, -150000;
-  BulletPosition: -12000, -12000;
-EndCreateBullet:
-# 2
-CreateBullet: GlinFireball
-  BulletVelocity: 120000, -200000;
-  BulletPosition: -12000, -12000;
-EndCreateBullet:
-# 3
-CreateBullet: GlinFireball
-  BulletVelocity: 240000, -100000;
-  BulletPosition: -12000, -12000;
-EndCreateBullet:
+# 这里改成扔杂兵出去，感觉挺有意思的
 BBSprite: Active_1, 10;
 BBSprite: Active_2, 5;
 BBSprite: End_1, 5;
-GotoBehavior: Zako1_Idle;
+GotoBehavior: Zako1_Throw;
 
 [Zako1_Death]
 @Trigger:
@@ -167,29 +153,10 @@ return;
 
 @Main:
 RegistCounter: 200;
-CallSubCoroutine: Zako1_CastSpike, CastSpikeCor;
+EnableGlinSpikeCaster: 3, 60;
 BeginLoop: (Counter: Value > 0)
   BBSprite: Death_1, 5;
   BBSprite: Death_2, 5;
   BBSprite: Death_3, 5;
 EndLoop:
-Exit;
-
-@CastSpikeCor:
-WaitFrame: 50;
-CreateBullet: GlinSpike_Step2
-  BulletPosition: 50000, -115000;
-EndCreateBullet:
-WaitFrame: 50;
-CreateBullet: GlinSpike_Step2
-  BulletPosition: 0, -115000;
-EndCreateBullet:
-WaitFrame: 50;
-CreateBullet: GlinSpike_Step2
-  BulletPosition: -50000, -115000;
-EndCreateBullet:
-WaitFrame: 50;
-CreateBullet: GlinSpike_Step2
-  BulletPosition: -100000, -115000;
-EndCreateBullet:
-return;
+GotoBehavior: Zako1_Idle;

@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace ET.Client
 {
-    public class Function_CastGlinSpike_Step2_BBScriptHandler: BBScriptHandler
+    public class Function_CastGlinSpike_Step2_BBScriptHandler_Obselete: BBScriptHandler
     {
         public override string GetOPType()
         {

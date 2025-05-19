@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 namespace ET.Client
 {
     [FriendOf(typeof(GlinBulletCaster))]
-    public class RootInit_CastGlinBullet_BBScriptHandler : BBScriptHandler
+    public class RootInit_CastGlinBullet_BBScriptHandler_Obselete : BBScriptHandler
     {
         public override string GetOPType()
         {

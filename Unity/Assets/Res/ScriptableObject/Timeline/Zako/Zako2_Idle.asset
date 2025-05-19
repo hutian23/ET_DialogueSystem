@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dad01b398c6f634c9e134265baa14a1, type: 3}
-  m_Name: GlinSpike_Step2_Idle
+  m_Name: Zako2_Idle
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 7400000, guid: e33cc53e52bc9ec41b4f6e7c2fe50b64, type: 2}
+    - {fileID: 7400000, guid: fb7bdab1b96f7ec4e96615d56f81ff7b, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -52,14 +52,14 @@ MonoBehaviour:
       Entry: 5
       Data: false
     - Name: Name
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: Zako2_Idle
     - Name: StartFrame
       Entry: 3
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 75
+      Data: 25
     - Name: animationClip
       Entry: 10
       Data: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 14
+      Data: 6
     - Name: 
       Entry: 7
       Data: 9|Timeline.EventInfo, Unity.Loader
@@ -132,7 +132,7 @@ MonoBehaviour:
       Data: 0
     - Name: keyframeName
       Entry: 1
-      Data: Anticipate_1
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -144,7 +144,7 @@ MonoBehaviour:
       Data: 5
     - Name: keyframeName
       Entry: 1
-      Data: Anticipate_2
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -156,7 +156,7 @@ MonoBehaviour:
       Data: 10
     - Name: keyframeName
       Entry: 1
-      Data: Anticipate_3
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -168,7 +168,7 @@ MonoBehaviour:
       Data: 15
     - Name: keyframeName
       Entry: 1
-      Data: Start_1
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -180,7 +180,7 @@ MonoBehaviour:
       Data: 20
     - Name: keyframeName
       Entry: 1
-      Data: Start_2
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -192,103 +192,7 @@ MonoBehaviour:
       Data: 25
     - Name: keyframeName
       Entry: 1
-      Data: Start_3
-    - Name: 
-      Entry: 8
       Data: 
-    - Name: 
-      Entry: 7
-      Data: 15|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 30
-    - Name: keyframeName
-      Entry: 1
-      Data: Start_4
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 16|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 35
-    - Name: keyframeName
-      Entry: 1
-      Data: Start_5
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 17|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 40
-    - Name: keyframeName
-      Entry: 1
-      Data: Active_1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 18|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 55
-    - Name: keyframeName
-      Entry: 1
-      Data: End_1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 19|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 60
-    - Name: keyframeName
-      Entry: 1
-      Data: End_2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 20|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 65
-    - Name: keyframeName
-      Entry: 1
-      Data: End_3
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 21|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 70
-    - Name: keyframeName
-      Entry: 1
-      Data: End_4
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 22|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 75
-    - Name: keyframeName
-      Entry: 1
-      Data: End_5
     - Name: 
       Entry: 8
       Data: 
@@ -303,7 +207,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 23|Timeline.BBHitboxTrack, Unity.Loader
+      Data: 15|Timeline.BBHitboxTrack, Unity.Loader
     - Name: Name
       Entry: 1
       Data: Hitbox
@@ -312,7 +216,7 @@ MonoBehaviour:
       Data: true
     - Name: Clips
       Entry: 7
-      Data: 24|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
+      Data: 16|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -325,142 +229,14 @@ MonoBehaviour:
       Data: 
     - Name: Keyframes
       Entry: 7
-      Data: 25|System.Collections.Generic.List`1[[Timeline.HitboxKeyframe, Unity.Loader]],
+      Data: 17|System.Collections.Generic.List`1[[Timeline.HitboxKeyframe, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 7
-      Data: 26|Timeline.HitboxKeyframe, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 40
-    - Name: keyframeName
-      Entry: 1
-      Data: 
-    - Name: boxInfos
-      Entry: 7
-      Data: 27|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 28|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: Hit_1
-    - Name: hitboxType
-      Entry: 3
-      Data: 1
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 2.6
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
       Data: 1
     - Name: 
-      Entry: 4
-      Data: 8.1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: tagType
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 7
-      Data: 29|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: Hit_2
-    - Name: hitboxType
-      Entry: 3
-      Data: 1
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 8.4
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0.35
-    - Name: 
-      Entry: 4
-      Data: 3.5
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: tagType
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 30|Timeline.HitboxKeyframe, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 55
-    - Name: keyframeName
-      Entry: 1
-      Data: 
-    - Name: boxInfos
-      Entry: 7
-      Data: 31|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 32|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 18|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 0
@@ -469,7 +245,7 @@ MonoBehaviour:
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 33|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
+      Data: 19|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -498,4 +274,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  timelineName: GlinSpike_Step2_Idle
+  timelineName: Zako2_Idle

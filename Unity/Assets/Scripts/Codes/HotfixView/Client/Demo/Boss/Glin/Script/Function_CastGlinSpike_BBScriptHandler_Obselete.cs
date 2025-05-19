@@ -3,7 +3,7 @@ using Vector2 = System.Numerics.Vector2;
 
 namespace ET.Client
 {
-    public class Function_CastGlinSpike_BBScriptHandler : BBScriptHandler
+    public class Function_CastGlinSpike_BBScriptHandler_Obselete : BBScriptHandler
     {
         public override string GetOPType()
         {
