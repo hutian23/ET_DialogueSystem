@@ -29,7 +29,7 @@
             LoopComponent loopComponent = parser.AddComponent<LoopComponent, int, int>(triggerIndex, endIndex, true);
             
             //2. 启动Trigger协程
-            loopComponent.TriggerCor().Coroutine();
+            // loopComponent.TriggerCor().Coroutine();
             
             //3. 启动Loop协程
             Status ret = await loopComponent.LoopCor();

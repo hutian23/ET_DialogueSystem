@@ -29,6 +29,48 @@ namespace ET.Client
                 self.token.Cancel();
             }
         }
+        
+        [FriendOf(typeof(BBParser))]
+        public class LoopComponentLateUpdateSystem : FrameLateUpdateSystem<LoopComponent>
+        {
+            protected override void FrameLateUpdate(LoopComponent self)
+            {
+                BBParser parser = self.GetParent<BBParser>();
+
+                //1. Match trigger
+                string loopTrigger = parser.OpDict[self.triggerIndex];
+                MatchCollection matches = Regex.Matches(loopTrigger, @"\((.*?)\)");
+                if (matches.Count == 0)
+                {
+                    Log.Error($"Loop_Handler must have at least one triggerHandler!");
+                    return;
+                }
+
+
+                //2. Exec trigger
+                for (int i = 0; i < matches.Count; i++)
+                {
+                    string op = matches[i].Groups[1].Value;
+                    Match triggerMatch = Regex.Match(op, "(.*?):");
+
+                    // Match Failed
+                    if (!triggerMatch.Success)
+                    {
+                        ScriptHelper.ScripMatchError(op);
+                        break;
+                    }
+
+                    // Match Success
+                    BBScriptData _data = BBScriptData.Create(op, 0);
+                    bool ret = ScriptDispatcherComponent.Instance.GetTrigger(triggerMatch.Groups[1].Value).Check(parser, _data);
+                    if (ret) continue;
+
+                    // Cancel Loop Coroutine
+                    self.token.Cancel();
+                    return;
+                }
+            }
+        }
 
         public static async ETTask TriggerCor(this LoopComponent self)
         {
