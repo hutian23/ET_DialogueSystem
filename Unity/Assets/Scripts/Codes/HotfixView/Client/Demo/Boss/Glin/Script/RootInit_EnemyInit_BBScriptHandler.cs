@@ -1,10 +1,10 @@
 ﻿namespace ET.Client
 {
-    public class RootInit_GlinInit_BBScriptHandler : BBScriptHandler
+    public class RootInit_EnemyInit_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "GlinInit";
+            return "EnemyInit";
         }
 
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)

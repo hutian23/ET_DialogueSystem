@@ -77,7 +77,7 @@ namespace ET.Client
         public static async ETTask<Status> LoopCor(this LoopComponent self)
         {
             BBParser parser = self.GetParent<BBParser>();
-            BBTimerComponent bbTimer = parser.GetParent<Unit>().GetComponent<BBTimerComponent>();
+            // BBTimerComponent bbTimer = parser.GetParent<Unit>().GetComponent<BBTimerComponent>();
             
             //1. 生成Loop协程Id
             long funcId = IdGenerater.Instance.GenerateInstanceId();
@@ -141,7 +141,8 @@ namespace ET.Client
                 parser.Coroutine_Pointers[funcId] = self.startIndex;
                 
                 //5. 避免卡死
-                await bbTimer.WaitFrameAsync(self.token);
+                // await bbTimer.WaitFrameAsync(self.token);
+                await TimerComponent.Instance.WaitFrameAsync(self.token);
                 if (self.token.IsCancel())
                 {
                     return Status.Success;

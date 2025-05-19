@@ -36,5 +36,15 @@ namespace ET.Client
             //计算反射向量： R = I - 2 * (I·N) * N
             return inVector - 2 * dotProduct * normal;
         }
+
+        public static bool IsPointInBox(Vector2 point, Vector2 boxCenter, Vector2 boxSize)
+        {
+            Vector2 halfSize = boxSize / 2f;
+            Vector2 min = boxCenter - halfSize;
+            Vector2 max = boxCenter + halfSize;
+        
+            return point.X >= min.X && point.X <= max.X &&
+                    point.Y >= min.Y && point.Y <= max.Y;
+        }
     }
 }

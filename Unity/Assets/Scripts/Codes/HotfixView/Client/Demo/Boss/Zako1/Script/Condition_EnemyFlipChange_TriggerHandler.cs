@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public class Trigger_EnemyFlipChange_TriggerHandler: BBTriggerHandler
+    public class Condition_EnemyFlipChange_TriggerHandler: BBTriggerHandler
     {
         public override string GetTriggerType()
         {

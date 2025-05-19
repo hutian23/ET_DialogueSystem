@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dad01b398c6f634c9e134265baa14a1, type: 3}
-  m_Name: Zako2_Idle
+  m_Name: Zako2_Spawn
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 7400000, guid: fb7bdab1b96f7ec4e96615d56f81ff7b, type: 2}
+    - {fileID: 7400000, guid: 3d952fa8a78568441b7f0d7fbedf51d7, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -53,7 +53,7 @@ MonoBehaviour:
       Data: false
     - Name: Name
       Entry: 1
-      Data: Zako2_Idle
+      Data: Zako2_Spawn
     - Name: StartFrame
       Entry: 3
       Data: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
       Data: 0
     - Name: keyframeName
       Entry: 1
-      Data: Idle_1
+      Data: Spawn_1
     - Name: 
       Entry: 8
       Data: 
@@ -144,7 +144,7 @@ MonoBehaviour:
       Data: 5
     - Name: keyframeName
       Entry: 1
-      Data: Idle_2
+      Data: Spawn_2
     - Name: 
       Entry: 8
       Data: 
@@ -156,7 +156,7 @@ MonoBehaviour:
       Data: 10
     - Name: keyframeName
       Entry: 1
-      Data: Idle_3
+      Data: Spawn_3
     - Name: 
       Entry: 8
       Data: 
@@ -168,7 +168,7 @@ MonoBehaviour:
       Data: 15
     - Name: keyframeName
       Entry: 1
-      Data: Idle_4
+      Data: Spawn_4
     - Name: 
       Entry: 8
       Data: 
@@ -180,7 +180,7 @@ MonoBehaviour:
       Data: 20
     - Name: keyframeName
       Entry: 1
-      Data: Idle_5
+      Data: Spawn_5
     - Name: 
       Entry: 8
       Data: 
@@ -192,7 +192,7 @@ MonoBehaviour:
       Data: 25
     - Name: keyframeName
       Entry: 1
-      Data: Idle_6
+      Data: Spawn_6
     - Name: 
       Entry: 8
       Data: 
@@ -204,7 +204,7 @@ MonoBehaviour:
       Data: 30
     - Name: keyframeName
       Entry: 1
-      Data: Turn_1
+      Data: Spawn_7
     - Name: 
       Entry: 8
       Data: 
@@ -216,7 +216,7 @@ MonoBehaviour:
       Data: 35
     - Name: keyframeName
       Entry: 1
-      Data: Turn_2
+      Data: Spawn_8
     - Name: 
       Entry: 8
       Data: 
@@ -257,7 +257,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 20|Timeline.HitboxKeyframe, Unity.Loader
@@ -273,10 +273,74 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
       Data: 22|Timeline.BoxInfo, Unity.Loader
+    - Name: boxName
+      Entry: 1
+      Data: PushBox
+    - Name: hitboxType
+      Entry: 3
+      Data: 4
+    - Name: center
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.1
+    - Name: 
+      Entry: 4
+      Data: -0.75
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: size
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1.5
+    - Name: 
+      Entry: 4
+      Data: 2.5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: tagType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 23|Timeline.HitboxKeyframe, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 15
+    - Name: keyframeName
+      Entry: 1
+      Data: 
+    - Name: boxInfos
+      Entry: 7
+      Data: 24|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 25|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_2
@@ -315,7 +379,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 23|Timeline.BoxInfo, Unity.Loader
+      Data: 26|Timeline.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: PushBox
@@ -376,4 +440,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  timelineName: Zako2_Idle
+  timelineName: Zako2_Spawn
