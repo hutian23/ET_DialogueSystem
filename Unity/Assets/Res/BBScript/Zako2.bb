@@ -31,6 +31,9 @@ EndMove:
 RegistMove: (Zako2_BattleIdle)
   MoveType: None;
 EndMove:
+RegistMove: (Zako2_Death)
+  MoveType: None;
+EndMove:
 GotoBehavior: Zako2_Spawn;
 return;
 

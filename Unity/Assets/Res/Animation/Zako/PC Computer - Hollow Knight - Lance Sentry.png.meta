@@ -1,0 +1,1000 @@
+fileFormatVersion: 2
+guid: 4413fb9ac060db345ad7490acbf027f9
+labels:
+- bb
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_0
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 3037
+        width: 126
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4c073a558d3ef140bd78a7722f911d7
+      internalID: -301122035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_1
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 2957
+        width: 165
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c70e3e6f48a00db41a0bc4e1a4b39262
+      internalID: 1699784511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 2642
+        width: 326
+        height: 216
+      alignment: 9
+      pivot: {x: 0.5521472, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96b09eee0601245459632e4b5529ec02
+      internalID: 1803263105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_2
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 2642
+        width: 326
+        height: 216
+      alignment: 9
+      pivot: {x: 0.5521472, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0649c880420f2f74eaff3844f1f9567f
+      internalID: 76442765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_3
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 2642
+        width: 326
+        height: 216
+      alignment: 9
+      pivot: {x: 0.5521472, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a16292ed6d63d4a4e811d1bee0e340aa
+      internalID: -1107030788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_4
+      rect:
+        serializedVersion: 2
+        x: 997
+        y: 2642
+        width: 326
+        height: 216
+      alignment: 9
+      pivot: {x: 0.5521472, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85afd4ca199cf224dace7c1e7b7c231c
+      internalID: 254933807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_5
+      rect:
+        serializedVersion: 2
+        x: 1328
+        y: 2642
+        width: 326
+        height: 216
+      alignment: 9
+      pivot: {x: 0.5521472, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac41eb7e1876b624ebcc9f02c0e33f82
+      internalID: -1279470967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_6
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 2421
+        width: 326
+        height: 216
+      alignment: 9
+      pivot: {x: 0.5521472, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 995c6fa5a08703a49afc84622378ae58
+      internalID: 1417915152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_7
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 2421
+        width: 326
+        height: 216
+      alignment: 9
+      pivot: {x: 0.5521472, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a35570b0c58591e4587eb2daf7b097ff
+      internalID: 1949825992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turn_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 2196
+        width: 285
+        height: 201
+      alignment: 9
+      pivot: {x: 0.6315789, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6034ad5758666ce4396f75bc2d9f5c9d
+      internalID: -531423874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turn_2
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 2196
+        width: 285
+        height: 201
+      alignment: 9
+      pivot: {x: 0.6315789, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 097571f45e7153b43bd7fd88776aa139
+      internalID: 1669929325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_Anticipate_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 1864
+        width: 378
+        height: 308
+      alignment: 9
+      pivot: {x: 0.58201057, y: 0.6168831}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50e2bd2b7db3a7447ae7a59f0383f394
+      internalID: 1910983893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_Anticipate_2
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 1864
+        width: 378
+        height: 308
+      alignment: 9
+      pivot: {x: 0.58201057, y: 0.6168831}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0c2de7df705df847bdbcc6d84d27ffe
+      internalID: -1741568877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_Anticipate_3
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 1865
+        width: 378
+        height: 308
+      alignment: 9
+      pivot: {x: 0.58201057, y: 0.6168831}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d85968ff1b864b44e9dca2dcb53d6e5b
+      internalID: 880139573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_Anticipate_4
+      rect:
+        serializedVersion: 2
+        x: 1153
+        y: 1864
+        width: 378
+        height: 308
+      alignment: 9
+      pivot: {x: 0.58201057, y: 0.6168831}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13038bfef82626440883ceda8361e720
+      internalID: 1343458810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_3
+      rect:
+        serializedVersion: 2
+        x: 793
+        y: 1686
+        width: 389
+        height: 154
+      alignment: 9
+      pivot: {x: 0.57840616, y: 0.58441556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e73a4afc5bdfb3b4fb6e14d0f6c01442
+      internalID: -761103737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_2
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 1686
+        width: 389
+        height: 154
+      alignment: 9
+      pivot: {x: 0.57840616, y: 0.58441556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84e6f98db51f2a24a840c7b945199cdb
+      internalID: -1679353491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 1686
+        width: 389
+        height: 154
+      alignment: 9
+      pivot: {x: 0.57840616, y: 0.58441556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61d492cc7c469f84da74f2fb0e9b5bc7
+      internalID: 668195816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_Recover_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 1409
+        width: 370
+        height: 253
+      alignment: 9
+      pivot: {x: 0.4864865, y: 0.5928854}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27c71bcf30216fa44acae9c68ed62425
+      internalID: -630035787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_Recover_2
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 1409
+        width: 370
+        height: 253
+      alignment: 9
+      pivot: {x: 0.4864865, y: 0.5928854}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84105d6e0fc2259419e7a981ce1db4bf
+      internalID: -2073082183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_Recover_3
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 1409
+        width: 370
+        height: 253
+      alignment: 9
+      pivot: {x: 0.4864865, y: 0.5928854}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d68bb97255d56247b49a7ea1fe28b1a
+      internalID: -83643374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_21
+      rect:
+        serializedVersion: 2
+        x: 863
+        y: 1168
+        width: 261
+        height: 104
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e7596b2a158fc4498a72647c07bbd2b
+      internalID: 1177724822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_22
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 1157
+        width: 129
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ae77baff9f87ab4fb07bb2a7f49073d
+      internalID: 916104753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_23
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 1183
+        width: 172
+        height: 124
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e73257bcb4832943afddcd4a96fb6a9
+      internalID: 377338037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_24
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 909
+        width: 217
+        height: 135
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e7ebf8a7ceca1a44bcbf6c1d4900ae9
+      internalID: -778687510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_25
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 886
+        width: 232
+        height: 162
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74401afd311bf3648a2777469107189a
+      internalID: 82679513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_26
+      rect:
+        serializedVersion: 2
+        x: 922
+        y: 922
+        width: 208
+        height: 91
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 698732f03706662498e824c0560715a3
+      internalID: 1638022501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_27
+      rect:
+        serializedVersion: 2
+        x: 1312
+        y: 912
+        width: 118
+        height: 133
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 890da516cca3a91449f458b322d1f310
+      internalID: -25842286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_28
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 1249
+        width: 318
+        height: 71
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b41561ea0591194eab4ab9ecde2dbf2
+      internalID: 311892033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_29
+      rect:
+        serializedVersion: 2
+        x: 1672
+        y: 1172
+        width: 119
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7ca65b6e0f10cd4dba52593a3f1b73b
+      internalID: 1905405441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_30
+      rect:
+        serializedVersion: 2
+        x: 1700
+        y: 871
+        width: 117
+        height: 193
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d73f33a0f62ed5e42b71601d23751488
+      internalID: -1317294290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_31
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 699
+        width: 278
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 647c97f3e2c90164a9e079690e838e4b
+      internalID: -1221124718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_32
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 689
+        width: 239
+        height: 164
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d8320b182a16f04583fb373721615a0
+      internalID: -872540542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_33
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 700
+        width: 236
+        height: 145
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f53161322fcc33a48a4227010b05b9c5
+      internalID: -697557391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_34
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 578
+        width: 521
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36334ed795d32e644a6137dc7d3df8fd
+      internalID: -1862739283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_35
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 530
+        width: 483
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8f6a8adddee2b44483aeb2b74c43ba5
+      internalID: 2026522023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_36
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 530
+        width: 483
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2bfd2ba4a7e5c14393fc41fe5b3f6e9
+      internalID: -701504015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_37
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 530
+        width: 483
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6183ff410e495c441afcf9488e0993c7
+      internalID: 9727731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Hollow Knight - Lance Sentry_38
+      rect:
+        serializedVersion: 2
+        x: 1468
+        y: 530
+        width: 473
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83bb866d3b77fc948b92dd330fdb6776
+      internalID: 1861237019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: ef5cf81e9ffc5aa4988674aacc7471de
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Charge_1: 668195816
+      Charge_2: -1679353491
+      Charge_3: -761103737
+      Charge_Anticipate_1: 1910983893
+      Charge_Anticipate_2: -1741568877
+      Charge_Anticipate_3: 880139573
+      Charge_Anticipate_4: 1343458810
+      Charge_Recover_1: -630035787
+      Charge_Recover_2: -2073082183
+      Charge_Recover_3: -83643374
+      Idle_1: 1803263105
+      Idle_2: 76442765
+      Idle_3: -1107030788
+      Idle_4: 254933807
+      Idle_5: -1279470967
+      Idle_6: 1417915152
+      Idle_7: 1949825992
+      PC Computer - Hollow Knight - Lance Sentry_0: -301122035
+      PC Computer - Hollow Knight - Lance Sentry_1: 1699784511
+      PC Computer - Hollow Knight - Lance Sentry_21: 1177724822
+      PC Computer - Hollow Knight - Lance Sentry_22: 916104753
+      PC Computer - Hollow Knight - Lance Sentry_23: 377338037
+      PC Computer - Hollow Knight - Lance Sentry_24: -778687510
+      PC Computer - Hollow Knight - Lance Sentry_25: 82679513
+      PC Computer - Hollow Knight - Lance Sentry_26: 1638022501
+      PC Computer - Hollow Knight - Lance Sentry_27: -25842286
+      PC Computer - Hollow Knight - Lance Sentry_28: 311892033
+      PC Computer - Hollow Knight - Lance Sentry_29: 1905405441
+      PC Computer - Hollow Knight - Lance Sentry_30: -1317294290
+      PC Computer - Hollow Knight - Lance Sentry_31: -1221124718
+      PC Computer - Hollow Knight - Lance Sentry_32: -872540542
+      PC Computer - Hollow Knight - Lance Sentry_33: -697557391
+      PC Computer - Hollow Knight - Lance Sentry_34: -1862739283
+      PC Computer - Hollow Knight - Lance Sentry_35: 2026522023
+      PC Computer - Hollow Knight - Lance Sentry_36: -701504015
+      PC Computer - Hollow Knight - Lance Sentry_37: 9727731
+      PC Computer - Hollow Knight - Lance Sentry_38: 1861237019
+      Turn_1: -531423874
+      Turn_2: 1669929325
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

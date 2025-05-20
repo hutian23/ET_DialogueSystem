@@ -1762,6 +1762,111 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Death_Air_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 4
+        width: 163
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74810715376a24249ac90e4b5542f54d
+      internalID: 1030869432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_Air_2
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 4
+        width: 163
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cb70cd650782f549aa7f0ef6ab7c7af
+      internalID: -139830380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_Land_1
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 10
+        width: 152
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09d4c9791c9cc9946a48011ad4882604
+      internalID: -2110710798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_Land_2
+      rect:
+        serializedVersion: 2
+        x: 529
+        y: 10
+        width: 152
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 634b07742d734ca4b8c87d4799334aa9
+      internalID: 1438932370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_Land_3
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 10
+        width: 152
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: add0a50b132d34e49a428dfe3110bc18
+      internalID: 852268293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1804,6 +1909,11 @@ TextureImporter:
       Charge_End_3: -1579887081
       Charge_End_4: 4285847
       Charge_End_5: 464549814
+      Death_Air_1: 1030869432
+      Death_Air_2: -139830380
+      Death_Land_1: -2110710798
+      Death_Land_2: 1438932370
+      Death_Land_3: 852268293
       Idle_1: 761158702
       Idle_2: 1537539247
       Idle_3: -314218852
