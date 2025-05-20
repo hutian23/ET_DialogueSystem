@@ -8,5 +8,7 @@ namespace ET.Client
         public bool inRange;
         public Vector2 center;
         public float radius;
+
+        public int inRangeCallbackIndex;
     }
 }

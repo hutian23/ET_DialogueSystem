@@ -10,6 +10,9 @@ EndMove:
 RegistMove: (Zako2_Patrol)
   MoveType: None;
 EndMove:
+RegistMove: (Zako2_LoseTarget)
+  MoveType: None;
+EndMove:
 RegistMove: (Zako2_Startle)
   MoveType: None;
 EndMove:
@@ -28,7 +31,7 @@ EndMove:
 RegistMove: (Zako2_BattleIdle)
   MoveType: None;
 EndMove:
-GotoBehavior: Zako2_Charge;
+GotoBehavior: Zako2_Spawn;
 return;
 
 [Zako2_Spawn]
@@ -46,7 +49,7 @@ return;
 
 @Main: 
 EnablePatrol: -193000, 193000;
-EnableTargetCheck: 0, 10000, 120000, 60000; 
+EnableTargetCheck: 0, 10000, 120000, 100000; 
 RegistFindTargetCallback: Zako2_Patrol, FindTargetCallback;
 SetMarker: Loop;
 SetVelocityX: 40000;
@@ -74,6 +77,31 @@ Exit;
 GotoBehavior: Zako2_Startle;
 return;
 
+[Zako2_LoseTarget]
+@Trigger:
+return;
+
+@Main:
+SetVelocityX: 0;
+# 待机期间玩家回到攻击范围内
+EnableTargetCheck: 0, 10000, 120000, 100000; 
+RegistFindTargetCallback: Zako2_LoseTarget, FindTargetCallback;
+# 待机一段时间，然后切换到巡逻行为
+RegistCounter: 150;
+BeginLoop: (Counter: Value > 0)
+  BBSprite: Idle_1, 5;
+  BBSprite: Idle_2, 5;
+  BBSprite: Idle_3, 5;
+  BBSprite: Idle_4, 5;
+  BBSprite: Idle_5, 5;
+  BBSprite: Idle_6, 5;
+EndLoop:
+GotoBehavior: Zako2_Patrol;
+
+@FindTargetCallback:
+GotoBehavior: Zako2_Startle;
+return;
+
 [Zako2_Startle]
 @Trigger:
 return;
@@ -85,18 +113,30 @@ BBSprite: Startle_1, 5;
 BBSprite: Startle_2, 5;
 BBSprite: Startle_3, 10;
 BBSprite: Startle_4, 5;
-GotoBehavior: Zako2_Chase;
+Random: ran1, 0, 100;
+BeginIf: (Random: ran1 >= 0), (Random: ran1 < 50)
+  GotoBehavior: Zako2_Chase;
+EndIf:
+BeginIf: (Random: ran1 >= 50), (Random: ran1 <= 100)
+  GotoBehavior: Zako2_Charge;
+EndIf:
 
 [Zako2_Chase]
 @Trigger:
 return;
 
 @Main:
+# 丢失目标，回到Patrol行为
+EnableTargetCheck: 0, 0, 300000, 100000;
+RegistLoseTargetCallback: Zako2_Chase, LoseTargetCallback;
+# 攻击范围内，释放攻击技能
+EnableInRangeCheck: true, 35000, 0, 0;
+RegistInRangeCallback: Zako2_Chase, InRangeCallback;
+# 转向检测
 EnableEnemyFlipCheck: true;
-EnableRangeCheck: true, 35000, 0, 0;
-SetMarker: Loop;
 SetVelocityX: 80000;
-BeginLoop: (InRange: false), (EnemyFlipChange: false)
+SetMarker: Loop;
+BeginLoop: (EnemyFlipChange: false)
   BBSprite: Run_1, 5;
   BBSprite: Run_2, 5;
   BBSprite: Run_3, 5;
@@ -105,15 +145,26 @@ BeginLoop: (InRange: false), (EnemyFlipChange: false)
   BBSprite: Run_6, 5;
   BBSprite: Run_7, 5;
 EndLoop:
-BeginIf: (InRange: true)
-  GotoBehavior: Zako2_Attack;
-EndIf:
 BBSprite: Turn_1, 5;
 BBSprite: Turn_2, 5;
 FlipReverse;
 BBSprite: Run_1, 1;
 GotoMarker: Loop;
-Exit;
+return;
+
+@LoseTargetCallback:
+GotoBehavior: Zako2_LoseTarget;
+return;
+
+@InRangeCallback:
+Random: ran1, 0, 100;
+BeginIf: (Random: ran1 >= 0), (Random: ran1 < 50)
+  GotoBehavior: Zako2_Attack;
+EndIf:
+BeginIf: (Random: ran1 >= 50), (Random: ran1 <= 100)
+  GotoBehavior: Zako2_JumpAttack;
+EndIf:
+return;
 
 [Zako2_Charge]
 @Trigger:
@@ -177,12 +228,22 @@ return;
 
 @Main:
 # PreJump
-SetPos: 0, -120000;
+SetVelocityX: 0;
 BBSprite: Anticipate_1, 4;
 BBSprite: Anticipate_2, 4;
 BBSprite: Anticipate_3, 8;
 # Jump
-SetVelocity: 40000, 200000;
+Random: ran1, 0, 100;
+BeginIf: (Random: ran1 >= 0), (Random: ran1 < 40)
+  SetVelocityX: 80000;
+EndIf:
+BeginIf: (Random: ran1 >= 40), (Random: ran1 < 70)
+  SetVelocityX: 0;
+EndIf:
+BeginIf: (Random: ran1 >= 70), (Random: ran1 <= 100)
+  SetVelocityX: -30000;
+EndIf:
+SetVelocityY: 200000;
 Gravity: 0;
 BBSprite: Jump_1, 4;
 Gravity: 120000;
@@ -198,12 +259,14 @@ BeginLoop: (InAir: true)
   BBSprite: Jump_8, 5;
 EndLoop:
 # Land
+SpawnGDust: 5000, -15000, 4000, 2000;
+SpawnGDust: -50000, -15000, -4000, 2000;
 Gravity: 100000;
 SetVelocity: 0, 0;
-ScreenShake: 1600, 1600, 10000, 15;
+ScreenShake: 1600, 1600, 10000, 25;
 BBSprite: Land_1, 4;
-BBSprite: Land_2, 10;
-GotoBehavior: Zako2_JumpAttack;
+BBSprite: Land_2, 15;
+GotoBehavior: Zako2_BattleIdle;
 
 [Zako2_BattleIdle]
 @Trigger:
@@ -213,7 +276,9 @@ return;
 #1. 待机
 SetVelocityX: 0;
 EnableEnemyFlipCheck: true;
-EnableRangeCheck: true, 35000, 0, 0;
+EnableTargetCheck: 0, 0, 300000, 100000;
+RegistLoseTargetCallback: Zako2_BattleIdle, LoseTargetCallback;
+EnableInRangeCheck: true, 35000, 0, 0;
 RegistCounter: 15;
 BeginLoop: (Counter: Value > 0)
   BBSprite: Idle_1, 5;
@@ -230,7 +295,21 @@ BeginIf: (EnemyFlipChange: true)
   FlipReverse;
 EndIf:
 #3. 切换动作
-BeginIf: (InRange: true)
+Random: ran1, 0, 100;
+BeginIf: (Random: ran1 >= 0), (Random: ran1 < 30)
+  GotoBehavior: Zako2_Charge;
+EndIf:
+# 不在攻击范围内，先进行位移
+BeginIf: (InRange: false)
+  GotoBehavior: Zako2_Chase;
+EndIf:
+BeginIf: (Random: ran1 >= 30), (Random: ran1 < 60)
   GotoBehavior: Zako2_Attack;
 EndIf:
-GotoBehavior: Zako2_Chase;
+BeginIf: (Random: ran1 >= 60), (Random: ran1 <= 100)
+  GotoBehavior: Zako2_JumpAttack;
+EndIf:
+
+@LoseTargetCallback:
+GotoBehavior: Zako2_LoseTarget;
+return;

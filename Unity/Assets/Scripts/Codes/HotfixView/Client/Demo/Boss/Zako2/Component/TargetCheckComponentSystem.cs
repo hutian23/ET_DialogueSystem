@@ -4,6 +4,7 @@ using Vector2 = System.Numerics.Vector2;
 
 namespace ET.Client
 {
+    [FriendOf(typeof(TargetCheckComponent))]
     public static class TargetCheckComponentSystem
     {
         public class FindTargetComponentDestroySystem : DestroySystem<TargetCheckComponent>
@@ -17,7 +18,7 @@ namespace ET.Client
                 self.loseTargetCallback_Index = 0;
             }
         }
-        
+
         [FriendOf(typeof(BBParser))]
         public class FindTargetComponentPostStepSystem : PostStepSystem<TargetCheckComponent>
         {
@@ -29,22 +30,27 @@ namespace ET.Client
                 b2Body bodyA = b2WorldManager.Instance.GetBody(player.InstanceId);
                 b2Body bodyB = b2WorldManager.Instance.GetBody(unit.InstanceId);
                 BBParser parser = self.GetParent<BBParser>();
-                
+
                 Vector2 center = bodyB.GetPosition() + self.center * new Vector2(bodyB.GetFlip(), 1);
                 self.targetFounded = Box2DHelper.IsPointInBox(bodyA.GetPosition(), center, self.size);
-                
+
                 if (self.targetFounded)
                 {
                     // 调用回调
                     if (self.findTargetCallback_Index == 0) return;
-                    parser.Invoke(self.findTargetCallback_Index, parser.CancellationToken).Coroutine();   
+                    parser.Invoke(self.findTargetCallback_Index, parser.CancellationToken).Coroutine();
                 }
                 else
                 {
                     if (self.loseTargetCallback_Index == 0) return;
-                    parser.Invoke(self.loseTargetCallback_Index, parser.CancellationToken).Coroutine();   
+                    parser.Invoke(self.loseTargetCallback_Index, parser.CancellationToken).Coroutine();
                 }
             }
+        }
+
+        public static bool FindTarget(this TargetCheckComponent self)
+        {
+            return self.targetFounded;
         }
 
         public class FindTargetComponentGizmosUpdateSystem : GizmosUpdateSystem<TargetCheckComponent>
@@ -56,7 +62,7 @@ namespace ET.Client
 
                 //1. Position
                 Vector2 center = body.GetPosition() + self.center * new Vector2(body.GetFlip(), 1);
-                
+
                 //2. Shape
                 PolygonShape shape = new();
                 shape.SetAsBox(self.size.X / 2, self.size.Y / 2);

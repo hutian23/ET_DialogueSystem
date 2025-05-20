@@ -4,17 +4,17 @@ using UnityEngine;
 namespace ET.Client
 {
     [FriendOf(typeof(InRangeCheckComponent))]
-    public class Function_EnableRangeCheck_BBScriptHandler : BBScriptHandler
+    public class Function_EnableInRangeCheck_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "EnableRangeCheck";
+            return "EnableInRangeCheck";
         }
 
         // EnableTargetCheck: true, radius, centerX, centerY;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"EnableRangeCheck: (?<Active>\w+), (?<radius>.*?), (?<centerX>.*?), (?<centerY>.*?);");
+            Match match = Regex.Match(data.opLine, @"EnableInRangeCheck: (?<Active>\w+), (?<radius>.*?), (?<centerX>.*?), (?<centerY>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);

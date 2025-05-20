@@ -13,10 +13,12 @@ namespace ET.Client
                 self.inRange = false;
                 self.center = UnityEngine.Vector2.zero;
                 self.radius = 0f;
+                self.inRangeCallbackIndex = 0;
             }
         }
 
         [FriendOf(typeof(b2Body))]
+        [FriendOf(typeof(BBParser))]
         public class InRangeCheckComponentPostStepSystem : PostStepSystem<InRangeCheckComponent>
         {
             protected override void PosStepUpdate(InRangeCheckComponent self)
@@ -25,11 +27,17 @@ namespace ET.Client
                 Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
                 b2Body bodyA = b2WorldManager.Instance.GetBody(player.InstanceId);
                 b2Body bodyB = b2WorldManager.Instance.GetBody(unit.InstanceId);
+                BBParser parser = self.GetParent<BBParser>();
 
                 Vector2 center = bodyB.GetPosition() + self.center.ToVector2();
                 Vector2 targetPoint = bodyA.GetPosition();
 
                 self.inRange = Vector2.Distance(center, targetPoint) <= self.radius;
+                // 触发回调
+                if (self.inRange && self.inRangeCallbackIndex != 0)
+                {
+                    parser.Invoke(self.inRangeCallbackIndex, parser.CancellationToken).Coroutine();
+                }
             }
         }
 
