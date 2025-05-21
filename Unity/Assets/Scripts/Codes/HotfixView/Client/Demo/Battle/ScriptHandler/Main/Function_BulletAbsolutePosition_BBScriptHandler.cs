@@ -3,16 +3,16 @@ using System.Text.RegularExpressions;
 
 namespace ET.Client
 {
-    public class Function_Bullet_AbsolutePosition_BBScriptHandler: BBScriptHandler
+    public class Function_BulletAbsolutePosition_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "Bullet_AbsolutePosition";
+            return "BulletAbsolutePosition";
         }
 
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"Bullet_AbsolutePosition: (?<PosX>.*?), (?<PosY>.*?);");
+            Match match = Regex.Match(data.opLine, @"BulletAbsolutePosition: (?<PosX>.*?), (?<PosY>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);

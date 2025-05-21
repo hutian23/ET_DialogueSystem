@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Numerics;
+using Vector2 = System.Numerics.Vector2;
 
 namespace ET.Client
 {
@@ -19,10 +19,30 @@ namespace ET.Client
         
             return angleDegrees;
         }
+        
+        // 角度（弧度）→ Vector2 单位向量
+        private static Vector2 AngleToVector(float angleInRadians)
+        {
+            float x = MathF.Cos(angleInRadians);
+            float y = MathF.Sin(angleInRadians);
+            return new Vector2(x, y);
+        }
 
+        // 角度（度数）→ Vector2 单位向量
+        public static Vector2 DegreesToVector(float angleInDegrees)
+        {
+            float radians = angleInDegrees * MathF.PI / 180f;
+            return AngleToVector(radians);
+        }
+        
         public static float Vector2ToRadians(this Vector2 vector)
         {
             return MathF.Atan2(vector.Y, vector.X);
+        }
+
+        public static double DegreesToRadians(double degrees)
+        {
+            return degrees * (Math.PI / 180.0);
         }
 
         public static Vector2 GetReflection(Vector2 inVector, Vector2 normal)

@@ -18,6 +18,7 @@ namespace ET.Client
         public Dictionary<string, long> b2BoxDict = new();
         
         public FlipState flip = FlipState.Left;
+        public float angle;
         public float velocityX;
         public float velocityY;
         public int hertz = 60;

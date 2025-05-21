@@ -120,7 +120,7 @@ namespace ET.Client
         {
             if (!self.BodyDict.TryGetValue(unitId, out long id))
             {
-                Log.Error($"does not exist b2Body, unit.InstanceId: {unitId}");
+                Log.Warning($"does not exist b2Body, unit.InstanceId: {unitId}");
                 return;
             }
 

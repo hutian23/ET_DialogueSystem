@@ -22,6 +22,7 @@ namespace ET.Client
                 self.b2BoxDict.Clear();
                 
                 self.flip = FlipState.Left;
+                self.angle = 0f;
                 self.velocityX = 0f;
                 self.velocityY = 0f;
                 self.hertz = 60;
@@ -39,6 +40,7 @@ namespace ET.Client
         {
             protected override void PreStepUpdate(b2Body self)
             {
+                self.body.SetTransform(self.GetPosition(), self.angle * UnityEngine.Mathf.Deg2Rad);
                 self.SetLinearVelocity(new Vector2(-self.velocityX, self.velocityY));
             }
         }
@@ -189,6 +191,17 @@ namespace ET.Client
 
         #region Rotation
 
+        public static void SetAngle(this b2Body self, float angle)
+        {
+            self.angle = angle;
+            self.SyncTrans();
+        }
+
+        public static float GetAngle(this b2Body self)
+        {
+            return self.angle;
+        }
+        
         public static void SetRotation(this b2Body self, float radian)
         {
             self.body.SetTransform(self.GetPosition(), radian);

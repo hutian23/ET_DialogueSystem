@@ -4,7 +4,7 @@ using ET.Event;
 
 namespace ET.Client
 {
-    [FriendOf(typeof(GroundCollisionCallback))]
+    [FriendOf(typeof(GroundCollisionComponent))]
     public class Function_GroundCollisionVelocity_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
@@ -16,9 +16,9 @@ namespace ET.Client
         {
             Unit unit = parser.GetParent<Unit>();
             b2Body b2body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-            GroundCollisionCallback callback = parser.GetComponent<GroundCollisionCallback>();
+            GroundCollisionComponent component = parser.GetComponent<GroundCollisionComponent>();
             
-            CollisionInfo info = callback.info;
+            CollisionInfo info = component.info;
             info.Contact.GetWorldManifold(out WorldManifold worldManifold);
             
             Vector2 normal = worldManifold.Normal; // 法向量

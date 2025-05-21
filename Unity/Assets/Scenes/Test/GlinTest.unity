@@ -900,6 +900,11 @@ PrefabInstance:
       propertyPath: serializationData.ReferencedUnityObjects.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4456913539204354566, guid: c3c1972e45fdc264abb523759cb750b5,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4604871501918435993, guid: c3c1972e45fdc264abb523759cb750b5,
         type: 3}
       propertyPath: m_Name
@@ -955,6 +960,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5500410770928654199, guid: c3c1972e45fdc264abb523759cb750b5,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 5500410770928654199, guid: c3c1972e45fdc264abb523759cb750b5,
+        type: 3}
+    - target: {fileID: 8331411083412294885, guid: c3c1972e45fdc264abb523759cb750b5,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1638022501, guid: 4413fb9ac060db345ad7490acbf027f9,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -28,7 +28,7 @@ namespace ET.Client
             Unit unit = parser.GetParent<Unit>();
             b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
 
-            body.SetRotation(body.GetFlip() * Mathf.Deg2Rad * (rotate / 10000f));
+            body.SetAngle(body.GetFlip() * rotate / 10000f);
             
             await ETTask.CompletedTask;
             return Status.Success;

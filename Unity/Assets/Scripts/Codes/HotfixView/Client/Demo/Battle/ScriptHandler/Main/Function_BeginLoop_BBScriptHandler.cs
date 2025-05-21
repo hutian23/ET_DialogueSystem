@@ -28,15 +28,17 @@
             parser.RemoveComponent<LoopComponent>();
             LoopComponent loopComponent = parser.AddComponent<LoopComponent, int, int>(triggerIndex, endIndex, true);
             
-            //2. 启动Trigger协程
-            // loopComponent.TriggerCor().Coroutine();
-            
-            //3. 启动Loop协程
+            //2. 启动Loop协程
             Status ret = await loopComponent.LoopCor();
-            parser.RemoveComponent<LoopComponent>();
+            if (token.IsCancel()) return Status.Failed;
         
-            //4. 跳过代码块
+            //3. 跳过代码块
+            parser.RemoveComponent<LoopComponent>();
             parser.Coroutine_Pointers[data.CoroutineID] = endIndex;
+            
+            //4. 下一逻辑帧，才执行下一条指令
+            await BBTimerManager.Instance.LateUpdateTimer().WaitFrameAsync(token);
+            if (token.IsCancel()) return Status.Failed;
             
             return ret;
         }

@@ -3,17 +3,17 @@ using System.Text.RegularExpressions;
 
 namespace ET.Client
 {
-    public class Function_Bullet_LocalPosition_BBScriptHandler : BBScriptHandler
+    public class Function_BulletLocalPosition_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "Bullet_LocalPosition";
+            return "BulletLocalPosition";
         }
 
         //BulletPos: 10000, 10000;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"Bullet_LocalPosition: (?<PosX>.*?), (?<PosY>.*?);");
+            Match match = Regex.Match(data.opLine, @"BulletLocalPosition: (?<PosX>.*?), (?<PosY>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);

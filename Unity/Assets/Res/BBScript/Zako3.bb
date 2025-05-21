@@ -1,6 +1,7 @@
 [Root]
 @RootInit:
 PoolObject: GDust, 1;
+PoolObject: Javelin, 1;
 EnemyInit;
 RegistMove: (Zako3_Idle)
   MoveType: None;
@@ -8,7 +9,10 @@ EndMove:
 RegistMove: (Zako3_Charge)
   MoveType: None;
 EndMove:
-GotoBehavior: Zako3_Idle;
+RegistMove: (Zako3_ThrowAttack)
+  MoveType: None;
+EndMove:
+GotoBehavior: Zako3_ThrowAttack;
 return;
 
 [Zako3_Idle]
@@ -49,3 +53,27 @@ BeginIf: (Random: ran2 >= 0), (Random: ran2 <= 40)
 EndIf:
 GotoMarker: Loop;
 return;
+
+[Zako3_ThrowAttack]
+@Trigger:
+return;
+
+@Main:
+BBSprite: Anticipate_1, 4;
+BBSprite: Anticipate_2, 4;
+BBSprite: Anticipate_3, 4;
+BBSprite: Anticipate_4, 4;
+BBSprite: Anticipate_5, 4;
+BBSprite: Anticipate_6, 8;
+CreateBullet: Javelin
+  BulletVelocity: 500000, 0;
+  BulletLocalPosition: -25000, -4500;
+EndCreateBullet:
+BBSprite: Throw, 8;
+BBSprite: End_1, 4;
+BBSprite: End_2, 4;
+BBSprite: End_3, 4;
+BBSprite: End_4, 4;
+BBSprite: End_5, 4;
+BBSprite: End_6, 4;
+Exit;

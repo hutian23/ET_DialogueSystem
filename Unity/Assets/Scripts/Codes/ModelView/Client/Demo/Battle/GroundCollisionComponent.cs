@@ -3,9 +3,10 @@
 namespace ET.Client
 {
     [ComponentOf(typeof(BBParser))]
-    public class GroundCollisionCallback : Entity, IAwake, IDestroy, IPostStep
+    public class GroundCollisionComponent : Entity, IAwake, IDestroy, IPostStep
     {
         public CollisionInfo info;
+        public bool GroundCollision;
         public int functionIndex;
     }
 }

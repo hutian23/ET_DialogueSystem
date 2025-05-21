@@ -566,15 +566,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_21
+      name: Throw_Attack_3
       rect:
         serializedVersion: 2
-        x: 863
-        y: 1168
-        width: 261
-        height: 104
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 770
+        y: 1134
+        width: 378
+        height: 251
+      alignment: 9
+      pivot: {x: 0.6084656, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -587,15 +587,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_22
+      name: Throw_Attack_2
       rect:
         serializedVersion: 2
-        x: 509
-        y: 1157
-        width: 129
-        height: 171
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 387
+        y: 1134
+        width: 378
+        height: 251
+      alignment: 9
+      pivot: {x: 0.6084656, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -608,15 +608,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_23
+      name: Throw_Attack_1
       rect:
         serializedVersion: 2
-        x: 91
-        y: 1183
-        width: 172
-        height: 124
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 4
+        y: 1134
+        width: 378
+        height: 251
+      alignment: 9
+      pivot: {x: 0.6084656, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -629,15 +629,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_24
+      name: Throw_Attack_6
       rect:
         serializedVersion: 2
-        x: 173
-        y: 909
-        width: 217
-        height: 135
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 4
+        y: 878
+        width: 378
+        height: 251
+      alignment: 9
+      pivot: {x: 0.6084656, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -650,15 +650,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_25
+      name: Throw_Attack_7
       rect:
         serializedVersion: 2
-        x: 518
-        y: 886
-        width: 232
-        height: 162
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 387
+        y: 878
+        width: 378
+        height: 251
+      alignment: 9
+      pivot: {x: 0.6084656, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -671,15 +671,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_26
+      name: Throw_Attack_8
       rect:
         serializedVersion: 2
-        x: 922
-        y: 922
-        width: 208
-        height: 91
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 770
+        y: 878
+        width: 378
+        height: 251
+      alignment: 9
+      pivot: {x: 0.6084656, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -692,15 +692,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_27
+      name: Throw_Attack_9
       rect:
         serializedVersion: 2
-        x: 1312
-        y: 912
-        width: 118
-        height: 133
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1153
+        y: 878
+        width: 378
+        height: 251
+      alignment: 9
+      pivot: {x: 0.6084656, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -713,15 +713,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_28
+      name: Throw_Attack_4
       rect:
         serializedVersion: 2
-        x: 1157
-        y: 1249
-        width: 318
-        height: 71
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1153
+        y: 1134
+        width: 378
+        height: 251
+      alignment: 9
+      pivot: {x: 0.6084656, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -734,15 +734,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_29
+      name: Throw_Attack_5
       rect:
         serializedVersion: 2
-        x: 1672
-        y: 1172
-        width: 119
-        height: 116
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1536
+        y: 1134
+        width: 378
+        height: 251
+      alignment: 9
+      pivot: {x: 0.6084656, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -755,15 +755,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_30
+      name: Throw_Attack_10
       rect:
         serializedVersion: 2
-        x: 1700
-        y: 871
-        width: 117
-        height: 193
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1536
+        y: 878
+        width: 378
+        height: 251
+      alignment: 9
+      pivot: {x: 0.6084656, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -776,15 +776,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_31
+      name: Throw_Attack_11
       rect:
         serializedVersion: 2
-        x: 93
-        y: 699
-        width: 278
-        height: 171
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 4
+        y: 622
+        width: 378
+        height: 251
+      alignment: 9
+      pivot: {x: 0.6084656, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -797,15 +797,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_32
+      name: Throw_Attack_12
       rect:
         serializedVersion: 2
-        x: 523
-        y: 689
-        width: 239
-        height: 164
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 387
+        y: 622
+        width: 378
+        height: 251
+      alignment: 9
+      pivot: {x: 0.6084656, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -818,15 +818,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_33
+      name: Throw_Attack_13
       rect:
         serializedVersion: 2
-        x: 818
-        y: 700
-        width: 236
-        height: 145
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 770
+        y: 622
+        width: 378
+        height: 251
+      alignment: 9
+      pivot: {x: 0.6084656, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -839,15 +839,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_34
+      name: Javelin
       rect:
         serializedVersion: 2
         x: 4
         y: 578
         width: 521
         height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.57581574, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -860,15 +860,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_35
+      name: Stick_1
       rect:
         serializedVersion: 2
         x: 4
         y: 530
         width: 483
         height: 24
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5383023, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -881,15 +881,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_36
+      name: Stick_2
       rect:
         serializedVersion: 2
         x: 492
         y: 530
         width: 483
         height: 24
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5383023, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -902,15 +902,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_37
+      name: Stick_3
       rect:
         serializedVersion: 2
         x: 980
         y: 530
         width: 483
         height: 24
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5383023, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -923,15 +923,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Hollow Knight - Lance Sentry_38
+      name: Stick_4
       rect:
         serializedVersion: 2
         x: 1468
         y: 530
-        width: 473
-        height: 22
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 483
+        height: 24
+      alignment: 9
+      pivot: {x: 0.5383023, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -939,6 +939,111 @@ TextureImporter:
       bones: []
       spriteID: 83bb866d3b77fc948b92dd330fdb6776
       internalID: 1861237019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Neutral
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 486
+        width: 483
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5383023, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbf63cf858928294fb15bba19b38f470
+      internalID: -1544649200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Snap_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 340
+        width: 293
+        height: 122
+      alignment: 9
+      pivot: {x: 0.6825939, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 676790c110ceaf041b7fef9c1d92c3b1
+      internalID: -760891125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Snap_2
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 340
+        width: 293
+        height: 122
+      alignment: 9
+      pivot: {x: 0.6825939, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5167c96157696a7418486962f69fee85
+      internalID: 235663614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Snap_3
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 340
+        width: 293
+        height: 122
+      alignment: 9
+      pivot: {x: 0.6825939, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ad5244f37e126b45b159ab47d11d9ca
+      internalID: 1695774468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Snap_4
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 340
+        width: 293
+        height: 122
+      alignment: 9
+      pivot: {x: 0.6825939, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c163f2877f1364241919dddb505e3608
+      internalID: 1561657715
       vertices: []
       indices: 
       edges: []
@@ -971,26 +1076,31 @@ TextureImporter:
       Idle_5: -1279470967
       Idle_6: 1417915152
       Idle_7: 1949825992
+      Javelin: -1862739283
+      Neutral: -1544649200
       PC Computer - Hollow Knight - Lance Sentry_0: -301122035
       PC Computer - Hollow Knight - Lance Sentry_1: 1699784511
-      PC Computer - Hollow Knight - Lance Sentry_21: 1177724822
-      PC Computer - Hollow Knight - Lance Sentry_22: 916104753
-      PC Computer - Hollow Knight - Lance Sentry_23: 377338037
-      PC Computer - Hollow Knight - Lance Sentry_24: -778687510
-      PC Computer - Hollow Knight - Lance Sentry_25: 82679513
-      PC Computer - Hollow Knight - Lance Sentry_26: 1638022501
-      PC Computer - Hollow Knight - Lance Sentry_27: -25842286
-      PC Computer - Hollow Knight - Lance Sentry_28: 311892033
-      PC Computer - Hollow Knight - Lance Sentry_29: 1905405441
-      PC Computer - Hollow Knight - Lance Sentry_30: -1317294290
-      PC Computer - Hollow Knight - Lance Sentry_31: -1221124718
-      PC Computer - Hollow Knight - Lance Sentry_32: -872540542
-      PC Computer - Hollow Knight - Lance Sentry_33: -697557391
-      PC Computer - Hollow Knight - Lance Sentry_34: -1862739283
-      PC Computer - Hollow Knight - Lance Sentry_35: 2026522023
-      PC Computer - Hollow Knight - Lance Sentry_36: -701504015
-      PC Computer - Hollow Knight - Lance Sentry_37: 9727731
-      PC Computer - Hollow Knight - Lance Sentry_38: 1861237019
+      Snap_1: -760891125
+      Snap_2: 235663614
+      Snap_3: 1695774468
+      Snap_4: 1561657715
+      Stick_1: 2026522023
+      Stick_2: -701504015
+      Stick_3: 9727731
+      Stick_4: 1861237019
+      Throw_Attack_1: 377338037
+      Throw_Attack_10: -1317294290
+      Throw_Attack_11: -1221124718
+      Throw_Attack_12: -872540542
+      Throw_Attack_13: -697557391
+      Throw_Attack_2: 916104753
+      Throw_Attack_3: 1177724822
+      Throw_Attack_4: 311892033
+      Throw_Attack_5: 1905405441
+      Throw_Attack_6: -778687510
+      Throw_Attack_7: 82679513
+      Throw_Attack_8: 1638022501
+      Throw_Attack_9: -25842286
       Turn_1: -531423874
       Turn_2: 1669929325
   mipmapLimitGroupName: 
