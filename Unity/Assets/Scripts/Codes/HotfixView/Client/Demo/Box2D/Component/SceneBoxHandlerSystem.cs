@@ -1,7 +1,6 @@
 ﻿using Box2DSharp.Collision.Shapes;
 using Box2DSharp.Dynamics;
 using ET.Event;
-using Timeline;
 using UnityEngine;
 
 namespace ET.Client
@@ -34,7 +33,7 @@ namespace ET.Client
                             Name = box2D.info.boxName,
                             Type = FixtureType.Default,
                             LayerType = LayerType.Ground,
-                            IsTrigger = box2D.IsTrigger,
+                            IsTrigger = box2D.info.isTrigger,
                             UserData = box2D.info,
                             TriggerEnterId =  TriggerEnterType.HandleCallback,
                             TriggerStayId = TriggerStayType.HandleCallback,

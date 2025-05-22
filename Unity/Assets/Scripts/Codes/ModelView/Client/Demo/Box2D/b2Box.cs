@@ -10,12 +10,24 @@ namespace ET.Client
         public Fixture fixture;
         public FixtureDef def;
         
-        public string fixtureName;
-        public LayerType layerType;
-        public bool isTrigger;
-        public HitboxType hitboxType;
-        public TagType tagType;
+        public LayerType LayerType;
+        public TagType TagType;
+        
+        //触发器
+        public bool IsTrigger;
+        
+        //TODO 这里默认夹具形状为Box，以后需要添加其他形状
+        public string Name;
+        public HitboxType HitboxType;
         public Vector2 center;
         public Vector2 size;
+        
+        //碰撞事件回调
+        public int TriggerEnterId;
+        public int TriggerStayId;
+        public int TriggerExitId;
+        public int CollisionEnterId;
+        public int CollisionStayId;
+        public int CollisionExitId;
     }
 }

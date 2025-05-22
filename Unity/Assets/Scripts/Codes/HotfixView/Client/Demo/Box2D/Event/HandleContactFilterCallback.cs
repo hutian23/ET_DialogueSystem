@@ -1,4 +1,6 @@
-﻿namespace ET.Client
+﻿using ET.Event;
+
+namespace ET.Client
 {
     [Invoke]
     public class HandleContactFilterCallback : AInvokeHandler<ContactFilterCallback, bool>

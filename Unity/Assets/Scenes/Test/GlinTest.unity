@@ -269,13 +269,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6899cf270ea44770ac76d099e190c859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrigger: 0
   info:
     boxName: Ground_D
+    layerType: 0
+    tagType: -1
     hitboxType: 6
+    isTrigger: 0
     center: {x: 0, y: 15}
     size: {x: 60, y: 5}
-    tagType: 2
 --- !u!1 &495028254
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,13 +568,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6899cf270ea44770ac76d099e190c859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrigger: 0
   info:
     boxName: Ground_C
+    layerType: 0
+    tagType: 1
     hitboxType: 6
+    isTrigger: 0
     center: {x: -25, y: -2.5}
     size: {x: 10, y: 30}
-    tagType: 1
 --- !u!1 &948465025
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,13 +620,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6899cf270ea44770ac76d099e190c859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrigger: 0
   info:
     boxName: Ground_A
+    layerType: 1
+    tagType: 2
     hitboxType: 6
+    isTrigger: 0
     center: {x: 0, y: -15}
     size: {x: 40, y: 5}
-    tagType: 2
 --- !u!4 &1211227996 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1227396323213963912, guid: 2c749573fc94b89409b27dd2d3f82e96,
@@ -675,13 +678,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6899cf270ea44770ac76d099e190c859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTrigger: 0
   info:
     boxName: Ground_B
+    layerType: 0
+    tagType: 1
     hitboxType: 6
+    isTrigger: 0
     center: {x: 25, y: -2.5}
     size: {x: 10, y: 30}
-    tagType: 1
 --- !u!4 &1527115292 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7230307531318159101, guid: a4599eed6a6041849926cd081d7f222d,

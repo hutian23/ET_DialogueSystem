@@ -10,6 +10,7 @@ using UnityEngine;
 using Color = Box2DSharp.Common.Color;
 using Transform = Box2DSharp.Common.Transform;
 using Vector2 = System.Numerics.Vector2;
+using ET.Event;
 
 namespace ET
 {
@@ -435,35 +436,5 @@ namespace ET
         }
         
         #endregion
-    }
-
-    public struct ContactFilterCallback
-    {
-        public long InstanceIdA;
-        public long InstanceIdB;
-    }
-    
-    public struct PreStepCallback
-    {
-        
-    }
-    
-    public struct PostStepCallback
-    {
-    }
-
-    public struct BeginContactCallback
-    {
-        public Contact Contact;
-    }
-
-    public struct EndContactCallback
-    {
-        public Contact Contact;
-    }
-    
-    public struct PreSolveCallback
-    {
-        public Contact Contact;
     }
 }

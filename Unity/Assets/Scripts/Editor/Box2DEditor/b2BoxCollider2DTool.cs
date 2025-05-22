@@ -1,5 +1,4 @@
 ﻿#if UNITY_EDITOR
-using Timeline;
 using Timeline.Editor;
 using UnityEditor;
 using UnityEditor.EditorTools;
@@ -96,21 +95,23 @@ namespace ET
     [CanEditMultipleObjects]
     public class b2BoxCollider2DEditor: Editor
     {
-        private SerializedProperty m_center;
-        private SerializedProperty m_size;
-        private SerializedProperty m_hitboxName;
+        private SerializedProperty m_boxName;
+        private SerializedProperty m_layerType;
+        private SerializedProperty m_TagType;
         private SerializedProperty m_hitboxType;
         private SerializedProperty m_IsTrigger;
-        private SerializedProperty m_TagType;
-
+        private SerializedProperty m_center;
+        private SerializedProperty m_size;
+        
         private void OnEnable()
         {
+            m_boxName = serializedObject.FindProperty("info.boxName");
+            m_layerType = serializedObject.FindProperty("info.layerType");
+            m_TagType = serializedObject.FindProperty("info.tagType");
+            m_hitboxType = serializedObject.FindProperty("info.hitboxType");
+            m_IsTrigger= serializedObject.FindProperty("info.isTrigger");
             m_center = serializedObject.FindProperty("info.center");
             m_size = serializedObject.FindProperty("info.size");
-            m_hitboxName = serializedObject.FindProperty("info.boxName");
-            m_hitboxType = serializedObject.FindProperty("info.hitboxType");
-            m_TagType = serializedObject.FindProperty("info.tagType");
-            m_IsTrigger= serializedObject.FindProperty("IsTrigger");
         }
 
         public override void OnInspectorGUI()
@@ -121,23 +122,31 @@ namespace ET
             EditorGUILayout.Space(4);
             
             // hitboxName
-            string hitboxName = EditorGUILayout.TextField("Hitbox Name", m_hitboxName.stringValue);
-            m_hitboxName.stringValue = hitboxName;
+            string hitboxName = EditorGUILayout.TextField("Hitbox Name", m_boxName.stringValue);
+            m_boxName.stringValue = hitboxName;
             
+            // layerType
+            LayerType layerType = (LayerType)EditorGUILayout.EnumPopup("Layer Type", (LayerType)m_layerType.enumValueIndex);
+            m_layerType.enumValueIndex = (int)layerType;
+            
+            // tagType
+            TagType tagType = (TagType)EditorGUILayout.EnumFlagsField("Tag Type",  (TagType)m_TagType.enumValueFlag);
+            m_TagType.enumValueFlag = (int)tagType;
+
             // hitboxType
             HitboxType newType = (HitboxType)EditorGUILayout.EnumPopup("Hitbox Type", (HitboxType)m_hitboxType.enumValueIndex);
             m_hitboxType.enumValueIndex = (int)newType;
+            EditorGUILayout.Space(4);
             
-            // Tag
-            TagType tagType = (TagType)EditorGUILayout.EnumPopup("Tag Type", (TagType)m_TagType.enumValueIndex);
-            this.m_TagType.enumValueIndex = (int)tagType;
-            
-            //IsTrigger
+            // isTrigger
             bool IsTrigger = EditorGUILayout.Toggle("IsTrigger",m_IsTrigger.boolValue);
             m_IsTrigger.boolValue = IsTrigger;
-            
             EditorGUILayout.Space(4);
+            
+            // center
             EditorGUILayout.PropertyField(m_center);
+            
+            // size
             EditorGUILayout.PropertyField(m_size);
 
             serializedObject.ApplyModifiedProperties();

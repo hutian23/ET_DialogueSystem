@@ -1,5 +1,4 @@
 ﻿using Box2DSharp.Dynamics;
-using Timeline;
 
 namespace ET.Client
 {
@@ -11,11 +10,6 @@ namespace ET.Client
         {
             protected override void Awake(b2Box self, FixtureDef def)
             {
-                b2Body b2Body = self.GetParent<b2Body>();
-                self.fixture = b2Body.body.CreateFixture(def);
-
-                FixtureData data = (FixtureData)def.UserData;
-                self.fixtureName = data.Name;
             }
         }
         
@@ -24,17 +18,7 @@ namespace ET.Client
         {
             protected override void Destroy(b2Box self)
             {
-                b2Body b2Body = self.GetParent<b2Body>();
-                b2Body.body.DestroyFixture(self.fixture);
-                self.fixture = null;
-
-                self.fixtureName = string.Empty;
             }
-        }
-
-        public static Fixture GetFixture(this b2Box self)
-        {
-            return self.fixture;
         }
     }
 }
