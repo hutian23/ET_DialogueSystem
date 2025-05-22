@@ -5,7 +5,7 @@ using UnityEngine;
 namespace ET
 {
     [TypeDrawer]
-    public class Vector4TypeDrawer: ITypeDrawer
+    public class UnityVector4TypeDrawer: ITypeDrawer
     {
         public bool HandlesType(Type type)
         {

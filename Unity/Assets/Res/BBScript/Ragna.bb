@@ -3,6 +3,7 @@
 #1. PlayerInit中挂载组件(NumericComponent、InputComponent...)
 PlayerInit;
 SetPos: 0, -90000;
+Test;
 #4. 添加初始Buff
 HP: 10000;
 SP: 200;

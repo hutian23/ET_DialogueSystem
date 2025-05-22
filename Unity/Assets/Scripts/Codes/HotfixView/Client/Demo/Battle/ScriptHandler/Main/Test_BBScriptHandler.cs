@@ -14,7 +14,8 @@ namespace ET.Client
             Unit unit = parser.GetParent<Unit>();
             b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
 
-            body.AddChild<b2Box,FixtureDef>(new FixtureDef());
+            body.AddChild<b2Box>();
+            
             
             await ETTask.CompletedTask;
             return Status.Success;

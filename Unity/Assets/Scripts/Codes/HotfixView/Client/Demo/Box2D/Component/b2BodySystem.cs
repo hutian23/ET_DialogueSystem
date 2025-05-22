@@ -1,7 +1,6 @@
 ﻿using Box2DSharp.Collision.Shapes;
 using Box2DSharp.Common;
 using Box2DSharp.Dynamics;
-using Timeline;
 using Vector2 = System.Numerics.Vector2;
 
 namespace ET.Client
@@ -317,69 +316,6 @@ namespace ET.Client
                 Log.Error($"not found fixture: {name}");
             }
             return fixture;
-        }
-        
-        #endregion
-
-        #region Box
-        public static b2Box CreateBox(this b2Body self, FixtureDef def)
-        {       
-            //World.Step()上锁期间不能操作夹具
-            if (b2WorldManager.Instance.IsLocked())
-            {
-                Log.Error($"cannot create fixture while b2World is locked!!");
-                return null;
-            }
-            
-            FixtureData data = (FixtureData)def.UserData;
-            if (string.IsNullOrEmpty(data.Name))
-            {
-                Log.Error($"fixture name should not be null or empty!!");
-                return null;
-            }
-            if (self.b2BoxDict.TryGetValue(data.Name, out long id))
-            {
-                Log.Error($"already contain b2Box!!! Name: {data.Name}  Entity.Id: {id}");
-                return null;
-            }
-
-            b2Box b2Box = self.AddChild<b2Box, FixtureDef>(def);
-            self.b2BoxDict.Add(data.Name, b2Box.Id);
-
-            return b2Box;
-        }
-
-        public static void DestroyBox(this b2Body self, string boxName)
-        {
-            if (b2WorldManager.Instance.IsLocked())
-            {
-                Log.Error($"cannot destroy fixture while b2World is locked!!");
-                return;
-            }
-            if (!self.b2BoxDict.Remove(boxName, out long id))
-            {
-                Log.Error($"does not contain b2Box!!! Name: {boxName}");
-                return;
-            }
-
-            b2Box b2Box = self.GetChild<b2Box>(id);
-            b2Box.Dispose();
-        }
-
-        public static b2Box GetBox(this b2Body self, string boxName)
-        {
-            if (!self.b2BoxDict.TryGetValue(boxName, out long id))
-            {
-                Log.Error($"not found b2Box!!! Name: {boxName}");
-                return null;
-            }
-
-            return self.GetChild<b2Box>(id);
-        }
-
-        public static bool ContainBox(this b2Body self, string boxName)
-        {
-            return self.b2BoxDict.ContainsKey(boxName);
         }
         
         #endregion

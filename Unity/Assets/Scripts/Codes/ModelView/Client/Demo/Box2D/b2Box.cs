@@ -1,11 +1,10 @@
 ﻿using System.Numerics;
 using Box2DSharp.Dynamics;
-using Timeline;
 
 namespace ET.Client
 {
     [ChildOf(typeof(b2Body))]
-    public class b2Box : Entity, IAwake<FixtureDef>, IDestroy
+    public class b2Box : Entity, IAwake, IDestroy
     {
         public Fixture fixture;
         public FixtureDef def;
