@@ -4,10 +4,10 @@ using Box2DSharp.Dynamics;
 namespace ET.Client
 {
     [ChildOf(typeof(b2Body))]
-    public class b2Box : Entity, IAwake, IDestroy
+    public class b2Box : Entity, IAwake, IDestroy, IGizmosUpdate
     {
         public Fixture fixture;
-        public FixtureDef def;
+        public FixtureDef fixtureDef;
         
         public LayerType LayerType;
         public TagType TagType;
@@ -18,8 +18,8 @@ namespace ET.Client
         //TODO 这里默认夹具形状为Box，以后需要添加其他形状
         public string Name;
         public HitboxType HitboxType;
-        public Vector2 center;
-        public Vector2 size;
+        public Vector2 Center;
+        public Vector2 Size;
         
         //碰撞事件回调
         public int TriggerEnterId;

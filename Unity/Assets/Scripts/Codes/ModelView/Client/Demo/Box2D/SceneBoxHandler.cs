@@ -1,11 +1,9 @@
-﻿using ET.Event;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     [ComponentOf(typeof(Unit))]
     public class SceneBoxHandler : Entity, IAwake, IDestroy, IPostStep, IGizmosUpdate
     {
-        public CollisionInfo info;
+        // public CollisionInfo info;
         public long unitId;
     }
 }

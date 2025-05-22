@@ -9,13 +9,13 @@ namespace Timeline.Editor
     public class HitboxMarkerInspectorData: ShowInspectorData
     {
         [LabelText("当前帧: "), ReadOnly]
-        public int currentFrame;
-
-        [LabelText("判定框类型: ")]
-        public HitboxType HitboxType;
+        public int CurrentFrame;
 
         [LabelText("判定框名: ")]
         public string HitboxName;
+        
+        [LabelText("判定框类型: "), EnumToggleButtons]
+        public HitboxType HitboxType;
 
         [HideReferenceObjectPicker]
         [HideLabel]
@@ -23,7 +23,7 @@ namespace Timeline.Editor
         public HitboxKeyframe Keyframe;
 
         private TimelineFieldView fieldView;
-
+        
         [PropertySpace(5)]
         [Button("新建判定框", DirtyOnClick = false)]
         private void CreateHitbox()
@@ -34,7 +34,7 @@ namespace Timeline.Editor
                 return;
             }
 
-            this.fieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() =>
+            fieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() =>
             {
                 //1. 生成子GameObject
                 GameObject parent = fieldView.EditorWindow.TimelinePlayer.gameObject.GetComponent<ReferenceCollector>().Get<GameObject>(HitboxType.ToString());
@@ -72,7 +72,7 @@ namespace Timeline.Editor
         public HitboxMarkerInspectorData(object target): base(target)
         {
             Keyframe = target as HitboxKeyframe;
-            currentFrame = Keyframe.frame;
+            this.CurrentFrame = Keyframe.frame;
         }
 
         public override void InspectorAwake(TimelineFieldView _fieldView)

@@ -271,9 +271,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   info:
     boxName: Ground_D
-    layerType: 0
-    tagType: -1
-    hitboxType: 6
+    layerType: 1
+    tagType: 1
+    hitboxType: 0
     isTrigger: 0
     center: {x: 0, y: 15}
     size: {x: 60, y: 5}
@@ -570,9 +570,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   info:
     boxName: Ground_C
-    layerType: 0
+    layerType: 1
     tagType: 1
-    hitboxType: 6
+    hitboxType: 0
     isTrigger: 0
     center: {x: -25, y: -2.5}
     size: {x: 10, y: 30}
@@ -624,7 +624,7 @@ MonoBehaviour:
     boxName: Ground_A
     layerType: 1
     tagType: 2
-    hitboxType: 6
+    hitboxType: 0
     isTrigger: 0
     center: {x: 0, y: -15}
     size: {x: 40, y: 5}
@@ -680,9 +680,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   info:
     boxName: Ground_B
-    layerType: 0
+    layerType: 1
     tagType: 1
-    hitboxType: 6
+    hitboxType: 0
     isTrigger: 0
     center: {x: 25, y: -2.5}
     size: {x: 10, y: 30}
@@ -922,12 +922,12 @@ PrefabInstance:
     - target: {fileID: 4826998078133810241, guid: c3c1972e45fdc264abb523759cb750b5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.78
       objectReference: {fileID: 0}
     - target: {fileID: 4826998078133810241, guid: c3c1972e45fdc264abb523759cb750b5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -4.9
       objectReference: {fileID: 0}
     - target: {fileID: 4826998078133810241, guid: c3c1972e45fdc264abb523759cb750b5,
         type: 3}
@@ -979,7 +979,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1741568877, guid: 4413fb9ac060db345ad7490acbf027f9,
+      objectReference: {fileID: 1803263105, guid: 4413fb9ac060db345ad7490acbf027f9,
         type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -89,8 +89,7 @@ namespace ET
 
         public object UserData;
     }
-
-    [Flags]
+    
     public enum LayerType
     {
         None = 0, 
@@ -105,16 +104,17 @@ namespace ET
         Hitbox = 2
     }
     
+    [Flags]
     public enum HitboxType
     {
-        None,
-        Hit,
-        Hurt,
-        Throw,
-        Squash,
-        Proximity,
-        Other,
-        Gizmos
+        None = 0,
+        Hit = 1 << 0,
+        Hurt = 1 << 1,
+        Throw = 1 << 2,
+        Squash = 1 << 3,
+        Proximity = 1 << 4,
+        Other = 1 << 5,
+        Gizmos = 1 << 6
     }
     
     [Flags]

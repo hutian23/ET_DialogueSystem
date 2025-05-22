@@ -1,59 +1,66 @@
 ﻿using Box2DSharp.Collision.Shapes;
 using Box2DSharp.Dynamics;
-using ET.Event;
 using UnityEngine;
+using ET.Event;
 
 namespace ET.Client
 {
-    [FriendOf(typeof(BBParser))]
     public static class SceneBoxHandlerSystem
     {
+        [FriendOf(typeof(b2Box))]
         public class SceneBoxHandlerAwakeSystem : AwakeSystem<SceneBoxHandler>
         {
             protected override void Awake(SceneBoxHandler self)
             {
-                //1. 生成SceneBox
+                //1. 生成SceneBox对应的刚体
                 Unit unit = self.GetParent<Unit>();
+                self.unitId = unit.InstanceId;
                 b2Body sceneBody = b2WorldManager.Instance.CreateBody(unit.InstanceId, new BodyDef() { BodyType = BodyType.StaticBody });
                 GameObject _World = unit.GetComponent<GameObjectComponent>().GameObject;
 
-                //2. 
                 foreach (b2BoxCollider2D box2D in _World.GetComponentsInChildren<b2BoxCollider2D>())
                 {
-                    PolygonShape shape = new();
-                    shape.SetAsBox(box2D.info.size.x / 2, box2D.info.size.y / 2, new System.Numerics.Vector2(box2D.info.center.x, box2D.info.center.y), 0f);
-                    FixtureDef fixtureDef = new()
+                    BoxInfo info = box2D.info;
+
+                    //2. b2Box管理夹具
+                    if (sceneBody.ContainBox(info.boxName))
                     {
-                        Shape = shape,
-                        Density = 1.0f,
-                        Friction = 0.0f,
-                        UserData = new FixtureData()
-                        {
-                            InstanceId = sceneBody.InstanceId,
-                            Name = box2D.info.boxName,
-                            Type = FixtureType.Default,
-                            LayerType = LayerType.Ground,
-                            IsTrigger = box2D.info.isTrigger,
-                            UserData = box2D.info,
-                            TriggerEnterId =  TriggerEnterType.HandleCallback,
-                            TriggerStayId = TriggerStayType.HandleCallback,
-                            TriggerExitId =  TriggerExitType.HandleCallback,
-                            CollisionEnterId = CollisionEnterType.HandleCallback,
-                            CollisionStayId = CollisionStayType.HandleCallback,
-                            CollisionExitId = CollisionExitType.HandleCallback,
-                        }
-                    };
-                    sceneBody.CreateFixture(fixtureDef);
+                        Log.Error($"already exist b2Box, boxName: {info.boxName} unit.InstanceId: {unit.InstanceId}");
+                        return;
+                    }
+                    b2Box b2Box = sceneBody.AddChild<b2Box>();
+                    sceneBody.AddBox(info.boxName, b2Box.Id);
+
+                    //3. b2Box初始化
+                    b2Box.LayerType = info.layerType;
+                    b2Box.TagType = info.tagType;
+                    b2Box.IsTrigger = info.isTrigger;
+                    b2Box.Name = info.boxName;
+                    b2Box.Center = info.center.ToVector2();
+                    b2Box.Size = info.size.ToVector2();
+                    b2Box.HitboxType = info.hitboxType;
+                    b2Box.TriggerEnterId = TriggerEnterType.HandleCallback;
+                    b2Box.TriggerStayId = TriggerStayType.HandleCallback;
+                    b2Box.TriggerExitId = TriggerExitType.HandleCallback;
+                    b2Box.CollisionEnterId = CollisionEnterType.HandleCallback;
+                    b2Box.CollisionStayId = CollisionStayType.HandleCallback;
+                    b2Box.CollisionExitId = CollisionExitType.HandleCallback;
+                    
+                    //4. 生成夹具
+                    PolygonShape shape = new();
+                    shape.SetAsBox(b2Box.Size.X / 2f, b2Box.Size.Y / 2f, b2Box.Center, 0f);
+                    FixtureDef fixtureDef = new() { Shape = shape, Density = 1.0f, Friction = 0f, UserData = b2Box.InstanceId };
+                    b2Box.fixture = sceneBody.CreateFixture(fixtureDef);
+                    b2Box.fixtureDef = fixtureDef;
                 }
-                self.unitId = unit.InstanceId;
             }
         }
-        
+
         public class SceneBoxHandlerDestroySystem : DestroySystem<SceneBoxHandler>
         {
             protected override void Destroy(SceneBoxHandler self)
             {
-                self.info = default;
+                // self.info = default;
                 b2WorldManager.Instance.DestroyBody(self.unitId);
             }
         }

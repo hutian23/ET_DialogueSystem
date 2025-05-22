@@ -5,7 +5,6 @@ using Box2DSharp.Common;
 using Box2DSharp.Dynamics;
 using Box2DSharp.Dynamics.Contacts;
 using Testbed.Abstractions;
-using Timeline;
 using UnityEngine;
 using Color = Box2DSharp.Common.Color;
 using Transform = Box2DSharp.Common.Transform;
@@ -352,24 +351,8 @@ namespace ET
                     {
                         vertices[i] = MathUtils.Mul(xf, poly.Vertices[i]);
                     }
-
-                    Color color = defaultColor;
-                    if (fixture.UserData is FixtureData { UserData: BoxInfo info })
-                    {
-                        color = info.hitboxType switch
-                        {
-                            HitboxType.Hit => Global.Settings.ShowHitBox? Color.Red : Color.Transparent,
-                            HitboxType.Hurt => Global.Settings.ShowHurtBox? Color.Green : Color.Transparent,
-                            HitboxType.Squash => Global.Settings.ShowSquashBox? Color.Yellow : Color.Transparent,
-                            HitboxType.Throw => Global.Settings.ShowThrowBox? Color.Blue : Color.Transparent,
-                            HitboxType.Proximity => Global.Settings.ShowProximityBox? Color.Magenta : Color.Transparent,
-                            HitboxType.Other => Global.Settings.ShowOtherBox? Color.Gray : Color.Transparent,
-                            HitboxType.Gizmos => Global.Settings.ShowGizmos? Color.Cyan : Color.Transparent,
-                            _ => defaultColor
-                        };
-                    }
-
-                    World.Draw.DrawSolidPolygon(vertices, vertexCount, color);
+                    
+                    World.Draw.DrawSolidPolygon(vertices, vertexCount, defaultColor);
                     break;
                 }
             }

@@ -6,12 +6,12 @@ EnemyInit;
 RegistMove: (Zako3_Idle)
   MoveType: None;
 EndMove:
-RegistMove: (Zako3_Charge)
-  MoveType: None;
-EndMove:
-RegistMove: (Zako3_ThrowAttack)
-  MoveType: None;
-EndMove:
+# RegistMove: (Zako3_Charge)
+#   MoveType: None;
+# EndMove:
+# RegistMove: (Zako3_ThrowAttack)
+#   MoveType: None;
+# EndMove:
 GotoBehavior: Zako3_Idle;
 return;
 
@@ -35,6 +35,10 @@ EndIf:
 BeginIf: (Random: ran1 >= 75), (Random: ran1 <= 100)
   RegistCounter: 105;
 EndIf:
+BeginLoop: (Counter: Value > 0)
+  BBSprite: Idle_1, 5;
+  BBSprite: Idle_2, 5;
+EndLoop:
 # BeginLoopAnim: (Counter: Value > 0)
 #   LoopSprite: Idle_1, 5;
 #   LoopSprite: Idle_2, 5;

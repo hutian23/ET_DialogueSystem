@@ -7,89 +7,63 @@ using Timeline;
 namespace ET.Client
 {
     [Invoke]
-    [FriendOf(typeof(b2Body))]
-    [FriendOf(typeof(b2WorldManager))]
-    [FriendOf(typeof(b2Box))]    //HitboxTrack的回调
+    [FriendOf(typeof(b2Box))]
     public class HandleUpdateHitBoxCallback : AInvokeHandler<UpdateHitboxCallback>
     {
         public override void Handle(UpdateHitboxCallback args)
         {
             // 查询组件
             TimelineComponent timelineComponent = Root.Instance.Get(args.instanceId) as TimelineComponent;
-            Unit unit = timelineComponent.GetParent<Unit>();
-            if (unit == null || unit.InstanceId == 0) return;
-
-            b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-
+            if (timelineComponent == null || timelineComponent.InstanceId == 0) return;
+            
             //1. 销毁旧的夹具
-            b2Body.ClearFixtures(FixtureType.Hitbox);
-
-            //2. 更新hitbox
+            Unit unit = timelineComponent.GetParent<Unit>();
+            b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
+            b2Body.DestroyBoxes(HitboxType.Hit | HitboxType.Hurt | HitboxType.Squash | HitboxType.Proximity | HitboxType.Other);
+            
+            //2. 根据关键帧更新Hitbox
             foreach (BoxInfo info in args.Keyframe.boxInfos)
             {
-                PolygonShape shape = new();
-                shape.SetAsBox(info.size.x / 2, info.size.y / 2, new Vector2(info.center.x * b2Body.GetFlip(), info.center.y), 0f);
-                FixtureDef fixtureDef = new()
+                //3. 由b2Box组件管理Fixture
+                if (b2Body.ContainBox(info.boxName))
                 {
-                    Shape = shape,
-                    Density = 1.0f,
-                    Friction = 0f,
-                    UserData = new FixtureData()
-                    {
-                        InstanceId = b2Body.InstanceId,
-                        Name = info.boxName,
-                        Type = FixtureType.Hitbox,
-                        LayerType = LayerType.Unit,
-                        IsTrigger = info.hitboxType is not HitboxType.Squash,
-                        UserData = info,
-                        TriggerEnterId = TriggerEnterType.HandleCallback,
-                        TriggerStayId = TriggerStayType.HandleCallback,
-                        TriggerExitId = TriggerExitType.HandleCallback,
-                        CollisionEnterId = CollisionEnterType.HandleCallback,
-                        CollisionStayId = CollisionStayType.HandleCallback,
-                        CollisionExitId = CollisionExitType.HandleCallback,
-                    }
-                };
-                b2Body.CreateFixture(fixtureDef);
+                    Log.Error($"already exist b2Box, boxName: {info.boxName} unit.InstanceId: {unit.InstanceId}");
+                    return;
+                }
+                b2Box b2Box = b2Body.AddChild<b2Box>();
+                b2Body.AddBox(info.boxName, b2Box.Id);
+                
+                //4. b2Box初始化
+                //层级关系
+                b2Box.LayerType = info.layerType;
+                b2Box.TagType = info.tagType;
+                
+                //触发器
+                b2Box.IsTrigger = info.hitboxType is not HitboxType.Squash;
+                
+                b2Box.Name = info.boxName;
+                b2Box.Center = info.center.ToVector2();
+                b2Box.Size = info.size.ToVector2();
+                b2Box.HitboxType = info.hitboxType;
+                
+                //碰撞回调
+                b2Box.TriggerEnterId = TriggerEnterType.HandleCallback;
+                b2Box.TriggerStayId = TriggerStayType.HandleCallback;
+                b2Box.TriggerExitId = TriggerExitType.HandleCallback;
+                b2Box.CollisionEnterId = CollisionEnterType.HandleCallback;
+                b2Box.CollisionStayId = CollisionStayType.HandleCallback;
+                b2Box.CollisionExitId = CollisionExitType.HandleCallback;
+                
+                //5. 生成夹具
+                //夹具形状
+                PolygonShape shape = new();
+                shape.SetAsBox(b2Box.Size.X / 2f, b2Box.Size.Y / 2f, b2Box.Center * new Vector2(b2Body.GetFlip(), 1), 0f);
+                
+                //传入b2Box.instanceId
+                FixtureDef fixtureDef = new() { Shape = shape, Density = 1.0f, Friction = 0f, UserData = b2Box.InstanceId };
+                b2Box.fixture = b2Body.CreateFixture(fixtureDef);
+                b2Box.fixtureDef = fixtureDef;
             }
-
-            // foreach (BoxInfo info in args.Keyframe.boxInfos)
-            // {
-            //     b2Box b2Box = b2Body.AddChild<b2Box>();
-            //
-            //     #region 判定框初始化
-            //     // 层级关系
-            //     b2Box.LayerType = info.layerType;
-            //     b2Box.TagType = info.tagType;
-            //     
-            //     // 触发器
-            //     b2Box.IsTrigger = info.hitboxType is not HitboxType.Squash;
-            //     
-            //     b2Box.Name = info.boxName;
-            //     b2Box.center = info.center.ToVector2();
-            //     b2Box.size = info.size.ToVector2();
-            //     b2Box.HitboxType = info.hitboxType;
-            //     
-            //     //碰撞回调
-            //     b2Box.TriggerEnterId = TriggerEnterType.HandleCallback;
-            //     b2Box.TriggerStayId = TriggerStayType.HandleCallback;
-            //     b2Box.TriggerExitId = TriggerExitType.HandleCallback;
-            //     b2Box.CollisionEnterId = CollisionEnterType.HandleCallback;
-            //     b2Box.CollisionStayId = CollisionStayType.HandleCallback;
-            //     b2Box.CollisionExitId = CollisionExitType.HandleCallback;
-            //     #endregion
-            //
-            //     #region 生成夹具
-            //     // 夹具形状
-            //     PolygonShape shape = new();
-            //     shape.SetAsBox(b2Box.size.X / 2f, b2Box.size.Y / 2f, b2Box.center * new Vector2(b2Body.GetFlip(), 1), 0f);
-            //     
-            //     // 传入b2Box.instanceId
-            //     FixtureDef fixtureDef = new() { Shape = shape, Density = 1.0f, Friction = 0f, UserData = b2Box.InstanceId };
-            //     b2Box.fixture = b2Body.CreateFixture(fixtureDef);
-            //     
-            //     #endregion
-            // }
         }
     }
 }

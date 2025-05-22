@@ -200,16 +200,20 @@ namespace ET.Client
         {
             return self.angle;
         }
-        
-        public static void SetRotation(this b2Body self, float radian)
-        {
-            self.body.SetTransform(self.GetPosition(), radian);
-            self.SyncTrans();
-        }
 
+        public static void SetRotation(this b2Body self, float angle)
+        {
+            
+        }
+        
         public static float GetRotation(this b2Body self)
         {
             return self.body.GetAngle();
+        }
+
+        public static Transform GetTransform(this b2Body self)
+        {
+            return self.body.GetTransform();
         }
         
         #endregion
@@ -285,37 +289,111 @@ namespace ET.Client
         
         public static Fixture CreateFixture(this b2Body self,FixtureDef fixtureDef)
         {
+            // if (b2WorldManager.Instance.IsLocked())
+            // {
+            //     Log.Error($"cannot create fixture while b2World is locked!!");
+            //     return null;
+            // }
+            // FixtureData data = (FixtureData)fixtureDef.UserData;
+            // if (string.IsNullOrEmpty(data.Name))
+            // {
+            //     Log.Error($"fixture name should not be null or empty!!");
+            //     return null;
+            // }
+            // if (self.FixtureDict.ContainsKey(data.Name))
+            // {
+            //     Log.Error($"already contain fixture!, name: {data.Name}");
+            //     return null;
+            // }
+            //
+            // Fixture fixture = self.body.CreateFixture(fixtureDef);
+            // self.Fixtures.Add(fixture);
+            // self.FixtureDict.Add(data.Name, fixture);
+            //
+            // return fixture;
             if (b2WorldManager.Instance.IsLocked())
             {
                 Log.Error($"cannot create fixture while b2World is locked!!");
                 return null;
             }
-            FixtureData data = (FixtureData)fixtureDef.UserData;
-            if (string.IsNullOrEmpty(data.Name))
-            {
-                Log.Error($"fixture name should not be null or empty!!");
-                return null;
-            }
-            if (self.FixtureDict.ContainsKey(data.Name))
-            {
-                Log.Error($"already contain fixture!, name: {data.Name}");
-                return null;
-            }
-            
-            Fixture fixture = self.body.CreateFixture(fixtureDef);
-            self.Fixtures.Add(fixture);
-            self.FixtureDict.Add(data.Name, fixture);
-
-            return fixture;
+            return self.body.CreateFixture(fixtureDef);
         }
 
-        public static Fixture GetFixture(this b2Body self, string name)
+        // public static Fixture GetFixture(this b2Body self, string name)
+        // {
+        //     if (!self.FixtureDict.TryGetValue(name, out Fixture fixture))
+        //     {
+        //         Log.Error($"not found fixture: {name}");
+        //     }
+        //     return fixture;
+        // }
+        
+        #endregion
+
+        #region Box
+
+        public static bool ContainBox(this b2Body self, string boxName)
         {
-            if (!self.FixtureDict.TryGetValue(name, out Fixture fixture))
+            return self.b2BoxDict.ContainsKey(boxName);
+        }
+
+        public static long GetBox(this b2Body self, string boxName)
+        {
+            if (!self.b2BoxDict.TryGetValue(boxName, out long id))
             {
-                Log.Error($"not found fixture: {name}");
+                Log.Error($"cannot found b2Box. boxName: {boxName}");
+                return -1;
             }
-            return fixture;
+
+            return id;
+        }
+
+        public static void AddBox(this b2Body self, string boxName, long id)
+        {
+            if (self.ContainBox(boxName))
+            {
+                Log.Error($"already exist b2Box. boxName: {boxName}");
+                return;
+            }
+            self.b2BoxDict.Add(boxName, id);
+        }
+
+        public static void DestroyBox(this b2Body self, string boxName)
+        {
+            if (!self.b2BoxDict.TryGetValue(boxName, out long id))
+            {
+                Log.Error($"cannot found b2Box. boxName: {boxName}");
+                return;
+            }
+
+            b2Box box = self.GetChild<b2Box>(id);
+            box.Dispose();
+        }
+
+        /// <summary>
+        /// 删除指定HitboxType的夹具
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="filter">HitboxType.Hit | HitboxType.Hurt </param>
+        public static void DestroyBoxes(this b2Body self, HitboxType filter)
+        {
+            ListComponent<long> ids = ListComponent<long>.Create(); // 池化管理
+            foreach (var kv in self.b2BoxDict)
+            {
+                b2Box box = self.GetChild<b2Box>(kv.Value);
+                if ((box.GetBoxType() & filter) != 0)
+                {
+                    ids.Add(box.Id); // note: 不能在集合内删除元素
+                }
+            }
+
+            foreach (long id in ids)
+            {
+                b2Box box = self.GetChild<b2Box>(id);
+                self.b2BoxDict.Remove(box.GetBoxName());
+                box.Dispose();
+            }
+            ids.Dispose();
         }
         
         #endregion

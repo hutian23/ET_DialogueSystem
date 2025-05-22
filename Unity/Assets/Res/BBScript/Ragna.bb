@@ -3,16 +3,16 @@
 #1. PlayerInit中挂载组件(NumericComponent、InputComponent...)
 PlayerInit;
 SetPos: 0, -90000;
-Test;
-#4. 添加初始Buff
-HP: 10000;
-SP: 200;
-HPAdd: -1000;
-EnableJump: 2;
-EnableAirCheck;
-EnableGroundDash: 2, 70;
-EnableAirDash: 2;
-EnableGravityCheck: 100000, 150000, 450000;          
+# Test;
+# #4. 添加初始Buff
+# HP: 10000;
+# SP: 200;
+# HPAdd: -1000;
+# EnableJump: 2;
+# EnableAirCheck;
+# EnableGroundDash: 2, 70;
+# EnableAirDash: 2;
+# EnableGravityCheck: 100000, 150000, 450000;          
 #5. 注册输入缓冲
 RegistInput: RunHold;
 RegistInput: SquatHold;
@@ -30,51 +30,51 @@ RegistInput: JumpPressed;
 RegistMove: (Rg_Idle)
   MoveType: None;
   EndMove:
-RegistMove: (Rg_Land)
-  MoveType: Move;
-  EndMove:
-RegistMove: (Rg_Run)
-  MoveType: Move;
-  EndMove:
-RegistMove: (Rg_Squit)
-  MoveType: Move;
-  EndMove:
-RegistMove: (Rg_AirBrone)
-  MoveType: Move;
-  EndMove:
-RegistMove: (Rg_Jump)
-  MoveType: Move;
-  EndMove:
-RegistMove: (Rg_5B)
-  MoveType: Normal;
-  EndMove:
-RegistMove: (Rg_5C)
-  MoveType: Normal;
-  EndMove:
-RegistMove: (Rg_5D)
-  MoveType: Normal;
-  EndMove:
-RegistMove: (Rg_5BHold)
-  MoveType: Normal;
-  EndMove:
-RegistMove: (Rg_DustAttack)
-  MoveType: Special;
-  EndMove:
-RegistMove: (Rg_AirDash)
-  MoveType: Special;
-  EndMove:
-RegistMove: (Rg_GroundDash)
-  MoveType: Special;
-  EndMove:
-RegistMove: (Rg_Super3)
-  MoveType: Special;
-  EndMove:
-RegistMove: (Rg_Test)
-  MoveType: Etc;
-  EndMove:
-RegistMove: (Rg_IdleAnim)
-  MoveType: Etc;
-  EndMove:
+# RegistMove: (Rg_Land)
+#   MoveType: Move;
+#   EndMove:
+# RegistMove: (Rg_Run)
+#   MoveType: Move;
+#   EndMove:
+# RegistMove: (Rg_Squit)
+#   MoveType: Move;
+#   EndMove:
+# RegistMove: (Rg_AirBrone)
+#   MoveType: Move;
+#   EndMove:
+# RegistMove: (Rg_Jump)
+#   MoveType: Move;
+#   EndMove:
+# RegistMove: (Rg_5B)
+#   MoveType: Normal;
+#   EndMove:
+# RegistMove: (Rg_5C)
+#   MoveType: Normal;
+#   EndMove:
+# RegistMove: (Rg_5D)
+#   MoveType: Normal;
+#   EndMove:
+# RegistMove: (Rg_5BHold)
+#   MoveType: Normal;
+#   EndMove:
+# RegistMove: (Rg_DustAttack)
+#   MoveType: Special;
+#   EndMove:
+# RegistMove: (Rg_AirDash)
+#   MoveType: Special;
+#   EndMove:
+# RegistMove: (Rg_GroundDash)
+#   MoveType: Special;
+#   EndMove:
+# RegistMove: (Rg_Super3)
+#   MoveType: Special;
+#   EndMove:
+# RegistMove: (Rg_Test)
+#   MoveType: Etc;
+#   EndMove:
+# RegistMove: (Rg_IdleAnim)
+#   MoveType: Etc;
+#   EndMove:
 #7. bullet池化
 PoolObject: DeadSpike, 3;
 #8. 进入默认动作
@@ -97,11 +97,11 @@ return;
 return;
 
 @Main:
-SetVelocityX: 0;
+SetVelocity: 0, -20000;
 # 设置一个待机行为，保持idle 300帧之后进入这个行为
-IdleAnim: Rg_IdleAnim, 300;
-EnableDefaultCancel: true;
-EnableFlip: true;
+# IdleAnim: Rg_IdleAnim, 300;
+# EnableDefaultCancel: true;
+# EnableFlip: true;
 SetMarker: Loop;
 BBSprite: Idle_1, 4;
 BBSprite: Idle_2, 4;

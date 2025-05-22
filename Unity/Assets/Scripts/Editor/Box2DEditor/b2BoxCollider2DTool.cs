@@ -134,8 +134,8 @@ namespace ET
             m_TagType.enumValueFlag = (int)tagType;
 
             // hitboxType
-            HitboxType newType = (HitboxType)EditorGUILayout.EnumPopup("Hitbox Type", (HitboxType)m_hitboxType.enumValueIndex);
-            m_hitboxType.enumValueIndex = (int)newType;
+            HitboxType hitboxType = (HitboxType)EditorGUILayout.EnumPopup("Hitbox Type", (HitboxType)m_hitboxType.enumValueFlag);
+            m_hitboxType.enumValueFlag = (int)hitboxType;
             EditorGUILayout.Space(4);
             
             // isTrigger
