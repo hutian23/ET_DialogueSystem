@@ -105,7 +105,7 @@ namespace ET.Client
                 if (self.token.IsCancel()) return;
 
                 // 取出缓冲区的碰撞信息，逐个检测
-                Queue<CollisionInfo> infoQueue = b2Body.triggerStayBuffer;
+                Queue<CollisionInfo> infoQueue = b2Body.triggerStayBuffers;
                 int count = infoQueue.Count;
                 while (count-- > 0)
                 {

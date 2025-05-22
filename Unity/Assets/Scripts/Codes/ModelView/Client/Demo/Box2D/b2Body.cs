@@ -24,13 +24,13 @@ namespace ET.Client
         public int hertz = 60;
 
         // B2World.Step()期间收集碰撞信息，PostStep中执行事件
-        public Queue<CollisionInfo> triggerEnterBuffer = new();
-        public Queue<CollisionInfo> triggerStayBuffer = new(); 
-        public Queue<CollisionInfo> triggerExitBuffer = new();
+        public Queue<CollisionInfo> triggerEnterBuffers = new();
+        public Queue<CollisionInfo> triggerStayBuffers = new(); 
+        public Queue<CollisionInfo> triggerExitBuffers = new();
         
-        public Queue<CollisionInfo> collisionEnterBuffer = new();
-        public Queue<CollisionInfo> collisionStayBuffer = new();
-        public Queue<CollisionInfo> collisionExitBuffer = new();
+        public Queue<CollisionInfo> collisionEnterBuffers = new();
+        public Queue<CollisionInfo> collisionStayBuffers = new();
+        public Queue<CollisionInfo> collisionExitBuffers = new();
     }
 
     [Flags]

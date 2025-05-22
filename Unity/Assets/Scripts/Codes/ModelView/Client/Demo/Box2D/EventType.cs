@@ -1,6 +1,5 @@
 ﻿using Box2DSharp.Dynamics;
 using Box2DSharp.Dynamics.Contacts;
-using Timeline;
 
 namespace ET.Event
 {
@@ -22,26 +21,32 @@ namespace ET.Event
     public struct TriggerEnterCallback
     {
         public CollisionInfo info;
+        public CollisionBuffer buffer;
     }
     public struct TriggerExitCallback
     {
         public CollisionInfo info;
+        public CollisionBuffer buffer;
     }
     public struct TriggerStayCallback
     {
         public CollisionInfo info;
+        public CollisionBuffer buffer;
     }
     public struct CollisionEnterCallback
     {
         public CollisionInfo info;
+        public CollisionBuffer buffer;
     }
     public struct CollisionStayCallback
     {
         public CollisionInfo info;
+        public CollisionBuffer buffer;
     }
     public struct CollisionExitCallback
     {
         public CollisionInfo info;
+        public CollisionBuffer buffer;
     }
     #endregion
     
@@ -54,6 +59,13 @@ namespace ET.Event
         public Fixture fixtureB;
         public FixtureData dataB;
         //接触点
+        public Contact Contact;
+    }
+
+    public struct CollisionBuffer
+    {
+        public long BoxA_InstanceId;
+        public long BoxB_InstanceId;
         public Contact Contact;
     }
     

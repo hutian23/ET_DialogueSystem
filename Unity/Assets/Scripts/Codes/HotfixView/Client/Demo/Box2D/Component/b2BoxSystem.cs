@@ -82,5 +82,41 @@ namespace ET.Client
         {
             return self.TagType;
         }
+
+        public static bool GetTrigger(this b2Box self)
+        {
+            return self.IsTrigger;
+        }
+
+        public static int GetTriggerEnterId(this b2Box self)
+        {
+            return self.TriggerEnterId;
+        }
+
+        public static int GetTriggerStayId(this b2Box self)
+        {
+            return self.TriggerStayId;
+        }
+        
+        public static int GetTriggerExitId(this b2Box self)
+        {
+            return self.TriggerExitId;
+        }
+
+
+        public static int GetCollisionEnterId(this b2Box self)
+        {
+            return self.CollisionEnterId;
+        }
+        
+        public static int GetCollisionStayId(this b2Box self)
+        {
+            return self.CollisionStayId;
+        }
+
+        public static int GetCollisionExitId(this b2Box self)
+        {
+            return self.CollisionExitId;
+        }
     }
 }

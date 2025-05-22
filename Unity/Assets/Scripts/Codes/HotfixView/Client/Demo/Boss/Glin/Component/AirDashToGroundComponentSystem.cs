@@ -32,7 +32,7 @@ namespace ET.Client
                 Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
                 b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
 
-                Queue<CollisionInfo> infoQueue = b2Body.collisionStayBuffer;
+                Queue<CollisionInfo> infoQueue = b2Body.collisionStayBuffers;
                 int count = infoQueue.Count;
 
                 while (count-- > 0)

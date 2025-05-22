@@ -1,6 +1,5 @@
 ﻿using Box2DSharp.Dynamics;
 using ET.Event;
-using Timeline;
 
 namespace ET.Client
 {
@@ -11,73 +10,70 @@ namespace ET.Client
         {
             Fixture fixtureA = args.Contact.FixtureA;
             Fixture fixtureB = args.Contact.FixtureB;
+
+            long instanceIdA = (long)fixtureA.UserData;
+            long instanceIdB = (long)fixtureB.UserData;
             
-            if (fixtureA == null || fixtureB == null || 
-                fixtureA.UserData is not FixtureData dataA ||
-                fixtureB.UserData is not FixtureData dataB)
+            b2Box boxA = Root.Instance.Get(instanceIdA) as b2Box;
+            b2Box boxB = Root.Instance.Get(instanceIdB) as b2Box;
+            if (boxA == null || boxB == null)
             {
                 return;
             }
-
-            if (dataA.IsTrigger || dataB.IsTrigger)
+            
+            // TriggerExit事件
+            if (boxA.GetTrigger() || boxB.GetTrigger())
             {
-                if (dataA.TriggerExitId != 0)
+                if (boxA.GetTriggerExitId() != 0)
                 {
-                    EventSystem.Instance.Invoke(dataA.TriggerExitId,new TriggerExitCallback()
+                    EventSystem.Instance.Invoke(boxA.GetTriggerExitId(), new TriggerExitCallback()
                     {
-                        info = new CollisionInfo()
+                        buffer = new CollisionBuffer()
                         {
-                            fixtureA = fixtureA,
-                            fixtureB =  fixtureB,
-                            dataA = dataA,
-                            dataB = dataB,
+                            BoxA_InstanceId = boxA.InstanceId,
+                            BoxB_InstanceId = boxB.InstanceId,
                             Contact = args.Contact
                         }
                     });
                 }
 
-                if (dataB.TriggerExitId != 0)
+                if (boxB.GetTriggerExitId() != 0)
                 {
-                    EventSystem.Instance.Invoke(dataB.TriggerExitId,new TriggerExitCallback()
+                    EventSystem.Instance.Invoke(boxB.GetTriggerExitId(), new TriggerExitCallback()
                     {
-                        info =  new CollisionInfo()
+                        buffer = new CollisionBuffer()
                         {
-                            fixtureA = fixtureB,
-                            fixtureB = fixtureA,
-                            dataA = dataB,
-                            dataB = dataA,
+                            BoxA_InstanceId =  boxB.InstanceId,
+                            BoxB_InstanceId = boxA.InstanceId,
                             Contact = args.Contact
                         }
                     });
-                }   
+                }
             }
+            // CollisionExit事件
             else
             {
-                if (dataA.CollisionExitId != 0)
+                if (boxA.GetCollisionExitId() != 0)
                 {
-                    EventSystem.Instance.Invoke(dataA.CollisionExitId,new CollisionExitCallback()
+                    EventSystem.Instance.Invoke(boxA.GetCollisionExitId(), new CollisionExitCallback()
                     {
-                        info = new CollisionInfo()
+                        buffer = new CollisionBuffer()
                         {
-                            fixtureA = fixtureA,
-                            fixtureB =  fixtureB,
-                            dataA = dataA,
-                            dataB = dataB,
+                            BoxA_InstanceId =  boxA.InstanceId,
+                            BoxB_InstanceId = boxB.InstanceId,
                             Contact = args.Contact
                         }
                     });
                 }
 
-                if (dataB.CollisionExitId != 0)
+                if (boxB.GetCollisionExitId() != 0)
                 {
-                    EventSystem.Instance.Invoke(dataB.CollisionExitId,new CollisionExitCallback()
+                    EventSystem.Instance.Invoke(boxA.GetCollisionExitId(), new CollisionExitCallback()
                     {
-                        info =  new CollisionInfo()
+                        buffer = new CollisionBuffer()
                         {
-                            fixtureA = fixtureB,
-                            fixtureB = fixtureA,
-                            dataA = dataB,
-                            dataB = dataA,
+                            BoxA_InstanceId =  boxB.InstanceId,
+                            BoxB_InstanceId = boxA.InstanceId,
                             Contact = args.Contact
                         }
                     });

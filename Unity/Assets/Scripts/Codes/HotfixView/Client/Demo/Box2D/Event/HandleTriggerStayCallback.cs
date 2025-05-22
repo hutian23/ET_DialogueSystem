@@ -9,7 +9,7 @@ namespace ET.Client
         public override void Handle(TriggerStayCallback args)
         {
             b2Body b2Body = Root.Instance.Get(args.info.dataA.InstanceId) as b2Body;
-            b2Body.triggerStayBuffer.Enqueue(args.info);
+            b2Body.triggerStayBuffers.Enqueue(args.info);
         }
     }
 }

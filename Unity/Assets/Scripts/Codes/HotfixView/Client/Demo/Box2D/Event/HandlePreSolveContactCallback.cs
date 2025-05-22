@@ -1,6 +1,5 @@
 ﻿using Box2DSharp.Dynamics;
 using ET.Event;
-using Timeline;
 
 namespace ET.Client
 {
@@ -11,55 +10,79 @@ namespace ET.Client
         {
             Fixture fixtureA = args.Contact.FixtureA;
             Fixture fixtureB = args.Contact.FixtureB;
-
-            if (fixtureA == null || fixtureB == null || 
-                fixtureA.UserData is not FixtureData dataA ||
-                fixtureB.UserData is not FixtureData dataB)
+            
+            long instanceIdA = (long)fixtureA.UserData;
+            long instanceIdB = (long)fixtureB.UserData;
+            
+            b2Box boxA = Root.Instance.Get(instanceIdA) as b2Box;
+            b2Box boxB = Root.Instance.Get(instanceIdB) as b2Box;
+            if (boxA == null || boxB == null)
             {
                 return;
             }
-            
+
             //触发器不参与碰撞
-            if (dataA.IsTrigger || dataB.IsTrigger)
+            if (boxA.GetTrigger() || boxB.GetTrigger())
             {
                 args.Contact.SetEnabled(false);
             }
             
-            //Trigger Stay
-            if (dataA.IsTrigger || dataB.IsTrigger)
+            // TriggerStay事件
+            if (boxA.GetTrigger() || boxB.GetTrigger())
             {
-                if (dataA.TriggerStayId != 0)
+                if (boxA.GetTriggerStayId() != 0)
                 {
-                    EventSystem.Instance.Invoke(dataA.TriggerStayId, new TriggerStayCallback() { info = new CollisionInfo()
+                    EventSystem.Instance.Invoke(boxA.GetTriggerStayId(), new TriggerStayCallback()
                     {
-                        fixtureA = fixtureA, fixtureB = fixtureB, dataA = dataA, dataB = dataB, Contact = args.Contact
-                    }});
+                        buffer = new CollisionBuffer()
+                        {
+                            BoxA_InstanceId = boxA.InstanceId,
+                            BoxB_InstanceId = boxB.InstanceId,
+                            Contact = args.Contact
+                        }
+                    });
                 }
 
-                if (dataB.TriggerStayId != 0)
+                if (boxB.GetTriggerStayId() != 0)
                 {
-                    EventSystem.Instance.Invoke(dataB.TriggerStayId, new TriggerStayCallback() { info = new CollisionInfo()
+                    EventSystem.Instance.Invoke(boxB.GetTriggerStayId(), new TriggerStayCallback()
                     {
-                        fixtureA = fixtureB, fixtureB = fixtureA, dataA = dataB, dataB = dataA, Contact = args.Contact
-                    }});
+                        buffer = new CollisionBuffer()
+                        {
+                            BoxA_InstanceId = boxB.InstanceId,
+                            BoxB_InstanceId = boxA.InstanceId,
+                            Contact = args.Contact
+                        }
+                    });
                 }
             }
+            //CollisionStay事件
             else
             {
-                if (dataA.CollisionStayId != 0)
+                if (boxA.GetCollisionStayId() != 0)
                 {
-                    EventSystem.Instance.Invoke(dataA.CollisionStayId, new CollisionStayCallback() { info = new CollisionInfo() 
+                    EventSystem.Instance.Invoke(boxA.GetCollisionStayId(), new CollisionStayCallback()
                     {
-                        fixtureA = fixtureA, fixtureB = fixtureB, dataA = dataA, dataB = dataB, Contact = args.Contact
-                    }});
+                        buffer = new CollisionBuffer()
+                        {
+                            BoxA_InstanceId = boxA.InstanceId,
+                            BoxB_InstanceId = boxB.InstanceId,
+                            Contact = args.Contact
+                        }
+                    });
                 }
 
-                if (dataB.CollisionStayId != 0)
+                if (boxB.GetCollisionStayId() != 0)
                 {
-                    EventSystem.Instance.Invoke(dataB.CollisionStayId, new CollisionStayCallback(){ info = new CollisionInfo()
+                    EventSystem.Instance.Invoke(boxB.GetCollisionStayId(), new CollisionStayCallback()
                     {
-                        fixtureA = fixtureB, fixtureB = fixtureA, dataA = dataB, dataB = dataA, Contact = args.Contact
-                    }});
+                        buffer = new CollisionBuffer()
+                        {
+                            BoxA_InstanceId = boxB.InstanceId,
+                            BoxB_InstanceId = boxA.InstanceId,
+                            Contact = args.Contact
+                        }
+                    });
                 }
             }
         }

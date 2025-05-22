@@ -26,12 +26,12 @@ namespace ET.Client
                 self.velocityY = 0f;
                 self.hertz = 60;
 
-                self.triggerEnterBuffer.Clear();
-                self.triggerStayBuffer.Clear();
-                self.triggerExitBuffer.Clear();
-                self.collisionEnterBuffer.Clear();
-                self.collisionStayBuffer.Clear();
-                self.collisionExitBuffer.Clear();
+                self.triggerEnterBuffers.Clear();
+                self.triggerStayBuffers.Clear();
+                self.triggerExitBuffers.Clear();
+                self.collisionEnterBuffers.Clear();
+                self.collisionStayBuffers.Clear();
+                self.collisionExitBuffers.Clear();
             }
         }
 
@@ -58,13 +58,13 @@ namespace ET.Client
             protected override void FrameLateUpdate(b2Body self)
             {
                 //2. 清空当前帧缓冲区
-                self.triggerEnterBuffer.Clear();
-                self.triggerStayBuffer.Clear();
-                self.triggerExitBuffer.Clear();
+                self.triggerEnterBuffers.Clear();
+                self.triggerStayBuffers.Clear();
+                self.triggerExitBuffers.Clear();
                 
-                self.collisionEnterBuffer.Clear();
-                self.collisionStayBuffer.Clear();
-                self.collisionExitBuffer.Clear();
+                self.collisionEnterBuffers.Clear();
+                self.collisionStayBuffers.Clear();
+                self.collisionExitBuffers.Clear();
             }
         }
         

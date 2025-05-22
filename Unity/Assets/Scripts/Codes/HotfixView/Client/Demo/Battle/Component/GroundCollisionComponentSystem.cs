@@ -29,7 +29,7 @@ namespace ET.Client
                 b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
 
                 // 逐个检测碰撞信息
-                Queue<CollisionInfo> infoQueue = b2Body.collisionEnterBuffer;
+                Queue<CollisionInfo> infoQueue = b2Body.collisionEnterBuffers;
                 int count = infoQueue.Count;
                 while (count-- > 0)
                 {

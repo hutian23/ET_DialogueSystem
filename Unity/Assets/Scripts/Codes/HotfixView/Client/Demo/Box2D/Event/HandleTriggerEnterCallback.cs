@@ -9,7 +9,7 @@ namespace ET.Client
         public override void Handle(TriggerEnterCallback args)
         {
             b2Body b2Body = Root.Instance.Get(args.info.dataA.InstanceId) as b2Body;
-            b2Body.triggerEnterBuffer.Enqueue(args.info);
+            b2Body.triggerEnterBuffers.Enqueue(args.info);
         }
     }
 }
