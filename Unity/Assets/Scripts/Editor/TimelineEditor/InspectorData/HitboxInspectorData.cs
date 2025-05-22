@@ -1,7 +1,7 @@
 ﻿using System;
-using ET;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using ET;
 
 namespace Timeline.Editor
 {
@@ -36,13 +36,16 @@ namespace Timeline.Editor
 
             this.fieldView.EditorWindow.ApplyModifyWithoutButtonUndo(() =>
             {
-                GameObject parent = fieldView.EditorWindow.TimelinePlayer.gameObject.GetComponent<ReferenceCollector>()
-                        .Get<GameObject>(HitboxType.ToString());
+                //1. 生成子GameObject
+                GameObject parent = fieldView.EditorWindow.TimelinePlayer.gameObject.GetComponent<ReferenceCollector>().Get<GameObject>(HitboxType.ToString());
                 GameObject child = new(HitboxName);
                 child.transform.SetParent(parent.transform);
                 child.transform.localPosition = Vector2.zero;
-                CastBox castBox = child.AddComponent<CastBox>();
-                castBox.info = new BoxInfo() { hitboxType = HitboxType, boxName = HitboxName };
+                child.AddComponent<TimelineObject>();
+                
+                //2. 添加判定框组件
+                b2BoxCollider2D box = child.AddComponent<b2BoxCollider2D>();
+                box.info = new BoxInfo() { hitboxType = HitboxType, boxName = HitboxName };
             }, "Create hitbox", false);
         }
 
@@ -59,9 +62,9 @@ namespace Timeline.Editor
             {
                 TimelinePlayer timelinePlayer = fieldView.EditorWindow.TimelinePlayer;
                 Keyframe.boxInfos.Clear();
-                foreach (CastBox castBox in timelinePlayer.GetComponentsInChildren<CastBox>())
+                foreach (b2BoxCollider2D box in timelinePlayer.GetComponentsInChildren<b2BoxCollider2D>())
                 {
-                    Keyframe.boxInfos.Add(MongoHelper.Clone(castBox.info));
+                    Keyframe.boxInfos.Add(MongoHelper.Clone(box.info));
                 }
             }, "Save hitbox", false);
         }

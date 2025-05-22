@@ -1,5 +1,4 @@
 ﻿using System;
-using Timeline;
 using UnityEngine;
 
 namespace ET
@@ -7,7 +6,7 @@ namespace ET
     public class b2BoxCollider2D : CastShapeBase
     {
         public BoxInfo info;
-
+        
 #if UNITY_EDITOR
         protected override void OnDrawGizmos()
         {

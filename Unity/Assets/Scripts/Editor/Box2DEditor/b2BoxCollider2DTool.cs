@@ -1,5 +1,4 @@
 ﻿#if UNITY_EDITOR
-using Timeline.Editor;
 using UnityEditor;
 using UnityEditor.EditorTools;
 using UnityEditor.IMGUI.Controls;
@@ -124,6 +123,7 @@ namespace ET
             // hitboxName
             string hitboxName = EditorGUILayout.TextField("Hitbox Name", m_boxName.stringValue);
             m_boxName.stringValue = hitboxName;
+            serializedObject.targetObject.name = hitboxName;
             
             // layerType
             LayerType layerType = (LayerType)EditorGUILayout.EnumPopup("Layer Type", (LayerType)m_layerType.enumValueIndex);
@@ -148,7 +148,7 @@ namespace ET
             
             // size
             EditorGUILayout.PropertyField(m_size);
-
+            
             serializedObject.ApplyModifiedProperties();
         }
     }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Timeline
+namespace ET
 {
     public abstract class CastShapeBase : MonoBehaviour
     {

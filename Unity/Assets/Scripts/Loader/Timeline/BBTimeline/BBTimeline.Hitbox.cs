@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using ET;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
+using ET;
 
 namespace Timeline
 {
@@ -123,20 +123,18 @@ namespace Timeline
                 GenerateHitbox(timelinePlayer, _keyFrame);
             }
         }
-
+        
         private static void ClearHitbox(TimelinePlayer timelinePlayer)
         {
 #if UNITY_EDITOR
-            //1. 销毁HitboxTrack运行时产生的组件
             var goSet = new HashSet<GameObject>();
-            foreach (Component component in timelinePlayer.GetComponentsInChildren<Component>())
+            foreach (TimelineObject timelineObject in timelinePlayer.GetComponentsInChildren<TimelineObject>())
             {
-                if (component.GetComponent<CastBox>() != null)
+                if (timelineObject.GetComponent<b2BoxCollider2D>() != null)
                 {
-                    goSet.Add(component.gameObject);
+                    goSet.Add(timelineObject.gameObject);
                 }
             }
-
             foreach (GameObject go in goSet)
             {
                 UnityEngine.Object.DestroyImmediate(go);
@@ -150,24 +148,24 @@ namespace Timeline
             //1. 销毁HitboxTrack运行时产生的组件
             ClearHitbox(timelinePlayer);
 
-            //2. 根据keyframe生成新的CastBox
+            //2. 根据keyframe生成新的b2BoxCollider2D
             foreach (BoxInfo boxInfo in keyframe.boxInfos)
             {
                 if (boxInfo.hitboxType is HitboxType.None)
                 {
                     continue;
                 }
-
-                GameObject parent = timelinePlayer
-                        .GetComponent<ReferenceCollector>()
-                        .Get<GameObject>(boxInfo.hitboxType.ToString());
-
+            
+                //3. 生成子GameObject
+                GameObject parent = timelinePlayer.GetComponent<ReferenceCollector>().Get<GameObject>(boxInfo.hitboxType.ToString());
                 GameObject child = new(boxInfo.boxName);
                 child.transform.SetParent(parent.transform);
                 child.transform.localPosition = Vector2.zero;
-                //深拷贝
-                CastBox castBox = child.AddComponent<CastBox>();
-                castBox.info = MongoHelper.Clone(boxInfo);
+                child.AddComponent<TimelineObject>(); // 标注这是Timeline生成的GameObject
+                
+                //4. 深拷贝BoxInfo数据到Box中
+                b2BoxCollider2D box = child.AddComponent<b2BoxCollider2D>();
+                box.info = MongoHelper.Clone(boxInfo);
             }
 #endif
         }

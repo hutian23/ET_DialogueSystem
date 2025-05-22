@@ -4,7 +4,7 @@ using UnityEditor.EditorTools;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
-namespace Timeline.Editor
+namespace ET
 {
     public abstract class CastShapeTool<T>: EditorTool where T : CastShapeBase
     {
@@ -15,8 +15,7 @@ namespace Timeline.Editor
         {
             get
             {
-                PropertyInfo propertyInfo =
-                        typeof (PrimitiveBoundsHandle).GetProperty("editModeButton", BindingFlags.NonPublic | BindingFlags.Static);
+                PropertyInfo propertyInfo = typeof (PrimitiveBoundsHandle).GetProperty("editModeButton", BindingFlags.NonPublic | BindingFlags.Static);
                 return (GUIContent)propertyInfo.GetValue(null);
             }
         }
