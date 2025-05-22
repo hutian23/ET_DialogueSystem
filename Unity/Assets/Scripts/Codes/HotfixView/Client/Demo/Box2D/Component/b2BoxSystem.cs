@@ -59,8 +59,7 @@ namespace ET.Client
                 };
 
                 b2Body b2Body = self.GetParent<b2Body>();
-                Transform transform = b2Body.GetTransform();
-                b2WorldManager.Instance.DrawShape(self.fixture.Shape, transform.Position, transform.Rotation.Angle * UnityEngine.Mathf.Rad2Deg, color);
+                b2WorldManager.Instance.DrawShape(self.fixture.Shape, b2Body.GetTransform().Position, b2Body.GetTransform().Rotation.Angle * UnityEngine.Mathf.Rad2Deg, color);
             }
         }
         
@@ -72,6 +71,16 @@ namespace ET.Client
         public static string GetBoxName(this b2Box self)
         {
             return self.Name;
+        }
+
+        public static LayerType GetLayerType(this b2Box self)
+        {
+            return self.LayerType;
+        }
+
+        public static TagType GetTagType(this b2Box self)
+        {
+            return self.TagType;
         }
     }
 }
