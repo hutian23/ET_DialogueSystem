@@ -30,6 +30,7 @@ namespace ET
             Draw = Global.DebugDraw;
             TestSettings = Global.Settings;
             World.Draw = Global.DebugDraw;
+            //控制两个夹具是否发生碰撞
             World.SetContactFilter(new B2ContactFilter());
         }
 
@@ -44,7 +45,6 @@ namespace ET
             World.AllowSleep = TestSettings.EnableSleep;
             World.WarmStarting = TestSettings.EnableWarmStarting;
             World.SubStepping = TestSettings.EnableSubStepping;
-
             PointsCount = 0;
 
             PreStep();
@@ -83,15 +83,6 @@ namespace ET
         public override void PreSolve(Contact contact, in Manifold oldManifold)
         {
             base.PreSolve(contact, in oldManifold);
-            if (contact.FixtureA.UserData is not FixtureData dataA || contact.FixtureB.UserData is not FixtureData dataB)
-            {
-                return;
-            }
-            //触发器不参与碰撞
-            if (dataA.IsTrigger || dataB.IsTrigger)
-            {
-                contact.SetEnabled(false);
-            }
             EventSystem.Instance.Invoke(new PreSolveCallback(){Contact = contact});
         }
         
@@ -446,6 +437,12 @@ namespace ET
         #endregion
     }
 
+    public struct ContactFilterCallback
+    {
+        public long InstanceIdA;
+        public long InstanceIdB;
+    }
+    
     public struct PreStepCallback
     {
         

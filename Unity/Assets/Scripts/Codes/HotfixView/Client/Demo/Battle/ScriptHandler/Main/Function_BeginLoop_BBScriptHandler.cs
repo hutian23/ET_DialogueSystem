@@ -37,9 +37,9 @@
             parser.Coroutine_Pointers[data.CoroutineID] = endIndex;
             
             //4. 下一逻辑帧，才执行下一条指令
-            await BBTimerManager.Instance.LateUpdateTimer().WaitFrameAsync(token);
+            await TimerComponent.Instance.WaitFrameAsync(token);
             if (token.IsCancel()) return Status.Failed;
-            
+
             return ret;
         }
     }

@@ -73,7 +73,7 @@ namespace Timeline
         [HideReferenceObjectPicker]
         public List<BoxInfo> boxInfos = new();
     }
-
+    
     public enum HitboxType
     {
         None,
@@ -111,36 +111,41 @@ namespace Timeline
         [LabelText("标签：")]
         public TagType tagType = TagType.None;
     }
-
-    //有点套娃 --- > Fixture.UserData ---> FixtureData ---> UserData
+    
+    
     public struct FixtureData
     {
         //传入碰撞事件时调用的组件instanceId
         public long InstanceId;
-        public string Name;
-        public FixtureType Type;
 
+        public FixtureType Type;
+        public LayerType LayerType;
+        public TagType TagType;
+        public bool IsTrigger;
+        
+        //判定框信息(BoxInfo)
+        public string Name;
+        public HitboxType HitboxType;
+        public Vector2 Center;
+        public Vector2 Size;
+        
         //碰撞事件
         public int TriggerEnterId;
         public int TriggerStayId;
         public int TriggerExitId;
-
         public int CollisionEnterId;
         public int CollisionStayId;
         public int CollisionExitId;
 
-        public long LayerMask;
-        public bool IsTrigger;
-
         public object UserData;
     }
 
-    public static class LayerType
+    [Flags]
+    public enum LayerType
     {
-        public const int None = 0;
-        public const int Ground = 2 << 0;
-        public const int Unit = 2 << 1;
-        public const int Camera = 2 << 2;
+        None = 0, 
+        Ground = 2 << 0,
+        Unit = 2 << 1
     }
 
     public enum FixtureType

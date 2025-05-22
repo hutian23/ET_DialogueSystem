@@ -19,6 +19,12 @@ namespace ET.Client
                 return;
             }
             
+            //触发器不参与碰撞
+            if (dataA.IsTrigger || dataB.IsTrigger)
+            {
+                args.Contact.SetEnabled(false);
+            }
+            
             //Trigger Stay
             if (dataA.IsTrigger || dataB.IsTrigger)
             {

@@ -39,7 +39,7 @@ namespace ET.Client
                         InstanceId = b2Body.InstanceId,
                         Name = info.boxName,
                         Type = FixtureType.Hitbox,
-                        LayerMask = LayerType.Unit,
+                        LayerType = LayerType.Unit,
                         IsTrigger = info.hitboxType is not HitboxType.Squash,
                         UserData = info,
                         TriggerEnterId = TriggerEnterType.HandleCallback,

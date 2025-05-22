@@ -16,7 +16,6 @@ namespace ET.Client
 
                 FixtureData data = (FixtureData)def.UserData;
                 self.fixtureName = data.Name;
-                self.fixtureType = data.Type;
             }
         }
         
@@ -30,7 +29,6 @@ namespace ET.Client
                 self.fixture = null;
 
                 self.fixtureName = string.Empty;
-                self.fixtureType = FixtureType.None;
             }
         }
 

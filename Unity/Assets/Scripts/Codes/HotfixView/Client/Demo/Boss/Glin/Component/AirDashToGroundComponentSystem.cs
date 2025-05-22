@@ -44,7 +44,7 @@ namespace ET.Client
                     BoxInfo infoA = info.dataA.UserData as BoxInfo;
                     BoxInfo infoB = info.dataB.UserData as BoxInfo;
                     if (infoA.hitboxType is not HitboxType.Squash ||
-                        info.dataB.LayerMask is not LayerType.Ground ||
+                        info.dataB.LayerType is not LayerType.Ground ||
                         infoB.tagType is not TagType.Ground) continue;
 
                     self.OnGround = true;

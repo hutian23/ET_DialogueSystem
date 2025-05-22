@@ -57,7 +57,7 @@ namespace ET.Client
                     InstanceId = body.InstanceId,
                     Name = "BounceCheckBox",
                     Type = FixtureType.Default,
-                    LayerMask = LayerType.Unit,
+                    LayerType = LayerType.Unit,
                     IsTrigger = true,
                     UserData = new BoxInfo()
                     {
@@ -113,7 +113,7 @@ namespace ET.Client
                     infoQueue.Enqueue(info);
 
                     // BounceCheckBox和墙体发生重叠
-                    if (!info.fixtureA.Equals(self.checkBox) || info.dataB.LayerMask is not LayerType.Ground || info.dataB.InstanceId == 0) continue;
+                    if (!info.fixtureA.Equals(self.checkBox) || info.dataB.LayerType is not LayerType.Ground || info.dataB.InstanceId == 0) continue;
 
                     parser.TryRemoveParam("Flag_Bounce");
                     parser.RegistParam("Flag_Bounce", true);

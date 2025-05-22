@@ -37,7 +37,7 @@ namespace ET.Client
                     infoQueue.Enqueue(info);
 
                     BoxInfo infoA = info.dataA.UserData as BoxInfo;
-                    if (infoA.hitboxType is not HitboxType.Squash || info.dataB.LayerMask is not LayerType.Ground) continue;
+                    if (infoA.hitboxType is not HitboxType.Squash || info.dataB.LayerType is not LayerType.Ground) continue;
 
                     // 当前帧接触地面
                     self.GroundCollision = true;

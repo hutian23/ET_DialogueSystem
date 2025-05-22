@@ -12,7 +12,7 @@ EndMove:
 RegistMove: (Zako3_ThrowAttack)
   MoveType: None;
 EndMove:
-GotoBehavior: Zako3_ThrowAttack;
+GotoBehavior: Zako3_Idle;
 return;
 
 [Zako3_Idle]
@@ -20,6 +20,8 @@ return;
 return;
 
 @Main:
+WaitFrame: 10;
+Test;
 SetMarker: Loop;
 # Patrol
 AirPatrolVelocity: 10000;
@@ -33,15 +35,16 @@ EndIf:
 BeginIf: (Random: ran1 >= 75), (Random: ran1 <= 100)
   RegistCounter: 105;
 EndIf:
-BeginLoop: (Counter: Value > 0)
-  BBSprite: Idle_1, 5;
-  BBSprite: Idle_2, 5;
-  BBSprite: Idle_3, 5;
-  BBSprite: Idle_4, 5;
-  BBSprite: Idle_5, 5;
-  BBSprite: Idle_6, 5;
-  BBSprite: Idle_7, 5;
-EndLoop:
+# BeginLoopAnim: (Counter: Value > 0)
+#   LoopSprite: Idle_1, 5;
+#   LoopSprite: Idle_2, 5;
+#   LoopSprite: Idle_3, 5;
+#   LoopSprite: Idle_4, 5;
+#   LoopSprite: Idle_5, 5;
+#   LoopSprite: Idle_6, 5;
+#   LoopSprite: Idle_7, 5;
+# EndLoopAnim:
+WaitFrame: 1000;
 # Turn
 SetVelocity: 0, 0;
 Random: ran2, 0, 100;

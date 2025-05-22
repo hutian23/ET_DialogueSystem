@@ -32,7 +32,7 @@ namespace ET.Client
 
                     //2-1. PushBox和地面碰撞
                     BoxInfo infoA = info.dataA.UserData as BoxInfo;
-                    if (infoA.hitboxType is not HitboxType.Squash || info.dataB.LayerMask is not LayerType.Ground)
+                    if (infoA.hitboxType is not HitboxType.Squash || info.dataB.LayerType is not LayerType.Ground)
                     {
                         continue;
                     }

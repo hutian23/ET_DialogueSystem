@@ -33,7 +33,7 @@ namespace ET.Client
                             InstanceId = sceneBody.InstanceId,
                             Name = box2D.info.boxName,
                             Type = FixtureType.Default,
-                            LayerMask = LayerType.Ground,
+                            LayerType = LayerType.Ground,
                             IsTrigger = box2D.IsTrigger,
                             UserData = box2D.info,
                             TriggerEnterId =  TriggerEnterType.HandleCallback,

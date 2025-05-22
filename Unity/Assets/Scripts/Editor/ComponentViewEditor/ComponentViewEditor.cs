@@ -88,7 +88,7 @@ namespace ET
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.Log($"component view error: {entity.GetType().FullName} {e}");
+                Debug.Log($"component view error: {entity.GetType().FullName} {e}");
             }
         }
     }

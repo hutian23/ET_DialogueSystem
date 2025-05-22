@@ -66,51 +66,7 @@ namespace ET.Client
                     if (ret) continue;
 
                     // Cancel Loop Coroutine
-                    self.token.Cancel();
-                    return;
-                }
-            }
-        }
-
-        public static async ETTask TriggerCor(this LoopComponent self)
-        {
-            BBParser parser = self.GetParent<BBParser>();
-            BBTimerComponent lateUpdateTimer = BBTimerManager.Instance.LateUpdateTimer();
-
-            //1. Match trigger
-            string loopTrigger = parser.OpDict[self.triggerIndex];
-            MatchCollection matches = Regex.Matches(loopTrigger, @"\((.*?)\)");
-            if (matches.Count == 0)
-            {
-                Log.Error($"Loop_Handler must have at least one triggerHandler!");
-                return;
-            }
-
-            while (true)
-            {
-                await lateUpdateTimer.WaitFrameAsync(self.token);
-                if (self.token.IsCancel()) return;
-                
-                //2. Exec trigger
-                for (int i = 0; i < matches.Count; i++)
-                {
-                    string op = matches[i].Groups[1].Value;
-                    Match triggerMatch = Regex.Match(op, "(.*?):");
-                    
-                    // Match Failed
-                    if (!triggerMatch.Success)
-                    {
-                        ScriptHelper.ScripMatchError(op);
-                        break;
-                    }
-                    
-                    // Match Success
-                    BBScriptData _data = BBScriptData.Create(op, 0);
-                    bool ret = ScriptDispatcherComponent.Instance.GetTrigger(triggerMatch.Groups[1].Value).Check(parser, _data);
-                    if (ret) continue;
-                    
-                    // Cancel Loop Coroutine
-                    self.token.Cancel();
+                    self.Dispose();
                     return;
                 }
             }
@@ -119,7 +75,6 @@ namespace ET.Client
         public static async ETTask<Status> LoopCor(this LoopComponent self)
         {
             BBParser parser = self.GetParent<BBParser>();
-            // BBTimerComponent bbTimer = parser.GetParent<Unit>().GetComponent<BBTimerComponent>();
             
             //1. 生成Loop协程Id
             long funcId = IdGenerater.Instance.GenerateInstanceId();
