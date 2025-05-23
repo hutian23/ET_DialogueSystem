@@ -14,9 +14,8 @@ return;
 return;
 
 @Main:
-SetRotate: -300000;
 EnableGroundCollisionCheck: true;
-BBSprite: Attack_1, 4;
+BBSprite: Attack_1, 1;
 BeginLoop: (GroundCollision: false)
   BBSprite: Attack_2, 4;
   BBSprite: Attack_3, 4;
@@ -24,8 +23,8 @@ BeginLoop: (GroundCollision: false)
 EndLoop:
 EnableGroundCollisionCheck: false;
 SetVelocity: 0, 0;
-Shake: 200, 500, 12000, 25;
-BBSprite: Land, 50;
+Shake: 200, 800, 15000, 25;
+BBSprite: Land, 20;
 BBSprite: End_1, 4;
 BBSprite: End_2, 4;
 BBSprite: End_3, 4;

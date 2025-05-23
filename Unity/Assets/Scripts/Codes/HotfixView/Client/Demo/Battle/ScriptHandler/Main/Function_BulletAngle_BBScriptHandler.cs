@@ -29,7 +29,7 @@ namespace ET.Client
             Unit unitB = Root.Instance.Get(instanceId) as Unit;
             b2Body bodyB = b2WorldManager.Instance.GetBody(unitB.InstanceId);
             
-            bodyB.SetRotation((float)Box2DHelper.DegreesToRadians(angle / 10000f));
+            bodyB.SetAngle(angle / 10000f);
             
             await ETTask.CompletedTask;
             return Status.Success;

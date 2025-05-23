@@ -31,10 +31,12 @@ namespace ET.Client
             b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
             
             //2.
-            float rotate = body.GetRotation();
-            float x = vel * Mathf.Sin(rotate) / 10000f;
-            float y = vel * Mathf.Cos(rotate) / 10000f;
+            float radian = body.GetRadian();
+            float x = vel * Mathf.Sin(radian) / 10000f;
+            float y = vel * Mathf.Cos(radian) / 10000f;
             body.SetVelocity(new Vector2(x, y));
+ 
+            Log.Warning(new Vector2(x, y).Length().ToString());
             
             await ETTask.CompletedTask;
             return Status.Success;

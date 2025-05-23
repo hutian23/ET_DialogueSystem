@@ -32,7 +32,7 @@ namespace ET.Client
 
             //1. 速度方向
             Vector2 direction = UnityEngine.Random.insideUnitCircle.ToVector2();
-            direction = new Vector2(Math.Abs(direction.X), direction.Y); // 限定横向速度，朝向前方
+            direction.X = Math.Abs(direction.X); // 限定横向速度，朝向前方
             
             //2. 速度大小
             body.SetVelocity(direction * velocity / 10000f);

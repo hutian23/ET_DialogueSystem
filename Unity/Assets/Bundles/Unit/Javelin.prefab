@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7357059201762739524}
   - component: {fileID: 4358905907573964740}
   - component: {fileID: 4381290221637711494}
-  - component: {fileID: 4556688121611240440}
+  - component: {fileID: 3495637077937264251}
   m_Layer: 0
   m_Name: Javelin
   m_TagString: Untagged
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instanceId: 0
   Script: {fileID: 1042094116111776886, guid: 9042fadb1b6dee5439da72c0ab26172f, type: 3}
---- !u!114 &4556688121611240440
+--- !u!114 &3495637077937264251
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,7 +212,7 @@ MonoBehaviour:
   Hertz: 60
   ApplyRootMotion: 0
   BBPlayable: {fileID: 11400000, guid: 07a7672a762fa9a4b8cb14cc70810fc0, type: 2}
-  CurrentTimeline: {fileID: 11400000, guid: b949ba4e24837234491f05f1626f788d, type: 2}
+  CurrentTimeline: {fileID: 0}
 --- !u!1 &1909365682485685731
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ namespace ET.Client
             //1. 更新速度方向
             b2body.SetVelocity(outVector2);
             //2. 更新朝向
-            b2body.SetRotation(-outVector2.Vector2ToRadians());
+            // b2body.SetRotation(-outVector2.Vector2ToRadians());
             
             await ETTask.CompletedTask;
             return Status.Success;

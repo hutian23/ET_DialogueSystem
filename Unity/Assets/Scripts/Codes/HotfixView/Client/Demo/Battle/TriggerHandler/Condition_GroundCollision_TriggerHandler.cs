@@ -18,7 +18,7 @@ namespace ET.Client
                 ScriptHelper.ScripMatchError(data.opLine);
                 return false;
             }
-
+            
             GroundCollisionComponent collision = parser.GetComponent<GroundCollisionComponent>();
             switch (match.Groups["Active"].Value)
             {

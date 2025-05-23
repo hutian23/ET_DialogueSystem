@@ -29,21 +29,23 @@ namespace ET.Client
             }
             
             //1. 查询组件
-            long instanceId = parser.GetParam<long>("CreateBullet_UnitId");
             Unit player = BBUnitHelper.GetPlayer(parser.ClientScene());
-            Unit unitB = Root.Instance.Get(instanceId) as Unit;
+            Unit unitB = parser.GetParent<Unit>();
+            Unit bullet = Root.Instance.Get(parser.GetParam<long>("CreateBullet_UnitId")) as Unit;
             b2Body bodyA = b2WorldManager.Instance.GetBody(player.InstanceId);
             b2Body bodyB = b2WorldManager.Instance.GetBody(unitB.InstanceId);
+            b2Body bodyC = b2WorldManager.Instance.GetBody(bullet.InstanceId);
 
             //2. 射出方向
-            // Vector2 direction = (bodyB.GetPosition() - bodyA.GetPosition()).ToUnityVector2().normalized;
-            // float angle = Vector2.Angle(direction, Vector2.right);
-            Log.Warning((bodyA.GetFlip() * minAngle / 10000f).ToString());
+            Vector2 direction = (bodyB.GetPosition() - bodyA.GetPosition()).ToUnityVector2().normalized;
+            float angle = Vector2.Angle(direction, Vector2.right);
+            angle = Mathf.Clamp(angle, minAngle / 10000f, maxAngle / 10000f);
             
-            bodyB.SetRotation(bodyA.GetFlip() * minAngle / 10000f * Mathf.Deg2Rad);
+            bodyC.SetAngle(bodyB.GetFlip() * angle);
             
             //3. 射出速度
-            // bodyB.SetVelocity(velocity / 10000f * new System.Numerics.Vector2(1f, 1f));
+            Vector2 bulletVel = velocity * new Vector2(Mathf.Cos(bodyC.GetRadian()), Mathf.Sin(bodyC.GetRadian())) * new Vector2(1, -bodyB.GetFlip())/ 10000f;
+            bodyC.SetVelocity(bulletVel.ToVector2());
             
             await ETTask.CompletedTask;
             return Status.Success;

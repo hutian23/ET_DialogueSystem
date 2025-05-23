@@ -56,10 +56,8 @@ namespace ET.Client
                 //2.
                 self.curRotate = Mathf.Lerp(self.curRotate, targetRotate, damping * ScriptHelper.FrameLength);
                 self.curRotate = Mathf.Clamp(self.curRotate, self.minRotate, self.maxRotate);
-                
-                bodyB.SetRotation(self.curRotate * Mathf.Deg2Rad);
-                
-                //3. 
+
+                bodyB.SetAngle(self.curRotate);
                 
                 
                 await bbTimer.WaitFrameAsync(self.token);

@@ -25,7 +25,7 @@ namespace ET.Client
                 Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
                 b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
 
-                Queue<CollisionBuffer> bufferQueue = body.collisionEnterBuffers;
+                Queue<CollisionBuffer> bufferQueue = body.collisionStayBuffers;
                 int count = bufferQueue.Count;
                 while (count -- > 0)
                 {
@@ -43,14 +43,13 @@ namespace ET.Client
                     b2Body bodyA = boxA.GetParent<b2Body>();
                     Unit unitA = Root.Instance.Get(bodyA.unitId) as Unit;
                     BBParser parser = unitA.GetComponent<BBParser>();
-                    
                     if (self.functionIndex != 0)
                     {
                         self.buffer = buffer;
                         parser.Invoke(self.functionIndex, parser.CancellationToken).Coroutine();
                         self.buffer = default;
                     }
-
+                    
                     return;
                 }
 

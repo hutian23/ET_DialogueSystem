@@ -12,7 +12,7 @@ namespace ET.Client
         {
             protected override void PreStepUpdate(b2Body self)
             {
-                self.body.SetTransform(self.GetPosition(), self.angle * UnityEngine.Mathf.Deg2Rad);
+                self.SetAngle(self.angle);
                 self.SetLinearVelocity(self.velocity);
             }
         }
@@ -191,12 +191,18 @@ namespace ET.Client
         public static void SetAngle(this b2Body self, float angle)
         {
             self.angle = angle;
+            self.body.SetTransform(self.GetPosition(), self.angle * UnityEngine.Mathf.Deg2Rad);
             self.SyncTrans();
         }
 
         public static float GetAngle(this b2Body self)
         {
             return self.angle;
+        }
+
+        public static float GetRadian(this b2Body self)
+        {
+            return self.GetAngle() * UnityEngine.Mathf.Deg2Rad;
         }
         
         #endregion
@@ -217,7 +223,8 @@ namespace ET.Client
         //真实速度 = 当前帧速度 * 朝向 * TimeScale
         public static void SetLinearVelocity(this b2Body self, Vector2 velocity)
         {
-            Vector2 realVelocity = velocity * (self.hertz / 60f) * new Vector2(self.GetFlip(), 1);
+            Vector2 realVelocity = velocity * (self.hertz / 60f) * new Vector2(-self.GetFlip(), 1);
+            self.velocity = velocity;
             self.body.SetLinearVelocity(realVelocity);
         }
         
@@ -253,16 +260,6 @@ namespace ET.Client
             return self.body.GetPosition();
         }
         
-        public static void SetRotation(this b2Body self, float angle)
-        {
-            
-        }
-        
-        public static float GetRotation(this b2Body self)
-        {
-            return self.body.GetAngle();
-        }
-
         public static Transform GetTransform(this b2Body self)
         {
             return self.body.GetTransform();
