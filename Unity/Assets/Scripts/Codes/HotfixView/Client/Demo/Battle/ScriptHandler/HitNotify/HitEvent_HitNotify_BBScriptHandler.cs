@@ -44,7 +44,6 @@ namespace ET.Client
             //3. 组件数据初始化
             hit.startIndex = startIndex;
             hit.endIndex = endIndex;
-            hit.timer = b2WorldManager.Instance.GetPostStepTimer().NewFrameTimer(BBTimerInvokeType.HitNotifyTimer, parser);
             hit.checkType =match.Groups["CheckType"].Value;
 
             await ETTask.CompletedTask;

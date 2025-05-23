@@ -25,7 +25,7 @@ namespace ET.Client
                 self.velocityX = 0f;
                 self.velocityY = 0f;
                 self.hertz = 60;
-
+                
                 self.triggerEnterBuffers.Clear();
                 self.triggerStayBuffers.Clear();
                 self.triggerExitBuffers.Clear();
@@ -61,7 +61,6 @@ namespace ET.Client
                 self.triggerEnterBuffers.Clear();
                 self.triggerStayBuffers.Clear();
                 self.triggerExitBuffers.Clear();
-                
                 self.collisionEnterBuffers.Clear();
                 self.collisionStayBuffers.Clear();
                 self.collisionExitBuffers.Clear();
@@ -318,16 +317,6 @@ namespace ET.Client
             }
             return self.body.CreateFixture(fixtureDef);
         }
-
-        // public static Fixture GetFixture(this b2Body self, string name)
-        // {
-        //     if (!self.FixtureDict.TryGetValue(name, out Fixture fixture))
-        //     {
-        //         Log.Error($"not found fixture: {name}");
-        //     }
-        //     return fixture;
-        // }
-        
         #endregion
 
         #region Box

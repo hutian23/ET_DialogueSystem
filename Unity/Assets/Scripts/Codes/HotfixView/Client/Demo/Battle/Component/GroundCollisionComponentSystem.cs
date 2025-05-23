@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using ET.Event;
-using Timeline;
 
 namespace ET.Client
 {
@@ -13,7 +12,7 @@ namespace ET.Client
             {
                 self.GroundCollision = false;
                 self.functionIndex = 0;
-                self.info = default;
+                self.buffer = default;
             }
         }
 
@@ -23,35 +22,39 @@ namespace ET.Client
         {
             protected override void PosStepUpdate(GroundCollisionComponent self)
             {
-                // 查询组件
-                BBParser parser = self.GetParent<BBParser>();
-                Unit unit = parser.GetParent<Unit>();
-                b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
+                Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
+                b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
 
-                // 逐个检测碰撞信息
-                Queue<CollisionInfo> infoQueue = b2Body.collisionEnterBuffers;
-                int count = infoQueue.Count;
-                while (count-- > 0)
+                Queue<CollisionBuffer> bufferQueue = body.collisionEnterBuffers;
+                int count = bufferQueue.Count;
+                while (count -- > 0)
                 {
-                    CollisionInfo info = infoQueue.Dequeue();
-                    infoQueue.Enqueue(info);
-
-                    BoxInfo infoA = info.dataA.UserData as BoxInfo;
-                    if (infoA.hitboxType is not HitboxType.Squash || info.dataB.LayerType is not LayerType.Ground) continue;
+                    CollisionBuffer buffer = bufferQueue.Dequeue();
+                    bufferQueue.Enqueue(buffer);
+                    
+                    b2Box boxA = Root.Instance.Get(buffer.instanceIdA) as b2Box;
+                    b2Box boxB = Root.Instance.Get(buffer.instanceIdB) as b2Box;
+                    if (boxA.GetBoxType() is not HitboxType.Squash || boxB.GetLayerType() is not LayerType.Ground) continue;
 
                     // 当前帧接触地面
                     self.GroundCollision = true;
-
-                    // 地面碰撞回调
+                    
+                    // 触发落地回调
+                    b2Body bodyA = boxA.GetParent<b2Body>();
+                    Unit unitA = Root.Instance.Get(bodyA.unitId) as Unit;
+                    BBParser parser = unitA.GetComponent<BBParser>();
+                    
                     if (self.functionIndex != 0)
                     {
-                        self.info = info;
+                        self.buffer = buffer;
                         parser.Invoke(self.functionIndex, parser.CancellationToken).Coroutine();
-                        self.info = default;
+                        self.buffer = default;
                     }
 
                     return;
                 }
+
+                self.GroundCollision = false;
             }
         }
 

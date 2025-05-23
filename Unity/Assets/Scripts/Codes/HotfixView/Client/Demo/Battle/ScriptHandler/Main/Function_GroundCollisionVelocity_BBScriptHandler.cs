@@ -17,9 +17,9 @@ namespace ET.Client
             Unit unit = parser.GetParent<Unit>();
             b2Body b2body = b2WorldManager.Instance.GetBody(unit.InstanceId);
             GroundCollisionComponent component = parser.GetComponent<GroundCollisionComponent>();
-            
-            CollisionInfo info = component.info;
-            info.Contact.GetWorldManifold(out WorldManifold worldManifold);
+
+            CollisionBuffer buffer = component.buffer;
+            buffer.Contact.GetWorldManifold(out WorldManifold worldManifold);
             
             Vector2 normal = worldManifold.Normal; // 法向量
             Vector2 inVector = b2body.GetVelocity(); // 入射向量

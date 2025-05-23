@@ -2,6 +2,7 @@
 
 namespace ET.Client
 {
+    [FriendOf(typeof(TimeFrozeComponent))]
     public class Function_TimeFroze_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
@@ -31,11 +32,13 @@ namespace ET.Client
 
             Unit unit = parser.GetParent<Unit>();
             BuffManager buffManager = unit.GetComponent<BuffManager>();
-            HertzAbility ability = buffManager.GetComponent<HertzAbility>();
-            
+
             buffManager.RemoveComponent<TimeFrozeComponent>();
-            buffManager.AddComponent<TimeFrozeComponent, int, int, long>(hertz, hitStop, ability.InstanceId);
-            
+            TimeFrozeComponent timeFroze = buffManager.AddComponent<TimeFrozeComponent>(true);
+            timeFroze.Hertz = hertz;
+            timeFroze.LastFrame = hitStop;
+            timeFroze.unitId = unit.InstanceId;
+
             await ETTask.CompletedTask;
             return Status.Success;
         }

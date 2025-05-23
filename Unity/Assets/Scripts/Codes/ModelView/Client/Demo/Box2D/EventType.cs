@@ -64,8 +64,8 @@ namespace ET.Event
 
     public struct CollisionBuffer
     {
-        public long BoxA_InstanceId;
-        public long BoxB_InstanceId;
+        public long instanceIdA;
+        public long instanceIdB;
         public Contact Contact;
     }
     

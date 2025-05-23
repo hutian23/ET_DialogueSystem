@@ -36,8 +36,8 @@ namespace ET.Client
                     {
                         buffer = new CollisionBuffer()
                         {
-                            BoxA_InstanceId = boxA.InstanceId,
-                            BoxB_InstanceId = boxB.InstanceId,
+                            instanceIdA = boxA.InstanceId,
+                            instanceIdB = boxB.InstanceId,
                             Contact = args.Contact
                         }
                     });
@@ -49,8 +49,8 @@ namespace ET.Client
                     {
                         buffer = new CollisionBuffer()
                         {
-                            BoxA_InstanceId = boxB.InstanceId,
-                            BoxB_InstanceId = boxA.InstanceId,
+                            instanceIdA = boxB.InstanceId,
+                            instanceIdB = boxA.InstanceId,
                             Contact = args.Contact
                         }
                     });
@@ -65,8 +65,8 @@ namespace ET.Client
                     {
                         buffer = new CollisionBuffer()
                         {
-                            BoxA_InstanceId = boxA.InstanceId,
-                            BoxB_InstanceId = boxB.InstanceId,
+                            instanceIdA = boxA.InstanceId,
+                            instanceIdB = boxB.InstanceId,
                             Contact = args.Contact
                         }
                     });
@@ -78,8 +78,8 @@ namespace ET.Client
                     {
                         buffer = new CollisionBuffer()
                         {
-                            BoxA_InstanceId = boxB.InstanceId,
-                            BoxB_InstanceId = boxA.InstanceId,
+                            instanceIdA = boxB.InstanceId,
+                            instanceIdB = boxA.InstanceId,
                             Contact = args.Contact
                         }
                     });

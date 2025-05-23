@@ -3,16 +3,15 @@
 #1. PlayerInit中挂载组件(NumericComponent、InputComponent...)
 PlayerInit;
 SetPos: 0, -90000;
-# Test;
 # #4. 添加初始Buff
 # HP: 10000;
 # SP: 200;
 # HPAdd: -1000;
 # EnableJump: 2;
-# EnableAirCheck;
+EnableAirCheck;
 # EnableGroundDash: 2, 70;
 # EnableAirDash: 2;
-# EnableGravityCheck: 100000, 150000, 450000;          
+EnableGravityCheck: 100000, 150000, 450000;          
 #5. 注册输入缓冲
 RegistInput: RunHold;
 RegistInput: SquatHold;
@@ -39,9 +38,9 @@ RegistMove: (Rg_Idle)
 # RegistMove: (Rg_Squit)
 #   MoveType: Move;
 #   EndMove:
-# RegistMove: (Rg_AirBrone)
-#   MoveType: Move;
-#   EndMove:
+RegistMove: (Rg_AirBrone)
+  MoveType: Move;
+  EndMove:
 # RegistMove: (Rg_Jump)
 #   MoveType: Move;
 #   EndMove:

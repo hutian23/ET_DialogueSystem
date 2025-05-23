@@ -21,14 +21,16 @@ namespace ET.Client
                 ScriptHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
+
+            //1. 查询组件
+            CollisionBuffer buffer = parser.GetComponent<HitComponent>().GetBuffer();
+            b2Box boxB = Root.Instance.Get(buffer.instanceIdB) as b2Box;
+            b2Body bodyB = boxB.GetParent<b2Body>();
+            Unit unitB = Root.Instance.Get(bodyB.unitId) as Unit;
+            BBParser parserB = unitB.GetComponent<BBParser>();
             
-            CollisionInfo info = parser.GetComponent<HitComponent>().GetInfo();
-
-            b2Body _body = Root.Instance.Get(info.dataB.InstanceId) as b2Body;
-            Unit _unit = _body.GetParent<Unit>();
-            BBParser _parser = _unit.GetComponent<BBParser>();
-
-            _parser.RegistParam(match.Groups["Flag"].Value, true);
+            //2. 添加flag
+            parserB.RegistParam($"Flag_{match.Groups["Flag"].Value}", true);
             
             await ETTask.CompletedTask;
             return Status.Success;

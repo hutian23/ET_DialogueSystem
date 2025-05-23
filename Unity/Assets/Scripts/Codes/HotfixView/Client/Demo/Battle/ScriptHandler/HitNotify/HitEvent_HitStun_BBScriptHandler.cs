@@ -21,16 +21,18 @@ namespace ET.Client
                 ScriptHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
-            
-            CollisionInfo info = parser.GetComponent<HitComponent>().GetInfo();
-            
-            b2Body _body = Root.Instance.Get(info.dataB.InstanceId) as b2Body;
-            Unit _unit = _body.GetParent<Unit>();
-            BehaviorMachine _machine = _unit.GetComponent<BehaviorMachine>();
-            BehaviorInfo _info = _machine.GetInfoByFlag(match.Groups["hitFlag"].Value);
-            
-            _machine.Reload(_info.behaviorOrder);
 
+            //1. 查询组件
+            CollisionBuffer buffer = parser.GetComponent<HitComponent>().GetBuffer();
+            b2Box boxB = Root.Instance.Get(buffer.instanceIdB) as b2Box;
+            b2Body bodyB = boxB.GetParent<b2Body>();
+            Unit unitB = Root.Instance.Get(bodyB.unitId) as Unit;
+            BehaviorMachine machine = unitB.GetComponent<BehaviorMachine>();
+            
+            //2. 动作切换
+            BehaviorInfo info = machine.GetInfoByFlag(match.Groups["hitFlag"].Value); // RegistMove时，需要给Behavior添加对应的moveFlag
+            machine.Reload(info.behaviorOrder);
+            
             await ETTask.CompletedTask;
             return Status.Success;
         }

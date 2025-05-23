@@ -31,22 +31,20 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            CollisionInfo info = parser.GetComponent<HitComponent>().GetInfo();
-            
-            b2Body _body = Root.Instance.Get(info.dataB.InstanceId) as b2Body;
-            Unit _unit = _body.GetParent<Unit>();
-            BBParser _parser = _unit.GetComponent<BBParser>();
+            CollisionBuffer buffer = parser.GetComponent<HitComponent>().GetBuffer();
+            b2Box boxB = Root.Instance.Get(buffer.instanceIdB) as b2Box;
+            b2Body bodyB = boxB.GetParent<b2Body>();
+            Unit unitB = Root.Instance.Get(bodyB.unitId) as Unit;
 
-            _parser.RemoveComponent<ShakeComponent>();
+            unitB.RemoveComponent<ShakeComponent>();
             
-            
-            ShakeComponent shakeComponent = _unit.AddComponent<ShakeComponent>();
+            ShakeComponent shakeComponent = unitB.AddComponent<ShakeComponent>(true);
             shakeComponent.shakeLength_X = shakeLength_X / 10000f;
             shakeComponent.shakeLength_Y = shakeLength_Y / 10000f;
             shakeComponent.frequency = frequency / 10000f;
             shakeComponent.curFrame = shakeFrame;
             shakeComponent.totalFrame = shakeFrame;
-            shakeComponent.unitId = _unit.InstanceId;
+            shakeComponent.unitId = unitB.InstanceId;
             
             await ETTask.CompletedTask;
             return Status.Success;
