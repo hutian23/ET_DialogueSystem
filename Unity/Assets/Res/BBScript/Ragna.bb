@@ -38,9 +38,9 @@ RegistMove: (Rg_Idle)
 # RegistMove: (Rg_Squit)
 #   MoveType: Move;
 #   EndMove:
-RegistMove: (Rg_AirBrone)
-  MoveType: Move;
-  EndMove:
+# RegistMove: (Rg_AirBrone)
+#   MoveType: Move;
+#   EndMove:
 # RegistMove: (Rg_Jump)
 #   MoveType: Move;
 #   EndMove:
@@ -96,11 +96,11 @@ return;
 return;
 
 @Main:
-SetVelocity: 0, -20000;
+SetVelocity: 0, 0;
 # 设置一个待机行为，保持idle 300帧之后进入这个行为
 # IdleAnim: Rg_IdleAnim, 300;
 # EnableDefaultCancel: true;
-# EnableFlip: true;
+EnableFlip: true;
 SetMarker: Loop;
 BBSprite: Idle_1, 4;
 BBSprite: Idle_2, 4;

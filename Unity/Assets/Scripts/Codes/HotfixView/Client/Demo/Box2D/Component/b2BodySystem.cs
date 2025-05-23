@@ -1,6 +1,6 @@
-﻿using Box2DSharp.Collision.Shapes;
-using Box2DSharp.Common;
+﻿using Box2DSharp.Common;
 using Box2DSharp.Dynamics;
+using ET.Event;
 using Vector2 = System.Numerics.Vector2;
 
 namespace ET.Client
@@ -8,39 +8,12 @@ namespace ET.Client
     [FriendOf(typeof(b2Body))]
     public static class b2BodySystem
     {
-        [FriendOf(typeof(b2WorldManager))]
-        public class b2BodyDestroySystem : DestroySystem<b2Body>
-        {
-            protected override void Destroy(b2Body self)
-            {
-                self.unitId = 0;
-                
-                self.body = null;
-                self.Fixtures.Clear();
-                self.FixtureDict.Clear();
-                self.b2BoxDict.Clear();
-                
-                self.flip = FlipState.Left;
-                self.angle = 0f;
-                self.velocityX = 0f;
-                self.velocityY = 0f;
-                self.hertz = 60;
-                
-                self.triggerEnterBuffers.Clear();
-                self.triggerStayBuffers.Clear();
-                self.triggerExitBuffers.Clear();
-                self.collisionEnterBuffers.Clear();
-                self.collisionStayBuffers.Clear();
-                self.collisionExitBuffers.Clear();
-            }
-        }
-
         public class B2bodyPreStepSystem : PreStepSystem<b2Body>
         {
             protected override void PreStepUpdate(b2Body self)
             {
                 self.body.SetTransform(self.GetPosition(), self.angle * UnityEngine.Mathf.Deg2Rad);
-                self.SetLinearVelocity(new Vector2(-self.velocityX, self.velocityY));
+                self.SetLinearVelocity(self.velocity);
             }
         }
         
@@ -53,7 +26,7 @@ namespace ET.Client
             }
         }
 
-        public class B2bodyLateUpdateSystem : FrameLateUpdateSystem<b2Body>
+        public class B2bodyFrameLateUpdateSystem : FrameLateUpdateSystem<b2Body>
         {
             protected override void FrameLateUpdate(b2Body self)
             {
@@ -67,48 +40,51 @@ namespace ET.Client
             }
         }
         
-        private static void SyncTrans(this b2Body self)
+        [FriendOf(typeof(b2WorldManager))]
+        public class b2BodyDestroySystem : DestroySystem<b2Body>
         {
-            Unit unit = Root.Instance.Get(self.unitId) as Unit;
-            UnityEngine.GameObject go = unit.GetComponent<GameObjectComponent>().GameObject;
-
-            Transform trans = self.body.GetTransform();
-            go.transform.position = trans.Position.ToUnityVector3();
-            go.transform.eulerAngles = new UnityEngine.Vector3(0, 0, trans.Rotation.Angle * UnityEngine.Mathf.Rad2Deg);
-            go.transform.localScale = new UnityEngine.Vector3(self.GetFlip(), 1, 1);
+            protected override void Destroy(b2Body self)
+            {
+                self.body = null;
+                self.unitId = 0;
+                self.b2BoxDict.Clear();
+                
+                self.flip = FlipState.Left;
+                self.angle = 0f;
+                self.hertz = 60;
+                self.velocity = Vector2.Zero;
+                
+                self.triggerEnterBuffers.Clear();
+                self.triggerStayBuffers.Clear();
+                self.triggerExitBuffers.Clear();
+                self.collisionEnterBuffers.Clear();
+                self.collisionStayBuffers.Clear();
+                self.collisionExitBuffers.Clear();
+            }
         }
 
-        #region Velocity
-        //真实速度 = 当前帧速度 * 朝向 * TimeScale
-        public static void SetLinearVelocity(this b2Body self, Vector2 velocity)
+        #region b2Box
+
+        public static void DestroyFixture(this b2Body self, Fixture fixture)
         {
-            Vector2 realVelocity = velocity * (self.hertz / 60f) * new Vector2(self.GetFlip(), 1);
-            self.body.SetLinearVelocity(realVelocity);
+            if (b2WorldManager.Instance.IsLocked())
+            {
+                Log.Error($"cannot destroy fixture while b2World is locked!!");
+                return;
+            }
+            self.body.DestroyFixture(fixture);
         }
         
-        public static Vector2 GetVelocity(this b2Body self)
+        public static Fixture CreateFixture(this b2Body self,FixtureDef fixtureDef)
         {
-            return new Vector2(self.velocityX, self.velocityY);
-        }
-
-        public static void SetVelocity(this b2Body self, Vector2 value)
-        {
-            //真实速度 = 当前帧速度 * 朝向 * TimeScale
-            self.velocityX = value.X;
-            self.velocityY = value.Y;
+            if (b2WorldManager.Instance.IsLocked())
+            {
+                Log.Error($"cannot create fixture while b2World is locked!!");
+                return null;
+            }
+            return self.body.CreateFixture(fixtureDef);
         }
         
-        public static void SetVelocityY(this b2Body self, float velocityY)
-        {
-            self.SetVelocity(new Vector2(self.velocityX, velocityY));
-        }
-
-        public static void SetVelocityX(this b2Body self, float velocityX)
-        {
-            self.SetVelocity(new Vector2(velocityX, self.velocityY));
-        }
-        #endregion
-
         /// <summary>
         /// 激活刚体
         /// 刚体处于未激活状态下，不会参与碰撞、射线检测、查询
@@ -119,213 +95,12 @@ namespace ET.Client
             self.body.IsEnabled = isEnable;
         }
 
-        #region Flip
-        /// <summary>
-        /// 设置刚体朝向，渲染层同步朝向
-        /// </summary>
-        public static void SetFlip(this b2Body self, FlipState flipState)
-        {
-            if ((int)flipState == self.GetFlip()) return;
-            self.flip = flipState;
-            
-            //1. 获取类型为Hitbox的夹具
-            QueueComponent<FixtureData> dataQueue = new QueueComponent<FixtureData>();
-            foreach (Fixture fixture in self.Fixtures)
-            {
-                FixtureData data = (FixtureData)fixture.UserData;
-                if (data.Type is not FixtureType.Hitbox)
-                {
-                    continue;
-                }
-                dataQueue.Enqueue(data);
-            }
-            self.ClearFixtures(FixtureType.Hitbox);
-
-            //2. 水平翻转夹具
-            int count = dataQueue.Count;
-            while (count -- > 0)
-            {
-                FixtureData data = dataQueue.Dequeue();
-                if (data.UserData is not BoxInfo info)
-                {
-                    continue;
-                }
-                
-                //3. 实际上，转向需要重新创建夹具
-                PolygonShape shape = new();
-                shape.SetAsBox(info.size.x / 2, info.size.y / 2, new Vector2(info.center.x * self.GetFlip(), info.center.y), 0f);
-                FixtureDef fixtureDef = new()
-                {
-                    Shape = shape,
-                    Density = 1.0f,
-                    Friction = 0.0f,
-                    UserData = data
-                };
-                self.CreateFixture(fixtureDef);
-            }
-            dataQueue.Dispose();
-            
-            //3. 渲染层同步朝向
-            self.SyncTrans();
-        }
-
-        public static int GetFlip(this b2Body self)
-        {
-            return (int)self.flip;
-        }
-        #endregion
-
-        #region Position
-        public static void SetPosition(this b2Body self, Vector2 position)
-        {
-            self.body.SetTransform(position, 0f);
-        }
-
-        public static Vector2 GetPosition(this b2Body self)
-        {
-            return self.body.GetPosition();
-        }
-        #endregion
-
-        #region Rotation
-
-        public static void SetAngle(this b2Body self, float angle)
-        {
-            self.angle = angle;
-            self.SyncTrans();
-        }
-
-        public static float GetAngle(this b2Body self)
-        {
-            return self.angle;
-        }
-
-        public static void SetRotation(this b2Body self, float angle)
-        {
-            
-        }
         
-        public static float GetRotation(this b2Body self)
-        {
-            return self.body.GetAngle();
-        }
-
-        public static Transform GetTransform(this b2Body self)
-        {
-            return self.body.GetTransform();
-        }
-        
-        #endregion
-        
-        #region Hertz
-        public static int GetHertz(this b2Body self)
-        {
-            return self.hertz;
-        }
-
-        public static void SetHertz(this b2Body self, int hertz)
-        {
-            self.hertz = hertz;
-        }
-        #endregion
-        
-        #region Fixture
-        private static void DestroyFixture(this b2Body self, string fixtureName)
-        {
-            if (b2WorldManager.Instance.IsLocked())
-            {
-                Log.Error($"cannot destroy fixture while b2World is locked!!");
-                return;
-            }
-
-            if (!self.FixtureDict.TryGetValue(fixtureName, out Fixture fixture))
-            {
-                Log.Error($"not found fixture: {fixtureName}");
-                return;
-            }
-
-            self.Fixtures.Remove(fixture);
-            self.FixtureDict.Remove(fixtureName);
-            self.body.DestroyFixture(fixture);
-        }
-
-        public static void DestroyFixture(this b2Body self, Fixture fixture)
-        {
-            FixtureData data = (FixtureData)fixture.UserData;
-            self.DestroyFixture(data.Name);
-        }
-        
-        /// <summary>
-        /// 根据夹具类型移除夹具
-        /// </summary>
-        /// <param name="self"></param>
-        /// <param name="fixtureType">eg. FixtureType.Hitbox</param>
-        public static void ClearFixtures(this b2Body self, FixtureType fixtureType)
-        {
-            QueueComponent<Fixture> removeQueue = QueueComponent<Fixture>.Create();
-            
-            //1. 找到指定类型的夹具
-            for (int i = 0; i < self.Fixtures.Count; i++)
-            {
-                Fixture fixture = self.Fixtures[i];
-                FixtureData data = (FixtureData)fixture.UserData;
-                if (data.Type == fixtureType)
-                {
-                    removeQueue.Enqueue(fixture);
-                }
-            }
-         
-            //2. 移除
-            int count = removeQueue.Count;
-            while (count-- > 0)
-            {
-                Fixture fixture = removeQueue.Dequeue();
-                self.DestroyFixture(fixture);
-            }
-            
-            removeQueue.Dispose();
-        }
-        
-        public static Fixture CreateFixture(this b2Body self,FixtureDef fixtureDef)
-        {
-            // if (b2WorldManager.Instance.IsLocked())
-            // {
-            //     Log.Error($"cannot create fixture while b2World is locked!!");
-            //     return null;
-            // }
-            // FixtureData data = (FixtureData)fixtureDef.UserData;
-            // if (string.IsNullOrEmpty(data.Name))
-            // {
-            //     Log.Error($"fixture name should not be null or empty!!");
-            //     return null;
-            // }
-            // if (self.FixtureDict.ContainsKey(data.Name))
-            // {
-            //     Log.Error($"already contain fixture!, name: {data.Name}");
-            //     return null;
-            // }
-            //
-            // Fixture fixture = self.body.CreateFixture(fixtureDef);
-            // self.Fixtures.Add(fixture);
-            // self.FixtureDict.Add(data.Name, fixture);
-            //
-            // return fixture;
-            if (b2WorldManager.Instance.IsLocked())
-            {
-                Log.Error($"cannot create fixture while b2World is locked!!");
-                return null;
-            }
-            return self.body.CreateFixture(fixtureDef);
-        }
-        #endregion
-
-        #region Box
-
-        public static bool ContainBox(this b2Body self, string boxName)
+        private static bool ContainBox(this b2Body self, string boxName)
         {
             return self.b2BoxDict.ContainsKey(boxName);
         }
-
+        
         public static long GetBox(this b2Body self, string boxName)
         {
             if (!self.b2BoxDict.TryGetValue(boxName, out long id))
@@ -337,14 +112,18 @@ namespace ET.Client
             return id;
         }
 
-        public static void AddBox(this b2Body self, string boxName, long id)
+        public static b2Box AddBox(this b2Body self, string boxName)
         {
             if (self.ContainBox(boxName))
             {
-                Log.Error($"already exist b2Box. boxName: {boxName}");
-                return;
+                Log.Error($"already exist b2Box. boxName: {boxName} unit.instanceId: {self.unitId}");
+                return null;
             }
-            self.b2BoxDict.Add(boxName, id);
+
+            b2Box b2Box = self.AddChild<b2Box>(true);
+            self.b2BoxDict.Add(boxName, b2Box.Id);
+
+            return b2Box;
         }
 
         public static void DestroyBox(this b2Body self, string boxName)
@@ -384,7 +163,121 @@ namespace ET.Client
             }
             ids.Dispose();
         }
+        #endregion
         
+        #region Flip
+        /// <summary>
+        /// 设置刚体朝向，渲染层同步朝向
+        /// </summary>
+        public static void SetFlip(this b2Body self, FlipState flipState)
+        {
+            self.SetFlip((int)flipState);
+        }
+
+        public static void SetFlip(this b2Body self, int flip)
+        {
+            EventSystem.Instance.Invoke(new UpdateFlipCallback(){instanceId = self.InstanceId, flip = flip});   
+        }
+
+        public static int GetFlip(this b2Body self)
+        {
+            return (int)self.flip;
+        }
+        
+        #endregion
+        
+        #region Angle
+
+        public static void SetAngle(this b2Body self, float angle)
+        {
+            self.angle = angle;
+            self.SyncTrans();
+        }
+
+        public static float GetAngle(this b2Body self)
+        {
+            return self.angle;
+        }
+        
+        #endregion
+        
+        #region Hertz
+        public static int GetHertz(this b2Body self)
+        {
+            return self.hertz;
+        }
+
+        public static void SetHertz(this b2Body self, int hertz)
+        {
+            self.hertz = hertz;
+        }
+        #endregion
+        
+        #region Velocity
+        //真实速度 = 当前帧速度 * 朝向 * TimeScale
+        public static void SetLinearVelocity(this b2Body self, Vector2 velocity)
+        {
+            Vector2 realVelocity = velocity * (self.hertz / 60f) * new Vector2(self.GetFlip(), 1);
+            self.body.SetLinearVelocity(realVelocity);
+        }
+        
+        public static Vector2 GetVelocity(this b2Body self)
+        {
+            return self.velocity;
+        }
+
+        public static void SetVelocity(this b2Body self, Vector2 value)
+        {
+            self.velocity = value;
+        }
+        
+        public static void SetVelocityY(this b2Body self, float velocityY)
+        {
+            self.velocity.Y = velocityY;
+        }
+
+        public static void SetVelocityX(this b2Body self, float velocityX)
+        {
+            self.velocity.X = velocityX;
+        }
+        #endregion
+        
+        #region Transform
+        public static void SetPosition(this b2Body self, Vector2 position)
+        {
+            self.body.SetTransform(position, 0f);
+        }
+
+        public static Vector2 GetPosition(this b2Body self)
+        {
+            return self.body.GetPosition();
+        }
+        
+        public static void SetRotation(this b2Body self, float angle)
+        {
+            
+        }
+        
+        public static float GetRotation(this b2Body self)
+        {
+            return self.body.GetAngle();
+        }
+
+        public static Transform GetTransform(this b2Body self)
+        {
+            return self.body.GetTransform();
+        }
+        
+        public static void SyncTrans(this b2Body self)
+        {
+            Unit unit = Root.Instance.Get(self.unitId) as Unit;
+            UnityEngine.GameObject go = unit.GetComponent<GameObjectComponent>().GameObject;
+
+            Transform trans = self.body.GetTransform();
+            go.transform.position = trans.Position.ToUnityVector3();
+            go.transform.eulerAngles = new UnityEngine.Vector3(0, 0, trans.Rotation.Angle * UnityEngine.Mathf.Rad2Deg);
+            go.transform.localScale = new UnityEngine.Vector3(self.GetFlip(), 1, 1);
+        }
         #endregion
     }
 }

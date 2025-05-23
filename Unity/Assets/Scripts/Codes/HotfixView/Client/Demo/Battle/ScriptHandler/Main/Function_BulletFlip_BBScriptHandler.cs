@@ -24,9 +24,8 @@ namespace ET.Client
             Unit unitB = Root.Instance.Get(instanceId) as Unit;
             b2Body bodyA = b2WorldManager.Instance.GetBody(unitA.InstanceId);
             b2Body bodyB = b2WorldManager.Instance.GetBody(unitB.InstanceId);
-
-            int flip = bodyA.GetFlip();
-            bodyB.SetFlip((FlipState)(-flip));
+            
+            bodyB.SetFlip(-bodyA.GetFlip());
             
             await ETTask.CompletedTask;
             return Status.Success;

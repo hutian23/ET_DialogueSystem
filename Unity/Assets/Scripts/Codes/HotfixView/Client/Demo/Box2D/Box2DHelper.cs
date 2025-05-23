@@ -5,35 +5,7 @@ namespace ET.Client
 {
     public static class Box2DHelper
     {
-        public static float Vector2ToAngle(this Vector2 vector)
-        {
-            // 使用Atan2计算弧度，然后转换为度
-            float angleRadians = MathF.Atan2(vector.Y, vector.X);
-            float angleDegrees = angleRadians * (180f / MathF.PI);
-        
-            // 将角度规范化为0-360范围
-            if (angleDegrees < 0)
-            {
-                angleDegrees += 360f;
-            }
-        
-            return angleDegrees;
-        }
-        
-        // 角度（弧度）→ Vector2 单位向量
-        private static Vector2 AngleToVector(float angleInRadians)
-        {
-            float x = MathF.Cos(angleInRadians);
-            float y = MathF.Sin(angleInRadians);
-            return new Vector2(x, y);
-        }
-
-        // 角度（度数）→ Vector2 单位向量
-        public static Vector2 DegreesToVector(float angleInDegrees)
-        {
-            float radians = angleInDegrees * MathF.PI / 180f;
-            return AngleToVector(radians);
-        }
+        public const HitboxType HitboxMask = HitboxType.Hit | HitboxType.Hurt | HitboxType.Throw | HitboxType.Squash | HitboxType.Proximity | HitboxType.Other;
         
         public static float Vector2ToRadians(this Vector2 vector)
         {

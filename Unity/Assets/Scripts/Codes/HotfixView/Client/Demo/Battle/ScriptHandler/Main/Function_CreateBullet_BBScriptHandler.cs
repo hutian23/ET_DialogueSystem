@@ -47,7 +47,7 @@ namespace ET.Client
             //3-2 更新Bullet朝向
             b2Body bodyA = b2WorldManager.Instance.GetBody(caster.InstanceId);
             b2Body bodyB = b2WorldManager.Instance.GetBody(unit.InstanceId);
-            bodyB.SetFlip((FlipState)bodyA.GetFlip());
+            bodyB.SetFlip(bodyA.GetFlip());
             
             //3-3 执行代码块
             parser.RegistParam("CreateBullet_UnitId", unit.InstanceId);

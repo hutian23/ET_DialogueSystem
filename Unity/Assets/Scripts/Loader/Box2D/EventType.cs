@@ -31,4 +31,10 @@ namespace ET.Event
     {
         public Contact Contact;
     }
+
+    public struct UpdateFlipCallback
+    {
+        public long instanceId;
+        public int flip;
+    }
 }

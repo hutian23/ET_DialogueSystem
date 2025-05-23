@@ -20,7 +20,7 @@ namespace ET.Client
             b2Body bodyA = boxA.GetParent<b2Body>();
             b2Body bodyB = boxB.GetParent<b2Body>();
             
-            bodyB.SetFlip((FlipState)(-bodyA.GetFlip()));
+            bodyB.SetFlip(-bodyA.GetFlip());
             
             await ETTask.CompletedTask;
             return Status.Success;

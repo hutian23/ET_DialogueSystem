@@ -7,13 +7,11 @@ namespace ET.Client
     [FriendOf(typeof(b2Box))]
     public static class b2BoxSystem
     {
-        [FriendOf(typeof(b2Body))]
         public class b2BoxDestroySystem : DestroySystem<b2Box>
         {
             protected override void Destroy(b2Box self)
             {
-                b2Body b2Body = self.GetParent<b2Body>();
-                b2Body.body.DestroyFixture(self.fixture);
+                self.GetParent<b2Body>().DestroyFixture(self.fixture);
                 self.fixture = null;
                 self.fixtureDef = default;
                 self.LayerType = LayerType.None;

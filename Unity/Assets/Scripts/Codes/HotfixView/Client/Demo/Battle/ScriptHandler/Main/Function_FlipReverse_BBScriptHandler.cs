@@ -12,7 +12,7 @@
             b2Body body = b2WorldManager.Instance.GetBody(parser.GetParent<Unit>().InstanceId);
 
             int curFlip = body.GetFlip();
-            body.SetFlip((FlipState)(-curFlip));
+            body.SetFlip(-curFlip);
             
             await ETTask.CompletedTask;
             return Status.Success;

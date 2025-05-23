@@ -12,26 +12,19 @@ namespace ET.Client
     {
         public override void Handle(UpdateHitboxCallback args)
         {
-            // 查询组件
             TimelineComponent timelineComponent = Root.Instance.Get(args.instanceId) as TimelineComponent;
             if (timelineComponent == null || timelineComponent.InstanceId == 0) return;
             
             //1. 销毁旧的夹具
             Unit unit = timelineComponent.GetParent<Unit>();
             b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-            b2Body.DestroyBoxes(HitboxType.Hit | HitboxType.Hurt | HitboxType.Squash | HitboxType.Proximity | HitboxType.Other);
+            b2Body.DestroyBoxes(Box2DHelper.HitboxMask);
             
             //2. 根据关键帧更新Hitbox
             foreach (BoxInfo info in args.Keyframe.boxInfos)
             {
-                //3. 由b2Box组件管理Fixture
-                if (b2Body.ContainBox(info.boxName))
-                {
-                    Log.Error($"already exist b2Box, boxName: {info.boxName} unit.InstanceId: {unit.InstanceId}");
-                    return;
-                }
-                b2Box b2Box = b2Body.AddChild<b2Box>();
-                b2Body.AddBox(info.boxName, b2Box.Id);
+                //3. 添加b2box组件
+                b2Box b2Box = b2Body.AddBox(info.boxName);
                 
                 //4. b2Box初始化
                 //层级关系
@@ -57,7 +50,7 @@ namespace ET.Client
                 //5. 生成夹具
                 //夹具形状
                 PolygonShape shape = new();
-                shape.SetAsBox(b2Box.Size.X / 2f, b2Box.Size.Y / 2f, b2Box.Center * new Vector2(b2Body.GetFlip(), 1), 0f);
+                shape.SetAsBox(b2Box.Size.X / 2f, b2Box.Size.Y / 2f, b2Box.Center * new Vector2(b2Body.GetFlip(), 1), 0);
                 
                 //传入b2Box.instanceId
                 FixtureDef fixtureDef = new() { Shape = shape, Density = 1.0f, Friction = 0f, UserData = b2Box.InstanceId };

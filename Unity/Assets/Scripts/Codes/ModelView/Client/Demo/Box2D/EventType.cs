@@ -1,5 +1,4 @@
-﻿using Box2DSharp.Dynamics;
-using Box2DSharp.Dynamics.Contacts;
+﻿using Box2DSharp.Dynamics.Contacts;
 
 namespace ET.Event
 {
@@ -20,47 +19,35 @@ namespace ET.Event
     
     public struct TriggerEnterCallback
     {
-        public CollisionInfo info;
         public CollisionBuffer buffer;
     }
+    
     public struct TriggerExitCallback
     {
-        public CollisionInfo info;
         public CollisionBuffer buffer;
     }
+    
     public struct TriggerStayCallback
     {
-        public CollisionInfo info;
         public CollisionBuffer buffer;
     }
+    
     public struct CollisionEnterCallback
     {
-        public CollisionInfo info;
         public CollisionBuffer buffer;
     }
+    
     public struct CollisionStayCallback
     {
-        public CollisionInfo info;
         public CollisionBuffer buffer;
     }
+    
     public struct CollisionExitCallback
     {
-        public CollisionInfo info;
         public CollisionBuffer buffer;
     }
     #endregion
     
-    public struct CollisionInfo
-    {
-        //碰撞事件调用者
-        public Fixture fixtureA;
-        public FixtureData dataA;
-        //和谁发生碰撞
-        public Fixture fixtureB;
-        public FixtureData dataB;
-        //接触点
-        public Contact Contact;
-    }
 
     public struct CollisionBuffer
     {
