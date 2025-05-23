@@ -1,6 +1,4 @@
-﻿using Box2DSharp.Dynamics;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     public class Test_BBScriptHandler : BBScriptHandler
     {
@@ -11,12 +9,7 @@ namespace ET.Client
 
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Unit unit = parser.GetParent<Unit>();
-            b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-
-            body.AddChild<b2Box>();
-            
-            
+            Log.Warning(parser.GetComponent<GroundCollisionComponent>().GetGroundCollision().ToString());
             await ETTask.CompletedTask;
             return Status.Success;
         }

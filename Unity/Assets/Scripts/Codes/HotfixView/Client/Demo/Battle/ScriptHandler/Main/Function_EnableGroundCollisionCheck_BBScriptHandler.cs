@@ -22,7 +22,7 @@ namespace ET.Client
 
             parser.RemoveComponent<GroundCollisionComponent>();
             if (!match.Groups["Active"].Value.Equals("true")) return Status.Success;
-            parser.AddComponent<GroundCollisionComponent>(true);
+            parser.AddComponent<GroundCollisionComponent>();
 
             await ETTask.CompletedTask;
             return Status.Success;
