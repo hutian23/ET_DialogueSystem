@@ -19,7 +19,9 @@ return;
 @Main:
 EnableGroundCollisionCheck: true;
 BBSprite: Attack_1, 1;
-BeginLoopAnim: (GroundCollision: false)
+# 子弹飞行时间最多持续200帧
+RegistCounter: 200;
+BeginLoopAnim: (Counter: Value > 0), (GroundCollision: false)
   LoopSprite: Attack_2, 4;
   LoopSprite: Attack_3, 4;
   LoopSprite: Attack_4, 4;

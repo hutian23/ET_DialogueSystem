@@ -25,7 +25,7 @@ namespace ET.Client
                 Log.Error($"cannot format {match.Groups["WaitFrame"].Value} to int!!");
                 return Status.Failed;
             }
-            if (waitFrame == 0)
+            if (waitFrame <= 0)
             {
                 Log.Error($"sprite must at least 1 frame!!!");
                 return Status.Failed;
