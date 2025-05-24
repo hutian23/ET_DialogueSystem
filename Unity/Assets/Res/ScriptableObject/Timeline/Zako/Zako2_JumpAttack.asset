@@ -323,129 +323,34 @@ MonoBehaviour:
       Data: 25|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 0
-    - Name: keyframeName
-      Entry: 1
-      Data: 
-    - Name: boxInfos
-      Entry: 7
-      Data: 26|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 27|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: Hurt_2
-    - Name: hitboxType
-      Entry: 3
-      Data: 2
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0.150000036
-    - Name: 
-      Entry: 4
-      Data: -0.2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2
-    - Name: 
-      Entry: 4
-      Data: 3.6
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: tagType
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 28|Timeline.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: PushBox
-    - Name: hitboxType
-      Entry: 3
-      Data: 4
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0.1
-    - Name: 
-      Entry: 4
-      Data: -0.75
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.5
-    - Name: 
-      Entry: 4
-      Data: 2.5
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: tagType
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 29|Timeline.HitboxKeyframe, Unity.Loader
-    - Name: frame
-      Entry: 3
       Data: 45
     - Name: keyframeName
       Entry: 1
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 30|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
-        mscorlib
+      Data: 26|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 31|Timeline.BoxInfo, Unity.Loader
+      Data: 27|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: HitBox
+    - Name: layerType
+      Entry: 3
+      Data: 2
+    - Name: tagType
+      Entry: 3
+      Data: 0
     - Name: hitboxType
       Entry: 3
       Data: 1
+    - Name: isTrigger
+      Entry: 5
+      Data: false
     - Name: center
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -470,21 +375,27 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: tagType
-      Entry: 3
-      Data: 0
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 32|Timeline.BoxInfo, Unity.Loader
+      Data: 28|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_2
+    - Name: layerType
+      Entry: 3
+      Data: 2
+    - Name: tagType
+      Entry: 3
+      Data: 0
     - Name: hitboxType
       Entry: 3
       Data: 2
+    - Name: isTrigger
+      Entry: 5
+      Data: false
     - Name: center
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -509,21 +420,27 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: tagType
-      Entry: 3
-      Data: 0
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 33|Timeline.BoxInfo, Unity.Loader
+      Data: 29|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: PushBox
+    - Name: layerType
+      Entry: 3
+      Data: 2
+    - Name: tagType
+      Entry: 3
+      Data: 0
     - Name: hitboxType
       Entry: 3
-      Data: 4
+      Data: 8
+    - Name: isTrigger
+      Entry: 5
+      Data: false
     - Name: center
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -548,9 +465,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: tagType
-      Entry: 3
-      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -565,7 +479,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 34|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 30|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 50
@@ -574,20 +488,28 @@ MonoBehaviour:
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 35|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
-        mscorlib
+      Data: 31|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 36|Timeline.BoxInfo, Unity.Loader
+      Data: 32|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: HitBox
+    - Name: layerType
+      Entry: 3
+      Data: 2
+    - Name: tagType
+      Entry: 3
+      Data: 0
     - Name: hitboxType
       Entry: 3
       Data: 1
+    - Name: isTrigger
+      Entry: 5
+      Data: false
     - Name: center
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -612,21 +534,27 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: tagType
-      Entry: 3
-      Data: 0
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 37|Timeline.BoxInfo, Unity.Loader
+      Data: 33|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_2
+    - Name: layerType
+      Entry: 3
+      Data: 2
+    - Name: tagType
+      Entry: 3
+      Data: 0
     - Name: hitboxType
       Entry: 3
       Data: 2
+    - Name: isTrigger
+      Entry: 5
+      Data: false
     - Name: center
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -651,21 +579,27 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: tagType
-      Entry: 3
-      Data: 0
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 38|Timeline.BoxInfo, Unity.Loader
+      Data: 34|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: PushBox
+    - Name: layerType
+      Entry: 3
+      Data: 2
+    - Name: tagType
+      Entry: 3
+      Data: 0
     - Name: hitboxType
       Entry: 3
-      Data: 4
+      Data: 8
+    - Name: isTrigger
+      Entry: 5
+      Data: false
     - Name: center
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -690,9 +624,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: tagType
-      Entry: 3
-      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -707,7 +638,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 39|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 35|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 55
@@ -716,20 +647,28 @@ MonoBehaviour:
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 40|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
-        mscorlib
+      Data: 36|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 7
-      Data: 41|Timeline.BoxInfo, Unity.Loader
+      Data: 37|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: HitBox
+    - Name: layerType
+      Entry: 3
+      Data: 2
+    - Name: tagType
+      Entry: 3
+      Data: 0
     - Name: hitboxType
       Entry: 3
       Data: 1
+    - Name: isTrigger
+      Entry: 5
+      Data: false
     - Name: center
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -754,21 +693,27 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: tagType
-      Entry: 3
-      Data: 0
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 42|Timeline.BoxInfo, Unity.Loader
+      Data: 38|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_2
+    - Name: layerType
+      Entry: 3
+      Data: 2
+    - Name: tagType
+      Entry: 3
+      Data: 0
     - Name: hitboxType
       Entry: 3
       Data: 2
+    - Name: isTrigger
+      Entry: 5
+      Data: false
     - Name: center
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -793,21 +738,27 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: tagType
-      Entry: 3
-      Data: 0
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 43|Timeline.BoxInfo, Unity.Loader
+      Data: 39|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: PushBox
+    - Name: layerType
+      Entry: 3
+      Data: 2
+    - Name: tagType
+      Entry: 3
+      Data: 0
     - Name: hitboxType
       Entry: 3
-      Data: 4
+      Data: 8
+    - Name: isTrigger
+      Entry: 5
+      Data: false
     - Name: center
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -832,9 +783,120 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 40|Timeline.HitboxKeyframe, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 60
+    - Name: keyframeName
+      Entry: 1
+      Data: 
+    - Name: boxInfos
+      Entry: 7
+      Data: 41|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 42|ET.BoxInfo, Unity.Loader
+    - Name: boxName
+      Entry: 1
+      Data: Hurt_2
+    - Name: layerType
+      Entry: 3
+      Data: 2
     - Name: tagType
       Entry: 3
       Data: 0
+    - Name: hitboxType
+      Entry: 3
+      Data: 2
+    - Name: isTrigger
+      Entry: 5
+      Data: false
+    - Name: center
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.1
+    - Name: 
+      Entry: 4
+      Data: -0.67
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: size
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 2
+    - Name: 
+      Entry: 4
+      Data: 2.65
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 43|ET.BoxInfo, Unity.Loader
+    - Name: boxName
+      Entry: 1
+      Data: PushBox
+    - Name: layerType
+      Entry: 3
+      Data: 2
+    - Name: tagType
+      Entry: 3
+      Data: 0
+    - Name: hitboxType
+      Entry: 3
+      Data: 8
+    - Name: isTrigger
+      Entry: 5
+      Data: false
+    - Name: center
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.1
+    - Name: 
+      Entry: 4
+      Data: -0.75
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: size
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1.5
+    - Name: 
+      Entry: 4
+      Data: 2.5
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -852,35 +914,43 @@ MonoBehaviour:
       Data: 44|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 60
+      Data: 0
     - Name: keyframeName
       Entry: 1
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 45|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
-        mscorlib
+      Data: 45|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 46|Timeline.BoxInfo, Unity.Loader
+      Data: 46|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_2
+    - Name: layerType
+      Entry: 3
+      Data: 2
+    - Name: tagType
+      Entry: 3
+      Data: 0
     - Name: hitboxType
       Entry: 3
       Data: 2
+    - Name: isTrigger
+      Entry: 5
+      Data: false
     - Name: center
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.1
+      Data: 0.150000036
     - Name: 
       Entry: 4
-      Data: -0.67
+      Data: -0.2
     - Name: 
       Entry: 8
       Data: 
@@ -892,25 +962,31 @@ MonoBehaviour:
       Data: 2
     - Name: 
       Entry: 4
-      Data: 2.65
+      Data: 3.6
     - Name: 
       Entry: 8
       Data: 
-    - Name: tagType
-      Entry: 3
-      Data: 0
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 47|Timeline.BoxInfo, Unity.Loader
+      Data: 47|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: PushBox
+    - Name: layerType
+      Entry: 3
+      Data: 2
+    - Name: tagType
+      Entry: 3
+      Data: 0
     - Name: hitboxType
       Entry: 3
-      Data: 4
+      Data: 8
+    - Name: isTrigger
+      Entry: 5
+      Data: false
     - Name: center
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -935,9 +1011,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: tagType
-      Entry: 3
-      Data: 0
     - Name: 
       Entry: 8
       Data: 

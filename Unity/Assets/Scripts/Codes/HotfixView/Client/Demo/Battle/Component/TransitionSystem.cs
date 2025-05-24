@@ -41,5 +41,10 @@
         {
             self.Flags.Remove(flag);
         }
+
+        public static void RemoveCachedFlag(this Transition self, string flag)
+        {
+            self.cachedFlags.Remove(flag);
+        }
     }
 }

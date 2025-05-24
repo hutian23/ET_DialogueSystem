@@ -147,7 +147,7 @@ MonoBehaviour:
       Data: Hurt_1
     - Name: layerType
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: tagType
       Entry: 3
       Data: 0
@@ -192,7 +192,7 @@ MonoBehaviour:
       Data: PushBox
     - Name: layerType
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: tagType
       Entry: 3
       Data: 0
@@ -261,7 +261,7 @@ MonoBehaviour:
       Data: Hurt_1
     - Name: layerType
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: tagType
       Entry: 3
       Data: 0
@@ -306,7 +306,7 @@ MonoBehaviour:
       Data: PushBox
     - Name: layerType
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: tagType
       Entry: 3
       Data: 0
@@ -375,7 +375,7 @@ MonoBehaviour:
       Data: Hitbox
     - Name: layerType
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: tagType
       Entry: 3
       Data: 0
@@ -420,7 +420,7 @@ MonoBehaviour:
       Data: Hurt_1
     - Name: layerType
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: tagType
       Entry: 3
       Data: 0
@@ -465,7 +465,7 @@ MonoBehaviour:
       Data: PushBox
     - Name: layerType
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: tagType
       Entry: 3
       Data: 0
@@ -534,7 +534,7 @@ MonoBehaviour:
       Data: Hurt_1
     - Name: layerType
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: tagType
       Entry: 3
       Data: 0
@@ -579,7 +579,7 @@ MonoBehaviour:
       Data: PushBox
     - Name: layerType
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: tagType
       Entry: 3
       Data: 0

@@ -57,24 +57,23 @@ RegistFindTargetCallback: Zako2_Patrol, FindTargetCallback;
 SetMarker: Loop;
 SetVelocityX: 40000;
 # Walk
-BeginLoop: (PatrolReached: false)
-  BBSprite: Walk_1, 5;
-  BBSprite: Walk_2, 5;
-  BBSprite: Walk_3, 5;
-  BBSprite: Walk_4, 5;
-  BBSprite: Walk_5, 5;
-  BBSprite: Walk_6, 5;
-  BBSprite: Walk_7, 5;
-  BBSprite: Walk_8, 5;
-EndLoop:
+BeginLoopAnim: (PatrolReached: false)
+  LoopSprite: Walk_1, 5;
+  LoopSprite: Walk_2, 5;
+  LoopSprite: Walk_3, 5;
+  LoopSprite: Walk_4, 5;
+  LoopSprite: Walk_5, 5;
+  LoopSprite: Walk_6, 5;
+  LoopSprite: Walk_7, 5;
+  LoopSprite: Walk_8, 5;
+EndLoopAnim:
 # Turn
 SetVelocityX: 0;
 BBSprite: Turn_1, 5;
 BBSprite: Turn_2, 5;
 FlipReverse;
-BBSprite: Walk_1, 1;
 GotoMarker: Loop;
-Exit;
+return;
 
 @FindTargetCallback:
 GotoBehavior: Zako2_Startle;
@@ -91,14 +90,14 @@ EnableTargetCheck: 0, 10000, 120000, 100000;
 RegistFindTargetCallback: Zako2_LoseTarget, FindTargetCallback;
 # 待机一段时间，然后切换到巡逻行为
 RegistCounter: 150;
-BeginLoop: (Counter: Value > 0)
-  BBSprite: Idle_1, 5;
-  BBSprite: Idle_2, 5;
-  BBSprite: Idle_3, 5;
-  BBSprite: Idle_4, 5;
-  BBSprite: Idle_5, 5;
-  BBSprite: Idle_6, 5;
-EndLoop:
+BeginLoopAnim: (Counter: Value > 0)
+  LoopSprite: Idle_1, 5;
+  LoopSprite: Idle_2, 5;
+  LoopSprite: Idle_3, 5;
+  LoopSprite: Idle_4, 5;
+  LoopSprite: Idle_5, 5;
+  LoopSprite: Idle_6, 5;
+EndLoopAnim:
 GotoBehavior: Zako2_Patrol;
 
 @FindTargetCallback:
@@ -130,28 +129,26 @@ return;
 
 @Main:
 # 丢失目标，回到Patrol行为
-EnableTargetCheck: 0, 0, 300000, 100000;
+EnableTargetCheck: 0, 0, 400000, 100000;
 RegistLoseTargetCallback: Zako2_Chase, LoseTargetCallback;
 # 攻击范围内，释放攻击技能
 EnableInRangeCheck: true, 35000, 0, 0;
 RegistInRangeCallback: Zako2_Chase, InRangeCallback;
-# 转向检测
-EnableEnemyFlipCheck: true;
 SetVelocityX: 80000;
 SetMarker: Loop;
-BeginLoop: (EnemyFlipChange: false)
-  BBSprite: Run_1, 5;
-  BBSprite: Run_2, 5;
-  BBSprite: Run_3, 5;
-  BBSprite: Run_4, 5;
-  BBSprite: Run_5, 5;
-  BBSprite: Run_6, 5;
-  BBSprite: Run_7, 5;
-EndLoop:
+# 朝向改变，中止Run循环
+BeginLoopAnim: (EnemyFlipChange: false)
+  LoopSprite: Run_1, 5;
+  LoopSprite: Run_2, 5;
+  LoopSprite: Run_3, 5;
+  LoopSprite: Run_4, 5;
+  LoopSprite: Run_5, 5;
+  LoopSprite: Run_6, 5;
+  LoopSprite: Run_7, 5;
+EndLoopAnim:
 BBSprite: Turn_1, 5;
 BBSprite: Turn_2, 5;
 FlipReverse;
-BBSprite: Run_1, 1;
 GotoMarker: Loop;
 return;
 
@@ -174,6 +171,7 @@ return;
 return;
 
 @Main:
+# 蓄力
 SetVelocityX: 0;
 BBSprite: Anticipate_1, 5;
 BBSprite: Anticipate_2, 5;
@@ -183,17 +181,19 @@ BBSprite: Anticipate_5, 5;
 BBSprite: Anticipate_6, 5;
 BBSprite: Anticipate_7, 5;
 BBSprite: Anticipate_8, 5;
+# 冲刺
 SpawnGDust: 35000, -15000, 5000, 2000;
 SetVelocityX: 250000;
 RegistCounter: 30;
-BeginLoop: (Counter: Value > 0)
-  BBSprite: Active_1, 5;
-  BBSprite: Active_2, 5;
-  BBSprite: Active_3, 5;
-  BBSprite: Active_4, 5;
-  BBSprite: Active_5, 5;
-  BBSprite: Active_6, 5;
-EndLoop:
+BeginLoopAnim: (Counter: Value > 0)
+  LoopSprite: Active_1, 5;
+  LoopSprite: Active_2, 5;
+  LoopSprite: Active_3, 5;
+  LoopSprite: Active_4, 5;
+  LoopSprite: Active_5, 5;
+  LoopSprite: Active_6, 5;
+EndLoopAnim:
+# 刹车
 SetVelocityX: 100000;
 BBSprite: End_1, 5;
 BBSprite: End_2, 5;
@@ -258,9 +258,9 @@ BBSprite: Jump_5, 3;
 BBSprite: Jump_6, 3;
 BBSprite: Jump_7, 3;
 BBSprite: Jump_8, 3;
-BeginLoop: (InAir: true)
-  BBSprite: Jump_8, 5;
-EndLoop:
+BeginLoopAnim: (InAir: true)
+  LoopSprite: Jump_8, 5;
+EndLoopAnim:
 # Land
 SpawnGDust: 5000, -15000, 4000, 2000;
 SpawnGDust: -50000, -15000, -4000, 2000;
@@ -278,19 +278,18 @@ return;
 @Main:
 #1. 待机
 SetVelocityX: 0;
-EnableEnemyFlipCheck: true;
-EnableTargetCheck: 0, 0, 300000, 100000;
+EnableTargetCheck: 0, 0, 400000, 100000;
 RegistLoseTargetCallback: Zako2_BattleIdle, LoseTargetCallback;
 EnableInRangeCheck: true, 35000, 0, 0;
 RegistCounter: 15;
-BeginLoop: (Counter: Value > 0)
-  BBSprite: Idle_1, 5;
-  BBSprite: Idle_2, 5;
-  BBSprite: Idle_3, 5;
-  BBSprite: Idle_4, 5;
-  BBSprite: Idle_5, 5;
-  BBSprite: Idle_6, 5;
-EndLoop:
+BeginLoopAnim: (Counter: Value > 0)
+  LoopSprite: Idle_1, 5;
+  LoopSprite: Idle_2, 5;
+  LoopSprite: Idle_3, 5;
+  LoopSprite: Idle_4, 5;
+  LoopSprite: Idle_5, 5;
+  LoopSprite: Idle_6, 5;
+EndLoopAnim:
 #2. 切换进下一个动作前，先转向
 BeginIf: (EnemyFlipChange: true)
   BBSprite: Turn_1, 5;

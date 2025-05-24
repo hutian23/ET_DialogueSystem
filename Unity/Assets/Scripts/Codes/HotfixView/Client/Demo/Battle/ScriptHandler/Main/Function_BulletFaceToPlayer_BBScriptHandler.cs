@@ -38,7 +38,7 @@ namespace ET.Client
 
             //2. 射出方向
             Vector2 direction = (bodyB.GetPosition() - bodyA.GetPosition()).ToUnityVector2().normalized;
-            float angle = Vector2.Angle(direction, Vector2.right);
+            float angle = Vector2.Angle(direction, bodyB.GetFlip() == (int)FlipState.Left ? Vector2.right : Vector2.left);
             angle = Mathf.Clamp(angle, minAngle / 10000f, maxAngle / 10000f);
             
             bodyC.SetAngle(bodyB.GetFlip() * angle);

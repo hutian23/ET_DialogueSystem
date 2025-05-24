@@ -21,6 +21,8 @@ namespace ET.Client
         {
             protected override void PosStepUpdate(AirCheckAbility self)
             {
+                self.inAir = true;
+                
                 //1. 查询组件 
                 Unit unit = self.GetParent<BuffManager>().GetParent<Unit>();
                 b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
@@ -39,7 +41,7 @@ namespace ET.Client
                     b2Box boxB = Root.Instance.Get(buffer.instanceIdB) as b2Box;
 
                     if (boxA.GetBoxType() is not HitboxType.Squash || // 碰撞框 
-                        boxB.GetLayerType() is not LayerType.Ground || (boxB.GetTagType() & TagType.Ground) != 0) // 接触地面 
+                        boxB.GetLayerType() is not LayerType.Ground || (boxB.GetTagType() & TagType.Ground) == 0) // 接触地面 
                     {
                         continue;
                     }
@@ -52,20 +54,12 @@ namespace ET.Client
                     // {
                     //     continue;
                     // }
-
-                    if (!self.inAir)
-                    {
-                        return;
-                    }
-
+                    
                     self.inAir = false;
                     //2-2. 触发落地回调
                     EventSystem.Instance.Invoke(new LandCallback() { instanceId = unit.InstanceId });
                     return;
                 }
-
-                //3. 在空中
-                self.inAir = true;
             }
         }
 

@@ -3,14 +3,13 @@
 #1. PlayerInit中挂载组件(NumericComponent、InputComponent...)
 PlayerInit;
 SetPos: -80000, -90000;
-# #4. 添加初始Buff
-# HP: 10000;
-# SP: 200;
-# HPAdd: -1000;
-# EnableJump: 2;
+#4. 添加初始Buff
+HP: 10000;
+SP: 200;
+EnableJump: 2;
 EnableAirCheck;
-# EnableGroundDash: 2, 70;
-# EnableAirDash: 2;
+EnableGroundDash: 2, 70;
+EnableAirDash: 2;
 EnableGravityCheck: 100000, 150000, 450000;          
 #5. 注册输入缓冲
 RegistInput: RunHold;
@@ -32,9 +31,9 @@ RegistMove: (Rg_Idle)
 # RegistMove: (Rg_Land)
 #   MoveType: Move;
 #   EndMove:
-# RegistMove: (Rg_Run)
-#   MoveType: Move;
-#   EndMove:
+RegistMove: (Rg_Run)
+  MoveType: Move;
+  EndMove:
 # RegistMove: (Rg_Squit)
 #   MoveType: Move;
 #   EndMove:
@@ -99,8 +98,7 @@ return;
 SetVelocity: 0, 0;
 # 设置一个待机行为，保持idle 300帧之后进入这个行为
 # IdleAnim: Rg_IdleAnim, 300;
-# EnableDefaultCancel: true;
-EnableFlip: true;
+EnableDefaultCancel: true;
 SetMarker: Loop;
 BBSprite: Idle_1, 4;
 BBSprite: Idle_2, 4;

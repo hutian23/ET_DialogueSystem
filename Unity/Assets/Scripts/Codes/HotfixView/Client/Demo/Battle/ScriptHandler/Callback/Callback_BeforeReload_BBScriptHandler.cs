@@ -27,10 +27,6 @@
                 body.SetFlip(FlipState.Right);
             }
             
-            //2. TransitionFlag迁移
-            Transition transition = unit.GetComponent<Transition>();
-            transition.CacheFlag();
-            
             await ETTask.CompletedTask;
             return Status.Success;
         }
