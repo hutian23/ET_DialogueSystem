@@ -86,7 +86,7 @@ namespace ET.Client
                     // 播放关键帧
                     timelineComponent.Evaluate(def.spriteFrame);
                     // 等待n帧
-                    await bbTimer.WaitFrameAsync(self.token);
+                    await bbTimer.WaitAsync(def.waitFrame, self.token);
                     if (self.token.IsCancel()) return Status.Failed;
                 }
             }

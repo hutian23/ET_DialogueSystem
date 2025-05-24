@@ -37,15 +37,15 @@ EndIf:
 BeginIf: (Random: ran1 >= 75), (Random: ran1 <= 100)
   RegistCounter: 105;
 EndIf:
-BeginLoop: (Counter: Value > 0)
-  BBSprite: Idle_1, 5;
-  BBSprite: Idle_2, 5;
-  BBSprite: Idle_3, 5;
-  BBSprite: Idle_4, 5;
-  BBSprite: Idle_5, 5;
-  BBSprite: Idle_6, 5;
-  BBSprite: Idle_7, 5;
-EndLoop:
+BeginLoopAnim: (Counter: Value > 0)
+  LoopSprite: Idle_1, 5;
+  LoopSprite: Idle_2, 5;
+  LoopSprite: Idle_3, 5;
+  LoopSprite: Idle_4, 5;
+  LoopSprite: Idle_5, 5;
+  LoopSprite: Idle_6, 5;
+  LoopSprite: Idle_7, 5;
+EndLoopAnim:
 # Turn
 SetVelocity: 0, 0;
 Random: ran2, 0, 100;
@@ -53,7 +53,6 @@ BeginIf: (Random: ran2 >= 0), (Random: ran2 <= 40)
   BBSprite: Turn_1, 5;
   BBSprite: Turn_2, 5;
   FlipReverse;
-  BBSprite: Idle_1, 1;
 EndIf:
 GotoMarker: Loop;
 return;
@@ -63,25 +62,68 @@ return;
 return;
 
 @Main:
+# Turn
+BeginIf: (EnemyFlipChange: true)
+  BBSprite: Turn_1, 5;
+  BBSprite: Turn_2, 5;
+  FlipReverse;
+EndIf:
+# NextBehavior
 EnableWaitFrameCallback: true, 50, Zako3_BattleIdle, WaitFrameCallback;
+# Idle
 SetMarker: Loop;
 AirPatrolVelocity: 15000;
-RegistCounter: 28;
-BeginLoop: (Counter: Value > 0)
-  BBSprite: Idle_1, 4;
-  BBSprite: Idle_2, 4;
-  BBSprite: Idle_3, 4;
-  BBSprite: Idle_4, 4;
-  BBSprite: Idle_5, 4;
-  BBSprite: Idle_6, 4;
-  BBSprite: Idle_7, 4;
-EndLoop:
+BBSprite: Idle_1, 5;
+BBSprite: Idle_2, 5;
+BBSprite: Idle_3, 5;
+BBSprite: Idle_4, 5;
+BBSprite: Idle_5, 5;
+BBSprite: Idle_6, 5;
+BBSprite: Idle_7, 5;
 GotoMarker: Loop;
 return;
 
 @WaitFrameCallback:
-GotoBehavior: Zako3_ThrowAttack;
+Random: ran, 0, 100;
+BeginIf: (Random: ran >= 0), (Random: ran < 50)
+  GotoBehavior: Zako3_ThrowAttack;
+EndIf:
+BeginIf: (Random: ran >= 50), (Random: ran <= 100)
+  GotoBehavior: Zako3_Charge;
+EndIf:
 return;
+
+[Zako3_Charge]
+@Trigger:
+return;
+
+@Main:
+# Anticipate
+SetVelocity: -80000, 30000;
+BBSprite: Anticipate_1, 4;
+SetVelocity: -40000, 10000;
+BBSprite: Anticipate_2, 4;
+SetVelocity: -20000, 5000;
+BBSprite: Anticipate_3, 4;
+BBSprite: Anticipate_3, 4;
+# Active
+BBSprite: Active_1, 4;
+SetVelocityX: 300000;
+AccelY: -150000, 20, 350000;
+BBSprite: Active_2, 5;
+RegistCounter: 25;
+BeginLoopAnim: (Counter: Value > 0)
+  LoopSprite: Active_3, 5;
+  LoopSprite: Active_4, 5;
+EndLoopAnim:
+# End 
+SetVelocity: 150000, 0;
+BBSprite: End_1, 10;
+SetVelocity: 70000, 0;
+BBSprite: End_2, 5;
+SetVelocity: 0, 0;
+BBSprite: End_3, 5;
+GotoBehavior: Zako3_BattleIdle;
 
 [Zako3_ThrowAttack]
 @Trigger:
