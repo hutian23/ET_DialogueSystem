@@ -26,8 +26,6 @@ return;
 return;
 
 @Main:
-SetPos: 0, 65000;
-WaitFrame: 20;
 AccelX: 0, 30, 100000;
 AccelY: -350000, 40, 500000;
 RegistCounter: 50;
@@ -143,10 +141,10 @@ return;
 
 @WaitFrameCallback:
 Random: ran, 0, 100;
-BeginIf: (Random: ran >= 0), (Random: ran < 30)
+BeginIf: (Random: ran >= 0), (Random: ran < 50)
   GotoBehavior: Zako3_ThrowAttack;
 EndIf:
-BeginIf: (Random: ran >= 30), (Random: ran <= 100)
+BeginIf: (Random: ran >= 50), (Random: ran <= 100)
   GotoBehavior: Zako3_Charge;
 EndIf:
 return;

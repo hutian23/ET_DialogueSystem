@@ -458,7 +458,7 @@ MonoBehaviour:
       Data: PushBox
     - Name: layerType
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: tagType
       Entry: 3
       Data: 0
@@ -617,7 +617,7 @@ MonoBehaviour:
       Data: PushBox
     - Name: layerType
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: tagType
       Entry: 3
       Data: 0

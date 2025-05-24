@@ -1,60 +1,63 @@
 [Root]
 @RootInit:
-GlinInit;
+EnemyInit;
 EnableAirCheck;
 # bullet由对象池管理
 PoolObject: GlinBullet, 5;
-PoolObject: GlinSpike, 1;
-PoolObject: GlinSpike_Step2, 3;
+PoolObject: GlinSpikes, 1;
+PoolObject: GlinSpike, 3;
 PoolObject: GlinFireball, 20;
 PoolObject: ADust, 1;
 PoolObject: GDust, 1;
 # 注册行为
 # Step1
-RegistMove: (Glin_Idle)
-  MoveType: Normal;
+# RegistMove: (Glin_Idle)
+#   MoveType: Normal;
+# EndMove:
+# RegistMove: (Glin_Bow)
+#   MoveType: Normal;
+# EndMove:
+# RegistMove: (Glin_Slash)
+#   MoveType: Normal;
+# EndMove:
+# RegistMove: (Glin_Capespike)
+#   MoveType: Normal;
+# EndMove:
+# RegistMove: (Glin_AirDash)
+#   MoveType: Normal;
+# EndMove:
+# RegistMove: (Glin_Cast)
+#   MoveType: Normal;
+# EndMove:
+# RegistMove: (Glin_Ballon)
+#   MoveType: Normal;
+# EndMove:
+# RegistMove: (Glin_TeleportOut)
+#   MoveType: Normal;
+# EndMove:
+# # Step2
+# RegistMove: (Glin_Evade)
+#   MoveType: Normal;
+# EndMove:
+# RegistMove: (Glin_Roar)
+#   MoveType: Normal;
+# EndMove:
+# RegistMove: (Glin_Step2_FeintSlash)
+#   MoveType: Normal;
+# EndMove:
+# RegistMove: (Glin_Step2_CastSpike)
+#   MoveType: Normal;
+# EndMove:
+# RegistMove: (Glin_Step2_Slash)
+#   MoveType: Normal;
+# EndMove:
+# RegistMove: (Glin_Step2_Cast)
+#   MoveType: Normal;
+# EndMove:
+RegistMove: (Glin_Explode)
+  MoveType: None;
 EndMove:
-RegistMove: (Glin_Bow)
-  MoveType: Normal;
-EndMove:
-RegistMove: (Glin_Slash)
-  MoveType: Normal;
-EndMove:
-RegistMove: (Glin_Capespike)
-  MoveType: Normal;
-EndMove:
-RegistMove: (Glin_AirDash)
-  MoveType: Normal;
-EndMove:
-RegistMove: (Glin_Cast)
-  MoveType: Normal;
-EndMove:
-RegistMove: (Glin_Ballon)
-  MoveType: Normal;
-EndMove:
-RegistMove: (Glin_TeleportOut)
-  MoveType: Normal;
-EndMove:
-# Step2
-RegistMove: (Glin_Evade)
-  MoveType: Normal;
-EndMove:
-RegistMove: (Glin_Roar)
-  MoveType: Normal;
-EndMove:
-RegistMove: (Glin_Step2_FeintSlash)
-  MoveType: Normal;
-EndMove:
-RegistMove: (Glin_Step2_CastSpike)
-  MoveType: Normal;
-EndMove:
-RegistMove: (Glin_Step2_Slash)
-  MoveType: Normal;
-EndMove:
-RegistMove: (Glin_Step2_Cast)
-  MoveType: Normal;
-EndMove:
-GotoBehavior: Glin_Step2_Slash;
+GotoBehavior: Glin_Explode;
 
 [Glin_Idle]
 @Trigger:
@@ -736,4 +739,33 @@ CreateBullet: GlinBullet
   BulletPosition: -0, -10000;
   BulletAccelY: -20000, 100, 150000;
 EndCreateBullet:
+return;
+
+[Glin_Explode]
+@Trigger:
+return;
+
+@Main:
+SetPos: 0, 0;
+Shake: 1200, 1200, 12000, 20;
+BBSprite: Explode_1, 30;
+BBSprite: Explode_2, 5;
+ScreenShake: 850, 850, 10000, 30; 
+BBSprite: Explode_3, 5;
+BBSprite: Explode_4, 5;
+BBSprite: Explode_5, 5;
+SetPos: 1000000, 1000000;
+# 创建敌人
+WaitFrame: 20;
+SpawnEnemy: Zako3
+  SpawnEnemy_Position: -100000, 65000;
+  SpawnEnemy_Flip: Right;
+EndSpawnEnemy:
+SpawnEnemy: Zako3
+  SpawnEnemy_Position: 100000, 65000;
+  SpawnEnemy_Flip: Left;
+EndSpawnEnemy:
+SpawnEnemy: Zako2
+  SpawnEnemy_Position: -100000, -110000;
+EndSpawnEnemy:
 return;

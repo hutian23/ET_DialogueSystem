@@ -42,7 +42,6 @@ return;
 return;
 
 @Main:
-SetPos: -100000, -110000;
 PlayTimeline: 0, 35;
 GotoBehavior: Zako2_Patrol;
 

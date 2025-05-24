@@ -54,7 +54,6 @@ namespace ET.Client
             parser.RegistSubCoroutine(startIndex, endIndex, token).Coroutine();
             parser.TryRemoveParam("CreateBullet_UnitId");
             
-            
             await ETTask.CompletedTask;
             return Status.Success;
         }
