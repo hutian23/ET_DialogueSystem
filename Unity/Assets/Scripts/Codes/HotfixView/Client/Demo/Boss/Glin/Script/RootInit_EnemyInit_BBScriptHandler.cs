@@ -22,7 +22,9 @@
 
             BuffManager buffManager = boss.GetComponent<BuffManager>();
             buffManager.AddComponent<HertzAbility>();
-            buffManager.AddComponent<HPAbility, int>(100);
+
+            HPAbility hpAbility = buffManager.AddComponent<HPAbility, int>(100);
+            hpAbility.AddChild<NumericWatcher>();
             buffManager.AddComponent<SPAbility, int>(100);
             
             await ETTask.CompletedTask;

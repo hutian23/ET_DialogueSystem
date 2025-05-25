@@ -1,6 +1,7 @@
 [Root]
 @RootInit:
 EnemyInit;
+HP: 3000;
 EnableAirCheck;
 # bullet由对象池管理
 PoolObject: GlinBullet, 5;

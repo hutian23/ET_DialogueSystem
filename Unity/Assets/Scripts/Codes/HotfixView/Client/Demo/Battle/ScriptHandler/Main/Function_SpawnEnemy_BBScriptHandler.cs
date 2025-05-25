@@ -26,7 +26,7 @@ namespace ET.Client
             await ResourcesComponent.Instance.LoadBundleAsync(bundleName);
             GameObject prefab = ResourcesComponent.Instance.GetAsset(bundleName, match.Groups["EnemyName"].Value) as GameObject;
             GameObject go = UnityEngine.Object.Instantiate(prefab, GlobalComponent.Instance.Unit, true);
-
+            
             // 创建Unit
             // 我们可以认为,在运行时创建的敌人、子弹都是Bullet, 需要在热重载时销毁这些Unit.
             // 也许运行时生成的所有Unit都可以挂载在BulletManager下?
@@ -47,7 +47,7 @@ namespace ET.Client
                 }
             }
             parser.Coroutine_Pointers[data.CoroutineID] = index;
-
+            
             parser.RegistParam("SpawnEnemy_InstanceId", enemy.InstanceId);
             parser.RegistSubCoroutine(startIndex, endIndex, token).Coroutine();
             parser.TryRemoveParam("SpawnEnemy_InstanceId");

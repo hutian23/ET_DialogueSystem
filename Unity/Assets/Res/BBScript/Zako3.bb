@@ -87,7 +87,6 @@ return;
 # 冲刺衔接到待机动作后，向上攀升一段距离
 BeginIf: (TransitionCached: ChargeToBattleIdle, true), (EnemyFlipChange: true)
   # 转向
-  RemoveTransitionCached: ChargeToBattleIdle;
   SetVelocity: 70000, 30000;
   BBSprite: Turn_1, 5;
   BBSprite: Turn_2, 5;
@@ -103,9 +102,9 @@ BeginIf: (TransitionCached: ChargeToBattleIdle, true), (EnemyFlipChange: true)
   SetVelocity: -5000, 20000;
   BBSprite: Idle_6, 5;
   BBSprite: Idle_7, 5;
+  RemoveTransitionCached: ChargeToBattleIdle;
 EndIf:
 BeginIf: (TransitionCached: ChargeToBattleIdle, true)
-  RemoveTransitionCached: ChargeToBattleIdle;
   SetVelocity: 70000, 50000;
   BBSprite: Idle_1, 5;
   BBSprite: Idle_2, 5;
@@ -117,6 +116,7 @@ BeginIf: (TransitionCached: ChargeToBattleIdle, true)
   SetVelocity: 5000, 20000;
   BBSprite: Idle_6, 5;
   BBSprite: Idle_7, 5;
+  RemoveTransitionCached: ChargeToBattleIdle;
 EndIf:
 # 等待一段时间释放技能
 EnableWaitFrameCallback: true, 80, Zako3_BattleIdle, WaitFrameCallback;

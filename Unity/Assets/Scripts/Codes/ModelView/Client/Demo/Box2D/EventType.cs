@@ -7,7 +7,7 @@ namespace ET.Event
         public b2World B2World;
     }
 
-    #region 主要是区分回调
+    #region 碰撞回调
     
     public enum TriggerType
     {

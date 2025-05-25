@@ -10,7 +10,8 @@ namespace ET.Client
             return "HP";
         }
 
-        //EnableHP: 10000;
+        // 强制修改当前HP，不会回调事件
+        // HP: 10000;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
             Match match = Regex.Match(data.opLine, "HP: (?<MaxHP>.*?);");
