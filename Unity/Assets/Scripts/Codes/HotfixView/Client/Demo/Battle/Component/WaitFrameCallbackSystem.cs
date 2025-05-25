@@ -31,7 +31,8 @@
             BBTimerComponent bbTimer = parser.GetParent<Unit>().GetComponent<BBTimerComponent>();
 
             await bbTimer.WaitAsync(self.waitFrame, self.token);
-
+            if (self.token.IsCancel()) return;
+            
             parser.Invoke(self.functionIndex, parser.CancellationToken).Coroutine();
         }
     }

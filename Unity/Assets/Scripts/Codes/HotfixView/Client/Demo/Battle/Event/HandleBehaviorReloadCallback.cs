@@ -8,7 +8,8 @@
         public override void Handle(BehaviorReloadCallback args)
         {
             //1. 获取组件
-            Unit unit = Root.Instance.Get(args.unitId) as Unit;
+            if (Root.Instance.Get(args.unitId) is not Unit unit) return;
+            
             BehaviorInfo info = Root.Instance.Get(args.infoId) as BehaviorInfo;
             BBParser bbParser = unit.GetComponent<BBParser>();
             BehaviorMachine machine = unit.GetComponent<BehaviorMachine>();

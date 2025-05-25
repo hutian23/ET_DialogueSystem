@@ -12,7 +12,7 @@ namespace ET.Client
         public override void Handle(ProcessBBScriptCallback args)
         {
             //1. 查询组件
-            BBParser bbParser = Root.Instance.Get(args.instanceId) as BBParser;
+            if (Root.Instance.Get(args.instanceId) is not BBParser bbParser) return;
             Unit unit = bbParser.GetParent<Unit>();
             BBScript bbScript = unit.GetComponent<GameObjectComponent>().GameObject.GetComponent<BBScript>();
 
