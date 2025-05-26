@@ -3,6 +3,7 @@
 PoolObject: GDust, 1;
 PoolObject: Javelin, 5;
 EnemyInit;
+HP: 300;
 RegistMove: (Zako3_Spawn)
   MoveType: None;
 EndMove:
@@ -18,7 +19,15 @@ EndMove:
 RegistMove: (Zako3_ThrowAttack)
   MoveType: None;
 EndMove:
+RegistMove: (Zako3_Death)
+  MoveType: None;
+EndMove:
+SetPos: 0, 65000;
 GotoBehavior: Zako3_Spawn;
+return;
+
+@HPWatcher:
+GotoBehavior: Zako3_Death;
 return;
 
 [Zako3_Spawn]
@@ -208,3 +217,33 @@ BBSprite: End_4, 4;
 BBSprite: End_5, 4;
 BBSprite: End_6, 4;
 GotoBehavior: Zako3_BattleIdle;
+
+[Zako3_Death]
+@Trigger:
+return;
+
+@Main:
+# Hit
+SetVelocity: 0, 0;
+Shake: 1400, 1400, 10000, 25;
+EnableAirCheck;
+EnableGravityCheck: 100000, 150000, 500000;
+Gravity: 0;
+BBSprite: Air_1, 25;
+# Fall
+SetVelocity: -70000, 120000;
+BBSprite: Air_2, 5;
+Gravity: 100000;
+BeginLoopAnim: (InAir: true)
+  LoopSprite: Air_2, 5;
+EndLoopAnim:
+# Land
+SetVelocity: 0, 0;
+Shake: 800, 800, 12000, 10;
+SetVelocity: -15000, 120000;
+BBSprite: Land_1, 10;
+BBSprite: Land_2, 5;
+SetVelocity: 0, 0;
+BBSprite: Land_3, 5;
+BBSprite: Land_4, 5;
+return;

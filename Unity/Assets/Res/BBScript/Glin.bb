@@ -60,6 +60,10 @@ RegistMove: (Glin_Explode)
 EndMove:
 GotoBehavior: Glin_Explode;
 
+@HPWatcher:
+LogWarning: HPAdd;
+return;
+
 [Glin_Idle]
 @Trigger:
 return;

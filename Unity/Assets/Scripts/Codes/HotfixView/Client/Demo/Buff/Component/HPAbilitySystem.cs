@@ -28,10 +28,10 @@ namespace ET.Client
             int preHP = self.CurrentHP;
             self.CurrentHP = Math.Clamp(HP, 0, self.MaxHP);
 
-            //回调SP更新事件
+            //回调HP更新事件
             if (self.CurrentHP != preHP && IsEvent)
             {
-                EventSystem.Instance.Invoke(new HPChangeCallback() { instanceId = self.InstanceId, preHP = preHP, curHP = self.CurrentHP });
+                EventSystem.Instance.Invoke(new NumericWatcherCallback(){instanceId = self.InstanceId});
             }
         }
 

@@ -1,17 +1,15 @@
 ﻿namespace ET.Client
 {
     [ChildOf]
-    public class NumericWatcher : Entity, IAwake, IDestroy
+    public class NumericWatcher : Entity, IAwake<long, int, string>, IDestroy
     {
         public long _instanceId;  // 调用者
         public int functionIndex; // 回调函数
+        public string watcherName;
+    }
 
-        protected override string ViewName
-        {
-            get
-            {
-                return $"{this.GetType().Name} ({this._instanceId})";
-            }
-        }
+    public struct NumericWatcherCallback
+    {
+        public long instanceId;
     }
 }
