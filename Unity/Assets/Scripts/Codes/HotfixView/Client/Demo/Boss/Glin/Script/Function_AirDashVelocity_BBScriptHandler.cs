@@ -35,8 +35,6 @@ namespace ET.Client
             float x = vel * Mathf.Sin(radian) / 10000f;
             float y = vel * Mathf.Cos(radian) / 10000f;
             body.SetVelocity(new Vector2(x, y));
- 
-            Log.Warning(new Vector2(x, y).Length().ToString());
             
             await ETTask.CompletedTask;
             return Status.Success;

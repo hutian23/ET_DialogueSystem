@@ -135,20 +135,28 @@ MonoBehaviour:
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[Timeline.BoxInfo, Unity.Loader]],
-        mscorlib
+      Data: 10|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 11|Timeline.BoxInfo, Unity.Loader
+      Data: 11|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: HitBox
+    - Name: layerType
+      Entry: 3
+      Data: 2
+    - Name: tagType
+      Entry: 3
+      Data: 0
     - Name: hitboxType
       Entry: 3
       Data: 1
+    - Name: isTrigger
+      Entry: 5
+      Data: false
     - Name: center
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -173,9 +181,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: tagType
-      Entry: 3
-      Data: 0
     - Name: 
       Entry: 8
       Data: 

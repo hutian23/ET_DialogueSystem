@@ -146,8 +146,8 @@ MonoBehaviour:
     - Name: RuntimePlayable
       Entry: 6
       Data: 
+    - Name: RebindCallback
+      Entry: 6
+      Data: 
   instanceId: 0
-  Hertz: 60
-  ApplyRootMotion: 0
-  BBPlayable: {fileID: 11400000, guid: 75e7282d358f8fc4d8221ee1423f4aff, type: 2}
-  CurrentTimeline: {fileID: 0}
+  PlayableGraph: {fileID: 11400000, guid: 75e7282d358f8fc4d8221ee1423f4aff, type: 2}

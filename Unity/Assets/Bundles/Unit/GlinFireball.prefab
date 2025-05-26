@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 6110267835468706475}
   - component: {fileID: 6777975401792437802}
   - component: {fileID: 5518383810653655493}
-  - component: {fileID: 3005519064518750812}
+  - component: {fileID: 7113711331900964285}
   m_Layer: 0
   m_Name: GlinFireball
   m_TagString: Untagged
@@ -193,7 +193,7 @@ Transform:
   m_GameObject: {fileID: 4220118382970679473}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.71, y: -7.99, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instanceId: 0
   Script: {fileID: 1042094116111776886, guid: e053400442237cc4792386dc71ffa05a, type: 3}
---- !u!114 &3005519064518750812
+--- !u!114 &7113711331900964285
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -340,11 +340,11 @@ MonoBehaviour:
     - Name: RuntimePlayable
       Entry: 6
       Data: 
+    - Name: RebindCallback
+      Entry: 6
+      Data: 
   instanceId: 0
-  Hertz: 60
-  ApplyRootMotion: 0
-  BBPlayable: {fileID: 11400000, guid: cc830088f1fd63a42aedbf020f0596ed, type: 2}
-  CurrentTimeline: {fileID: 0}
+  PlayableGraph: {fileID: 11400000, guid: cc830088f1fd63a42aedbf020f0596ed, type: 2}
 --- !u!1 &4784388700188120943
 GameObject:
   m_ObjectHideFlags: 0

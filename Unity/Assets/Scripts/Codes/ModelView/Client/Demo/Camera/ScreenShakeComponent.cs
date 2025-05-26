@@ -10,7 +10,14 @@ namespace ET.Client
         public int totalFrame;
         public int curFrame;
         public float frequency;
-        
+
+        public ShakeMode shakeMode;
         public GameObject activeCamera;
+    }
+
+    public enum ShakeMode
+    {
+        Fading,
+        Continuous
     }
 }

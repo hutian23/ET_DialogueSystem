@@ -14,14 +14,14 @@ return;
 @Main:
 BBSprite: Frame_1, 5;
 RegistCounter: 140;
-BeginLoop: (Counter: Value > 0)
-  BBSprite: Frame_2, 4;
-  BBSprite: Frame_3, 4;
-  BBSprite: Frame_4, 4;
-  BBSprite: Frame_5, 4;
-  BBSprite: Frame_6, 4;
-  BBSprite: Frame_7, 4;
-  BBSprite: Frame_8, 4;
-  BBSprite: Frame_9, 4;
-EndLoop:
+BeginLoopAnim: (Counter: Value > 0)
+  LoopSprite: Frame_2, 4;
+  LoopSprite: Frame_3, 4;
+  LoopSprite: Frame_4, 4;
+  LoopSprite: Frame_5, 4;
+  LoopSprite: Frame_6, 4;
+  LoopSprite: Frame_7, 4;
+  LoopSprite: Frame_8, 4;
+  LoopSprite: Frame_9, 4;
+EndLoopAnim:
 Dispose;

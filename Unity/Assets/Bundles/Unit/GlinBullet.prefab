@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 2961002378418967261}
   - component: {fileID: 5522160278377250253}
   - component: {fileID: 3926155341962090761}
-  - component: {fileID: 8629808745706967303}
+  - component: {fileID: 7486473900967375376}
   m_Layer: 0
   m_Name: GlinBullet
   m_TagString: Untagged
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instanceId: 0
   Script: {fileID: 1042094116111776886, guid: 86ecb506f02529246832aca0f1943bb2, type: 3}
---- !u!114 &8629808745706967303
+--- !u!114 &7486473900967375376
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -301,11 +301,11 @@ MonoBehaviour:
     - Name: RuntimePlayable
       Entry: 6
       Data: 
+    - Name: RebindCallback
+      Entry: 6
+      Data: 
   instanceId: 0
-  Hertz: 60
-  ApplyRootMotion: 0
-  BBPlayable: {fileID: 11400000, guid: e64b252ac115a8a469097cd2e4bfc263, type: 2}
-  CurrentTimeline: {fileID: 0}
+  PlayableGraph: {fileID: 11400000, guid: e64b252ac115a8a469097cd2e4bfc263, type: 2}
 --- !u!1 &2938336796747182026
 GameObject:
   m_ObjectHideFlags: 0

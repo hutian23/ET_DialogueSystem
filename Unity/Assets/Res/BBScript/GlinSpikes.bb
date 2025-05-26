@@ -1,13 +1,13 @@
 [Root]
 @RootInit:
 BulletInit;
-RegistMove: (GlinSpike_Idle)
+RegistMove: (GlinSpikes_Idle)
   MoveType: None;
 EndMove:
-GotoBehavior: GlinSpike_Idle;
+GotoBehavior: GlinSpikes_Idle;
 return;
 
-[GlinSpike_Idle]
+[GlinSpikes_Idle]
 @Trigger:
 return;
 
@@ -20,7 +20,7 @@ BBSprite: Anticipate_2, 3;
 BBSprite: Anticipate_3, 3;
 BBSprite: Anticipate_4, 3;
 BBSprite: Up_1, 3;
-ScreenShake: 1050, 250, 10000, 20;
+ScreenShake: 1050, 250, 10000, 20, 0;
 BBSprite: Up_2, 60;
 BBSprite: Down_1, 4;
 BBSprite: Down_2, 4;

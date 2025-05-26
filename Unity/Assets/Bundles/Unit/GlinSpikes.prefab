@@ -820,22 +820,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
+    SerializedFormat: 0
+    SerializedBytes: 2d010f000000520075006e00740069006d00650050006c0061007900610062006c0065002d010e00000052006500620069006e006400430061006c006c006200610063006b00
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: RuntimePlayable
-      Entry: 6
-      Data: 
+    SerializationNodes: []
   instanceId: 0
-  Hertz: 60
-  ApplyRootMotion: 0
-  BBPlayable: {fileID: 11400000, guid: 9dda5602c38007b448bb2f0f9998cf51, type: 2}
-  CurrentTimeline: {fileID: 0}
+  PlayableGraph: {fileID: 11400000, guid: 9dda5602c38007b448bb2f0f9998cf51, type: 2}
 --- !u!1 &6031872418841261804
 GameObject:
   m_ObjectHideFlags: 0

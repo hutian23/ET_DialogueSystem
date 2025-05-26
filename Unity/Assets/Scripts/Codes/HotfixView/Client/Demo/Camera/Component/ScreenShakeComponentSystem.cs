@@ -13,6 +13,7 @@ namespace ET.Client
                 self.frequency = 0f;
                 self.curFrame = 0;
                 self.totalFrame = 0;
+                self.shakeMode = ShakeMode.Fading;
                 
                 CinemachineCameraOffset cameraOffset = self.activeCamera.GetComponent<CinemachineCameraOffset>();
                 cameraOffset.m_Offset = Vector3.zero;
@@ -30,8 +31,16 @@ namespace ET.Client
                     self.Dispose();
                     return;
                 }
-                
-                cameraOffset.m_Offset = new Vector3(self.shakeLength_X * Mathf.Cos(self.curFrame * self.frequency), self.shakeLength_Y * Mathf.Sin(self.curFrame * self.frequency), 0) * (self.curFrame / (float)self.totalFrame);
+
+                switch (self.shakeMode)
+                {
+                    case ShakeMode.Fading:
+                        cameraOffset.m_Offset = new Vector3(self.shakeLength_X * Mathf.Cos(self.curFrame * self.frequency), self.shakeLength_Y * Mathf.Sin(self.curFrame * self.frequency), 0) * (self.curFrame / (float)self.totalFrame);
+                        break;
+                    case ShakeMode.Continuous:
+                        cameraOffset.m_Offset = new Vector3(self.shakeLength_X * Mathf.Cos(self.curFrame * self.frequency), self.shakeLength_Y * Mathf.Sin(self.curFrame * self.frequency), 0);
+                        break;
+                }
             }
         }
     }

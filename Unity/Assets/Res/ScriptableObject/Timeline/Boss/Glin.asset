@@ -127,7 +127,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Glin_TeleportOut
+      Data: Glin_Teleport
     - Name: $v
       Entry: 10
       Data: 6

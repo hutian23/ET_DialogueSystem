@@ -49,17 +49,13 @@ namespace ET.Client
 
             while (true)
             {
-                //1. 当前rotation
                 Vector2 direction = (bodyB.GetPosition() - bodyA.GetPosition()).ToUnityVector2().normalized;
                 float targetRotate = Vector2.Angle(direction, Vector2.right) - 90f;
                 
-                //2.
                 self.curRotate = Mathf.Lerp(self.curRotate, targetRotate, damping * ScriptHelper.FrameLength);
                 self.curRotate = Mathf.Clamp(self.curRotate, self.minRotate, self.maxRotate);
-
                 bodyB.SetAngle(self.curRotate);
-                
-                
+                 
                 await bbTimer.WaitFrameAsync(self.token);
                 if (self.token.IsCancel()) return;
             }

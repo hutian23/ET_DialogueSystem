@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using Cinemachine;
 using UnityEngine;
 
@@ -12,10 +13,10 @@ namespace ET.Client
             return "ScreenShake";
         }
 
-        //ScreenShakeX: 1000, 1000, 15000, 15; (ShakeLength_X, ShakeLength_Y, Frequency, ShakeFrame)
+        //ScreenShakeX: 1000, 1000, 15000, 15, 1; (ShakeLength_X, ShakeLength_Y, Frequency, ShakeFrame, ShakeMode)
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"ScreenShake: (?<ShakeLength_X>.*?), (?<ShakeLength_Y>.*?), (?<Frequency>.*?), (?<ShakeFrame>.*?);");
+            Match match = Regex.Match(data.opLine, @"ScreenShake: (?<ShakeLength_X>.*?), (?<ShakeLength_Y>.*?), (?<Frequency>.*?), (?<ShakeFrame>.*?), (?<ShakeMode>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -24,9 +25,10 @@ namespace ET.Client
             if (!long.TryParse(match.Groups["ShakeLength_X"].Value, out long shakeLength_X) ||
                 !long.TryParse(match.Groups["ShakeLength_Y"].Value, out long shakeLength_Y) ||
                 !int.TryParse(match.Groups["ShakeFrame"].Value, out int shakeFrame) ||
-                !long.TryParse(match.Groups["Frequency"].Value, out long frequency))
+                !long.TryParse(match.Groups["Frequency"].Value, out long frequency) ||
+                !Enum.TryParse(match.Groups["ShakeMode"].Value, out ShakeMode shakeMode))
             {
-                Log.Error($"cannot format {match.Groups["ShakeFrame"].Value} / {match.Groups["ShakeLength_X"].Value} / {match.Groups["ShakeLength_Y"].Value} /{match.Groups["Frequency"].Value} to long!!");
+                Log.Error($"matched failed");
                 return Status.Failed;
             }
 
@@ -37,6 +39,7 @@ namespace ET.Client
             screenShake.frequency = frequency / 10000f;
             screenShake.totalFrame = shakeFrame;
             screenShake.curFrame = shakeFrame;
+            screenShake.shakeMode = shakeMode;
             screenShake.activeCamera = Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera.VirtualCameraGameObject;
             
             await ETTask.CompletedTask;

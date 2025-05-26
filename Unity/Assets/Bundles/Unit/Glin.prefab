@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 6784489107827199543}
   - component: {fileID: 5034154189760651887}
   - component: {fileID: 8900287240697859852}
-  - component: {fileID: 8749347560892005006}
+  - component: {fileID: 386519331972927359}
   m_Layer: 0
   m_Name: Glin
   m_TagString: Untagged
@@ -171,7 +171,7 @@ SpriteRenderer:
   m_SortingLayerID: 2016810935
   m_SortingLayer: 1
   m_SortingOrder: 2000
-  m_Sprite: {fileID: -1372922525, guid: 164326bd0c55b6d48adffadca289d667, type: 3}
+  m_Sprite: {fileID: 415747465, guid: 164326bd0c55b6d48adffadca289d667, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -192,7 +192,7 @@ Animator:
   m_GameObject: {fileID: 2590399751512662588}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: aca42e1461bbbb745b105dec980afc2a, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -246,7 +246,7 @@ MonoBehaviour:
     gameObject: {fileID: 7548197195215015184}
   - key: Other
     gameObject: {fileID: 1553488920799386333}
---- !u!114 &8749347560892005006
+--- !u!114 &386519331972927359
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -268,13 +268,47 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes:
     - Name: RuntimePlayable
+      Entry: 7
+      Data: 0|Timeline.RuntimePlayable, Unity.Loader
+    - Name: timeline
+      Entry: 6
+      Data: 
+    - Name: timelinePlayer
+      Entry: 6
+      Data: 
+    - Name: playableGraph
+      Entry: 7
+      Data: UnityEngine.Playables.PlayableGraph, UnityEngine.CoreModule
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: animationRootPlayable
+      Entry: 7
+      Data: UnityEngine.Animations.AnimationLayerMixerPlayable, UnityEngine.AnimationModule
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: runtimeTracks
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[Timeline.RuntimeTrack, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RebindCallback
       Entry: 6
       Data: 
   instanceId: 0
-  Hertz: 60
-  ApplyRootMotion: 0
-  BBPlayable: {fileID: 11400000, guid: 77cd5d4dcdc8332419818559da694bd0, type: 2}
-  CurrentTimeline: {fileID: 0}
+  PlayableGraph: {fileID: 11400000, guid: 77cd5d4dcdc8332419818559da694bd0, type: 2}
 --- !u!1 &2781284382035896760
 GameObject:
   m_ObjectHideFlags: 0
