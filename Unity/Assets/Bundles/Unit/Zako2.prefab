@@ -300,7 +300,7 @@ GameObject:
   - component: {fileID: 4414782179765493138}
   - component: {fileID: 7426427699367485659}
   - component: {fileID: 3273226798631370853}
-  - component: {fileID: 5116699315351158511}
+  - component: {fileID: 2438982373902009863}
   m_Layer: 0
   m_Name: Zako2
   m_TagString: Untagged
@@ -365,7 +365,7 @@ SpriteRenderer:
   m_SortingLayerID: 2016810935
   m_SortingLayer: 1
   m_SortingOrder: 2000
-  m_Sprite: {fileID: 761158702, guid: 5e57ba664c212614992980c0fd912ca5, type: 3}
+  m_Sprite: {fileID: 852268293, guid: 5e57ba664c212614992980c0fd912ca5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -440,7 +440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instanceId: 0
   Script: {fileID: 1042094116111776886, guid: 65acf83808c7d0441928e872238a50c1, type: 3}
---- !u!114 &5116699315351158511
+--- !u!114 &2438982373902009863
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -455,9 +455,7 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 0d3ca2c5a28ee7c42aa8bd2a3e0f04ef, type: 2}
-    - {fileID: 5116699315351158511}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -466,13 +464,25 @@ MonoBehaviour:
     - Name: RuntimePlayable
       Entry: 7
       Data: 0|Timeline.RuntimePlayable, Unity.Loader
-    - Name: Timeline
-      Entry: 10
-      Data: 0
-    - Name: TimelinePlayer
-      Entry: 10
-      Data: 1
-    - Name: RuntimeTracks
+    - Name: timeline
+      Entry: 6
+      Data: 
+    - Name: timelinePlayer
+      Entry: 6
+      Data: 
+    - Name: playableGraph
+      Entry: 7
+      Data: UnityEngine.Playables.PlayableGraph, UnityEngine.CoreModule
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: animationRootPlayable
+      Entry: 7
+      Data: UnityEngine.Animations.AnimationLayerMixerPlayable, UnityEngine.AnimationModule
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: runtimeTracks
       Entry: 7
       Data: 1|System.Collections.Generic.List`1[[Timeline.RuntimeTrack, Unity.Loader]],
         mscorlib
@@ -485,53 +495,11 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: RebindCallback
-      Entry: 7
-      Data: 2|System.Action, mscorlib
-    - Name: target
-      Entry: 9
-      Data: 0
-    - Name: declaringType
-      Entry: 7
-      Data: 3|System.RuntimeType, mscorlib
-    - Name: 
-      Entry: 1
-      Data: Timeline.RuntimePlayable, Unity.Loader
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: methodName
-      Entry: 1
-      Data: Rebind
-    - Name: delegateType
-      Entry: 7
-      Data: 4|System.RuntimeType, mscorlib
-    - Name: 
-      Entry: 1
-      Data: System.Action, mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: signature
-      Entry: 7
-      Data: 5|System.Type[], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
   instanceId: 0
-  Hertz: 60
-  ApplyRootMotion: 0
-  BBPlayable: {fileID: 11400000, guid: 6b5f2ea1ef139064f82d13656a0dbd87, type: 2}
-  CurrentTimeline: {fileID: 11400000, guid: 0d3ca2c5a28ee7c42aa8bd2a3e0f04ef, type: 2}
+  PlayableGraph: {fileID: 11400000, guid: 6b5f2ea1ef139064f82d13656a0dbd87, type: 2}

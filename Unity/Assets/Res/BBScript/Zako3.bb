@@ -27,7 +27,9 @@ GotoBehavior: Zako3_Spawn;
 return;
 
 @HPWatcher:
-GotoBehavior: Zako3_Death;
+BeginIf: (HP: Value <= 0)
+  GotoBehavior: Zako3_Death;
+EndIf:
 return;
 
 [Zako3_Spawn]
@@ -246,4 +248,4 @@ BBSprite: Land_2, 5;
 SetVelocity: 0, 0;
 BBSprite: Land_3, 5;
 BBSprite: Land_4, 5;
-Dispose;
+return;

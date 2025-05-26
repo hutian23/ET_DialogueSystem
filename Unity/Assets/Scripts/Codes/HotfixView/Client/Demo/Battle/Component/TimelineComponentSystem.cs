@@ -42,7 +42,7 @@ namespace ET.Client
 
         private static void Dispose(this TimelineComponent self)
         {
-            // Unit被销毁，GameObjectComponent的添加顺序在timeline前
+            // Unit被销毁，GameObjectComponent的添加顺序在timeline前，避免空引用
             if (self.GetParent<Unit>().InstanceId == 0)
             {
                 return;

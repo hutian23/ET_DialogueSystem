@@ -2,6 +2,7 @@
 @RootInit:
 PoolObject: GDust, 1;
 EnemyInit;
+HP: 200;
 EnableAirCheck;
 EnableGravityCheck: 100000, 150000, 450000;    
 RegistMove: (Zako2_Spawn)
@@ -35,6 +36,12 @@ RegistMove: (Zako2_Death)
   MoveType: None;
 EndMove:
 GotoBehavior: Zako2_Spawn;
+return;
+
+@HPWatcher:
+BeginIf: (HP: Value <= 0)
+  GotoBehavior: Zako2_Death;
+EndIf:
 return;
 
 [Zako2_Spawn]
@@ -313,4 +320,32 @@ EndIf:
 
 @LoseTargetCallback:
 GotoBehavior: Zako2_LoseTarget;
+return;
+
+[Zako2_Death]
+@Trigger:
+return;
+
+@Main:
+# Hit
+Gravity: 0;
+WaitFrame: 1;
+SetVelocity: 0, 0;
+Shake: 1400, 1400, 10000, 25;
+BBSprite: Air_1, 25;
+SetVelocity: -70000, 180000;
+BBSprite: Air_2, 5;
+# Fall
+Gravity: 100000;
+BeginLoopAnim: (InAir: true)
+  LoopSprite: Air_2, 5;
+EndLoopAnim:
+# Land
+SetVelocity: 0, 0;
+Shake: 800, 800, 12000, 10;
+SetVelocity: -15000, 120000;
+BBSprite: Land_1, 10;
+BBSprite: Land_2, 5;
+SetVelocity: 0, 0;
+BBSprite: Land_3, 5;
 return;
