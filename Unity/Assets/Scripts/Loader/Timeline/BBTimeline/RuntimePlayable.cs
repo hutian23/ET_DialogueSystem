@@ -7,17 +7,15 @@ namespace Timeline
 {
     public class RuntimePlayable
     {
-        public BBTimeline Timeline;
+        public long instanceId;
         public TimelinePlayer TimelinePlayer;
+        public BBTimeline Timeline;
         public List<RuntimeTrack> RuntimeTracks = new();
         private int CurrentFrame = -1;
-
-        #region Component
-
+        
         public PlayableGraph PlayableGraph => TimelinePlayer.PlayableGraph;
         public AnimationLayerMixerPlayable AnimationRootPlayable => TimelinePlayer.AnimationRootPlayable;
-
-        #endregion
+        
 
         public static RuntimePlayable Create(BBTimeline _timeline, TimelinePlayer _timelinePlayer)
         {
@@ -85,8 +83,7 @@ namespace Timeline
         {
             Timeline.RemoveTrack(track);
         }
-
-        //TODO Rebind -- 对应Undo Redo
+        
         public Action RebindCallback;
 
         private void Rebind()

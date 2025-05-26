@@ -181,10 +181,7 @@ namespace Timeline
             //Edit mode ---> play animation curve
             if (!timelinePlayer.HasBindUnit)
             {
-                if (timelinePlayer.ApplyRootMotion)
-                {
-                    timelinePlayer.transform.localPosition = animationClip.CurrentPosition(clipInFrame);   
-                }
+                timelinePlayer.transform.localPosition = animationClip.CurrentPosition(clipInFrame);   
                 timelinePlayer.transform.localEulerAngles = animationClip.CurrentRotation(clipInFrame);
             }
             //Runtime mode ---> invoke update trans callback

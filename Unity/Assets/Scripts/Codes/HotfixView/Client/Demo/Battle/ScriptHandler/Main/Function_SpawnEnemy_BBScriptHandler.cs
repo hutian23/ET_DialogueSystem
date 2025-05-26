@@ -33,6 +33,7 @@ namespace ET.Client
             Unit enemy = BulletManager.Instance.AddChild<Unit, int>(1001);
             enemy.AddComponent<GameObjectComponent>().GameObject = go;
             enemy.AddComponent<BBParser>();
+            go.GetComponent<BBScript>().instanceId = enemy.InstanceId;
 
             // 初始化Enemy
             int index = parser.Coroutine_Pointers[data.CoroutineID];

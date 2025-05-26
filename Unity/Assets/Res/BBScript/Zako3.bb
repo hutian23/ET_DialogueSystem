@@ -246,4 +246,4 @@ BBSprite: Land_2, 5;
 SetVelocity: 0, 0;
 BBSprite: Land_3, 5;
 BBSprite: Land_4, 5;
-return;
+Dispose;

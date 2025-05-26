@@ -10,9 +10,6 @@ namespace Timeline
     {
         [HideInInspector]
         public long instanceId; // timelineComponent.InstanceId
-        [HideInInspector]
-        public float Hertz = 60; //TimeScale
-        public bool ApplyRootMotion;
 
         public bool IsValid => PlayableGraph.IsValid();
         private Animator Animator { get; set; }

@@ -1,8 +1,6 @@
-﻿using System;
-using Box2DSharp.Testbed.Unity.Inspection;
+﻿using Box2DSharp.Testbed.Unity.Inspection;
 using ImGuiNET;
 using Testbed.Abstractions;
-using Timeline;
 using UnityEngine;
 
 namespace ET
@@ -16,14 +14,7 @@ namespace ET
     {
         public bool SingleStep;
     }
-
-    public struct UpdateBehaviorCallback
-    {
-        public long instanceId;
-
-        public string behaviorName;
-    }
-
+    
     public class b2GUIController
     {
         private readonly b2Game Game;
@@ -156,66 +147,62 @@ namespace ET
                 ImGui.End();
             }
 
-            //Behaviors
-            if (Game.DebugDraw.ShowUI)
-            {
-                ImGui.SetNextWindowPos(new Vector2((float)Global.Camera.Width - MenuWidth - 10, 30));
-                ImGui.SetNextWindowSize(new Vector2(MenuWidth, (float)Global.Camera.Height - 40));
-                ImGui.Begin("Behaviors", ref this.Game.DebugDraw.ShowUI, ImGuiWindowFlags.NoResize);
-
-                if (ImGui.BeginTabBar("Behaviors"))
-                {
-                    if (ImGui.BeginTabItem("Behaviors"))
-                    {
-                        Transform root = GameObject.Find("Global/UnitRoot").transform;
-
-                        ImGuiTreeNodeFlags leafNodeFlags = ImGuiTreeNodeFlags.Leaf | ImGuiTreeNodeFlags.NoTreePushOnOpen;
-                        ImGuiTreeNodeFlags parentNodeFlags = ImGuiTreeNodeFlags.OpenOnArrow | ImGuiTreeNodeFlags.OpenOnDoubleClick;
-                        
-                        for (int i = 0; i < root.GetComponentsInChildren<TimelinePlayer>().Length; i++)
-                        {
-                            TimelinePlayer timelinePlayer = root.GetComponentsInChildren<TimelinePlayer>()[i];
-
-                            ImGuiTreeNodeFlags nodeSelectedFlag = timelinePlayer.instanceId == Global.Settings.instanceId? ImGuiTreeNodeFlags.Selected : 0;
-                            bool nodeOpen = ImGui.TreeNodeEx((IntPtr)i, parentNodeFlags | nodeSelectedFlag, $"{timelinePlayer.name}");
-                            long instanceId = timelinePlayer.instanceId;
-                            if (ImGui.IsItemClicked())
-                            {
-                                Global.Settings.instanceId = instanceId;
-                            }
-
-                            if (nodeOpen)
-                            {
-                                bool behaviorOpens = ImGui.TreeNodeEx("Behaviors", parentNodeFlags);
-                                if (behaviorOpens)
-                                {
-                                    int j = 0;
-                                    foreach (BBTimeline timeline in timelinePlayer.BBPlayable.timelineDict.Values)
-                                    {
-                                        ImGui.TreeNodeEx((IntPtr)j, leafNodeFlags, $"{timeline.timelineName}");
-                                        if (ImGui.IsItemClicked())
-                                        {
-                                            EventSystem.Instance?.Invoke(new UpdateBehaviorCallback() { instanceId = instanceId ,behaviorName = timeline.timelineName});
-                                        }
-
-                                        j++;
-                                    }
-
-                                    ImGui.TreePop();
-                                }
-                                
-                                ImGui.SliderFloat("Hertz", ref timelinePlayer.Hertz, 0f, 120f, "%.0f hz");
-                                EventSystem.Instance.Invoke(new UpdateHertzCallback() { instanceId = timelinePlayer.instanceId,Hertz = (int)timelinePlayer.Hertz});
-                                
-                                ImGui.TreePop();
-                            }
-                        }
-                    }
-                    ImGui.EndTabBar();
-                }
-
-                ImGui.End();
-            }
+            // //Behaviors
+            // if (Game.DebugDraw.ShowUI)
+            // {
+            //     ImGui.SetNextWindowPos(new Vector2((float)Global.Camera.Width - MenuWidth - 10, 30));
+            //     ImGui.SetNextWindowSize(new Vector2(MenuWidth, (float)Global.Camera.Height - 40));
+            //     ImGui.Begin("Behaviors", ref this.Game.DebugDraw.ShowUI, ImGuiWindowFlags.NoResize);
+            //
+            //     if (ImGui.BeginTabBar("Behaviors"))
+            //     {
+            //         if (ImGui.BeginTabItem("Behaviors"))
+            //         {
+            //             Transform root = GameObject.Find("Global/UnitRoot").transform;
+            //
+            //             ImGuiTreeNodeFlags leafNodeFlags = ImGuiTreeNodeFlags.Leaf | ImGuiTreeNodeFlags.NoTreePushOnOpen;
+            //             ImGuiTreeNodeFlags parentNodeFlags = ImGuiTreeNodeFlags.OpenOnArrow | ImGuiTreeNodeFlags.OpenOnDoubleClick;
+            //             
+            //             for (int i = 0; i < root.GetComponentsInChildren<TimelinePlayer>().Length; i++)
+            //             {
+            //                 TimelinePlayer timelinePlayer = root.GetComponentsInChildren<TimelinePlayer>()[i];
+            //
+            //                 ImGuiTreeNodeFlags nodeSelectedFlag = timelinePlayer.instanceId == Global.Settings.instanceId? ImGuiTreeNodeFlags.Selected : 0;
+            //                 bool nodeOpen = ImGui.TreeNodeEx((IntPtr)i, parentNodeFlags | nodeSelectedFlag, $"{timelinePlayer.name}");
+            //                 long instanceId = timelinePlayer.instanceId;
+            //                 if (ImGui.IsItemClicked())
+            //                 {
+            //                     Global.Settings.instanceId = instanceId;
+            //                 }
+            //
+            //                 if (nodeOpen)
+            //                 {
+            //                     bool behaviorOpens = ImGui.TreeNodeEx("Behaviors", parentNodeFlags);
+            //                     if (behaviorOpens)
+            //                     {
+            //                         int j = 0;
+            //                         foreach (BBTimeline timeline in timelinePlayer.BBPlayable.timelineDict.Values)
+            //                         {
+            //                             ImGui.TreeNodeEx((IntPtr)j, leafNodeFlags, $"{timeline.timelineName}");
+            //                             if (ImGui.IsItemClicked())
+            //                             {
+            //                                 EventSystem.Instance?.Invoke(new UpdateBehaviorCallback() { instanceId = instanceId ,behaviorName = timeline.timelineName});
+            //                             }
+            //
+            //                             j++;
+            //                         }
+            //
+            //                         ImGui.TreePop();
+            //                     }
+            //                     ImGui.TreePop();
+            //                 }
+            //             }
+            //         }
+            //         ImGui.EndTabBar();
+            //     }
+            //
+            //     ImGui.End();
+            // }
         }
     }
 }

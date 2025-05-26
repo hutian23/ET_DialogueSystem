@@ -1,0 +1,4 @@
+[Root]
+@Entry:
+Test;
+return;
