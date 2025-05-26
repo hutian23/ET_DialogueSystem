@@ -1,7 +1,7 @@
 ﻿namespace ET.Client
 {
     [UniqueId(0, 10000)]
-    public static class BBTimerInvokeType
+    public static class EventType
     {
         public const int None = 0;
         public const int Test1 = 1;
@@ -54,5 +54,11 @@
         
         //Gizmos
         public const int CameraGizmosTimer = 2001;
+    }
+    
+    public struct UpdateHertzCallback
+    {
+        public long instanceId;
+        public int Hertz;
     }
 }

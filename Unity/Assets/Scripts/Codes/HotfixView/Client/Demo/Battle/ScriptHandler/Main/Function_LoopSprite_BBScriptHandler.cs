@@ -35,7 +35,7 @@ namespace ET.Client
             LoopAnimComponent loopAnim = parser.GetComponent<LoopAnimComponent>();
             
             RuntimePlayable runtimePlayable = timelineComponent.GetTimelinePlayer().RuntimePlayable;
-            foreach (RuntimeTrack runtimeTrack in runtimePlayable.RuntimeTracks)
+            foreach (RuntimeTrack runtimeTrack in runtimePlayable.runtimeTracks)
             {
                 if (runtimeTrack.Track is not BBEventTrack eventTrack) continue;
                 if (eventTrack.Name.Equals("Marker"))

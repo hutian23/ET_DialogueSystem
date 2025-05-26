@@ -3,7 +3,7 @@
     [FriendOf(typeof(TargetCancelComponent))]
     public static class TargetCancelComponentSystem
     {
-        [Invoke(BBTimerInvokeType.TargetCancelTimer)]
+        [Invoke(EventType.TargetCancelTimer)]
         [FriendOf(typeof(TargetCancelComponent))]
         [FriendOf(typeof(BehaviorInfo))]
         public class TargetCancelTimer : BBTimer<Unit>
@@ -45,7 +45,7 @@
             {
                 Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
                 BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
-                self.timer = bbTimer.NewFrameTimer(BBTimerInvokeType.TargetCancelTimer, unit);
+                self.timer = bbTimer.NewFrameTimer(EventType.TargetCancelTimer, unit);
             }
         }
 

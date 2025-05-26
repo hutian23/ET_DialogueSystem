@@ -12,7 +12,7 @@ namespace ET
 
         private void OnEnable()
         {
-            m_PlayableGraph = serializedObject.FindProperty("BBPlayable");
+            m_PlayableGraph = serializedObject.FindProperty("PlayableGraph");
         }
         
         public override void OnInspectorGUI()
@@ -27,9 +27,8 @@ namespace ET
             {
                 if (GUILayout.Button("技能编辑器"))
                 {
-                    foreach (BBTimeline timeline in timelinePlayer.BBPlayable.timelineDict.Values)
+                    foreach (BBTimeline timeline in timelinePlayer.PlayableGraph.timelineDict.Values)
                     {
-                        timelinePlayer.ClearTimelineGenerate();
                         TimelineEditorWindow.OpenWindow(timelinePlayer, timeline);
                         return;
                     }

@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    [Invoke(BBTimerInvokeType.ThronesTestTimer)]
+    [Invoke(EventType.ThronesTestTimer)]
     [FriendOf(typeof(BBParser))]
     public class ThronesTestTimer : BBTimer<BBParser>
     {
@@ -65,7 +65,7 @@ namespace ET.Client
             // 注册变量
             parser.RegistParam($"ThronesTest_StartIndex", startIndex);
             parser.RegistParam($"ThronesTest_EndIndex", endIndex);
-            long timer = bbTimer.NewFrameTimer(BBTimerInvokeType.ThronesTestTimer, parser);
+            long timer = bbTimer.NewFrameTimer(EventType.ThronesTestTimer, parser);
             parser.RegistParam($"ThronesTestTimer", timer);
 
             await ETTask.CompletedTask;

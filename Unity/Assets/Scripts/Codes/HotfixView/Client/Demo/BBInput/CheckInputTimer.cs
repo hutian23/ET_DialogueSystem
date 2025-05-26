@@ -1,6 +1,6 @@
 ﻿namespace ET.Client
 {
-    [Invoke(BBTimerInvokeType.CheckInput)]
+    [Invoke(EventType.CheckInput)]
     [FriendOf(typeof (InputWait))]
     public class CheckInputTimer: BBTimer<InputWait>
     {

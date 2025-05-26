@@ -3,9 +3,9 @@ using UnityEngine;
 namespace ET.Client
 {
     [Event(SceneType.Current)]
-    public class ChangeRotation_SyncGameObjectRotation: AEvent<EventType.ChangeRotation>
+    public class ChangeRotation_SyncGameObjectRotation: AEvent<ET.EventType.ChangeRotation>
     {
-        protected override async ETTask Run(Scene scene, EventType.ChangeRotation args)
+        protected override async ETTask Run(Scene scene, ET.EventType.ChangeRotation args)
         {
             Unit unit = args.Unit;
             GameObjectComponent gameObjectComponent = unit.GetComponent<GameObjectComponent>();

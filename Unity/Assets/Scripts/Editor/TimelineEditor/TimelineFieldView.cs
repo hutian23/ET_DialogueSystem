@@ -211,7 +211,7 @@ namespace Timeline.Editor
         {
             Dispose();
 
-            //get maxframe
+            //get maxFrame
             int maxFrame = m_MaxFrame;
             foreach (BBTrack track in EditorWindow.BBTimeline.Tracks)
             {
@@ -996,7 +996,7 @@ namespace Timeline.Editor
         private int GetMaxFrame()
         {
             int maxFrame = 0;
-            foreach (BBTrack track in RuntimePlayable.Timeline.Tracks)
+            foreach (BBTrack track in RuntimePlayable.timeline.Tracks)
             {
                 if (maxFrame <= track.GetMaxFrame())
                 {

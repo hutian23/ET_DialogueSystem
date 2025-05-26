@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ET;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,9 +8,9 @@ namespace Timeline.Editor
 {
     public class TimelineEditorWindow: EditorWindow, ISelection
     {
-        private VisualElement m_Top;
-        private VisualElement m_LeftPanel;
-        protected VisualElement m_TrackHierachy;
+        // private VisualElement m_Top;
+        // private VisualElement m_LeftPanel;
+        protected VisualElement m_TrackHierarchy;
         protected VisualElement m_Toolbar;
         public ScrollView TrackHandleContainer;
         private VisualElement m_AddTrackButton;
@@ -26,9 +25,9 @@ namespace Timeline.Editor
         private TimelineFieldView m_TimelineField;
         public TimelinePlayer TimelinePlayer { get; private set; }
 
-        public BBTimeline BBTimeline => TimelinePlayer.RuntimePlayable.Timeline;
+        public BBTimeline BBTimeline => TimelinePlayer.RuntimePlayable.timeline;
         public RuntimePlayable RuntimePlayable => TimelinePlayer.RuntimePlayable;
-        private SerializedObject SerializedTimeline => TimelinePlayer.RuntimePlayable.Timeline.SerializedTimeline;
+        private SerializedObject SerializedTimeline => TimelinePlayer.RuntimePlayable.timeline.SerializedTimeline;
 
         public void CreateGUI()
         {
@@ -37,7 +36,7 @@ namespace Timeline.Editor
             visualTree.CloneTree(root);
             root.AddToClassList("timelineEditorWindow");
 
-            m_Top = root.Q("top");
+            // m_Top = root.Q("top");
 
             m_PlayButton = root.Q<Button>("play-button");
             m_PlayButton.clicked += () => { m_TimelineField.PlayTimelineCor(); };
@@ -50,8 +49,8 @@ namespace Timeline.Editor
 
             fieldScaleBar = root.Q<SliderInt>("field-scale-bar");
 
-            m_LeftPanel = root.Q("left-panel");
-            m_TrackHierachy = root.Q("track-hierachy");
+            // m_LeftPanel = root.Q("left-panel");
+            m_TrackHierarchy = root.Q("track-hierachy");
             m_Toolbar = root.Q("tool-bar");
 
             //Scroll trackView
@@ -96,16 +95,14 @@ namespace Timeline.Editor
             
             DropdownMenuHandler selectMenuHandler = new(menu =>
             {
-                foreach (BBTimeline _timeline in TimelinePlayer.BBPlayable.timelineDict.Values)
+                foreach (BBTimeline _timeline in TimelinePlayer.PlayableGraph.timelineDict.Values)
                 {
                     string actionName = $"{_timeline.timelineName}";
-                    menu.AppendAction(actionName, _ => { OpenWindow(TimelinePlayer, _timeline); }, TimelinePlayer.CurrentTimeline == _timeline? DropdownMenuAction.Status.Checked : DropdownMenuAction.Status.Normal);
+                    menu.AppendAction(actionName, _ => { OpenWindow(TimelinePlayer, _timeline); }, TimelinePlayer.RuntimePlayable.timeline == _timeline? DropdownMenuAction.Status.Checked : DropdownMenuAction.Status.Normal);
                 }
             });
             m_select_timeline_Button.clicked += () => { selectMenuHandler.ShowMenu(m_select_timeline_Button); };
-
             m_select_timeline_label = root.Q<Label>("select-timeline-label");
-
             m_TimelineField = root.Q<TimelineFieldView>();
             m_TimelineField.EditorWindow = this;
 
@@ -119,7 +116,7 @@ namespace Timeline.Editor
         {
             Undo.undoRedoEvent -= OnUndoRedoEvent;
             Dispose();
-            RuntimePlayable?.Dispose();
+            TimelinePlayer.Dispose();
         }
 
         public void ApplyModify(Action action, string _name, bool rebind = true)
@@ -128,7 +125,7 @@ namespace Timeline.Editor
             SerializedTimeline.Update();
             action?.Invoke();
 
-            if (rebind) RuntimePlayable.RebindCallback?.Invoke();
+            if (rebind) TimelinePlayer.RebindCallback?.Invoke();
             EditorUtility.SetDirty(BBTimeline);
         }
 
@@ -155,14 +152,13 @@ namespace Timeline.Editor
 
             UpdateBindState();
             m_TimelineField.PopulateView();
-            UpdateSelectTimeline();
         }
 
         private void OnUndoRedoEvent(in UndoRedoInfo info)
         {
-            if (info.undoName.Split(':')[0] == "Timeline" && RuntimePlayable != null)
+            if (info.undoName.Split(':')[0] == "Timeline")
             {
-                RuntimePlayable.RebindCallback?.Invoke();
+                TimelinePlayer.RebindCallback?.Invoke();
             }
         }
 
@@ -173,10 +169,11 @@ namespace Timeline.Editor
             m_PauseButton.SetEnabled(binding);
             fieldScaleBar.SetEnabled(binding);
             m_TimelineField.SetEnabled(binding);
-
-            RuntimePlayable.Timeline.UpdateSerializeTimeline();
-            RuntimePlayable.RebindCallback -= PopulateView;
-            RuntimePlayable.RebindCallback += PopulateView;
+            m_select_timeline_label.text = $"{TimelinePlayer.RuntimePlayable.timeline.timelineName}";
+            
+            RuntimePlayable.timeline.UpdateSerializeTimeline();
+            TimelinePlayer.RebindCallback -= PopulateView; 
+            TimelinePlayer.RebindCallback += PopulateView;
         }
 
         #region Selection
@@ -218,14 +215,5 @@ namespace Timeline.Editor
             window.TimelinePlayer.Init(timeline);
             window.PopulateView();
         }
-
-        #region Select Timeline
-
-        private void UpdateSelectTimeline()
-        {
-            m_select_timeline_label.text = $"{TimelinePlayer.CurrentTimeline.timelineName}";
-        }
-
-        #endregion
     }
 }

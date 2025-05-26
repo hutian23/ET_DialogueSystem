@@ -3,9 +3,9 @@
 namespace ET.Client
 {
     [Event(SceneType.Current)]
-    public class AfterUnitCreate_CreateUnitView: AEvent<EventType.AfterUnitCreate>
+    public class AfterUnitCreate_CreateUnitView: AEvent<ET.EventType.AfterUnitCreate>
     {
-        protected override async ETTask Run(Scene scene, EventType.AfterUnitCreate args)
+        protected override async ETTask Run(Scene scene, ET.EventType.AfterUnitCreate args)
         {
             Unit unit = args.Unit;
             // Unit View层

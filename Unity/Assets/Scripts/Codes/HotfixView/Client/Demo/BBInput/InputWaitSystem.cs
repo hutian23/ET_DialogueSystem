@@ -16,7 +16,7 @@
         {
             BBTimerComponent sceneTimer = BBTimerManager.Instance.SceneTimer();
             sceneTimer.Remove(ref self.CheckInputTimer);
-            self.CheckInputTimer = sceneTimer.NewFrameTimer(BBTimerInvokeType.CheckInput, self);
+            self.CheckInputTimer = sceneTimer.NewFrameTimer(EventType.CheckInput, self);
             
             self.curOP = 0;
             self.infoQueue.Clear();

@@ -3,9 +3,9 @@
 namespace ET.Client
 {
     [Event(SceneType.Current)]
-    public class ChangePosition_SyncGameObjectPos: AEvent<EventType.ChangePosition>
+    public class ChangePosition_SyncGameObjectPos: AEvent<ET.EventType.ChangePosition>
     {
-        protected override async ETTask Run(Scene scene, EventType.ChangePosition args)
+        protected override async ETTask Run(Scene scene, ET.EventType.ChangePosition args)
         {
             Unit unit = args.Unit;
             GameObjectComponent gameObjectComponent = unit.GetComponent<GameObjectComponent>();

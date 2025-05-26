@@ -60,8 +60,6 @@ namespace Timeline
     
     public class RuntimeEventTrack: RuntimeTrack
     {
-        private TimelinePlayer timelinePlayer => RuntimePlayable.TimelinePlayer;
-
         public RuntimeEventTrack(RuntimePlayable runtimePlayable, BBTrack _track): base(runtimePlayable, _track)
         {
         }
@@ -76,18 +74,14 @@ namespace Timeline
 
         public override void SetTime(int targetFrame)
         {
-            if (!timelinePlayer.HasBindUnit)
-            {
-                return;
-            }
-            
+            // Editor阶段
+            if (!RuntimePlayable.HasBindUnit()) return;
+           
             BBEventTrack eventTrack = Track as BBEventTrack;
             EventInfo info = eventTrack.GetInfo(targetFrame);
-            if (info == null)
-            {
-                return;
-            }
-            EventSystem.Instance?.Invoke(new UpdateEventTrackCallback() { instanceId = timelinePlayer.instanceId, markerName = info.keyframeName});
+            if (info == null) return;
+            
+            EventSystem.Instance?.Invoke(new UpdateEventTrackCallback() { instanceId = RuntimePlayable.GetInstanceId(), markerName = info.keyframeName});
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Timeline.Editor
@@ -18,7 +19,8 @@ namespace Timeline.Editor
 
                 var bb_obj = AssetDatabase.LoadAssetAtPath<Object>(str);
                 
-                AssetDatabase.SetLabels(bb_obj, new []{"bb"});
+                Debug.LogWarning("12323");
+                // AssetDatabase.SetLabels(bb_obj, new []{"bb"});
             }
 
             // foreach (string str in deletedAssets)

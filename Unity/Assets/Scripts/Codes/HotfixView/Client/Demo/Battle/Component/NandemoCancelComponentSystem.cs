@@ -3,7 +3,7 @@
     public static class NandemoCancelComponentSystem
     {
         // 对应IASA，一般用于取消一些过渡动画，当前动作可被所有动作取消
-        [Invoke(BBTimerInvokeType.NandemoCancelTimer)]
+        [Invoke(EventType.NandemoCancelTimer)]
         [FriendOf(typeof(BehaviorInfo))]
         [FriendOf(typeof(BehaviorMachine))]
         public class NandemoCancelTimer : BBTimer<Unit>
@@ -46,7 +46,7 @@
             {
                 Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
                 BBTimerComponent bbTimerComponent = unit.GetComponent<BBTimerComponent>();
-                self.timer = bbTimerComponent.NewFrameTimer(BBTimerInvokeType.NandemoCancelTimer,unit);
+                self.timer = bbTimerComponent.NewFrameTimer(EventType.NandemoCancelTimer,unit);
             }
         }
         

@@ -4,9 +4,9 @@ namespace ET.Client
 {
     [Event(SceneType.Client)]
     [FriendOf(typeof(BBTimerManager))]
-    public class SceneChangeStart_AddComponent : AEvent<EventType.SceneChangeStart>
+    public class SceneChangeStart_AddComponent : AEvent<ET.EventType.SceneChangeStart>
     {
-        protected override async ETTask Run(Scene scene, EventType.SceneChangeStart args)
+        protected override async ETTask Run(Scene scene, ET.EventType.SceneChangeStart args)
         {
             Scene currentScene = scene.CurrentScene();
             // 加载场景资源

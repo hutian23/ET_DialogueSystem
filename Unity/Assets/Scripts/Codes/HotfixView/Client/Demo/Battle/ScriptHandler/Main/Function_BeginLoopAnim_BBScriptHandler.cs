@@ -30,20 +30,20 @@ namespace ET.Client
             //1. 组件初始化
             Unit unit = parser.GetParent<Unit>();
             TimelineComponent timelineComponent = unit.GetComponent<TimelineComponent>();
+            TimelinePlayer timelinePlayer = timelineComponent.GetTimelinePlayer();
             BehaviorMachine machine = unit.GetComponent<BehaviorMachine>();
             BehaviorInfo info = machine.GetInfoByOrder(machine.GetCurrentOrder());
             
             //2. 更新playableGraph
-            BBTimeline _timeline = timelineComponent.GetTimelinePlayer().GetTimeline(info.behaviorName);
+            BBTimeline _timeline = timelinePlayer.GetTimeline(info.behaviorName);
             if (_timeline == null)
             {
                 Log.Error($"not found timeline name: {info.behaviorName}");
                 return Status.Failed;
             }
-            if (timelineComponent.GetTimelinePlayer().RuntimePlayable == null ||
-                timelineComponent.GetTimelinePlayer().RuntimePlayable.Timeline != _timeline)
+            if (timelinePlayer.RuntimePlayable == null || timelinePlayer.RuntimePlayable.timeline != _timeline)
             {
-                timelineComponent.GetTimelinePlayer().Init(_timeline);
+                timelinePlayer.Init(_timeline);
             }
 
             parser.RemoveComponent<LoopAnimComponent>();

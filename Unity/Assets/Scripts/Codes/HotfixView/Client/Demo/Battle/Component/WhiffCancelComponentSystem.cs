@@ -2,7 +2,7 @@
 {
     public static class WhiffCancelComponentSystem
     {
-        [Invoke(BBTimerInvokeType.WhiffCancelTimer)]
+        [Invoke(EventType.WhiffCancelTimer)]
         [FriendOf(typeof(BehaviorMachine))]
         [FriendOf(typeof(BehaviorInfo))]
         [FriendOf(typeof(WhiffCancelComponent))]
@@ -46,7 +46,7 @@
             {
                 Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
                 BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
-                self.timer = bbTimer.NewFrameTimer(BBTimerInvokeType.WhiffCancelTimer, unit);
+                self.timer = bbTimer.NewFrameTimer(EventType.WhiffCancelTimer, unit);
             }
         }
         

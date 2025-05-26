@@ -15,7 +15,7 @@ namespace ET.Client
                 TimelinePlayer timelinePlayer = component.GameObject.GetComponent<TimelinePlayer>();
                 if (timelinePlayer == null)
                 {
-                    Log.Error($"gameObject must add TimelinePlayer!!");
+                    Log.Error($"GameObject must add TimelinePlayer component!!!");
                     return;
                 }
                 
@@ -28,7 +28,7 @@ namespace ET.Client
         {
             protected override void Destroy(TimelineComponent self)
             {
-                self.Init();
+                Dispose(self);
             }
         }
         
@@ -36,20 +36,17 @@ namespace ET.Client
         {
             protected override void Load(TimelineComponent self)
             {
-                self.Init();
+                Dispose(self);
             }
         }
 
-        private static void Init(this TimelineComponent self)
+        private static void Dispose(this TimelineComponent self)
         {
-            //初始化
             GameObjectComponent component = self.GetParent<Unit>().GetComponent<GameObjectComponent>();
             TimelinePlayer timelinePlayer = component.GameObject.GetComponent<TimelinePlayer>();
-            timelinePlayer.RuntimePlayable = null;
-            timelinePlayer.CurrentTimeline = null;
+            timelinePlayer.Dispose();
         }
-        
-        #region TimelinePlayer
+
         public static TimelinePlayer GetTimelinePlayer(this TimelineComponent self)
         {
             return self.GetParent<Unit>()
@@ -61,7 +58,5 @@ namespace ET.Client
         { 
             self.GetTimelinePlayer().RuntimePlayable.Evaluate(targetFrame);
         }
-
-        #endregion
     }
 }

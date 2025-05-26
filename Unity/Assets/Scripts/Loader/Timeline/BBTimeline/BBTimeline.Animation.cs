@@ -75,9 +75,9 @@ namespace Timeline
 
         public override void Bind()
         {
-            TrackPlayable = BBTimelineAnimationTrackPlayable.Create(RuntimePlayable, this, RuntimePlayable.AnimationRootPlayable);
-            PlayableIndex = RuntimePlayable.AnimationRootPlayable.GetInputCount() - 1;
-            RuntimePlayable.AnimationRootPlayable.SetInputWeight(PlayableIndex, 1);
+            TrackPlayable = BBTimelineAnimationTrackPlayable.Create(RuntimePlayable, this, RuntimePlayable.animationRootPlayable);
+            PlayableIndex = RuntimePlayable.animationRootPlayable.GetInputCount() - 1;
+            RuntimePlayable.animationRootPlayable.SetInputWeight(PlayableIndex, 1);
 
             ClipPlayables.Clear();
             for (int i = 0; i < AnimationTrack.Clips.Count; i++)
@@ -98,7 +98,7 @@ namespace Timeline
             }
 
             // Destroy trackPlayable
-            RuntimePlayable.AnimationRootPlayable.DisconnectInput(PlayableIndex);
+            RuntimePlayable.animationRootPlayable.DisconnectInput(PlayableIndex);
             TrackPlayable.Handle.Destroy();
         }
 
@@ -132,11 +132,11 @@ namespace Timeline
         public static BBTimelineAnimationTrackPlayable Create(RuntimePlayable runtimePlayable, RuntimeAnimationTrack runtimeAnimationTrack,
         Playable output)
         {
-            var handle = ScriptPlayable<BBTimelineAnimationTrackPlayable>.Create(runtimePlayable.PlayableGraph);
-            var trackPlayable = handle.GetBehaviour();
+            ScriptPlayable<BBTimelineAnimationTrackPlayable> handle = ScriptPlayable<BBTimelineAnimationTrackPlayable>.Create(runtimePlayable.playableGraph);
+            BBTimelineAnimationTrackPlayable trackPlayable = handle.GetBehaviour();
             trackPlayable.Track = runtimeAnimationTrack.AnimationTrack;
             trackPlayable.Handle = handle;
-            trackPlayable.MixerPlayable = AnimationMixerPlayable.Create(runtimePlayable.PlayableGraph, runtimeAnimationTrack.ClipCount);
+            trackPlayable.MixerPlayable = AnimationMixerPlayable.Create(runtimePlayable.playableGraph, runtimeAnimationTrack.ClipCount);
             handle.AddInput(trackPlayable.MixerPlayable, 0, 1);
 
             trackPlayable.Output = output;
@@ -175,11 +175,11 @@ namespace Timeline
             ClipPlayable.SetTime(clipInFrame / 60f);
             PrepareFrame(default, default);
             
-            TimelinePlayer timelinePlayer = runtimePlayable.TimelinePlayer;
+            TimelinePlayer timelinePlayer = runtimePlayable.timelinePlayer;
             BBAnimationClip animationClip = Clip as BBAnimationClip;
             
             //Edit mode ---> play animation curve
-            if (!timelinePlayer.HasBindUnit)
+            if (!runtimePlayable.HasBindUnit())
             {
                 timelinePlayer.transform.localPosition = animationClip.CurrentPosition(clipInFrame);   
                 timelinePlayer.transform.localEulerAngles = animationClip.CurrentRotation(clipInFrame);
@@ -207,11 +207,11 @@ namespace Timeline
 
         public static BBTimelineAnimationClipPlayable Create(RuntimePlayable runtimePlayable, BBAnimationClip clip, Playable output, int index)
         {
-            var handle = ScriptPlayable<BBTimelineAnimationClipPlayable>.Create(runtimePlayable.PlayableGraph);
-            var clipPlayable = handle.GetBehaviour();
+            ScriptPlayable<BBTimelineAnimationClipPlayable> handle = ScriptPlayable<BBTimelineAnimationClipPlayable>.Create(runtimePlayable.playableGraph);
+            BBTimelineAnimationClipPlayable clipPlayable = handle.GetBehaviour();
             clipPlayable.Clip = clip;
             clipPlayable.Handle = handle;
-            clipPlayable.ClipPlayable = AnimationClipPlayable.Create(runtimePlayable.PlayableGraph, clip.animationClip);
+            clipPlayable.ClipPlayable = AnimationClipPlayable.Create(runtimePlayable.playableGraph, clip.animationClip);
             clipPlayable.runtimePlayable = runtimePlayable;
             handle.AddInput(clipPlayable.ClipPlayable, 0, 1);
 

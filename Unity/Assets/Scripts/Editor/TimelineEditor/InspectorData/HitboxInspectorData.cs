@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using ET;
@@ -52,7 +53,36 @@ namespace Timeline.Editor
         [Button("刷新", DirtyOnClick = false)]
         private void Refresh()
         {
-            RuntimeHitboxTrack.GenerateHitbox(fieldView.EditorWindow.TimelinePlayer, Keyframe);
+            TimelinePlayer timelinePlayer = fieldView.EditorWindow.TimelinePlayer;
+            
+            //1. 销毁Hitbox
+            var goSet = new HashSet<GameObject>();
+            foreach (TimelineObject timelineObject in timelinePlayer.GetComponentsInChildren<TimelineObject>())
+            {
+                if (timelineObject.GetComponent<b2BoxCollider2D>() != null)
+                {
+                    goSet.Add(timelineObject.gameObject);
+                }
+            }
+            foreach (GameObject go in goSet)
+            {
+                UnityEngine.Object.DestroyImmediate(go);
+            }
+            
+            //2. 根据keyframe生成hitbox
+            foreach (BoxInfo boxInfo in Keyframe.boxInfos)
+            {
+                if (boxInfo.hitboxType is HitboxType.None) continue;
+                
+                GameObject parent = timelinePlayer.GetComponent<ReferenceCollector>().Get<GameObject>(boxInfo.hitboxType.ToString());
+                GameObject child = new(boxInfo.boxName);
+                child.transform.SetParent(parent.transform);
+                child.transform.localPosition = Vector2.zero;
+                child.AddComponent<TimelineObject>();
+                
+                b2BoxCollider2D box = child.AddComponent<b2BoxCollider2D>();
+                box.info = MongoHelper.Clone(boxInfo);
+            }
         }
 
         [Button("保存", DirtyOnClick = false)]
@@ -72,7 +102,7 @@ namespace Timeline.Editor
         public HitboxMarkerInspectorData(object target): base(target)
         {
             Keyframe = target as HitboxKeyframe;
-            this.CurrentFrame = Keyframe.frame;
+            CurrentFrame = Keyframe.frame;
         }
 
         public override void InspectorAwake(TimelineFieldView _fieldView)

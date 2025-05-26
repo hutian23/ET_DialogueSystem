@@ -1,8 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Animations;
-using UnityEngine.Playables;
 
 namespace Timeline
 {
@@ -10,21 +9,18 @@ namespace Timeline
     {
         [HideInInspector]
         public long instanceId; // timelineComponent.InstanceId
-
-        public bool IsValid => PlayableGraph.IsValid();
-        private Animator Animator { get; set; }
-        public PlayableGraph PlayableGraph { get; private set; }
-        public AnimationLayerMixerPlayable AnimationRootPlayable { get; private set; }
-
-        [ShowIf("HasNotBindUnit")]
-        public BBPlayableGraph BBPlayable;
-
-        [HideInInspector]
-        public BBTimeline CurrentTimeline;
-
+        
         [HideInInspector]
         public RuntimePlayable RuntimePlayable;
-
+        
+        [ShowIf("HasNotBindUnit")]
+        public BBPlayableGraph PlayableGraph;
+        
+        public bool HasNotBindUnit
+        {
+            get => instanceId == 0;
+        }
+        
         public void OnDisable()
         {
             Dispose();
@@ -55,27 +51,15 @@ namespace Timeline
         
         public BBTimeline GetTimeline(string timelineName)
         {
-            return BBPlayable.GetTimeline(timelineName);
+            return PlayableGraph.GetTimeline(timelineName);
         }
         
-        public void Init(BBTimeline _timeline)
+        public void Init(BBTimeline timeline)
         {
-            #region PlayableGraph
-
-            PlayableGraph = PlayableGraph.Create(_timeline.timelineName);
-            //混合
-            AnimationRootPlayable = AnimationLayerMixerPlayable.Create(PlayableGraph);
-            Animator = GetComponent<Animator>();
-            AnimationPlayableOutput playableOutput = AnimationPlayableOutput.Create(PlayableGraph, "Animation", Animator);
-            playableOutput.SetSourcePlayable(AnimationRootPlayable);
-
-            #endregion
-
-            #region RuntimeTimeline
-
-            CurrentTimeline = _timeline;
-            RuntimePlayable = RuntimePlayable.Create(CurrentTimeline, this);
-            #endregion
+            RuntimePlayable = RuntimePlayable.Create(timeline, this);
+#if UNITY_EDITOR
+            RebindCallback += RuntimePlayable.Rebind;
+#endif
         }
         
         public void Evaluate(int targetFrame)
@@ -83,33 +67,17 @@ namespace Timeline
             RuntimePlayable.Evaluate(targetFrame);
         }
 
-
         public void Dispose()
         {
-            if (PlayableGraph.IsValid()) PlayableGraph.Destroy();
+#if UNITY_EDITOR
+            RebindCallback = null;
+#endif
+            ClearTimelineGenerate(); 
+            RuntimePlayable?.Dispose();
         }
 
-        /// <summary>
-        /// 运行时 逻辑层传回组件instanceId给loader层回调事件
-        /// </summary>
-        /// <returns></returns>
-        public bool HasBindUnit
-        {
-            get
-            {
-                return instanceId != 0;
-            }
-        }
-
-        public bool HasNotBindUnit
-        {
-            get => !HasBindUnit;
-        }
-    }
-    
-    public struct UpdateHertzCallback
-    {
-        public long instanceId;
-        public int Hertz;
+#if UNITY_EDITOR
+        public Action RebindCallback;
+#endif
     }
 }

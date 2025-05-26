@@ -2,7 +2,7 @@
 {
     public static class DefaultCancelComponentSystem
     {
-        [Invoke(BBTimerInvokeType.DefaultCancelTimer)]
+        [Invoke(EventType.DefaultCancelTimer)]
         [FriendOf(typeof(BehaviorMachine))]
         [FriendOf(typeof(BehaviorInfo))]
         public class DefaultCancelTimer : BBTimer<Unit>
@@ -42,7 +42,7 @@
             {
                 Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
                 BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
-                self.timer = bbTimer.NewFrameTimer(BBTimerInvokeType.DefaultCancelTimer, unit);
+                self.timer = bbTimer.NewFrameTimer(EventType.DefaultCancelTimer, unit);
             }
         }
         

@@ -83,8 +83,6 @@ namespace Timeline
 
     public class RuntimeHitboxTrack: RuntimeTrack
     {
-        private TimelinePlayer timelinePlayer => RuntimePlayable.TimelinePlayer;
-
         public RuntimeHitboxTrack(RuntimePlayable runtimePlayable, BBTrack track): base(runtimePlayable, track)
         {
         }
@@ -95,40 +93,34 @@ namespace Timeline
 
         public override void UnBind()
         {
-#if UNITY_EDITOR
-            ClearHitbox(timelinePlayer);
-#endif
+            ClearHitbox();
         }
 
         public override void SetTime(int targetFrame)
         {
             BBHitboxTrack hitboxTrack = Track as BBHitboxTrack;
-            if (timelinePlayer.HasBindUnit)
+            // Runtime Mode
+            if (RuntimePlayable.HasBindUnit())
             {
                 HitboxKeyframe _keyFrame = hitboxTrack.GetKeyframe(targetFrame);
-                if (_keyFrame == null)
-                {
-                    return;
-                }
-
-                EventSystem.Instance.Invoke(new UpdateHitboxCallback() { instanceId = timelinePlayer.instanceId, Keyframe = _keyFrame });
+                if (_keyFrame == null) return;
+                
+                EventSystem.Instance.Invoke(new UpdateHitboxCallback() { instanceId = RuntimePlayable.GetInstanceId(), Keyframe = _keyFrame });
             }
+            // Edit Mode
             else
             {
                 HitboxKeyframe _keyFrame = hitboxTrack.GetClosestKeyframe(targetFrame);
-                if (_keyFrame == null)
-                {
-                    return;
-                }
-                GenerateHitbox(timelinePlayer, _keyFrame);
+                if (_keyFrame == null) return;
+                
+                GenerateHitbox(_keyFrame);
             }
         }
         
-        private static void ClearHitbox(TimelinePlayer timelinePlayer)
+        private void ClearHitbox()
         {
-#if UNITY_EDITOR
             var goSet = new HashSet<GameObject>();
-            foreach (TimelineObject timelineObject in timelinePlayer.GetComponentsInChildren<TimelineObject>())
+            foreach (TimelineObject timelineObject in RuntimePlayable.timelinePlayer.GetComponentsInChildren<TimelineObject>())
             {
                 if (timelineObject.GetComponent<b2BoxCollider2D>() != null)
                 {
@@ -139,14 +131,12 @@ namespace Timeline
             {
                 UnityEngine.Object.DestroyImmediate(go);
             }
-#endif
         }
 
-        public static void GenerateHitbox(TimelinePlayer timelinePlayer, HitboxKeyframe keyframe)
+        private void GenerateHitbox(HitboxKeyframe keyframe)
         {
-#if UNITY_EDITOR
             //1. 销毁HitboxTrack运行时产生的组件
-            ClearHitbox(timelinePlayer);
+            ClearHitbox();
 
             //2. 根据keyframe生成新的b2BoxCollider2D
             foreach (BoxInfo boxInfo in keyframe.boxInfos)
@@ -157,7 +147,7 @@ namespace Timeline
                 }
             
                 //3. 生成子GameObject
-                GameObject parent = timelinePlayer.GetComponent<ReferenceCollector>().Get<GameObject>(boxInfo.hitboxType.ToString());
+                GameObject parent = RuntimePlayable.timelinePlayer.GetComponent<ReferenceCollector>().Get<GameObject>(boxInfo.hitboxType.ToString());
                 GameObject child = new(boxInfo.boxName);
                 child.transform.SetParent(parent.transform);
                 child.transform.localPosition = Vector2.zero;
@@ -167,7 +157,6 @@ namespace Timeline
                 b2BoxCollider2D box = child.AddComponent<b2BoxCollider2D>();
                 box.info = MongoHelper.Clone(boxInfo);
             }
-#endif
         }
     }
 }

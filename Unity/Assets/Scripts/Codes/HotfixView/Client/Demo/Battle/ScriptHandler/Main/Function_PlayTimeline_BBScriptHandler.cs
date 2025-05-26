@@ -41,7 +41,7 @@ namespace ET.Client
             
             //2. 逐帧执行Timeline
             RuntimePlayable playable = timelineComponent.GetTimelinePlayer().RuntimePlayable;
-            for (int i = _startFrame; i < Math.Min(_stopFrame, playable.ClipMaxFrame()); i++)
+            for (int i = _startFrame; i < Math.Min(_stopFrame, playable.GetMaxFrame()); i++)
             {
                 timelineComponent.Evaluate(i);
                 await bbTimer.WaitAsync(1, token);

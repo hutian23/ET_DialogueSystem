@@ -3,7 +3,7 @@
     [FriendOf(typeof(GatlingCancelComponent))]
     public static class GatlingCancelComponentSystem
     {
-        [Invoke(BBTimerInvokeType.GatlingCancelTimer)]
+        [Invoke(EventType.GatlingCancelTimer)]
         [FriendOf(typeof(BehaviorMachine))]
         [FriendOf(typeof(BehaviorInfo))]
         [FriendOf(typeof(GatlingCancelComponent))]
@@ -47,7 +47,7 @@
             {
                 Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
                 BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
-                self.timer = bbTimer.NewFrameTimer(BBTimerInvokeType.GatlingCancelTimer, unit);
+                self.timer = bbTimer.NewFrameTimer(EventType.GatlingCancelTimer, unit);
             }
         }
 

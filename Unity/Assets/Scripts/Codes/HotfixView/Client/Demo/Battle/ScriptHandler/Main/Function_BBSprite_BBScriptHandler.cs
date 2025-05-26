@@ -27,29 +27,30 @@ namespace ET.Client
                 return Status.Failed;
             }
             
+            //1. 相关组件
             Unit unit = parser.GetParent<Unit>();
             TimelineComponent timelineComponent = unit.GetComponent<TimelineComponent>();
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
             BehaviorMachine machine = unit.GetComponent<BehaviorMachine>();
             BehaviorInfo behaviorInfo = machine.GetInfoByOrder(machine.GetCurrentOrder());
+            TimelinePlayer timelinePlayer = timelineComponent.GetTimelinePlayer();    
             
-            //1. 注意，behaviorName和BBPlayableGraph中的TimelineDict.Key对应
-            // 只有在调用和Timeline相关的语句时，才会进行playableGraph的更新
-            BBTimeline _timeline = timelineComponent.GetTimelinePlayer().GetTimeline(behaviorInfo.behaviorName);
-            if (_timeline == null)
+            //2. 查询Timeline
+            BBTimeline timeline = timelinePlayer.GetTimeline(behaviorInfo.behaviorName);
+            if (timeline == null)
             {
                 Log.Error($"not found timeline name: {behaviorInfo.behaviorName}");
                 return Status.Failed;
             }
-            if (timelineComponent.GetTimelinePlayer().RuntimePlayable == null ||
-                timelineComponent.GetTimelinePlayer().RuntimePlayable.Timeline != _timeline)
+            //3. 懒加载，只有在调用BBScript、LoopAnim等Timeline模块指令时，才会创建PlayableGraph
+            if (timelinePlayer.RuntimePlayable == null || timelinePlayer.RuntimePlayable.timeline != timeline)
             {
-                timelineComponent.GetTimelinePlayer().Init(_timeline);
+                timelineComponent.GetTimelinePlayer().Init(timeline);
             }
             
-            //2. 找到关键帧, timeline跳转到对应帧
-            RuntimePlayable runtimePlayable = timelineComponent.GetTimelinePlayer().RuntimePlayable;
-            foreach (RuntimeTrack runtimeTrack in runtimePlayable.RuntimeTracks)
+            //4. 根据SpriteName找到关键帧，并跳转到指定帧
+            RuntimePlayable runtimePlayable = timelinePlayer.RuntimePlayable;
+            foreach (RuntimeTrack runtimeTrack in runtimePlayable.runtimeTracks)
             {
                 if (runtimeTrack.Track is not BBEventTrack eventTrack) continue;
                 if (eventTrack.Name.Equals("Marker"))
