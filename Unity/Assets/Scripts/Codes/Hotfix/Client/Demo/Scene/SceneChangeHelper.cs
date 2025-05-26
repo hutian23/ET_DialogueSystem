@@ -1,4 +1,6 @@
-﻿namespace ET.Client
+﻿using ET.EventType;
+
+namespace ET.Client
 {
     public static class SceneChangeHelper
     {
@@ -13,7 +15,7 @@
             UnitComponent unitComponent = currentScene.AddComponent<UnitComponent>();
          
             // 可以订阅这个事件中创建Loading界面
-            await EventSystem.Instance.PublishAsync(clientScene, new EventType.SceneChangeStart());
+            await EventSystem.Instance.PublishAsync(clientScene, new SceneChangeStart());
 
             // 等待CreateMyUnit的消息
             Wait_CreateMyUnit waitCreateMyUnit = await clientScene.GetComponent<ObjectWait>().Wait<Wait_CreateMyUnit>();
@@ -23,7 +25,7 @@
             
             clientScene.RemoveComponent<AIComponent>();
             
-            await EventSystem.Instance.PublishAsync(currentScene, new EventType.SceneChangeFinish());
+            await EventSystem.Instance.PublishAsync(currentScene, new SceneChangeFinish());
 
             // 通知等待场景切换的协程
             clientScene.GetComponent<ObjectWait>().Notify(new Wait_SceneChangeFinish());

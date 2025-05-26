@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using ET.EventType;
+using UnityEngine;
 
 namespace ET.Client
 {
     [Event(SceneType.Current)]
-    public class AfterUnitCreate_CreateUnitView: AEvent<ET.EventType.AfterUnitCreate>
+    public class AfterUnitCreate_CreateUnitView: AEvent<AfterUnitCreate>
     {
-        protected override async ETTask Run(Scene scene, ET.EventType.AfterUnitCreate args)
+        protected override async ETTask Run(Scene scene, AfterUnitCreate args)
         {
             Unit unit = args.Unit;
             // Unit View层

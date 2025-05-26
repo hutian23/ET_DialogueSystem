@@ -125,12 +125,16 @@ namespace ET.Client
             }
 
             b2Body b2Body = self.GetChild<b2Body>(id);
-            b2WorldManager.Instance.B2World.World.DestroyBody(b2Body.body);
             b2WorldManager.Instance.BodyDict.Remove(unitId);
             
             b2Body.Dispose();
         }
 
+        public static void DestroyBody(this b2WorldManager self, Body body)
+        {
+            self.B2World.World.DestroyBody(body);
+        }
+        
         public static bool ContainBody(this b2WorldManager self, long unitId)
         {
             return self.BodyDict.ContainsKey(unitId);

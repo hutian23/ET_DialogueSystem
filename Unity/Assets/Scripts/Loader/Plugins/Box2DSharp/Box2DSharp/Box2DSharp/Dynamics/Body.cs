@@ -682,7 +682,7 @@ namespace Box2DSharp.Dynamics
         /// 删除夹具
         public void DestroyFixture(Fixture fixture)
         {
-            if (fixture == default)
+            if (fixture == null)
             {
                 return;
             }

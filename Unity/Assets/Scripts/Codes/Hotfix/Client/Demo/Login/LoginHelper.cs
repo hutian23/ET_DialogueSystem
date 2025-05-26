@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using ET.EventType;
 
 namespace ET.Client
 {
@@ -38,7 +39,7 @@ namespace ET.Client
 
                 Log.Debug("登陆gate成功!");
 
-                await EventSystem.Instance.PublishAsync(clientScene, new EventType.LoginFinish());
+                await EventSystem.Instance.PublishAsync(clientScene, new LoginFinish());
             }
             catch (Exception e)
             {

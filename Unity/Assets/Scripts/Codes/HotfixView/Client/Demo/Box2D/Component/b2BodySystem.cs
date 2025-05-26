@@ -45,6 +45,7 @@ namespace ET.Client
         {
             protected override void Destroy(b2Body self)
             {
+                b2WorldManager.Instance.DestroyBody(self.body);
                 self.body = null;
                 self.unitId = 0;
                 self.b2BoxDict.Clear();

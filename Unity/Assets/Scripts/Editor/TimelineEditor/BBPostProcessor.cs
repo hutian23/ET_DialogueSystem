@@ -18,8 +18,6 @@ namespace Timeline.Editor
                 // Debug.Log("BBPostProcessor: " + str);
 
                 var bb_obj = AssetDatabase.LoadAssetAtPath<Object>(str);
-                
-                Debug.LogWarning("12323");
                 // AssetDatabase.SetLabels(bb_obj, new []{"bb"});
             }
 

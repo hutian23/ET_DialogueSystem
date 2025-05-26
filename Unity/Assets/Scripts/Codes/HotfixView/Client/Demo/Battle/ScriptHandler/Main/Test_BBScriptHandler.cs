@@ -27,6 +27,14 @@ namespace ET.Client
             // 初始位置
             b2Body b2Body = b2WorldManager.Instance.GetBody(enemy.InstanceId);
             b2Body.SetPosition(new Vector2(0, 0));
+
+            await BBTimerManager.Instance.SceneTimer().WaitAsync(30, token);
+            if (token.IsCancel()) return Status.Failed;
+
+            await b2WorldManager.Instance.GetPostStepTimer().WaitFrameAsync(token);
+            if(token.IsCancel()) return Status.Failed;
+            
+            enemy.GetComponent<BuffManager>().GetComponent<HPAbility>().SetHP(0);
             
             await ETTask.CompletedTask;
             return Status.Success;

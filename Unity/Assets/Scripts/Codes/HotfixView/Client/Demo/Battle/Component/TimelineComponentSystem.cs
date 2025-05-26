@@ -42,6 +42,11 @@ namespace ET.Client
 
         private static void Dispose(this TimelineComponent self)
         {
+            // Unit被销毁，GameObjectComponent的添加顺序在timeline前
+            if (self.GetParent<Unit>().InstanceId == 0)
+            {
+                return;
+            }
             GameObjectComponent component = self.GetParent<Unit>().GetComponent<GameObjectComponent>();
             TimelinePlayer timelinePlayer = component.GameObject.GetComponent<TimelinePlayer>();
             timelinePlayer.Dispose();

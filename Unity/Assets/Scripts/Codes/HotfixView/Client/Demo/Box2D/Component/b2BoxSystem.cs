@@ -9,10 +9,10 @@ namespace ET.Client
     {
         public class b2BoxDestroySystem : DestroySystem<b2Box>
         {
+            // ReSharper disable Unity.PerformanceAnalysis
             protected override void Destroy(b2Box self)
             {
                 self.GetParent<b2Body>().DestroyFixture(self.fixture);
-                self.fixture = null;
                 self.fixtureDef = default;
                 self.LayerType = LayerType.None;
                 self.TagType = TagType.None;
@@ -29,7 +29,7 @@ namespace ET.Client
                 self.CollisionExitId = 0;
             }
         }
-        
+
         public class b2BoxGizmosUpdateSystem : GizmosUpdateSystem<b2Box>
         {
             protected override void GizmosUpdate(b2Box self)

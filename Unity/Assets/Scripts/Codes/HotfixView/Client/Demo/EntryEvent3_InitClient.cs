@@ -1,9 +1,11 @@
+using ET.EventType;
+
 namespace ET.Client
 {
     [Event(SceneType.Process)]
-    public class EntryEvent3_InitClient: AEvent<ET.EventType.EntryEvent3>
+    public class EntryEvent3_InitClient: AEvent<EntryEvent3>
     {
-        protected override async ETTask Run(Scene scene, ET.EventType.EntryEvent3 args)
+        protected override async ETTask Run(Scene scene, EntryEvent3 args)
         {
             // 加载配置
             Root.Instance.Scene.AddComponent<ResourcesComponent>();
@@ -23,7 +25,7 @@ namespace ET.Client
             Unit loadUnit = await Storage.Instance.LoadStorage(0);
             BBUnitHelper.AddPlayer(clientScene, loadUnit);
 
-            await EventSystem.Instance.PublishAsync(clientScene, new ET.EventType.AppStartInitFinish());
+            await EventSystem.Instance.PublishAsync(clientScene, new AppStartInitFinish());
         }
     }
 }

@@ -12,8 +12,6 @@ namespace ET.Client
         public Body body;
         public long unitId;
         public Dictionary<string, long> b2BoxDict = new();
-        public Dictionary<int, string> test = new(){{1, "222"}};
-        public List<int> testb = new() { 2 };
         
         public FlipState flip = FlipState.Left;
         public float angle;

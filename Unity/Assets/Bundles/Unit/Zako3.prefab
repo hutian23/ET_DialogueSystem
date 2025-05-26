@@ -340,11 +340,11 @@ MonoBehaviour:
     - Name: RuntimePlayable
       Entry: 6
       Data: 
+    - Name: RebindCallback
+      Entry: 6
+      Data: 
   instanceId: 0
-  Hertz: 60
-  ApplyRootMotion: 0
-  BBPlayable: {fileID: 11400000, guid: 36431c4e14e01a44183abadf28f5bbdf, type: 2}
-  CurrentTimeline: {fileID: 0}
+  PlayableGraph: {fileID: 11400000, guid: 36431c4e14e01a44183abadf28f5bbdf, type: 2}
 --- !u!1 &5392505494852513327
 GameObject:
   m_ObjectHideFlags: 0
