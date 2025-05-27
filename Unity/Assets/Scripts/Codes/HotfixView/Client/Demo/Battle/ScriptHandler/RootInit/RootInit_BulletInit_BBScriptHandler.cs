@@ -12,11 +12,11 @@
             Unit unit = parser.GetParent<Unit>();
             
             //Bullet依赖组件
+            unit.AddComponent<B2Unit>();
             unit.AddComponent<TimelineComponent>();
             unit.AddComponent<BBTimerComponent>().IsUnitTimer();
             unit.AddComponent<BBNumeric>();
             unit.AddComponent<BehaviorMachine>();
-            unit.AddComponent<B2Unit>();
             unit.AddComponent<ObjectWait>();
 
             await ETTask.CompletedTask;

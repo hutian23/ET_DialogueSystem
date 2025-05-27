@@ -18,6 +18,7 @@ namespace ET.Client
                     Log.Error($"GameObject must add TimelinePlayer component!!!");
                     return;
                 }
+                timelinePlayer.Dispose();
                 
                 //2. 渲染层传入unit.instanceId，方便渲染层回调事件
                 timelinePlayer.instanceId = self.InstanceId;

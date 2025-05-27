@@ -1,15 +1,16 @@
 [Root]
 @RootInit:
-EnemyInit;
-HP: 3000;
-EnableAirCheck;
 # bullet由对象池管理
 PoolObject: GlinBullet, 5;
 PoolObject: GlinSpikes, 1;
 PoolObject: GlinSpike, 3;
-PoolObject: GlinFireball, 20;
+PoolObject: Goam, 4;
+PoolObject: GlinFireball, 30;
 PoolObject: ADust, 1;
 PoolObject: GDust, 1;
+EnemyInit;
+HP: 3000;
+EnableAirCheck;
 # 注册行为
 # Step1
 RegistMove: (Glin_Idle)
@@ -28,27 +29,27 @@ RegistMove: (Glin_AirDash)
   MoveType: None;
 EndMove:
 RegistMove: (Glin_Cast)
-  MoveType: Normal;
+  MoveType: None;
 EndMove:
 RegistMove: (Glin_Ballon)
-  MoveType: Normal;
+  MoveType: None;
 EndMove:
 RegistMove: (Glin_Teleport)
   MoveType: None;
 EndMove:
 # # Step2
-# RegistMove: (Glin_Evade)
-#   MoveType: Normal;
-# EndMove:
 RegistMove: (Glin_Roar)
-  MoveType: Normal;
+  MoveType: None;
+EndMove:
+RegistMove: (Glin_Step2_Teleport)
+  MoveType: None;
 EndMove:
 # RegistMove: (Glin_Step2_FeintSlash)
 #   MoveType: Normal;
 # EndMove:
-# RegistMove: (Glin_Step2_CastSpike)
-#   MoveType: Normal;
-# EndMove:
+RegistMove: (Glin_Step2_CastSpike)
+  MoveType: None;
+EndMove:
 # RegistMove: (Glin_Step2_Slash)
 #   MoveType: Normal;
 # EndMove:
@@ -58,12 +59,10 @@ EndMove:
 # RegistMove: (Glin_Explode)
 #   MoveType: None;
 # EndMove:
-# GotoBehavior: Glin_AirDash;
-SetPos: 0, -120000;
+# GotoBehavior: Glin_Step2_CastSpike;
 GotoBehavior: Glin_Cast;
 
 @HPWatcher:
-LogWarning: HPAdd;
 return;
 
 [Glin_Idle]
@@ -71,8 +70,8 @@ return;
 return;
 
 @Main:
-EnableInRangeCheck: true, 80000, 0, 0;
 SetPos: 90000, -95000;
+EnableInRangeCheck: true, 80000, 0, 0;
 BeginLoopAnim: (InRange: false)
   LoopSprite: Idle_1, 5;
   LoopSprite: Idle_2, 5;
@@ -247,14 +246,12 @@ EnableGlinChase: false, 0, 0, 0;
 # 2. 下冲
 AirDashVelocity: -700000;
 SpawnADust: 0, 27000, 8000, 12000, 900000; # 冲刺起始，生成AirDust特效(根据unit当前Rotate调整对应的rotate)
-EnableGroundCollisionCheck: true;  # 下冲过程中每帧检测是否和地面碰撞，符合条件则退出loop协程
-BeginLoopAnim: (GroundCollision: false)
+BeginLoopAnim: (InAir: true)
   LoopSprite: AirDash_Active_1, 4;
   LoopSprite: AirDash_Active_2, 4;
   LoopSprite: AirDash_Active_3, 4;
 EndLoopAnim:
 # 3. 落地
-EnableGroundCollisionCheck: false;
 SetRotate: 0;    
 EnemyUpdateFlip; # 根据玩家当前位置调整地面冲刺朝向
 SpawnGDust: -65000, -20000, -8000, 4000; # 生成Ground Dust特效
@@ -305,8 +302,8 @@ CreateBullet: GlinBullet
   BulletAccelY: -20000, 100, 150000;
 EndCreateBullet:
 BBSprite: Active_2, 4;
-BBSprite: Active_3, 8;
-BBSprite: Active_4, 8;
+BBSprite: Active_3, 6;
+BBSprite: Active_4, 10;
 # Cast Bullet_2
 ScreenShake: 550, 550, 10000, 15, 0;
 CreateBullet: GlinBullet
@@ -316,8 +313,8 @@ CreateBullet: GlinBullet
   BulletAccelY: -20000, 100, 150000;
 EndCreateBullet:
 BBSprite: Active_2, 8;
-BBSprite: Active_3, 8;
-BBSprite: Active_4, 8;
+BBSprite: Active_3, 6;
+BBSprite: Active_4, 10;
 # Cast Bullet_3
 ScreenShake: 550, 550, 10000, 15, 0;
 CreateBullet: GlinBullet
@@ -327,8 +324,8 @@ CreateBullet: GlinBullet
   BulletAccelY: -20000, 100, 150000;
 EndCreateBullet:
 BBSprite: Active_2, 8;
-BBSprite: Active_3, 8;
-BBSprite: Active_4, 8;
+BBSprite: Active_3, 6;
+BBSprite: Active_4, 10;
 # End
 BBSprite: Start_4, 4;
 BBSprite: Start_3, 4;
@@ -487,8 +484,8 @@ return;
 
 @Main:
 BBSprite: Anticipate_1, 5;
-# CallSubCoroutine: CastGlinSpike;
-RegistCounter: 200;
+CallSubCoroutine: Glin_Step2_CastSpike, CastGlinSpike;
+RegistCounter: 280;
 BeginLoop: (Counter: Value > 0)
   BBSprite: Active_1, 5;
   BBSprite: Active_2, 5;
@@ -498,6 +495,21 @@ BBSprite: End_1, 5;
 BBSprite: End_2, 5;
 BBSprite: End_3, 5;
 GotoBehavior: Glin_Teleport;
+
+@CastGlinSpike:
+WaitFrame: 20;
+CreateBullet: Goam
+EndCreateBullet:
+WaitFrame: 50;
+CreateBullet: Goam
+EndCreateBullet:
+WaitFrame: 50;
+CreateBullet: Goam
+EndCreateBullet:
+WaitFrame: 50;
+CreateBullet: Goam
+EndCreateBullet:
+return;
 
 [Glin_Step2_Slash]
 @Trigger:

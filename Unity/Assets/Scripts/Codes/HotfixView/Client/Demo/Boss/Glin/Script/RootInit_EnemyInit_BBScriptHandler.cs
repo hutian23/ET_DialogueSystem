@@ -13,11 +13,11 @@
 
             enemy.AddComponent<BuffManager>();
             enemy.AddComponent<Transition>();
+            enemy.AddComponent<B2Unit>();
             enemy.AddComponent<TimelineComponent>();
             enemy.AddComponent<BBTimerComponent>().IsUnitTimer();
             enemy.AddComponent<BBNumeric>();
             enemy.AddComponent<BehaviorMachine>();
-            enemy.AddComponent<B2Unit>();
             enemy.AddComponent<ObjectWait>();
 
             // 添加buff

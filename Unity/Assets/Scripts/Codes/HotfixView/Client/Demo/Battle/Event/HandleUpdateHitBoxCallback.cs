@@ -17,6 +17,8 @@ namespace ET.Client
             
             //1. 销毁旧的夹具
             Unit unit = timelineComponent.GetParent<Unit>();
+            if (unit == null || unit.InstanceId == 0) return;
+            
             b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
             b2Body.DestroyBoxes(Box2DHelper.HitboxMask);
             
