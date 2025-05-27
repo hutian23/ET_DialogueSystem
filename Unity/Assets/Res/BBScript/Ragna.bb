@@ -2,7 +2,7 @@
 @RootInit:
 #1. PlayerInit中挂载组件(NumericComponent、InputComponent...)
 PlayerInit;
-SetPos: -80000, -90000;
+SetPos: 0, -90000;
 #4. 添加初始Buff
 HP: 10000;
 SP: 200;

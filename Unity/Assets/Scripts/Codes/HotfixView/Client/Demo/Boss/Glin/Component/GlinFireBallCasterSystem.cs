@@ -10,6 +10,7 @@ namespace ET.Client
         {
             protected override void Destroy(GlinFireBallCaster self)
             {
+                self.lastFrame = 0;
                 self.waitFrame = 0;
                 self.startV = 0f;
                 self.accelX = 0f;
@@ -18,16 +19,29 @@ namespace ET.Client
             }
         }
 
-        public static void StartSpawnCor(this GlinFireBallCaster self, int waitFrame, float startV, float accelX, float accelY)
+        public static void StartSpawnCor(this GlinFireBallCaster self, int lastFrame, int waitFrame, float startV, float accelX, float accelY)
         {
+            self.lastFrame = lastFrame;
             self.waitFrame = waitFrame;
             self.startV = startV;
             self.accelX = accelX;
             self.accelY = accelY;
             self.token = new ETCancellationToken();
+            self.LastCor().Coroutine();
             self.SpawnCor().Coroutine();
         }
 
+        private static async ETTask LastCor(this GlinFireBallCaster self)
+        {
+            Unit caster = self.GetParent<BBParser>().GetParent<Unit>();
+            BBTimerComponent bbTimer = caster.GetComponent<BBTimerComponent>();
+
+            await bbTimer.WaitAsync(self.lastFrame, self.token);
+            if (self.token.IsCancel()) return;
+            
+            self.Dispose();
+        }
+        
         private static async ETTask SpawnCor(this GlinFireBallCaster self)
         {
             Unit caster = self.GetParent<BBParser>().GetParent<Unit>();
@@ -59,8 +73,6 @@ namespace ET.Client
                 Unit bullet = BulletManager.Instance.AddChild<Unit, int>(1001);
                 bullet.AddComponent<GameObjectComponent>().GameObject = GameObjectPoolHelper.GetObjectFromPool("GlinFireball");
                 bullet.AddComponent<BBParser>();
-
-                //2. bullet初始数值
                 b2Body bodyA = b2WorldManager.Instance.GetBody(caster.InstanceId);
                 b2Body bodyB = b2WorldManager.Instance.GetBody(bullet.InstanceId);
                     
@@ -68,7 +80,7 @@ namespace ET.Client
                 bodyB.SetPosition(bodyA.GetPosition() + new Vector2(i / 2 == 0? (2 * i - 1) * 0.9f : 0f, 0.8f));
                 //2-2 初始速度
                 bodyB.SetVelocityY(self.startV * new Random().Next(80, 120) / 100f);
-                //2-3 飞弹发射后，逐渐像两边展开
+                //2-3 飞弹发射后，逐渐向两边展开
                 if (i / 2 == 0)
                 {
                     float accelX = -self.accelX * (2 * i - 1);

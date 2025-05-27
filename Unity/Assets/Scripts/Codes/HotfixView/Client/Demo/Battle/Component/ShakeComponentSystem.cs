@@ -10,12 +10,12 @@ namespace ET.Client
         {
             protected override void Destroy(ShakeComponent self)
             {
-                self.shakeLength_X = 0;
-                self.shakeLength_Y = 0;
+                self.shakeLength = Vector2.Zero;
                 self.frequency = 0;
                 self.totalFrame = 0;
                 self.curFrame = 0;
                 self.unitId = 0;
+                self.shakeMode = ShakeMode.Fading;
             }
         }
         
@@ -34,9 +34,10 @@ namespace ET.Client
                 }
                 
                 System.Random _ran = new();
+                
                 Vector2 noise = new Vector2(_ran.Next(60, 120), _ran.Next(60, 120)) / 100f;
-                Vector2 shakeLength = new(self.shakeLength_X, self.shakeLength_Y);
-                Vector2 frequency = new(Mathf.Cos(self.curFrame * self.frequency ) * (self.curFrame / (float)self.totalFrame), Mathf.Sin(self.curFrame * self.frequency ) * (self.curFrame / (float)self.totalFrame));
+                Vector2 frequency = new Vector2(Mathf.Cos(self.curFrame * self.frequency ), Mathf.Sin(self.curFrame * self.frequency ));
+                Vector2 shakeLength = self.shakeLength * (self.shakeMode is ShakeMode.Fading ? (self.curFrame / (float)self.totalFrame) : 1); // 振动幅度是否随时间逐渐衰减?
                 Vector2 shakePos = shakeLength * noise * frequency;
                 
                 //更新渲染层中gameObject位置

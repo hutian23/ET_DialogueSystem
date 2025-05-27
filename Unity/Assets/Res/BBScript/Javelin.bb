@@ -28,7 +28,7 @@ BeginLoopAnim: (Counter: Value > 0), (GroundCollision: false)
 EndLoopAnim:
 EnableGroundCollisionCheck: false;
 SetVelocity: 0, 0;
-Shake: 200, 600, 12000, 25;
+Shake: 200, 600, 12000, 25, 0;
 BBSprite: Land, 200;
 BBSprite: End_1, 4;
 BBSprite: End_2, 4;

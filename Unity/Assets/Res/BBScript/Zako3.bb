@@ -227,7 +227,7 @@ return;
 @Main:
 # Hit
 SetVelocity: 0, 0;
-Shake: 1400, 1400, 10000, 25;
+Shake: 1400, 1400, 10000, 25, 0;
 EnableAirCheck;
 EnableGravityCheck: 100000, 150000, 500000;
 Gravity: 0;
@@ -241,7 +241,7 @@ BeginLoopAnim: (InAir: true)
 EndLoopAnim:
 # Land
 SetVelocity: 0, 0;
-Shake: 800, 800, 12000, 10;
+Shake: 800, 800, 12000, 10, 0;
 SetVelocity: -15000, 120000;
 BBSprite: Land_1, 10;
 BBSprite: Land_2, 5;

@@ -442,6 +442,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6784489107827199543, guid: 1e967154c1c675c4db4fc8fe00e0426f,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943463070172916650, guid: 1e967154c1c675c4db4fc8fe00e0426f,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1652105260, guid: 164326bd0c55b6d48adffadca289d667,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -484,9 +495,9 @@ Transform:
   m_Children:
   - {fileID: 1227396323097421978}
   - {fileID: 803295039}
-  - {fileID: 430394199}
   - {fileID: 227278316}
   - {fileID: 143945562}
+  - {fileID: 430394199}
   m_Father: {fileID: 374000357}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &603205785

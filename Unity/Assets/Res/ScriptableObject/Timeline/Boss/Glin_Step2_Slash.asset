@@ -488,7 +488,7 @@ MonoBehaviour:
       Data: 34|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
-      Data: Hit_4
+      Data: Hit_1
     - Name: layerType
       Entry: 3
       Data: 2
@@ -533,7 +533,7 @@ MonoBehaviour:
       Data: 35|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
-      Data: Hit_4
+      Data: Hit_2
     - Name: layerType
       Entry: 3
       Data: 2
@@ -578,7 +578,7 @@ MonoBehaviour:
       Data: 36|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
-      Data: Hit_4
+      Data: Hit_3
     - Name: layerType
       Entry: 3
       Data: 2
@@ -668,7 +668,7 @@ MonoBehaviour:
       Data: 38|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
-      Data: Hurt_2
+      Data: Hurt_1
     - Name: layerType
       Entry: 3
       Data: 2
@@ -827,7 +827,7 @@ MonoBehaviour:
       Data: 43|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
-      Data: Hit_4
+      Data: Hit_1
     - Name: layerType
       Entry: 3
       Data: 2
@@ -872,7 +872,7 @@ MonoBehaviour:
       Data: 44|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
-      Data: Hit_4
+      Data: Hit_2
     - Name: layerType
       Entry: 3
       Data: 2
@@ -917,7 +917,7 @@ MonoBehaviour:
       Data: 45|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
-      Data: Hit_4
+      Data: Hit_3
     - Name: layerType
       Entry: 3
       Data: 2

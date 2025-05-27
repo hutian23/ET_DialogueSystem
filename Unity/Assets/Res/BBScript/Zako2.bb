@@ -224,7 +224,7 @@ BBSprite: Anticipate_5, 4;
 BBSprite: Anticipate_6, 8;
 BBSprite: Anticipate_7, 4;
 BBSprite: Active_1, 4;
-ScreenShake: 1000, 1000, 12000, 15;
+ScreenShake: 1000, 1000, 12000, 15, 0;
 BBSprite: Active_2, 4;
 BBSprite: End_1, 4;
 BBSprite: End_2, 4;
@@ -272,7 +272,7 @@ SpawnGDust: 5000, -15000, 4000, 2000;
 SpawnGDust: -50000, -15000, -4000, 2000;
 Gravity: 100000;
 SetVelocity: 0, 0;
-ScreenShake: 1600, 1600, 10000, 25;
+ScreenShake: 1600, 1600, 10000, 25, 0;
 BBSprite: Land_1, 4;
 BBSprite: Land_2, 15;
 GotoBehavior: Zako2_BattleIdle;
@@ -331,7 +331,7 @@ return;
 Gravity: 0;
 WaitFrame: 1;
 SetVelocity: 0, 0;
-Shake: 1400, 1400, 10000, 25;
+Shake: 1400, 1400, 10000, 25, 0;
 BBSprite: Air_1, 25;
 SetVelocity: -70000, 180000;
 BBSprite: Air_2, 5;
@@ -342,7 +342,7 @@ BeginLoopAnim: (InAir: true)
 EndLoopAnim:
 # Land
 SetVelocity: 0, 0;
-Shake: 800, 800, 12000, 10;
+Shake: 800, 800, 12000, 10, 0;
 SetVelocity: -15000, 120000;
 BBSprite: Land_1, 10;
 BBSprite: Land_2, 5;

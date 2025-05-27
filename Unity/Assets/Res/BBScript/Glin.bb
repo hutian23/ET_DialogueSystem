@@ -44,25 +44,31 @@ EndMove:
 RegistMove: (Glin_Step2_Teleport)
   MoveType: None;
 EndMove:
-# RegistMove: (Glin_Step2_FeintSlash)
-#   MoveType: Normal;
-# EndMove:
+RegistMove: (Glin_Step2_FeintSlash)
+  MoveType: None;
+EndMove:
 RegistMove: (Glin_Step2_CastSpike)
   MoveType: None;
 EndMove:
-# RegistMove: (Glin_Step2_Slash)
-#   MoveType: Normal;
-# EndMove:
-# RegistMove: (Glin_Step2_Cast)
-#   MoveType: Normal;
-# EndMove:
-# RegistMove: (Glin_Explode)
-#   MoveType: None;
-# EndMove:
-# GotoBehavior: Glin_Step2_CastSpike;
-GotoBehavior: Glin_Cast;
+RegistMove: (Glin_Step2_Slash)
+  MoveType: None;
+EndMove:
+RegistMove: (Glin_Step2_Cast)
+  MoveType: None;
+EndMove:
+RegistMove: (Glin_Step2_AirDash)
+  MoveType: None;
+EndMove:
+RegistMove: (Glin_Step2_Ballon)
+  MoveType: None;
+EndMove:
+RegistMove: (Glin_Explode)
+  MoveType: None;
+EndMove:
+GotoBehavior: Glin_Idle;
 
 @HPWatcher:
+GotoBehavior: Glin_Explode;
 return;
 
 [Glin_Idle]
@@ -126,21 +132,6 @@ BBSprite: Bow_4, 4;
 BBSprite: Bow_3, 4;
 BBSprite: Bow_2, 4;
 BBSprite: Bow_1, 10;
-GotoBehavior: Glin_Teleport;
-
-[Glin_Roar]
-@Trigger:
-return;
-
-@Main:
-BBSprite: Anticipate_1, 5;
-ScreenShake: 550, 550, 10000, 100, 1;
-RegistCounter: 100;
-BeginLoopAnim: (Counter: Value > 0)
-  LoopSprite: Roar_1, 5;
-  LoopSprite: Roar_2, 5;
-  LoopSprite: Roar_3, 5;
-EndLoopAnim:
 GotoBehavior: Glin_Teleport;
 
 [Glin_Slash]
@@ -235,7 +226,7 @@ BBSprite: AirDash_Anticipate_5, 5;
 BBSprite: AirDash_Anticipate_6, 5;
 BBSprite: AirDash_Anticipate_7, 5;
 EnableGlinChase: true, -450000, 450000, 80000; # 悬停在空中，空箭始终朝向玩家(调整Rotate)
-ScreenShake: 450, 450, 8000, 60, 1; # 空箭蓄力过程中 屏幕振动
+Shake: 450, 450, 8000, 60, 1; # 空箭蓄力过程中 屏幕振动
 RegistCounter: 60; # 空箭蓄力60帧
 BeginLoopAnim: (Counter: Value > 0)
   LoopSprite: AirDash_Active_1, 5;
@@ -432,50 +423,117 @@ BeginIf: (Random: ran1 >= 90), (Random: ran1 <= 100)
   GotoBehavior: Glin_Ballon;
 EndIf:
 
+[Glin_Roar]
+@Trigger:
+return;
+
+@Main:
+SetPos: 0, -120000;
+BBSprite: Anticipate_1, 5;
+ScreenShake: 550, 550, 10000, 100, 1;
+RegistCounter: 100;
+BeginLoopAnim: (Counter: Value > 0)
+  LoopSprite: Roar_1, 5;
+  LoopSprite: Roar_2, 5;
+  LoopSprite: Roar_3, 5;
+EndLoopAnim:
+GotoBehavior: Glin_Step2_Teleport;
+
+[Glin_Step2_Teleport]
+@Trigger:
+return;
+
+@Main:
+# Teleport Out
+SetVelocity: 0, 0;
+BBSprite: Frame_6, 5;
+BBSprite: Frame_7, 5;
+ScreenShake: 750, 750, 10000, 15, 0;
+BBSprite: Frame_3, 5;
+BBSprite: Frame_2, 5;
+BBSprite: Frame_1, 5;
+SetPos: -1000000, -1000000;
+WaitFrame: 50;
+# Select Next Behavior
+Random: ran1, 0, 100;
+# 1. FeintSlash
+BeginIf: (Random: ran1 >= 0), (Random: ran1 < 15)
+  GlinPos: -140000, 140000, 60000, -95000;
+EndIf:
+# 2. Slash
+BeginIf: (Random: ran1 >= 15), (Random: ran1 < 30)
+  GlinPos: -140000, 140000, 60000, -95000;
+EndIf:
+# 3. Cast
+BeginIf: (Random: ran1 >= 30), (Random: ran1 < 50)
+  EnableInRangeCheck: true, 80000, 0, 0;
+  GlinPos: -140000, 140000, 80000, -95000;
+EndIf:
+# 4. CastSpike
+BeginIf: (Random: ran1 >= 50), (Random: ran1 < 65)
+  SetPos: 0, 0;
+  SetFlip: Left;
+EndIf:
+# 5. AirDash
+BeginIf: (Random: ran1 >= 65), (Random: ran1 < 85)
+  AirDashPos: 15000;
+  SetFlip: Left;
+EndIf:
+# 6. Ballon
+BeginIf: (Random: ran1 >= 85), (Random: ran1 <= 100)
+  SetPos: 0, 0;
+  SetFlip: Left;
+EndIf:
+# Teleport In
+BBSprite: Frame_1, 5;
+BBSprite: Frame_2, 5;
+ScreenShake: 750, 750, 10000, 15, 0;
+BBSprite: Frame_3, 5;
+BBSprite: Frame_4, 5;
+# Enter Next Behavior
+# 1. FeintSlash
+BeginIf: (Random: ran1 >= 0), (Random: ran1 < 10)
+  GotoBehavior: Glin_Step2_FeintSlash;
+EndIf:
+# 2. Slash
+BeginIf: (Random: ran1 >= 10), (Random: ran1 < 30)
+  GotoBehavior: Glin_Step2_Slash;
+EndIf:
+# 3. Cast
+BeginIf: (Random: ran1 >= 30), (Random: ran1 < 50)
+  BeginIf: (InRange: true)
+    SetTransition: Evade, true;
+  EndIf:
+  GotoBehavior: Glin_Step2_Cast;
+EndIf:
+# 4. CastSpike
+BeginIf: (Random: ran1 >= 50), (Random: ran1 < 65)
+  GotoBehavior: Glin_Step2_CastSpike;
+EndIf:
+# 5. AirDash
+BeginIf: (Random: ran1 >= 65), (Random: ran1 < 85)
+  GotoBehavior: Glin_Step2_AirDash;
+EndIf:
+# 6. Ballon
+BeginIf: (Random: ran1 >= 85), (Random: ran1 <= 100)
+  GotoBehavior: Glin_Step2_Ballon;
+EndIf:
+return;
+
 [Glin_Step2_FeintSlash]
 @Trigger:
 return;
 
 @Main:
-SetPos: -70000, -95000;
 # 假动作
 BBSprite: Feint_1, 5;
 BBSprite: Feint_2, 5; 
 RegistCounter: 25;
-BeginLoop: (Counter: Value > 0)
-  BBSprite: Feint_3, 6;
-  BBSprite: Feint_4, 6;
-EndLoop:
-# 后撤步
-BBSprite: Evade_1, 3;
-BBSprite: Evade_2, 3;
-RegistCounter: 15;
-SetVelocityX: -480000;
-BeginLoop: (Counter: Value > 0)
-  BBSprite: Evade_3, 3;
-  BBSprite: Evade_4, 3;
-  BBSprite: Evade_5, 3;
-EndLoop:
-SetVelocityX: -50000;
-BBSprite: Evade_6, 4;
-SetVelocityX: 0;
-BBSprite: Evade_7, 4;
-# 生成飞弹 
-BBSprite: Cast_Start_1, 4;
-BBSprite: Cast_Start_2, 4;
-BBSprite: Cast_Start_3, 4;
-BBSprite: Cast_Start_4, 4;
-BBSprite: Cast_Active_1, 4;
-BBSprite: Cast_Active_2, 4;
-# CallSubCoroutine: CastGlinBullet;
-RegistCounter: 120;
-BeginLoop: (Counter: Value > 0)
-  BBSprite: Cast_Active_3, 7;
-  BBSprite: Cast_Active_4, 7;
-EndLoop:
-BBSprite: Cast_End_1, 4;
-BBSprite: Cast_End_2, 4;
-BBSprite: Cast_End_3, 6;
+BeginLoopAnim: (Counter: Value > 0)
+  LoopSprite: Feint_3, 6;
+  LoopSprite: Feint_4, 6;
+EndLoopAnim:
+SetTransition: Evade, true;
 GotoBehavior: Glin_Step2_Cast;
 
 [Glin_Step2_CastSpike]
@@ -485,27 +543,32 @@ return;
 @Main:
 BBSprite: Anticipate_1, 5;
 CallSubCoroutine: Glin_Step2_CastSpike, CastGlinSpike;
-RegistCounter: 280;
-BeginLoop: (Counter: Value > 0)
-  BBSprite: Active_1, 5;
-  BBSprite: Active_2, 5;
-  BBSprite: Active_3, 5;
-EndLoop:
+Shake: 300, 300, 8000, 350, 1;
+RegistCounter: 350;
+BeginLoopAnim: (Counter: Value > 0)
+  LoopSprite: Active_1, 5;
+  LoopSprite: Active_2, 5;
+  LoopSprite: Active_3, 5;
+EndLoopAnim:
 BBSprite: End_1, 5;
 BBSprite: End_2, 5;
 BBSprite: End_3, 5;
-GotoBehavior: Glin_Teleport;
+GotoBehavior: Glin_Step2_Teleport;
 
 @CastGlinSpike:
+# Bullet 1
 WaitFrame: 20;
 CreateBullet: Goam
 EndCreateBullet:
+# Bullet 2
 WaitFrame: 50;
 CreateBullet: Goam
 EndCreateBullet:
+# Bullet 3
 WaitFrame: 50;
 CreateBullet: Goam
 EndCreateBullet:
+# Bullet 4
 WaitFrame: 50;
 CreateBullet: Goam
 EndCreateBullet:
@@ -517,14 +580,13 @@ return;
 
 @Main:
 # 1. Slash
-SetPos: 50000, -100000;
 BBSprite: Slash_Start_1, 4;
 BBSprite: Slash_Start_2, 4;
 RegistCounter: 20;
-BeginLoop: (Counter: Value > 0)
-  BBSprite: Slash_Start_3, 5;
-  BBSprite: Slash_Start_4, 5;
-EndLoop:
+BeginLoopAnim: (Counter: Value > 0)
+  LoopSprite: Slash_Start_3, 5;
+  LoopSprite: Slash_Start_4, 5;
+EndLoopAnim:
 SetVelocity: 700000, 0;
 BBSprite: Slash_Active_1, 4;
 AccelX: 700000, 12, -3500000;
@@ -548,7 +610,7 @@ SetVelocity: 30000, 100000;
 BBSprite: UpperCut_Active_2, 5;
 SetVelocity: 0, 0;
 BBSprite: UpperCut_End_1, 4;
-GotoBehavior: Glin_Teleport;
+GotoBehavior: Glin_Step2_Teleport;
 
 
 [Glin_Step2_Cast]
@@ -556,63 +618,174 @@ GotoBehavior: Glin_Teleport;
 return;
 
 @Main:
-# 1. Evade
-EnableRangeCheck: true, 50000, 0, 0;
-WaitFrame: 5;
-BeginIf: (InRange: true)
-  # Evade_Start
+# Evade
+BeginIf: (TransitionCached: Evade, true)
   BBSprite: Evade_1, 4;
   BBSprite: Evade_2, 4;
-  SetVelocityX: -320000;
-  BBSprite: Evade_3, 3;
-  BBSprite: Evade_4, 3;
-  BBSprite: Evade_5, 3;
-  BBSprite: Evade_4, 3;
-  BBSprite: Evade_3, 3;
-  # Evade_End
-  SetVelocityX: -50000;
-  BBSprite: Evade_6, 4;
+    SetVelocityX: -350000;
+  BBSprite: Evade_3, 4;
+  BBSprite: Evade_4, 4;
+  BBSprite: Evade_5, 4;
+  BBSprite: Evade_4, 4;
   SetVelocityX: 0;
+  BBSprite: Evade_6, 4;
   BBSprite: Evade_7, 4;
 EndIf:
-EnableRangeCheck: false, 0, 0, 0;
-# 2. Cast
-# Cast_Start
+# Start
 BBSprite: Cast_Start_1, 5;
 BBSprite: Cast_Start_2, 5;
 BBSprite: Cast_Start_3, 5;
-BBSprite: Cast_Start_4, 5;
-# Cast_Active
+BBSprite: Cast_Start_4, 10;
+# 发射飞弹后，表现披风被振动的效果
+# Cast Bullet_1
 BBSprite: Cast_Active_1, 5;
-BBSprite: Cast_Active_2, 5;
-RegistCounter: 130;
-CallSubCoroutine: CastGlinBullet;
-BeginLoop: (Counter: Value > 0)
-  BBSprite: Cast_Active_3, 8;
-  BBSprite: Cast_Active_4, 8;
-EndLoop:
-# Cast_End
+BBSprite: Cast_Active_2, 4;
+ScreenShake: 550, 550, 10000, 15, 0;
+CreateBullet: GlinBullet
+  BulletFlip: Left;
+  BulletVelocity: -400000, 0;
+  BulletLocalPosition: -20000, 10000;
+  BulletAccelY: -20000, 100, 150000;
+EndCreateBullet:
+BBSprite: Cast_Active_2, 4;
+BBSprite: Cast_Active_3, 6;
+BBSprite: Cast_Active_4, 10;
+# Cast Bullet_2
+ScreenShake: 550, 550, 10000, 15, 0;
+CreateBullet: GlinBullet
+  BulletFlip: Left;
+  BulletVelocity: -400000, 0;
+  BulletLocalPosition: -15000, 5000;
+  BulletAccelY: -20000, 100, 150000;
+EndCreateBullet:
+BBSprite: Cast_Active_2, 8;
+BBSprite: Cast_Active_3, 6;
+BBSprite: Cast_Active_4, 10;
+# Cast Bullet_3
+ScreenShake: 550, 550, 10000, 15, 0;
+CreateBullet: GlinBullet
+  BulletFlip: Left;
+  BulletVelocity: -400000, 0;
+  BulletLocalPosition: -10000, 0;
+  BulletAccelY: -20000, 100, 150000;
+EndCreateBullet:
+BBSprite: Cast_Active_2, 8;
+BBSprite: Cast_Active_3, 6;
+BBSprite: Cast_Active_4, 10;
+# Cast Bullet_4
+ScreenShake: 550, 550, 10000, 15, 0;
+CreateBullet: GlinBullet
+  BulletFlip: Left;
+  BulletVelocity: -400000, 0;
+  BulletLocalPosition: -5000, -5000;
+  BulletAccelY: -20000, 100, 150000;
+EndCreateBullet:
+BBSprite: Cast_Active_2, 8;
+BBSprite: Cast_Active_3, 6;
+BBSprite: Cast_Active_4, 10;
+# End
 BBSprite: Cast_End_1, 5;
 BBSprite: Cast_End_2, 5;
 BBSprite: Cast_End_3, 5;
-GotoBehavior: Glin_Teleport;
+GotoBehavior: Glin_Step2_Teleport;
+
+[Glin_Step2_AirDash]
+@Trigger:
+return;
+
+@Main:
+# AirDash Anticipate
+BBSprite: AirDash_Anticipate_1, 4;
+BBSprite: AirDash_Anticipate_2, 4;
+BBSprite: AirDash_Anticipate_3, 4;
+BBSprite: AirDash_Anticipate_4, 4;
+BBSprite: AirDash_Anticipate_5, 4;
+BBSprite: AirDash_Anticipate_6, 4;
+# AirDash Charge
+BBSprite: AirDash_Active_1, 4;
+EnableGlinChase: true, -450000, 450000, 80000;
+Shake: 850, 850, 12000, 60, 1; 
+RegistCounter: 60;
+BeginLoopAnim: (Counter: Value > 0)
+  LoopSprite: AirDash_Active_2, 5;
+  LoopSprite: AirDash_Active_3, 5;
+  LoopSprite: AirDash_Active_4, 5;
+EndLoopAnim:
+# Down Dash
+EnableGlinChase: false, 0, 0, 0;
+AirDashVelocity: -700000;
+SpawnADust: 0, 27000, 8000, 12000, 900000;
+BeginLoopAnim: (InAir: true)
+  LoopSprite: AirDash_Active_2, 4;
+  LoopSprite: AirDash_Active_3, 4;
+  LoopSprite: AirDash_Active_4, 4;
+EndLoopAnim:
+# Land 
+SetRotate: 0;    
+EnemyUpdateFlip;
+SpawnGDust: -65000, -20000, -8000, 4000;
+SpawnGDust: 65000, -20000, 8000, 4000;
+SetVelocity: 0, -50000;
+ScreenShake: 1550, 550, 10000, 20, 0;
+BBSprite: Land_1, 8;
+BBSprite: Land_2, 4;
+BBSprite: Land_3, 8;
+BBSprite: Land_4, 4;
+# GroundDash
+BBSprite: Dash_Active_1, 4;
+SpawnGDust: 80000, -15000, 10000, 6000;
+SetVelocity: 750000, 0;
+BBSprite: Dash_Active_2, 5;
+AccelX: 750000, 12, -3800000;
+BBSprite: Dash_Active_3, 4;
+BBSprite: Dash_Active_4, 4;
+BBSprite: End_1, 4;
+SetVelocityX: 0;
+BBSprite: End_2, 4;
+BBSprite: End_3, 4;
+BBSprite: End_4, 4;
+GotoBehavior: Glin_Step2_Teleport;
+
+[Glin_Step2_Ballon]
+@Trigger:
+return;
+
+@Main:
+BBSprite: Anticipate_1, 4;
+BBSprite: Anticipate_2, 4;
+Shake: 600, 600, 10000, 200, 1;
+CallSubCoroutine: Glin_Step2_Ballon, CastFireBallCoroutine;
+RegistCounter: 200;
+BeginLoopAnim: (Counter: Value > 0)
+  LoopSprite: Active_1, 5;
+  LoopSprite: Active_2, 5;
+  LoopSprite: Active_3, 5;
+EndLoopAnim:
+BBSprite: End_1, 5;
+BBSprite: End_2, 5;
+GotoBehavior: Glin_Step2_Teleport;
+
+@CastFireBallCoroutine:
+WaitFrame: 30;
+EnableCastGlinFireball: 160, 40, -85000, 20000, 160000;
+return;
 
 [Glin_Explode]
 @Trigger:
 return;
 
 @Main:
-SetPos: 0, 0;
-Shake: 1200, 1200, 12000, 20;
-BBSprite: Explode_1, 30;
-BBSprite: Explode_2, 5;
-ScreenShake: 850, 850, 10000, 30; 
-BBSprite: Explode_3, 5;
-BBSprite: Explode_4, 5;
-BBSprite: Explode_5, 5;
+SetVelocity: 0, 0;
+Shake: 1500, 1500, 10000, 20, 0;
+BBSprite: Explode_1, 20;
+BBSprite: Explode_2, 4;
+ScreenShake: 1250, 1250, 12000, 30, 0; 
+BBSprite: Explode_3, 6;
+BBSprite: Explode_4, 4;
+BBSprite: Explode_5, 4;
 SetPos: 1000000, 1000000;
 # 创建敌人
-WaitFrame: 20;
+WaitFrame: 60;
 SpawnEnemy: Zako3
   SpawnEnemy_Position: -100000, 65000;
   SpawnEnemy_Flip: Right;

@@ -56,6 +56,8 @@ namespace ET.Client
                 flipState = x2 >= _minX && x2 <= _maxX ? FlipState.Left : FlipState.Right;
             }
             bodyB.SetPosition(new Vector2(x, y));
+            
+            //4. 敌人朝向玩家
             bodyB.SetFlip(flipState);
             
             await ETTask.CompletedTask;
