@@ -1,4 +1,4 @@
 [Root]
 @Entry:
-GotoBehavior: Zako3_Death;
+GotoBehavior: Zako2_Death;
 return;

@@ -11,6 +11,7 @@ namespace ET.Client
             {
                 self.MaxHP = maxHP;
                 self.CurrentHP = maxHP;
+                self.MinHP = 0;
             }
         }
         
@@ -20,13 +21,24 @@ namespace ET.Client
             {
                 self.MaxHP = 0;
                 self.CurrentHP = 0;
+                self.MinHP = 0;
             }
         }
 
+        public static void SetMinHP(this HPAbility self, int minHP)
+        {
+            self.MinHP = minHP;
+        }
+
+        public static int GetMinHP(this HPAbility self)
+        {
+            return self.MinHP;
+        }
+        
         public static void SetHP(this HPAbility self, int HP, bool IsEvent = true)
         {
             int preHP = self.CurrentHP;
-            self.CurrentHP = Math.Clamp(HP, 0, self.MaxHP);
+            self.CurrentHP = Math.Clamp(HP, self.MinHP, self.MaxHP);
 
             //回调HP更新事件
             if (self.CurrentHP != preHP && IsEvent)
