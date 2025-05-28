@@ -2,6 +2,7 @@
 @RootInit:
 EnemyInit;
 # bullet由对象池管理
+PoolObject: Glin_Hand, 1;
 PoolObject: GlinBullet, 5;
 PoolObject: GlinSpikes, 1;
 PoolObject: GlinSpike, 3;
@@ -67,9 +68,19 @@ EndMove:
 RegistMove: (Glin_Explode)
   MoveType: None;
 EndMove:
-GotoBehavior: Glin_Roar;
+RegistMove: (Glin_Death)
+  MoveType: Death;
+EndMove:
+RegistMove: (Glin_Exit)
+  MoveType: None;
+EndMove:
+GotoBehavior: Glin_Exit;
 
 @HPWatcher:
+# 死亡逻辑
+BeginIf: (HP: Value <= 0)
+  GotoBehavior: Glin_Death;
+EndIf:
 # 血量低于50%, 进入二阶段
 BeginIf: (HP: Value <= 1500)
   GotoBehavior: Glin_Explode;
@@ -450,15 +461,18 @@ return;
 
 @Main:
 # Teleport Out
-SetVelocity: 0, 0;
-BBSprite: Frame_6, 5;
-BBSprite: Frame_7, 5;
-ScreenShake: 750, 750, 10000, 15, 0;
-BBSprite: Frame_3, 5;
-BBSprite: Frame_2, 5;
-BBSprite: Frame_1, 5;
-SetPos: -1000000, -1000000;
-WaitFrame: 50;
+# Glin_Explode ---> Glin_Step2_Teleport，不希望执行这部分逻辑
+BeginIf: (TransitionCached: NoTeleportOut, false)
+  SetVelocity: 0, 0;
+  BBSprite: Frame_6, 5;
+  BBSprite: Frame_7, 5;
+  ScreenShake: 750, 750, 10000, 15, 0;
+  BBSprite: Frame_3, 5;
+  BBSprite: Frame_2, 5;
+  BBSprite: Frame_1, 5;
+  SetPos: -1000000, -1000000;
+  WaitFrame: 50;
+EndIf:
 # Select Next Behavior
 Random: ran1, 0, 100;
 # 1. FeintSlash
@@ -789,7 +803,7 @@ BBSprite: Explode_3, 6;
 BBSprite: Explode_4, 4;
 BBSprite: Explode_5, 4;
 SetPos: 1000000, 1000000;
-WaitFrame: 60;
+WaitFrame: 100;
 # 怪物波次_1
 MonsterWave_Init;
 SpawnEnemy: Zako2
@@ -811,6 +825,74 @@ SpawnEnemy: Zako3
   MonsterWave_RegistEnemy; 
 EndSpawnEnemy:
 MonsterWave_WaitClear; # 当前波次中的怪物全部消灭
-WaitFrame: 100;
+WaitFrame: 200;
+# 二阶段
+HPLock: 0;
+SetTransition: NoTeleportOut, true;
+GotoBehavior: Glin_Step2_Teleport;
+
+[Glin_Death]
+@Trigger:
+return;
+
+@Main:
+Shake: 500, 500, 10000, 70, 1;
+RegistCounter: 100;
+BeginLoopAnim: (Counter: Value > 0)
+  LoopSprite: Stun_1, 5;
+  LoopSprite: Stun_2, 5;
+  LoopSprite: Stun_3, 5;
+EndLoopAnim:
+ScreenShake: 1700, 1700, 10000, 30, 0;
+BBSprite: Explode_1, 5;
+BBSprite: Explode_2, 5;
+BBSprite: Explode_3, 5;
+SetPos: 1000000, 100000;
+WaitFrame: 50;
 SetPos: 0, 0;
-GotoBehavior: Glin_Step2_CastSpike;
+Exit;
+
+[Glin_Exit]
+@Trigger:
+return;
+
+@Main:
+SetPos: 40000, -120000;
+BBSprite: In_1, 5;
+ScreenShake: 750, 750, 10000, 15, 0;
+BBSprite: In_2, 5;
+BBSprite: In_3, 5;
+BBSprite: In_4, 5;
+CallSubCoroutine: Glin_Exit, OpenDorrCoroutine;
+RegistCounter: 270;
+BeginLoopAnim: (Counter: Value > 0)
+  LoopSprite: Idle_1, 5;
+  LoopSprite: Idle_2, 5;
+  LoopSprite: Idle_3, 5;
+  LoopSprite: Idle_4, 5;
+  LoopSprite: Idle_5, 5;
+  LoopSprite: Idle_6, 5;
+  LoopSprite: Idle_7, 5;
+  LoopSprite: Idle_8, 5;
+  LoopSprite: Idle_9, 5;
+  LoopSprite: Idle_10, 5;
+  LoopSprite: Idle_11, 5;
+  LoopSprite: Idle_12, 5;
+EndLoopAnim:
+BBSprite: Out_1, 5;
+ScreenShake: 750, 750, 10000, 15, 0;
+BBSprite: Out_2, 5;
+BBSprite: Out_3, 5;
+BBSprite: Out_4, 5;
+BBSprite: Out_5, 5;
+SetPos: 1000000, 1000000;
+WaitFrame: 50;
+Exit;
+
+@OpenDorrCoroutine:
+WaitFrame: 50;
+# 开门
+CreateEffect: Glin_Hand
+  CreateEffect_Position: 12900, 6500;
+EndCreateEffect:
+return;

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dad01b398c6f634c9e134265baa14a1, type: 3}
-  m_Name: Glin_Teleport
+  m_Name: Glin_Hand_Idle
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 7400000, guid: 801c196aff1b5594d94fc1808de39471, type: 2}
+    - {fileID: 7400000, guid: 32c5e43086acef24fb517078dc323fc2, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -28,7 +28,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 7
       Data: 1|Timeline.BBAnimationTrack, Unity.Loader
@@ -53,13 +53,13 @@ MonoBehaviour:
       Data: false
     - Name: Name
       Entry: 1
-      Data: Glin_Teleport
+      Data: GlinHand
     - Name: StartFrame
       Entry: 3
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 30
+      Data: 40
     - Name: animationClip
       Entry: 10
       Data: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 7
+      Data: 11
     - Name: 
       Entry: 7
       Data: 9|Timeline.EventInfo, Unity.Loader
@@ -132,7 +132,7 @@ MonoBehaviour:
       Data: 0
     - Name: keyframeName
       Entry: 1
-      Data: Frame_1
+      Data: Hand_1
     - Name: 
       Entry: 8
       Data: 
@@ -141,10 +141,10 @@ MonoBehaviour:
       Data: 10|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 5
+      Data: 4
     - Name: keyframeName
       Entry: 1
-      Data: Frame_2
+      Data: Hand_2
     - Name: 
       Entry: 8
       Data: 
@@ -153,10 +153,10 @@ MonoBehaviour:
       Data: 11|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 10
+      Data: 8
     - Name: keyframeName
       Entry: 1
-      Data: Frame_3
+      Data: Hand_3
     - Name: 
       Entry: 8
       Data: 
@@ -165,10 +165,10 @@ MonoBehaviour:
       Data: 12|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 15
+      Data: 12
     - Name: keyframeName
       Entry: 1
-      Data: Frame_4
+      Data: Hand_4
     - Name: 
       Entry: 8
       Data: 
@@ -177,10 +177,10 @@ MonoBehaviour:
       Data: 13|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 20
+      Data: 16
     - Name: keyframeName
       Entry: 1
-      Data: Frame_5
+      Data: Hand_5
     - Name: 
       Entry: 8
       Data: 
@@ -189,10 +189,10 @@ MonoBehaviour:
       Data: 14|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 25
+      Data: 20
     - Name: keyframeName
       Entry: 1
-      Data: Frame_6
+      Data: Hand_6
     - Name: 
       Entry: 8
       Data: 
@@ -201,108 +201,58 @@ MonoBehaviour:
       Data: 15|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 30
+      Data: 24
     - Name: keyframeName
       Entry: 1
-      Data: Frame_7
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: Hand_7
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 16|Timeline.BBHitboxTrack, Unity.Loader
-    - Name: Name
-      Entry: 1
-      Data: Hitbox
-    - Name: Enable
-      Entry: 5
-      Data: true
-    - Name: Clips
-      Entry: 7
-      Data: 17|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Keyframes
-      Entry: 7
-      Data: 18|System.Collections.Generic.List`1[[Timeline.HitboxKeyframe, Unity.Loader]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 19|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 16|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 0
+      Data: 28
     - Name: keyframeName
       Entry: 1
+      Data: Hand_8
+    - Name: 
+      Entry: 8
       Data: 
-    - Name: boxInfos
-      Entry: 7
-      Data: 20|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
     - Name: 
       Entry: 7
-      Data: 21|ET.BoxInfo, Unity.Loader
-    - Name: boxName
+      Data: 17|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 36
+    - Name: keyframeName
       Entry: 1
-      Data: PushBox
-    - Name: layerType
-      Entry: 3
-      Data: 2
-    - Name: tagType
-      Entry: 3
-      Data: 0
-    - Name: hitboxType
-      Entry: 3
-      Data: 8
-    - Name: isTrigger
-      Entry: 5
-      Data: false
-    - Name: center
+      Data: Click_2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -0.1
-    - Name: 
-      Entry: 4
-      Data: -1.5
+      Data: 18|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 40
+    - Name: keyframeName
+      Entry: 1
+      Data: Click_3
     - Name: 
       Entry: 8
       Data: 
-    - Name: size
+    - Name: 
       Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2
-    - Name: 
-      Entry: 4
-      Data: 3
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 19|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 32
+    - Name: keyframeName
+      Entry: 1
+      Data: Click_1
     - Name: 
       Entry: 8
       Data: 
@@ -321,13 +271,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-  timelineName: Glin_Teleport
+  timelineName: Glin_Hand_Idle

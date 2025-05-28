@@ -3,25 +3,23 @@ using UnityEngine;
 
 namespace ET.Client
 {
-    public class Function_EffectPos_BBScriptHandler : BBScriptHandler
+    public class Function_CreateEffect_EffectRotation_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "EffectPos";
+            return "EffectRotation";
         }
 
-        //EffectPos: 1000, 1000;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
-        {
-            Match match = Regex.Match(data.opLine, @"EffectPos: (?<posX>.*?), (?<posY>.*?);");
+        {  
+            Match match = Regex.Match(data.opLine, @"EffectRotation: (?<rotate>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
-            if (!long.TryParse(match.Groups["posX"].Value, out long posX) ||
-                !long.TryParse(match.Groups["posY"].Value, out long posY))
+            if (!long.TryParse(match.Groups["rotate"].Value, out long rotate))
             {
                 Log.Error($"matched failed");
                 return Status.Failed;
@@ -31,10 +29,7 @@ namespace ET.Client
             Unit caster = parser.GetParent<Unit>();
             Unit effect = Root.Instance.Get(parser.GetParam<long>("CreateEffect_UnitId")) as Unit;
             
-            //2. Init Position
-            Vector2 position = caster.GetComponent<GameObjectComponent>().GameObject.transform.position;
-            Vector2 targetPos = position + new Vector2(posX, posY) / 10000f;
-            effect.GetComponent<GameObjectComponent>().GameObject.transform.position = targetPos;
+            effect.GetComponent<GameObjectComponent>().GameObject.transform.localEulerAngles = new Vector3(0, 0, rotate / 10000f);
             
             await ETTask.CompletedTask;
             return Status.Success;
