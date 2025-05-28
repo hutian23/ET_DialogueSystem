@@ -25,6 +25,7 @@
             buffManager.AddComponent<HertzAbility>();
             buffManager.AddComponent<HPAbility, int>(100);
             buffManager.AddComponent<SPAbility, int>(100);
+            buffManager.AddComponent<DeathAbility>();
             
             // 添加HP数值事件
             HPAbility hpAbility = buffManager.GetComponent<HPAbility>();

@@ -14,18 +14,22 @@ namespace ET.Client
         public Dictionary<int, long> behaviorOrderMap = new();
         public List<long> infoList = new();
         public Dictionary<string, long> behaviorFlagDict = new();
-        public ETCancellationToken Token = new(); // 热更新时，负责初始化行为机执行中注册的变量
     }
 
     #region 行为机相关事件
 
     public struct BehaviorReloadCallback
     {
-        //传入BehaviorInfo组件的instanceId
+        public long unitId;
+        public long infoId; // 传入BehaviorInfo组件的instanceId
+    }
+
+    public struct MoveTypeCallback
+    {
         public long unitId;
         public long infoId;
     }
-
+    
     public struct LandCallback
     {
         public long instanceId;

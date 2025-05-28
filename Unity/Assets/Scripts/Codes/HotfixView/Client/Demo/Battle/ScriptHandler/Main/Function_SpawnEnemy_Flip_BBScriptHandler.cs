@@ -19,7 +19,6 @@ namespace ET.Client
                 return Status.Failed;
             }
             
-            
             long instanceId = parser.GetParam<long>("SpawnEnemy_InstanceId");
             Unit enemy = Root.Instance.Get(instanceId) as Unit;
             b2Body body = b2WorldManager.Instance.GetBody(enemy.InstanceId);

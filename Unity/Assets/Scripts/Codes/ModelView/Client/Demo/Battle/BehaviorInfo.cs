@@ -10,8 +10,7 @@ namespace ET.Client
         public MoveType moveType;
         public Dictionary<string, SharedVariable> ParamDict = new(); // 共享变量
     }
-
-    // None = 0, Move = 1, Normal = 3, Special = 5, OverDrive = 6, HitStun = 1000, Etc = 1001;
+    
     // > 1000 为非控制器层
     public enum MoveType
     {
@@ -21,8 +20,9 @@ namespace ET.Client
         Normal = 3,
         Special = 4,
         Super = 5,
-        Other = 100, // 非玩家可控制的动作
+        Other = 100,
         HitStun = 101,
-        Etc = 102
+        Death = 102,
+        Etc = 103
     }
 }

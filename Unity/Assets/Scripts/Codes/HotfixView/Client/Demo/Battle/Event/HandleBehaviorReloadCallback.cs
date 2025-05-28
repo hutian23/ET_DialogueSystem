@@ -17,18 +17,12 @@
             //2. 取消当前的行为协程
             machine.SetCurrentOrder(info.behaviorOrder);
             bbParser.Cancel();
-
-            #region MyRegion
-            Transition transition = unit.GetComponent<Transition>();
-            transition?.CacheFlag();
-            
+            unit.GetComponent<Transition>()?.CacheFlag();
             if (bbParser.ContainFunction("Root", "BeforeReloadCallback"))
             {
                 bbParser.Invoke(bbParser.GetFunctionPointer("Root", "BeforeReloadCallback"), bbParser.CancellationToken).Coroutine();
             }
             
-            #endregion 行为切换前的逻辑
-
             //4. 行为切换
             bbParser.Invoke(bbParser.GetFunctionPointer(info.behaviorName, "Main"), bbParser.CancellationToken).Coroutine();
             

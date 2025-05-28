@@ -1,4 +1,4 @@
 [Root]
 @Entry:
-HPAdd: -1;
+HPAdd: -100;
 return;

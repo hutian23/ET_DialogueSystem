@@ -1,5 +1,6 @@
 [Root]
 @RootInit:
+EnemyInit;
 # bullet由对象池管理
 PoolObject: GlinBullet, 5;
 PoolObject: GlinSpikes, 1;
@@ -8,8 +9,9 @@ PoolObject: Goam, 4;
 PoolObject: GlinFireball, 30;
 PoolObject: ADust, 1;
 PoolObject: GDust, 1;
-EnemyInit;
-HP: 3000;
+# 数值初始化
+HP: 3000; # 初始血量300
+HPLock: 1500; # 一阶段锁血
 EnableAirCheck;
 # 注册行为
 # Step1
@@ -37,7 +39,7 @@ EndMove:
 RegistMove: (Glin_Teleport)
   MoveType: None;
 EndMove:
-# # Step2
+# Step2
 RegistMove: (Glin_Roar)
   MoveType: None;
 EndMove:
@@ -65,10 +67,13 @@ EndMove:
 RegistMove: (Glin_Explode)
   MoveType: None;
 EndMove:
-GotoBehavior: Glin_Idle;
+GotoBehavior: Glin_Roar;
 
 @HPWatcher:
-GotoBehavior: Glin_Explode;
+# 血量低于50%, 进入二阶段
+BeginIf: (HP: Value <= 1500)
+  GotoBehavior: Glin_Explode;
+EndIf:
 return;
 
 [Glin_Idle]
@@ -721,7 +726,7 @@ BeginLoopAnim: (InAir: true)
   LoopSprite: AirDash_Active_4, 4;
 EndLoopAnim:
 # Land 
-SetRotate: 0;    
+SetRotate: 0;  
 EnemyUpdateFlip;
 SpawnGDust: -65000, -20000, -8000, 4000;
 SpawnGDust: 65000, -20000, 8000, 4000;
@@ -784,17 +789,28 @@ BBSprite: Explode_3, 6;
 BBSprite: Explode_4, 4;
 BBSprite: Explode_5, 4;
 SetPos: 1000000, 1000000;
-# 创建敌人
 WaitFrame: 60;
+# 怪物波次_1
+MonsterWave_Init;
+SpawnEnemy: Zako2
+  SpawnEnemy_Position: -100000, -110000;
+  MonsterWave_RegistEnemy;
+EndSpawnEnemy:
+MonsterWave_WaitClear;
+WaitFrame: 100;
+# 怪物波次_2
+MonsterWave_Init;
 SpawnEnemy: Zako3
   SpawnEnemy_Position: -100000, 65000;
   SpawnEnemy_Flip: Right;
+  MonsterWave_RegistEnemy; # 在怪物unit的deathBuff添加MoveWaveFlag，怪物死亡时销毁deathBuff 
 EndSpawnEnemy:
 SpawnEnemy: Zako3
   SpawnEnemy_Position: 100000, 65000;
   SpawnEnemy_Flip: Left;
+  MonsterWave_RegistEnemy; 
 EndSpawnEnemy:
-SpawnEnemy: Zako2
-  SpawnEnemy_Position: -100000, -110000;
-EndSpawnEnemy:
-return;
+MonsterWave_WaitClear; # 当前波次中的怪物全部消灭
+WaitFrame: 100;
+SetPos: 0, 0;
+GotoBehavior: Glin_Step2_CastSpike;

@@ -9,7 +9,7 @@
         {
             protected override void Awake(BehaviorMachine self)
             {
-                self.Init();
+                self.Cancel();
             }
         }
         
@@ -23,18 +23,11 @@
 
         private static void Cancel(this BehaviorMachine self)
         {
-            self.Token.Cancel();
             self.currentOrder = -1;
             self.behaviorOrderMap.Clear();
             self.behaviorNameMap.Clear();
             self.infoList.Clear();
             self.behaviorFlagDict.Clear();
-        }
-
-        private static void Init(this BehaviorMachine self)
-        {
-            self.Cancel();
-            self.Token = new();
         }
 
         public static void SetCurrentOrder(this BehaviorMachine self, int order)
@@ -81,12 +74,18 @@
         public static void Reload(this BehaviorMachine self, string behaviorName)
         {
             BehaviorInfo info = self.GetInfoByName(behaviorName);
-            EventSystem.Instance.Invoke(new BehaviorReloadCallback(){ unitId = self.GetParent<Unit>().InstanceId, infoId = info.InstanceId });
+            self.Reload(info);
         }
 
         public static void Reload(this BehaviorMachine self, int behaviorOrder)
         {
             BehaviorInfo info = self.GetInfoByOrder(behaviorOrder);
+            self.Reload(info);
+        }
+
+        private static void Reload(this BehaviorMachine self, BehaviorInfo info)
+        {
+            EventSystem.Instance.Invoke(new MoveTypeCallback(){unitId = self.GetParent<Unit>().InstanceId, infoId = info.InstanceId});
             EventSystem.Instance.Invoke(new BehaviorReloadCallback(){ unitId = self.GetParent<Unit>().InstanceId, infoId = info.InstanceId });
         }
     }

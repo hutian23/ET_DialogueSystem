@@ -20,7 +20,7 @@ RegistMove: (Zako3_ThrowAttack)
   MoveType: None;
 EndMove:
 RegistMove: (Zako3_Death)
-  MoveType: None;
+  MoveType: Death;
 EndMove:
 SetPos: 0, 65000;
 GotoBehavior: Zako3_Spawn;
@@ -85,7 +85,6 @@ BeginIf: (Random: ran2 >= 0), (Random: ran2 <= 40)
   BBSprite: Turn_1, 5;
   BBSprite: Turn_2, 5;
   FlipReverse;
-  BBSprite: Idle_1, 1;
 EndIf:
 GotoMarker: Loop;
 return;
