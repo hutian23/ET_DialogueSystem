@@ -74,7 +74,7 @@ EndMove:
 RegistMove: (Glin_Exit)
   MoveType: None;
 EndMove:
-GotoBehavior: Glin_Exit;
+GotoBehavior: Glin_Roar;
 
 @HPWatcher:
 # 死亡逻辑

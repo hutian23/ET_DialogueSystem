@@ -147,14 +147,14 @@ EnableMoveX: 130000, true;
 BBSprite: PreRun_1, 2;
 BBSprite: PreRun_2, 2;
 #Run
-BeginLoop: (InputType: RunHold)
-  BBSprite: Run_1, 4;
-  BBSprite: Run_2, 4;
-  BBSprite: Run_3, 4;
-  BBSprite: Run_4, 4;
-  BBSprite: Run_5, 4;
-  BBSprite: Run_6, 4;
-EndLoop:
+BeginLoopAnim: (InputType: RunHold)
+  LoopSprite: Run_1, 4;
+  LoopSprite: Run_2, 4;
+  LoopSprite: Run_3, 4;
+  LoopSprite: Run_4, 4;
+  LoopSprite: Run_5, 4;
+  LoopSprite: Run_6, 4;
+EndLoopAnim:
 #RunToIdle
 EnableMoveX: 0, false;
 SetVelocityX: 0;

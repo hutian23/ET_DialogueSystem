@@ -345,30 +345,6 @@ MonoBehaviour:
       Data: 27|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 90
-    - Name: keyframeName
-      Entry: 1
-      Data: Out_2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 28|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 95
-    - Name: keyframeName
-      Entry: 1
-      Data: Out_3
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 29|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
       Data: 100
     - Name: keyframeName
       Entry: 1
@@ -378,13 +354,37 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 30|Timeline.EventInfo, Unity.Loader
+      Data: 28|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 105
     - Name: keyframeName
       Entry: 1
-      Data: Out_4
+      Data: Out_5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 29|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 90
+    - Name: keyframeName
+      Entry: 1
+      Data: Out_2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 30|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 95
+    - Name: keyframeName
+      Entry: 1
+      Data: Out_3
     - Name: 
       Entry: 8
       Data: 
