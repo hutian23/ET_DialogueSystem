@@ -11,7 +11,7 @@ namespace ET.Client
         public Dictionary<string, SharedVariable> ParamDict = new(); // 共享变量
     }
     
-    // > 1000 为非控制器层
+    // > 100 为非控制器层
     public enum MoveType
     {
         None = 0,

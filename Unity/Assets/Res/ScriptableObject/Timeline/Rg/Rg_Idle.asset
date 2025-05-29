@@ -52,8 +52,8 @@ MonoBehaviour:
       Entry: 5
       Data: false
     - Name: Name
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: Idle
     - Name: StartFrame
       Entry: 3
       Data: 0

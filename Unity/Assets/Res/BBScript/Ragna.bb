@@ -2,7 +2,7 @@
 @RootInit:
 #1. PlayerInit中挂载组件(NumericComponent、InputComponent...)
 PlayerInit;
-SetPos: 0, -90000;
+SetPos: 0, 0;
 #4. 添加初始Buff
 HP: 10000;
 SP: 200;
@@ -10,7 +10,8 @@ EnableJump: 2;
 EnableAirCheck;
 EnableGroundDash: 2, 70;
 EnableAirDash: 2;
-EnableGravityCheck: 100000, 150000, 450000;          
+EnableGravityCheck: 100000, 150000, 450000;        
+# EnableHardLandCheck: 450000, 50;   
 #5. 注册输入缓冲
 RegistInput: RunHold;
 RegistInput: SquatHold;
@@ -28,21 +29,21 @@ RegistInput: JumpPressed;
 RegistMove: (Rg_Idle)
   MoveType: None;
   EndMove:
-# RegistMove: (Rg_Land)
-#   MoveType: Move;
-#   EndMove:
+RegistMove: (Rg_Land)
+  MoveType: Move;
+  EndMove:
 RegistMove: (Rg_Run)
   MoveType: Move;
   EndMove:
-# RegistMove: (Rg_Squit)
-#   MoveType: Move;
-#   EndMove:
-# RegistMove: (Rg_AirBrone)
-#   MoveType: Move;
-#   EndMove:
-# RegistMove: (Rg_Jump)
-#   MoveType: Move;
-#   EndMove:
+RegistMove: (Rg_Squit)
+  MoveType: Move;
+  EndMove:
+RegistMove: (Rg_AirBrone)
+  MoveType: Move;
+  EndMove:
+RegistMove: (Rg_Jump)
+  MoveType: Move;
+  EndMove:
 # RegistMove: (Rg_5B)
 #   MoveType: Normal;
 #   EndMove:
@@ -70,9 +71,12 @@ RegistMove: (Rg_Run)
 # RegistMove: (Rg_Test)
 #   MoveType: Etc;
 #   EndMove:
-# RegistMove: (Rg_IdleAnim)
-#   MoveType: Etc;
-#   EndMove:
+RegistMove: (Rg_HardLand)
+  MoveType: Move;
+EndMove:
+RegistMove: (Rg_IdleAnim)
+  MoveType: Etc;
+  EndMove:
 #7. bullet池化
 PoolObject: DeadSpike, 3;
 #8. 进入默认动作
@@ -97,7 +101,7 @@ return;
 @Main:
 SetVelocity: 0, 0;
 # 设置一个待机行为，保持idle 300帧之后进入这个行为
-# IdleAnim: Rg_IdleAnim, 300;
+EnableWaitFrameCallback: true, 300, Rg_Idle, IdleAnim;
 EnableDefaultCancel: true;
 SetMarker: Loop;
 BBSprite: Idle_1, 4;
@@ -116,6 +120,10 @@ BBSprite: Idle_13, 4;
 GotoMarker: Loop;
 Exit;
 
+@IdleAnim:
+GotoBehavior: Rg_IdleAnim;
+return;
+
 [Rg_Land]
 @Trigger:
 Transition: AirToLand, true;
@@ -125,13 +133,14 @@ return;
 SetVelocityX: 0;
 EnableDefaultCancel: true;
 BeginIf: (LandVel: 400000)
-  BBSprite: MiddleLand_1, 3;
-  BBSprite: MiddleLand_2, 3;
+  BBSprite: Land_1, 3;
+  BBSprite: Land_2, 3;
+  BBSprite: Land_3, 3;
 EndIf:
-BBSprite: MiddleLand_3, 5;
-BBSprite: MiddleLand_4, 4;
-BBSprite: MiddleLand_5, 4;
+BBSprite: Land_4, 5;
+BBSprite: Land_5, 4;
 Exit;
+
 
 [Rg_Run]
 @Trigger:
@@ -143,8 +152,8 @@ return;
 #PreRun
 EnableFlip: true;
 EnableDefaultCancel: true;
-EnableMoveX: 130000, true;
 BBSprite: PreRun_1, 2;
+EnableMoveX: 130000, true;
 BBSprite: PreRun_2, 2;
 #Run
 BeginLoopAnim: (InputType: RunHold)
@@ -157,9 +166,11 @@ BeginLoopAnim: (InputType: RunHold)
 EndLoopAnim:
 #RunToIdle
 EnableMoveX: 0, false;
-SetVelocityX: 0;
+SetVelocityX: 30000;
 BBSprite: RunToIdle_1, 3;
 BBSprite: RunToIdle_2, 3;
+SetVelocityX: 0;
+EnableNandemoCancel: true;
 BBSprite: RunToIdle_3, 3;
 BBSprite: RunToIdle_4, 3;
 Exit;
@@ -177,28 +188,28 @@ EnableFlip: true;
 EnableDefaultCancel: true;
 # PreSquat
 BeginIf: (TransitionCached: NoPreSquat, false)
-  BBSprite: PreSquit_1, 2;
-  BBSprite: PreSquit_2, 2;
+  BBSprite: Start_1, 2;
+  BBSprite: Start_2, 2;
 EndIf:
 # Squatting
-BeginLoop: (InputType: SquatHold)
-  BBSprite: Squit_1, 4;
-  BBSprite: Squit_2, 4;
-  BBSprite: Squit_3, 4;
-  BBSprite: Squit_4, 4;
-  BBSprite: Squit_5, 4;  
-  BBSprite: Squit_6, 4;
-  BBSprite: Squit_7, 4;
-  BBSprite: Squit_6, 4;
-  BBSprite: Squit_5, 4;
-  BBSprite: Squit_4, 4;
-  BBSprite: Squit_3, 4;
-  BBSprite: Squit_2, 4;
-EndLoop:
+BeginLoopAnim: (InputType: SquatHold)
+  LoopSprite: Squit_1, 4;
+  LoopSprite: Squit_2, 4;
+  LoopSprite: Squit_3, 4;
+  LoopSprite: Squit_4, 4;
+  LoopSprite: Squit_5, 4;  
+  LoopSprite: Squit_6, 4;
+  LoopSprite: Squit_7, 4;
+  LoopSprite: Squit_6, 4;
+  LoopSprite: Squit_5, 4;
+  LoopSprite: Squit_4, 4;
+  LoopSprite: Squit_3, 4;
+  LoopSprite: Squit_2, 4;
+EndLoopAnim:
 # SquatToIdle
 EnableNandemoCancel: true;
-BBSprite: PreSquit_2, 2;
-BBSprite: PreSquit_1, 2;
+BBSprite: End_1, 4;
+BBSprite: End_2, 4;
 Exit;
 
 [Rg_AirBrone]
@@ -211,11 +222,12 @@ EnableDefaultCancel: true;
 EnableFlip: true;
 Gravity: 100000;
 EnableAirMoveX: 150000, true;
-# Airbrone
-BeginLoop: (InAir: true)
-  BBSprite: Fall_1, 3;
-  BBSprite: Fall_2, 3;
-EndLoop:
+BBSprite: JumpToFall_5, 4;
+# AirBone
+BeginLoopAnim: (InAir: true)
+  LoopSprite: Fall_1, 3;
+  LoopSprite: Fall_2, 3;
+EndLoopAnim:
 # Land
 SetTransition: AirToLand, true;
 Exit;
@@ -227,23 +239,18 @@ InputType: JumpPressed;
 return;
 
 @Main:
-SetVelocityX: 0;
-# OnGround PreJump
-# BeginIf: (TransitionCached: SquatToJump, true)
-#   BBSprite: SquatToJump_1, 2;
-#   BBSprite: SquatToJump_2, 2;
-# EndIf:
-# PreJump
+# LandToJump
+SetVelocity: 0, 0;
 BeginIf: (InAir: false)
-  BBSprite: PreJump_1, 2;
-  BBSprite: PreJump_2, 2;
+  BBSprite: PreJump_1, 3;
+  BBSprite: PreJump_2, 3;
 EndIf:
 # Jump
 EnableFlip: true;
 Gravity: 0;
+JumpAdd: -1;
 EnableAirMoveX: 150000, true;
 SetVelocityY: 200000;
-JumpAdd: -1;
 BBSprite: Jump_1, 3;
 BBSprite: Jump_2, 3;
 BBSprite: Jump_1, 3;
@@ -253,14 +260,19 @@ Gravity: 100000;
 BBSprite: Jump_2, 3;
 BBSprite: Jump_1, 3;
 # JumpToFall
-BeginLoop: (InAir: true)
-  BBSprite: JumpToFall_1, 3;
-  BBSprite: JumpToFall_2, 3;
-  BBSprite: JumpToFall_3, 3;
-  BBSprite: JumpToFall_4, 3;
-  BBSprite: JumpToFall_5, 3;
-  Break;
-EndLoop:
+RegistCounter: 15;
+BeginLoopAnim: (InAir: true), (Counter: Value > 0)
+  LoopSprite: JumpToFall_1, 3;
+  LoopSprite: JumpToFall_2, 3;
+  LoopSprite: JumpToFall_3, 3;
+  LoopSprite: JumpToFall_4, 3;
+  LoopSprite: JumpToFall_5, 3;
+EndLoopAnim:
+# Fall
+BeginLoopAnim: (InAir: true)
+  LoopSprite: Fall_1, 3;
+  LoopSprite: Fall_2, 3;
+EndLoopAnim:
 SetTransition: AirToLand, true;
 Exit;
 
@@ -1072,6 +1084,22 @@ BBSprite: Frame_40, 4;
 BBSprite: Frame_41, 4;
 BBSprite: Frame_42, 2;
 Exit;
+
+[Rg_HardLand]
+@Trigger:
+Transition: AirToLand, true;
+return;
+
+@Main:
+SetVelocityX: 0;
+BBSprite: Land_1, 2;
+ScreenShake: 800, 800, 10000, 25, 0;
+BBSprite: Land_2, 3;
+BBSprite: Land_3, 20;
+BBSprite: Land_4, 4;
+BBSprite: Land_5, 4;
+Exit;
+
 
 [Rg_IdleAnim]
 @Main:

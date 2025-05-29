@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7899716898619453472}
   - component: {fileID: 3421289479522547736}
+  - component: {fileID: 6045692743905853677}
+  - component: {fileID: 8364508349653675903}
+  - component: {fileID: 182612363828154734}
   m_Layer: 0
   m_Name: GG_Crowd
   m_TagString: Untagged
@@ -27,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.176099, y: -10.332245, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -70,10 +73,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -384639453
-  m_SortingLayer: 2
-  m_SortingOrder: 2000
-  m_Sprite: {fileID: 21300000, guid: 1f258fb44160df749bd1d4750b8a5427, type: 3}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 9a88b36be1396874da33095852b8c8e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -84,3 +87,101 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &6045692743905853677
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1504601533252941992}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8364508349653675903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1504601533252941992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd2cdf17bd9f32449b016861d3df3be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: RuntimePlayable
+      Entry: 7
+      Data: 0|Timeline.RuntimePlayable, Unity.Loader
+    - Name: timeline
+      Entry: 6
+      Data: 
+    - Name: timelinePlayer
+      Entry: 6
+      Data: 
+    - Name: playableGraph
+      Entry: 7
+      Data: UnityEngine.Playables.PlayableGraph, UnityEngine.CoreModule
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: animationRootPlayable
+      Entry: 7
+      Data: UnityEngine.Animations.AnimationLayerMixerPlayable, UnityEngine.AnimationModule
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: runtimeTracks
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[Timeline.RuntimeTrack, Unity.Loader]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RebindCallback
+      Entry: 6
+      Data: 
+  instanceId: 0
+  PlayableGraph: {fileID: 11400000, guid: 93b4ea4f7b993844fa4e629e62e75b4f, type: 2}
+--- !u!114 &182612363828154734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1504601533252941992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85515fbd351c4f0448693853f9165f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instanceId: 0
+  Script: {fileID: 1042094116111776886, guid: 396642ca518aea040932cdd36024fc7a, type: 3}
