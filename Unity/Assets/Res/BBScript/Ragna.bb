@@ -2,7 +2,7 @@
 @RootInit:
 #1. PlayerInit中挂载组件(NumericComponent、InputComponent...)
 PlayerInit;
-SetPos: 0, 0;
+SetPos: 0, -70000;
 #4. 添加初始Buff
 HP: 10000;
 SP: 200;
@@ -11,7 +11,7 @@ EnableAirCheck;
 EnableGroundDash: 2, 70;
 EnableAirDash: 2;
 EnableGravityCheck: 100000, 150000, 450000;        
-# EnableHardLandCheck: 450000, 50;   
+EnableHardLandCheck: 10, 450000;   
 #5. 注册输入缓冲
 RegistInput: RunHold;
 RegistInput: SquatHold;
@@ -72,7 +72,7 @@ RegistMove: (Rg_Jump)
 #   MoveType: Etc;
 #   EndMove:
 RegistMove: (Rg_HardLand)
-  MoveType: Move;
+  MoveType: Etc;
 EndMove:
 RegistMove: (Rg_IdleAnim)
   MoveType: Etc;
@@ -218,6 +218,7 @@ InAir: true;
 return;
 
 @Main:
+EnableHardLandCheck: 10, 350000;
 EnableDefaultCancel: true;
 EnableFlip: true;
 Gravity: 100000;
@@ -229,7 +230,12 @@ BeginLoopAnim: (InAir: true)
   LoopSprite: Fall_2, 3;
 EndLoopAnim:
 # Land
-SetTransition: AirToLand, true;
+BeginIf: (HardLand: true)
+  GotoBehavior: Rg_HardLand;
+EndIf:
+BeginIf: (HardLand: false)
+  SetTransition: AirToLand, true;
+EndIf:
 Exit;
 
 [Rg_Jump]
@@ -247,6 +253,7 @@ BeginIf: (InAir: false)
 EndIf:
 # Jump
 EnableFlip: true;
+EnableHardLandCheck: 10, 350000;
 Gravity: 0;
 JumpAdd: -1;
 EnableAirMoveX: 150000, true;
@@ -260,20 +267,25 @@ Gravity: 100000;
 BBSprite: Jump_2, 3;
 BBSprite: Jump_1, 3;
 # JumpToFall
-RegistCounter: 15;
+RegistCounter: 18;
 BeginLoopAnim: (InAir: true), (Counter: Value > 0)
   LoopSprite: JumpToFall_1, 3;
   LoopSprite: JumpToFall_2, 3;
-  LoopSprite: JumpToFall_3, 3;
-  LoopSprite: JumpToFall_4, 3;
-  LoopSprite: JumpToFall_5, 3;
+  LoopSprite: JumpToFall_3, 4;
+  LoopSprite: JumpToFall_4, 4;
+  LoopSprite: JumpToFall_5, 4;
 EndLoopAnim:
 # Fall
 BeginLoopAnim: (InAir: true)
   LoopSprite: Fall_1, 3;
   LoopSprite: Fall_2, 3;
 EndLoopAnim:
-SetTransition: AirToLand, true;
+BeginIf: (HardLand: true)
+  GotoBehavior: Rg_HardLand; # 强制切换进硬直中
+EndIf:
+BeginIf: (HardLand: false)
+  SetTransition: AirToLand, true;
+EndIf:
 Exit;
 
 [Rg_5B]
@@ -1086,14 +1098,10 @@ BBSprite: Frame_42, 2;
 Exit;
 
 [Rg_HardLand]
-@Trigger:
-Transition: AirToLand, true;
-return;
-
 @Main:
 SetVelocityX: 0;
+ScreenShake: 1200, 1200, 11000, 20, 0;
 BBSprite: Land_1, 2;
-ScreenShake: 800, 800, 10000, 25, 0;
 BBSprite: Land_2, 3;
 BBSprite: Land_3, 20;
 BBSprite: Land_4, 4;
