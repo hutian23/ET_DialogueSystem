@@ -16,6 +16,10 @@ namespace ET.Client
             Unit unit = bbParser.GetParent<Unit>();
             BBScript bbScript = unit.GetComponent<GameObjectComponent>().GameObject.GetComponent<BBScript>();
 
+            // 编辑器阶段方便测试
+            Injector injector = bbScript.GetComponent<Injector>() ?? bbScript.gameObject.AddComponent<Injector>();
+            injector.hertz = 60;
+            
             //2. 初始化
             //2-1 取消当前行为协程
             bbParser.Init();

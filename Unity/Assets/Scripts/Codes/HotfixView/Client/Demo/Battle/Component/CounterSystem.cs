@@ -26,16 +26,13 @@
         
         private static async ETTask CounterCor(this Counter self)
         {
-            BBTimerComponent sceneTimer = BBTimerManager.Instance.SceneTimer();
+            BBTimerComponent bbTimer = self.GetParent<BBParser>().GetParent<Unit>().GetComponent<BBTimerComponent>();
 
             //1. 定时器任务执行中
             while (self.curFrame-- > 0)
             {
-                await sceneTimer.WaitFrameAsync(self.Token);
-                if (self.Token.IsCancel())
-                {
-                    return;
-                }
+                await bbTimer.WaitFrameAsync(self.Token);
+                if (self.Token.IsCancel()) return;
             }
             
             //2. 执行完毕，销毁定时器组件

@@ -5,14 +5,7 @@
     {
         public override void Handle(UpdateHertzCallback args)
         {
-            TimelineComponent timelineComponent = Root.Instance.Get(args.instanceId) as TimelineComponent;
-            if (timelineComponent == null || timelineComponent.InstanceId == 0)
-            {
-                Log.Error($"cannot found TimelineComponent: {args.instanceId}");
-                return;
-            }
-
-            Unit unit = timelineComponent.GetParent<Unit>();
+            if (Root.Instance.Get(args.instanceId) is not Unit unit || unit.IsDisposed) return;
             HertzAbility ability = unit.GetComponent<BuffManager>().GetComponent<HertzAbility>();
             ability.SetHertz(args.Hertz);
         }

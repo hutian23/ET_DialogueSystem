@@ -5,8 +5,11 @@ namespace ET
 {
     public class Injector : MonoBehaviour
     {
+        [Range(0, 240), OnValueChanged("UpdateHertz")]
+        public int hertz;
+        
         public TextAsset script;
-
+        
         [Button("调用Test函数"),ShowIf("CheckActive")]
         public void Test()
         {
@@ -18,10 +21,22 @@ namespace ET
         {
             return this.GetComponent<BBScript>().instanceId != 0;
         }
+
+        public void UpdateHertz()
+        {
+            BBScript bbScript = this.GetComponent<BBScript>();
+            EventSystem.Instance.Invoke(new UpdateHertzCallback(){ instanceId = bbScript.instanceId, Hertz = hertz});
+        }
     }
 
     public struct InjectFunctionCallback
     {
         public long instanceId;
+    }
+    
+    public struct UpdateHertzCallback
+    {
+        public long instanceId;
+        public int Hertz;
     }
 }
