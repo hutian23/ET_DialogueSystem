@@ -38,9 +38,6 @@ EndMove:
 RegistMove: (Rg_Squit)
   MoveType: Move;
 EndMove:
-RegistMove: (Rg_Turn)
-  MoveType: Move;
-EndMove:
 RegistMove: (Rg_AirBrone)
   MoveType: Move;
 EndMove:
@@ -74,6 +71,12 @@ EndMove:
 # RegistMove: (Rg_Test)
 #   MoveType: Etc;
 #   EndMove:
+RegistMove: (Rg_Turn)
+  MoveType: Etc;
+EndMove:
+RegistMove: (Rg_SquatTurn)
+  MoveType: Etc;
+EndMove:
 RegistMove: (Rg_HardLand)
   MoveType: Etc;
 EndMove:
@@ -105,6 +108,7 @@ return;
 SetVelocity: 0, 0;
 # 设置一个待机行为，保持idle 300帧之后进入这个行为
 EnableWaitFrameCallback: true, 300, Rg_Idle, IdleAnim;
+EnableRepeatedTimerCallback: true, 1, Rg_Idle, TurnCheck;
 EnableDefaultCancel: true;
 SetMarker: Loop;
 BBSprite: Idle_1, 4;
@@ -126,6 +130,11 @@ Exit;
 @IdleAnim:
 GotoBehavior: Rg_IdleAnim;
 return;
+
+@TurnCheck:
+BeginIf: (FlipChange: true)
+  GotoBehavior: Rg_Turn;
+EndIf:
 
 [Rg_Land]
 @Trigger:
@@ -178,18 +187,6 @@ BBSprite: RunToIdle_3, 3;
 BBSprite: RunToIdle_4, 3;
 Exit;
 
-[Rg_Turn]
-@Trigger:
-FlipChange: true;
-return;
-
-@Main:
-SetVelocityX: 0;
-BBSprite: Turn_1, 2;
-BBSprite: Turn_2, 2;
-BBSprite: Turn_3, 2;
-Exit;
-
 [Rg_Squit]
 @Trigger:
 InAir: false;
@@ -198,7 +195,6 @@ return;
 
 @Main:
 SetVelocityX: 0;
-EnableFlip: true;
 EnableDefaultCancel: true;
 # PreSquat
 BeginIf: (TransitionCached: NoPreSquat, false)
@@ -206,6 +202,7 @@ BeginIf: (TransitionCached: NoPreSquat, false)
   BBSprite: Start_2, 2;
 EndIf:
 # Squatting
+EnableRepeatedTimerCallback: true, 1, Rg_Squit, SquatTurnCheck;
 BeginLoopAnim: (InputType: SquatHold)
   LoopSprite: Squit_1, 4;
   LoopSprite: Squit_2, 4;
@@ -220,11 +217,17 @@ BeginLoopAnim: (InputType: SquatHold)
   LoopSprite: Squit_3, 4;
   LoopSprite: Squit_2, 4;
 EndLoopAnim:
+EnableRepeatedTimerCallback: false, 0, 0, 0;
 # SquatToIdle
 EnableNandemoCancel: true;
 BBSprite: End_1, 4;
 BBSprite: End_2, 4;
 Exit;
+
+@SquatTurnCheck:
+BeginIf: (FlipChange: true)
+  GotoBehavior: Rg_SquatTurn;
+EndIf:
 
 [Rg_AirBrone]
 @Trigger:
@@ -1122,6 +1125,22 @@ BBSprite: Land_4, 4;
 BBSprite: Land_5, 4;
 Exit;
 
+[Rg_Turn]
+@Main:
+SetVelocityX: 0;
+BBSprite: Turn_1, 2;
+BBSprite: Turn_2, 2;
+BBSprite: Turn_3, 2;
+Exit;
+
+[Rg_SquatTurn]
+@Main:
+SetVelocityX: 0;
+BBSprite: Turn_1, 2;
+BBSprite: Turn_2, 2;
+BBSprite: Turn_3, 2;
+SetTransition: NoPreSquat, true;
+Exit;
 
 [Rg_IdleAnim]
 @Main:
