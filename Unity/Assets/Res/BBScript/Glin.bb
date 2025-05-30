@@ -74,6 +74,9 @@ EndMove:
 RegistMove: (Glin_Exit)
   MoveType: None;
 EndMove:
+RegistMove: (Glin_Bow2)
+  MoveType: None;
+EndMove:
 GotoBehavior: Glin_Roar;
 
 @HPWatcher:
@@ -895,4 +898,17 @@ WaitFrame: 50;
 CreateEffect: Glin_Hand
   CreateEffect_Position: 12900, 6500;
 EndCreateEffect:
+return;
+
+[Glin_Bow2]
+@Trigger:
+return;
+
+@Main:
+BBSprite: Bow_1, 5;
+BBSprite: Bow_3, 5;
+BBSprite: Bow_4, 5;
+BBSprite: Bow_5, 5;
+BBSprite: Bow_6, 5;
+BBSprite: Bow_7, 5;
 return;

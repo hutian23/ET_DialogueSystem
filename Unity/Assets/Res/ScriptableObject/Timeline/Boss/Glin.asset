@@ -35,6 +35,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 96b854d14e25e6f4fbfa7829768bd443, type: 2}
     - {fileID: 11400000, guid: 6bda3fd520cfb0e43ae09a290b641673, type: 2}
     - {fileID: 11400000, guid: b26fd6c06ec68ce478e32128aede1603, type: 2}
+    - {fileID: 11400000, guid: ae3cf7106e9144742928235349ab51b0, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -53,7 +54,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 20
+      Data: 21
     - Name: 
       Entry: 7
       Data: 
@@ -291,6 +292,18 @@ MonoBehaviour:
     - Name: $v
       Entry: 10
       Data: 18
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Glin_Bow2
+    - Name: $v
+      Entry: 10
+      Data: 19
     - Name: 
       Entry: 8
       Data: 

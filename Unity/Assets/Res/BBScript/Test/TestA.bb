@@ -1,4 +1,4 @@
 [Root]
 @Entry:
-HPAdd: -100;
+GotoBehavior: Glin_Bow2;
 return;
