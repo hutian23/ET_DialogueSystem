@@ -1,4 +1,5 @@
 [Root]
 @Entry:
-GotoBehavior: Glin_Bow2;
+SetFlip: Right;
+GotoBehavior: Rg_Hurt;
 return;

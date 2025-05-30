@@ -83,6 +83,9 @@ EndMove:
 RegistMove: (Rg_IdleAnim)
   MoveType: Etc;
 EndMove:
+RegistMove: (Rg_Hurt)
+  MoveType: HitStun;
+EndMove:
 #7. bullet池化
 PoolObject: DeadSpike, 3;
 #8. 进入默认动作
@@ -1143,4 +1146,34 @@ Exit;
 @Main:
 EnableNandemoCancel: true;
 PlayTimeline: 0, 81;
+Exit;
+
+[Rg_Hurt]
+@Main:
+SetVelocity: 0, 0;
+Gravity: 0;
+BBSprite: Air_1, 4;
+SetVelocity: -30000, 180000;
+BBSprite: Air_2, 3;
+BBSprite: Air_3, 3;
+BBSprite: Air_4, 2;
+Gravity: 150000;
+BBSprite: Air_4, 2;
+BBSprite: Air_5, 3;
+BeginLoopAnim: (InAir: true)
+  LoopSprite: Air_6, 5;
+  LoopSprite: Air_7, 5;
+EndLoopAnim:
+ScreenShake: 600, 600, 12000, 20, 0;
+SetVelocity: -25000, 250000;
+Shake: 500, 500, 12000, 20, 0;
+BBSprite: Land_1, 5;
+BBSprite: Land_2, 5;
+BBSprite: Land_3, 5;
+BBSprite: Land_4, 5;
+SetVelocityX: 0;
+BBSprite: Land_5, 5;
+BBSprite: Land_6, 5;
+BBSprite: Land_7, 5;
+BBSprite: Land_8, 100;
 Exit;
