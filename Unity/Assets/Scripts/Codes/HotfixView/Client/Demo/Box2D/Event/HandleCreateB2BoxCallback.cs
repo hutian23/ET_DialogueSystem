@@ -1,7 +1,6 @@
 ﻿using System.Numerics;
 using Box2DSharp.Collision.Shapes;
 using Box2DSharp.Dynamics;
-using ET.Event;
 
 namespace ET.Client
 {
@@ -25,7 +24,7 @@ namespace ET.Client
             b2Box.TagType = boxDef.TagType;
 
             // 触发器
-            b2Box.IsTrigger = boxDef.HitboxType is not HitboxType.Squash;
+            b2Box.IsTrigger = boxDef.IsTrigger;
 
             b2Box.Name = boxDef.Name;
             b2Box.Center = boxDef.Center;
@@ -33,12 +32,12 @@ namespace ET.Client
             b2Box.HitboxType = boxDef.HitboxType;
             
             // 碰撞回调
-            b2Box.TriggerEnterId = TriggerEnterType.HandleCallback;
-            b2Box.TriggerStayId = TriggerStayType.HandleCallback;
-            b2Box.TriggerExitId = TriggerExitType.HandleCallback;
-            b2Box.CollisionEnterId = CollisionEnterType.HandleCallback;
-            b2Box.CollisionStayId = CollisionStayType.HandleCallback;
-            b2Box.CollisionExitId = CollisionExitType.HandleCallback;
+            b2Box.TriggerEnterId = boxDef.TriggerEnterId;
+            b2Box.TriggerStayId = boxDef.TriggerStayId;
+            b2Box.TriggerExitId = boxDef.TriggerExitId;
+            b2Box.CollisionEnterId = boxDef.CollisionEnterId;
+            b2Box.CollisionStayId = boxDef.CollisionStayId;
+            b2Box.CollisionExitId = boxDef.CollisionExitId;
             
             //2. 生成夹具
             PolygonShape shape = new();
