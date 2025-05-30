@@ -24,7 +24,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4cec73c719e1e68428ca8cc240a99be7, type: 2}
     - {fileID: 11400000, guid: cdfe5cc540b065241adc18a7de260857, type: 2}
     - {fileID: 11400000, guid: d7caee2064ca71f418262733b3dc327a, type: 2}
-    - {fileID: 11400000, guid: 03c36d5359761374e9dbe33952b0b706, type: 2}
     - {fileID: 11400000, guid: 37eb1779b9d3fa346a1f747d312e65ac, type: 2}
     - {fileID: 11400000, guid: 3571aca473c333a42944903707775516, type: 2}
     - {fileID: 11400000, guid: d65b395cd363cfa4786388a43cb8d42b, type: 2}
@@ -69,7 +68,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 39
+      Data: 38
     - Name: 
       Entry: 7
       Data: 
@@ -183,7 +182,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg_SquitToIdle
+      Data: Rg_5B
     - Name: $v
       Entry: 10
       Data: 8
@@ -195,7 +194,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg_5B
+      Data: Rg_5C
     - Name: $v
       Entry: 10
       Data: 9
@@ -207,7 +206,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg_5C
+      Data: Rg_5D
     - Name: $v
       Entry: 10
       Data: 10
@@ -219,7 +218,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg_5D
+      Data: Rg_TC_End
     - Name: $v
       Entry: 10
       Data: 11
@@ -231,7 +230,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg_TC_End
+      Data: Rg_ShouRyuuKenn
     - Name: $v
       Entry: 10
       Data: 12
@@ -243,7 +242,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg_ShouRyuuKenn
+      Data: Rg_Hurt1
     - Name: $v
       Entry: 10
       Data: 13
@@ -255,7 +254,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg_Hurt1
+      Data: Rg_HardDownRecovery
     - Name: $v
       Entry: 10
       Data: 14
@@ -267,7 +266,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg_HardDownRecovery
+      Data: Rg_Hurt2
     - Name: $v
       Entry: 10
       Data: 15
@@ -279,7 +278,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg_Hurt2
+      Data: Rg_Throw
     - Name: $v
       Entry: 10
       Data: 16
@@ -291,7 +290,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg_Throw
+      Data: Rg_Hurt3
     - Name: $v
       Entry: 10
       Data: 17
@@ -303,7 +302,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg_Hurt3
+      Data: Rg_AirDashAttack
     - Name: $v
       Entry: 10
       Data: 18
@@ -315,7 +314,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg_AirDashAttack
+      Data: Rg_PlungingAttack
     - Name: $v
       Entry: 10
       Data: 19
@@ -327,7 +326,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg_PlungingAttack
+      Data: Rg_QuickFall
     - Name: $v
       Entry: 10
       Data: 20
@@ -339,7 +338,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg_QuickFall
+      Data: Rg_Land
     - Name: $v
       Entry: 10
       Data: 21
@@ -351,22 +350,10 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Rg_Land
-    - Name: $v
-      Entry: 10
-      Data: 22
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
       Data: Rg_6P
     - Name: $v
       Entry: 10
-      Data: 23
+      Data: 22
     - Name: 
       Entry: 8
       Data: 
@@ -390,7 +377,7 @@ MonoBehaviour:
       Data: Rg_24D
     - Name: $v
       Entry: 10
-      Data: 24
+      Data: 23
     - Name: 
       Entry: 8
       Data: 
@@ -402,7 +389,7 @@ MonoBehaviour:
       Data: Rg_26C
     - Name: $v
       Entry: 10
-      Data: 25
+      Data: 24
     - Name: 
       Entry: 8
       Data: 
@@ -414,7 +401,7 @@ MonoBehaviour:
       Data: Rg_24D_Derive
     - Name: $v
       Entry: 10
-      Data: 24
+      Data: 23
     - Name: 
       Entry: 8
       Data: 
@@ -426,7 +413,7 @@ MonoBehaviour:
       Data: Rg_Hurt4
     - Name: $v
       Entry: 10
-      Data: 26
+      Data: 25
     - Name: 
       Entry: 8
       Data: 
@@ -438,7 +425,7 @@ MonoBehaviour:
       Data: Rg_24A
     - Name: $v
       Entry: 10
-      Data: 27
+      Data: 26
     - Name: 
       Entry: 8
       Data: 
@@ -450,7 +437,7 @@ MonoBehaviour:
       Data: Rg_Super
     - Name: $v
       Entry: 10
-      Data: 28
+      Data: 27
     - Name: 
       Entry: 8
       Data: 
@@ -462,7 +449,7 @@ MonoBehaviour:
       Data: Rg_Super2
     - Name: $v
       Entry: 10
-      Data: 29
+      Data: 28
     - Name: 
       Entry: 8
       Data: 
@@ -474,7 +461,7 @@ MonoBehaviour:
       Data: Rg_Super3
     - Name: $v
       Entry: 10
-      Data: 29
+      Data: 28
     - Name: 
       Entry: 8
       Data: 
@@ -486,7 +473,7 @@ MonoBehaviour:
       Data: Rg_5BHold
     - Name: $v
       Entry: 10
-      Data: 30
+      Data: 29
     - Name: 
       Entry: 8
       Data: 
@@ -498,7 +485,7 @@ MonoBehaviour:
       Data: Rg_DustAttack
     - Name: $v
       Entry: 10
-      Data: 31
+      Data: 30
     - Name: 
       Entry: 8
       Data: 
@@ -510,7 +497,7 @@ MonoBehaviour:
       Data: Rg_HardLand
     - Name: $v
       Entry: 10
-      Data: 32
+      Data: 31
     - Name: 
       Entry: 8
       Data: 
@@ -522,7 +509,7 @@ MonoBehaviour:
       Data: Rg_Turn
     - Name: $v
       Entry: 10
-      Data: 33
+      Data: 32
     - Name: 
       Entry: 8
       Data: 
@@ -534,7 +521,7 @@ MonoBehaviour:
       Data: Rg_SquatTurn
     - Name: $v
       Entry: 10
-      Data: 34
+      Data: 33
     - Name: 
       Entry: 8
       Data: 

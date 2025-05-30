@@ -62,21 +62,21 @@ EndMove:
 # RegistMove: (Rg_AirDash)
 #   MoveType: Special;
 #   EndMove:
-# RegistMove: (Rg_GroundDash)
-#   MoveType: Special;
-#   EndMove:
+RegistMove: (Rg_GroundDash)
+  MoveType: Special;
+  EndMove:
 # RegistMove: (Rg_Super3)
 #   MoveType: Special;
 #   EndMove:
 # RegistMove: (Rg_Test)
 #   MoveType: Etc;
 #   EndMove:
-RegistMove: (Rg_Turn)
-  MoveType: Etc;
-EndMove:
-RegistMove: (Rg_SquatTurn)
-  MoveType: Etc;
-EndMove:
+# RegistMove: (Rg_Turn)
+#   MoveType: Etc;
+# EndMove:
+# RegistMove: (Rg_SquatTurn)
+#   MoveType: Etc;
+# EndMove:
 RegistMove: (Rg_HardLand)
   MoveType: Etc;
 EndMove:
@@ -108,7 +108,7 @@ return;
 SetVelocity: 0, 0;
 # 设置一个待机行为，保持idle 300帧之后进入这个行为
 EnableWaitFrameCallback: true, 300, Rg_Idle, IdleAnim;
-EnableRepeatedTimerCallback: true, 1, Rg_Idle, TurnCheck;
+# EnableRepeatedTimerCallback: true, 1, Rg_Idle, TurnCheck;
 EnableDefaultCancel: true;
 SetMarker: Loop;
 BBSprite: Idle_1, 4;
@@ -131,10 +131,10 @@ Exit;
 GotoBehavior: Rg_IdleAnim;
 return;
 
-@TurnCheck:
-BeginIf: (FlipChange: true)
-  GotoBehavior: Rg_Turn;
-EndIf:
+# @TurnCheck:
+# BeginIf: (FlipChange: true)
+#   GotoBehavior: Rg_Turn;
+# EndIf:
 
 [Rg_Land]
 @Trigger:
@@ -195,6 +195,7 @@ return;
 
 @Main:
 SetVelocityX: 0;
+EnableFlip: true;
 EnableDefaultCancel: true;
 # PreSquat
 BeginIf: (TransitionCached: NoPreSquat, false)
@@ -202,7 +203,7 @@ BeginIf: (TransitionCached: NoPreSquat, false)
   BBSprite: Start_2, 2;
 EndIf:
 # Squatting
-EnableRepeatedTimerCallback: true, 1, Rg_Squit, SquatTurnCheck;
+# EnableRepeatedTimerCallback: true, 1, Rg_Squit, SquatTurnCheck;
 BeginLoopAnim: (InputType: SquatHold)
   LoopSprite: Squit_1, 4;
   LoopSprite: Squit_2, 4;
@@ -217,17 +218,17 @@ BeginLoopAnim: (InputType: SquatHold)
   LoopSprite: Squit_3, 4;
   LoopSprite: Squit_2, 4;
 EndLoopAnim:
-EnableRepeatedTimerCallback: false, 0, 0, 0;
+# EnableRepeatedTimerCallback: false, 0, 0, 0;
 # SquatToIdle
 EnableNandemoCancel: true;
 BBSprite: End_1, 4;
 BBSprite: End_2, 4;
 Exit;
 
-@SquatTurnCheck:
-BeginIf: (FlipChange: true)
-  GotoBehavior: Rg_SquatTurn;
-EndIf:
+# @SquatTurnCheck:
+# BeginIf: (FlipChange: true)
+#   GotoBehavior: Rg_SquatTurn;
+# EndIf:
 
 [Rg_AirBrone]
 @Trigger:
@@ -607,33 +608,27 @@ CanGroundDash: true;
 return;
 
 @Main:
-SetVelocityY: 0;
-SetVelocityX: 350000;
-Gravity: 100000;
+# In GroundDash
+SetVelocity: 350000, 0;
 GroundDashAdd: -1;
-BBSprite: Dash_1, 3;
-BBSprite: Dash_2, 3;
+BBSprite: Active_1, 3;
+BBSprite: Active_2, 3;
 EnableGatlingCancel: true;
-GCOption: Rg_Jump;
-BBSprite: Dash_1, 3;
-BBSprite: Dash_2, 3;
+BBSprite: Active_3, 3;
+BBSprite: Active_1, 3;
 SetVelocityX: 200000;
-BBSprite: Dash_1, 3;
-SetVelocityX: 100000;
-BBSprite: DashEnd_1, 3;
+BBSprite: Active_2, 3;
 SetVelocityX: 50000;
-GCOption: Rg_GroundDash;
-BBSprite: DashEnd_1, 6;
-BBSprite: DashEnd_2, 3;
+# End
+BBSprite: End_1, 6;
+BBSprite: End_2, 3;
 SetVelocityX: 0;
-BBSprite: DashEnd_3, 1;
+BBSprite: End_3, 3;
 SetTransition: NoPreSquat, true;
-EnableGatlingCancel: false;
 EnableNandemoCancel: true;
-BBSprite: DashEnd_3, 2;
-BBSprite: DashEnd_4, 3;
-BBSprite: DashEnd_5, 3;
-BBSprite: DashEnd_6, 3;
+BBSprite: End_3, 2;
+BBSprite: End_4, 3;
+BBSprite: End_5, 3;
 Exit;
 
 [Rg_PlungingAttack]
