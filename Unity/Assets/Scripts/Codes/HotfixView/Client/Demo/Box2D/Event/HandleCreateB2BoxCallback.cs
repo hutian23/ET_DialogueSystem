@@ -6,13 +6,11 @@ namespace ET.Client
 {
     [Invoke]
     [FriendOf(typeof(b2Box))]
-    public class HandleCreateB2BoxCallback : AInvokeHandler<CreateB2BoxCallback>
+    public class HandleCreateB2BoxCallback : AInvokeHandler<CreateB2BoxCallback, b2Box>
     {
-        public override void Handle(CreateB2BoxCallback args)
+        public override b2Box Handle(CreateB2BoxCallback args)
         {
-            Unit unit = Root.Instance.Get(args.instanceId) as Unit;
-            if (unit == null || unit.IsDisposed) return;
-
+            if (Root.Instance.Get(args.instanceId) is not Unit unit || unit.IsDisposed) return null;
             b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
             b2BoxDef boxDef = args.boxDef;
 
@@ -47,6 +45,8 @@ namespace ET.Client
             FixtureDef fixtureDef = new() { Shape = shape, Density = 1.0f, Friction = 0f, UserData = b2Box.InstanceId };
             b2Box.fixture = b2Body.CreateFixture(fixtureDef);
             b2Box.fixtureDef = fixtureDef;
+
+            return b2Box;
         }
     }
 }

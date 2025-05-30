@@ -26,7 +26,7 @@ namespace ET.Client
                 {
                     layerType = info.layerType,
                     TagType = info.tagType,
-                    IsTrigger = info.hitboxType is HitboxType.Squash,
+                    IsTrigger = info.hitboxType is not HitboxType.Squash,
                     Name = info.boxName,
                     Center = info.center.ToVector2(),
                     Size = info.size.ToVector2(),
@@ -39,7 +39,7 @@ namespace ET.Client
                     CollisionExitId = CollisionExitType.HandleCallback
                 };
                 
-                EventSystem.Instance.Invoke(new CreateB2BoxCallback(){instanceId = unit.InstanceId, boxDef = boxDef});
+                EventSystem.Instance.Invoke<CreateB2BoxCallback, b2Box>(new CreateB2BoxCallback(){instanceId = unit.InstanceId, boxDef = boxDef});
             }
         }
     }

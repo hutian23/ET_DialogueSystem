@@ -14,7 +14,7 @@ namespace ET.Client
         // EnableJustEvade: 精准闪避窗口持续帧, box.size.x, box.size.y, box.center.x, box.center.y;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"EnableJustEvade: (?<LastFrame>.*?), (?<SizeX>.*?), (?<SizeY>.*?), (?<CenterX>.*?), (?<CenterY>.*?)");
+            Match match = Regex.Match(data.opLine, @"EnableJustEvade: (?<LastFrame>.*?), (?<CenterX>.*?), (?<CenterY>.*?), (?<SizeX>.*?), (?<SizeY>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -30,12 +30,10 @@ namespace ET.Client
                 Log.Error($"matched failed");
                 return Status.Failed;
             }
-
+            
             parser.RemoveComponent<JustEvadeComponent>();
             JustEvadeComponent justEvade = parser.AddComponent<JustEvadeComponent>(true);
-            justEvade.boxSize = new Vector2(sizeX, sizeY) / 10000f;
-            justEvade.boxOffset = new Vector2(centerX, centerY) / 10000f;
-            justEvade.lastFrame = lastFrame;
+            justEvade.Init(lastFrame, new Vector2(centerX, centerY) / 10000f, new Vector2(sizeX, sizeY) / 10000f);
             
             await ETTask.CompletedTask;
             return Status.Success;

@@ -102,15 +102,15 @@ namespace ET.Client
             return self.b2BoxDict.ContainsKey(boxName);
         }
         
-        public static long GetBox(this b2Body self, string boxName)
+        public static b2Box GetBox(this b2Body self, string boxName)
         {
             if (!self.b2BoxDict.TryGetValue(boxName, out long id))
             {
                 Log.Error($"cannot found b2Box. boxName: {boxName}");
-                return -1;
+                return null;
             }
 
-            return id;
+            return self.GetChild<b2Box>(id);
         }
 
         public static b2Box AddBox(this b2Body self, string boxName)
@@ -129,7 +129,7 @@ namespace ET.Client
 
         public static void DestroyBox(this b2Body self, string boxName)
         {
-            if (!self.b2BoxDict.TryGetValue(boxName, out long id))
+            if (!self.b2BoxDict.Remove(boxName, out long id))
             {
                 Log.Error($"cannot found b2Box. boxName: {boxName}");
                 return;
