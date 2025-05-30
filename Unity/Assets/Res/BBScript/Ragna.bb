@@ -611,6 +611,8 @@ return;
 # In GroundDash
 SetVelocity: 350000, 0;
 GroundDashAdd: -1;
+# 精准闪避窗口
+EnableJustEvade: 4, 0, 0, 10000, 10000;
 BBSprite: Active_1, 3;
 BBSprite: Active_2, 3;
 EnableGatlingCancel: true;

@@ -29,4 +29,31 @@ namespace ET.Client
         public int CollisionStayId;
         public int CollisionExitId;
     }
+
+    public struct b2BoxDef
+    {
+        public FixtureDef fixtureDef;
+        public LayerType layerType;
+        public TagType TagType;
+        
+        public bool IsTrigger;
+        
+        public string Name;
+        public HitboxType HitboxType;
+        public Vector2 Center;
+        public Vector2 Size;
+        
+        public int TriggerEnterId;
+        public int TriggerStayId;
+        public int TriggerExitId;
+        public int CollisionEnterId;
+        public int CollisionStayId;
+        public int CollisionExitId;
+    }
+    
+    public struct CreateB2BoxCallback
+    {
+        public long instanceId;
+        public b2BoxDef boxDef;
+    }
 }
