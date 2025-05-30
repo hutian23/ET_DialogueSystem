@@ -29,7 +29,7 @@ namespace ET.Client
                 case "false":
                     return !hardLand.GetHardLand();
                 default:
-                    Log.Error("does not match inAir!");
+                    Log.Error("does not match HardLand!");
                     return false;
             }
         }

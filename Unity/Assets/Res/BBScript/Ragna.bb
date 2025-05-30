@@ -28,22 +28,25 @@ RegistInput: JumpPressed;
 #6. 注册动作
 RegistMove: (Rg_Idle)
   MoveType: None;
-  EndMove:
+EndMove:
 RegistMove: (Rg_Land)
   MoveType: Move;
-  EndMove:
+EndMove:
 RegistMove: (Rg_Run)
   MoveType: Move;
-  EndMove:
+EndMove:
 RegistMove: (Rg_Squit)
   MoveType: Move;
-  EndMove:
+EndMove:
+RegistMove: (Rg_Turn)
+  MoveType: Move;
+EndMove:
 RegistMove: (Rg_AirBrone)
   MoveType: Move;
-  EndMove:
+EndMove:
 RegistMove: (Rg_Jump)
   MoveType: Move;
-  EndMove:
+EndMove:
 # RegistMove: (Rg_5B)
 #   MoveType: Normal;
 #   EndMove:
@@ -76,7 +79,7 @@ RegistMove: (Rg_HardLand)
 EndMove:
 RegistMove: (Rg_IdleAnim)
   MoveType: Etc;
-  EndMove:
+EndMove:
 #7. bullet池化
 PoolObject: DeadSpike, 3;
 #8. 进入默认动作
@@ -166,7 +169,7 @@ BeginLoopAnim: (InputType: RunHold)
 EndLoopAnim:
 #RunToIdle
 EnableMoveX: 0, false;
-SetVelocityX: 30000;
+SetVelocityX: 50000;
 BBSprite: RunToIdle_1, 3;
 BBSprite: RunToIdle_2, 3;
 SetVelocityX: 0;
@@ -175,6 +178,17 @@ BBSprite: RunToIdle_3, 3;
 BBSprite: RunToIdle_4, 3;
 Exit;
 
+[Rg_Turn]
+@Trigger:
+FlipChange: true;
+return;
+
+@Main:
+SetVelocityX: 0;
+BBSprite: Turn_1, 2;
+BBSprite: Turn_2, 2;
+BBSprite: Turn_3, 2;
+Exit;
 
 [Rg_Squit]
 @Trigger:

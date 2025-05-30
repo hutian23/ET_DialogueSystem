@@ -29,11 +29,10 @@
         {
             protected override void PosStepUpdate(HardLandCheckComponent self)
             {
+                self.HardLand = false;
+                
                 Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
                 b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-
-                self.HardLand = false;
-
                 if (b2Body.GetVelocity().Y >= self.airVel)
                 {
                     self.cnt = 0;
