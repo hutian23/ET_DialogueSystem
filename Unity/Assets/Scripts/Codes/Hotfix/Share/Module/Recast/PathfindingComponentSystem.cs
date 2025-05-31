@@ -10,14 +10,14 @@ namespace ET
         [ObjectSystem]
         public class AwakeSystem: AwakeSystem<PathfindingComponent, string>
         {
-            protected override void Awake(PathfindingComponent self, string name)
+            protected override void Awake(PathfindingComponent self, string filterType)
             {
-                self.Name = name;
-                self.NavMesh = NavmeshComponent.Instance.Get(name);
+                self.Name = filterType;
+                self.NavMesh = NavmeshComponent.Instance.Get(filterType);
 
                 if (self.NavMesh == 0)
                 {
-                    throw new Exception($"nav load fail: {name}");
+                    throw new Exception($"nav load fail: {filterType}");
                 }
             }
         }

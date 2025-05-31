@@ -9,7 +9,7 @@ namespace ET.Server
     {
         public class HttpComponentAwakeSystem : AwakeSystem<HttpComponent, string>
         {
-            protected override void Awake(HttpComponent self, string address)
+            protected override void Awake(HttpComponent self, string filterType)
             {
                 try
                 {
@@ -17,7 +17,7 @@ namespace ET.Server
                 
                     self.Listener = new HttpListener();
 
-                    foreach (string s in address.Split(';'))
+                    foreach (string s in filterType.Split(';'))
                     {
                         if (s.Trim() == "")
                         {
@@ -32,7 +32,7 @@ namespace ET.Server
                 }
                 catch (HttpListenerException e)
                 {
-                    throw new Exception($"请先在cmd中运行: netsh http add urlacl url=http://*:你的address中的端口/ user=Everyone, address: {address}", e);
+                    throw new Exception($"请先在cmd中运行: netsh http add urlacl url=http://*:你的address中的端口/ user=Everyone, address: {filterType}", e);
                 }
             }
         }

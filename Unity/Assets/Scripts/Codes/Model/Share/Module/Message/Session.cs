@@ -24,9 +24,9 @@ namespace ET
         [ObjectSystem]
         public class SessionAwakeSystem: AwakeSystem<Session, int>
         {
-            protected override void Awake(Session self, int serviceId)
+            protected override void Awake(Session self, int filterType)
             {
-                self.ServiceId = serviceId;
+                self.ServiceId = filterType;
                 long timeNow = TimeHelper.ClientNow();
                 self.LastRecvTime = timeNow;
                 self.LastSendTime = timeNow;

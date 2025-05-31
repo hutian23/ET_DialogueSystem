@@ -9,9 +9,9 @@ namespace ET.Client
     {
         public class FollowComponentAwakeSystem : AwakeSystem<FollowComponent, long>
         {
-            protected override void Awake(FollowComponent self, long instanceId)
+            protected override void Awake(FollowComponent self, long filterType)
             {
-                self._instanceId = instanceId;
+                self._instanceId = filterType;
                 self.token = new ETCancellationToken();
                 self.FollowCor().Coroutine();
                 self.GizmosCor().Coroutine();

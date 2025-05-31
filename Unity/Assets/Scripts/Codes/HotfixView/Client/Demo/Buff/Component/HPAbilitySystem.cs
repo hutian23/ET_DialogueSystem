@@ -7,10 +7,10 @@ namespace ET.Client
     {
         public class HPAbilityAwakeSystem : AwakeSystem<HPAbility, int>
         {
-            protected override void Awake(HPAbility self, int maxHP)
+            protected override void Awake(HPAbility self, int filterType)
             {
-                self.MaxHP = maxHP;
-                self.CurrentHP = maxHP;
+                self.MaxHP = filterType;
+                self.CurrentHP = filterType;
                 self.MinHP = 0;
             }
         }

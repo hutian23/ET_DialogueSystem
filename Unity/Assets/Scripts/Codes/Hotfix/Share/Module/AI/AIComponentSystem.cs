@@ -25,9 +25,9 @@ namespace ET
         [ObjectSystem]
         public class AIComponentAwakeSystem: AwakeSystem<AIComponent, int>
         {
-            protected override void Awake(AIComponent self, int aiConfigId)
+            protected override void Awake(AIComponent self, int filterType)
             {
-                self.AIConfigId = aiConfigId;
+                self.AIConfigId = filterType;
                 self.Timer = TimerComponent.Instance.NewRepeatedTimer(1000, TimerInvokeType.AITimer, self);
             }
         }

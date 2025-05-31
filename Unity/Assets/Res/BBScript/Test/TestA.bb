@@ -1,5 +1,6 @@
 [Root]
 @Entry:
-SetFlip: Right;
-GotoBehavior: Rg_Hurt;
+Dispose;
+# SetFlip: Right;
+# GotoBehavior: Rg_Hurt;
 return;

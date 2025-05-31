@@ -9,9 +9,9 @@ namespace ET.Client
         [ObjectSystem]
         public class AwakeSystem: AwakeSystem<NetClientComponent, AddressFamily>
         {
-            protected override void Awake(NetClientComponent self, AddressFamily addressFamily)
+            protected override void Awake(NetClientComponent self, AddressFamily filterType)
             {
-                self.ServiceId = NetServices.Instance.AddService(new KService(addressFamily, ServiceType.Outer));
+                self.ServiceId = NetServices.Instance.AddService(new KService(filterType, ServiceType.Outer));
                 NetServices.Instance.RegisterReadCallback(self.ServiceId, self.OnRead);
                 NetServices.Instance.RegisterErrorCallback(self.ServiceId, self.OnError);
             }

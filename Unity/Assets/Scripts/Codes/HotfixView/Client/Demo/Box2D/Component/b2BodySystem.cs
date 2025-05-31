@@ -48,6 +48,7 @@ namespace ET.Client
                 b2WorldManager.Instance.DestroyBody(self.body);
                 self.body = null;
                 self.unitId = 0;
+                self.b2FilterDict.Clear();
                 self.b2BoxDict.Clear();
                 
                 self.flip = FlipState.Left;
@@ -95,7 +96,6 @@ namespace ET.Client
         {
             self.body.IsEnabled = isEnable;
         }
-
         
         private static bool ContainBox(this b2Body self, string boxName)
         {
@@ -164,6 +164,37 @@ namespace ET.Client
             }
             ids.Dispose();
         }
+        #endregion
+
+        #region b2Filter
+
+        public static b2Filter RegistFilter(this b2Body self, int filterType)
+        {
+            if (self.b2FilterDict.TryGetValue(filterType, out long id))
+            {
+                Log.Error($"already exist b2Filter. filterType: {filterType}, b2Filter.Id: {id}");
+                return null;
+            }
+
+            b2Filter b2Filter = self.AddChild<b2Filter, int>(filterType, true);
+            self.b2FilterDict.Add(filterType, b2Filter.Id);
+            
+            return b2Filter;
+        }
+
+        public static void RemoveFilter(this b2Body self, int filterType)
+        {
+            if (!self.b2FilterDict.TryGetValue(filterType, out long id))
+            {
+                Log.Error($"does not exist b2Filter. filterType: {filterType}");
+                return;
+            }
+            
+            b2Filter b2Filter = self.GetChild<b2Filter>(id);
+            b2Filter.Dispose();
+            self.b2FilterDict.Remove(filterType);
+        }
+        
         #endregion
         
         #region Flip

@@ -35,7 +35,7 @@ namespace ET.Server
         [ObjectSystem]
         public class NetInnerComponentAwake1System: AwakeSystem<NetInnerComponent, IPEndPoint>
         {
-            protected override void Awake(NetInnerComponent self, IPEndPoint address)
+            protected override void Awake(NetInnerComponent self, IPEndPoint filterType)
             {
                 NetInnerComponent.Instance = self;
                 
@@ -43,12 +43,12 @@ namespace ET.Server
                 {
                     case NetworkProtocol.TCP:
                     {
-                        self.ServiceId = NetServices.Instance.AddService(new TService(address, ServiceType.Inner));
+                        self.ServiceId = NetServices.Instance.AddService(new TService(filterType, ServiceType.Inner));
                         break;
                     }
                     case NetworkProtocol.KCP:
                     {
-                        self.ServiceId = NetServices.Instance.AddService(new KService(address, ServiceType.Inner));
+                        self.ServiceId = NetServices.Instance.AddService(new KService(filterType, ServiceType.Inner));
                         break;
                     }
                 }

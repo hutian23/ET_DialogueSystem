@@ -5,10 +5,10 @@
     {
         public class CounterAwakeSystem : AwakeSystem<Counter, int>
         {
-            protected override void Awake(Counter self, int frame)
+            protected override void Awake(Counter self, int filterType)
             {
-                self.totalFrame = frame;
-                self.curFrame = frame;
+                self.totalFrame = filterType;
+                self.curFrame = filterType;
                 self.Token = new ETCancellationToken();
                 self.CounterCor().Coroutine();
             }

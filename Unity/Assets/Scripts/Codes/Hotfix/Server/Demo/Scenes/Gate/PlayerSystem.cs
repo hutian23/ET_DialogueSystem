@@ -6,9 +6,9 @@
         [ObjectSystem]
         public class PlayerAwakeSystem : AwakeSystem<Player, string>
         {
-            protected override void Awake(Player self, string a)
+            protected override void Awake(Player self, string filterType)
             {
-                self.Account = a;
+                self.Account = filterType;
             }
         }
     }

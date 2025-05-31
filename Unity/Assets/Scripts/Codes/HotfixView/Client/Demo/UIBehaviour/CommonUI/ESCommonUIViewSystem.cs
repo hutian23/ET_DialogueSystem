@@ -6,9 +6,9 @@ namespace ET.Client
 	[ObjectSystem]
 	public class ESCommonUIAwakeSystem : AwakeSystem<ESCommonUI,Transform> 
 	{
-		protected override void Awake(ESCommonUI self,Transform transform)
+		protected override void Awake(ESCommonUI self,Transform filterType)
 		{
-			self.uiTransform = transform;
+			self.uiTransform = filterType;
 		}
 	}
 

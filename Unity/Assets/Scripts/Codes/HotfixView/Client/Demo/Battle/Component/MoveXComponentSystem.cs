@@ -5,9 +5,9 @@
     {
         public class MoveXComponentAwakeSystem : AwakeSystem<MoveXComponent, float>
         {
-            protected override void Awake(MoveXComponent self, float vel)
+            protected override void Awake(MoveXComponent self, float filterType)
             {
-                self.MoveX = vel;
+                self.MoveX = filterType;
                 self.token = new ETCancellationToken();
                 self.MoveCor().Coroutine();
             }

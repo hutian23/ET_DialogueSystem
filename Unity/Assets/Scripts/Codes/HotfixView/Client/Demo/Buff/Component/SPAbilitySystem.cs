@@ -7,10 +7,10 @@ namespace ET.Client
     {
         public class SPAbilityAwakeSystem : AwakeSystem<SPAbility, int>
         {
-            protected override void Awake(SPAbility self, int sp)
+            protected override void Awake(SPAbility self, int filterType)
             {
-                self.MaxSP = sp;
-                self.CurrentSP = sp;
+                self.MaxSP = filterType;
+                self.CurrentSP = filterType;
             }
         }
         

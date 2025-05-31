@@ -5,9 +5,9 @@
     {
         public class GroundDashRechargeAwakeSystem : AwakeSystem<GroundDashRecharge, int>
         {
-            protected override void Awake(GroundDashRecharge self, int chargeFrame)
+            protected override void Awake(GroundDashRecharge self, int filterType)
             {
-                self.counter = chargeFrame;
+                self.counter = filterType;
                 self.token = new ETCancellationToken();
                 self.DashRechargeCor().Coroutine();
             }

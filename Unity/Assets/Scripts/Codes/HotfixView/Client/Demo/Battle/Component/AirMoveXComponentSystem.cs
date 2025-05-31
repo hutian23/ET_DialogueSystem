@@ -5,9 +5,9 @@
     {
         public class AirMoveComponentAwakeSystem : AwakeSystem<AirMoveXComponent, float>
         {
-            protected override void Awake(AirMoveXComponent self, float vel)
+            protected override void Awake(AirMoveXComponent self, float filterType)
             {
-                self.vel = vel;
+                self.vel = filterType;
                 self.token = new ETCancellationToken();
                 self.MoveCor().Coroutine();
             }

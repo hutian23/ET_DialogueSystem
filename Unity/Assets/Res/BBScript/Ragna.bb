@@ -89,7 +89,7 @@ EndMove:
 #7. bullet池化
 PoolObject: DeadSpike, 3;
 #8. 进入默认动作
-GotoBehavior: Rg_Idle;
+GotoBehavior: Rg_Hurt;
 return;
 
 @BeforeReloadCallback:
@@ -1150,9 +1150,11 @@ Exit;
 
 [Rg_Hurt]
 @Main:
+SetPos: 0, -90000;
 SetVelocity: 0, 0;
 Gravity: 0;
-BBSprite: Air_1, 4;
+Shake: 600, 600, 12000, 20, 0;
+BBSprite: Air_1, 20;
 SetVelocity: -30000, 180000;
 BBSprite: Air_2, 3;
 BBSprite: Air_3, 3;
@@ -1164,14 +1166,14 @@ BeginLoopAnim: (InAir: true)
   LoopSprite: Air_6, 5;
   LoopSprite: Air_7, 5;
 EndLoopAnim:
-ScreenShake: 600, 600, 12000, 20, 0;
-SetVelocity: -25000, 250000;
+ScreenShake: 800, 800, 10000, 20, 0;
+SetVelocity: -30000, 200000;
 Shake: 500, 500, 12000, 20, 0;
 BBSprite: Land_1, 5;
 BBSprite: Land_2, 5;
 BBSprite: Land_3, 5;
-BBSprite: Land_4, 5;
 SetVelocityX: 0;
+BBSprite: Land_4, 5;
 BBSprite: Land_5, 5;
 BBSprite: Land_6, 5;
 BBSprite: Land_7, 5;

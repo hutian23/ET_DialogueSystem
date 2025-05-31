@@ -96,7 +96,7 @@ namespace ET
             this.Awake((T)o, a);
         }
 
-        protected abstract void Awake(T self, A a);
+        protected abstract void Awake(T self, A filterType);
     }
 
     [ObjectSystem]
