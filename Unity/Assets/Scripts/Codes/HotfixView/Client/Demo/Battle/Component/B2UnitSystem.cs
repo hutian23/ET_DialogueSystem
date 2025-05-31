@@ -18,7 +18,8 @@ namespace ET.Client
                     AllowSleep = true,
                     FixedRotation = true,
                 };
-                b2WorldManager.Instance.CreateBody(self.unitId, def);
+                b2Body b2Body = b2WorldManager.Instance.CreateBody(self.unitId, def);
+                b2Body.RegistFilter(FilterType.PushBoxFilter);
             }
         }
         

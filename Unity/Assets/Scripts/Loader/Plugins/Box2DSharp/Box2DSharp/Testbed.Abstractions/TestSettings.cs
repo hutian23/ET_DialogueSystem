@@ -10,12 +10,13 @@ namespace Testbed.Abstractions
             Reset();
         }
 
-        public void Reset()
+        private void Reset()
         {
+            ShowGUI = false;
             TestIndex = 0;
             WindowWidth = 1600;
             WindowHeight = 900;
-            this.TimeScale = 60.0f;
+            TimeScale = 60.0f;
             VelocityIterations = 8;
             PositionIterations = 3;
             DrawShapes = true;
@@ -39,10 +40,10 @@ namespace Testbed.Abstractions
         }
 
         [DataMember]
-        public int TestIndex;
-
+        public bool ShowGUI;
+        
         [DataMember]
-        public int ETItemIndex;
+        public int TestIndex;
 
         [DataMember]
         public bool ShowHitBox;
@@ -128,8 +129,6 @@ namespace Testbed.Abstractions
         public bool Pause;
 
         public bool SingleStep;
-        
-        public long instanceId;
 
         public long StepCount;
     }

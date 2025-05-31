@@ -8,7 +8,6 @@ namespace ET.Client
     {
         public Fixture fixture;
         public FixtureDef fixtureDef;
-        
         public LayerType LayerType;
         public TagType TagType;
         
@@ -28,6 +27,7 @@ namespace ET.Client
         public int CollisionEnterId;
         public int CollisionStayId;
         public int CollisionExitId;
+        public int FilterType;
     }
 
     public struct b2BoxDef

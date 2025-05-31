@@ -27,6 +27,7 @@ namespace ET.Client
                 self.CollisionEnterId = 0;
                 self.CollisionStayId = 0;
                 self.CollisionExitId = 0;
+                self.FilterType = 0;
             }
         }
 
@@ -115,6 +116,17 @@ namespace ET.Client
         public static int GetCollisionExitId(this b2Box self)
         {
             return self.CollisionExitId;
+        }
+
+        public static void RegistFilter(this b2Box self, int filterType)
+        {
+            self.FilterType = filterType;
+        }
+
+        public static bool CollideCheck(this b2Box self, long instanceIdB)
+        {
+            if (self.FilterType == 0) return true;
+            return EventSystem.Instance.Invoke<B2FilterCallback, bool>(self.FilterType, new B2FilterCallback() { instanceIdA = self.InstanceId, instanceIdB = instanceIdB });
         }
     }
 }

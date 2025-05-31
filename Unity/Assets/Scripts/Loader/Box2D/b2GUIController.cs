@@ -14,6 +14,11 @@ namespace ET
     {
         public bool SingleStep;
     }
+
+    public struct ShowGUICallback
+    {
+        public bool ShowGUI;
+    }
     
     public class b2GUIController
     {

@@ -152,7 +152,7 @@ namespace Box2DSharp.Testbed.Unity
 
         private int _testSelected;
 
-        public static int CurrentTestIndex
+        private static int CurrentTestIndex
         {
             get => Global.Settings.TestIndex;
             set => Global.Settings.TestIndex = value;

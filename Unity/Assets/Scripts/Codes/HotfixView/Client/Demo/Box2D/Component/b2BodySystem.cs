@@ -48,7 +48,7 @@ namespace ET.Client
                 b2WorldManager.Instance.DestroyBody(self.body);
                 self.body = null;
                 self.unitId = 0;
-                self.b2FilterDict.Clear();
+                self.filterSet.Clear();
                 self.b2BoxDict.Clear();
                 
                 self.flip = FlipState.Left;
@@ -166,33 +166,34 @@ namespace ET.Client
         }
         #endregion
 
-        #region b2Filter
+        #region ContactFilter
 
-        public static b2Filter RegistFilter(this b2Body self, int filterType)
+        public static void RegistFilter(this b2Body self, int filterType)
         {
-            if (self.b2FilterDict.TryGetValue(filterType, out long id))
-            {
-                Log.Error($"already exist b2Filter. filterType: {filterType}, b2Filter.Id: {id}");
-                return null;
-            }
-
-            b2Filter b2Filter = self.AddChild<b2Filter, int>(filterType, true);
-            self.b2FilterDict.Add(filterType, b2Filter.Id);
-            
-            return b2Filter;
+            self.filterSet.Add(filterType);
         }
 
         public static void RemoveFilter(this b2Body self, int filterType)
         {
-            if (!self.b2FilterDict.TryGetValue(filterType, out long id))
+            self.filterSet.Remove(filterType);
+        }
+
+        /// <summary>
+        /// 控制夹具是否发生碰撞
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="instanceIdA">b2Box.InstanceId</param>
+        /// <param name="instanceIdB">b2Box.InstanceId</param>
+        /// <returns></returns>
+        public static bool CollideCheck(this b2Body self, long instanceIdA, long instanceIdB)
+        {
+            bool canCollide = true;
+            foreach (int filter in self.filterSet)
             {
-                Log.Error($"does not exist b2Filter. filterType: {filterType}");
-                return;
+                canCollide = EventSystem.Instance.Invoke<B2FilterCallback, bool>(filter, new B2FilterCallback() { instanceIdA = instanceIdA, instanceIdB = instanceIdB });
+                if (!canCollide) break;
             }
-            
-            b2Filter b2Filter = self.GetChild<b2Filter>(id);
-            b2Filter.Dispose();
-            self.b2FilterDict.Remove(filterType);
+            return canCollide;
         }
         
         #endregion

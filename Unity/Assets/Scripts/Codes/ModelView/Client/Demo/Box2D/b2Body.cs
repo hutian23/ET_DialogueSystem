@@ -12,8 +12,7 @@ namespace ET.Client
         public Body body;
         public long unitId;
 
-        // Key: FilterType Value: b2Filter.Id
-        public Dictionary<int, long> b2FilterDict = new();
+        public HashSet<int> filterSet = new();
         public Dictionary<string, long> b2BoxDict = new();
         
         public FlipState flip = FlipState.Left;

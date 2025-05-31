@@ -89,7 +89,7 @@ EndMove:
 #7. bullet池化
 PoolObject: DeadSpike, 3;
 #8. 进入默认动作
-GotoBehavior: Rg_Hurt;
+GotoBehavior: Rg_Idle;
 return;
 
 @BeforeReloadCallback:

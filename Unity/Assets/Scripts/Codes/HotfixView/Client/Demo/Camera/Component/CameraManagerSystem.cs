@@ -196,13 +196,19 @@ namespace ET.Client
             //Paused
             if (key.f2Key.wasPressedThisFrame)
             {
-                EventSystem.Instance?.Invoke(new PausedCallback() { Pause = !Global.Settings.Pause });
+                EventSystem.Instance.Invoke(new PausedCallback() { Pause = !Global.Settings.Pause });
             }
 
             //Single Step
             if (key.f3Key.wasPressedThisFrame)
             {
-                EventSystem.Instance?.Invoke(new SingleStepCallback(){SingleStep = !Global.Settings.SingleStep});
+                EventSystem.Instance.Invoke(new SingleStepCallback(){SingleStep = !Global.Settings.SingleStep});
+            }
+            
+            // Enable / Disable imGuiRender
+            if (key.f4Key.wasPressedThisFrame)
+            {
+                EventSystem.Instance.Invoke(new ShowGUICallback(){ShowGUI = !Global.Settings.ShowGUI});
             }
         }
         
