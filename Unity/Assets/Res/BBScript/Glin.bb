@@ -4,8 +4,7 @@ EnemyInit;
 # bullet由对象池管理
 PoolObject: Glin_Hand, 1;
 PoolObject: GlinBullet, 5;
-PoolObject: GlinSpikes, 1;
-PoolObject: GlinSpike, 3;
+PoolObject: GlinSpike, 10;
 PoolObject: Goam, 4;
 PoolObject: GlinFireball, 30;
 PoolObject: ADust, 1;
@@ -475,6 +474,10 @@ BeginIf: (TransitionCached: NoTeleportOut, false)
   BBSprite: Frame_1, 5;
   SetPos: -1000000, -1000000;
   WaitFrame: 50;
+  # Glin_Step2_Slash执行完毕后会生成地刺，等地刺消失才执行下个行为
+  BeginIf: (TransitionCached: Step2_Slash, true)
+    WaitFrame: 80;
+  EndIf:
 EndIf:
 # Select Next Behavior
 Random: ran1, 0, 100;
@@ -523,6 +526,7 @@ BeginIf: (Random: ran1 >= 10), (Random: ran1 < 30)
 EndIf:
 # 3. Cast
 BeginIf: (Random: ran1 >= 30), (Random: ran1 < 50)
+  # 和玩家距离太近，避免玩家来不及躲闪子弹，向后移动一段距离
   BeginIf: (InRange: true)
     SetTransition: Evade, true;
   EndIf:
@@ -632,8 +636,55 @@ SetVelocity: 30000, 100000;
 BBSprite: UpperCut_Active_2, 5;
 SetVelocity: 0, 0;
 BBSprite: UpperCut_End_1, 4;
+CallSubCoroutine: Glin_Step2_Slash, SpawnSpikes;
+SetTransition: Step2_Slash, true;
 GotoBehavior: Glin_Step2_Teleport;
 
+@SpawnSpikes:
+CreateBullet: GlinSpike
+  BulletAngle: 30000;
+  BulletAbsolutePosition: -200000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: 20000;
+  BulletAbsolutePosition: -160000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: -45000;
+  BulletAbsolutePosition: -120000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: 0;
+  BulletAbsolutePosition: -80000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: 12000;
+  BulletAbsolutePosition: -40000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: -22000;
+  BulletAbsolutePosition: 0, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: -12000;
+  BulletAbsolutePosition: 40000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: -18000;
+  BulletAbsolutePosition: 80000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: 12000;
+  BulletAbsolutePosition: 120000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: 62000;
+  BulletAbsolutePosition: 160000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAbsolutePosition: 200000, -120000;
+EndCreateBullet:
+return;
 
 [Glin_Step2_Cast]
 @Trigger:
@@ -644,7 +695,7 @@ return;
 BeginIf: (TransitionCached: Evade, true)
   BBSprite: Evade_1, 4;
   BBSprite: Evade_2, 4;
-    SetVelocityX: -350000;
+  SetVelocityX: -350000;
   BBSprite: Evade_3, 4;
   BBSprite: Evade_4, 4;
   BBSprite: Evade_5, 4;
@@ -866,7 +917,7 @@ ScreenShake: 750, 750, 10000, 15, 0;
 BBSprite: In_2, 5;
 BBSprite: In_3, 5;
 BBSprite: In_4, 5;
-CallSubCoroutine: Glin_Exit, OpenDorrCoroutine;
+CallSubCoroutine: Glin_Exit, OpenDorCoroutine;
 RegistCounter: 270;
 BeginLoopAnim: (Counter: Value > 0)
   LoopSprite: Idle_1, 5;
@@ -892,7 +943,7 @@ SetPos: 1000000, 1000000;
 WaitFrame: 50;
 Exit;
 
-@OpenDorrCoroutine:
+@OpenDorCoroutine:
 WaitFrame: 50;
 # 开门
 CreateEffect: Glin_Hand
