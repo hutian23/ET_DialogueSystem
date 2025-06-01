@@ -1,7 +1,9 @@
-﻿using Testbed.Abstractions;
+﻿using ET.Event;
+using UnityEngine;
 
 namespace ET.Client
 {
+    [FriendOf(typeof(b2Body))]
     public class Test_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
@@ -27,8 +29,22 @@ namespace ET.Client
             // b2Body b2Body = b2WorldManager.Instance.GetBody(enemy.InstanceId);
             // b2Body.SetPosition(new Vector2(0, 0));
 
-            Global.Settings.TimeScale = 0.1f;
-            
+            HitComponent hit = parser.GetComponent<HitComponent>();
+            CollisionBuffer buffer = hit.GetBuffer();
+
+            b2Box boxA = Root.Instance.Get(buffer.instanceIdA) as b2Box;
+            b2Box boxB = Root.Instance.Get(buffer.instanceIdB) as b2Box;
+
+            b2Body bodyA = boxA.GetParent<b2Body>();
+            b2Body bodyB = boxB.GetParent<b2Body>();
+            Unit unitA = Root.Instance.Get(bodyA.unitId) as Unit;
+            Unit unitB = Root.Instance.Get(bodyB.unitId) as Unit;
+
+            GameObject goA = unitA.GetComponent<GameObjectComponent>().GameObject;
+            GameObject goB = unitB.GetComponent<GameObjectComponent>().GameObject;
+
+            Log.Warning(goA.name + "  " + goB.name);
+
             await ETTask.CompletedTask;
             return Status.Success;
         }

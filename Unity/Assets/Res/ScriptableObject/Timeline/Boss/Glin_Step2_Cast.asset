@@ -611,7 +611,7 @@ MonoBehaviour:
       Data: 38|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 30
+      Data: 35
     - Name: keyframeName
       Entry: 1
       Data: 

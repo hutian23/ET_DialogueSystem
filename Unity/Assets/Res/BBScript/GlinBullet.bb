@@ -12,6 +12,9 @@ return;
 return;
 
 @Main:
+HitNotify: Once
+  Test;
+EndNotify:
 BBSprite: Frame_1, 5;
 RegistCounter: 100;
 BeginLoopAnim: (Counter: Value > 0)

@@ -1,6 +1,4 @@
 [Root]
 @Entry:
-Dispose;
-# SetFlip: Right;
-# GotoBehavior: Rg_Hurt;
+GotoBehavior: Glin_Step2_Cast;
 return;
