@@ -22,7 +22,7 @@
 
         private static async ETTask SceneChangeTo(this DlgTest self)
         {
-            await TODSceneChangeHelper.SceneChangeTo(self.ClientScene(), self.View.E_SceneInputField.text);
+            await BBSceneChangeHelper.SceneChangeTo(self.ClientScene(), self.View.E_SceneInputField.text);
         }
     }
 }

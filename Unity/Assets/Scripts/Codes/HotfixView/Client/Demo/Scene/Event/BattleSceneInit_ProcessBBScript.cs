@@ -4,15 +4,12 @@ using UnityEngine;
 namespace ET.Client
 {
     [Event(SceneType.Client)]
-    public class SceneChangeFinish_ProcessBBScript : AEvent<SceneChangeFinish>
+    public class AfterSceneChange_BattleSceneInit : AEvent<BattleSceneInit>
     {
-        protected override async ETTask Run(Scene scene, SceneChangeFinish a)
+        protected override async ETTask Run(Scene scene, BattleSceneInit args)
         {
             GameObject _root = GameObject.Find("_Root");
-            if (_root == null)
-            {
-                return;
-            }
+            if (_root == null) return;
 
             foreach (BBScript bbScript in _root.GetComponentsInChildren<BBScript>())
             {

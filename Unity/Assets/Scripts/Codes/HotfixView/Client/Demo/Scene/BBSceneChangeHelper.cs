@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    public static class TODSceneChangeHelper
+    public static class BBSceneChangeHelper
     {
         public static async ETTask SceneChangeTo(Scene clientScene, string sceneName)
         {
@@ -16,9 +16,11 @@ namespace ET.Client
             
             //3. 加载场景
             await EventSystem.Instance.PublishAsync(clientScene, new SceneChangeStart());
-            //4. 渲染层创建玩家,并且初始化
+            //4. 场景初始化
+            await EventSystem.Instance.PublishAsync(clientScene, new BattleSceneInit());
+            //5. 渲染层创建玩家,并且初始化
             await EventSystem.Instance.PublishAsync(clientScene, new CreatePlayerView());   
-            //4. 切换场景完成
+            //6. 切换场景完成
             await EventSystem.Instance.PublishAsync(clientScene, new SceneChangeFinish());
         }
     }

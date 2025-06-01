@@ -21,8 +21,6 @@ Camera_DeadZone: TG_Camera, 8, 10;
 Camera_SoftZone: TG_Camera, 15, 20;
 Camera_Bias: TG_Camera, 0, 50;
 Camera_FOV: TG_Camera, 50000, 150000;
-# Follow
-Camera_FollowPlayer;
 return;
 
 # UI测试

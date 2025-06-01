@@ -2,6 +2,8 @@
 @RootInit:
 #1. PlayerInit中挂载组件(NumericComponent、InputComponent...)
 PlayerInit;
+#2. 相机跟随
+Camera_FollowPlayer;
 SetPos: 0, -70000;
 #4. 添加初始Buff
 HP: 10000;

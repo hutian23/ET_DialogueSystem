@@ -12,7 +12,6 @@ namespace ET.Client
 
             //1. 加载AB
             await ResourcesComponent.Instance.LoadBundleAsync($"{player.Config.ABName}.unity3d");
-            
             GameObject prefab = (GameObject)ResourcesComponent.Instance.GetAsset($"{player.Config.ABName}.unity3d", $"{player.Config.Name}");
             GameObject go = UnityEngine.Object.Instantiate(prefab, GlobalComponent.Instance.Unit, true);
             
