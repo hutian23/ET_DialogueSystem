@@ -2,11 +2,11 @@
 
 namespace ET.Client
 {
-    [ComponentOf]
-    public class BBInputComponent: Entity, IAwake, IDestroy, IUpdate, ILoad
+    [ComponentOf(typeof(Scene))]
+    public class BBInputManager: Entity, IAwake, IDestroy, IUpdate, ILoad
     {
         [StaticField]
-        public static BBInputComponent Instance;
+        public static BBInputManager Instance;
 
         public long Ops;
 

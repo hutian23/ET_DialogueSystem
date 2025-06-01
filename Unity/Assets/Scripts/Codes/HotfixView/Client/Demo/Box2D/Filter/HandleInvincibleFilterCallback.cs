@@ -1,6 +1,6 @@
 ﻿namespace ET.Client
 {
-    [Invoke]
+    [Invoke(FilterType.InvincibleFilter)]
     [FriendOf(typeof(b2Body))]
     public class HandleInvincibleFilterCallback : AInvokeHandler<B2FilterCallback, bool>
     {

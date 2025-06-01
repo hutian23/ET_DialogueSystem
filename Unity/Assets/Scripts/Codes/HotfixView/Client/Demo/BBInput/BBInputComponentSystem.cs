@@ -4,18 +4,18 @@ using UnityEngine.InputSystem;
 namespace ET.Client
 {
     //开始重构
-    [FriendOf(typeof (BBInputComponent))]
+    [FriendOf(typeof (BBInputManager))]
     public static class BBInputComponentSystem
     {
-        public class BBInputAwakeSystem: AwakeSystem<BBInputComponent>
+        public class BBInputAwakeSystem: AwakeSystem<BBInputManager>
         {
-            protected override void Awake(BBInputComponent self)
+            protected override void Awake(BBInputManager self)
             {
-                BBInputComponent.Instance = self;
+                BBInputManager.Instance = self;
             }
         }
         
-        public static void Reload(this BBInputComponent self)
+        public static void Reload(this BBInputManager self)
         {
             self.WasPressedDict.Clear();
             self.WasPressedDict.Add(BBOperaType.X, false);
@@ -26,7 +26,7 @@ namespace ET.Client
             self.WasPressedDict.Add(BBOperaType.RT, false);
         }
 
-        public static long CheckInput(this BBInputComponent self)
+        public static long CheckInput(this BBInputManager self)
         {
             Gamepad gamepad = Gamepad.current;
             long ops = 0;
@@ -131,12 +131,12 @@ namespace ET.Client
             return ops;
         }
 
-        public static bool ContainKey(this BBInputComponent self, long op)
+        public static bool ContainKey(this BBInputManager self, long op)
         {
             return (self.Ops & op) != 0;
         }
 
-        public static bool WasPressedThisFrame(this BBInputComponent self, int op)
+        public static bool WasPressedThisFrame(this BBInputManager self, int op)
         {
             return self.WasPressedDict[op];
         }

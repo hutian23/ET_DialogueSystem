@@ -1,7 +1,7 @@
 ﻿namespace ET.Client
 {
-    [ComponentOf(typeof(Unit))]
-    public class BulletManager : Entity, IAwake, IDestroy
+    [ComponentOf(typeof(Scene))]
+    public class BulletManager : Entity, IAwake, ILoad, IDestroy
     {
         [StaticField]
         public static BulletManager Instance;

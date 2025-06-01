@@ -13,7 +13,6 @@
 	{
 		protected override void Destroy(UnitComponent self)
 		{
-			
 		}
 	}
 	

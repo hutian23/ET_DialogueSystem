@@ -13,12 +13,12 @@ namespace ET.Client
                 EventSystem.Instance.Invoke(new ProcessBBScriptCallback(){ instanceId = self.InstanceId });
             }
         }
-
+        
         public class BBParserLoadSystem : LoadSystem<BBParser>
         {
             protected override void Load(BBParser self)
             {
-                EventSystem.Instance.Invoke(new ProcessBBScriptCallback(){ instanceId = self.InstanceId });
+                EventSystem.Instance.Invoke(new ProcessBBScriptCallback(){instanceId = self.InstanceId});
             }
         }
         

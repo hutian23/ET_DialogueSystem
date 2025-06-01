@@ -102,9 +102,20 @@ namespace ET.Client
             self._gameTimer.Restart();
             self.LastTime = self._gameTimer.ElapsedTicks;
             self.instanceIds.Clear();
+            self.SceneTimer().Reload();
             self.LateUpdateTimer().Reload();
         }
 
+        public static void SetHertz(this BBTimerManager self, int hertz)
+        {
+            self.SceneTimer().SetHertz(hertz);
+        }
+
+        public static int GetHertz(this BBTimerManager self)
+        {
+            return self.SceneTimer().GetHertz();
+        }
+        
         public static BBTimerComponent SceneTimer(this BBTimerManager self)
         {
             return self.GetChild<BBTimerComponent>(self.SceneTimer);

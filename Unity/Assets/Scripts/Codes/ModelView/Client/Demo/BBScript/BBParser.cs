@@ -4,7 +4,7 @@ namespace ET.Client
 {
     //运行时解析BBScript然后执行
     [ComponentOf]
-    public class BBParser: Entity, IAwake, IDestroy, ILoad, IController
+    public class BBParser: Entity, IAwake, ILoad, IDestroy, IController
     {
         public Dictionary<int, string> OpDict = new();
         public Dictionary<string, DataGroup> GroupDict = new();

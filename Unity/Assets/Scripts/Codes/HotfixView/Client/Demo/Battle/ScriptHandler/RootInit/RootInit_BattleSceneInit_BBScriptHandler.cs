@@ -9,13 +9,6 @@
 
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Unit unit = parser.GetParent<Unit>();
-
-            //1. 初始化
-            unit.AddComponent<BulletManager>();
-            unit.AddComponent<EffectManager>();
-            unit.AddComponent<PoolManager>();
-            
             await ETTask.CompletedTask;
             return Status.Success;
         }

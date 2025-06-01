@@ -26,12 +26,12 @@
         {
             Unit unit = self.GetParent<BuffManager>().GetParent<Unit>();
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
-            b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
+            // b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
 
             // 注册ContactFilter规则
-            body.RegistFilter(FilterType.InvincibleFilter);
+            // body.RegistFilter(FilterType.InvincibleFilter);
             await bbTimer.WaitAsync(self.waitFrame, self.token);
-            body.RemoveFilter(FilterType.InvincibleFilter);
+            // body.RemoveFilter(FilterType.InvincibleFilter);
             
             if (self.token.IsCancel()) return;
             self.Dispose();

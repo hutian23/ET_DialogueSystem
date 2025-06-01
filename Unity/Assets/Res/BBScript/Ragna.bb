@@ -89,6 +89,7 @@ RegistMove: (Rg_Hurt)
   MoveType: HitStun;
 EndMove:
 #8. 进入默认动作
+Invincible: 1000;
 GotoBehavior: Rg_Idle;
 return;
 
@@ -1150,7 +1151,6 @@ Exit;
 
 [Rg_Hurt]
 @Main:
-Invincible: 600;
 SetVelocity: 0, 0;
 Gravity: 0;
 Shake: 600, 600, 12000, 20, 0;
