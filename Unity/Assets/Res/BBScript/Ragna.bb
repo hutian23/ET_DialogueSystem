@@ -1150,7 +1150,7 @@ Exit;
 
 [Rg_Hurt]
 @Main:
-SetPos: 0, -90000;
+Invincible: 600;
 SetVelocity: 0, 0;
 Gravity: 0;
 Shake: 600, 600, 12000, 20, 0;
