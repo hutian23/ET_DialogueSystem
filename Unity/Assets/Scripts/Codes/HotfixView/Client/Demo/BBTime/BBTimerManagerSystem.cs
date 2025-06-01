@@ -81,8 +81,7 @@ namespace ET.Client
                 {
                     long instanceId = self.instanceIds.Dequeue();
                     // 组件已销毁，出列
-                    BBTimerComponent bbTimer = Root.Instance.Get(instanceId) as BBTimerComponent;
-                    if (bbTimer == null || bbTimer.InstanceId == 0) continue;
+                    if (Root.Instance.Get(instanceId) is not BBTimerComponent bbTimer || bbTimer.IsDisposed) continue;
                     self.instanceIds.Enqueue(instanceId);
                     
                     //SceneTimer逻辑帧帧长是固定的， 永远是 1 / 60 s
@@ -101,6 +100,7 @@ namespace ET.Client
         {
             self._gameTimer.Restart();
             self.LastTime = self._gameTimer.ElapsedTicks;
+            
             self.instanceIds.Clear();
             self.SceneTimer().Reload();
             self.LateUpdateTimer().Reload();
@@ -125,7 +125,7 @@ namespace ET.Client
         {
             return self.GetChild<BBTimerComponent>(self.LateUpdateTimer);
         }
-
+        
         //管理timer
         public static void RegistTimer(this BBTimerManager self, long instanceId)
         {

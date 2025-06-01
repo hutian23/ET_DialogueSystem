@@ -13,14 +13,6 @@ namespace ET.Client
             }
         }
         
-        public class BBTimerComponentLoadSystem : LoadSystem<BBTimerComponent>
-        {
-            protected override void Load(BBTimerComponent self)
-            {
-                self.Reload();
-            }
-        }
-        
         public class BBTimerComponentDestroySystem: DestroySystem<BBTimerComponent>
         {
             protected override void Destroy(BBTimerComponent self)
@@ -57,12 +49,6 @@ namespace ET.Client
             self.curFrame = 0;
             self.Accumulator = 0;
             self.idGenerator = 0;
-            
-            //重新注册进BBTimerManager
-            if (self.IsUnitTimer)
-            {
-                BBTimerManager.Instance.RegistTimer(self.InstanceId);
-            }
         }
 
         public static long GetFrameLength(this BBTimerComponent self)

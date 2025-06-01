@@ -39,10 +39,10 @@ namespace ET.Client
     {
         public object Args;
     }
-    
+
     [ChildOf]
     [ComponentOf]
-    public class BBTimerComponent: Entity, IAwake, IDestroy, IUpdate, ILoad
+    public class BBTimerComponent: Entity, IAwake, IDestroy, IUpdate
     {
         /// <summary>
         /// 内部实现为红黑树排序的字典 SortedDictionary (T, List K) 
@@ -50,6 +50,7 @@ namespace ET.Client
         /// List K: BBTimerAction.Id的列表
         /// </summary>
         public readonly MultiMap<long, long> TimerId = new();
+
         public readonly Queue<long> timeOutTime = new();
         public readonly Queue<long> timeOutTimerIds = new();
         public readonly Dictionary<long, BBTimerAction> timerActions = new();
@@ -58,11 +59,11 @@ namespace ET.Client
         // 记录最小事件，不用每次都去MultiMap取第一个值
         public long minFrame = long.MaxValue;
         public long curFrame = 0;
-        
+
         //标准更新频率60fps
         public int Hertz = 60;
         public long Accumulator;
-        
+
         //BBTimerManager组件管理，每帧都会更新
         //一些特殊的Timer，比如SceneTimer, PostStepTimer, PreStepTimer,更新逻辑跟其父组件有关，不需要BBTimerManager管理
         public bool IsUnitTimer;
