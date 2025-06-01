@@ -15,8 +15,6 @@ namespace ET.Client
             await EventSystem.Instance.PublishAsync(clientScene, new SceneChangeStart());
             //3. 场景初始化
             await EventSystem.Instance.PublishAsync(clientScene, new BattleSceneInit());
-            //4. 渲染层创建玩家,并且初始化
-            await EventSystem.Instance.PublishAsync(clientScene, new CreatePlayerView());   
             //5. 切换场景完成
             await EventSystem.Instance.PublishAsync(clientScene, new SceneChangeFinish());
         }

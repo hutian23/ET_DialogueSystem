@@ -26,7 +26,7 @@ namespace ET.Client
             }
             
             //1. 创建 bullet unit
-            Unit player = BBUnitHelper.GetPlayer(parser.ClientScene());
+            Unit player = BBUnitHelper.GetPlayer();
             Unit bullet = BulletManager.Instance.AddChild<Unit, int>(1001);
             UnityEngine.GameObject go = GameObjectPoolHelper.GetObjectFromPool("GlinSpike_Step2");
             bullet.AddComponent<GameObjectComponent>().GameObject = go;

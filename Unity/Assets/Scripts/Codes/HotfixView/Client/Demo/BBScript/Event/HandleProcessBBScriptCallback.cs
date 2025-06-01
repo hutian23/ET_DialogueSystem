@@ -25,8 +25,8 @@ namespace ET.Client
             bbParser.Init();
             //2-2 热重载时，只保留实现了IController接口的组件
             ListComponent<Entity> removeList = ListComponent<Entity>.Create();
-            removeList.AddRange(unit.Children.Values.Where(child => !typeof (IController).IsAssignableFrom(child.GetType())));
-            removeList.AddRange(unit.Components.Values.Where(component => !typeof (IController).IsAssignableFrom(component.GetType())));
+            removeList.AddRange(unit.Children.Values.Where(child => !typeof (ILoadCached).IsAssignableFrom(child.GetType())));
+            removeList.AddRange(unit.Components.Values.Where(component => !typeof (ILoadCached).IsAssignableFrom(component.GetType())));
             removeList.ForEach(entity => entity.Dispose());
             removeList.Dispose();
 

@@ -29,7 +29,7 @@ namespace ET.Client
             }
             
             //1. 查询组件
-            Unit player = BBUnitHelper.GetPlayer(parser.ClientScene());
+            Unit player = BBUnitHelper.GetPlayer();
             Unit unitB = parser.GetParent<Unit>();
             Unit bullet = Root.Instance.Get(parser.GetParam<long>("CreateBullet_UnitId")) as Unit;
             b2Body bodyA = b2WorldManager.Instance.GetBody(player.InstanceId);

@@ -22,7 +22,7 @@ namespace ET.Client
         {
             protected override void GizmosUpdate(GlinChaseComponent self)
             {
-                Unit player = BBUnitHelper.GetPlayer(self.ClientScene());
+                Unit player = BBUnitHelper.GetPlayer();
                 Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
                 b2Body bodyA = b2WorldManager.Instance.GetBody(player.InstanceId);
                 b2Body bodyB = b2WorldManager.Instance.GetBody(unit.InstanceId);
@@ -41,7 +41,7 @@ namespace ET.Client
             self.damping = damping;
             self.token = new ETCancellationToken();
                     
-            Unit player = BBUnitHelper.GetPlayer(self.ClientScene());
+            Unit player = BBUnitHelper.GetPlayer();
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
             b2Body bodyA = b2WorldManager.Instance.GetBody(player.InstanceId);
             b2Body bodyB = b2WorldManager.Instance.GetBody(unit.InstanceId);

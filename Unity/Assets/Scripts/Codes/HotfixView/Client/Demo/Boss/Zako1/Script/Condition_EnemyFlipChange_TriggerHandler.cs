@@ -19,7 +19,7 @@ namespace ET.Client
                 return false;
             }
             
-            Unit unitA = BBUnitHelper.GetPlayer(parser.ClientScene());
+            Unit unitA = BBUnitHelper.GetPlayer();
             Unit unitB = parser.GetParent<Unit>();
             b2Body bodyA = b2WorldManager.Instance.GetBody(unitA.InstanceId);
             b2Body bodyB = b2WorldManager.Instance.GetBody(unitB.InstanceId);

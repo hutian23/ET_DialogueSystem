@@ -36,7 +36,7 @@ namespace ET.Client
                 if (self.token.IsCancel()) return;
                 
                 //2. 玩家附近生成三根地刺
-                Unit player = BBUnitHelper.GetPlayer(self.ClientScene());
+                Unit player = BBUnitHelper.GetPlayer();
                 float x = new Random().Next(-100, 100) / 100f * 2f;
                 for (int i = 0; i < 3; i++)
                 {

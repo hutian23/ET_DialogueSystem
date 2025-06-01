@@ -8,7 +8,7 @@ namespace ET.Client
     {
         protected override async ETTask Run(Scene scene, CreatePlayerView args)
         {
-            Unit player = BBUnitHelper.GetPlayer(scene.ClientScene());
+            Unit player = BBUnitHelper.GetPlayer();
 
             //1. 加载AB
             await ResourcesComponent.Instance.LoadBundleAsync($"{player.Config.ABName}.unity3d");

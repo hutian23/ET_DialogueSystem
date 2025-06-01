@@ -13,17 +13,10 @@ namespace ET.Client
             playerComponent.AddChild(player);
             playerComponent.MyId = player.Id;
         }
-
-        /// <summary>
-        /// 从ClientScene获取玩家unit
-        /// </summary>
-        /// <param name="clientScene"></param>
-        /// <returns></returns>
-        public static Unit GetPlayer(Scene clientScene)
+        
+        public static Unit GetPlayer()
         {
-            PlayerComponent playerComponent = clientScene.GetComponent<PlayerComponent>();
-            long playerId = playerComponent.MyId;
-            return playerComponent.GetChild<Unit>(playerId);
+            return PlayerManager.Instance.GetParent<Unit>();
         }
 
         public static Unit GetUnitFromCurrentScene(Scene clientScene, long unitId)

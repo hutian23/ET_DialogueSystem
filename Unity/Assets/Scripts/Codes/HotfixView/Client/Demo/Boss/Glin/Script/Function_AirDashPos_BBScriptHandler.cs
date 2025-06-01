@@ -25,7 +25,7 @@ namespace ET.Client
                 return Status.Failed;
             }
             
-            Unit player = BBUnitHelper.GetPlayer(parser.ClientScene());
+            Unit player = BBUnitHelper.GetPlayer();
             Unit unit = parser.GetParent<Unit>();
             b2Body bodyA = b2WorldManager.Instance.GetBody(player.InstanceId);
             b2Body bodyB = b2WorldManager.Instance.GetBody(unit.InstanceId);

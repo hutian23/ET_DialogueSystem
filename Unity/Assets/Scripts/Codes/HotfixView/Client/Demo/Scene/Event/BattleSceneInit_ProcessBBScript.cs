@@ -15,6 +15,7 @@ namespace ET.Client
                 return;
             }
             
+            //1. 生成Scene Unit
             foreach (BBScript bbScript in _root.GetComponentsInChildren<BBScript>())
             {
                 Unit unit = BattleSceneManager.Instance.AddChild<Unit, int>(1001);
@@ -26,6 +27,20 @@ namespace ET.Client
                 //逻辑层
                 unit.AddComponent<BBParser>();
             }
+            
+            //2. 生成Player
+            Unit player = BattleSceneManager.Instance.AddChild<Unit, int>(1001);
+            
+            await ResourcesComponent.Instance.LoadBundleAsync($"{player.Config.ABName}.unity3d");
+            GameObject prefab = (GameObject)ResourcesComponent.Instance.GetAsset($"{player.Config.ABName}.unity3d", $"{player.Config.Name}");
+            GameObject go = UnityEngine.Object.Instantiate(prefab, GlobalComponent.Instance.Unit, true);
+
+            player.AddComponent<GameObjectComponent>().GameObject = go;
+            BBScript playerScript = go.GetComponent<BBScript>();
+            playerScript.instanceId = player.InstanceId;
+
+            player.AddComponent<PlayerManager>();
+            player.AddComponent<BBParser>();
             
             await ETTask.CompletedTask;
         }

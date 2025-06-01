@@ -25,7 +25,7 @@ namespace ET.Client
             protected override void PosStepUpdate(TargetCheckComponent self)
             {
                 // 相关组件
-                Unit player = BBUnitHelper.GetPlayer(self.ClientScene());
+                Unit player = BBUnitHelper.GetPlayer();
                 Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
                 b2Body bodyA = b2WorldManager.Instance.GetBody(player.InstanceId);
                 b2Body bodyB = b2WorldManager.Instance.GetBody(unit.InstanceId);

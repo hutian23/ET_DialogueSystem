@@ -15,7 +15,7 @@
         {
             protected override void PosStepUpdate(EnemyFlipCheckComponent self)
             {
-                Unit unitA = BBUnitHelper.GetPlayer(self.ClientScene());
+                Unit unitA = BBUnitHelper.GetPlayer();
                 Unit unitB = self.GetParent<BBParser>().GetParent<Unit>();
                 b2Body bodyA = b2WorldManager.Instance.GetBody(unitA.InstanceId);
                 b2Body bodyB = b2WorldManager.Instance.GetBody(unitB.InstanceId);
