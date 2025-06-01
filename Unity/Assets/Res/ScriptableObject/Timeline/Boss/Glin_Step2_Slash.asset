@@ -59,7 +59,7 @@ MonoBehaviour:
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 95
+      Data: 105
     - Name: animationClip
       Entry: 10
       Data: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 16
+      Data: 17
     - Name: 
       Entry: 7
       Data: 9|Timeline.EventInfo, Unity.Loader
@@ -317,6 +317,18 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 25|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 105
+    - Name: keyframeName
+      Entry: 1
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -327,7 +339,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 25|Timeline.BBHitboxTrack, Unity.Loader
+      Data: 26|Timeline.BBHitboxTrack, Unity.Loader
     - Name: Name
       Entry: 1
       Data: Hitbox
@@ -336,7 +348,7 @@ MonoBehaviour:
       Data: true
     - Name: Clips
       Entry: 7
-      Data: 26|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
+      Data: 27|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -349,14 +361,14 @@ MonoBehaviour:
       Data: 
     - Name: Keyframes
       Entry: 7
-      Data: 27|System.Collections.Generic.List`1[[Timeline.HitboxKeyframe, Unity.Loader]],
+      Data: 28|System.Collections.Generic.List`1[[Timeline.HitboxKeyframe, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 8
     - Name: 
       Entry: 7
-      Data: 28|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 29|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 0
@@ -365,13 +377,13 @@ MonoBehaviour:
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 29|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
+      Data: 30|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 30|ET.BoxInfo, Unity.Loader
+      Data: 31|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_1
@@ -416,7 +428,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 31|ET.BoxInfo, Unity.Loader
+      Data: 32|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: PushBox
@@ -470,7 +482,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 32|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 33|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 20
@@ -479,13 +491,13 @@ MonoBehaviour:
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 33|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
+      Data: 34|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
       Data: 7
     - Name: 
       Entry: 7
-      Data: 34|ET.BoxInfo, Unity.Loader
+      Data: 35|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hit_1
@@ -530,7 +542,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 35|ET.BoxInfo, Unity.Loader
+      Data: 36|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hit_2
@@ -575,7 +587,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 36|ET.BoxInfo, Unity.Loader
+      Data: 37|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hit_3
@@ -620,7 +632,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 37|ET.BoxInfo, Unity.Loader
+      Data: 38|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hit_4
@@ -665,7 +677,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 38|ET.BoxInfo, Unity.Loader
+      Data: 39|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_1
@@ -710,7 +722,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 39|ET.BoxInfo, Unity.Loader
+      Data: 40|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_2
@@ -755,7 +767,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 40|ET.BoxInfo, Unity.Loader
+      Data: 41|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: PushBox
@@ -809,7 +821,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 41|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 42|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 25
@@ -818,13 +830,13 @@ MonoBehaviour:
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 42|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
+      Data: 43|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
       Data: 6
     - Name: 
       Entry: 7
-      Data: 43|ET.BoxInfo, Unity.Loader
+      Data: 44|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hit_1
@@ -869,7 +881,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 44|ET.BoxInfo, Unity.Loader
+      Data: 45|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hit_2
@@ -914,7 +926,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 45|ET.BoxInfo, Unity.Loader
+      Data: 46|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hit_3
@@ -959,7 +971,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 46|ET.BoxInfo, Unity.Loader
+      Data: 47|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hit_4
@@ -1004,7 +1016,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 47|ET.BoxInfo, Unity.Loader
+      Data: 48|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_1
@@ -1049,7 +1061,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 48|ET.BoxInfo, Unity.Loader
+      Data: 49|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: PushBox
@@ -1103,7 +1115,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 49|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 50|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 30
@@ -1112,13 +1124,13 @@ MonoBehaviour:
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 50|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
+      Data: 51|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
       Data: 5
     - Name: 
       Entry: 7
-      Data: 51|ET.BoxInfo, Unity.Loader
+      Data: 52|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hit_1
@@ -1163,7 +1175,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 52|ET.BoxInfo, Unity.Loader
+      Data: 53|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hit_2
@@ -1208,7 +1220,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 53|ET.BoxInfo, Unity.Loader
+      Data: 54|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hit_3
@@ -1253,7 +1265,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 54|ET.BoxInfo, Unity.Loader
+      Data: 55|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_1
@@ -1298,7 +1310,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 55|ET.BoxInfo, Unity.Loader
+      Data: 56|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: PushBox
@@ -1352,7 +1364,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 56|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 57|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 50
@@ -1361,13 +1373,13 @@ MonoBehaviour:
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 57|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
+      Data: 58|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 58|ET.BoxInfo, Unity.Loader
+      Data: 59|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_1
@@ -1412,7 +1424,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 59|ET.BoxInfo, Unity.Loader
+      Data: 60|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: PushBox
@@ -1466,7 +1478,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 60|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 61|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 35
@@ -1475,13 +1487,13 @@ MonoBehaviour:
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 61|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
+      Data: 62|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 62|ET.BoxInfo, Unity.Loader
+      Data: 63|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_1
@@ -1526,7 +1538,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 63|ET.BoxInfo, Unity.Loader
+      Data: 64|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: PushBox
@@ -1580,7 +1592,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 64|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 65|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 65
@@ -1589,13 +1601,13 @@ MonoBehaviour:
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 65|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
+      Data: 66|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
       Data: 5
     - Name: 
       Entry: 7
-      Data: 66|ET.BoxInfo, Unity.Loader
+      Data: 67|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hit_1
@@ -1640,7 +1652,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 67|ET.BoxInfo, Unity.Loader
+      Data: 68|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hit_2
@@ -1685,7 +1697,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 68|ET.BoxInfo, Unity.Loader
+      Data: 69|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hit_3
@@ -1730,7 +1742,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 69|ET.BoxInfo, Unity.Loader
+      Data: 70|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_1
@@ -1775,7 +1787,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 70|ET.BoxInfo, Unity.Loader
+      Data: 71|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: PushBox
@@ -1829,7 +1841,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 71|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 72|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 95
@@ -1838,13 +1850,13 @@ MonoBehaviour:
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 72|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
+      Data: 73|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 73|ET.BoxInfo, Unity.Loader
+      Data: 74|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_1
@@ -1889,7 +1901,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 74|ET.BoxInfo, Unity.Loader
+      Data: 75|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: PushBox

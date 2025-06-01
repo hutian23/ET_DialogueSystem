@@ -6,8 +6,17 @@ namespace ET.Client
 {
     public static class GameObjectPoolHelper
     {
-        private static Dictionary<string, GameObjectPool> poolDict = new Dictionary<string, GameObjectPool>();
+        private static readonly Dictionary<string, GameObjectPool> poolDict = new();
 
+        public static void Init()
+        {
+            foreach (GameObjectPool pool in poolDict.Values)
+            {
+                pool.Dispose();
+            }
+            poolDict.Clear();
+        }
+        
         public static bool ContainPool(string key)
         {
             return poolDict.ContainsKey(key);
@@ -22,7 +31,7 @@ namespace ET.Client
                 GameObject pb = GetGameObjectByResType(poolName);
                 if (pb == null)
                 {
-                    Debug.LogError("[ResourceManager] Invalide prefab name for pooling :" + poolName);
+                    Debug.LogError("[ResourceManager] Invalid prefab name for pooling :" + poolName);
                     return;
                 }
 
@@ -47,7 +56,7 @@ namespace ET.Client
                 {
                     if (pb == null)
                     {
-                        Debug.LogError("[ResourceManager] Invalide prefab name for pooling :" + poolName);
+                        Debug.LogError("[ResourceManager] Invalid prefab name for pooling :" + poolName);
                         return;
                     }
 

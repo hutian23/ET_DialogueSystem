@@ -4,13 +4,12 @@
  * contact@marchingbytes.com
  */
 // modified version by Kanglai Qian
+
 using UnityEngine;
 using System.Collections.Generic;
 
 namespace ET.Client
 {
-
-
     public enum PoolInflationType
     {
         /// When a dynamic pool inflates, add one to the pool.
@@ -100,7 +99,7 @@ namespace ET.Client
                     increaseSize = availableObjStack.Count + Mathf.Max(objectsInUse, 0);
                 }
 #if UNITY_EDITOR
-                Debug.Log(string.Format("Growing pool {0}: {1} populated", poolName, increaseSize));
+                Debug.Log($"Growing pool {this.poolName}: {increaseSize} populated");
 #endif
                 if (increaseSize > 0)
                 {
@@ -123,8 +122,6 @@ namespace ET.Client
 
             return result;
         }
-
-        
         
         //o(1)
         public void ReturnObjectToPool(PoolObject po)
@@ -148,8 +145,28 @@ namespace ET.Client
             }
             else
             {
-                Debug.LogError(string.Format("Trying to add object to incorrect pool {0} {1}", po.poolName, poolName));
+                Debug.LogError($"Trying to add object to incorrect pool {po.poolName} {this.poolName}");
             }
+        }
+
+        public void Dispose()
+        {
+            // Destroy Pool Object
+            int count = availableObjStack.Count;
+            while (count -- > 0)
+            {
+                PoolObject poolObject =availableObjStack.Pop();
+                UnityEngine.Object.DestroyImmediate(poolObject.gameObject);
+            }
+            availableObjStack.Clear();
+            
+            // Destroy Parent
+            UnityEngine.Object.DestroyImmediate(rootObj);
+            
+            // Init
+            inflationType = PoolInflationType.INCREMENT;
+            poolName = string.Empty;
+            objectsInUse = 0;
         }
     }
 }

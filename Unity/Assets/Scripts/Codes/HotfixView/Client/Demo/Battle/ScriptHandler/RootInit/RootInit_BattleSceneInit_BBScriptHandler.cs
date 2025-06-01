@@ -14,6 +14,7 @@
             //1. 初始化
             unit.AddComponent<BulletManager>();
             unit.AddComponent<EffectManager>();
+            unit.AddComponent<PoolManager>();
             
             await ETTask.CompletedTask;
             return Status.Success;
