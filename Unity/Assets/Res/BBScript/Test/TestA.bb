@@ -1,4 +1,4 @@
 [Root]
 @Entry:
-Test;
+HPAdd: -100;
 return;

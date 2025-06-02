@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace ET.Client
 {
-    [FriendOf(typeof(JustEvadeComponent))]
+    [FriendOf(typeof(JustEvadeCheck))]
     public class Function_EnableJustEvadeCheck_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
@@ -31,8 +31,8 @@ namespace ET.Client
                 return Status.Failed;
             }
             
-            parser.RemoveComponent<JustEvadeComponent>();
-            JustEvadeComponent justEvade = parser.AddComponent<JustEvadeComponent>(true);
+            parser.RemoveComponent<JustEvadeCheck>();
+            JustEvadeCheck justEvade = parser.AddComponent<JustEvadeCheck>(true);
             justEvade.Init(lastFrame, new Vector2(centerX, centerY) / 10000f, new Vector2(sizeX, sizeY) / 10000f);
             
             await ETTask.CompletedTask;

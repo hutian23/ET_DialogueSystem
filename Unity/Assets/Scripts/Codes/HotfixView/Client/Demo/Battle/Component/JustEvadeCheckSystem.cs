@@ -4,12 +4,12 @@ using ET.Event;
 
 namespace ET.Client
 {
-    [FriendOf(typeof(JustEvadeComponent))]
-    public static class JustEvadeComponentSystem
+    [FriendOf(typeof(JustEvadeCheck))]
+    public static class JustEvadeCheckSystem
     {
-        public class JustEvadeComponentDestroySystem : DestroySystem<JustEvadeComponent>
+        public class JustEvadeComponentDestroySystem : DestroySystem<JustEvadeCheck>
         {
-            protected override void Destroy(JustEvadeComponent self)
+            protected override void Destroy(JustEvadeCheck self)
             {
                 self.token.Cancel();
                 self.boxOffset = Vector2.Zero;
@@ -25,15 +25,20 @@ namespace ET.Client
 
         [FriendOf(typeof(b2Body))]
         [FriendOf(typeof(BBParser))]
-        public class JustEvadePostStepSystem : PostStepSystem<JustEvadeComponent>
+        public class JustEvadePostStepSystem : PostStepSystem<JustEvadeCheck>
         {
-            protected override void PosStepUpdate(JustEvadeComponent self)
+            protected override void PosStepUpdate(JustEvadeCheck self)
             {
                 BBParser parser = self.GetParent<BBParser>();
                 Unit unit = parser.GetParent<Unit>();
+                JustEvadeAbility ability = unit.GetComponent<BuffManager>().GetComponent<JustEvadeAbility>();
                 b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
                 b2Box b2Box = b2Body.GetBox("JustEvadeCheckBox");
 
+                // 精闪充能中
+                if (!ability.CanJustEvade()) return;
+                
+                // CheckBox和Hitbox重叠，鉴定为精闪
                 Queue<CollisionBuffer> buffQueue = b2Body.triggerStayBuffers;
                 int count = buffQueue.Count;
                 while (count-- > 0)
@@ -45,7 +50,10 @@ namespace ET.Client
                     b2Box boxB = Root.Instance.Get(buffer.instanceIdB) as b2Box;
 
                     if (boxA.Id != b2Box.Id || boxB.GetBoxType() is not HitboxType.Hit) continue;
-
+                    
+                    // 精闪进入冷却
+                    ability.Cost();
+                    
                     // 触发精准闪避回调
                     if (self.functionIndex != 0)
                     {
@@ -58,7 +66,7 @@ namespace ET.Client
             }
         }
 
-        public static void Init(this JustEvadeComponent self, int lastFrame, Vector2 center, Vector2 size)
+        public static void Init(this JustEvadeCheck self, int lastFrame, Vector2 center, Vector2 size)
         {
             self.startFrame = BBTimerManager.Instance.SceneTimer().GetNow();
             self.lastFrame = lastFrame;
@@ -88,7 +96,7 @@ namespace ET.Client
             self.DisposeCor().Coroutine();
         }
 
-        private static async ETTask DisposeCor(this JustEvadeComponent self)
+        private static async ETTask DisposeCor(this JustEvadeCheck self)
         {
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();

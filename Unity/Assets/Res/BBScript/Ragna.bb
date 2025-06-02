@@ -8,6 +8,7 @@ SetPos: 0, -70000;
 #4. 添加初始Buff
 HP: 10000;
 SP: 200;
+JustEvade: 900;
 EnableJump: 2;
 EnableAirCheck;
 EnableGroundDash: 2, 70;
@@ -614,7 +615,7 @@ return;
 # In GroundDash
 SetVelocity: 350000, 0;
 GroundDashAdd: -1;
-# 精准闪避窗口
+# 启动精准闪避窗口
 EnableJustEvadeCheck: 5, 0, -5000, 28000, 47000;
 RegistJustEvadeCallback: Rg_GroundDash, JustEvadeCallback;
 BBSprite: Active_1, 3;
@@ -639,6 +640,7 @@ Exit;
 
 @JustEvadeCallback:
 TacticalTime: 300, 10;
+Invincible: 300;
 return;
 
 [Rg_PlungingAttack]

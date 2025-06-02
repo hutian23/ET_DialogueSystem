@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof(JustEvadeComponent))]
+    [FriendOf(typeof(JustEvadeCheck))]
     public class Function_RegistJustEvadeCallback_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
@@ -20,7 +20,7 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            JustEvadeComponent justEvade = parser.GetComponent<JustEvadeComponent>();
+            JustEvadeCheck justEvade = parser.GetComponent<JustEvadeCheck>();
             justEvade.functionIndex = parser.GetFunctionPointer(match.Groups["GroupName"].Value, match.Groups["FunctionName"].Value);
 
             await ETTask.CompletedTask;

@@ -3,7 +3,7 @@
 namespace ET.Client
 {
     [ComponentOf(typeof(BBParser))]
-    public class JustEvadeComponent : Entity, IAwake, IDestroy, IPostStep
+    public class JustEvadeCheck : Entity, IAwake, IDestroy, IPostStep
     {
         public long startFrame; // 记录从哪一帧启动窗口(SceneTimer)
         public int functionIndex;
