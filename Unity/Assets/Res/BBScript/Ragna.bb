@@ -5,6 +5,8 @@ PlayerInit;
 #2. 相机跟随
 Camera_FollowPlayer;
 SetPos: 0, -70000;
+#3. 初始化对象池
+PoolObject: CircleWave, 1;
 #4. 添加初始Buff
 HP: 10000;
 SP: 200;
@@ -639,6 +641,8 @@ BBSprite: End_5, 3;
 Exit;
 
 @JustEvadeCallback:
+CreateEffect: CircleWave
+EndCreateEffect:
 TacticalTime: 300, 10;
 Invincible: 300;
 return;
