@@ -1,6 +1,6 @@
 [Root]
 @RootInit:
 EffectInit;
-CircleWave: 1000, 1000, 30;
-WaitFrame: 30;
+CircleWave: 250, 15000, 20;
+WaitFrame: 20;
 Dispose;

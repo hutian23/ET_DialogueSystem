@@ -13,7 +13,7 @@ namespace ET.Client
         //TimeFroze: 0, 30;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, "TimeFroze: (?<Hertz>.*?), (?<HitStop>.*?);");
+            Match match = Regex.Match(data.opLine, "TimeFroze: (?<Hertz>.*?), (?<LastFrame>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -24,7 +24,7 @@ namespace ET.Client
                 Log.Error($"cannot format Hertz to int!");
                 return Status.Failed;
             }
-            if (!int.TryParse(match.Groups["HitStop"].Value, out int hitStop))
+            if (!int.TryParse(match.Groups["LastFrame"].Value, out int lastFrame))
             {
                 Log.Error($"cannot format HitStop to int!");
                 return Status.Failed;
@@ -34,10 +34,7 @@ namespace ET.Client
             BuffManager buffManager = unit.GetComponent<BuffManager>();
 
             buffManager.RemoveComponent<TimeFrozeComponent>();
-            TimeFrozeComponent timeFroze = buffManager.AddComponent<TimeFrozeComponent>(true);
-            timeFroze.Hertz = hertz;
-            timeFroze.LastFrame = hitStop;
-            timeFroze.unitId = unit.InstanceId;
+            buffManager.AddComponent<TimeFrozeComponent, int, int>(hertz, lastFrame,true);
 
             await ETTask.CompletedTask;
             return Status.Success;

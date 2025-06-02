@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 456454992915286618}
   - component: {fileID: 8257944993258948138}
   - component: {fileID: 2463371127628550520}
-  - component: {fileID: 1626214074999219963}
   - component: {fileID: 1404694132749178730}
+  - component: {fileID: 7441354023036643836}
   m_Layer: 0
   m_Name: CircleWave
   m_TagString: Untagged
@@ -73,9 +73,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -384639453
+  m_SortingLayer: 2
+  m_SortingOrder: 3000
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -140,22 +140,6 @@ SpriteMask:
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
---- !u!114 &1626214074999219963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 938562051884426783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e21fc6951eef03443ab9894032548685, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waveColor: {r: 1, g: 1, b: 1, a: 1}
-  waveWidth: 0.04
-  waveSpeed: 1.5
-  currentTick: 0
 --- !u!114 &1404694132749178730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,3 +154,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instanceId: 0
   Script: {fileID: 1042094116111776886, guid: 8e8841e49bffc9e40ae7a39a43b36196, type: 3}
+--- !u!114 &7441354023036643836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938562051884426783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd2cdf17bd9f32449b016861d3df3be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 0
+    SerializedBytes: 2d010f000000520075006e00740069006d00650050006c0061007900610062006c0065002d010e00000052006500620069006e006400430061006c006c006200610063006b00
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  instanceId: 0
+  PlayableGraph: {fileID: 0}

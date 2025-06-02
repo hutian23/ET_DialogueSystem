@@ -1,36 +1,65 @@
-﻿namespace ET.Client
+﻿using UnityEngine;
+
+namespace ET.Client
 {
+    [FriendOf(typeof(CircleWaveComponent))]
     public static class CircleWaveComponentSystem
     {
         public class CircleWaveComponentAwakeSystem : AwakeSystem<CircleWaveComponent, float, float, int>
         {
-            protected override void Awake(CircleWaveComponent self, float waveSpeed, float waveWidth, int totalTick)
+            protected override void Awake(CircleWaveComponent self, float waveWidth, float waveSpeed, int totalTick)
             {
-                self.waveSpeed = waveSpeed;
                 self.waveWidth = waveWidth;
+                self.waveSpeed = waveSpeed;
+                self.progress = 0;
                 self.totalTick = totalTick;
                 self.currentTick = 0;
+                self.PropertyBlock = new MaterialPropertyBlock();
+                self.CircleChange(0, 0);
             }
         }
-        
+
         public class CircleWaveComponentFrameUpdateSystem : FrameUpdateSystem<CircleWaveComponent>
         {
             protected override void FrameUpdate(CircleWaveComponent self)
             {
-                Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
-                CircleWaveController controller = unit.GetComponent<GameObjectComponent>().GameObject.GetComponent<CircleWaveController>();
-                controller.WaveChange(self.waveWidth, self.waveSpeed, self.currentTick ++);
+                if (self.currentTick > self.totalTick)
+                {
+                    self.Dispose();
+                    return;
+                }
+                
+                float progress = (float)self.currentTick++ / self.totalTick;
+                float curSpeed = Mathf.Lerp(self.waveSpeed, 0f, progress);
+                self.progress += curSpeed * ScriptHelper.FrameLength;
+                
+                self.CircleChange(self.waveWidth, self.progress);
             }
         }
-        
+
+        private static void CircleChange(this CircleWaveComponent self, float waveWidth, float progress)
+        {
+            SpriteRenderer renderer = self.GetParent<BBParser>()
+                    .GetParent<Unit>()
+                    .GetComponent<GameObjectComponent>().GameObject
+                    .GetComponent<SpriteRenderer>();
+            renderer.GetPropertyBlock(self.PropertyBlock);
+            self.PropertyBlock.SetFloat("_Width", waveWidth);
+            self.PropertyBlock.SetFloat("_Progress", progress);
+            renderer.SetPropertyBlock(self.PropertyBlock);
+        }
+
         public class CircleWaveComponentDestroySystem : DestroySystem<CircleWaveComponent>
         {
             protected override void Destroy(CircleWaveComponent self)
             {
-                self.waveSpeed = 0f;
                 self.waveWidth = 0f;
+                self.waveSpeed = 0f;
+                self.progress = 0f;
                 self.totalTick = 0;
                 self.currentTick = 0;
+                self.CircleChange(0, 0);
+                self.PropertyBlock.Clear();
             }
         }
     }

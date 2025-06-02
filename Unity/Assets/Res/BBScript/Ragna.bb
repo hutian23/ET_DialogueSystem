@@ -642,6 +642,8 @@ Exit;
 
 @JustEvadeCallback:
 CreateEffect: CircleWave
+  CreateEffect_Scale: 80000, 80000;
+  CreateEffect_LocalPosition: -26000, -10000;
 EndCreateEffect:
 TacticalTime: 300, 10;
 Invincible: 300;

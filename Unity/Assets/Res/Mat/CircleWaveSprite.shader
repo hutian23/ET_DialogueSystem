@@ -8,8 +8,7 @@ Shader "Custom/CircleWaveSprite"
         _Center ("Center", Vector) = (0.5, 0.5, 0, 0)
         _Radius ("Base Radius", Range(0, 1)) = 0.5
         _Width ("Wave Width", Range(0, 1)) = 0.1
-        _Speed ("Wave Speed", Float) = 1.0
-        _CurrentTick("Current Tick", int) = 1
+        _Progress("Wave Progress", Float) = 0.0
         [Toggle(USE_TEXTURE)] _UseTex ("Use Texture", Float) = 0
     }
     
@@ -57,8 +56,7 @@ Shader "Custom/CircleWaveSprite"
             float2 _Center;
             float _Radius;
             float _Width;
-            float _Speed;
-            int _CurrentTick;
+            float _Progress;
             
             v2f vert(appdata_t IN)
             {
@@ -75,8 +73,7 @@ Shader "Custom/CircleWaveSprite"
                 float distanceToCenter = length(IN.texcoord - _Center);
                 
                 // 计算当前时间
-                float currentTime = _CurrentTick * 0.0166666f;
-                float waveProgress = frac(currentTime * _Speed);
+                float waveProgress = frac(_Progress);
                 
                 // 计算动态半径(波浪位置)
                 float dynamicRadius = waveProgress * (1.0 + _Width);
@@ -98,7 +95,7 @@ Shader "Custom/CircleWaveSprite"
                 
                 // 混合颜色 - 波浪优先于基础圆
                 fixed4 col = lerp(baseColor * baseCircle, _WaveColor, wave);
-                
+
                 // 计算总alpha - 显示波浪或基础圆，并应用淡出效果
                 col.a = (wave + (baseCircle * (1.0 - wave))) * IN.color.a;
                 
