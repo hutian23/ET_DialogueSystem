@@ -3,13 +3,22 @@
     [FriendOf(typeof(InvincibleAbility))]
     public static class InvincibleAbilitySystem
     {
-        public class InvincibleAbilityAwakeSystem : AwakeSystem<InvincibleAbility, int>
+        public class InvincibleAbilityAwakeSystem : AwakeSystem<InvincibleAbility, int, long>
         {
-            protected override void Awake(InvincibleAbility self, int waitFrame)
+            protected override void Awake(InvincibleAbility self, int waitFrame, long unitId)
             {
                 self.waitFrame = waitFrame;
-                self.token = new ETCancellationToken();
-                self.InvincibleCor().Coroutine();
+                self.cnt = waitFrame;
+                self.unitId = unitId;
+                b2WorldManager.Instance.GetBody(self.unitId).RegistFilter(FilterType.InvincibleFilter);
+            }
+        }
+        
+        public class InvincibleAbilityFrameUpdateSystem : FrameUpdateSystem<InvincibleAbility>
+        {
+            protected override void FrameUpdate(InvincibleAbility self)
+            {
+                if (self.cnt-- <= 0) self.Dispose();
             }
         }
 
@@ -18,23 +27,13 @@
             protected override void Destroy(InvincibleAbility self)
             {
                 self.waitFrame = 0;
-                self.token.Cancel();
+                self.cnt = 0;
+                if (b2WorldManager.Instance.ContainBody(self.unitId))
+                {
+                    b2WorldManager.Instance.GetBody(self.unitId).RemoveFilter(FilterType.InvincibleFilter);
+                }
+                self.unitId = 0;
             }
-        }
-
-        private static async ETTask InvincibleCor(this InvincibleAbility self)
-        {
-            Unit unit = self.GetParent<BuffManager>().GetParent<Unit>();
-            BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
-            // b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-
-            // 注册ContactFilter规则
-            // body.RegistFilter(FilterType.InvincibleFilter);
-            await bbTimer.WaitAsync(self.waitFrame, self.token);
-            // body.RemoveFilter(FilterType.InvincibleFilter);
-            
-            if (self.token.IsCancel()) return;
-            self.Dispose();
         }
     }
 }

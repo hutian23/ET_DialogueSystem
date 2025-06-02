@@ -13,16 +13,15 @@
 
             enemy.AddComponent<BuffManager>();
             enemy.AddComponent<Transition>();
-            enemy.AddComponent<B2Unit>();
             enemy.AddComponent<TimelineComponent>();
             enemy.AddComponent<BBTimerComponent>().IsUnitTimer();
             enemy.AddComponent<BBNumeric>();
             enemy.AddComponent<BehaviorMachine>();
             enemy.AddComponent<ObjectWait>();
+            enemy.AddComponent<B2Unit>();
 
             // 添加buff
             BuffManager buffManager = enemy.GetComponent<BuffManager>();
-            buffManager.AddComponent<HertzAbility>();
             buffManager.AddComponent<HPAbility, int>(100);
             buffManager.AddComponent<SPAbility, int>(100);
             buffManager.AddComponent<DeathAbility>();

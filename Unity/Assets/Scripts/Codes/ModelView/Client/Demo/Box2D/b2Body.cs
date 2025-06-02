@@ -17,8 +17,8 @@ namespace ET.Client
         
         public FlipState flip = FlipState.Left;
         public float angle;
-        public int hertz = 60;
         public Vector2 velocity;
+        public int hertz = 60;
 
         // B2World.Step()期间收集碰撞信息，PostStep中执行事件
         public Queue<CollisionBuffer> triggerEnterBuffers = new();

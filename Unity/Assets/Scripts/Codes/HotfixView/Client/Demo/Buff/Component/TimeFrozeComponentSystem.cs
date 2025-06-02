@@ -8,7 +8,7 @@
             protected override void FrameUpdate(TimeFrozeComponent self)
             {
                 Unit unit = Root.Instance.Get(self.unitId) as Unit;
-                HertzAbility ability = unit.GetComponent<BuffManager>().GetComponent<HertzAbility>();
+                BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
                 
                 if (self.LastFrame-- <= 0)
                 {
@@ -16,7 +16,7 @@
                     return;
                 }
 
-                ability.SetHertz(self.Hertz);
+                bbTimer.SetHertz(self.Hertz);
             }
         }
         

@@ -53,8 +53,8 @@ namespace ET.Client
                 
                 self.flip = FlipState.Left;
                 self.angle = 0f;
-                self.hertz = 60;
                 self.velocity = Vector2.Zero;
+                self.hertz = 0;
                 
                 self.triggerEnterBuffers.Clear();
                 self.triggerStayBuffers.Clear();
@@ -239,8 +239,7 @@ namespace ET.Client
         }
         
         #endregion
-        
-        #region Hertz
+
         public static int GetHertz(this b2Body self)
         {
             return self.hertz;
@@ -250,7 +249,6 @@ namespace ET.Client
         {
             self.hertz = hertz;
         }
-        #endregion
         
         #region Velocity
         //真实速度 = 当前帧速度 * 朝向 * TimeScale

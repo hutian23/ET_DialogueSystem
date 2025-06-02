@@ -24,7 +24,6 @@ namespace ET.Client
             dummy.GetComponent<GameObjectComponent>().GameObject.transform.SetParent(GlobalComponent.Instance.Unit);
 
             BuffManager buffManager = dummy.GetComponent<BuffManager>();
-            buffManager.AddComponent<HertzAbility>();
             buffManager.AddComponent<HPAbility, int>(100);
             buffManager.AddComponent<SPAbility, int>(100);
             

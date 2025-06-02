@@ -14,7 +14,7 @@
             InvincibleAbility invincible = unitA.GetComponent<BuffManager>().GetComponent<InvincibleAbility>();
             
             // 无敌buff时，HitBox不会和HurtBox碰撞
-            return invincible == null || boxA.GetBoxType() is not HitboxType.Hurt || boxB.GetBoxType() is not HitboxType.Hurt;
+            return invincible == null || boxA.GetBoxType() is not HitboxType.Hurt || boxB.GetBoxType() is not HitboxType.Hit;
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿namespace ET.Client
 {
     [ComponentOf(typeof(BuffManager))]
-    public class InvincibleAbility : Entity, IAwake<int>, IDestroy
+    public class InvincibleAbility : Entity, IAwake<int, long>, IDestroy, IFrameUpdate
     {
         public int waitFrame;
-        public ETCancellationToken token;
+        public int cnt;
+        public long unitId;
     }
 }

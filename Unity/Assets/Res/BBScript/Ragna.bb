@@ -89,7 +89,6 @@ RegistMove: (Rg_Hurt)
   MoveType: HitStun;
 EndMove:
 #8. 进入默认动作
-Invincible: 1000;
 GotoBehavior: Rg_Idle;
 return;
 
@@ -616,7 +615,8 @@ return;
 SetVelocity: 350000, 0;
 GroundDashAdd: -1;
 # 精准闪避窗口
-EnableJustEvade: 5, 0, -5000, 28000, 47000;
+EnableJustEvadeCheck: 5, 0, -5000, 28000, 47000;
+RegistJustEvadeCallback: Rg_GroundDash, JustEvadeCallback;
 BBSprite: Active_1, 3;
 BBSprite: Active_2, 3;
 EnableGatlingCancel: true;
@@ -636,6 +636,10 @@ BBSprite: End_3, 2;
 BBSprite: End_4, 3;
 BBSprite: End_5, 3;
 Exit;
+
+@JustEvadeCallback:
+TacticalTime: 300, 10;
+return;
 
 [Rg_PlungingAttack]
 @Trigger:

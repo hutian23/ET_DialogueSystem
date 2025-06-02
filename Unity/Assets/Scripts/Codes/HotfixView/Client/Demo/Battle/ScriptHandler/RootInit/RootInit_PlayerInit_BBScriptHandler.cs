@@ -18,13 +18,12 @@
             player.AddComponent<BBTimerComponent>().IsUnitTimer();
             player.AddComponent<BBNumeric>();
             player.AddComponent<BehaviorMachine>();
-            player.AddComponent<B2Unit>();
             player.AddComponent<ObjectWait>();
             player.AddComponent<InputWait>();
+            player.AddComponent<B2Unit>();
             
             //添加能力
             BuffManager buffManager = player.GetComponent<BuffManager>();
-            buffManager.AddComponent<HertzAbility>();
             buffManager.AddComponent<HPAbility, int>(100);
             buffManager.AddComponent<SPAbility, int>(100);
             

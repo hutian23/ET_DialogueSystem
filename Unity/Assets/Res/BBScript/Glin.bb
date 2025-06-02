@@ -46,9 +46,6 @@ EndMove:
 RegistMove: (Glin_Step2_Teleport)
   MoveType: None;
 EndMove:
-RegistMove: (Glin_Step2_FeintSlash)
-  MoveType: None;
-EndMove:
 RegistMove: (Glin_Step2_CastSpike)
   MoveType: None;
 EndMove:
@@ -516,12 +513,8 @@ ScreenShake: 750, 750, 10000, 15, 0;
 BBSprite: Frame_3, 5;
 BBSprite: Frame_4, 5;
 # Enter Next Behavior
-# 1. FeintSlash
-BeginIf: (Random: ran1 >= 0), (Random: ran1 < 10)
-  GotoBehavior: Glin_Step2_FeintSlash;
-EndIf:
 # 2. Slash
-BeginIf: (Random: ran1 >= 10), (Random: ran1 < 30)
+BeginIf: (Random: ran1 >= 0), (Random: ran1 < 30)
   GotoBehavior: Glin_Step2_Slash;
 EndIf:
 # 3. Cast
@@ -537,30 +530,14 @@ BeginIf: (Random: ran1 >= 50), (Random: ran1 < 65)
   GotoBehavior: Glin_Step2_CastSpike;
 EndIf:
 # 5. AirDash
-BeginIf: (Random: ran1 >= 65), (Random: ran1 < 85)
+BeginIf: (Random: ran1 >= 65), (Random: ran1 < 90)
   GotoBehavior: Glin_Step2_AirDash;
 EndIf:
 # 6. Ballon
-BeginIf: (Random: ran1 >= 85), (Random: ran1 <= 100)
+BeginIf: (Random: ran1 >= 90), (Random: ran1 <= 100)
   GotoBehavior: Glin_Step2_Ballon;
 EndIf:
 return;
-
-[Glin_Step2_FeintSlash]
-@Trigger:
-return;
-
-@Main:
-# 假动作
-BBSprite: Feint_1, 5;
-BBSprite: Feint_2, 5; 
-RegistCounter: 25;
-BeginLoopAnim: (Counter: Value > 0)
-  LoopSprite: Feint_3, 6;
-  LoopSprite: Feint_4, 6;
-EndLoopAnim:
-SetTransition: Evade, true;
-GotoBehavior: Glin_Step2_Cast;
 
 [Glin_Step2_CastSpike]
 @Trigger:
@@ -605,7 +582,7 @@ return;
 return;
 
 @Main:
-# 1. Slash
+# 1. 劈砍蓄力
 BBSprite: Slash_Start_1, 4;
 BBSprite: Slash_Start_2, 4;
 RegistCounter: 20;
@@ -613,6 +590,13 @@ BeginLoopAnim: (Counter: Value > 0)
   LoopSprite: Slash_Start_3, 5;
   LoopSprite: Slash_Start_4, 5;
 EndLoopAnim:
+# 2. 有一定概率假动作，过渡到Cast行为中
+Random: ran1, 0, 100;
+BeginIf: (Random: ran1 > 50)
+  SetTransition: Evade, true;
+  GotoBehavior: Glin_Step2_Cast;
+EndIf:
+# 3. 向前方冲刺劈砍
 SetVelocity: 700000, 0;
 BBSprite: Slash_Active_1, 4;
 AccelX: 700000, 12, -3500000;
@@ -620,7 +604,7 @@ BBSprite: Slash_Active_2, 4;
 BBSprite: Slash_Active_3, 4;
 BBSprite: Slash_Active_4, 4;
 SetVelocity: 0, 0;
-# 2. UpperCut
+# 4. 升龙
 BBSprite: UpperCut_Start_1, 3;
 BBSprite: UpperCut_Start_2, 5;
 BBSprite: UpperCut_Start_3, 5;
@@ -636,6 +620,7 @@ SetVelocity: 30000, 100000;
 BBSprite: UpperCut_Active_2, 5;
 SetVelocity: 0, 0;
 BBSprite: UpperCut_End_1, 4;
+# 5. 生成地刺
 CallSubCoroutine: Glin_Step2_Slash, SpawnSpikes;
 SetTransition: Step2_Slash, true;
 GotoBehavior: Glin_Step2_Teleport;
@@ -703,6 +688,24 @@ BeginIf: (TransitionCached: Evade, true)
   SetVelocityX: 0;
   BBSprite: Evade_6, 4;
   BBSprite: Evade_7, 4;
+EndIf:
+# Teleport
+Random: ran1, 0, 100;
+BeginIf: (Random: ran1 >= 40), (TransitionCached: Evade, false)
+  BBSprite: Cast_Start_1, 5;
+  BBSprite: Cast_Start_2, 5;
+  BBSprite: Cast_Start_3, 5;
+  BBSprite: Cast_Start_4, 10;
+  BBSprite: Teleport_1, 4;
+  BBSprite: Teleport_2, 4;
+  BBSprite: Teleport_3, 4;
+  BBSprite: Teleport_4, 4;
+  SetPos: 100000, 100000;
+  WaitFrame: 15;
+  GlinPos: -140000, 140000, 90000, -95000;
+  BBSprite: Teleport_3, 4;
+  BBSprite: Teleport_2, 4;
+  BBSprite: Teleport_1, 4;
 EndIf:
 # Start
 BBSprite: Cast_Start_1, 5;

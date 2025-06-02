@@ -29,22 +29,26 @@ namespace ET.Client
             // b2Body b2Body = b2WorldManager.Instance.GetBody(enemy.InstanceId);
             // b2Body.SetPosition(new Vector2(0, 0));
 
-            HitComponent hit = parser.GetComponent<HitComponent>();
-            CollisionBuffer buffer = hit.GetBuffer();
+            // HitComponent hit = parser.GetComponent<HitComponent>();
+            // CollisionBuffer buffer = hit.GetBuffer();
+            //
+            // b2Box boxA = Root.Instance.Get(buffer.instanceIdA) as b2Box;
+            // b2Box boxB = Root.Instance.Get(buffer.instanceIdB) as b2Box;
+            //
+            // b2Body bodyA = boxA.GetParent<b2Body>();
+            // b2Body bodyB = boxB.GetParent<b2Body>();
+            // Unit unitA = Root.Instance.Get(bodyA.unitId) as Unit;
+            // Unit unitB = Root.Instance.Get(bodyB.unitId) as Unit;
+            //
+            // GameObject goA = unitA.GetComponent<GameObjectComponent>().GameObject;
+            // GameObject goB = unitB.GetComponent<GameObjectComponent>().GameObject;
+            //
+            // Log.Warning(goA.name + "  " + goB.name);
 
-            b2Box boxA = Root.Instance.Get(buffer.instanceIdA) as b2Box;
-            b2Box boxB = Root.Instance.Get(buffer.instanceIdB) as b2Box;
+            // parser.GetParent<Unit>().GetComponent<BuffManager>().AddComponent<IcyFreezeBuff, int, long>(300, parser.GetParent<Unit>().InstanceId);
 
-            b2Body bodyA = boxA.GetParent<b2Body>();
-            b2Body bodyB = boxB.GetParent<b2Body>();
-            Unit unitA = Root.Instance.Get(bodyA.unitId) as Unit;
-            Unit unitB = Root.Instance.Get(bodyB.unitId) as Unit;
-
-            GameObject goA = unitA.GetComponent<GameObjectComponent>().GameObject;
-            GameObject goB = unitB.GetComponent<GameObjectComponent>().GameObject;
-
-            Log.Warning(goA.name + "  " + goB.name);
-
+            parser.GetParent<Unit>().GetComponent<BuffManager>().AddComponent<TacticalTimeBuff, int, int>(100, 10, true);
+            
             await ETTask.CompletedTask;
             return Status.Success;
         }

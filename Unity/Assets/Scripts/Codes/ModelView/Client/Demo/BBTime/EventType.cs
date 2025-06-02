@@ -55,4 +55,10 @@
         //Gizmos
         public const int CameraGizmosTimer = 2001;
     }
+    
+    public struct HertzChangeCallback
+    {
+        public long instanceId;
+        public int hertz;
+    }
 }

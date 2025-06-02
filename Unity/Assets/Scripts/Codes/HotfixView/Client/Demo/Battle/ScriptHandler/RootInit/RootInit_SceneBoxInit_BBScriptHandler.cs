@@ -11,6 +11,7 @@
         {
             Unit unit = parser.GetParent<Unit>();
             unit.AddComponent<SceneBoxHandler>();
+            unit.AddComponent<BBTimerComponent>().IsUnitTimer();
             
             await ETTask.CompletedTask;
             return Status.Success;

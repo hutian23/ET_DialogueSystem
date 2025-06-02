@@ -6,6 +6,7 @@
         public const int PushBoxFilter = 1;
         public const int BulletHitFilter = 2;
         public const int InvincibleFilter = 3;
+        public const int InvalidHitboxFilter = 4;
     }
 
     public struct B2FilterCallback

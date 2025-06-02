@@ -3,7 +3,7 @@
 namespace ET.Client
 {
     //运行时解析BBScript然后执行
-    [ComponentOf]
+    [ComponentOf(typeof(Unit))]
     public class BBParser: Entity, IAwake, ILoad, IDestroy, ILoadCached
     {
         public Dictionary<int, string> OpDict = new();
@@ -18,12 +18,6 @@ namespace ET.Client
     public struct ProcessBBScriptCallback
     {
         public long instanceId;
-    }
-
-    public struct ReplaceParamCallback
-    {
-        public long instanceId;
-        public string content;
     }
     
     public class BBScriptData

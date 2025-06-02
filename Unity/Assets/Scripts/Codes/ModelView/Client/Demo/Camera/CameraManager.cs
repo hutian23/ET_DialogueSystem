@@ -21,16 +21,5 @@ namespace ET.Client
         
         //Zoom
         public Vector2 Scroll;
-        
-        //Shake(同时只能有一个相机振动效果生效)
-        public float shakeLength_X;
-        public float shakeLength_Y;
-        public float frequency;
-        public int totalFrame;
-        public int curFrame;
-        public long timer;
-        
-        //相机跟随
-        public long targetTimer;
     }
 }

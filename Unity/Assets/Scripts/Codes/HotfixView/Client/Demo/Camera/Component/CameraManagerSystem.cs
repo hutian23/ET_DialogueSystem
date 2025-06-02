@@ -47,15 +47,6 @@ namespace ET.Client
             self._screenWidth = 0;
             self._screenHeight = 0;
             self.Scroll = Vector3.zero;
-
-            BBTimerComponent sceneTimer = BBTimerManager.Instance.SceneTimer();
-            sceneTimer.Remove(ref self.timer);
-            sceneTimer.Remove(ref self.targetTimer);
-            self.shakeLength_X = 0;
-            self.shakeLength_Y = 0;
-            self.frequency = 0;
-            self.totalFrame = 0;
-            self.curFrame = 0;
             
             self.MainCamera = Camera.main;
             self.MainCamera.transform.position = self.Position;

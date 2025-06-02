@@ -4,17 +4,17 @@ using System.Text.RegularExpressions;
 namespace ET.Client
 {
     [FriendOf(typeof(JustEvadeComponent))]
-    public class Function_EnableJustEvade_BBScriptHandler : BBScriptHandler
+    public class Function_EnableJustEvadeCheck_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "EnableJustEvade";
+            return "EnableJustEvadeCheck";
         }
 
         // EnableJustEvade: 精准闪避窗口持续帧, box.size.x, box.size.y, box.center.x, box.center.y;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"EnableJustEvade: (?<LastFrame>.*?), (?<CenterX>.*?), (?<CenterY>.*?), (?<SizeX>.*?), (?<SizeY>.*?);");
+            Match match = Regex.Match(data.opLine, @"EnableJustEvadeCheck: (?<LastFrame>.*?), (?<CenterX>.*?), (?<CenterY>.*?), (?<SizeX>.*?), (?<SizeY>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);

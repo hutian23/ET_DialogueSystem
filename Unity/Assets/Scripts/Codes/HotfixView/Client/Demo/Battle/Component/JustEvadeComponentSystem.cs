@@ -16,33 +16,42 @@ namespace ET.Client
                 self.boxSize = Vector2.Zero;
                 self.startFrame = 0;
                 self.lastFrame = 0;
+                self.functionIndex = 0;
                 
                 b2Body b2Body = b2WorldManager.Instance.GetBody(self.GetParent<BBParser>().GetParent<Unit>().InstanceId);
                 b2Body.DestroyBox("JustEvadeCheckBox");
             }
         }
-        
+
         [FriendOf(typeof(b2Body))]
+        [FriendOf(typeof(BBParser))]
         public class JustEvadePostStepSystem : PostStepSystem<JustEvadeComponent>
         {
             protected override void PosStepUpdate(JustEvadeComponent self)
             {
-                Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
+                BBParser parser = self.GetParent<BBParser>();
+                Unit unit = parser.GetParent<Unit>();
                 b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
                 b2Box b2Box = b2Body.GetBox("JustEvadeCheckBox");
 
                 Queue<CollisionBuffer> buffQueue = b2Body.triggerStayBuffers;
                 int count = buffQueue.Count;
-                while (count -- > 0)
+                while (count-- > 0)
                 {
                     CollisionBuffer buffer = buffQueue.Dequeue();
                     buffQueue.Enqueue(buffer);
-                    
+
                     b2Box boxA = Root.Instance.Get(buffer.instanceIdA) as b2Box;
                     b2Box boxB = Root.Instance.Get(buffer.instanceIdB) as b2Box;
 
                     if (boxA.Id != b2Box.Id || boxB.GetBoxType() is not HitboxType.Hit) continue;
-                    Log.Warning("Just Evade!!!");
+
+                    // 触发精准闪避回调
+                    if (self.functionIndex != 0)
+                    {
+                        parser.Invoke(self.functionIndex, parser.CancellationToken).Coroutine();
+                    }
+
                     self.Dispose();
                     break;
                 }

@@ -17,7 +17,7 @@ namespace ET.Client
             
             //1. 添加虚拟相机管理器
             unit.AddComponent<VirtualCameraManager>();
-
+            
             //2. 生成CameraTarget
             GameObject target = new("_CameraTarget");
             target.transform.SetParent(go.transform);
