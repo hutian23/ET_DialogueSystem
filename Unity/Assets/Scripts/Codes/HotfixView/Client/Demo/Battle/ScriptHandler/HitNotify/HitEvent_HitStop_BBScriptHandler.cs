@@ -46,19 +46,19 @@ namespace ET.Client
             BBParser parserA = unitA.GetComponent<BBParser>();
             BBParser parserB = unitB.GetComponent<BBParser>();
 
-            parserA.RemoveComponent<TimeFrozeComponent>();
-            parserB.RemoveComponent<TimeFrozeComponent>();
-            TimeFrozeComponent hitStopA = parserA.AddComponent<TimeFrozeComponent>(true);
-            TimeFrozeComponent hitStopB = parserB.AddComponent<TimeFrozeComponent>(true);
-
-            //3. buff初始化
-            hitStopA.Hertz = hertz;
-            hitStopA.LastFrame = hitStop;
-            hitStopA.unitId = unitA.InstanceId;
-
-            hitStopB.Hertz = hertz;
-            hitStopB.LastFrame = hitStop;
-            hitStopB.unitId = unitB.InstanceId;
+            // parserA.RemoveComponent<TimeFrozeComponent>();
+            // parserB.RemoveComponent<TimeFrozeComponent>();
+            // TimeFrozeComponent hitStopA = parserA.AddComponent<TimeFrozeComponent>(true);
+            // TimeFrozeComponent hitStopB = parserB.AddComponent<TimeFrozeComponent>(true);
+            //
+            // //3. buff初始化
+            // hitStopA.Hertz = hertz;
+            // hitStopA.LastFrame = hitStop;
+            // hitStopA.unitId = unitA.InstanceId;
+            //
+            // hitStopB.Hertz = hertz;
+            // hitStopB.LastFrame = hitStop;
+            // hitStopB.unitId = unitB.InstanceId;
             
             await ETTask.CompletedTask;
             return Status.Success;

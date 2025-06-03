@@ -24,7 +24,7 @@ namespace ET.Client
             protected override void Update(BBTimerManager self)
             {
                 self.SceneTimer().SetHertz((int)(Global.Settings.TimeScale * 60));
-
+                
                 // 发生卡顿时，不希望进行追帧，1次Update最多更新1帧
                 long now = self._gameTimer.ElapsedTicks;
                 long Accumulator = Math.Clamp(now - self.LastTime, 0 , self.SceneTimer().GetFrameLength());

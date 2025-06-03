@@ -13,7 +13,7 @@ namespace ET.Client
         //TimeFroze: 0, 30;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, "TimeFroze: (?<Hertz>.*?), (?<LastFrame>.*?);");
+            Match match = Regex.Match(data.opLine, "TimeFroze: (?<LastFrame>.*?), (?<Hertz>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -34,7 +34,7 @@ namespace ET.Client
             BuffManager buffManager = unit.GetComponent<BuffManager>();
 
             buffManager.RemoveComponent<TimeFrozeComponent>();
-            buffManager.AddComponent<TimeFrozeComponent, int, int>(hertz, lastFrame,true);
+            buffManager.AddComponent<TimeFrozeComponent, int, int, long>(hertz, lastFrame, unit.InstanceId, true);
 
             await ETTask.CompletedTask;
             return Status.Success;

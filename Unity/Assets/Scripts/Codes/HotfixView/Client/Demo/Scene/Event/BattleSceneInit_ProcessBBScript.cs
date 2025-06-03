@@ -18,7 +18,7 @@ namespace ET.Client
             //1. 生成Scene Unit
             foreach (BBScript bbScript in _root.GetComponentsInChildren<BBScript>())
             {
-                Unit unit = BattleSceneManager.Instance.AddChild<Unit, int>(1001);
+                Unit unit = BattleSceneManager.Instance.AddChild<Unit, int, UnitType>(1001, UnitType.Monster);
 
                 //渲染层传入unit.instanceId
                 unit.AddComponent<GameObjectComponent>().GameObject = bbScript.gameObject;
@@ -29,7 +29,7 @@ namespace ET.Client
             }
             
             //2. 生成Player
-            Unit player = BattleSceneManager.Instance.AddChild<Unit, int>(1001);
+            Unit player = BattleSceneManager.Instance.AddChild<Unit, int, UnitType>(1001, UnitType.Player);
             
             await ResourcesComponent.Instance.LoadBundleAsync($"{player.Config.ABName}.unity3d");
             GameObject prefab = (GameObject)ResourcesComponent.Instance.GetAsset($"{player.Config.ABName}.unity3d", $"{player.Config.Name}");

@@ -10,7 +10,7 @@ PoolObject: CircleWave, 1;
 #4. 添加初始Buff
 HP: 10000;
 SP: 200;
-JustEvade: 900;
+JustEvade: 600;
 EnableJump: 2;
 EnableAirCheck;
 EnableGroundDash: 2, 70;
@@ -276,10 +276,10 @@ BeginIf: (InAir: false)
   BBSprite: PreJump_2, 3;
 EndIf:
 # Jump
+JumpAdd: -1;
 EnableFlip: true;
 EnableHardLandCheck: 10, 350000;
 Gravity: 0;
-JumpAdd: -1;
 EnableAirMoveX: 150000, true;
 SetVelocityY: 200000;
 BBSprite: Jump_1, 3;
@@ -618,7 +618,7 @@ return;
 SetVelocity: 350000, 0;
 GroundDashAdd: -1;
 # 启动精准闪避窗口
-EnableJustEvadeCheck: 5, 0, -5000, 28000, 47000;
+EnableJustEvadeCheck: 8, 0, -5000, 45000, 47000;
 RegistJustEvadeCallback: Rg_GroundDash, JustEvadeCallback;
 BBSprite: Active_1, 3;
 BBSprite: Active_2, 3;
@@ -641,9 +641,10 @@ BBSprite: End_5, 3;
 Exit;
 
 @JustEvadeCallback:
+TimeFroze: 20, 5;
 CreateEffect: CircleWave
-  CreateEffect_Scale: 80000, 80000;
-  CreateEffect_LocalPosition: -26000, -10000;
+  CreateEffect_Scale: 70000, 70000;
+  CreateEffect_LocalPosition: -6000, -10000;
 EndCreateEffect:
 TacticalTime: 300, 10;
 Invincible: 300;

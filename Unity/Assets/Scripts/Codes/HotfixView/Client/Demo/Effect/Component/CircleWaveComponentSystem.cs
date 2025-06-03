@@ -16,20 +16,40 @@ namespace ET.Client
                 self.currentTick = 0;
                 self.PropertyBlock = new MaterialPropertyBlock();
                 self.CircleChange(0, 0);
+                // self.token = new ETCancellationToken();
+                // self.CircleWaveCor().Coroutine();
             }
         }
 
+        // private static async ETTask CircleWaveCor(this CircleWaveComponent self)
+        // {
+        //     BBTimerComponent bbTimer = self.GetParent<BBParser>().GetParent<Unit>().GetComponent<BBTimerComponent>();
+        //     
+        //     while (self.currentTick ++ < self.totalTick)
+        //     {
+        //         float progress = (float)self.currentTick / self.totalTick;
+        //         float curSpeed = Mathf.Lerp(self.waveSpeed, 0f, progress);
+        //         self.progress += curSpeed * ScriptHelper.FrameLength;
+        //         self.CircleChange(self.waveWidth, self.progress);
+        //
+        //         await bbTimer.WaitFrameAsync(self.token);
+        //         if (self.token.IsCancel()) return;
+        //     }
+        //     
+        //     self.Dispose();
+        // }
+        
         public class CircleWaveComponentFrameUpdateSystem : FrameUpdateSystem<CircleWaveComponent>
         {
             protected override void FrameUpdate(CircleWaveComponent self)
             {
-                if (self.currentTick > self.totalTick)
+                if (self.currentTick++ >= self.totalTick)
                 {
                     self.Dispose();
                     return;
                 }
                 
-                float progress = (float)self.currentTick++ / self.totalTick;
+                float progress = (float)self.currentTick / self.totalTick;
                 float curSpeed = Mathf.Lerp(self.waveSpeed, 0f, progress);
                 self.progress += curSpeed * ScriptHelper.FrameLength;
                 
@@ -60,6 +80,7 @@ namespace ET.Client
                 self.currentTick = 0;
                 self.CircleChange(0, 0);
                 self.PropertyBlock.Clear();
+                // self.token.Cancel();
             }
         }
     }

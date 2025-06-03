@@ -6,8 +6,10 @@ namespace ET
 {
     [ChildOf]
     [DebuggerDisplay("ViewName,nq")]
-    public class Unit: Entity, IAwake<int>, IDestroy
+    public class Unit: Entity, IAwake<int>, IAwake<int, UnitType>, IDestroy
     {
+        public UnitType unitType;
+        
         public int ConfigId { get; set; } //配置表id
 
         [BsonIgnore]

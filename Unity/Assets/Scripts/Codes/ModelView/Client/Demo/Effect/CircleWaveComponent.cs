@@ -11,5 +11,6 @@ namespace ET.Client
         public int totalTick;
         public int currentTick;
         public MaterialPropertyBlock PropertyBlock;
+        public ETCancellationToken token;
     }
 }
