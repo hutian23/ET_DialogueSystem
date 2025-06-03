@@ -18,6 +18,7 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 7400000, guid: 45eb2f01376da6f48b63303f03240052, type: 2}
     - {fileID: 7400000, guid: 801c196aff1b5594d94fc1808de39471, type: 2}
+    - {fileID: 7400000, guid: 18d1c696b9ef7c94d88a5d378ea0e99f, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -45,7 +46,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: 3|Timeline.BBAnimationClip, Unity.Loader
@@ -60,7 +61,7 @@ MonoBehaviour:
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 35
+      Data: 30
     - Name: animationClip
       Entry: 10
       Data: 0
@@ -129,6 +130,47 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 9|Timeline.BBAnimationClip, Unity.Loader
+    - Name: InValid
+      Entry: 5
+      Data: false
+    - Name: Name
+      Entry: 6
+      Data: 
+    - Name: StartFrame
+      Entry: 3
+      Data: 65
+    - Name: EndFrame
+      Entry: 3
+      Data: 120
+    - Name: animationClip
+      Entry: 10
+      Data: 2
+    - Name: rootMotionDict
+      Entry: 7
+      Data: 10|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.AnimationCurve,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 11|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -139,7 +181,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 9|Timeline.BBEventTrack, Unity.Loader
+      Data: 12|Timeline.BBEventTrack, Unity.Loader
     - Name: Name
       Entry: 1
       Data: Marker
@@ -148,7 +190,7 @@ MonoBehaviour:
       Data: true
     - Name: Clips
       Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
+      Data: 13|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -161,14 +203,14 @@ MonoBehaviour:
       Data: 
     - Name: EventInfos
       Entry: 7
-      Data: 11|System.Collections.Generic.List`1[[Timeline.EventInfo, Unity.Loader]],
+      Data: 14|System.Collections.Generic.List`1[[Timeline.EventInfo, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 12
+      Data: 24
     - Name: 
       Entry: 7
-      Data: 12|Timeline.EventInfo, Unity.Loader
+      Data: 15|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 0
@@ -180,7 +222,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 13|Timeline.EventInfo, Unity.Loader
+      Data: 16|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 5
@@ -192,7 +234,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 14|Timeline.EventInfo, Unity.Loader
+      Data: 17|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 10
@@ -204,7 +246,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 15|Timeline.EventInfo, Unity.Loader
+      Data: 18|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 15
@@ -216,7 +258,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 16|Timeline.EventInfo, Unity.Loader
+      Data: 19|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 20
@@ -228,7 +270,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 17|Timeline.EventInfo, Unity.Loader
+      Data: 20|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 25
@@ -240,7 +282,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 18|Timeline.EventInfo, Unity.Loader
+      Data: 21|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 30
@@ -252,7 +294,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 19|Timeline.EventInfo, Unity.Loader
+      Data: 22|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 60
@@ -264,7 +306,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 20|Timeline.EventInfo, Unity.Loader
+      Data: 23|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 55
@@ -276,7 +318,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 21|Timeline.EventInfo, Unity.Loader
+      Data: 24|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 50
@@ -288,7 +330,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 22|Timeline.EventInfo, Unity.Loader
+      Data: 25|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 45
@@ -300,13 +342,157 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 23|Timeline.EventInfo, Unity.Loader
+      Data: 26|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 40
     - Name: keyframeName
       Entry: 1
       Data: Teleport_5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 27|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 65
+    - Name: keyframeName
+      Entry: 1
+      Data: Idle_1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 28|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 75
+    - Name: keyframeName
+      Entry: 1
+      Data: Idle_3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 29|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 70
+    - Name: keyframeName
+      Entry: 1
+      Data: Idle_2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 30|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 80
+    - Name: keyframeName
+      Entry: 1
+      Data: Idle_4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 31|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 90
+    - Name: keyframeName
+      Entry: 1
+      Data: Idle_6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 32|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 95
+    - Name: keyframeName
+      Entry: 1
+      Data: Idle_7
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 33|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 100
+    - Name: keyframeName
+      Entry: 1
+      Data: Idle_8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 34|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 105
+    - Name: keyframeName
+      Entry: 1
+      Data: Idle_9
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 35|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 110
+    - Name: keyframeName
+      Entry: 1
+      Data: Idle_10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 36|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 115
+    - Name: keyframeName
+      Entry: 1
+      Data: Idle_11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 37|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 120
+    - Name: keyframeName
+      Entry: 1
+      Data: Idle_12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 38|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 85
+    - Name: keyframeName
+      Entry: 1
+      Data: Idle_5
     - Name: 
       Entry: 8
       Data: 
@@ -321,7 +507,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 24|Timeline.BBHitboxTrack, Unity.Loader
+      Data: 39|Timeline.BBHitboxTrack, Unity.Loader
     - Name: Name
       Entry: 1
       Data: Hitbox
@@ -330,7 +516,7 @@ MonoBehaviour:
       Data: true
     - Name: Clips
       Entry: 7
-      Data: 25|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
+      Data: 40|System.Collections.Generic.List`1[[Timeline.BBClip, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
@@ -343,14 +529,14 @@ MonoBehaviour:
       Data: 
     - Name: Keyframes
       Entry: 7
-      Data: 26|System.Collections.Generic.List`1[[Timeline.HitboxKeyframe, Unity.Loader]],
+      Data: 41|System.Collections.Generic.List`1[[Timeline.HitboxKeyframe, Unity.Loader]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 2
     - Name: 
       Entry: 7
-      Data: 27|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 42|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 0
@@ -359,13 +545,13 @@ MonoBehaviour:
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 28|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
+      Data: 43|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 29|ET.BoxInfo, Unity.Loader
+      Data: 44|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: PushBox
@@ -419,7 +605,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 30|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 45|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
       Data: 60
@@ -428,13 +614,13 @@ MonoBehaviour:
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 31|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
+      Data: 46|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 32|ET.BoxInfo, Unity.Loader
+      Data: 47|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: PushBox

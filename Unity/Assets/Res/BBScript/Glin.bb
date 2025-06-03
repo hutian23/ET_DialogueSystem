@@ -857,6 +857,7 @@ return;
 
 @Main:
 SetVelocity: 0, 0;
+SetAngle: 0;
 Shake: 1500, 1500, 10000, 20, 0;
 BBSprite: Explode_1, 20;
 BBSprite: Explode_2, 4;
@@ -920,6 +921,8 @@ return;
 
 @Main:
 SetPos: 40000, -120000;
+SetVelocity: 0, 0;
+SetAngle: 0;
 BBSprite: In_1, 5;
 ScreenShake: 750, 750, 10000, 15, 0;
 BBSprite: In_2, 5;
@@ -978,7 +981,6 @@ GlinPos: -140000, 140000, 60000, -95000;
 BBSprite: Teleport_4, 4;
 BBSprite: Teleport_3, 4;
 BBSprite: Teleport_2, 4;
-BBSprite: Teleport_1, 4;
 # Idle
 RegistCounter: 60;
 BeginLoopAnim: (Counter: Value > 0)
@@ -995,6 +997,7 @@ BeginLoopAnim: (Counter: Value > 0)
   LoopSprite: Idle_11, 5;
   LoopSprite: Idle_12, 5;
 EndLoopAnim:
+# Bow
 BBSprite: Bow_1, 8;
 BBSprite: Bow_3, 5;
 BBSprite: Bow_4, 5;

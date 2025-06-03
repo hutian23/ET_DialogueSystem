@@ -49,9 +49,9 @@ EndMove:
 RegistMove: (Rg_Jump)
   MoveType: Move;
 EndMove:
-# RegistMove: (Rg_5B)
-#   MoveType: Normal;
-#   EndMove:
+RegistMove: (Rg_5B)
+  MoveType: Normal;
+  EndMove:
 # RegistMove: (Rg_5C)
 #   MoveType: Normal;
 #   EndMove:
@@ -93,6 +93,9 @@ RegistMove: (Rg_Hurt)
 EndMove:
 #8. 进入默认动作
 GotoBehavior: Rg_Idle;
+return;
+
+@HPWatcher:
 return;
 
 @BeforeReloadCallback:
@@ -276,7 +279,6 @@ BeginIf: (InAir: false)
   BBSprite: PreJump_2, 3;
 EndIf:
 # Jump
-JumpAdd: -1;
 EnableFlip: true;
 EnableHardLandCheck: 10, 350000;
 Gravity: 0;
@@ -285,6 +287,7 @@ SetVelocityY: 200000;
 BBSprite: Jump_1, 3;
 BBSprite: Jump_2, 3;
 BBSprite: Jump_1, 3;
+JumpAdd: -1;
 EnableGatlingCancel: true;
 GCOption: Rg_Jump;
 Gravity: 100000;
@@ -319,10 +322,10 @@ InAir: false;
 return;
 
 @Main:
-Event: (Whiff_Start)
-  EnableWhiffCancel: true;
-  WhiffOption: Rg_GroundDash;
-EndEvent:
+# Event: (Whiff_Start)
+#   EnableWhiffCancel: true;
+#   WhiffOption: Rg_GroundDash;
+# EndEvent:
 # Event: (Hit_Start)
 #   # 这里开始，受击回调
 #   # 对于同一对象，在持续帧内仅造成一次攻击(Repeat则为持续帧内，只要发生碰撞，每帧都会回调受击回调)
@@ -338,15 +341,22 @@ EndEvent:
 #     HitVel: -300000, 250000;
 #     EndNotify:
 # EndEvent:
-Event: (Hit_End)
-  EnableGatlingCancel: false;
-  EnableTargetCancel: false;
-  EnableWhiffCancel: false;
-EndEvent:
+# Event: (Hit_End)
+#   EnableGatlingCancel: false;
+#   EnableTargetCancel: false;
+#   EnableWhiffCancel: false;
+# EndEvent:
+# 注册帧事件
+RegistMarkerEvent: Whiff_Start, Rg_5B, Whiff_Start;
 ApplyRootMotion: true;
 PlayTimeline: 0, 30;
 ApplyRootMotion: false;
 Exit;
+
+@Whiff_Start:
+EnableWhiffCancel: true;
+WhiffOption: Rg_GroundDash;
+return;
 
 [Rg_5C]
 @Trigger: 
@@ -623,6 +633,7 @@ RegistJustEvadeCallback: Rg_GroundDash, JustEvadeCallback;
 BBSprite: Active_1, 3;
 BBSprite: Active_2, 3;
 EnableGatlingCancel: true;
+GCOption: Rg_Jump;
 BBSprite: Active_3, 3;
 BBSprite: Active_1, 3;
 SetVelocityX: 200000;
@@ -1139,26 +1150,8 @@ BBSprite: Land_4, 4;
 BBSprite: Land_5, 4;
 Exit;
 
-[Rg_Turn]
-@Main:
-SetVelocityX: 0;
-BBSprite: Turn_1, 2;
-BBSprite: Turn_2, 2;
-BBSprite: Turn_3, 2;
-Exit;
-
-[Rg_SquatTurn]
-@Main:
-SetVelocityX: 0;
-BBSprite: Turn_1, 2;
-BBSprite: Turn_2, 2;
-BBSprite: Turn_3, 2;
-SetTransition: NoPreSquat, true;
-Exit;
-
 [Rg_IdleAnim]
 @Main:
-InvokeEndBattleCallback;
 EnableNandemoCancel: true;
 PlayTimeline: 0, 81;
 Exit;

@@ -7,11 +7,20 @@ namespace ET.Client
     {
         public class HPAbilityAwakeSystem : AwakeSystem<HPAbility, int>
         {
-            protected override void Awake(HPAbility self, int filterType)
+            protected override void Awake(HPAbility self, int maxHP)
             {
-                self.MaxHP = filterType;
-                self.CurrentHP = filterType;
+                self.MaxHP = maxHP;
+                self.CurrentHP = maxHP;
                 self.MinHP = 0;
+
+                // HP数值更新的默认回调
+                Unit unit = self.GetParent<BuffManager>().GetParent<Unit>();
+                BBParser parser = unit.GetComponent<BBParser>();
+                if (parser.ContainFunction("Root", "HPWatcher"))
+                {
+                    int functionIndex = parser.GetFunctionPointer("Root", "HPWatcher");
+                    self.AddChild<BBAction, long, int>(unit.InstanceId, functionIndex);
+                }
             }
         }
         

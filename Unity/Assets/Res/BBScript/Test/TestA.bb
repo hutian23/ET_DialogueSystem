@@ -1,4 +1,4 @@
 [Root]
 @Entry:
-EndBattleCallback;
+HPAdd: -100;
 return;

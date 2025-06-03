@@ -12,7 +12,7 @@ namespace ET.Client
                 b2Body body = b2WorldManager.Instance.GetBody(self.GetParent<BBParser>().GetParent<Unit>().InstanceId);
                 
                 //(-1,1)是因为Timeline中角色的默认朝向为左
-                body.SetLinearVelocity(self.MotionVel);
+                body.SetLinearVelocity(-self.MotionVel);
             }
         }
 

@@ -4,13 +4,13 @@ namespace ET.Client
 {
     [Invoke]
     [FriendOf(typeof(BBParser))]
-    [FriendOf(typeof(MarkerEventComponent))]
+
+    [FriendOf(typeof(MarkerEvent))]
     public class HandleUpdateMarkerEventCallback : AInvokeHandler<UpdateEventTrackCallback>
     {
         public override void Handle(UpdateEventTrackCallback args)
         {
-            TimelineComponent timelineComponent = Root.Instance.Get(args.instanceId) as TimelineComponent;
-            if (timelineComponent == null)
+            if (Root.Instance.Get(args.instanceId) is not TimelineComponent timelineComponent || timelineComponent.IsDisposed)
             {
                 Log.Error($"cannot find timeline component: {args.instanceId}");
                 return;
@@ -19,14 +19,15 @@ namespace ET.Client
             //1. 查询组件
             Unit unit = timelineComponent.GetParent<Unit>();
             BBParser bbParser = unit.GetComponent<BBParser>();
-            MarkerEventComponent _event = bbParser.GetComponent<MarkerEventComponent>();
-
+            MarkerEventManager eventManager = bbParser.GetComponent<MarkerEventManager>();
+            if (eventManager == null) return; 
+            MarkerEvent markerEvent = eventManager.TryGetMarkerEvent(args.markerName);
+            
             //2. 调用事件
-            if(_event == null || !_event.markerDict.TryGetValue(args.markerName, out MarkerEvent _markerEvent))
+            if (markerEvent != null)
             {
-                return;
+                bbParser.Invoke(markerEvent.functionIndex, bbParser.CancellationToken).Coroutine();
             }
-            bbParser.RegistSubCoroutine(_markerEvent.startIndex, _markerEvent.endIndex, bbParser.CancellationToken).Coroutine();
         }
     }
 }
