@@ -57,7 +57,7 @@ namespace ET
         {
             get
             {
-                return $"{this.GetType().Name} ({this.Id})";
+                return $"{this.GetType().Name} (Id:  {this.Id}  InstanceId: {this.InstanceId})";
             }
         }
     }

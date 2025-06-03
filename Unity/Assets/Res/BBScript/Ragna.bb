@@ -1158,6 +1158,7 @@ Exit;
 
 [Rg_IdleAnim]
 @Main:
+InvokeEndBattleCallback;
 EnableNandemoCancel: true;
 PlayTimeline: 0, 81;
 Exit;

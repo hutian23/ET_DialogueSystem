@@ -43,7 +43,7 @@ namespace ET.Client
             //回调HP更新事件
             if (self.CurrentHP != preHP && IsEvent)
             {
-                EventSystem.Instance.Invoke(new NumericWatcherCallback(){instanceId = self.InstanceId});
+                EventSystem.Instance.Invoke(new BBActionCallback(){instanceId = self.InstanceId});
             }
         }
 

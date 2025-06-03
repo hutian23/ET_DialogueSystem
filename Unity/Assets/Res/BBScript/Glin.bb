@@ -13,6 +13,7 @@ PoolObject: GDust, 1;
 HP: 3000; # 初始血量300
 HPLock: 1500; # 一阶段锁血
 EnableAirCheck;
+RegistEndBattleCallback: Root, BattleCallback; # 战斗结束，播放结束动画
 # 注册行为
 # Step1
 RegistMove: (Glin_Idle)
@@ -84,6 +85,10 @@ EndIf:
 BeginIf: (HP: Value <= 1500)
   GotoBehavior: Glin_Explode;
 EndIf:
+return;
+
+@BattleCallback:
+GotoBehavior: Glin_Bow2;
 return;
 
 [Glin_Idle]
@@ -797,7 +802,7 @@ BeginLoopAnim: (InAir: true)
   LoopSprite: AirDash_Active_4, 4;
 EndLoopAnim:
 # Land 
-SetRotate: 0;  
+SetAngle: 0;  
 EnemyUpdateFlip;
 SpawnGDust: -65000, -20000, -8000, 4000;
 SpawnGDust: 65000, -20000, 8000, 4000;
@@ -959,7 +964,38 @@ return;
 return;
 
 @Main:
-BBSprite: Bow_1, 5;
+# Teleport
+SetVelocity: 0, 0;
+SetAngle: 0;
+BBSprite: Teleport_1, 4;
+BBSprite: Teleport_2, 4;
+BBSprite: Teleport_3, 4;
+BBSprite: Teleport_4, 4;
+BBSprite: Teleport_5, 4;
+SetPos: 1000000, 1000000;
+WaitFrame: 20;
+GlinPos: -140000, 140000, 60000, -95000;
+BBSprite: Teleport_4, 4;
+BBSprite: Teleport_3, 4;
+BBSprite: Teleport_2, 4;
+BBSprite: Teleport_1, 4;
+# Idle
+RegistCounter: 60;
+BeginLoopAnim: (Counter: Value > 0)
+  LoopSprite: Idle_1, 5;
+  LoopSprite: Idle_2, 5;
+  LoopSprite: Idle_3, 5;
+  LoopSprite: Idle_4, 5;
+  LoopSprite: Idle_5, 5;
+  LoopSprite: Idle_6, 5;
+  LoopSprite: Idle_7, 5;
+  LoopSprite: Idle_8, 5;
+  LoopSprite: Idle_9, 5;
+  LoopSprite: Idle_10, 5;
+  LoopSprite: Idle_11, 5;
+  LoopSprite: Idle_12, 5;
+EndLoopAnim:
+BBSprite: Bow_1, 8;
 BBSprite: Bow_3, 5;
 BBSprite: Bow_4, 5;
 BBSprite: Bow_5, 5;
