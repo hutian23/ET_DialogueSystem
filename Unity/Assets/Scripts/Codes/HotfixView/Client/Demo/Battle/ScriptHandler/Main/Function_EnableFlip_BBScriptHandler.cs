@@ -22,7 +22,7 @@ namespace ET.Client
             parser.RemoveComponent<FlipCheckComponent>();
             if (match.Groups["Enable"].Success)
             {
-                parser.AddComponent<FlipCheckComponent>();   
+                parser.AddComponent<FlipCheckComponent>(true);   
             }
             
             await ETTask.CompletedTask;

@@ -7,6 +7,7 @@ Camera_FollowPlayer;
 SetPos: 0, -70000;
 #3. 初始化对象池
 PoolObject: CircleWave, 1;
+PoolObject: GDust, 1;
 #4. 添加初始Buff
 HP: 10000;
 SP: 200;
@@ -51,10 +52,10 @@ RegistMove: (Rg_Jump)
 EndMove:
 RegistMove: (Rg_5B)
   MoveType: Normal;
-  EndMove:
-# RegistMove: (Rg_5C)
-#   MoveType: Normal;
-#   EndMove:
+EndMove:
+RegistMove: (Rg_JC)
+  MoveType: Normal;
+EndMove:
 # RegistMove: (Rg_5D)
 #   MoveType: Normal;
 #   EndMove:
@@ -82,6 +83,11 @@ RegistMove: (Rg_GroundDash)
 # RegistMove: (Rg_SquatTurn)
 #   MoveType: Etc;
 # EndMove:
+# === Target Combo ===
+RegistMove: (Rg_5C)
+  MoveType: Etc;
+EndMove:
+# ====================
 RegistMove: (Rg_HardLand)
   MoveType: Etc;
 EndMove:
@@ -153,11 +159,13 @@ return;
 @Main:
 SetVelocityX: 0;
 EnableDefaultCancel: true;
+# MiddleLand
 BeginIf: (LandVel: 400000)
   BBSprite: Land_1, 3;
   BBSprite: Land_2, 3;
   BBSprite: Land_3, 3;
 EndIf:
+# LightLand
 BBSprite: Land_4, 5;
 BBSprite: Land_5, 4;
 Exit;
@@ -286,11 +294,11 @@ EnableAirMoveX: 150000, true;
 SetVelocityY: 200000;
 BBSprite: Jump_1, 3;
 BBSprite: Jump_2, 3;
-BBSprite: Jump_1, 3;
 JumpAdd: -1;
-EnableGatlingCancel: true;
-GCOption: Rg_Jump;
 Gravity: 100000;
+EnableGatlingCancel: true;
+BBSprite: Jump_1, 3;
+GCOption: Rg_Jump;
 BBSprite: Jump_2, 3;
 BBSprite: Jump_1, 3;
 # JumpToFall
@@ -358,34 +366,33 @@ EnableWhiffCancel: true;
 WhiffOption: Rg_GroundDash;
 return;
 
-[Rg_5C]
-@Trigger: 
-TCOption: Rg_5C;
+[Rg_JC]
+@Trigger:
+InAir: true;
 InputType: 5LPPressed;
-InAir: false;
 return;
 
 @Main:
+EnableJumpMoveX: 150000, true;
+BBSprite: Anticipate_1, 2;
+BBSprite: Anticipate_2, 2;
+BBSprite: Anticipate_3, 2;
+BBSprite: Active_1, 2;
+BBSprite: Active_2, 2;
+RegistCounter: 24;
+BeginLoopAnim: (InAir: true), (Counter: Value > 0)
+  LoopSprite: Active_3, 3;
+  LoopSprite: End_1, 3;
+  LoopSprite: End_2, 3;
+  LoopSprite: End_3, 3;
+  LoopSprite: End_4, 3;
+  LoopSprite: End_5, 3;
+  LoopSprite: End_6, 3;
+  LoopSprite: End_7, 3;
+EndLoopAnim:
+EnableJumpMoveX: 0, false;
 SetVelocityX: 0;
-# 攻击持续第一帧
-Event: (Hit_Start)
-  # 攻击检测
-  HitNotify: Once
-    EnableGatlingCancel: true;
-    EnableTargetCancel: true;
-    TCOption: Rg_5D;
-    Shake: 500, 0, 8000, 14; # 振动
-    HitStop: 1, 14; # 打击停顿
-  EndNotify:
-EndEvent:
-# 攻击持续最后一帧
-Event: (Hit_End)
-  EnableGatlingCancel: false;
-  EnableTargetCancel: false;
-EndEvent:
-ApplyRootMotion: true;
-PlayTimeline: 0, 48;
-ApplyRootMotion: false;
+SetTransition: AirToLand, true;
 Exit;
 
 [Rg_5D]
@@ -628,8 +635,14 @@ return;
 SetVelocity: 350000, 0;
 GroundDashAdd: -1;
 # 启动精准闪避窗口
-EnableJustEvadeCheck: 8, 0, -5000, 45000, 47000;
-RegistJustEvadeCallback: Rg_GroundDash, JustEvadeCallback;
+# EnableJustEvadeCheck: 8, 0, -5000, 45000, 47000;
+# RegistJustEvadeCallback: Rg_GroundDash, JustEvadeCallback;
+# 生成特效
+# CreateEffect: GDust
+#   CreateEffect_LocalPosition: 35000, -12000;
+#   CreateEffect_Scale: 6000, 4000;
+#   CreateEffect_Flip: Right;
+# EndCreateEffect:
 BBSprite: Active_1, 3;
 BBSprite: Active_2, 3;
 EnableGatlingCancel: true;
@@ -1137,6 +1150,36 @@ EnableNandemoCancel: true;
 BBSprite: Frame_40, 4;
 BBSprite: Frame_41, 4;
 BBSprite: Frame_42, 2;
+Exit;
+
+[Rg_5C]
+@TC_Trigger: 
+TCOption: Rg_5C;
+InputType: 5LPPressed;
+InAir: false;
+return;
+
+@Main:
+SetVelocityX: 0;
+# 攻击持续第一帧
+Event: (Hit_Start)
+  # 攻击检测
+  HitNotify: Once
+    EnableGatlingCancel: true;
+    EnableTargetCancel: true;
+    TCOption: Rg_5D;
+    Shake: 500, 0, 8000, 14; # 振动
+    HitStop: 1, 14; # 打击停顿
+  EndNotify:
+EndEvent:
+# 攻击持续最后一帧
+Event: (Hit_End)
+  EnableGatlingCancel: false;
+  EnableTargetCancel: false;
+EndEvent:
+ApplyRootMotion: true;
+PlayTimeline: 0, 48;
+ApplyRootMotion: false;
 Exit;
 
 [Rg_HardLand]
