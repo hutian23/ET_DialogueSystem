@@ -1,4 +1,4 @@
 [Root]
 @Entry:
-HPAdd: -100;
+GotoBehavior: Rg_EndBattle;
 return;

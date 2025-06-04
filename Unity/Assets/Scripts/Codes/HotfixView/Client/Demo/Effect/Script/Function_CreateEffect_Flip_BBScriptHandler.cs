@@ -19,7 +19,6 @@ namespace ET.Client
                 return Status.Failed;
             }
             
-            
             Unit caster = parser.GetParent<Unit>();
             Unit effect = Root.Instance.Get(parser.GetParam<long>("CreateEffect_UnitId")) as Unit;
             b2Body body = b2WorldManager.Instance.GetBody(caster.InstanceId);

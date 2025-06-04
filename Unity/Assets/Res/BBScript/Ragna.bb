@@ -8,6 +8,7 @@ SetPos: 0, -70000;
 #3. 初始化对象池
 PoolObject: CircleWave, 1;
 PoolObject: GDust, 1;
+PoolObject: ADust, 1;
 #4. 添加初始Buff
 HP: 10000;
 SP: 200;
@@ -65,9 +66,9 @@ EndMove:
 # RegistMove: (Rg_DustAttack)
 #   MoveType: Special;
 #   EndMove:
-# RegistMove: (Rg_AirDash)
-#   MoveType: Special;
-#   EndMove:
+RegistMove: (Rg_AirDash)
+  MoveType: Special;
+  EndMove:
 RegistMove: (Rg_GroundDash)
   MoveType: Special;
   EndMove:
@@ -92,6 +93,9 @@ RegistMove: (Rg_HardLand)
   MoveType: Etc;
 EndMove:
 RegistMove: (Rg_IdleAnim)
+  MoveType: Etc;
+EndMove:
+RegistMove: (Rg_EndBattle)
   MoveType: Etc;
 EndMove:
 RegistMove: (Rg_Hurt)
@@ -160,7 +164,7 @@ return;
 SetVelocityX: 0;
 EnableDefaultCancel: true;
 # MiddleLand
-BeginIf: (LandVel: 400000)
+BeginIf: (LandVel: 350000)
   BBSprite: Land_1, 3;
   BBSprite: Land_2, 3;
   BBSprite: Land_3, 3;
@@ -607,21 +611,63 @@ CanAirDash: true;
 return;
 
 @Main:
-AirDashAdd: -1;
-Event: (FallEvent)
-  EnableGatlingCancel: true;
-  # 空中冲刺衔接冲刺
-  EnableFlip: true;
-  GCOption: Rg_AirDash;
-  GCOption: Rg_Jump;
-  # 设置冲刺惯性
-  ApplyRootMotion: false;
-  SetVelocityX: 80000;
-EndEvent:
-ApplyRootMotion: true;
-PlayTimeline: 0, 24;
+# AirDashAdd: -1;
+# Event: (FallEvent)
+#   EnableGatlingCancel: true;
+#   # 空中冲刺衔接冲刺
+#   EnableFlip: true;
+#   GCOption: Rg_AirDash;
+#   GCOption: Rg_Jump;
+#   # 设置冲刺惯性
+#   ApplyRootMotion: false;
+#   SetVelocityX: 80000;
+# EndEvent:
+# ApplyRootMotion: true;
+# PlayTimeline: 0, 24;
+# 生成特效
+CreateEffect: ADust
+  CreateEffect_LocalPosition: 35000, 0;
+  CreateEffect_Scale: 8000, 3000;
+  CreateEffect_Flip: Right;
+EndCreateEffect:
+# 精准闪避
+EnableJustEvadeCheck: 8, 10000, 0, 50000, 40000;
+RegistJustEvadeCallback: Rg_AirDash, JustEvadeCallback;
+# AirDash
+SetVelocity: 300000, 0;
+Gravity: 0;
+BBSprite: Anticipate_1, 4;
+BBSprite: Active_1, 3;
+EnableGatlingCancel: true;
+GCOption: Rg_Jump;
+SetVelocityX: 200000;
+BBSprite: Active_1, 3;
+SetVelocityX: 100000;
+BBSprite: Active_2, 3;
+SetVelocityX: 80000;
+BBSprite: Active_2, 2;
+# Fall
+GCOption: Rg_AirDash;
+Gravity: 100000;
+RegistCounter: 12;
+EnableFlip: true;
 SetTransition: AirToLand, true;
+BeginLoopAnim: (Counter: Value > 0), (InAir: true)
+  LoopSprite: End_1, 4;
+  LoopSprite: End_2, 4;
+  LoopSprite: End_3, 4;
+EndLoopAnim:
 Exit;
+
+@JustEvadeCallback:
+TimeFroze: 20, 5;
+CreateEffect: CircleWave
+  CreateEffect_Scale: 70000, 70000;
+  CreateEffect_LocalPosition: -6000, -10000;
+EndCreateEffect:
+TacticalTime: 300, 10;
+Invincible: 300;
+return;
 
 [Rg_GroundDash]
 @Trigger:
@@ -635,14 +681,14 @@ return;
 SetVelocity: 350000, 0;
 GroundDashAdd: -1;
 # 启动精准闪避窗口
-# EnableJustEvadeCheck: 8, 0, -5000, 45000, 47000;
-# RegistJustEvadeCallback: Rg_GroundDash, JustEvadeCallback;
+EnableJustEvadeCheck: 8, 0, -5000, 45000, 47000;
+RegistJustEvadeCallback: Rg_GroundDash, JustEvadeCallback;
 # 生成特效
-# CreateEffect: GDust
-#   CreateEffect_LocalPosition: 35000, -12000;
-#   CreateEffect_Scale: 6000, 4000;
-#   CreateEffect_Flip: Right;
-# EndCreateEffect:
+CreateEffect: GDust
+  CreateEffect_LocalPosition: 40000, -12000;
+  CreateEffect_Scale: 6000, 4000;
+  CreateEffect_Flip: Right;
+EndCreateEffect:
 BBSprite: Active_1, 3;
 BBSprite: Active_2, 3;
 EnableGatlingCancel: true;
@@ -1198,6 +1244,27 @@ Exit;
 EnableNandemoCancel: true;
 PlayTimeline: 0, 81;
 Exit;
+
+[Rg_EndBattle]
+@Main:
+BBSprite: Frame_1, 5;
+BBSprite: Frame_2, 5;
+BBSprite: Frame_3, 5;
+BBSprite: Frame_4, 5;
+BBSprite: Frame_5, 5;
+BBSprite: Frame_6, 5;
+BBSprite: Frame_7, 5;
+BBSprite: Frame_8, 5;
+BBSprite: Frame_9, 5;
+BBSprite: Frame_10, 5;
+BBSprite: Frame_11, 5;
+BBSprite: Frame_12, 5;
+BBSprite: Frame_13, 5;
+BBSprite: Frame_14, 5;
+BBSprite: Frame_15, 5;
+BBSprite: Frame_16, 5;
+BBSprite: Frame_17, 5;
+return;
 
 [Rg_Hurt]
 @Main:

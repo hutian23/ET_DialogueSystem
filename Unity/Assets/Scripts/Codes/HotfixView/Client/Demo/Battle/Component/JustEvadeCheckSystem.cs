@@ -17,9 +17,13 @@ namespace ET.Client
                 self.startFrame = 0;
                 self.lastFrame = 0;
                 self.functionIndex = 0;
-                
-                b2Body b2Body = b2WorldManager.Instance.GetBody(self.GetParent<BBParser>().GetParent<Unit>().InstanceId);
-                b2Body.DestroyBox("JustEvadeCheckBox");
+
+                long instanceId = self.GetParent<BBParser>().GetParent<Unit>().InstanceId;
+                if (b2WorldManager.Instance.ContainBody(instanceId))
+                {
+                    b2Body b2Body = b2WorldManager.Instance.GetBody(instanceId);
+                    b2Body.DestroyBox("JustEvadeCheckBox");   
+                }
             }
         }
 
