@@ -417,6 +417,8 @@ SetVelocity: 150000, 150000;
 BBSprite: Anticipate_1, 4;
 SetVelocity: 100000, 100000;
 BBSprite: Anticipate_2, 4;
+EnableWhiffCancel: true;
+WhiffOption: Rg_AirDash;
 SetVelocity: 50000, 50000;
 BBSprite: Anticipate_3, 4;
 SetVelocityY: 20000;
@@ -667,7 +669,7 @@ return;
 AirDashAdd: -1;
 # 生成特效
 CreateEffect: ADust
-  CreateEffect_LocalPosition: 35000, 0;
+  CreateEffect_LocalPosition: 25000, 0;
   CreateEffect_Scale: 8000, 3000;
 EndCreateEffect:
 # 精准闪避
