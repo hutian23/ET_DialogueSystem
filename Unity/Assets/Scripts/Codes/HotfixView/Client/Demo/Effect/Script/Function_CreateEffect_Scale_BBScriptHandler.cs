@@ -27,8 +27,11 @@ namespace ET.Client
                 return Status.Failed;
             }
             
+            Unit caster = parser.GetParent<Unit>();
             Unit effect = Root.Instance.Get(parser.GetParam<long>("CreateEffect_UnitId")) as Unit;
-            effect.GetComponent<GameObjectComponent>().GameObject.transform.localScale = new Vector3(scaleX / 10000f, scaleY / 10000f, 1f);
+            b2Body body = b2WorldManager.Instance.GetBody(caster.InstanceId);
+            
+            effect.GetComponent<GameObjectComponent>().GameObject.transform.localScale = new Vector3(scaleX / 10000f * body.GetFlip(), scaleY / 10000f, 1f);
 
             
             await ETTask.CompletedTask;

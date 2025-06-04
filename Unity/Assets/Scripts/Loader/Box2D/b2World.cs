@@ -10,6 +10,7 @@ using Color = Box2DSharp.Common.Color;
 using Transform = Box2DSharp.Common.Transform;
 using Vector2 = System.Numerics.Vector2;
 using ET.Event;
+using Sirenix.OdinInspector;
 
 namespace ET
 {
@@ -38,6 +39,7 @@ namespace ET
         {
             Game.PreRenderCallback -= DrawB2World;
             Game = null;
+            World.Dispose();
         }
 
         public new void Step()

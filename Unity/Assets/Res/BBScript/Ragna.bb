@@ -57,6 +57,9 @@ EndMove:
 RegistMove: (Rg_JC)
   MoveType: Normal;
 EndMove:
+RegistMove: (Rg_PlungingAttack)
+  MoveType: Normal;
+EndMove:
 # RegistMove: (Rg_5D)
 #   MoveType: Normal;
 #   EndMove:
@@ -383,6 +386,8 @@ BBSprite: Anticipate_2, 2;
 BBSprite: Anticipate_3, 2;
 BBSprite: Active_1, 2;
 BBSprite: Active_2, 2;
+EnableWhiffCancel: true;
+WhiffOption: Rg_AirDash;
 RegistCounter: 24;
 BeginLoopAnim: (InAir: true), (Counter: Value > 0)
   LoopSprite: Active_3, 3;
@@ -397,6 +402,55 @@ EndLoopAnim:
 EnableJumpMoveX: 0, false;
 SetVelocityX: 0;
 SetTransition: AirToLand, true;
+Exit;
+
+[Rg_PlungingAttack]
+@Trigger:
+InAir: true;
+InputType: 2LPPressed;
+return;
+
+@Main:
+SetVelocity: 0, 0;
+Gravity: 0;
+SetVelocity: 150000, 150000;
+BBSprite: Anticipate_1, 4;
+SetVelocity: 100000, 100000;
+BBSprite: Anticipate_2, 4;
+SetVelocity: 50000, 50000;
+BBSprite: Anticipate_3, 4;
+SetVelocityY: 20000;
+BBSprite: Anticipate_3, 4;
+SetVelocityY: -50000;
+BBSprite: Anticipate_4, 2;
+SetVelocityY: -350000;
+BBSprite: Anticipate_5, 2;
+SetVelocityY: -550000;
+BBSprite: Active_1, 2;
+BeginLoopAnim: (InAir: true)
+  LoopSprite: Active_2, 4;
+  LoopSprite: Active_3, 4;
+EndLoopAnim:
+CreateEffect: GDust
+  CreateEffect_LocalPosition: 40000, -14000;
+  CreateEffect_Scale: 5000, 3000;
+EndCreateEffect:
+CreateEffect: GDust
+  CreateEffect_LocalPosition: -40000, -14000;
+  CreateEffect_Scale: -5000, 3000;
+EndCreateEffect:
+ScreenShake: 1200, 1200, 12000, 15, 0;
+Gravity: 100000;
+SetVelocity: 0, -1000;
+BBSprite: End_1, 8;
+BBSprite: End_2, 3;
+BBSprite: End_3, 3;
+EnableNandemoCancel: true;
+SetTransition: NoPreSquat, true;
+BBSprite: End_4, 3;
+BBSprite: End_5, 3;
+BBSprite: End_6, 3;
+BBSprite: End_7, 3;
 Exit;
 
 [Rg_5D]
@@ -498,7 +552,6 @@ BBSprite: Attack_10, 3;
 BBSprite: Attack_11, 3;
 BBSprite: Attack_12, 3;
 Exit;
-
 
 [Rg_6P]
 # 进入行为的判定条件
@@ -611,24 +664,11 @@ CanAirDash: true;
 return;
 
 @Main:
-# AirDashAdd: -1;
-# Event: (FallEvent)
-#   EnableGatlingCancel: true;
-#   # 空中冲刺衔接冲刺
-#   EnableFlip: true;
-#   GCOption: Rg_AirDash;
-#   GCOption: Rg_Jump;
-#   # 设置冲刺惯性
-#   ApplyRootMotion: false;
-#   SetVelocityX: 80000;
-# EndEvent:
-# ApplyRootMotion: true;
-# PlayTimeline: 0, 24;
+AirDashAdd: -1;
 # 生成特效
 CreateEffect: ADust
   CreateEffect_LocalPosition: 35000, 0;
   CreateEffect_Scale: 8000, 3000;
-  CreateEffect_Flip: Right;
 EndCreateEffect:
 # 精准闪避
 EnableJustEvadeCheck: 8, 10000, 0, 50000, 40000;
@@ -640,6 +680,7 @@ BBSprite: Anticipate_1, 4;
 BBSprite: Active_1, 3;
 EnableGatlingCancel: true;
 GCOption: Rg_Jump;
+GCOption: Rg_PlungingAttack;
 SetVelocityX: 200000;
 BBSprite: Active_1, 3;
 SetVelocityX: 100000;
@@ -649,13 +690,13 @@ BBSprite: Active_2, 2;
 # Fall
 GCOption: Rg_AirDash;
 Gravity: 100000;
-RegistCounter: 12;
+RegistCounter: 9;
 EnableFlip: true;
 SetTransition: AirToLand, true;
 BeginLoopAnim: (Counter: Value > 0), (InAir: true)
-  LoopSprite: End_1, 4;
-  LoopSprite: End_2, 4;
-  LoopSprite: End_3, 4;
+  LoopSprite: End_1, 3;
+  LoopSprite: End_2, 3;
+  LoopSprite: End_3, 3;
 EndLoopAnim:
 Exit;
 
@@ -687,7 +728,6 @@ RegistJustEvadeCallback: Rg_GroundDash, JustEvadeCallback;
 CreateEffect: GDust
   CreateEffect_LocalPosition: 40000, -12000;
   CreateEffect_Scale: 6000, 4000;
-  CreateEffect_Flip: Right;
 EndCreateEffect:
 BBSprite: Active_1, 3;
 BBSprite: Active_2, 3;
@@ -720,36 +760,36 @@ TacticalTime: 300, 10;
 Invincible: 300;
 return;
 
-[Rg_PlungingAttack]
-@Trigger:
-InAir: true;
-InputType: 2LPPressed;
-return;
+# [Rg_PlungingAttack]
+# @Trigger:
+# InAir: true;
+# InputType: 2LPPressed;
+# return;
 
-@Main:
-Gravity: 0;
-# PreAttack
-ApplyRootMotion: true;
-PlayTimeline: 0, 16;
-ApplyRootMotion: false;
-#Attack
-SetVelocityX: 0;
-SetVelocityY: -600000;
-Test;
-BBSprite: Attack_1, 2;
-BeginLoop: (InAir: true)
-  BBSprite: Attack_2, 3;
-  BBSprite: Attack_3, 3;
-EndLoop:
-#Recovery
-BBSprite: Recovery_1, 4;
-BBSprite: Recovery_2, 4;
-BBSprite: Recovery_3, 4;
-BBSprite: Recovery_4, 4;
-BBSprite: Recovery_5, 4;
-BBSprite: Recovery_6, 4;
-BBSprite: Recovery_7, 4;
-Exit;
+# @Main:
+# Gravity: 0;
+# # PreAttack
+# ApplyRootMotion: true;
+# PlayTimeline: 0, 16;
+# ApplyRootMotion: false;
+# #Attack
+# SetVelocityX: 0;
+# SetVelocityY: -600000;
+# Test;
+# BBSprite: Attack_1, 2;
+# BeginLoop: (InAir: true)
+#   BBSprite: Attack_2, 3;
+#   BBSprite: Attack_3, 3;
+# EndLoop:
+# #Recovery
+# BBSprite: Recovery_1, 4;
+# BBSprite: Recovery_2, 4;
+# BBSprite: Recovery_3, 4;
+# BBSprite: Recovery_4, 4;
+# BBSprite: Recovery_5, 4;
+# BBSprite: Recovery_6, 4;
+# BBSprite: Recovery_7, 4;
+# Exit;
 
 [Rg_QuickFall]
 @Trigger:
