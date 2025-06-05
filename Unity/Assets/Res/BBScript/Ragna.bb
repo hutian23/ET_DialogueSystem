@@ -388,6 +388,9 @@ BBSprite: Active_1, 2;
 BBSprite: Active_2, 2;
 EnableWhiffCancel: true;
 WhiffOption: Rg_AirDash;
+# TC连段
+EnableTargetCancel: true;
+TCOption: Rg_PlungingAttack;
 RegistCounter: 24;
 BeginLoopAnim: (InAir: true), (Counter: Value > 0)
   LoopSprite: Active_3, 3;
@@ -405,6 +408,12 @@ SetTransition: AirToLand, true;
 Exit;
 
 [Rg_PlungingAttack]
+# Target Cancel时调用
+@TC_Trigger:
+InAir: true;
+InputType: 5LPPressed;
+return;
+
 @Trigger:
 InAir: true;
 InputType: 2LPPressed;
@@ -444,12 +453,15 @@ EndCreateEffect:
 ScreenShake: 1200, 1200, 12000, 15, 0;
 Gravity: 100000;
 SetVelocity: 0, -1000;
-BBSprite: End_1, 8;
-BBSprite: End_2, 3;
-BBSprite: End_3, 3;
-EnableNandemoCancel: true;
-SetTransition: NoPreSquat, true;
+BBSprite: End_1, 5;
+EnableWhiffCancel: true;
+WhiffOption: Rg_GroundDash;
+BBSprite: End_1, 5;
+BBSprite: End_2, 4;
+BBSprite: End_3, 4;
 BBSprite: End_4, 3;
+# EnableNandemoCancel: true;
+# SetTransition: NoPreSquat, true;
 BBSprite: End_5, 3;
 BBSprite: End_6, 3;
 BBSprite: End_7, 3;

@@ -59,5 +59,43 @@ namespace ET.Client
             
             return true;
         }
+
+        public static bool TC_Trigger(this BehaviorInfo self)
+        {
+            BBParser parser = self.GetParent<BehaviorMachine>().GetParent<Unit>().GetComponent<BBParser>();
+            
+            //不存在函数
+            int index = parser.GetFunctionPointer(self.behaviorName, "TC_Trigger");
+            if (index < 0)
+            {
+                return false;
+            }
+            
+            for (int i = index + 1; i < parser.OpDict.Count; i++)
+            {
+                string opLine = parser.OpDict[i];
+                if (opLine.Equals("return;"))
+                {
+                    return true;
+                }
+                Match match = Regex.Match(opLine, @"^\w+");
+                if (!match.Success)
+                {
+                    ScripMatchError(opLine);
+                    return false;
+                }
+                
+                //执行TriggerHandler
+                BBTriggerHandler handler = ScriptDispatcherComponent.Instance.GetTrigger(match.Value);
+                BBScriptData data = BBScriptData.Create(opLine, 0);
+                bool ret = handler.Check(parser, data);
+                if (ret is false)
+                {
+                    return false;
+                }
+            }
+            
+            return true;
+        }
     }
 }
