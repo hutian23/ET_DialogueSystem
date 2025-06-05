@@ -60,6 +60,9 @@ EndMove:
 RegistMove: (Rg_5D)
   MoveType: Normal;
 EndMove:
+RegistMove: (Rg_TCEnd)
+  MoveType: Normal;
+EndMove:
 RegistMove: (Rg_JC)
   MoveType: Normal;
 EndMove:
@@ -419,7 +422,7 @@ InAir: false;
 return;
 
 @Trigger:
-TCOption: Rg_5D;
+# TCOption: Rg_5D;
 InputType: 5LPPressed;
 InAir: false;
 return;
@@ -428,6 +431,8 @@ return;
 SetVelocityX: 0;
 BBSprite: Anticipate_1, 3;
 BBSprite: Anticipate_2, 3;
+EnableWhiffCancel: true;
+WhiffOption: Rg_GroundDash;
 BBSprite: Anticipate_3, 3;
 BBSprite: Anticipate_4, 3;
 SetVelocityX: 50000;
@@ -439,13 +444,56 @@ BBSprite: Active_1, 4;
 SetVelocityX: 60000;
 BBSprite: Active_2, 4;
 SetVelocityX: 0;
-BBSprite: Active_2, 10;
+BBSprite: Active_2, 2;
+EnableTargetCancel: true;
+TCOption: Rg_TCEnd;
+BBSprite: Active_2, 3;
+EnableNandemoCancel: true;
+BBSprite: Active_2, 5;
 BBSprite: End_1, 4;
 BBSprite: End_2, 4;
 BBSprite: End_3, 4;
 BBSprite: End_4, 4;
 BBSprite: End_5, 4;
 BBSprite: End_6, 4;
+Exit;
+
+[Rg_TCEnd]
+@TC_Trigger:
+InputType: 5LPPressed;
+InAir: false;
+return;
+
+@Trigger:
+# TCOption: Rg_TCEnd;
+InputType: 5LPPressed;
+InAir: false;
+return;
+
+@Main:
+SetVelocityX: 0;
+BBSprite: Anticipate_1, 2;
+BBSprite: Anticipate_2, 2;
+EnableWhiffCancel: true;
+WhiffOption: Rg_GroundDash;
+BBSprite: Anticipate_3, 2;
+SetVelocityX: 50000;
+BBSprite: Anticipate_4, 3;
+SetVelocityX: 100000;
+BBSprite: Active_1, 3;
+BBSprite: Active_2, 2;
+ScreenShake: 1800, 500, 12000, 15, 0;
+BBSprite: Active_2, 2;
+SetVelocityX: 50000;
+BBSprite: Active_3, 3;
+SetVelocityX: 20000;
+BBSprite: End_1, 4;
+SetVelocityX: 0;
+BBSprite: End_2, 4;
+EnableNandemoCancel: true;
+BBSprite: End_3, 4;
+BBSprite: End_4, 4;
+BBSprite: End_5, 4;
 Exit;
 
 [Rg_JC]
