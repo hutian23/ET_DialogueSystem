@@ -2,17 +2,17 @@
 
 namespace ET.Client
 {
-    public class RootInit_JustEvade_BBScriptHandler : BBScriptHandler
+    public class RootInit_EnableJustEvade_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "JustEvade";
+            return "EnableJustEvade";
         }
 
         // JustEvade: ChargeFrame;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, "JustEvade: (?<ChargeFrame>.*?);");
+            Match match = Regex.Match(data.opLine, "EnableJustEvade: (?<ChargeFrame>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);

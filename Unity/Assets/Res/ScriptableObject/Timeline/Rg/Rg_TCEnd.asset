@@ -857,7 +857,7 @@ MonoBehaviour:
       Data: 6
     - Name: keyframeName
       Entry: 1
-      Data: Whiff_Start
+      Data: Anticipate_3
     - Name: 
       Entry: 8
       Data: 
@@ -869,7 +869,7 @@ MonoBehaviour:
       Data: 26
     - Name: keyframeName
       Entry: 1
-      Data: Whiff_End
+      Data: End_2
     - Name: 
       Entry: 8
       Data: 
@@ -881,7 +881,7 @@ MonoBehaviour:
       Data: 0
     - Name: keyframeName
       Entry: 1
-      Data: 
+      Data: Anticipate_1
     - Name: 
       Entry: 8
       Data: 
@@ -893,7 +893,7 @@ MonoBehaviour:
       Data: 3
     - Name: keyframeName
       Entry: 1
-      Data: 
+      Data: Anticipate_2
     - Name: 
       Entry: 8
       Data: 
@@ -905,7 +905,7 @@ MonoBehaviour:
       Data: 9
     - Name: keyframeName
       Entry: 1
-      Data: 
+      Data: Anticipate_4
     - Name: 
       Entry: 8
       Data: 
@@ -917,7 +917,7 @@ MonoBehaviour:
       Data: 13
     - Name: keyframeName
       Entry: 1
-      Data: 
+      Data: Active_1
     - Name: 
       Entry: 8
       Data: 
@@ -929,7 +929,7 @@ MonoBehaviour:
       Data: 16
     - Name: keyframeName
       Entry: 1
-      Data: 
+      Data: Active_2
     - Name: 
       Entry: 8
       Data: 
@@ -941,7 +941,7 @@ MonoBehaviour:
       Data: 19
     - Name: keyframeName
       Entry: 1
-      Data: 
+      Data: Active_3
     - Name: 
       Entry: 8
       Data: 
@@ -953,7 +953,7 @@ MonoBehaviour:
       Data: 23
     - Name: keyframeName
       Entry: 1
-      Data: 
+      Data: End_1
     - Name: 
       Entry: 8
       Data: 
@@ -965,7 +965,7 @@ MonoBehaviour:
       Data: 29
     - Name: keyframeName
       Entry: 1
-      Data: 
+      Data: End_3
     - Name: 
       Entry: 8
       Data: 
@@ -977,7 +977,7 @@ MonoBehaviour:
       Data: 33
     - Name: keyframeName
       Entry: 1
-      Data: 
+      Data: End_4
     - Name: 
       Entry: 8
       Data: 
@@ -989,7 +989,7 @@ MonoBehaviour:
       Data: 36
     - Name: keyframeName
       Entry: 1
-      Data: 
+      Data: End_5
     - Name: 
       Entry: 8
       Data: 
@@ -1008,4 +1008,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  timelineName: Rg_TC_End
+  timelineName: Rg_TCEnd
