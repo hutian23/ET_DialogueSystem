@@ -72,10 +72,13 @@ RegistMove: (Rg_PlungingAttack)
 EndMove:
 RegistMove: (Rg_AirDash)
   MoveType: Special;
-  EndMove:
+EndMove:
+RegistMove: (Rg_AirDashAttack)
+  MoveType: Special;
+EndMove:
 RegistMove: (Rg_GroundDash)
   MoveType: Special;
-  EndMove:
+EndMove:
 RegistMove: (Rg_HardLand)
   MoveType: Etc;
 EndMove:
@@ -491,7 +494,7 @@ EnableWhiffCancel: true;
 WhiffOption: Rg_AirDash;
 # TC连段
 EnableTargetComboCancel: true;
-TargetComboOption: Rg_PlungingAttack, 50;
+TargetComboOption: Rg_PlungingAttack, 30;
 RegistCounter: 24;
 BeginLoopAnim: (InAir: true), (Counter: Value > 0)
   LoopSprite: Active_3, 3;
@@ -589,17 +592,20 @@ SetVelocity: 300000, 0;
 Gravity: 0;
 BBSprite: Anticipate_1, 4;
 BBSprite: Active_1, 3;
-EnableGatlingCancel: true;
-GCOption: Rg_Jump;
+EnableWhiffCancel: true;
+WhiffOption: Rg_Jump;
+WhiffOption: Rg_PlungingAttack;
+WhiffOption: Rg_AirDashAttack;
+AddFlag: AirDashAttack;
 EnableTargetComboCancel: true;
 SetVelocityX: 200000;
 BBSprite: Active_1, 3;
 SetVelocityX: 100000;
-BBSprite: Active_2, 3;
+BBSprite: Active_2, 2;
 SetVelocityX: 80000;
 BBSprite: Active_2, 2;
 # Fall
-GCOption: Rg_AirDash;
+WhiffOption: Rg_AirDash;
 Gravity: 100000;
 RegistCounter: 9;
 EnableFlip: true;
@@ -611,7 +617,6 @@ BeginLoopAnim: (Counter: Value > 0), (InAir: true)
 EndLoopAnim:
 Exit;
 
-
 @JustEvadeCallback:
 TimeFroze: 20, 5;
 CreateEffect: CircleWave
@@ -622,6 +627,40 @@ TacticalTime: 300, 10;
 Invincible: 300;
 return;
 
+[Rg_AirDashAttack]
+@Trigger:
+Flag: AirDashAttack, true;
+InputType: 5LPPressed;
+InAir: true;
+return;
+
+@Main:
+SetVelocity: 0, 0;
+Gravity: 0;
+BBSprite: Anticipate_1, 2;
+SetVelocityX: 50000;
+BBSprite: Anticipate_2, 2;
+BBSprite: Anticipate_3, 2;
+SetVelocityX: 100000;
+BBSprite: Anticipate_4, 2;
+BBSprite: Anticipate_5, 2;
+SetVelocityX: 250000;
+BBSprite: Active_1, 2;
+BBSprite: Active_2, 2;
+SetVelocityX: 180000;
+BBSprite: Active_2, 2;
+SetVelocityX: 130000;
+BBSprite: Active_3, 3;
+SetVelocityX: 80000;
+BBSprite: End_1, 3;
+BBSprite: End_2, 3;
+BBSprite: End_3, 3;
+Gravity: 100000;
+BBSprite: End_4, 3;
+BBSprite: End_5, 3;
+BBSprite: End_6, 3;
+BBSprite: End_7, 3;
+Exit;
 
 [Rg_GroundDash]
 @Trigger:
@@ -629,7 +668,6 @@ InAir: false;
 InputType: DashPressed;
 CanGroundDash: true;
 return;
-
 
 @Main:
 # In GroundDash

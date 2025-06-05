@@ -12,31 +12,26 @@
             {
                 BehaviorMachine machine = self.GetComponent<BehaviorMachine>();
                 WhiffCancelComponent whiff = self.GetComponent<BBParser>().GetComponent<WhiffCancelComponent>();
-                BehaviorInfo curInfo = machine.GetInfoByOrder(machine.GetCurrentOrder());
 
-                //1. 找到能够取消的行为
                 int currentOrder = -1;
                 foreach (string whiffOption in whiff.Options)
                 {
                     BehaviorInfo info = machine.GetInfoByName(whiffOption);
-                    //当前挥空取消 不能取消进 非控制器层动作 || 待机动作 || 自己
-                    if (info == null || info.moveType >= MoveType.Other || info.behaviorOrder == 0 || info.behaviorOrder == curInfo.behaviorOrder)
+                    //当前挥空取消 不能取消进非控制器层动作
+                    if (info.moveType >= MoveType.Other || info.behaviorOrder == 0 || !info.Trigger())
                     {
                         continue;
                     }
 
-                    if (info.Trigger())
-                    {
-                        currentOrder = info.behaviorOrder;
-                    }
-                }
-                if (currentOrder == -1)
-                {
-                    return;
+                    currentOrder = info.behaviorOrder;
+                    break;
                 }
 
-                //2. 进入行为
-                machine.Reload(currentOrder);
+
+                if (currentOrder != -1)
+                {
+                    machine.Reload(currentOrder);
+                }
             }
         }
         
