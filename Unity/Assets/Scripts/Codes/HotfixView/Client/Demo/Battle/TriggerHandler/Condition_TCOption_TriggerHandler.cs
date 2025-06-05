@@ -9,7 +9,7 @@ namespace ET.Client
             return "TCOption";
         }
 
-        //TCOption: Rg_5C;
+        //TCOption: BehaviorName, BuffFrame;
         public override bool Check(BBParser parser, BBScriptData data)
         {
             Match match = Regex.Match(data.opLine, @"TCOption: (?<Option>\w+);");
@@ -18,7 +18,7 @@ namespace ET.Client
                 ScriptHelper.ScripMatchError(data.opLine);
                 return false;
             }
-
+            
             TargetCancelComponent tc = parser.GetComponent<TargetCancelComponent>();
             return tc != null && tc.Contain(match.Groups["Option"].Value) ;
         }

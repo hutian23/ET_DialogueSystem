@@ -111,6 +111,7 @@ return;
 SetVelocity: 0, 0;
 # 设置一个待机行为，保持idle 300帧之后进入这个行为
 EnableWaitFrameCallback: true, 300, Rg_Idle, IdleAnim;
+EnableTargetCancel: true;
 EnableDefaultCancel: true;
 SetMarker: Loop;
 BBSprite: Idle_1, 4;
@@ -307,28 +308,35 @@ InAir: false;
 return;
 
 @Main:
-# 注册帧事件
-RegistMarkerEvent: Whiff_Start, Rg_5B, Whiff_Start;
-RegistMarkerEvent: TC_Start, Rg_5B, TC_Start;
-RegistMarkerEvent: Nandemo_Start, Rg_5B, Nandemo_Start;
-ApplyRootMotion: true;
-PlayTimeline: 0, 30;
-ApplyRootMotion: false;
-Exit;
-
-@Whiff_Start:
+SetVelocityX: 0;
+BBSprite: Anticipate_1, 2;
+BBSprite: Anticipate_2, 1;
+# 冲刺取消
 EnableWhiffCancel: true;
 WhiffOption: Rg_GroundDash;
-return;
-
-@TC_Start:
+BBSprite: Anticipate_3, 2;
+BBSprite: Anticipate_4, 2;
+SetVelocityX: 30000;
+BBSprite: Anticipate_5, 2;
+SetVelocityX: 50000;
+BBSprite: Anticipate_6, 2;
+SetVelocityX: 100000;
+BBSprite: Anticipate_7, 2;
+BBSprite: Active_1, 2;
+SetVelocityX: 50000;
+BBSprite: Active_1, 2;
+SetVelocityX: 30000;
+BBSprite: Active_2, 3;
+BBSprite: End_1, 2;
+SetVelocityX: 0;
 EnableTargetCancel: true;
-TCOption: Rg_5C;
-return;
-
-@Nandemo_Start:
+TCOption: Rg_5C, 20;
+BBSprite: End_2, 3;
+BBSprite: End_3, 3;
 EnableNandemoCancel: true;
-return;
+BBSprite: End_4, 3;
+BBSprite: End_5, 3;
+Exit;
 
 
 [Rg_5C]
@@ -351,33 +359,32 @@ BBSprite: Anticipate_3, 2;
 # 冲刺取消
 EnableWhiffCancel: true;
 WhiffOption: Rg_GroundDash;
-BBSprite: Anticipate_4, 3;
-BBSprite: Anticipate_5, 3;
+BBSprite: Anticipate_4, 2;
+BBSprite: Anticipate_5, 2;
 SetVelocityX: 80000;
 BBSprite: Anticipate_6, 2;
 # Active
 SetVelocityX: 150000;
-BBSprite: Active_1, 4;
+BBSprite: Active_1, 3;
 SetVelocityX: 80000;
 BBSprite: Active_2, 3;
 # End
-BBSprite: End_1, 3;
+BBSprite: End_1, 2;
 SetVelocityX: 30000;
-BBSprite: End_1, 1;
+BBSprite: End_1, 3;
+SetVelocityX: 0;
 EnableTargetCancel: true;
 TCOption: Rg_5D;
 BBSprite: End_1, 2;
-SetVelocityX: 0;
-BBSprite: End_1, 3;
-BBSprite: End_2, 3;
+BBSprite: End_2, 2;
 EnableNandemoCancel: true;
-BBSprite: End_3, 3;
-BBSprite: End_4, 3;
-BBSprite: End_5, 3;
-BBSprite: End_6, 3;
-BBSprite: End_7, 3;
-BBSprite: End_8, 3;
-BBSprite: End_9, 3;
+BBSprite: End_3, 2;
+BBSprite: End_4, 2;
+BBSprite: End_5, 2;
+BBSprite: End_6, 2;
+BBSprite: End_7, 2;
+BBSprite: End_8, 2;
+BBSprite: End_9, 2;
 Exit;
 
 
@@ -393,35 +400,35 @@ return;
 
 @Main:
 SetVelocityX: 0;
-BBSprite: Anticipate_1, 3;
-BBSprite: Anticipate_2, 3;
+BBSprite: Anticipate_1, 2;
+BBSprite: Anticipate_2, 2;
 # 冲刺取消
 EnableWhiffCancel: true;
 WhiffOption: Rg_GroundDash;
-BBSprite: Anticipate_3, 3;
-BBSprite: Anticipate_4, 3;
+BBSprite: Anticipate_3, 2;
+BBSprite: Anticipate_4, 2;
 SetVelocityX: 50000;
-BBSprite: Anticipate_5, 3;
-BBSprite: Anticipate_6, 3;
+BBSprite: Anticipate_5, 2;
+BBSprite: Anticipate_6, 2;
 SetVelocityX: 100000;
 # 大剑砸地，震屏
 ScreenShake: 1800, 500, 12000, 15, 0;
-BBSprite: Active_1, 4;
+BBSprite: Active_1, 3;
 SetVelocityX: 60000;
 BBSprite: Active_2, 4;
 SetVelocityX: 0;
-BBSprite: Active_2, 2;
+BBSprite: Active_2, 3;
 EnableTargetCancel: true;
 TCOption: Rg_TCEnd;
-BBSprite: Active_2, 3;
+BBSprite: Active_2, 2;
 EnableNandemoCancel: true;
-BBSprite: Active_2, 5;
-BBSprite: End_1, 4;
-BBSprite: End_2, 4;
-BBSprite: End_3, 4;
-BBSprite: End_4, 4;
-BBSprite: End_5, 4;
-BBSprite: End_6, 4;
+BBSprite: Active_2, 4;
+BBSprite: End_1, 3;
+BBSprite: End_2, 3;
+BBSprite: End_3, 3;
+BBSprite: End_4, 3;
+BBSprite: End_5, 3;
+BBSprite: End_6, 3;
 Exit;
 
 

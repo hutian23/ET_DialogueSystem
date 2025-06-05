@@ -26,6 +26,7 @@
             BuffManager buffManager = player.GetComponent<BuffManager>();
             buffManager.AddComponent<HPAbility, int>(100);
             buffManager.AddComponent<SPAbility, int>(100);
+            buffManager.AddComponent<OffsetAbility>(true);
             
             await ETTask.CompletedTask;
             return Status.Success;

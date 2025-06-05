@@ -1535,7 +1535,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 14
     - Name: 
       Entry: 7
       Data: 39|Timeline.EventInfo, Unity.Loader
@@ -1544,7 +1544,7 @@ MonoBehaviour:
       Data: 5
     - Name: keyframeName
       Entry: 1
-      Data: Whiff_Start
+      Data: Anticipate_4
     - Name: 
       Entry: 8
       Data: 
@@ -1553,10 +1553,10 @@ MonoBehaviour:
       Data: 40|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 20
+      Data: 21
     - Name: keyframeName
       Entry: 1
-      Data: TC_Start
+      Data: End_2
     - Name: 
       Entry: 8
       Data: 
@@ -1568,7 +1568,7 @@ MonoBehaviour:
       Data: 13
     - Name: keyframeName
       Entry: 1
-      Data: Hit_Start
+      Data: Active_1
     - Name: 
       Entry: 8
       Data: 
@@ -1577,10 +1577,130 @@ MonoBehaviour:
       Data: 42|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 25
+      Data: 27
     - Name: keyframeName
       Entry: 1
-      Data: Nandemo_Start
+      Data: End_4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 43|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 0
+    - Name: keyframeName
+      Entry: 1
+      Data: Anticipate_1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 44|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 2
+    - Name: keyframeName
+      Entry: 1
+      Data: Anticipate_2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 45|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 3
+    - Name: keyframeName
+      Entry: 1
+      Data: Anticipate_3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 46|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 7
+    - Name: keyframeName
+      Entry: 1
+      Data: Anticipate_5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 47|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 9
+    - Name: keyframeName
+      Entry: 1
+      Data: Anticipate_6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 48|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 11
+    - Name: keyframeName
+      Entry: 1
+      Data: Anticipate_7
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 49|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 15
+    - Name: keyframeName
+      Entry: 1
+      Data: Active_2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 50|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 18
+    - Name: keyframeName
+      Entry: 1
+      Data: End_1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 51|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 24
+    - Name: keyframeName
+      Entry: 1
+      Data: End_3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 52|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 30
+    - Name: keyframeName
+      Entry: 1
+      Data: End_5
     - Name: 
       Entry: 8
       Data: 
