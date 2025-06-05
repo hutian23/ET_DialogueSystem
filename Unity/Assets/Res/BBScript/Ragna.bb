@@ -111,7 +111,6 @@ return;
 SetVelocity: 0, 0;
 # 设置一个待机行为，保持idle 300帧之后进入这个行为
 EnableWaitFrameCallback: true, 300, Rg_Idle, IdleAnim;
-EnableTargetCancel: true;
 EnableDefaultCancel: true;
 SetMarker: Loop;
 BBSprite: Idle_1, 4;
@@ -272,6 +271,7 @@ EnableAirMoveX: 150000, true;
 SetVelocityY: 250000;
 BBSprite: Jump_1, 3;
 Gravity: 100000;
+EnableTargetComboCancel: true;
 EnableGatlingCancel: true;
 BBSprite: Jump_2, 3;
 BBSprite: Jump_1, 3;
@@ -329,8 +329,9 @@ SetVelocityX: 30000;
 BBSprite: Active_2, 3;
 BBSprite: End_1, 2;
 SetVelocityX: 0;
-EnableTargetCancel: true;
-TCOption: Rg_5C, 20;
+# 启动TC窗口
+EnableTargetComboCancel: true;
+TargetComboOption: Rg_5C, 12;
 BBSprite: End_2, 3;
 BBSprite: End_3, 3;
 EnableNandemoCancel: true;
@@ -340,14 +341,13 @@ Exit;
 
 
 [Rg_5C]
-# Target Cancel时调用
-@TC_Trigger:
+@TargetComboTrigger:
 InputType: 5LPPressed;
 InAir: false;
 return;
 
 @Trigger:
-IsTCOption;
+Accessible: false;
 return;
 
 @Main:
@@ -373,43 +373,44 @@ BBSprite: End_1, 2;
 SetVelocityX: 30000;
 BBSprite: End_1, 3;
 SetVelocityX: 0;
-EnableTargetCancel: true;
-TCOption: Rg_5D;
-BBSprite: End_1, 2;
-BBSprite: End_2, 2;
+# 启动TC窗口
+EnableTargetComboCancel: true;
+TargetComboOption: Rg_5D, 20;
+BBSprite: End_1, 3;
+BBSprite: End_2, 3;
 EnableNandemoCancel: true;
-BBSprite: End_3, 2;
-BBSprite: End_4, 2;
-BBSprite: End_5, 2;
-BBSprite: End_6, 2;
-BBSprite: End_7, 2;
-BBSprite: End_8, 2;
-BBSprite: End_9, 2;
+BBSprite: End_3, 3;
+BBSprite: End_4, 3;
+BBSprite: End_5, 3;
+BBSprite: End_6, 3;
+BBSprite: End_7, 3;
+BBSprite: End_8, 3;
+BBSprite: End_9, 3;
 Exit;
 
 
 [Rg_5D]
-@TC_Trigger:
+@TargetComboTrigger:
 InputType: 5LPPressed;
 InAir: false;
 return;
 
 @Trigger:
-IsTCOption;
+Accessible: false;
 return;
 
 @Main:
 SetVelocityX: 0;
-BBSprite: Anticipate_1, 2;
-BBSprite: Anticipate_2, 2;
+BBSprite: Anticipate_1, 3;
+BBSprite: Anticipate_2, 3;
 # 冲刺取消
 EnableWhiffCancel: true;
 WhiffOption: Rg_GroundDash;
-BBSprite: Anticipate_3, 2;
-BBSprite: Anticipate_4, 2;
+BBSprite: Anticipate_3, 3;
+BBSprite: Anticipate_4, 3;
 SetVelocityX: 50000;
-BBSprite: Anticipate_5, 2;
-BBSprite: Anticipate_6, 2;
+BBSprite: Anticipate_5, 3;
+BBSprite: Anticipate_6, 3;
 SetVelocityX: 100000;
 # 大剑砸地，震屏
 ScreenShake: 1800, 500, 12000, 15, 0;
@@ -418,9 +419,9 @@ SetVelocityX: 60000;
 BBSprite: Active_2, 4;
 SetVelocityX: 0;
 BBSprite: Active_2, 3;
-EnableTargetCancel: true;
-TCOption: Rg_TCEnd;
-BBSprite: Active_2, 2;
+EnableTargetComboCancel: true;
+BBSprite: Active_2, 3;
+TargetComboOption: Rg_TCEnd, 40;
 EnableNandemoCancel: true;
 BBSprite: Active_2, 4;
 BBSprite: End_1, 3;
@@ -433,13 +434,13 @@ Exit;
 
 
 [Rg_TCEnd]
-@TC_Trigger:
+@TargetComboTrigger:
 InputType: 5LPPressed;
 InAir: false;
 return;
 
 @Trigger:
-IsTCOption;
+Accessible: false;
 return;
 
 @Main:
@@ -489,8 +490,8 @@ BBSprite: Active_2, 2;
 EnableWhiffCancel: true;
 WhiffOption: Rg_AirDash;
 # TC连段
-EnableTargetCancel: true;
-TCOption: Rg_PlungingAttack;
+EnableTargetComboCancel: true;
+TargetComboOption: Rg_PlungingAttack, 50;
 RegistCounter: 24;
 BeginLoopAnim: (InAir: true), (Counter: Value > 0)
   LoopSprite: Active_3, 3;
@@ -509,7 +510,7 @@ Exit;
 
 
 [Rg_PlungingAttack]
-@TC_Trigger:
+@TargetComboTrigger:
 InAir: true;
 InputType: 5LPPressed;
 return;
@@ -590,7 +591,7 @@ BBSprite: Anticipate_1, 4;
 BBSprite: Active_1, 3;
 EnableGatlingCancel: true;
 GCOption: Rg_Jump;
-GCOption: Rg_PlungingAttack;
+EnableTargetComboCancel: true;
 SetVelocityX: 200000;
 BBSprite: Active_1, 3;
 SetVelocityX: 100000;

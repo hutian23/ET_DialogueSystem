@@ -2,25 +2,25 @@
 
 namespace ET.Client
 {
-    public class Condition_TCOption_TriggerHandler : BBTriggerHandler
+    public class Condition_Accessible_BBScriptHandler: BBTriggerHandler
     {
         public override string GetTriggerType()
         {
-            return "TCOption";
+            return "Accessible";
         }
 
-        //TCOption: BehaviorName, BuffFrame;
+        // 比如普攻连段 1A 2A 3A, 2A 在默认情况下不能进入
+        // Accessible: Active;
         public override bool Check(BBParser parser, BBScriptData data)
         {
-            Match match = Regex.Match(data.opLine, @"TCOption: (?<Option>\w+);");
+            Match match = Regex.Match(data.opLine, @"Accessible: (?<Active>\w+);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
                 return false;
             }
             
-            TargetCancelComponent tc = parser.GetComponent<TargetCancelComponent>();
-            return tc != null && tc.Contain(match.Groups["Option"].Value) ;
+            return match.Groups["Active"].Value.Equals("true");
         }
     }
 }

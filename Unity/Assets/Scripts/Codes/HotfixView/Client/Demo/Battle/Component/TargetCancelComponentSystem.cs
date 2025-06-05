@@ -1,47 +1,45 @@
 ﻿namespace ET.Client
 {
-    [FriendOf(typeof(TargetCancelComponent))]
+    [FriendOf(typeof(TargetComboCancelComponent))]
     public static class TargetCancelComponentSystem
     {
         [Invoke(EventType.TargetCancelTimer)]
-        [FriendOf(typeof(TargetCancelComponent))]
+        [FriendOf(typeof(TargetComboCancelComponent))]
         [FriendOf(typeof(BehaviorInfo))]
+        [FriendOf(typeof(ComboOffsetAbility))]
         public class TargetCancelTimer : BBTimer<Unit>
         {
             protected override void Run(Unit self)
             {
                 BehaviorMachine machine = self.GetComponent<BehaviorMachine>();
-                TargetCancelComponent tc = self.GetComponent<BBParser>().GetComponent<TargetCancelComponent>();
-                
-                //1.  
-                int currentOrder = -1;
-                foreach (string option in tc.Options)
+                ComboOffsetAbility ability = self.GetComponent<BuffManager>().GetComponent<ComboOffsetAbility>();
+
+                int count = ability.bufferQueue.Count;
+                while (count -- > 0)
                 {
-                    BehaviorInfo info = machine.GetInfoByName(option);
-                    if (info == null || info.moveType >= MoveType.Other || info.behaviorOrder == 0)
+                    ComboOffsetBuffer buffer = ability.bufferQueue.Dequeue();
+                    ability.bufferQueue.Enqueue(buffer);
+                 
+                    // 查询behaviorInfo
+                    BehaviorInfo info = machine.GetInfoByName(buffer.behaviorName);
+                    if (info.moveType >= MoveType.Other || info.behaviorOrder == 0)
                     {
                         continue;
                     }
 
-                    if (info.TC_Trigger())
+                    // 技能的代码块中需要声明 TargetComboTrigger()
+                    if (info.TargetComboTrigger())
                     {
-                        currentOrder = info.behaviorOrder;
-                        break;
+                        machine.Reload(buffer.behaviorName);
+                        return;
                     }
                 }
-                if (currentOrder == -1)
-                {
-                    return;
-                }
-
-                //2. 进入动作
-                machine.Reload(currentOrder);
             }
         }
 
-        public class TargetCancelAwakeSystem : AwakeSystem<TargetCancelComponent>
+        public class TargetCancelAwakeSystem : AwakeSystem<TargetComboCancelComponent>
         {
-            protected override void Awake(TargetCancelComponent self)
+            protected override void Awake(TargetComboCancelComponent self)
             {
                 Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
                 BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
@@ -49,24 +47,13 @@
             }
         }
 
-        public class TargetCancelDestroySystem : DestroySystem<TargetCancelComponent>
+        public class TargetCancelDestroySystem : DestroySystem<TargetComboCancelComponent>
         {
-            protected override void Destroy(TargetCancelComponent self)
+            protected override void Destroy(TargetComboCancelComponent self)
             {
                 BBTimerComponent bbTimer = self.GetParent<BBParser>().GetParent<Unit>().GetComponent<BBTimerComponent>();
                 bbTimer.Remove(ref self.timer);
-                self.Options.Clear();
             }
-        }
-
-        public static void Add(this TargetCancelComponent self, string option)
-        {
-            self.Options.Add(option);
-        }
-
-        public static bool Contain(this TargetCancelComponent self, string option)
-        {
-            return self.Options.Contains(option);
         }
     }
 }

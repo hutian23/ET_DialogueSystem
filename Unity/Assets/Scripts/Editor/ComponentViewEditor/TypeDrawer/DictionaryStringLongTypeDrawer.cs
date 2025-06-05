@@ -19,10 +19,10 @@ namespace ET
             EditorGUILayout.LabelField($"{memberName}:");
             foreach ((string k, long v) in dictionary)
             {
-                if (v == 0)
-                {
-                    continue;
-                }
+                // if (v == 0)
+                // {
+                //     continue;
+                // }
                 EditorGUILayout.LongField($"    {k} :", v);
             }
             

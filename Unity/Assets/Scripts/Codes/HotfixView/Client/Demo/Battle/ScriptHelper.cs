@@ -60,12 +60,12 @@ namespace ET.Client
             return true;
         }
 
-        public static bool TC_Trigger(this BehaviorInfo self)
+        public static bool TargetComboTrigger(this BehaviorInfo self)
         {
             BBParser parser = self.GetParent<BehaviorMachine>().GetParent<Unit>().GetComponent<BBParser>();
             
             //不存在函数
-            int index = parser.GetFunctionPointer(self.behaviorName, "TC_Trigger");
+            int index = parser.GetFunctionPointer(self.behaviorName, "TargetComboTrigger");
             if (index < 0)
             {
                 return false;
