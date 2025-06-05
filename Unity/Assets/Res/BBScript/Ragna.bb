@@ -57,6 +57,9 @@ EndMove:
 RegistMove: (Rg_5C)
   MoveType: Normal;
 EndMove:
+RegistMove: (Rg_5D)
+  MoveType: Normal;
+EndMove:
 RegistMove: (Rg_JC)
   MoveType: Normal;
 EndMove:
@@ -339,6 +342,8 @@ return;
 @Main:
 # 注册帧事件
 RegistMarkerEvent: Whiff_Start, Rg_5B, Whiff_Start;
+RegistMarkerEvent: TC_Start, Rg_5B, TC_Start;
+RegistMarkerEvent: Nandemo_Start, Rg_5B, Nandemo_Start;
 ApplyRootMotion: true;
 PlayTimeline: 0, 30;
 ApplyRootMotion: false;
@@ -349,34 +354,55 @@ EnableWhiffCancel: true;
 WhiffOption: Rg_GroundDash;
 return;
 
+@TC_Start:
+EnableTargetCancel: true;
+TCOption: Rg_5C;
+return;
+
+@Nandemo_Start:
+EnableNandemoCancel: true;
+return;
+
 [Rg_5C]
+@TC_Trigger:
+InputType: 5LPPressed;
+InAir: false;
+return;
+
 @Trigger:
-# TCOption: Rg_5C;
+TCOption: Rg_5C;
 InputType: 5LPPressed;
 InAir: false;
 return;
 
 @Main:
+# Anticipate
 SetVelocityX: 0;
 BBSprite: Anticipate_1, 2;
 BBSprite: Anticipate_2, 2;
 BBSprite: Anticipate_3, 2;
 EnableWhiffCancel: true;
 WhiffOption: Rg_GroundDash;
-BBSprite: Anticipate_4, 2;
-BBSprite: Anticipate_5, 2;
+BBSprite: Anticipate_4, 3;
+BBSprite: Anticipate_5, 3;
 SetVelocityX: 80000;
 BBSprite: Anticipate_6, 2;
+# Active
 SetVelocityX: 150000;
-BBSprite: Active_1, 3;
+BBSprite: Active_1, 4;
 SetVelocityX: 80000;
 BBSprite: Active_2, 3;
+# End
 BBSprite: End_1, 3;
 SetVelocityX: 30000;
-BBSprite: End_1, 3;
+BBSprite: End_1, 1;
+EnableTargetCancel: true;
+TCOption: Rg_5D;
+BBSprite: End_1, 2;
 SetVelocityX: 0;
 BBSprite: End_1, 3;
 BBSprite: End_2, 3;
+EnableNandemoCancel: true;
 BBSprite: End_3, 3;
 BBSprite: End_4, 3;
 BBSprite: End_5, 3;
@@ -386,10 +412,41 @@ BBSprite: End_8, 3;
 BBSprite: End_9, 3;
 Exit;
 
-@Whiff_Start:
-EnableWhiffCancel: true;
-WhiffOption: Rg_5C;
+[Rg_5D]
+@TC_Trigger:
+InputType: 5LPPressed;
+InAir: false;
 return;
+
+@Trigger:
+TCOption: Rg_5D;
+InputType: 5LPPressed;
+InAir: false;
+return;
+
+@Main:
+SetVelocityX: 0;
+BBSprite: Anticipate_1, 3;
+BBSprite: Anticipate_2, 3;
+BBSprite: Anticipate_3, 3;
+BBSprite: Anticipate_4, 3;
+SetVelocityX: 50000;
+BBSprite: Anticipate_5, 3;
+BBSprite: Anticipate_6, 3;
+SetVelocityX: 100000;
+ScreenShake: 1800, 500, 12000, 15, 0;
+BBSprite: Active_1, 4;
+SetVelocityX: 60000;
+BBSprite: Active_2, 4;
+SetVelocityX: 0;
+BBSprite: Active_2, 10;
+BBSprite: End_1, 4;
+BBSprite: End_2, 4;
+BBSprite: End_3, 4;
+BBSprite: End_4, 4;
+BBSprite: End_5, 4;
+BBSprite: End_6, 4;
+Exit;
 
 [Rg_JC]
 @Trigger:

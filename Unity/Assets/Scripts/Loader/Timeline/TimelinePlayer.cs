@@ -56,6 +56,7 @@ namespace Timeline
         
         public void Init(BBTimeline timeline)
         {
+            RuntimePlayable?.Dispose();
             RuntimePlayable = RuntimePlayable.Create(timeline, this);
 #if UNITY_EDITOR
             RebindCallback += RuntimePlayable.Rebind;
