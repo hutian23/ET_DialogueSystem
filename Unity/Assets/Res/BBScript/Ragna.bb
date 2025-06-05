@@ -54,6 +54,9 @@ EndMove:
 RegistMove: (Rg_5B)
   MoveType: Normal;
 EndMove:
+RegistMove: (Rg_5C)
+  MoveType: Normal;
+EndMove:
 RegistMove: (Rg_JC)
   MoveType: Normal;
 EndMove:
@@ -88,9 +91,6 @@ RegistMove: (Rg_GroundDash)
 #   MoveType: Etc;
 # EndMove:
 # === Target Combo ===
-RegistMove: (Rg_5C)
-  MoveType: Etc;
-EndMove:
 # ====================
 RegistMove: (Rg_HardLand)
   MoveType: Etc;
@@ -297,13 +297,13 @@ EndIf:
 EnableFlip: true;
 EnableHardLandCheck: 10, 350000;
 Gravity: 0;
-EnableAirMoveX: 150000, true;
-SetVelocityY: 200000;
-BBSprite: Jump_1, 3;
-BBSprite: Jump_2, 3;
 JumpAdd: -1;
+EnableAirMoveX: 150000, true;
+SetVelocityY: 250000;
+BBSprite: Jump_1, 3;
 Gravity: 100000;
 EnableGatlingCancel: true;
+BBSprite: Jump_2, 3;
 BBSprite: Jump_1, 3;
 GCOption: Rg_Jump;
 BBSprite: Jump_2, 3;
@@ -337,30 +337,6 @@ InAir: false;
 return;
 
 @Main:
-# Event: (Whiff_Start)
-#   EnableWhiffCancel: true;
-#   WhiffOption: Rg_GroundDash;
-# EndEvent:
-# Event: (Hit_Start)
-#   # 这里开始，受击回调
-#   # 对于同一对象，在持续帧内仅造成一次攻击(Repeat则为持续帧内，只要发生碰撞，每帧都会回调受击回调)
-#   HitNotify: Once 
-#     EnableGatlingCancel: true;
-#     EnableTargetCancel: true;
-#     TCOption: Rg_5C;
-#     # 受击方切换到受击动作
-#     HitStun: BounceHurt; 
-#     HitStop: 0, 10; 
-#     Shake: 800, 0, 8000, 18; 
-#     HitShake: 1200, 1000, 10000, 18; 
-#     HitVel: -300000, 250000;
-#     EndNotify:
-# EndEvent:
-# Event: (Hit_End)
-#   EnableGatlingCancel: false;
-#   EnableTargetCancel: false;
-#   EnableWhiffCancel: false;
-# EndEvent:
 # 注册帧事件
 RegistMarkerEvent: Whiff_Start, Rg_5B, Whiff_Start;
 ApplyRootMotion: true;
@@ -371,6 +347,48 @@ Exit;
 @Whiff_Start:
 EnableWhiffCancel: true;
 WhiffOption: Rg_GroundDash;
+return;
+
+[Rg_5C]
+@Trigger:
+# TCOption: Rg_5C;
+InputType: 5LPPressed;
+InAir: false;
+return;
+
+@Main:
+SetVelocityX: 0;
+BBSprite: Anticipate_1, 2;
+BBSprite: Anticipate_2, 2;
+BBSprite: Anticipate_3, 2;
+EnableWhiffCancel: true;
+WhiffOption: Rg_GroundDash;
+BBSprite: Anticipate_4, 2;
+BBSprite: Anticipate_5, 2;
+SetVelocityX: 80000;
+BBSprite: Anticipate_6, 2;
+SetVelocityX: 150000;
+BBSprite: Active_1, 3;
+SetVelocityX: 80000;
+BBSprite: Active_2, 3;
+BBSprite: End_1, 3;
+SetVelocityX: 30000;
+BBSprite: End_1, 3;
+SetVelocityX: 0;
+BBSprite: End_1, 3;
+BBSprite: End_2, 3;
+BBSprite: End_3, 3;
+BBSprite: End_4, 3;
+BBSprite: End_5, 3;
+BBSprite: End_6, 3;
+BBSprite: End_7, 3;
+BBSprite: End_8, 3;
+BBSprite: End_9, 3;
+Exit;
+
+@Whiff_Start:
+EnableWhiffCancel: true;
+WhiffOption: Rg_5C;
 return;
 
 [Rg_JC]
