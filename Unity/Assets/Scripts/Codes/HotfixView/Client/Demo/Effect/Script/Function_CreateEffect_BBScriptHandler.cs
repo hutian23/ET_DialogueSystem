@@ -22,7 +22,7 @@ namespace ET.Client
             }
 
             //1. 创建effect unit
-            Unit effect = EffectManager.Instance.AddChild<Unit, int>(1001);
+            Unit effect = BulletManager.Instance.AddChild<Unit, int>(1001);
             
             //2. 添加组件
             GameObject go = GameObjectPoolHelper.GetObjectFromPool(match.Groups["EffectName"].Value);

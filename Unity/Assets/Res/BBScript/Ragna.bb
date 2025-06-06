@@ -10,6 +10,7 @@ PoolObject: DeadSpike, 2;
 PoolObject: CircleWave, 1;
 PoolObject: GDust, 1;
 PoolObject: ADust, 1;
+PoolObject: GDEffect, 1;
 #4. 添加初始Buff
 HP: 10000;
 SP: 200;
@@ -738,6 +739,7 @@ return;
 
 [Rg_GroundDashAttack]
 @Trigger:
+# Accessible: false;
 InputType: 5LPPressed;
 InAir: false;
 return;
@@ -747,6 +749,8 @@ BBSprite: Anticipate_1, 3;
 BBSprite: Anticipate_2, 3;
 BBSprite: Anticipate_3, 3;
 BBSprite: Anticipate_4, 3;
+#特效
+SkillEffect: GDEffect;
 BBSprite: Anticipate_5, 3;
 BBSprite: Anticipate_6, 3;
 BBSprite: Active_1, 4;

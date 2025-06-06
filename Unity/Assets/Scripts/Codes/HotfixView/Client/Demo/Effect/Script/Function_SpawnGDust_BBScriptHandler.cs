@@ -29,7 +29,7 @@ namespace ET.Client
             }
             
             //1. 创建effect unit
-            Unit effect = EffectManager.Instance.AddChild<Unit, int>(1001);
+            Unit effect = BulletManager.Instance.AddChild<Unit, int>(1001);
             Unit caster = parser.GetParent<Unit>();
             b2Body b2Body = b2WorldManager.Instance.GetBody(caster.InstanceId);
             

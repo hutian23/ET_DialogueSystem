@@ -19,7 +19,6 @@ namespace ET.Client
             
             // 运行时生成的 Bullet、Enemy等unit全部挂载BulletManager下，热重载时统一销毁
             currentScene.AddComponent<BulletManager>();
-            currentScene.AddComponent<EffectManager>();
             
             // 热重载时销毁PoolObject，对Prefab进行更新后热重载销毁旧的实例
             currentScene.AddComponent<PoolManager>();
