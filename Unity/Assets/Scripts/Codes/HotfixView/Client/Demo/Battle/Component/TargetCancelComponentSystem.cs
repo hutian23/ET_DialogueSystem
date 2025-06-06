@@ -18,12 +18,12 @@
                 while (count -- > 0)
                 {
                     ComboOffsetBuffer buffer = ability.bufferQueue.Dequeue();
-                    ability.bufferQueue.Enqueue(buffer);
                  
                     // 查询behaviorInfo
                     BehaviorInfo info = machine.GetInfoByName(buffer.behaviorName);
                     if (info.moveType >= MoveType.Other || info.behaviorOrder == 0)
                     {
+                        ability.bufferQueue.Enqueue(buffer);
                         continue;
                     }
 
@@ -33,6 +33,9 @@
                         machine.Reload(buffer.behaviorName);
                         return;
                     }
+                    
+                    // 如果TargetCancel中使用了这个offsetBuffer，从队列中移除
+                    ability.bufferQueue.Enqueue(buffer);
                 }
             }
         }

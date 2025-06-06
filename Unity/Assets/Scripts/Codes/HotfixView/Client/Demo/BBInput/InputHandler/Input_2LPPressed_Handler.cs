@@ -16,7 +16,7 @@
         public override long Handle(InputWait self)
         {
             bool direction = self.IsPressing(BBOperaType.DOWN) || self.IsPressing(BBOperaType.DOWNLEFT) || self.IsPressing(BBOperaType.DOWNRIGHT);
-            return direction && self.WasPressedThisFrame(BBOperaType.X)? self.GetBuffFrame(10): -1;
+            return direction && self.WasPressedThisFrame(BBOperaType.X)? self.GetBuffFrame(12): -1;
         }
     }
 }

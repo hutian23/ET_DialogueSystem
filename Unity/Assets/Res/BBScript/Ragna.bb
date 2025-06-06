@@ -114,6 +114,7 @@ return;
 SetVelocity: 0, 0;
 # 设置一个待机行为，保持idle 300帧之后进入这个行为
 EnableWaitFrameCallback: true, 300, Rg_Idle, IdleAnim;
+EnableTargetComboCancel: true;
 EnableDefaultCancel: true;
 SetMarker: Loop;
 BBSprite: Idle_1, 4;
@@ -143,6 +144,7 @@ return;
 
 @Main:
 SetVelocityX: 0;
+EnableTargetComboCancel: true;
 EnableDefaultCancel: true;
 # MiddleLand
 BeginIf: (LandVel: 350000)
@@ -165,6 +167,7 @@ return;
 @Main:
 #PreRun
 EnableFlip: true;
+EnableTargetComboCancel: true;
 EnableDefaultCancel: true;
 BBSprite: PreRun_1, 2;
 EnableMoveX: 130000, true;
@@ -199,6 +202,7 @@ return;
 @Main:
 SetVelocityX: 0;
 EnableFlip: true;
+EnableTargetComboCancel: true;
 EnableDefaultCancel: true;
 # PreSquat
 BeginIf: (TransitionCached: NoPreSquat, false)
@@ -232,6 +236,7 @@ return;
 
 @Main:
 EnableHardLandCheck: 10, 350000;
+EnableTargetComboCancel: true;
 EnableDefaultCancel: true;
 EnableFlip: true;
 Gravity: 100000;
@@ -274,11 +279,13 @@ EnableAirMoveX: 150000, true;
 SetVelocityY: 250000;
 BBSprite: Jump_1, 3;
 Gravity: 100000;
-EnableTargetComboCancel: true;
 EnableGatlingCancel: true;
+EnableTargetComboCancel: true;
 BBSprite: Jump_2, 3;
 BBSprite: Jump_1, 3;
-GCOption: Rg_Jump;
+# 跳跃取消
+EnableWhiffCancel: true;
+WhiffOption: Rg_Jump;
 BBSprite: Jump_2, 3;
 BBSprite: Jump_1, 3;
 # JumpToFall
@@ -495,9 +502,9 @@ WhiffOption: Rg_AirDash;
 # TC连段
 EnableTargetComboCancel: true;
 TargetComboOption: Rg_PlungingAttack, 30;
-RegistCounter: 24;
+RegistCounter: 23;
 BeginLoopAnim: (InAir: true), (Counter: Value > 0)
-  LoopSprite: Active_3, 3;
+  LoopSprite: Active_3, 2;
   LoopSprite: End_1, 3;
   LoopSprite: End_2, 3;
   LoopSprite: End_3, 3;
@@ -595,9 +602,8 @@ BBSprite: Active_1, 3;
 EnableWhiffCancel: true;
 WhiffOption: Rg_Jump;
 WhiffOption: Rg_PlungingAttack;
-WhiffOption: Rg_AirDashAttack;
-AddFlag: AirDashAttack;
 EnableTargetComboCancel: true;
+TargetComboOption: Rg_AirDashAttack, 9;
 SetVelocityX: 200000;
 BBSprite: Active_1, 3;
 SetVelocityX: 100000;
@@ -628,38 +634,52 @@ Invincible: 300;
 return;
 
 [Rg_AirDashAttack]
-@Trigger:
-Flag: AirDashAttack, true;
+@TargetComboTrigger:
 InputType: 5LPPressed;
 InAir: true;
 return;
 
+@Trigger:
+Accessible: false;
+return;
+
 @Main:
-SetVelocity: 0, 0;
+SetVelocity: 80000, 0;
 Gravity: 0;
-BBSprite: Anticipate_1, 2;
-SetVelocityX: 50000;
-BBSprite: Anticipate_2, 2;
-BBSprite: Anticipate_3, 2;
-SetVelocityX: 100000;
-BBSprite: Anticipate_4, 2;
-BBSprite: Anticipate_5, 2;
+BBSprite: Anticipate_1, 3;
+BBSprite: Anticipate_2, 3;
+BBSprite: Anticipate_3, 3;
+BBSprite: Anticipate_4, 3;
+BBSprite: Anticipate_5, 3;
+SetVelocityX: 300000;
+ScreenShake: 600, 600, 10000, 15, 0;
+BBSprite: Active_1, 4;
 SetVelocityX: 250000;
-BBSprite: Active_1, 2;
 BBSprite: Active_2, 2;
-SetVelocityX: 180000;
+SetVelocityX: 200000;
 BBSprite: Active_2, 2;
-SetVelocityX: 130000;
-BBSprite: Active_3, 3;
+SetVelocityX: 150000;
+BBSprite: Active_3, 2;
 SetVelocityX: 80000;
+EnableWhiffCancel: true;
+WhiffOption: Rg_PlungingAttack;
+WhiffOption: Rg_Jump;
+WhiffOption: Rg_AirDash;
+BBSprite: Active_3, 2;
 BBSprite: End_1, 3;
 BBSprite: End_2, 3;
-BBSprite: End_3, 3;
+# Fall
+SetVelocityX: 40000;
 Gravity: 100000;
-BBSprite: End_4, 3;
-BBSprite: End_5, 3;
-BBSprite: End_6, 3;
-BBSprite: End_7, 3;
+RegistCounter: 10;
+SetTransition: AirToLand, true;
+BeginLoopAnim: (Counter: Value > 0), (InAir: true)
+  LoopSprite: End_3, 2;
+  LoopSprite: End_4, 2;
+  LoopSprite: End_5, 2;
+  LoopSprite: End_6, 2;
+  LoopSprite: End_7, 2;
+EndLoopAnim:
 Exit;
 
 [Rg_GroundDash]
