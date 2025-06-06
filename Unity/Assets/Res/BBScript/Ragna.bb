@@ -79,15 +79,18 @@ EndMove:
 RegistMove: (Rg_GroundDash)
   MoveType: Special;
 EndMove:
+RegistMove: (Rg_GroundDashAttack)
+  MoveType: Special;
+EndMove:
 RegistMove: (Rg_HardLand)
   MoveType: Etc;
 EndMove:
 RegistMove: (Rg_IdleAnim)
   MoveType: Etc;
 EndMove:
-RegistMove: (Rg_Hurt)
-  MoveType: HitStun;
-EndMove:
+# RegistMove: (Rg_Hurt)
+#   MoveType: HitStun;
+# EndMove:
 #8. 进入默认动作
 GotoBehavior: Rg_Idle;
 return;
@@ -732,6 +735,34 @@ TacticalTime: 300, 10;
 Invincible: 300;
 return;
 
+
+[Rg_GroundDashAttack]
+@Trigger:
+InputType: 5LPPressed;
+InAir: false;
+return;
+
+@Main:
+BBSprite: Anticipate_1, 3;
+BBSprite: Anticipate_2, 3;
+BBSprite: Anticipate_3, 3;
+BBSprite: Anticipate_4, 3;
+BBSprite: Anticipate_5, 3;
+BBSprite: Anticipate_6, 3;
+BBSprite: Active_1, 4;
+BBSprite: Active_2, 4;
+BBSprite: End_1, 3;
+BBSprite: End_2, 3;
+BBSprite: End_3, 3;
+BBSprite: End_4, 3;
+BBSprite: End_5, 3;
+BBSprite: End_6, 3;
+BBSprite: End_7, 3;
+BBSprite: End_8, 3;
+BBSprite: End_9, 3;
+BBSprite: End_10, 3;
+BBSprite: End_11, 3;
+Exit;
 
 [Rg_HardLand]
 @Main:
