@@ -346,9 +346,9 @@ SetVelocityX: 0;
 # 启动TC窗口
 EnableTargetComboCancel: true;
 TargetComboOption: Rg_5C, 12;
+EnableNandemoCancel: true;
 BBSprite: End_2, 3;
 BBSprite: End_3, 3;
-EnableNandemoCancel: true;
 BBSprite: End_4, 3;
 BBSprite: End_5, 3;
 Exit;
@@ -387,12 +387,12 @@ BBSprite: End_1, 2;
 SetVelocityX: 30000;
 BBSprite: End_1, 3;
 SetVelocityX: 0;
+BBSprite: End_1, 3;
 # 启动TC窗口
 EnableTargetComboCancel: true;
-TargetComboOption: Rg_5D, 20;
-BBSprite: End_1, 3;
-BBSprite: End_2, 3;
+TargetComboOption: Rg_5D, 24;
 EnableNandemoCancel: true;
+BBSprite: End_2, 3;
 BBSprite: End_3, 3;
 BBSprite: End_4, 3;
 BBSprite: End_5, 3;
@@ -432,10 +432,9 @@ BBSprite: Active_1, 3;
 SetVelocityX: 60000;
 BBSprite: Active_2, 4;
 SetVelocityX: 0;
-BBSprite: Active_2, 3;
+BBSprite: Active_2, 5;
 EnableTargetComboCancel: true;
-BBSprite: Active_2, 3;
-TargetComboOption: Rg_TCEnd, 40;
+TargetComboOption: Rg_TCEnd, 30;
 EnableNandemoCancel: true;
 BBSprite: Active_2, 4;
 BBSprite: End_1, 3;
@@ -708,6 +707,7 @@ EndVFX:
 BBSprite: Active_1, 3;
 BBSprite: Active_2, 3;
 EnableGatlingCancel: true;
+GCOption: Rg_GroundDashAttack;
 GCOption: Rg_Jump;
 BBSprite: Active_3, 3;
 BBSprite: Active_1, 3;
@@ -739,26 +739,35 @@ return;
 
 [Rg_GroundDashAttack]
 @Trigger:
-Accessible: false;
+# Accessible: false;
 InputType: 5LPPressed;
 InAir: false;
 return;
 
 @Main:
-BBSprite: Anticipate_1, 3;
-BBSprite: Anticipate_2, 3;
-BBSprite: Anticipate_3, 3;
-BBSprite: Anticipate_4, 3;
+SetVelocityX: 80000;
 # 技能特效，该技能中断时需要销毁这个特效
 SkillVFX: HellsFang;
+BBSprite: Anticipate_3, 3;
+BBSprite: Anticipate_4, 5;
+SetVelocityX: 250000;
 BBSprite: Anticipate_5, 3;
 BBSprite: Anticipate_6, 3;
+ScreenShake: 0, 1200, 10000, 15, 0;
+BBSprite: Active_1, 5;
+SetVelocityX: 150000;
+BBSprite: Active_2, 3;
 BBSprite: Active_1, 4;
-BBSprite: Active_2, 4;
+SetVelocityX: 100000;
 BBSprite: End_1, 3;
+SetVelocityX: 50000;
 BBSprite: End_2, 3;
+SetVelocityX: 30000;
 BBSprite: End_3, 3;
 BBSprite: End_4, 3;
+EnableNandemoCancel: true;
+SetTransition: NoPreSquat, true;
+SetVelocityX: 0;
 BBSprite: End_5, 3;
 BBSprite: End_6, 3;
 BBSprite: End_7, 3;

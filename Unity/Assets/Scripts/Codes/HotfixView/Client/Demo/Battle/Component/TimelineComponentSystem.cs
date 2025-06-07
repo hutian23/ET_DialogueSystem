@@ -1,4 +1,5 @@
-﻿using Timeline;
+﻿using System.Linq;
+using Timeline;
 
 namespace ET.Client
 {
@@ -63,6 +64,28 @@ namespace ET.Client
         public static void Evaluate(this TimelineComponent self, int targetFrame)
         { 
             self.GetTimelinePlayer().RuntimePlayable.Evaluate(targetFrame);
+        }
+
+        public static int GetTargetFrame(this TimelineComponent self, string markerName)
+        {
+            RuntimePlayable runtimePlayable = self.GetTimelinePlayer().RuntimePlayable;
+            foreach (RuntimeTrack runtimeTrack in runtimePlayable.runtimeTracks)
+            {
+                if (runtimeTrack.Track is not BBEventTrack eventTrack) continue;
+                if (eventTrack.Name.Equals("Marker"))
+                {
+                    EventInfo info = eventTrack.EventInfos.FirstOrDefault(info => info.keyframeName.Equals(markerName));
+                    if (info == null)
+                    {
+                        Log.Error($"not found marker:{markerName}");
+                        return -1;
+                    }
+                    
+                    return info.frame;
+                }
+            }
+
+            return -1;
         }
     }
 }

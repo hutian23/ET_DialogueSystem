@@ -11,17 +11,16 @@
             protected override void Run(Unit self)
             {
                 BehaviorMachine machine = self.GetComponent<BehaviorMachine>();
-            
                 //1. 可以被除了Idle以外的所有动作取消
                 int currentOrder = machine.GetCurrentOrder();
-                for(int i = machine.infoList.Count - 1; i > 0; i--)
+                for (int i = machine.infoList.Count - 1; i > 0; i--)
                 {
                     BehaviorInfo info = machine.GetChild<BehaviorInfo>(machine.infoList[i]);
                     if (info.moveType >= MoveType.Other)
                     {
                         continue;
                     }
-                
+
                     //符合前置条件
                     if (info.Trigger())
                     {
@@ -34,22 +33,21 @@
                     return;
                 }
                 
-           
                 //2. 重载行为
                 machine.Reload(currentOrder);
             }
         }
-        
+
         public class NandemoCancelAwakeSystem : AwakeSystem<NandemoCancelComponent>
         {
             protected override void Awake(NandemoCancelComponent self)
             {
                 Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
-                BBTimerComponent bbTimerComponent = unit.GetComponent<BBTimerComponent>();
-                self.timer = bbTimerComponent.NewFrameTimer(EventType.NandemoCancelTimer,unit);
+                BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
+                self.timer = bbTimer.NewFrameTimer(EventType.NandemoCancelTimer,unit);
             }
         }
-        
+
         public class NandemoCancelDestroySystem : DestroySystem<NandemoCancelComponent>
         {
             protected override void Destroy(NandemoCancelComponent self)
