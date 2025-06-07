@@ -341,71 +341,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instanceId: 0
   Script: {fileID: 1042094116111776886, guid: 96276b69377457a46922fe63f5056084, type: 3}
---- !u!1 &114565510
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 114565511}
-  - component: {fileID: 114565513}
-  - component: {fileID: 114565512}
-  m_Layer: 0
-  m_Name: SquashBox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &114565511
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 114565510}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1437269500}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114565512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 114565510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6899cf270ea44770ac76d099e190c859, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  info:
-    boxName: SquashBox
-    layerType: 2
-    tagType: 0
-    hitboxType: 8
-    isTrigger: 0
-    center: {x: 0, y: -0.62}
-    size: {x: 1.35, y: 3.14}
---- !u!114 &114565513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 114565510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0994411acdf04b3a9e6901f2272621d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &131008095
 GameObject:
   m_ObjectHideFlags: 0
@@ -3387,7 +3322,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d88012929f918e44fb1a3495c881b08a,
+      objectReference: {fileID: 21300000, guid: d42415d7ab91a4144b643a548c033ed5,
         type: 3}
     - target: {fileID: 7728331812354445378, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
@@ -3447,22 +3382,12 @@ PrefabInstance:
         type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 820927558192963316, guid: cb941c738eff80e48a47613d914c2780,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 114565511}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb941c738eff80e48a47613d914c2780, type: 3}
 --- !u!4 &1437269499 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7728331812354445378, guid: cb941c738eff80e48a47613d914c2780,
-    type: 3}
-  m_PrefabInstance: {fileID: 1437269498}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1437269500 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 820927558192963316, guid: cb941c738eff80e48a47613d914c2780,
     type: 3}
   m_PrefabInstance: {fileID: 1437269498}
   m_PrefabAsset: {fileID: 0}

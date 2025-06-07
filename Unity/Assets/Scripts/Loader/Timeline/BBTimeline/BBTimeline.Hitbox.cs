@@ -17,7 +17,7 @@ namespace Timeline
 
         public override Type RuntimeTrackType => typeof (RuntimeHitboxTrack);
 
-        public HitboxKeyframe GetKeyframe(int targetFrame)
+        public HitboxKeyframe GetKeyFrame(int targetFrame)
         {
             foreach (HitboxKeyframe keyframe in Keyframes)
             {
@@ -30,7 +30,7 @@ namespace Timeline
             return null;
         }
 
-        public HitboxKeyframe GetClosestKeyframe(int targetFrame)
+        public HitboxKeyframe GetClosestKeyFrame(int targetFrame)
         {
             int closestFrame = -1;
             foreach (HitboxKeyframe keyFrame in Keyframes)
@@ -47,7 +47,7 @@ namespace Timeline
                 }
             }
 
-            return closestFrame == -1? null : GetKeyframe(closestFrame);
+            return closestFrame == -1? null : this.GetKeyFrame(closestFrame);
         }
 
 #if UNITY_EDITOR
@@ -102,7 +102,7 @@ namespace Timeline
             // Runtime Mode
             if (RuntimePlayable.HasBindUnit())
             {
-                HitboxKeyframe _keyFrame = hitboxTrack.GetKeyframe(targetFrame);
+                HitboxKeyframe _keyFrame = hitboxTrack.GetKeyFrame(targetFrame);
                 if (_keyFrame == null) return;
                 
                 EventSystem.Instance.Invoke(new UpdateHitboxCallback() { instanceId = RuntimePlayable.GetInstanceId(), Keyframe = _keyFrame });
@@ -110,7 +110,7 @@ namespace Timeline
             // Edit Mode
             else
             {
-                HitboxKeyframe _keyFrame = hitboxTrack.GetClosestKeyframe(targetFrame);
+                HitboxKeyframe _keyFrame = hitboxTrack.GetClosestKeyFrame(targetFrame);
                 if (_keyFrame == null) return;
                 
                 GenerateHitbox(_keyFrame);

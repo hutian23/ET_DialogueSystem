@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c5b3524ad82f7148a06c6c02bdf2e1a, type: 3}
-  m_Name: GroundDashEffect
+  m_Name: HellsFang
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -41,7 +41,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: GroundDashEffect_Idle
+      Data: HellsFang_Idle
     - Name: $v
       Entry: 10
       Data: 0

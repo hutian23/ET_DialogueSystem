@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace ET.Client
 {
-    public class Function_CreateEffect_Rotation_BBScriptHandler : BBScriptHandler
+    public class Function_VFX_Rotation_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "CreateEffect_Rotation";
+            return "VFX_Rotation";
         }
 
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {  
-            Match match = Regex.Match(data.opLine, @"CreateEffect_Rotation: (?<rotate>.*?);");
+            Match match = Regex.Match(data.opLine, @"VFX_Rotation: (?<rotate>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -26,7 +26,7 @@ namespace ET.Client
             }
             
             //1. Get Unit
-            Unit effect = Root.Instance.Get(parser.GetParam<long>("CreateEffect_UnitId")) as Unit;
+            Unit effect = Root.Instance.Get(parser.GetParam<long>("VFX_UnitId")) as Unit;
             
             effect.GetComponent<GameObjectComponent>().GameObject.transform.localEulerAngles = new Vector3(0, 0, rotate / 10000f);
             

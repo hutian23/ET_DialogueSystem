@@ -1,10 +1,10 @@
 ﻿namespace ET.Client
 {
-    public class RootInit_EffectInit_BBScriptHandler : BBScriptHandler
+    public class RootInit_VFXInit_BBScriptHandler : BBScriptHandler
     {
         public override string GetOPType()
         {
-            return "EffectInit";
+            return "VFXInit";
         }
 
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)

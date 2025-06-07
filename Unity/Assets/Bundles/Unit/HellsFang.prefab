@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 7310927444905279735}
   - component: {fileID: 2302090027783480823}
   - component: {fileID: 2572420429241471545}
-  - component: {fileID: 8521532015327422719}
+  - component: {fileID: 7412924961866198286}
+  - component: {fileID: 3945310882413993219}
   m_Layer: 0
-  m_Name: GDEffect
+  m_Name: HellsFang
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3391384520834232957}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.4, y: 1.1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 501
-  m_Sprite: {fileID: 21300000, guid: a361cf0680507b44b988e2df2c39167d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b5da352bbdcb2f4d99c4bc29317416f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -107,7 +108,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8521532015327422719
+--- !u!114 &7412924961866198286
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,3 +137,17 @@ MonoBehaviour:
       Data: 
   instanceId: 0
   PlayableGraph: {fileID: 11400000, guid: c4505748b352b7d48a2343411d493c13, type: 2}
+--- !u!114 &3945310882413993219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3391384520834232957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85515fbd351c4f0448693853f9165f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instanceId: 0
+  Script: {fileID: 1042094116111776886, guid: 3c768ecc759c4e34fab5084dc83b257f, type: 3}

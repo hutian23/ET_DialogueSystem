@@ -5,10 +5,10 @@ using UnityEngine.UIElements;
 
 namespace Timeline.Editor
 {
-    public sealed class HitboxTrackView: TimelineTrackView
+    public class VFXTrackView : TimelineTrackView
     {
-        private BBHitboxTrack hitboxTrack => Track as BBHitboxTrack;
-
+        private VFXTrack vfxTrack => this.Track as VFXTrack;
+        
         public override void Init(BBTrack track)
         {
             Track = track;
@@ -16,16 +16,16 @@ namespace Timeline.Editor
             int index = EditorWindow.BBTimeline.Tracks.IndexOf(track);
             transform.position = new Vector3(0, index * 40, 0);
 
-            foreach (HitboxKeyframe keyframe in hitboxTrack.Keyframes)
+            foreach (VFXKeyFrame keyFrame in vfxTrack.KeyFrames)
             {
-                HitboxMarkerView markerView = new();
-                markerView.Init(this, keyframe);
+                VFXMarkerView markerView = new();
+                markerView.Init(this, keyFrame);
 
                 markerViews.Add(markerView);
                 Add(markerView);
             }
         }
-
+        
         public override void Refresh()
         {
             foreach (MarkerView markerView in markerViews)
@@ -33,8 +33,8 @@ namespace Timeline.Editor
                 markerView.Refresh();
             }
         }
-
-        private Vector2 localMousePos;
+        
+         private Vector2 localMousePos;
 
         protected override void OnPointerDown(PointerDownEvent evt)
         {
@@ -63,25 +63,25 @@ namespace Timeline.Editor
             menu.AppendAction("Create Keyframe", _ =>
             {
                 int targetFrame = FieldView.GetClosestFrame(localMousePos.x);
-                EditorWindow.ApplyModify(() => { hitboxTrack.Keyframes.Add(new HitboxKeyframe() { frame = targetFrame }); }, "Create Hitbox Keyframe");
+                EditorWindow.ApplyModify(() => { vfxTrack.KeyFrames.Add(new VFXKeyFrame() { frame = targetFrame }); }, "Create Hitbox Keyframe");
             }, ContainKeyframe(localMousePos.x)? DropdownMenuAction.Status.Hidden : DropdownMenuAction.Status.Normal);
             menu.AppendAction("Remove keyframe", _ =>
             {
                 int targetFrame = FieldView.GetClosestFrame(localMousePos.x);
-                HitboxKeyframe keyframe = hitboxTrack.GetKeyFrame(targetFrame);
-                EditorWindow.ApplyModify(() => { hitboxTrack.Keyframes.Remove(keyframe); }, "Remove hitbox keyframe");
+                VFXKeyFrame keyframe = vfxTrack.GetKeyFrame(targetFrame);
+                EditorWindow.ApplyModify(() => { vfxTrack.KeyFrames.Remove(keyframe); }, "Remove hitbox keyframe");
             }, ContainKeyframe(localMousePos.x)? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Hidden);
             menu.AppendAction("Copy keyframe", _ =>
             {
                 int targetFrame = FieldView.GetClosestFrame(localMousePos.x);
-                HitboxKeyframe copyFrame = MongoHelper.Clone(hitboxTrack.GetKeyFrame(targetFrame));
+                VFXKeyFrame copyFrame = MongoHelper.Clone(vfxTrack.GetKeyFrame(targetFrame));
                 BBTimelineSettings.GetSettings().CopyTarget = copyFrame;
             }, ContainKeyframe(localMousePos.x)? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Hidden);
             menu.AppendAction("Paste keyframe", _ =>
             {
                 int targetFrame = FieldView.GetClosestFrame(localMousePos.x);
-                //copy target not a hitBoxKeyFrame
-                HitboxKeyframe targetKeyframe = BBTimelineSettings.GetSettings().CopyTarget as HitboxKeyframe;
+                //copy target not a eyFrame
+                VFXKeyFrame targetKeyframe = BBTimelineSettings.GetSettings().CopyTarget as VFXKeyFrame;
                 if (targetKeyframe == null)
                 {
                     return;
@@ -93,9 +93,9 @@ namespace Timeline.Editor
                     return;
                 }
 
-                HitboxKeyframe cloneKeyframe = MongoHelper.Clone(targetKeyframe);
+                VFXKeyFrame cloneKeyframe = MongoHelper.Clone(targetKeyframe);
                 cloneKeyframe.frame = targetFrame;
-                EditorWindow.ApplyModify(() => { hitboxTrack.Keyframes.Add(cloneKeyframe); }, "Paste Hitbox Keyframe");
+                EditorWindow.ApplyModify(() => { vfxTrack.KeyFrames.Add(cloneKeyframe); }, "Paste Hitbox Keyframe");
             }, CanPaste()? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Hidden);
         }
 
@@ -109,7 +109,7 @@ namespace Timeline.Editor
         private bool ContainKeyframe(float x)
         {
             int frame = FieldView.GetClosestFrame(x);
-            return hitboxTrack.GetKeyFrame(frame) != null;
+            return vfxTrack.GetKeyFrame(frame) != null;
         }
 
         #endregion

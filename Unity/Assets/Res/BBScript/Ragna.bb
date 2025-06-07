@@ -10,7 +10,7 @@ PoolObject: DeadSpike, 2;
 PoolObject: CircleWave, 1;
 PoolObject: GDust, 1;
 PoolObject: ADust, 1;
-PoolObject: GDEffect, 1;
+PoolObject: HellsFang, 1;
 #4. 添加初始Buff
 HP: 10000;
 SP: 200;
@@ -557,14 +557,14 @@ BeginLoopAnim: (InAir: true)
   LoopSprite: Active_2, 4;
   LoopSprite: Active_3, 4;
 EndLoopAnim:
-CreateEffect: GDust
-  CreateEffect_LocalPosition: 40000, -14000;
-  CreateEffect_Scale: 5000, 3000;
-EndCreateEffect:
-CreateEffect: GDust
-  CreateEffect_LocalPosition: -40000, -14000;
-  CreateEffect_Scale: -5000, 3000;
-EndCreateEffect:
+VFX: GDust
+  VFX_LocalPosition: 40000, -14000;
+  VFX_Scale: 5000, 3000;
+EndVFX:
+VFX: GDust
+  VFX_LocalPosition: -40000, -14000;
+  VFX_Scale: -5000, 3000;
+EndVFX:
 ScreenShake: 1200, 1200, 12000, 15, 0;
 Gravity: 100000;
 SetVelocity: 0, -1000;
@@ -591,10 +591,10 @@ return;
 @Main:
 AirDashAdd: -1;
 # 生成特效
-CreateEffect: ADust
-  CreateEffect_LocalPosition: 25000, 0;
-  CreateEffect_Scale: 8000, 3000;
-EndCreateEffect:
+VFX: ADust
+  VFX_LocalPosition: 25000, 0;
+  VFX_Scale: 8000, 3000;
+EndVFX:
 # 精准闪避
 EnableJustEvadeCheck: 8, 10000, 0, 50000, 40000;
 RegistJustEvadeCallback: Rg_AirDash, JustEvadeCallback;
@@ -629,10 +629,10 @@ Exit;
 
 @JustEvadeCallback:
 TimeFroze: 20, 5;
-CreateEffect: CircleWave
-  CreateEffect_Scale: 70000, 70000;
-  CreateEffect_LocalPosition: -6000, -10000;
-EndCreateEffect:
+VFX: CircleWave
+  VFX_Scale: 70000, 70000;
+  VFX_LocalPosition: -6000, -10000;
+EndVFX:
 TacticalTime: 300, 10;
 Invincible: 300;
 return;
@@ -701,10 +701,10 @@ GroundDashAdd: -1;
 EnableJustEvadeCheck: 8, 0, -5000, 45000, 47000;
 RegistJustEvadeCallback: Rg_GroundDash, JustEvadeCallback;
 # 生成特效
-CreateEffect: GDust
-  CreateEffect_LocalPosition: 40000, -12000;
-  CreateEffect_Scale: 6000, 4000;
-EndCreateEffect:
+VFX: GDust
+  VFX_LocalPosition: 40000, -12000;
+  VFX_Scale: 6000, 4000;
+EndVFX:
 BBSprite: Active_1, 3;
 BBSprite: Active_2, 3;
 EnableGatlingCancel: true;
@@ -728,10 +728,10 @@ Exit;
 
 @JustEvadeCallback:
 TimeFroze: 20, 5;
-CreateEffect: CircleWave
-  CreateEffect_Scale: 70000, 70000;
-  CreateEffect_LocalPosition: -6000, -10000;
-EndCreateEffect:
+VFX: CircleWave
+  VFX_Scale: 70000, 70000;
+  VFX_LocalPosition: -6000, -10000;
+EndVFX:
 TacticalTime: 300, 10;
 Invincible: 300;
 return;
@@ -749,8 +749,8 @@ BBSprite: Anticipate_1, 3;
 BBSprite: Anticipate_2, 3;
 BBSprite: Anticipate_3, 3;
 BBSprite: Anticipate_4, 3;
-#特效
-SkillEffect: GDEffect;
+# 技能特效，该技能中断时需要销毁这个特效
+# SkillVFX: HellsFang;
 BBSprite: Anticipate_5, 3;
 BBSprite: Anticipate_6, 3;
 BBSprite: Active_1, 4;
