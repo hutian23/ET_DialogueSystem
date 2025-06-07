@@ -13,7 +13,13 @@
                     return;
                 }
                 
-                //2. 非对象池管理，直接销毁
+                //2. 场景中的GameObject，保留，热重载时重载其挂载的BBScript
+                if (self.GameObject.GetComponent<SceneObject>() != null)
+                {
+                    return;
+                }
+                
+                //3. 直接销毁
                 UnityEngine.Object.Destroy(self.GameObject);
                 self.GameObject = null;
             }

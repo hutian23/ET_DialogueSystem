@@ -1,6 +1,6 @@
 [Root]
 @RootInit:
-EffectInit;
+VFXInit;
 RegistMove: (GDust_Idle)
   MoveType: None;
 EndMove:

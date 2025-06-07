@@ -14,22 +14,6 @@ namespace ET.Client
             await ResourcesComponent.Instance.LoadBundleAsync($"{currentScene.Name}.unity3d");
             // 切换到map场景
             await SceneManager.LoadSceneAsync(currentScene.Name);
-            
-            currentScene.AddComponent<BattleSceneManager>();
-            
-            // 运行时生成的 Bullet、Enemy等unit全部挂载BulletManager下，热重载时统一销毁
-            currentScene.AddComponent<BulletManager>();
-            
-            // 热重载时销毁PoolObject，对Prefab进行更新后热重载销毁旧的实例
-            currentScene.AddComponent<PoolManager>();
-            
-            currentScene.AddComponent<BBInputManager>();            
-            currentScene.AddComponent<CameraManager>();
-            
-            // 逻辑帧
-            currentScene.AddComponent<BBTimerManager>();
-            // 物理帧
-            currentScene.AddComponent<b2WorldManager>();
         }
     }
 }

@@ -1,6 +1,6 @@
 [Root]
 @RootInit:
-EffectInit;
+VFXInit;
 RegistMove: (ADust_Idle)
   MoveType: None;
 EndMove:

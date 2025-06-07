@@ -750,7 +750,7 @@ BBSprite: Anticipate_2, 3;
 BBSprite: Anticipate_3, 3;
 BBSprite: Anticipate_4, 3;
 # 技能特效，该技能中断时需要销毁这个特效
-# SkillVFX: HellsFang;
+SkillVFX: HellsFang;
 BBSprite: Anticipate_5, 3;
 BBSprite: Anticipate_6, 3;
 BBSprite: Active_1, 4;

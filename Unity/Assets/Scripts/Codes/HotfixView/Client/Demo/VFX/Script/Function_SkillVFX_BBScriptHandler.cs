@@ -18,13 +18,12 @@ namespace ET.Client
                 ScriptHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
-            
+
             Unit caster = parser.GetParent<Unit>();
-            Unit effect = BulletManager.Instance.AddChild<Unit, int>(1001);
-            
-            GameObject go = GameObjectPoolHelper.GetObjectFromPool(match.Groups["EffectName"].Value);
-            effect.AddComponent<GameObjectComponent>().GameObject = go;
-            effect.AddComponent<SkillVFXCaster, long>(caster.InstanceId, true);
+            Unit vfx = BulletManager.Instance.AddChild<Unit, int>(1001);
+
+            // 设置 vfx 父子关系
+            vfx.AddComponent<GameObjectComponent>().GameObject = GameObjectPoolHelper.GetObjectFromPool(match.Groups["EffectName"].Value);
             
             await ETTask.CompletedTask;
             return Status.Success;

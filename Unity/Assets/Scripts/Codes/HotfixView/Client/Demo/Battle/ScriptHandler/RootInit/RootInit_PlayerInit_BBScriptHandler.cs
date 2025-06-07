@@ -21,6 +21,7 @@
             player.AddComponent<ObjectWait>();
             player.AddComponent<InputWait>();
             player.AddComponent<B2Unit>();
+            player.AddComponent<PlayerManager>();
             
             //添加能力
             BuffManager buffManager = player.GetComponent<BuffManager>();

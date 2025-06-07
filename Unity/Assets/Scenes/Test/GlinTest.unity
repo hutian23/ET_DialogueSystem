@@ -3288,42 +3288,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 495028255}
     m_Modifications:
-    - target: {fileID: 4429576325046099631, guid: cb941c738eff80e48a47613d914c2780,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7468455045085988073, guid: cb941c738eff80e48a47613d914c2780,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: c0cd7836fc6803b4f89e9d0e576a4510, type: 2}
     - target: {fileID: 7728331812354445376, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
       propertyPath: m_Name
       value: Ragna
       objectReference: {fileID: 0}
-    - target: {fileID: 7728331812354445376, guid: cb941c738eff80e48a47613d914c2780,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7728331812354445377, guid: cb941c738eff80e48a47613d914c2780,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 2.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 7728331812354445377, guid: cb941c738eff80e48a47613d914c2780,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 4.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 7728331812354445377, guid: cb941c738eff80e48a47613d914c2780,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: d42415d7ab91a4144b643a548c033ed5,
-        type: 3}
     - target: {fileID: 7728331812354445378, guid: cb941c738eff80e48a47613d914c2780,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -23,21 +23,21 @@ namespace ET.Client
                 self.Reload();
             }
         }
-
-        public class b2WorldManagerDestroySystem: DestroySystem<b2WorldManager>
-        {
-            protected override void Destroy(b2WorldManager self)
-            {
-                b2WorldManager.Instance = null;
-                self.Init();
-            }
-        }
         
         public class b2WorldManagerLoadSystem : LoadSystem<b2WorldManager>
         {
             protected override void Load(b2WorldManager self)
             {
                 self.Reload();
+            }
+        }
+        
+        public class b2WorldManagerDestroySystem: DestroySystem<b2WorldManager>
+        {
+            protected override void Destroy(b2WorldManager self)
+            {
+                b2WorldManager.Instance = null;
+                self.Init();
             }
         }
         

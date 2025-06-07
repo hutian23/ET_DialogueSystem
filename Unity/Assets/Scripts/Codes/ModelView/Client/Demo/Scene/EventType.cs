@@ -3,9 +3,4 @@
     public struct BattleSceneInit
     {
     }
-    
-    public struct CreatePlayerView
-    {
-        public Unit player;
-    }
 }
