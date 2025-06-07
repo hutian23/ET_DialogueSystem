@@ -22,7 +22,7 @@ namespace ET.Client
 
             //1. 创建Bullet Unit
             Unit caster = parser.GetParent<Unit>();
-            Unit bullet = BulletManager.Instance.AddChild<Unit, int>(1001);
+            Unit bullet = BattleSceneManager.Instance.AddChild<Unit, int>(1001);
             
             //2. 添加组件
             GameObject go = GameObjectPoolHelper.GetObjectFromPool(match.Groups["BulletName"].Value);

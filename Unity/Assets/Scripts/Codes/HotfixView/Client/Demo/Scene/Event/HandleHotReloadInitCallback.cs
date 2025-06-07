@@ -31,7 +31,7 @@ namespace ET.Client
                 HotReloadManager.Instance.BBScriptQueue.Enqueue(bbScript);
                 
                 Unit unit = BattleSceneManager.Instance.AddChild<Unit, int>(1001);
-
+                
                 // 渲染层传入unit.instanceId
                 unit.AddComponent<GameObjectComponent>().GameObject = bbScript.gameObject;
                 bbScript.instanceId = unit.InstanceId;

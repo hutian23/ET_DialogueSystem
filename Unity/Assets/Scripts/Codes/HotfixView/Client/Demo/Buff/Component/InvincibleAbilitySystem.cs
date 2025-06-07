@@ -28,10 +28,7 @@
             {
                 self.waitFrame = 0;
                 self.cnt = 0;
-                if (b2WorldManager.Instance.ContainBody(self.unitId))
-                {
-                    b2WorldManager.Instance.GetBody(self.unitId).RemoveFilter(FilterType.InvincibleFilter);
-                }
+                b2WorldManager.Instance.GetBody(self.unitId).RemoveFilter(FilterType.InvincibleFilter);
                 self.unitId = 0;
             }
         }

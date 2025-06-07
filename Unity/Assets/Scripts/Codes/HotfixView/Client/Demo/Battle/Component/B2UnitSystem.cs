@@ -27,10 +27,7 @@ namespace ET.Client
         {
             protected override void Destroy(B2Unit self)
             {
-                if (b2WorldManager.Instance.ContainBody(self.unitId))
-                {
-                    b2WorldManager.Instance.DestroyBody(self.unitId);   
-                }
+                b2WorldManager.Instance.DestroyBody(self.unitId);   
             }
         }
     }

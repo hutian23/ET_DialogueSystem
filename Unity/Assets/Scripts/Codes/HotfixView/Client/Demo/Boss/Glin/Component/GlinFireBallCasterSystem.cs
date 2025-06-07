@@ -70,7 +70,7 @@ namespace ET.Client
             for (int i = 0; i < 3; i++)
             {
                 //1. 创建bullet
-                Unit bullet = BulletManager.Instance.AddChild<Unit, int>(1001);
+                Unit bullet = BattleSceneManager.Instance.AddChild<Unit, int>(1001);
                 bullet.AddComponent<GameObjectComponent>().GameObject = GameObjectPoolHelper.GetObjectFromPool("GlinFireball");
                 bullet.AddComponent<BBParser>();
                 b2Body bodyA = b2WorldManager.Instance.GetBody(caster.InstanceId);
@@ -96,7 +96,7 @@ namespace ET.Client
             for (int i = 0; i < 6; i++)
             {
                 //1. 创建bullet
-                Unit bullet = BulletManager.Instance.AddChild<Unit, int>(1001);
+                Unit bullet = BattleSceneManager.Instance.AddChild<Unit, int>(1001);
                 bullet.AddComponent<GameObjectComponent>().GameObject = GameObjectPoolHelper.GetObjectFromPool("GlinFireball");
                 bullet.AddComponent<BBParser>();
 

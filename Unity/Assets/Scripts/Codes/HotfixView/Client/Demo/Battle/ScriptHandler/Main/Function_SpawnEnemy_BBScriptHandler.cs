@@ -30,7 +30,7 @@ namespace ET.Client
             // 创建Unit
             // 我们可以认为,在运行时创建的敌人、子弹都是Bullet, 需要在热重载时销毁这些Unit.
             // 也许运行时生成的所有Unit都可以挂载在BulletManager下?
-            Unit enemy = BulletManager.Instance.AddChild<Unit, int>(1001);
+            Unit enemy = BattleSceneManager.Instance.AddChild<Unit, int>(1001);
             enemy.AddComponent<GameObjectComponent>().GameObject = go;
             enemy.AddComponent<BBParser>();
             go.GetComponent<BBScript>().instanceId = enemy.InstanceId;

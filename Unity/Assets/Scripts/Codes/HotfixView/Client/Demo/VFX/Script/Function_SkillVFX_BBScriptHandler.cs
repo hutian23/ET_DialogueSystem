@@ -20,7 +20,7 @@ namespace ET.Client
             }
 
             Unit caster = parser.GetParent<Unit>();
-            Unit vfx = BulletManager.Instance.AddChild<Unit, int>(1001);
+            Unit vfx = BattleSceneManager.Instance.AddChild<Unit, int>(1001);
 
             // 设置 vfx 父子关系
             vfx.AddComponent<GameObjectComponent>().GameObject = GameObjectPoolHelper.GetObjectFromPool(match.Groups["EffectName"].Value);

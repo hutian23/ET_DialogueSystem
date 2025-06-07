@@ -42,7 +42,7 @@
             }
         }
 
-        private static void Freeze(this TacticalTimeBuff self, int hertz)
+        private static void Freeze(this TacticalTimeBuff _, int hertz)
         {
             int count = BBTimerManager.Instance.instanceIds.Count;
             while (count-- > 0)
