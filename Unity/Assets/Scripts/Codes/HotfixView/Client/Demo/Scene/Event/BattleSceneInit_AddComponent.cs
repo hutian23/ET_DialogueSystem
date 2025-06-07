@@ -1,5 +1,4 @@
 ﻿using ET.EventType;
-using UnityEngine;
 
 namespace ET.Client
 {
@@ -25,28 +24,8 @@ namespace ET.Client
             // 物理帧
             currentScene.AddComponent<b2WorldManager>();
             
-            // 场景中挂载了BBScript脚本的GameObject缓存在此单例中
+            // 热重载管理器，场景中挂载了BBScript脚本的GameObject缓存在此单例中
             currentScene.AddComponent<HotReloadManager>();
-            
-            GameObject _root = GameObject.Find("_Root");
-            if (_root == null)
-            {
-                Log.Error($"cannot found GameObject _Root in currentScene: {scene.Name}");
-                return;
-            }
-            
-            //1. 生成Scene Unit
-            foreach (BBScript bbScript in _root.GetComponentsInChildren<BBScript>())
-            {
-                Unit unit = BattleSceneManager.Instance.AddChild<Unit, int, UnitType>(1001, UnitType.Monster);
-
-                //渲染层传入unit.instanceId
-                unit.AddComponent<GameObjectComponent>().GameObject = bbScript.gameObject;
-                bbScript.instanceId = unit.InstanceId;
-
-                //逻辑层
-                unit.AddComponent<BBParser>();
-            }
             
             await ETTask.CompletedTask;
         }
