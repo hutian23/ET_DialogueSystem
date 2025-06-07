@@ -14,14 +14,6 @@ namespace ET.Client
             }
         }
         
-        public class BBParserLoadSystem : LoadSystem<BBParser>
-        {
-            protected override void Load(BBParser self)
-            {
-                EventSystem.Instance.Invoke(new ProcessBBScriptCallback(){instanceId = self.InstanceId});
-            }
-        }
-        
         public class BBParserDestroySystem: DestroySystem<BBParser>
         {
             protected override void Destroy(BBParser self)

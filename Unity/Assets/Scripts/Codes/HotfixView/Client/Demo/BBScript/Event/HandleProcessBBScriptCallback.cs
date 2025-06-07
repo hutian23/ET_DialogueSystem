@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using Timeline;
 
@@ -21,14 +20,7 @@ namespace ET.Client
             injector.hertz = 60;
             
             //2. 初始化
-            //2-1 取消当前行为协程
             bbParser.Init();
-            //2-2 热重载时，只保留实现了IController接口的组件
-            ListComponent<Entity> removeList = ListComponent<Entity>.Create();
-            removeList.AddRange(unit.Children.Values.Where(child => !typeof (ILoadCached).IsAssignableFrom(child.GetType())));
-            removeList.AddRange(unit.Components.Values.Where(component => !typeof (ILoadCached).IsAssignableFrom(component.GetType())));
-            removeList.ForEach(entity => entity.Dispose());
-            removeList.Dispose();
 
             //3. 解析bbScript  TODO 这里还没想好打包后如何解析BBScript
             string script = Define.IsEditor ? File.ReadAllText(bbScript.Script.GetPath()) : string.Empty;

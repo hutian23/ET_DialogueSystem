@@ -739,7 +739,7 @@ return;
 
 [Rg_GroundDashAttack]
 @Trigger:
-# Accessible: false;
+Accessible: false;
 InputType: 5LPPressed;
 InAir: false;
 return;
