@@ -19,7 +19,7 @@ EnableJump: 2;
 EnableAirCheck;
 EnableGroundDash: 2, 70;
 EnableAirDash: 2;
-EnableGravityCheck: 100000, 150000, 450000;        
+EnableGravityCheck: 100000, 200000, 450000;        
 EnableHardLandCheck: 10, 450000;   
 #5. 注册输入缓冲
 RegistInput: RunHold;
@@ -72,15 +72,18 @@ RegistMove: (Rg_PlungingAttack)
   MoveType: Normal;
 EndMove:
 RegistMove: (Rg_AirDash)
-  MoveType: Special;
+  MoveType: Normal;
 EndMove:
 RegistMove: (Rg_AirDashAttack)
   MoveType: Special;
 EndMove:
 RegistMove: (Rg_GroundDash)
-  MoveType: Special;
+  MoveType: Normal;
 EndMove:
 RegistMove: (Rg_GroundDashAttack)
+  MoveType: Special;
+EndMove:
+RegistMove: (Rg_BloodScythe)
   MoveType: Special;
 EndMove:
 RegistMove: (Rg_HardLand)
@@ -245,7 +248,7 @@ EnableDefaultCancel: true;
 EnableFlip: true;
 Gravity: 100000;
 EnableAirMoveX: 150000, true;
-BBSprite: JumpToFall_5, 4;
+BBSprite: JumpToFall_5, 3;
 # AirBone
 BeginLoopAnim: (InAir: true)
   LoopSprite: Fall_1, 3;
@@ -602,6 +605,7 @@ SetVelocity: 300000, 0;
 Gravity: 0;
 BBSprite: Anticipate_1, 4;
 BBSprite: Active_1, 3;
+EnableGatlingCancel: true;
 EnableWhiffCancel: true;
 WhiffOption: Rg_Jump;
 WhiffOption: Rg_PlungingAttack;
@@ -706,8 +710,9 @@ VFX: GDust
 EndVFX:
 BBSprite: Active_1, 3;
 BBSprite: Active_2, 3;
+EnableTargetComboCancel: true;
+TargetComboOption: Rg_GroundDashAttack, 18;
 EnableGatlingCancel: true;
-GCOption: Rg_GroundDashAttack;
 GCOption: Rg_Jump;
 BBSprite: Active_3, 3;
 BBSprite: Active_1, 3;
@@ -738,10 +743,13 @@ return;
 
 
 [Rg_GroundDashAttack]
-@Trigger:
-# Accessible: false;
+@TargetComboTrigger:
 InputType: 5LPPressed;
 InAir: false;
+return;
+
+@Trigger:
+Accessible: false;
 return;
 
 @Main:
@@ -775,6 +783,46 @@ BBSprite: End_8, 3;
 BBSprite: End_9, 3;
 BBSprite: End_10, 3;
 BBSprite: End_11, 3;
+Exit;
+
+
+[Rg_BloodScythe]
+@Trigger:
+InputType: 5MPPressed;
+return;
+
+@Main:
+SetVelocity: 0, 0;
+Gravity: 0;
+BBSprite: Anticipate_1, 2;
+SetVelocity: 250000, 300000;
+BBSprite: Anticipate_2, 2;
+SetVelocityY: 200000;
+BBSprite: Anticipate_3, 4;
+SetVelocityY: 130000;
+BBSprite: Anticipate_4, 4;
+SetVelocityY: 80000;
+BBSprite: Anticipate_5, 2;
+BBSprite: Anticipate_6, 2;
+BBSprite: Anticipate_7, 3;
+SetVelocityY: -50000;
+BBSprite: Active_1, 3;
+BBSprite: Active_2, 3;
+SetVelocityY: -100000;
+Gravity: 140000;
+BBSprite: Active_3, 2;
+ScreenShake: 1200, 1200, 15000, 20, 0;
+BBSprite: Active_3, 4;
+BBSprite: End_1, 4;
+RegistCounter: 9;
+BeginLoopAnim: (InAir: true), (Counter: Value > 0)
+  LoopSprite: End_2, 3;
+  LoopSprite: End_3, 3;
+  LoopSprite: End_4, 3;
+EndLoopAnim:
+SetVelocity: 0, 0;
+BBSprite: End_5, 4;
+SetTransition: AirToLand, true;
 Exit;
 
 [Rg_HardLand]
