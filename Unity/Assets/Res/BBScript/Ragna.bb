@@ -86,6 +86,12 @@ EndMove:
 RegistMove: (Rg_BloodScythe)
   MoveType: Special;
 EndMove:
+RegistMove: (Rg_CarnageScissors_Step1)
+  MoveType: Special;
+EndMove:
+RegistMove: (Rg_CarnageScissors_Step2)
+  MoveType: Special;
+EndMove:
 RegistMove: (Rg_HardLand)
   MoveType: Etc;
 EndMove:
@@ -825,20 +831,109 @@ EndIf:
 Gravity: 100000;
 BBSprite: Active_1, 3;
 BBSprite: Active_2, 3;
-ScreenShake: 1200, 1200, 15000, 20, 0;
+# ScreenShake: 1800, 1200, 15000, 20, 0;
 BBSprite: Active_3, 6;
 # Recovery
 SetVelocityX: 100000;
 BBSprite: End_1, 3;
 BBSprite: End_2, 3;
 BeginLoopAnim: (InAir: true)
-  LoopSprite: End_4, 3;
+  LoopSprite: End_4, 4;
 EndLoopAnim:
 SetVelocity: 0, 0;
 BBSprite: End_5, 4;
 SetTransition: AirToLand, true;
 Exit;
 
+
+[Rg_CarnageScissors_Step1]
+@Trigger:
+InAir: false;
+InputType: 5MPPressed;
+return;
+
+@Main:
+SetVelocityX: 0;
+BBSprite: Anticipate_1, 2;
+BBSprite: Anticipate_2, 2;
+BBSprite: Anticipate_3, 3;
+SetVelocityX: 300000;
+# HitNotify: Rg_CarnageScissors_Step1, Hit1, Once;
+BBSprite: Active_1, 3;
+CallSubCoroutine: Rg_CarnageScissors_Step1, VelCor;
+RegistCounter: 12;
+BeginLoopAnim: (Counter: Value > 0)
+  LoopSprite: Active_1, 4;
+  LoopSprite: Active_2, 4;
+EndLoopAnim:
+BBSprite: Active_3, 3;
+SetVelocityX: 100000;
+BBSprite: Active_4, 4;
+SetVelocityX: 50000;
+BBSprite: Active_5, 4;
+SetVelocityX: 0;
+BBSprite: End_1, 4;
+BBSprite: End_2, 3;
+EnableWhiffCancel: true;
+WhiffOption: Rg_GroundDash;
+BBSprite: End_2, 3;
+BBSprite: End_3, 4;
+FlipReverse;
+GotoBehavior: Rg_CarnageScissors_Step2;
+EnableNandemoCancel: true;
+BBSprite: End_4, 4;
+BBSprite: End_5, 4;
+BBSprite: End_6, 4;
+BBSprite: End_7, 4;
+BBSprite: End_8, 4;
+BBSprite: End_9, 4;
+Exit;
+
+@VelCor:
+SetVelocityX: 400000;
+WaitFrame: 4;
+SetVelocityX: 350000;
+WaitFrame: 4;
+SetVelocityX: 280000;
+WaitFrame: 4;
+SetVelocityX: 200000;
+return;
+
+@Hit1:
+Flag: Hit, true;
+return;
+
+[Rg_CarnageScissors_Step2]
+@Trigger:
+# InAir: false;
+# InputType: 5MPPressed;
+Accessible: false;
+return;
+
+@Main:
+BBSprite: Anticipate_1, 2;
+BBSprite: Anticipate_2, 2;
+BBSprite: Anticipate_3, 2;
+BBSprite: Anticipate_4, 3;
+BBSprite: Anticipate_5, 3;
+BBSprite: Anticipate_6, 3;
+BBSprite: Anticipate_7, 4;
+ScreenShake: 1500, 800, 10000, 15, 0;
+CreateBullet: DeadSpike
+  BulletLocalPosition: -40000, -7500;
+EndCreateBullet:
+BBSprite: Active_1, 3;
+BBSprite: Active_2, 5;
+BBSprite: Active_3, 5;
+BBSprite: End_1, 4;
+BBSprite: End_2, 4;
+BBSprite: End_3, 4;
+BBSprite: End_4, 4;
+BBSprite: End_5, 4;
+BBSprite: End_6, 4;
+BBSprite: End_7, 4;
+BBSprite: End_8, 4;
+Exit;
 
 [Rg_HardLand]
 @Main:
