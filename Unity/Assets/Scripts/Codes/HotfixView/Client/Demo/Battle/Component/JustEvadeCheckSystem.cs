@@ -11,19 +11,16 @@ namespace ET.Client
         {
             protected override void Destroy(JustEvadeCheck self)
             {
-                self.token.Cancel();
+                b2Body b2Body = b2WorldManager.Instance.GetBody(self._instanceId);
+                b2Body.DestroyBox("JustEvadeCheckBox");
+                self._instanceId = 0;
+                
                 self.boxOffset = Vector2.Zero;
                 self.boxSize = Vector2.Zero;
-                self.startFrame = 0;
                 self.lastFrame = 0;
                 self.functionIndex = 0;
-
-                long instanceId = self.GetParent<BBParser>().GetParent<Unit>().InstanceId;
-                if (b2WorldManager.Instance.ContainBody(instanceId))
-                {
-                    b2Body b2Body = b2WorldManager.Instance.GetBody(instanceId);
-                    b2Body.DestroyBox("JustEvadeCheckBox");   
-                }
+             
+                self.token.Cancel();
             }
         }
 
@@ -72,7 +69,7 @@ namespace ET.Client
 
         public static void Init(this JustEvadeCheck self, int lastFrame, Vector2 center, Vector2 size)
         {
-            self.startFrame = BBTimerManager.Instance.SceneTimer().GetNow();
+            self._instanceId = self.GetParent<BBParser>().GetParent<Unit>().InstanceId;
             self.lastFrame = lastFrame;
             self.boxOffset = center;
             self.boxSize = size;
@@ -94,7 +91,11 @@ namespace ET.Client
                 CollisionStayId = CollisionStayType.HandleCallback,
                 CollisionExitId = CollisionExitType.HandleCallback
             };
-            EventSystem.Instance.Invoke<CreateB2BoxCallback, b2Box>(new CreateB2BoxCallback() { instanceId = self.GetParent<BBParser>().GetParent<Unit>().InstanceId, boxDef = boxDef });
+            EventSystem.Instance.Invoke<CreateB2BoxCallback, b2Box>(new CreateB2BoxCallback()
+            {
+                instanceId = self.GetParent<BBParser>().GetParent<Unit>().InstanceId, 
+                boxDef = boxDef
+            });
             
             // 窗口期过后销毁组件
             self.DisposeCor().Coroutine();

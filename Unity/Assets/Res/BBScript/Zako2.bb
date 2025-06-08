@@ -1,10 +1,13 @@
 [Root]
 @RootInit:
-PoolObject: GDust, 1;
 EnemyInit;
+PoolObject: GDust, 1;
 HP: 200;
 EnableAirCheck;
-EnableGravityCheck: 100000, 150000, 450000;    
+EnableGravityCheck: 100000, 150000, 450000;  
+RegistMove: (Zako2_Idle)
+  MoveType: None;
+EndMove:  
 RegistMove: (Zako2_Spawn)
   MoveType: None;
 EndMove:
@@ -35,13 +38,26 @@ EndMove:
 RegistMove: (Zako2_Death)
   MoveType: Death;
 EndMove:
-GotoBehavior: Zako2_Spawn;
+# GotoBehavior: Zako2_Spawn;
+GotoBehavior: Zako2_Idle;
 return;
 
 @HPWatcher:
 BeginIf: (HP: Value <= 0)
   GotoBehavior: Zako2_Death;
 EndIf:
+return;
+
+[Zako2_Idle]
+@Main:
+SetMarker: Loop;
+BBSprite: Idle_1, 5;
+BBSprite: Idle_2, 5;
+BBSprite: Idle_3, 5;
+BBSprite: Idle_4, 5;
+BBSprite: Idle_5, 5;
+BBSprite: Idle_6, 5;
+GotoMarker: Loop;
 return;
 
 [Zako2_Spawn]

@@ -436,7 +436,7 @@ BBSprite: Anticipate_5, 3;
 BBSprite: Anticipate_6, 3;
 SetVelocityX: 100000;
 # 大剑砸地，震屏
-ScreenShake: 1800, 500, 12000, 15, 0;
+ScreenShake: 500, 2000, 10000, 20, 0;
 BBSprite: Active_1, 3;
 SetVelocityX: 60000;
 BBSprite: Active_2, 4;
@@ -857,20 +857,28 @@ SetVelocityX: 0;
 BBSprite: Anticipate_1, 2;
 BBSprite: Anticipate_2, 2;
 BBSprite: Anticipate_3, 3;
-SetVelocityX: 300000;
+SetVelocityX: 350000;
+EnableAttackRangeCheck: true, -30000, 0, 35000, 40000;
 # HitNotify: Rg_CarnageScissors_Step1, Hit1, Once;
-BBSprite: Active_1, 3;
+BBSprite: Active_1, 4;
 CallSubCoroutine: Rg_CarnageScissors_Step1, VelCor;
 RegistCounter: 12;
-BeginLoopAnim: (Counter: Value > 0)
-  LoopSprite: Active_1, 4;
+BeginLoopAnim: (InAttackRange: false), (Counter: Value > 0)
   LoopSprite: Active_2, 4;
+  LoopSprite: Active_1, 4;
 EndLoopAnim:
+BeginIf: (Counter: Value > 0)
+  AddFlag: Hit;
+EndIf:
+EnableAttackRangeCheck: false, 0, 0, 0, 0;
+SetVelocityX: 200000;
 BBSprite: Active_3, 3;
-SetVelocityX: 100000;
+SetVelocityX: 130000;
 BBSprite: Active_4, 4;
-SetVelocityX: 50000;
-BBSprite: Active_5, 4;
+SetVelocityX: 80000;
+BBSprite: Active_5, 2;
+SetVelocityX: 40000;
+BBSprite: Active_5, 2;
 SetVelocityX: 0;
 BBSprite: End_1, 4;
 BBSprite: End_2, 3;
@@ -878,8 +886,9 @@ EnableWhiffCancel: true;
 WhiffOption: Rg_GroundDash;
 BBSprite: End_2, 3;
 BBSprite: End_3, 4;
-FlipReverse;
-GotoBehavior: Rg_CarnageScissors_Step2;
+BeginIf: (Flag: Hit, true)
+  GotoBehavior: Rg_CarnageScissors_Step2;
+EndIf:
 EnableNandemoCancel: true;
 BBSprite: End_4, 4;
 BBSprite: End_5, 4;
@@ -890,12 +899,10 @@ BBSprite: End_9, 4;
 Exit;
 
 @VelCor:
-SetVelocityX: 400000;
-WaitFrame: 4;
-SetVelocityX: 350000;
-WaitFrame: 4;
-SetVelocityX: 280000;
-WaitFrame: 4;
+SetVelocityX: 300000;
+WaitFrame: 3;
+SetVelocityX: 250000;
+WaitFrame: 3;
 SetVelocityX: 200000;
 return;
 
@@ -918,11 +925,11 @@ BBSprite: Anticipate_4, 3;
 BBSprite: Anticipate_5, 3;
 BBSprite: Anticipate_6, 3;
 BBSprite: Anticipate_7, 4;
-ScreenShake: 1500, 800, 10000, 15, 0;
+ScreenShake: 2000, 500, 10000, 20, 0;
 CreateBullet: DeadSpike
-  BulletLocalPosition: -40000, -7500;
+  BulletLocalPosition: -20000, -7500;
 EndCreateBullet:
-BBSprite: Active_1, 3;
+BBSprite: Active_1, 4;
 BBSprite: Active_2, 5;
 BBSprite: Active_3, 5;
 BBSprite: End_1, 4;
