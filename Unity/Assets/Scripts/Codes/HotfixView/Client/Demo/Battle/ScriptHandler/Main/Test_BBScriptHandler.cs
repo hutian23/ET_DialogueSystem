@@ -47,7 +47,10 @@ namespace ET.Client
 
             // parser.GetParent<Unit>().GetComponent<BuffManager>().AddComponent<IcyFreezeBuff, int, long>(300, parser.GetParent<Unit>().InstanceId);
 
-            parser.GetParent<Unit>().GetComponent<BuffManager>().AddComponent<TacticalTimeBuff, int, int>(100, 10, true);
+            // parser.GetParent<Unit>().GetComponent<BuffManager>().AddComponent<TacticalTimeBuff, int, int>(100, 10, true);
+
+            Counter cnt = parser.GetComponent<Counter>();
+            Log.Warning(cnt.GetCounter().ToString());
             
             await ETTask.CompletedTask;
             return Status.Success;

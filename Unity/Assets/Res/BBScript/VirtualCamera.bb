@@ -7,8 +7,8 @@ Camera_Priority: DefaultCamera, 100;
 Camera_OrthoSize: DefaultCamera, 85000;
 Camera_XDamping: DefaultCamera, 25000;
 Camera_YDamping: DefaultCamera, 8000;
-Camera_DeadZone: DefaultCamera, 20, 5;
-Camera_SoftZone: DefaultCamera, 40, 20;
+Camera_DeadZone: DefaultCamera, 40, 15;
+Camera_SoftZone: DefaultCamera, 60, 30;
 Camera_Screen: DefaultCamera, 50, 75;
 Camera_Bias: DefaultCamera, 0, 0;
 # TargetGroupCamera
