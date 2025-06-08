@@ -27,6 +27,7 @@ RegistInput: SquatHold;
 RegistInput: 2LPPressed;
 RegistInput: 5LPPressed;
 RegistInput: 5LPHold;
+RegistInput: 8MPPressed;
 RegistInput: 5MPPressed;
 RegistInput: 5MPPressing;
 RegistInput: QuickFallPressed;
@@ -83,13 +84,13 @@ EndMove:
 RegistMove: (Rg_GroundDashAttack)
   MoveType: Special;
 EndMove:
-RegistMove: (Rg_BloodScythe)
-  MoveType: Special;
-EndMove:
 RegistMove: (Rg_CarnageScissors_Step1)
   MoveType: Special;
 EndMove:
 RegistMove: (Rg_CarnageScissors_Step2)
+  MoveType: Special;
+EndMove:
+RegistMove: (Rg_BloodScythe)
   MoveType: Special;
 EndMove:
 RegistMove: (Rg_HardLand)
@@ -791,61 +792,6 @@ BBSprite: End_10, 3;
 BBSprite: End_11, 3;
 Exit;
 
-
-[Rg_BloodScythe]
-@Trigger:
-CanJump: true;
-InputType: 5MPPressed;
-return;
-
-@Main:
-# Anticipate
-JumpAdd: -1;
-Gravity: 0;
-SetVelocity: 0, 0;
-BBSprite: Anticipate_1, 2;
-BBSprite: Anticipate_2, 2;
-SetVelocity: 300000, 250000;
-EnableWhiffCancel: true;
-WhiffOption: Rg_AirDash;
-BBSprite: Anticipate_3, 2;
-SetVelocityY: 150000;
-BBSprite: Anticipate_4, 2;
-SetVelocityY: 100000;
-BBSprite: Anticipate_5, 3;
-BBSprite: Anticipate_6, 4;
-BBSprite: Anticipate_7, 4;
-# 蓄力
-RegistCounter: 15;
-Gravity: 60000;
-BeginLoopAnim: (InputType: 5MPPressing), (Counter: Value > 0)
-  LoopSprite: Anticipate_7, 5;
-EndLoopAnim:
-BeginIf: (Counter: Value > 7)
-  # HitNotify: Rg_BloodScythe, HitNotify_Normal;
-EndIf:
-BeginIf: (Counter: Value <= 7)
-  # HitNotify: Rg_BloodScythe, HitNotify_Charge;
-EndIf:
-# Active
-Gravity: 100000;
-BBSprite: Active_1, 3;
-BBSprite: Active_2, 3;
-# ScreenShake: 1800, 1200, 15000, 20, 0;
-BBSprite: Active_3, 6;
-# Recovery
-SetVelocityX: 100000;
-BBSprite: End_1, 3;
-BBSprite: End_2, 3;
-BeginLoopAnim: (InAir: true)
-  LoopSprite: End_4, 4;
-EndLoopAnim:
-SetVelocity: 0, 0;
-BBSprite: End_5, 4;
-SetTransition: AirToLand, true;
-Exit;
-
-
 [Rg_CarnageScissors_Step1]
 @Trigger:
 InAir: false;
@@ -939,6 +885,60 @@ BBSprite: End_6, 4;
 BBSprite: End_7, 4;
 BBSprite: End_8, 4;
 Exit;
+
+[Rg_BloodScythe]
+@Trigger:
+CanJump: true;
+InputType: 8MPPressed;
+return;
+
+@Main:
+# Anticipate
+JumpAdd: -1;
+Gravity: 0;
+SetVelocity: 0, 0;
+BBSprite: Anticipate_1, 2;
+BBSprite: Anticipate_2, 2;
+SetVelocity: 300000, 250000;
+EnableWhiffCancel: true;
+WhiffOption: Rg_AirDash;
+BBSprite: Anticipate_3, 2;
+SetVelocityY: 150000;
+BBSprite: Anticipate_4, 2;
+SetVelocityY: 100000;
+BBSprite: Anticipate_5, 3;
+BBSprite: Anticipate_6, 4;
+BBSprite: Anticipate_7, 4;
+# 蓄力
+RegistCounter: 15;
+Gravity: 60000;
+BeginLoopAnim: (InputType: 5MPPressing), (Counter: Value > 0)
+  LoopSprite: Anticipate_7, 5;
+EndLoopAnim:
+BeginIf: (Counter: Value > 7)
+  # HitNotify: Rg_BloodScythe, HitNotify_Normal;
+EndIf:
+BeginIf: (Counter: Value <= 7)
+  # HitNotify: Rg_BloodScythe, HitNotify_Charge;
+EndIf:
+# Active
+Gravity: 100000;
+BBSprite: Active_1, 3;
+BBSprite: Active_2, 3;
+# ScreenShake: 1800, 1200, 15000, 20, 0;
+BBSprite: Active_3, 6;
+# Recovery
+SetVelocityX: 100000;
+BBSprite: End_1, 3;
+BBSprite: End_2, 3;
+BeginLoopAnim: (InAir: true)
+  LoopSprite: End_4, 4;
+EndLoopAnim:
+SetVelocity: 0, 0;
+BBSprite: End_5, 4;
+SetTransition: AirToLand, true;
+Exit;
+
 
 [Rg_HardLand]
 @Main:
