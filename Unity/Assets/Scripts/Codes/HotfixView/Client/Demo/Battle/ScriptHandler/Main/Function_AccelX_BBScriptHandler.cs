@@ -12,7 +12,7 @@ namespace ET.Client
         //AccelX: StartX, LastFrame, AccelX;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, "AccelX: (?<startV>.*?), (?<lastFrame>.*?), (?<accel>.*?);");
+            Match match = Regex.Match(data.opLine, "AccelX: (?<startV>.*?), (?<accel>.*?), (?<lastFrame>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);

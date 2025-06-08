@@ -13,39 +13,23 @@ namespace ET.Client
 
         //Once: 在判定框持续持续窗口内，对于同一unit只会产生1hit
         //Repeat: 在判定框持续窗口内，对于同一unit每间隔一frame产生1hit
-        //HitNotify: Once;
+        //HitNotify: Once, GroupName, FunctionName;
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, @"HitNotify: (?<CheckType>\w+)");
+            Match match = Regex.Match(data.opLine, @"HitNotify: (?<CheckType>\w+), (?<GroupName>\w+), (?<FunctionName>\w+);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
 
-            //1. 跳过代码块
-            int index = parser.Coroutine_Pointers[data.CoroutineID];
-            int endIndex = index, startIndex = index;
-            while (++index < parser.OpDict.Count)
-            {
-                string opline = parser.OpDict[index];
-                if (opline.Equals("EndNotify:"))
-                {
-                    endIndex = index;
-                    break;
-                }
-            }
-            parser.Coroutine_Pointers[data.CoroutineID] = index;
-
+            int functionIndex = parser.GetFunctionPointer(match.Groups["GroupName"].Value, match.Groups["FunctionName"].Value);
+            string checkType = match.Groups["CheckType"].Value;
+            
             //2. 添加攻击检测组件
             parser.RemoveComponent<HitComponent>(); //移除旧的攻击回调
-            HitComponent hit = parser.AddComponent<HitComponent>();
-
-            //3. 组件数据初始化
-            hit.startIndex = startIndex;
-            hit.endIndex = endIndex;
-            hit.checkType =match.Groups["CheckType"].Value;
-
+            parser.AddComponent<HitComponent, int, string>(functionIndex, checkType, true);
+            
             await ETTask.CompletedTask;
             return Status.Success;
         }

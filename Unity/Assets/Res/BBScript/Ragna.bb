@@ -858,8 +858,8 @@ BBSprite: Anticipate_1, 2;
 BBSprite: Anticipate_2, 2;
 BBSprite: Anticipate_3, 3;
 SetVelocityX: 350000;
-EnableAttackRangeCheck: true, -30000, 0, 35000, 40000;
-# HitNotify: Rg_CarnageScissors_Step1, Hit1, Once;
+EnableAttackRangeCheck: true, -15000, 0, 45000, 40000;
+HitNotify: Once, Rg_CarnageScissors_Step1, Hit1;
 BBSprite: Active_1, 4;
 CallSubCoroutine: Rg_CarnageScissors_Step1, VelCor;
 RegistCounter: 12;
@@ -867,9 +867,6 @@ BeginLoopAnim: (InAttackRange: false), (Counter: Value > 0)
   LoopSprite: Active_2, 4;
   LoopSprite: Active_1, 4;
 EndLoopAnim:
-BeginIf: (Counter: Value > 0)
-  AddFlag: Hit;
-EndIf:
 EnableAttackRangeCheck: false, 0, 0, 0, 0;
 SetVelocityX: 200000;
 BBSprite: Active_3, 3;
@@ -907,17 +904,16 @@ SetVelocityX: 200000;
 return;
 
 @Hit1:
-Flag: Hit, true;
+AddFlag: Hit;
 return;
 
 [Rg_CarnageScissors_Step2]
 @Trigger:
-# InAir: false;
-# InputType: 5MPPressed;
 Accessible: false;
 return;
 
 @Main:
+SetVelocityX: 0;
 BBSprite: Anticipate_1, 2;
 BBSprite: Anticipate_2, 2;
 BBSprite: Anticipate_3, 2;
@@ -925,6 +921,8 @@ BBSprite: Anticipate_4, 3;
 BBSprite: Anticipate_5, 3;
 BBSprite: Anticipate_6, 3;
 BBSprite: Anticipate_7, 4;
+EnableWhiffCancel: true;
+WhiffOption: Rg_GroundDash;
 ScreenShake: 2000, 500, 10000, 20, 0;
 CreateBullet: DeadSpike
   BulletLocalPosition: -20000, -7500;

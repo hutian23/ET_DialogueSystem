@@ -6,11 +6,13 @@ namespace ET.Client
     [FriendOf(typeof(HitComponent))]
     public static class HitComponentSystem
     {
-        public class HitComponentAwakeSystem : AwakeSystem<HitComponent>
+        public class HitComponentAwakeSystem : AwakeSystem<HitComponent, int, string>
         {
-            protected override void Awake(HitComponent self)
+            protected override void Awake(HitComponent self, int functionIndex, string checkType)
             {
                 self.Init();
+                self.functionIndex = functionIndex;
+                self.checkType = checkType;
             }
         }
 
@@ -48,7 +50,7 @@ namespace ET.Client
                     //4. 触发攻击回调
                     BBParser parser = unitA.GetComponent<BBParser>();
                     self.buffer = buffer;
-                    parser.RegistSubCoroutine(self.startIndex, self.endIndex, parser.CancellationToken).Coroutine();
+                    parser.Invoke(self.functionIndex, parser.CancellationToken).Coroutine();
                     self.buffer = default;
                 }
             }
@@ -64,8 +66,7 @@ namespace ET.Client
 
         private static void Init(this HitComponent self)
         {
-            self.startIndex = 0;
-            self.endIndex = 0;
+            self.functionIndex = 0;
             self.checkType = string.Empty;
             self.buffSet.Clear();
             self.buffer = default;
