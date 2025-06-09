@@ -1,6 +1,6 @@
 ﻿namespace ET.Client
 {
-    [FriendOf(typeof(InputWait))]
+    [FriendOf(typeof(InputComponent))]
     public class Input_JumpCancel_Handler : InputHandler
     {
         public override string GetHandlerType()
@@ -13,7 +13,7 @@
             return "JumpCancel";
         }
 
-        public override long Handle(InputWait self)
+        public override long Handle(InputComponent self)
         {
             if (self.IsPressing(BBOperaType.UP) || self.IsPressing(BBOperaType.UPLEFT) || self.IsPressing(BBOperaType.UPRIGHT))
             {

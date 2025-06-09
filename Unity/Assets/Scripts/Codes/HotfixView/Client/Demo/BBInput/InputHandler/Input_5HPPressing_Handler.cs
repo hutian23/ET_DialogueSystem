@@ -12,7 +12,7 @@
             return "5HPPressing";
         }
 
-        public override long Handle(InputWait self)
+        public override long Handle(InputComponent self)
         {
             return self.IsPressing(BBOperaType.RB)? self.GetBuffFrame(3) : -1;
         }

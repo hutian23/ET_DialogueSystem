@@ -12,7 +12,7 @@
             return "SquatHold";
         }
 
-        public override long Handle(InputWait self)
+        public override long Handle(InputComponent self)
         {
             return self.IsPressing(BBOperaType.DOWN) || self.IsPressing(BBOperaType.DOWNLEFT) || self.IsPressing(BBOperaType.DOWNRIGHT) ? self.GetBuffFrame(7) : -1;
         }

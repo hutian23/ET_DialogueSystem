@@ -2,7 +2,7 @@
 
 namespace ET.Client
 {
-    [FriendOf(typeof (InputWait))]
+    [FriendOf(typeof (InputComponent))]
     public class RootInit_RegistInput_BBScriptHandler: BBScriptHandler
     {
         public override string GetOPType()
@@ -22,8 +22,8 @@ namespace ET.Client
             }
             
             //启动输入检测携程
-            InputWait inputWait = parser.GetParent<Unit>().GetComponent<InputWait>();
-            inputWait.handleQueue.Enqueue(match.Groups["InputType"].Value);
+            InputComponent inputComponent = parser.GetParent<Unit>().GetComponent<InputComponent>();
+            inputComponent.handleQueue.Enqueue(match.Groups["InputType"].Value);
             
             await ETTask.CompletedTask;
             return Status.Success;

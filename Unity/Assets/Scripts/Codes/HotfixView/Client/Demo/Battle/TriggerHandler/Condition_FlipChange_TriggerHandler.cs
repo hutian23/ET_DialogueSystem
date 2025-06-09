@@ -19,21 +19,21 @@ namespace ET.Client
             }
             
             Unit unit = parser.GetParent<Unit>();
-            InputWait inputWait = unit.GetComponent<InputWait>();
+            InputComponent inputComponent = unit.GetComponent<InputComponent>();
             b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
 
             FlipState preFlip = (FlipState)body.GetFlip();
             FlipState curFlip = preFlip;
             
-            if (inputWait.IsPressing(BBOperaType.LEFT) ||
-                inputWait.IsPressing(BBOperaType.DOWNLEFT) ||
-                inputWait.IsPressing(BBOperaType.UPLEFT))
+            if (inputComponent.IsPressing(BBOperaType.LEFT) ||
+                inputComponent.IsPressing(BBOperaType.DOWNLEFT) ||
+                inputComponent.IsPressing(BBOperaType.UPLEFT))
             {
                 curFlip = FlipState.Left;
             }
-            else if (inputWait.IsPressing(BBOperaType.RIGHT) ||
-                     inputWait.IsPressing(BBOperaType.DOWNRIGHT) ||
-                     inputWait.IsPressing(BBOperaType.UPRIGHT))
+            else if (inputComponent.IsPressing(BBOperaType.RIGHT) ||
+                     inputComponent.IsPressing(BBOperaType.DOWNRIGHT) ||
+                     inputComponent.IsPressing(BBOperaType.UPRIGHT))
             {
                 curFlip = FlipState.Right;
             }

@@ -12,7 +12,7 @@
             return "5LPPressed";
         }
 
-        public override long Handle(InputWait self)
+        public override long Handle(InputComponent self)
         {
             return self.WasPressedThisFrame(BBOperaType.X) ? self.GetBuffFrame(10) : -1;
         }

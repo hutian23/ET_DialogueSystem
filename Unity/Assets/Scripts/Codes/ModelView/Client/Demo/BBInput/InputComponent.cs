@@ -6,7 +6,7 @@ namespace ET.Client
     /// 输入模块
     /// </summary>
     [ComponentOf(typeof(Unit))]
-    public class InputWait: Entity, IAwake, IDestroy
+    public class InputComponent: Entity, IAwake, IDestroy, IFrameUpdate
     {
         public long curOP;
         public const int MaxStack = 100;
@@ -17,15 +17,12 @@ namespace ET.Client
         public Dictionary<long, long> PressedDict = new();
         public Dictionary<long, bool> IsPressingDict = new();
         public Dictionary<long, long> PressingDict = new();
-
-        public long CheckInputTimer;
     }
     
     public struct InputInfo
     {
         public long frame;
         public long op;
-        public int Flip;
     }
 
     public static class BBOperaType

@@ -25,7 +25,7 @@
             //1. 查询组件
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
             b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-            InputWait inputWait = unit.GetComponent<InputWait>();
+            InputComponent inputComponent = unit.GetComponent<InputComponent>();
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
 
             while (true)
@@ -35,15 +35,15 @@
                 if (self.cancelToken.IsCancel()) return;   
                 
                 //3. 更新刚体朝向
-                if (inputWait.IsPressing(BBOperaType.LEFT) ||
-                    inputWait.IsPressing(BBOperaType.DOWNLEFT) ||
-                    inputWait.IsPressing(BBOperaType.UPLEFT))
+                if (inputComponent.IsPressing(BBOperaType.LEFT) ||
+                    inputComponent.IsPressing(BBOperaType.DOWNLEFT) ||
+                    inputComponent.IsPressing(BBOperaType.UPLEFT))
                 {
                     body.SetFlip(FlipState.Left);
                 }
-                else if (inputWait.IsPressing(BBOperaType.RIGHT) ||
-                         inputWait.IsPressing(BBOperaType.DOWNRIGHT) ||
-                         inputWait.IsPressing(BBOperaType.UPRIGHT))
+                else if (inputComponent.IsPressing(BBOperaType.RIGHT) ||
+                         inputComponent.IsPressing(BBOperaType.DOWNRIGHT) ||
+                         inputComponent.IsPressing(BBOperaType.UPRIGHT))
                 {
                     body.SetFlip(FlipState.Right);
                 }

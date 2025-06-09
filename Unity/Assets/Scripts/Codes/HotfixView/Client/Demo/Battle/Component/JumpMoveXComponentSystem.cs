@@ -25,7 +25,7 @@
         private static async ETTask MoveCor(this JumpMoveXComponent self)
         {
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
-            InputWait inputWait = unit.GetComponent<InputWait>();
+            InputComponent inputComponent = unit.GetComponent<InputComponent>();
             b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
 
@@ -36,15 +36,15 @@
                 
                 //输入左右相关的指令才会生效水平移动的效果
                 FlipState flip = 0;
-                if (inputWait.IsPressing(BBOperaType.RIGHT) || 
-                    inputWait.IsPressing(BBOperaType.DOWNRIGHT) ||
-                    inputWait.IsPressing(BBOperaType.UPRIGHT))
+                if (inputComponent.IsPressing(BBOperaType.RIGHT) || 
+                    inputComponent.IsPressing(BBOperaType.DOWNRIGHT) ||
+                    inputComponent.IsPressing(BBOperaType.UPRIGHT))
                 {
                     flip = FlipState.Right;
                 }
-                else if (inputWait.IsPressing(BBOperaType.LEFT) ||
-                         inputWait.IsPressing(BBOperaType.DOWNLEFT) ||
-                         inputWait.IsPressing(BBOperaType.UPLEFT))
+                else if (inputComponent.IsPressing(BBOperaType.LEFT) ||
+                         inputComponent.IsPressing(BBOperaType.DOWNLEFT) ||
+                         inputComponent.IsPressing(BBOperaType.UPLEFT))
                 {
                     flip = FlipState.Left;
                 }

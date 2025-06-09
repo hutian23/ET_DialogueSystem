@@ -345,6 +345,7 @@ SetVelocityX: 0;
 BBSprite: Anticipate_1, 2;
 BBSprite: Anticipate_2, 1;
 # 冲刺取消
+EnableGatlingCancel: true;
 EnableWhiffCancel: true;
 WhiffOption: Rg_GroundDash;
 BBSprite: Anticipate_3, 2;
@@ -365,7 +366,7 @@ BBSprite: End_1, 2;
 SetVelocityX: 0;
 # 启动TC窗口
 EnableTargetComboCancel: true;
-TargetComboOption: Rg_5C, 12;
+TargetComboOption: Rg_5C, 18;
 EnableNandemoCancel: true;
 BBSprite: End_2, 3;
 BBSprite: End_3, 3;
@@ -396,6 +397,7 @@ BBSprite: Anticipate_1, 2;
 BBSprite: Anticipate_2, 2;
 BBSprite: Anticipate_3, 2;
 # 冲刺取消
+EnableGatlingCancel: true;
 EnableWhiffCancel: true;
 WhiffOption: Rg_GroundDash;
 BBSprite: Anticipate_4, 2;
@@ -706,7 +708,7 @@ VFX: CircleWave
   VFX_Scale: 70000, 70000;
   VFX_LocalPosition: -6000, -10000;
 EndVFX:
-TacticalTime: 300, 10;
+# TacticalTime: 300, 10;
 Invincible: 300;
 return;
 
@@ -825,6 +827,8 @@ Accessible: false;
 return;
 
 @Main:
+EnableEnhanceInput: true;
+RegistEnhanceInput: 5MPPressed, 40;
 SetVelocityX: 80000;
 SkillVFX: HellsFang;
 BBSprite: Anticipate_3, 3;
@@ -843,9 +847,9 @@ SetVelocityX: 50000;
 BBSprite: End_2, 3;
 SetVelocityX: 30000;
 BBSprite: End_3, 3;
-# Transition To Derive
+EnableTargetComboCancel: true;
+TargetComboOption: Rg_GroundDashAttack_Derive, 3;
 BBSprite: End_4, 3;
-AddFlag: GDAttack_Derive;
 EnableNandemoCancel: true;
 SetTransition: NoPreSquat, true;
 SetVelocityX: 0;
@@ -859,10 +863,13 @@ BBSprite: End_11, 3;
 Exit;
 
 [Rg_GroundDashAttack_Derive]
-@Trigger:
-Flag: GDAttack_Derive, true;
+@TargetComboTrigger: 
 InAir: false;
-InputType: 5LPHold;
+InputType: 5MPPressed;
+return;
+
+@Trigger:
+Accessible: false;
 return;
 
 @Main:

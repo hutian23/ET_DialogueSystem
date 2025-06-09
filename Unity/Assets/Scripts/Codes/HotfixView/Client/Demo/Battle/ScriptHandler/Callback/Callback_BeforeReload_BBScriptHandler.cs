@@ -12,17 +12,17 @@
             Unit unit = parser.GetParent<Unit>();
             
             //1. 切换行为时，根据按键输入更新朝向
-            InputWait inputWait = unit.GetComponent<InputWait>();
+            InputComponent inputComponent = unit.GetComponent<InputComponent>();
             b2Body body = b2WorldManager.Instance.GetBody(unit.InstanceId);
-            if (inputWait.IsPressing(BBOperaType.LEFT) ||
-                inputWait.IsPressing(BBOperaType.DOWNLEFT) ||
-                inputWait.IsPressing(BBOperaType.UPLEFT))
+            if (inputComponent.IsPressing(BBOperaType.LEFT) ||
+                inputComponent.IsPressing(BBOperaType.DOWNLEFT) ||
+                inputComponent.IsPressing(BBOperaType.UPLEFT))
             {
                 body.SetFlip(FlipState.Left);
             }
-            else if (inputWait.IsPressing(BBOperaType.RIGHT) ||
-                     inputWait.IsPressing(BBOperaType.DOWNRIGHT) ||
-                     inputWait.IsPressing(BBOperaType.UPRIGHT))
+            else if (inputComponent.IsPressing(BBOperaType.RIGHT) ||
+                     inputComponent.IsPressing(BBOperaType.DOWNRIGHT) ||
+                     inputComponent.IsPressing(BBOperaType.UPRIGHT))
             {
                 body.SetFlip(FlipState.Right);
             }

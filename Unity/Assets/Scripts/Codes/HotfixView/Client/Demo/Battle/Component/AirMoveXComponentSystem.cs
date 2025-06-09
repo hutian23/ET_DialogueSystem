@@ -25,7 +25,7 @@
         private static async ETTask MoveCor(this AirMoveXComponent self)
         {
             Unit unit = self.GetParent<BBParser>().GetParent<Unit>();
-            InputWait inputWait = unit.GetComponent<InputWait>();
+            InputComponent inputComponent = unit.GetComponent<InputComponent>();
             b2Body b2Body = b2WorldManager.Instance.GetBody(unit.InstanceId);
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
 
@@ -35,7 +35,7 @@
                 if (self.token.IsCancel()) return;
 
                 //输入左右相关的指令才会生效水平移动的效果
-                bool direction = inputWait.IsPressing(BBOperaType.MIDDLE) || inputWait.IsPressing(BBOperaType.UP) || inputWait.IsPressing(BBOperaType.DOWN);
+                bool direction = inputComponent.IsPressing(BBOperaType.MIDDLE) || inputComponent.IsPressing(BBOperaType.UP) || inputComponent.IsPressing(BBOperaType.DOWN);
                 b2Body.SetVelocityX(direction? 0 : self.vel);
             }
         }

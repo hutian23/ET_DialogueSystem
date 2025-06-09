@@ -19,7 +19,7 @@
             player.AddComponent<BBNumeric>();
             player.AddComponent<BehaviorMachine>();
             player.AddComponent<ObjectWait>();
-            player.AddComponent<InputWait>();
+            player.AddComponent<InputComponent>();
             player.AddComponent<B2Unit>();
             player.AddComponent<PlayerManager>();
             

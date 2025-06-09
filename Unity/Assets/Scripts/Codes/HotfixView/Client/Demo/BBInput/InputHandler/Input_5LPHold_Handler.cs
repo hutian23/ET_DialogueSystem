@@ -12,7 +12,7 @@
             return "5LPHold";
         }
 
-        public override long Handle(InputWait self)
+        public override long Handle(InputComponent self)
         {
             BBTimerComponent sceneTimer = BBTimerManager.Instance.SceneTimer();
             

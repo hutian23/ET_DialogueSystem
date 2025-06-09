@@ -1,6 +1,6 @@
 ﻿namespace ET.Client
 {
-    [FriendOf(typeof(InputWait))]
+    [FriendOf(typeof(InputComponent))]
     public class Input_2LPPressed_Handler : InputHandler
     {
         public override string GetHandlerType()
@@ -13,7 +13,7 @@
             return "2LPPressed";
         }
 
-        public override long Handle(InputWait self)
+        public override long Handle(InputComponent self)
         {
             bool direction = self.IsPressing(BBOperaType.DOWN) || self.IsPressing(BBOperaType.DOWNLEFT) || self.IsPressing(BBOperaType.DOWNRIGHT);
             return direction && self.WasPressedThisFrame(BBOperaType.X)? self.GetBuffFrame(12): -1;

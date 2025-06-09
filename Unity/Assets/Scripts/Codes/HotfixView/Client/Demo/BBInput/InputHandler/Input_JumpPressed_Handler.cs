@@ -12,7 +12,7 @@
             return "JumpPressed";
         }
 
-        public override long Handle(InputWait self)
+        public override long Handle(InputComponent self)
         {
             return self.WasPressedThisFrame(BBOperaType.A)? self.GetBuffFrame(8) : -1;
         }

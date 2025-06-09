@@ -11,6 +11,6 @@
 
         public abstract string GetBufferType();
 
-        public abstract long Handle(InputWait self);
+        public abstract long Handle(InputComponent self);
     }
 }

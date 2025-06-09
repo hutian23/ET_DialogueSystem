@@ -12,7 +12,7 @@
             return "ShouRyuKen";
         }
 
-        public override long Handle(InputWait self)
+        public override long Handle(InputComponent self)
         {
             bool direction = self.IsKeyCached(BBOperaType.UP) || self.IsKeyCached(BBOperaType.UPLEFT) || self.IsKeyCached(BBOperaType.UPRIGHT);
             return direction && self.WasPressedThisFrame(BBOperaType.X)? self.GetBuffFrame(15): -1;

@@ -1,23 +1,79 @@
 ﻿namespace ET.Client
 {
     //https://www.zhihu.com/question/36951135/answer/69880133
-    [FriendOf(typeof (InputWait))]
-    public static class InputWaitSystem
+    [FriendOf(typeof (InputComponent))]
+    public static class InputComponentSystem
     {
-        public class InputWaitAwakeSystem : AwakeSystem<InputWait>
+        public class InputComponentAwakeSystem : AwakeSystem<InputComponent>
         {
-            protected override void Awake(InputWait self)
+            protected override void Awake(InputComponent self)
             {
                 self.Init();
             }
         }
 
-        private static void Init(this InputWait self)
+        public class InputComponentFrameUpdateSystem : FrameUpdateSystem<InputComponent>
         {
-            BBTimerComponent sceneTimer = BBTimerManager.Instance.SceneTimer();
-            sceneTimer.Remove(ref self.CheckInputTimer);
-            self.CheckInputTimer = sceneTimer.NewFrameTimer(EventType.CheckInput, self);
-            
+            protected override void FrameUpdate(InputComponent self)
+            {
+                BBTimerComponent sceneTimer = BBTimerManager.Instance.SceneTimer();
+
+                //1. 缓存输入
+                self.curOP = BBInputManager.Instance.CheckInput();
+                self.infoQueue.Enqueue(new InputInfo() { op = self.curOP, frame = sceneTimer.GetNow() });
+                //超出容量的部分出列
+                int count = self.infoQueue.Count;
+                while (count-- > InputComponent.MaxStack)
+                {
+                    self.infoQueue.Dequeue();
+                }
+
+                //2. 更新输入历史
+                self.HandleKeyInput(self.curOP, BBOperaType.X);
+                self.HandleKeyInput(self.curOP, BBOperaType.A);
+                self.HandleKeyInput(self.curOP, BBOperaType.Y);
+                self.HandleKeyInput(self.curOP, BBOperaType.B);
+                self.HandleKeyInput(self.curOP, BBOperaType.RB);
+                self.HandleKeyInput(self.curOP, BBOperaType.RT);
+                self.HandleKeyInput(self.curOP, BBOperaType.LB);
+                self.HandleKeyInput(self.curOP, BBOperaType.LT);
+                self.HandleKeyInput(self.curOP, BBOperaType.DOWNLEFT);
+                self.HandleKeyInput(self.curOP, BBOperaType.LEFT);
+                self.HandleKeyInput(self.curOP, BBOperaType.UPLEFT);
+                self.HandleKeyInput(self.curOP, BBOperaType.UP);
+                self.HandleKeyInput(self.curOP, BBOperaType.UPRIGHT);
+                self.HandleKeyInput(self.curOP, BBOperaType.RIGHT);
+                self.HandleKeyInput(self.curOP, BBOperaType.DOWNRIGHT);
+                self.HandleKeyInput(self.curOP, BBOperaType.DOWN);
+                self.HandleKeyInput(self.curOP, BBOperaType.MIDDLE);
+
+                //3. 更新输入缓冲区
+                count = self.infoQueue.Count;
+                while (count-- > 0)
+                {
+                    //找到对应的InputHandler
+                    string handlerName = self.handleQueue.Dequeue();
+                    self.handleQueue.Enqueue(handlerName);
+                    InputHandler handler = ScriptDispatcherComponent.Instance.GetInputHandler(handlerName);
+
+                    //更新缓冲最大有效帧
+                    string bufferType = handler.GetBufferType(); //缓冲类型
+                    long buffFrame = handler.Handle(self);
+                    if (!self.BufferDict.ContainsKey(bufferType))
+                    {
+                        self.BufferDict.TryAdd(bufferType, -1);
+                    }
+
+                    if (buffFrame > self.BufferDict[bufferType])
+                    {
+                        self.BufferDict[bufferType] = buffFrame;
+                    }
+                }
+            }
+        }
+        
+        private static void Init(this InputComponent self)
+        {
             self.curOP = 0;
             self.infoQueue.Clear();
             self.handleQueue.Clear();
@@ -30,7 +86,7 @@
 
         #region KeyHistory
 
-        private static void RegistKeyHistory(this InputWait self)
+        private static void RegistKeyHistory(this InputComponent self)
         {
             self.PressedDict.Add(BBOperaType.X, -1);
             self.PressingDict.Add(BBOperaType.X, -1);
@@ -101,34 +157,34 @@
             self.IsPressingDict.Add(BBOperaType.MIDDLE, false);
         }
         
-        public static bool WasPressedThisFrame(this InputWait self, long operaType)
+        public static bool WasPressedThisFrame(this InputComponent self, long operaType)
         {
             return self.PressedDict[operaType] == BBTimerManager.Instance.SceneTimer().GetNow();
         }
 
-        public static bool WasReleasedThisFrame(this InputWait self, long operaType)
+        public static bool WasReleasedThisFrame(this InputComponent self, long operaType)
         {
             return self.PressingDict[operaType] >= 0 && BBTimerManager.Instance.SceneTimer().GetNow() - self.PressingDict[operaType] == 1;
         }
         
-        public static bool IsPressed(this InputWait self, int operaType)
+        public static bool IsPressed(this InputComponent self, int operaType)
         {
             BBTimerComponent sceneTimer = BBTimerManager.Instance.SceneTimer();
             return self.PressingDict[operaType] == sceneTimer.GetNow();
         }
 
-        public static bool IsPressing(this InputWait self, int operaType)
+        public static bool IsPressing(this InputComponent self, int operaType)
         {
             return self.IsPressingDict[operaType];
         }
         
-        public static bool IsReleased(this InputWait self, int operaType)
+        public static bool IsReleased(this InputComponent self, int operaType)
         {
             BBTimerComponent sceneTimer = BBTimerManager.Instance.SceneTimer();
             return self.PressingDict[operaType] < sceneTimer.GetNow();
         }
 
-        public static long GetPressedFrame(this InputWait self, int operaType)
+        public static long GetPressedFrame(this InputComponent self, int operaType)
         {
             return self.PressedDict[operaType];
         }
@@ -140,7 +196,7 @@
         /// <param name="operaType">要查询的指令</param>
         /// <param name="buffFrame">在给定帧数内认为按键仍然有效</param>
         /// <returns></returns>
-        public static bool IsKeyCached(this InputWait self, int operaType, int buffFrame = 5)
+        public static bool IsKeyCached(this InputComponent self, int operaType, int buffFrame = 5)
         {
             if (self.PressingDict[operaType] == -1)
             {
@@ -153,7 +209,7 @@
         
         #endregion
 
-        public static void HandleKeyInput(this InputWait self, long ops, int operaType)
+        private static void HandleKeyInput(this InputComponent self, long ops, int operaType)
         {
             BBTimerComponent sceneTimer = BBTimerManager.Instance.SceneTimer();
             bool ret = (ops & operaType) != 0;
@@ -175,13 +231,12 @@
             }
         }
         
-        
-        public static bool ContainKey(this InputWait self, long op)
+        public static bool ContainKey(this InputComponent self, long op)
         {
             return (self.curOP & op) != 0;
         }
 
-        public static bool CheckBuffer(this InputWait self, string bufferName, long curFrame)
+        public static bool CheckBuffer(this InputComponent self, string bufferName, long curFrame)
         {
             if (!self.BufferDict.TryGetValue(bufferName, out long timeOutFrame))
             {

@@ -12,7 +12,7 @@
             return "QuickFallPressed";
         }
 
-        public override long Handle(InputWait self)
+        public override long Handle(InputComponent self)
         {
             return self.IsPressing(BBOperaType.DOWN) && self.WasPressedThisFrame(BBOperaType.A)? self.GetBuffFrame(5) : -1;
         }
