@@ -149,6 +149,7 @@ namespace ET
                         if (nodeOpen)
                         {
                             ImGui.Checkbox("Show Combo Offset", ref Global.Settings.ShowComboOffset);
+                            ImGui.Checkbox("Show Player info", ref Global.Settings.ShowPlayerInfo);
                         }
                     }
 

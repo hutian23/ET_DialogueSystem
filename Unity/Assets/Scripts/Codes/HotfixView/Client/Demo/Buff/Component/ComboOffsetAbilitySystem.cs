@@ -32,7 +32,7 @@ namespace ET.Client
                 if (!Global.Settings.ShowComboOffset) return;
                 
                 // title
-                Vector2 startPosition = new (5, 200f);
+                Vector2 startPosition = new (5, 400f);
                 float offset = 20f;
                 b2WorldManager.Instance.DrawText(startPosition, "Combo Offset:");
                 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
@@ -130,6 +131,21 @@ namespace Timeline
             return currentFrame;
         }
 
+        public string GetKeyFrame(int targetFrame)
+        {
+            foreach (RuntimeTrack runtimeTrack in runtimeTracks)
+            {
+                if (runtimeTrack.Track is not BBEventTrack eventTrack) continue;
+                if (eventTrack.Name.Equals("Marker"))
+                {
+                    EventInfo info = eventTrack.GetInfo(targetFrame);
+                    return info == null? string.Empty : info.keyframeName;
+                }
+            }
+
+            return string.Empty;
+        }
+        
         public long GetInstanceId()
         {
             return instanceId;
