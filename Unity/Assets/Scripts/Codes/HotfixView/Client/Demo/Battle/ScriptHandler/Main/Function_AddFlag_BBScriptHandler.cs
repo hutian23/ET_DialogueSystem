@@ -18,7 +18,9 @@ namespace ET.Client
                 ScriptHelper.ScripMatchError(data.opLine);
                 return Status.Failed;
             }
-
+            
+            if(parser.ContainParam($"Flag_{match.Groups["Flag"].Value}")) return Status.Success;
+            
             parser.TryRemoveParam($"Flag_{match.Groups["Flag"].Value}");
             parser.RegistParam($"Flag_{match.Groups["Flag"].Value}", true);
             

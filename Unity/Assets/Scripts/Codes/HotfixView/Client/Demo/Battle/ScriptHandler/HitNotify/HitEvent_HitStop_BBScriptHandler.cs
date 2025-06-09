@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using ET.Event;
 
 namespace ET.Client
 {
@@ -16,7 +15,7 @@ namespace ET.Client
         //HitStop: 6, 8;(Hertz, hitStopFrame)
         public override async ETTask<Status> Handle(BBParser parser, BBScriptData data, ETCancellationToken token)
         {
-            Match match = Regex.Match(data.opLine, "HitStop: (?<Hertz>.*?), (?<HitStop>.*?);");
+            Match match = Regex.Match(data.opLine, "HitStop: (?<HitStop>.*?), (?<Hertz>.*?);");
             if (!match.Success)
             {
                 ScriptHelper.ScripMatchError(data.opLine);
@@ -33,18 +32,25 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            //1. 查询双方unit
-            CollisionBuffer buffer = parser.GetComponent<HitComponent>().GetBuffer();
-            b2Box boxA = Root.Instance.Get(buffer.instanceIdA) as b2Box;
-            b2Box boxB = Root.Instance.Get(buffer.instanceIdB) as b2Box;
-            b2Body bodyA = boxA.GetParent<b2Body>();
-            b2Body bodyB = boxB.GetParent<b2Body>();
-            Unit unitA = Root.Instance.Get(bodyA.unitId) as Unit;
-            Unit unitB = Root.Instance.Get(bodyB.unitId) as Unit;
+            // 正在卡肉效果中
+            if (parser.GetComponent<TimeFrozeComponent>() != null) return Status.Success;
+            
+            Unit unit = parser.GetParent<Unit>();
+            parser.RemoveComponent<TimeFrozeComponent>();
+            parser.AddComponent<TimeFrozeComponent, int, int, long>(hertz, hitStop, unit.InstanceId,true);
 
-            //2. 双方都添加HitStop Buff
-            BBParser parserA = unitA.GetComponent<BBParser>();
-            BBParser parserB = unitB.GetComponent<BBParser>();
+            // //1. 查询双方unit
+            // CollisionBuffer buffer = parser.GetComponent<HitComponent>().GetBuffer();
+            // b2Box boxA = Root.Instance.Get(buffer.instanceIdA) as b2Box;
+            // b2Box boxB = Root.Instance.Get(buffer.instanceIdB) as b2Box;
+            // b2Body bodyA = boxA.GetParent<b2Body>();
+            // b2Body bodyB = boxB.GetParent<b2Body>();
+            // Unit unitA = Root.Instance.Get(bodyA.unitId) as Unit;
+            // Unit unitB = Root.Instance.Get(bodyB.unitId) as Unit;
+            //
+            // //2. 双方都添加HitStop Buff
+            // BBParser parserA = unitA.GetComponent<BBParser>();
+            // BBParser parserB = unitB.GetComponent<BBParser>();
 
             // parserA.RemoveComponent<TimeFrozeComponent>();
             // parserB.RemoveComponent<TimeFrozeComponent>();

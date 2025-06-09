@@ -144,6 +144,12 @@ namespace ET
                             ImGui.Checkbox("GizmosUpdate", ref Global.Settings.ShowGizmos);
                             ImGui.EndTabItem();
                         }
+
+                        nodeOpen = ImGui.TreeNodeEx("Player");
+                        if (nodeOpen)
+                        {
+                            ImGui.Checkbox("Show Combo Offset", ref Global.Settings.ShowComboOffset);
+                        }
                     }
 
                     ImGui.EndTabBar();

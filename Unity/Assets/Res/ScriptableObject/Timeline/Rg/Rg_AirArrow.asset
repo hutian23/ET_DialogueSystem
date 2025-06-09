@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dad01b398c6f634c9e134265baa14a1, type: 3}
-  m_Name: Rg_BloodScythe
+  m_Name: Rg_AirArrow
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 7400000, guid: 0ca0433f097eec448a18ed79fa4c2572, type: 2}
+    - {fileID: 7400000, guid: 126f721430636db4ba74c64e84a351bc, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -53,13 +53,13 @@ MonoBehaviour:
       Data: false
     - Name: Name
       Entry: 1
-      Data: BloodScythe
+      Data: Rg_AirArrow
     - Name: StartFrame
       Entry: 3
       Data: 0
     - Name: EndFrame
       Entry: 3
-      Data: 45
+      Data: 41
     - Name: animationClip
       Entry: 10
       Data: 0
@@ -129,10 +129,10 @@ MonoBehaviour:
       Data: 9|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 3
+      Data: 0
     - Name: keyframeName
       Entry: 1
-      Data: Anticipate_1
+      Data: Start_1
     - Name: 
       Entry: 8
       Data: 
@@ -141,10 +141,10 @@ MonoBehaviour:
       Data: 10|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 6
+      Data: 3
     - Name: keyframeName
       Entry: 1
-      Data: Anticipate_2
+      Data: Start_2
     - Name: 
       Entry: 8
       Data: 
@@ -153,10 +153,10 @@ MonoBehaviour:
       Data: 11|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 9
+      Data: 6
     - Name: keyframeName
       Entry: 1
-      Data: Anticipate_3
+      Data: Start_3
     - Name: 
       Entry: 8
       Data: 
@@ -165,10 +165,10 @@ MonoBehaviour:
       Data: 12|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 12
+      Data: 9
     - Name: keyframeName
       Entry: 1
-      Data: Anticipate_4
+      Data: Start_4
     - Name: 
       Entry: 8
       Data: 
@@ -177,10 +177,10 @@ MonoBehaviour:
       Data: 13|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 15
+      Data: 12
     - Name: keyframeName
       Entry: 1
-      Data: Anticipate_5
+      Data: Start_5
     - Name: 
       Entry: 8
       Data: 
@@ -189,10 +189,10 @@ MonoBehaviour:
       Data: 14|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 18
+      Data: 15
     - Name: keyframeName
       Entry: 1
-      Data: Anticipate_6
+      Data: Start_6
     - Name: 
       Entry: 8
       Data: 
@@ -201,10 +201,10 @@ MonoBehaviour:
       Data: 15|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 21
+      Data: 18
     - Name: keyframeName
       Entry: 1
-      Data: Anticipate_7
+      Data: Active_0
     - Name: 
       Entry: 8
       Data: 
@@ -213,19 +213,7 @@ MonoBehaviour:
       Data: 16|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 24
-    - Name: keyframeName
-      Entry: 1
-      Data: Active_1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 17|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 27
+      Data: 21
     - Name: keyframeName
       Entry: 1
       Data: Active_2
@@ -234,22 +222,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 18|Timeline.EventInfo, Unity.Loader
+      Data: 17|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 30
-    - Name: keyframeName
-      Entry: 1
-      Data: Active_3
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 19|Timeline.EventInfo, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 33
+      Data: 24
     - Name: keyframeName
       Entry: 1
       Data: End_1
@@ -258,10 +234,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 20|Timeline.EventInfo, Unity.Loader
+      Data: 18|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 36
+      Data: 27
     - Name: keyframeName
       Entry: 1
       Data: End_2
@@ -270,10 +246,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 21|Timeline.EventInfo, Unity.Loader
+      Data: 19|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 39
+      Data: 30
     - Name: keyframeName
       Entry: 1
       Data: End_3
@@ -282,10 +258,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 22|Timeline.EventInfo, Unity.Loader
+      Data: 20|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 42
+      Data: 33
     - Name: keyframeName
       Entry: 1
       Data: End_4
@@ -294,13 +270,37 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 23|Timeline.EventInfo, Unity.Loader
+      Data: 21|Timeline.EventInfo, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 45
+      Data: 36
     - Name: keyframeName
       Entry: 1
       Data: End_5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 22|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 39
+    - Name: keyframeName
+      Entry: 1
+      Data: End_6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 23|Timeline.EventInfo, Unity.Loader
+    - Name: frame
+      Entry: 3
+      Data: 19
+    - Name: keyframeName
+      Entry: 1
+      Data: Active_1
     - Name: 
       Entry: 8
       Data: 
@@ -341,13 +341,13 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 4
     - Name: 
       Entry: 7
       Data: 27|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 24
+      Data: 0
     - Name: keyframeName
       Entry: 1
       Data: 
@@ -506,7 +506,7 @@ MonoBehaviour:
       Data: 32|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 27
+      Data: 18
     - Name: keyframeName
       Entry: 1
       Data: 
@@ -519,6 +519,51 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 34|ET.BoxInfo, Unity.Loader
+    - Name: boxName
+      Entry: 1
+      Data: HitBox
+    - Name: layerType
+      Entry: 3
+      Data: 2
+    - Name: tagType
+      Entry: 3
+      Data: 0
+    - Name: hitboxType
+      Entry: 3
+      Data: 1
+    - Name: isTrigger
+      Entry: 5
+      Data: false
+    - Name: center
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: -0.67
+    - Name: 
+      Entry: 4
+      Data: -1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: size
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 2.8
+    - Name: 
+      Entry: 4
+      Data: 2.8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 35|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
       Data: Hurt_Body
@@ -555,51 +600,6 @@ MonoBehaviour:
     - Name: 
       Entry: 4
       Data: 3.14
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 35|ET.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: Hurt_Head
-    - Name: layerType
-      Entry: 3
-      Data: 2
-    - Name: tagType
-      Entry: 3
-      Data: 0
-    - Name: hitboxType
-      Entry: 3
-      Data: 2
-    - Name: isTrigger
-      Entry: 5
-      Data: false
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 1.275
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.5
-    - Name: 
-      Entry: 4
-      Data: 0.65
     - Name: 
       Entry: 8
       Data: 
@@ -665,7 +665,7 @@ MonoBehaviour:
       Data: 37|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 30
+      Data: 33
     - Name: keyframeName
       Entry: 1
       Data: 
@@ -674,13 +674,13 @@ MonoBehaviour:
       Data: 38|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 3
     - Name: 
       Entry: 7
       Data: 39|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
-      Data: HitBox
+      Data: Hurt_Body
     - Name: layerType
       Entry: 3
       Data: 2
@@ -689,7 +689,7 @@ MonoBehaviour:
       Data: 0
     - Name: hitboxType
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: isTrigger
       Entry: 5
       Data: false
@@ -701,7 +701,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 4
-      Data: -0.4
+      Data: -0.62
     - Name: 
       Entry: 8
       Data: 
@@ -710,10 +710,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 6
+      Data: 1.75
     - Name: 
       Entry: 4
-      Data: 6.3
+      Data: 3.14
     - Name: 
       Entry: 8
       Data: 
@@ -725,7 +725,7 @@ MonoBehaviour:
       Data: 40|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
-      Data: Hurt_Body
+      Data: Hurt_Head
     - Name: layerType
       Entry: 3
       Data: 2
@@ -746,7 +746,7 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 4
-      Data: -0.62
+      Data: 1.275
     - Name: 
       Entry: 8
       Data: 
@@ -755,10 +755,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 1.75
+      Data: 1.5
     - Name: 
       Entry: 4
-      Data: 3.14
+      Data: 0.65
     - Name: 
       Entry: 8
       Data: 
@@ -770,51 +770,6 @@ MonoBehaviour:
       Data: 41|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
-      Data: Hurt_Head
-    - Name: layerType
-      Entry: 3
-      Data: 2
-    - Name: tagType
-      Entry: 3
-      Data: 0
-    - Name: hitboxType
-      Entry: 3
-      Data: 2
-    - Name: isTrigger
-      Entry: 5
-      Data: false
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 1.275
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.5
-    - Name: 
-      Entry: 4
-      Data: 0.65
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 42|ET.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
       Data: PushBox
     - Name: layerType
       Entry: 3
@@ -866,114 +821,69 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 43|Timeline.HitboxKeyframe, Unity.Loader
+      Data: 42|Timeline.HitboxKeyframe, Unity.Loader
     - Name: frame
       Entry: 3
-      Data: 33
+      Data: 27
     - Name: keyframeName
       Entry: 1
       Data: 
     - Name: boxInfos
       Entry: 7
-      Data: 44|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
+      Data: 43|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 44|ET.BoxInfo, Unity.Loader
+    - Name: boxName
+      Entry: 1
+      Data: Hurt_Body
+    - Name: layerType
+      Entry: 3
+      Data: 2
+    - Name: tagType
+      Entry: 3
+      Data: 0
+    - Name: hitboxType
+      Entry: 3
+      Data: 2
+    - Name: isTrigger
+      Entry: 5
+      Data: false
+    - Name: center
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: -0.62
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: size
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1.75
+    - Name: 
+      Entry: 4
+      Data: 3.14
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: 45|ET.BoxInfo, Unity.Loader
     - Name: boxName
       Entry: 1
-      Data: Hurt_Body
-    - Name: layerType
-      Entry: 3
-      Data: 2
-    - Name: tagType
-      Entry: 3
-      Data: 0
-    - Name: hitboxType
-      Entry: 3
-      Data: 2
-    - Name: isTrigger
-      Entry: 5
-      Data: false
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: -0.62
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.75
-    - Name: 
-      Entry: 4
-      Data: 3.14
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 46|ET.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: Hurt_Head
-    - Name: layerType
-      Entry: 3
-      Data: 2
-    - Name: tagType
-      Entry: 3
-      Data: 0
-    - Name: hitboxType
-      Entry: 3
-      Data: 2
-    - Name: isTrigger
-      Entry: 5
-      Data: false
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 1.275
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.5
-    - Name: 
-      Entry: 4
-      Data: 0.65
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 47|ET.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
       Data: PushBox
     - Name: layerType
       Entry: 3
@@ -1024,156 +934,6 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 48|Timeline.HitboxKeyframe, Unity.Loader
-    - Name: frame
-      Entry: 3
-      Data: 3
-    - Name: keyframeName
-      Entry: 1
-      Data: 
-    - Name: boxInfos
-      Entry: 7
-      Data: 49|System.Collections.Generic.List`1[[ET.BoxInfo, Unity.Loader]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 7
-      Data: 50|ET.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: Hurt_Body
-    - Name: layerType
-      Entry: 3
-      Data: 2
-    - Name: tagType
-      Entry: 3
-      Data: 0
-    - Name: hitboxType
-      Entry: 3
-      Data: 2
-    - Name: isTrigger
-      Entry: 5
-      Data: false
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: -0.62
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.75
-    - Name: 
-      Entry: 4
-      Data: 3.14
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 51|ET.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: Hurt_Head
-    - Name: layerType
-      Entry: 3
-      Data: 2
-    - Name: tagType
-      Entry: 3
-      Data: 0
-    - Name: hitboxType
-      Entry: 3
-      Data: 2
-    - Name: isTrigger
-      Entry: 5
-      Data: false
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 1.275
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.5
-    - Name: 
-      Entry: 4
-      Data: 0.65
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 52|ET.BoxInfo, Unity.Loader
-    - Name: boxName
-      Entry: 1
-      Data: SquashBox
-    - Name: layerType
-      Entry: 3
-      Data: 2
-    - Name: tagType
-      Entry: 3
-      Data: 0
-    - Name: hitboxType
-      Entry: 3
-      Data: 8
-    - Name: isTrigger
-      Entry: 5
-      Data: false
-    - Name: center
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: -0.26
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: size
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.35
-    - Name: 
-      Entry: 4
-      Data: 2.4
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -1188,13 +948,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-  timelineName: Rg_BloodScythe
+  timelineName: Rg_AirArrow

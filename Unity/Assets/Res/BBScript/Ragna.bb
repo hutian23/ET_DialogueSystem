@@ -84,6 +84,9 @@ EndMove:
 RegistMove: (Rg_GroundDashAttack)
   MoveType: Special;
 EndMove:
+RegistMove: (Rg_GroundDashAttack_Derive)
+  MoveType: Special;
+EndMove:
 RegistMove: (Rg_CarnageScissors_Step1)
   MoveType: Special;
 EndMove:
@@ -93,6 +96,9 @@ EndMove:
 RegistMove: (Rg_BloodScythe)
   MoveType: Special;
 EndMove:
+# RegistMove: (Rg_AirArrow)
+#   MoveType: Special;
+# EndMove:
 RegistMove: (Rg_HardLand)
   MoveType: Etc;
 EndMove:
@@ -346,6 +352,7 @@ SetVelocityX: 50000;
 BBSprite: Anticipate_6, 2;
 SetVelocityX: 100000;
 BBSprite: Anticipate_7, 2;
+HitNotify: Once, Rg_5B, HitCallback;
 BBSprite: Active_1, 2;
 SetVelocityX: 50000;
 BBSprite: Active_1, 2;
@@ -362,6 +369,11 @@ BBSprite: End_3, 3;
 BBSprite: End_4, 3;
 BBSprite: End_5, 3;
 Exit;
+
+@HitCallback:
+Shake: 200, 0, 10000, 10, 1;
+HitShake: 600, 0, 11000, 10, 1;
+return;
 
 
 [Rg_5C]
@@ -389,6 +401,7 @@ SetVelocityX: 80000;
 BBSprite: Anticipate_6, 2;
 # Active
 SetVelocityX: 150000;
+HitNotify: Once, Rg_5C, HitCallback;
 BBSprite: Active_1, 3;
 SetVelocityX: 80000;
 BBSprite: Active_2, 3;
@@ -412,6 +425,10 @@ BBSprite: End_8, 3;
 BBSprite: End_9, 3;
 Exit;
 
+@HitCallback:
+Shake: 200, 0, 10000, 10, 1;
+HitShake: 800, 0, 12000, 15, 1;
+return;
 
 [Rg_5D]
 @TargetComboTrigger:
@@ -438,7 +455,8 @@ BBSprite: Anticipate_6, 3;
 SetVelocityX: 100000;
 # 大剑砸地，震屏
 ScreenShake: 500, 2000, 10000, 20, 0;
-BBSprite: Active_1, 3;
+HitNotify: Once, Rg_5D, HitCallback;
+BBSprite: Active_1, 5;
 SetVelocityX: 60000;
 BBSprite: Active_2, 4;
 SetVelocityX: 0;
@@ -454,6 +472,9 @@ BBSprite: End_4, 3;
 BBSprite: End_5, 3;
 BBSprite: End_6, 3;
 Exit;
+
+@HitCallback:
+return;
 
 
 [Rg_TCEnd]
@@ -647,6 +668,7 @@ TacticalTime: 300, 10;
 Invincible: 300;
 return;
 
+
 [Rg_AirDashAttack]
 @TargetComboTrigger:
 InputType: 5LPPressed;
@@ -696,6 +718,7 @@ BeginLoopAnim: (Counter: Value > 0), (InAir: true)
 EndLoopAnim:
 Exit;
 
+
 [Rg_GroundDash]
 @Trigger:
 InAir: false;
@@ -739,12 +762,12 @@ BBSprite: End_5, 3;
 Exit;
 
 @JustEvadeCallback:
-TimeFroze: 20, 5;
+# TimeFroze: 20, 5;
 VFX: CircleWave
   VFX_Scale: 70000, 70000;
   VFX_LocalPosition: -6000, -10000;
 EndVFX:
-TacticalTime: 300, 10;
+# TacticalTime: 300, 10;
 Invincible: 300;
 return;
 
@@ -761,7 +784,6 @@ return;
 
 @Main:
 SetVelocityX: 80000;
-# 技能特效，该技能中断时需要销毁这个特效
 SkillVFX: HellsFang;
 BBSprite: Anticipate_3, 3;
 BBSprite: Anticipate_4, 5;
@@ -779,6 +801,9 @@ SetVelocityX: 50000;
 BBSprite: End_2, 3;
 SetVelocityX: 30000;
 BBSprite: End_3, 3;
+BeginIf: (InputType: 5LPHold)
+  GotoBehavior: Rg_GroundDashAttack_Derive;
+EndIf:
 BBSprite: End_4, 3;
 EnableNandemoCancel: true;
 SetTransition: NoPreSquat, true;
@@ -791,6 +816,41 @@ BBSprite: End_9, 3;
 BBSprite: End_10, 3;
 BBSprite: End_11, 3;
 Exit;
+
+[Rg_GroundDashAttack_Derive]
+@Trigger:
+Accessible: false;
+return;
+
+@Main:
+SetVelocityX: 0;
+BBSprite: Start_1, 2;
+BBSprite: Start_2, 2;
+BBSprite: Start_3, 2;
+BBSprite: Start_4, 2;
+BBSprite: Start_5, 2;
+BBSprite: Start_6, 2;
+BBSprite: Start_7, 3;
+BBSprite: Start_8, 4;
+BBSprite: Start_9, 4;
+EnableWhiffCancel: true;
+WhiffOption: Rg_GroundDash;
+ScreenShake: 2000, 300, 10000, 20, 0;
+CreateBullet: DeadSpike
+  BulletLocalPosition: -20000, -7500;
+EndCreateBullet:
+BBSprite: Active_1, 3;
+BBSprite: Active_2, 3;
+BBSprite: Active_3, 6;
+BBSprite: End_1, 3;
+BBSprite: End_2, 3;
+EnableNandemoCancel: true;
+BBSprite: End_3, 3;
+BBSprite: End_4, 3;
+BBSprite: End_5, 3;
+BBSprite: End_6, 3;
+Exit;
+
 
 [Rg_CarnageScissors_Step1]
 @Trigger:
@@ -853,6 +913,7 @@ return;
 AddFlag: Hit;
 return;
 
+
 [Rg_CarnageScissors_Step2]
 @Trigger:
 Accessible: false;
@@ -886,6 +947,7 @@ BBSprite: End_7, 4;
 BBSprite: End_8, 4;
 Exit;
 
+
 [Rg_BloodScythe]
 @Trigger:
 CanJump: true;
@@ -916,16 +978,15 @@ BeginLoopAnim: (InputType: 5MPPressing), (Counter: Value > 0)
   LoopSprite: Anticipate_7, 5;
 EndLoopAnim:
 BeginIf: (Counter: Value > 7)
-  # HitNotify: Rg_BloodScythe, HitNotify_Normal;
+  HitNotify: Once, Rg_BloodScythe, HitCallback_Normal;
 EndIf:
 BeginIf: (Counter: Value <= 7)
-  # HitNotify: Rg_BloodScythe, HitNotify_Charge;
+  HitNotify: Once, Rg_BloodScythe, HitCallback_Charge;
 EndIf:
 # Active
 Gravity: 100000;
 BBSprite: Active_1, 3;
 BBSprite: Active_2, 3;
-# ScreenShake: 1800, 1200, 15000, 20, 0;
 BBSprite: Active_3, 6;
 # Recovery
 SetVelocityX: 100000;
@@ -937,6 +998,67 @@ EndLoopAnim:
 SetVelocity: 0, 0;
 BBSprite: End_5, 4;
 SetTransition: AirToLand, true;
+Exit;
+
+@HitCallback_Normal:
+Shake: 1000, 1000, 12000, 10, 1;
+HitShake: 1200, 300, 10000, 15, 1;
+BeginIf: (Flag: Hit, false)
+  HitStop: 10, 0;
+EndIf:
+AddFlag: Hit;
+return;
+
+@HitCallback_Charge:
+Shake: 1200, 1200, 12000, 15, 1;
+HitShake: 1500, 300, 10000, 20, 1;
+BeginIf: (Flag: Hit, false)
+  HitStop: 15, 0;
+EndIf:
+AddFlag: Hit;
+return;
+
+
+[Rg_AirArrow]
+@Trigger:
+# Accessible: false;
+InputType: 5LPPressed;
+InAir: true;
+return;
+
+@Main:
+Gravity: 0;
+BBSprite: Start_1, 3;
+BBSprite: Start_2, 3;
+SetVelocity: 0, 0;
+BBSprite: Start_3, 3;
+BBSprite: Start_4, 3;
+BBSprite: Start_5, 4;
+SetVelocity: 350000, -350000;
+BBSprite: Start_6, 5;
+SetVelocity: 400000, -400000;
+BBSprite: Active_0, 1;
+BeginLoopAnim: (InAir: true)
+  LoopSprite: Active_2, 4;
+  LoopSprite: Active_1, 4;
+EndLoopAnim:
+VFX: GDust
+  VFX_LocalPosition: 40000, -14000;
+  VFX_Scale: 5000, 3000;
+EndVFX:
+VFX: GDust
+  VFX_LocalPosition: -40000, -14000;
+  VFX_Scale: -5000, 3000;
+EndVFX:
+ScreenShake: 1200, 1200, 12000, 15, 0;
+Gravity: 100000;
+SetVelocityX: 0;
+BBSprite: End_1, 3;
+BBSprite: End_2, 3;
+BBSprite: End_3, 3;
+BBSprite: End_4, 3;
+BBSprite: End_5, 3;
+BBSprite: End_6, 3;
 Exit;
 
 

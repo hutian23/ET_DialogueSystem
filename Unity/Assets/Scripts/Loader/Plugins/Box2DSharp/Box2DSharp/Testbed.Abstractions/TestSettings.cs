@@ -65,6 +65,9 @@ namespace Testbed.Abstractions
 
         [DataMember]
         public bool ShowGizmos;
+
+        [DataMember]
+        public bool ShowComboOffset;
         
         [DataMember]
         public int WindowWidth;

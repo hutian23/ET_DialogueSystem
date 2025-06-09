@@ -37,6 +37,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: cc37e2ab01fb4534e8724928a0e5503f, type: 2}
     - {fileID: 11400000, guid: 4573d006046b91b44a4bc6ff93dbcdeb, type: 2}
     - {fileID: 11400000, guid: 81b8169061205ce46a75f53510a293b5, type: 2}
+    - {fileID: 11400000, guid: fd0aab1ad99b8174eba58018aacb5142, type: 2}
+    - {fileID: 11400000, guid: b38fd0328d5912341a107fb28190c07f, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -55,7 +57,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 23
+      Data: 25
     - Name: 
       Entry: 7
       Data: 
@@ -329,6 +331,30 @@ MonoBehaviour:
     - Name: $v
       Entry: 10
       Data: 20
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Rg_AirArrow
+    - Name: $v
+      Entry: 10
+      Data: 21
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Rg_GroundDashAttack_Derive
+    - Name: $v
+      Entry: 10
+      Data: 22
     - Name: 
       Entry: 8
       Data: 

@@ -37,7 +37,7 @@ namespace ET
         
         public void Awake()
         {
-            fpsCounter = new();
+            fpsCounter = new FpsCounter();
             Settings = TestSettingHelper.Load();
             Global.Settings = this.Settings;
             Global.Camera.Width = this.Settings.WindowWidth;

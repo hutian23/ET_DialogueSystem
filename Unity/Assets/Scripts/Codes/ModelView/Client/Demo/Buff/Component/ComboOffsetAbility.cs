@@ -3,7 +3,7 @@
  namespace ET.Client
  {
      [ComponentOf(typeof(BuffManager))]
-     public class ComboOffsetAbility : Entity, IAwake, IFrameUpdate, IDestroy
+     public class ComboOffsetAbility : Entity, IAwake, IFrameUpdate, IDestroy, IGizmosUpdate
      {
          public Queue<ComboOffsetBuffer> bufferQueue = new();
          public ETCancellationToken token;

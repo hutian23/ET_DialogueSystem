@@ -203,8 +203,9 @@ namespace ET.Client
         }
         
         //TODO 
-        public static void DrawText(this b2WorldManager self, Vector2 position, string text, Color color)
+        public static void DrawText(this b2WorldManager self, Vector2 position, string text)
         {
+            self.B2World.Draw.DrawString(position, text);
         }
     }
 }
