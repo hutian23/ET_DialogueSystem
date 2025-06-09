@@ -66,6 +66,9 @@ EndMove:
 RegistMove: (Rg_TCEnd)
   MoveType: Normal;
 EndMove:
+RegistMove: (Rg_Charge)
+  MoveType: Normal;
+EndMove:
 RegistMove: (Rg_JC)
   MoveType: Normal;
 EndMove:
@@ -75,11 +78,11 @@ EndMove:
 RegistMove: (Rg_AirDash)
   MoveType: Normal;
 EndMove:
-RegistMove: (Rg_AirDashAttack)
-  MoveType: Special;
-EndMove:
 RegistMove: (Rg_GroundDash)
   MoveType: Normal;
+EndMove:
+RegistMove: (Rg_AirDashAttack)
+  MoveType: Special;
 EndMove:
 RegistMove: (Rg_GroundDashAttack)
   MoveType: Special;
@@ -518,6 +521,45 @@ BBSprite: End_5, 4;
 Exit;
 
 
+[Rg_Charge]
+@Trigger:
+InputType: 5LPHold;
+InAir: false;
+return;
+
+@Main:
+SetVelocityX: 0;
+BBSprite: Start_1, 3;
+BBSprite: Start_2, 3;
+BBSprite: Start_3, 3;
+BBSprite: Start_4, 3;
+BBSprite: Start_5, 3;
+BBSprite: Start_6, 3;
+BBSprite: Start_7, 3;
+BBSprite: Start_8, 3;
+BBSprite: Start_9, 3;
+EnableWhiffCancel: true;
+WhiffOption: Rg_GroundDash;
+BBSprite: Start_10, 3;
+# 创建子弹
+ScreenShake: 1200, 1200, 10000, 10, 0;
+CreateBullet: DeadSpike
+  BulletLocalPosition: -20000, -7500;
+EndCreateBullet:
+BBSprite: Cast, 4;
+BBSprite: End_1, 3;
+BBSprite: End_2, 3;
+BBSprite: End_3, 3;
+EnableNandemoCancel: true;
+BBSprite: End_4, 3;
+BBSprite: End_5, 3;
+BBSprite: End_6, 3;
+BBSprite: End_7, 3;
+BBSprite: End_8, 3;
+BBSprite: End_9, 3;
+BBSprite: End_10, 3;
+Exit;
+
 [Rg_JC]
 @Trigger:
 InAir: true;
@@ -790,7 +832,7 @@ BBSprite: Anticipate_4, 5;
 SetVelocityX: 250000;
 BBSprite: Anticipate_5, 3;
 BBSprite: Anticipate_6, 3;
-ScreenShake: 0, 1200, 10000, 15, 0;
+ScreenShake: 300, 1200, 10000, 15, 0;
 BBSprite: Active_1, 5;
 SetVelocityX: 150000;
 BBSprite: Active_2, 3;
@@ -801,10 +843,9 @@ SetVelocityX: 50000;
 BBSprite: End_2, 3;
 SetVelocityX: 30000;
 BBSprite: End_3, 3;
-BeginIf: (InputType: 5LPHold)
-  GotoBehavior: Rg_GroundDashAttack_Derive;
-EndIf:
+# Transition To Derive
 BBSprite: End_4, 3;
+AddFlag: GDAttack_Derive;
 EnableNandemoCancel: true;
 SetTransition: NoPreSquat, true;
 SetVelocityX: 0;
@@ -819,7 +860,9 @@ Exit;
 
 [Rg_GroundDashAttack_Derive]
 @Trigger:
-Accessible: false;
+Flag: GDAttack_Derive, true;
+InAir: false;
+InputType: 5LPHold;
 return;
 
 @Main:
@@ -843,8 +886,8 @@ BBSprite: Active_1, 3;
 BBSprite: Active_2, 3;
 BBSprite: Active_3, 6;
 BBSprite: End_1, 3;
-BBSprite: End_2, 3;
 EnableNandemoCancel: true;
+BBSprite: End_2, 3;
 BBSprite: End_3, 3;
 BBSprite: End_4, 3;
 BBSprite: End_5, 3;
