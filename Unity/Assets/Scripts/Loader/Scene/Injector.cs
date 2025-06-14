@@ -17,6 +17,13 @@ namespace ET
             EventSystem.Instance.Invoke(new InjectFunctionCallback(){instanceId = bbScript.instanceId});
         }
 
+        [Button("查询Unit"), ShowIf("CheckActive")]
+        public void FindUnit()
+        {
+            BBScript bbScript = this.GetComponent<BBScript>();
+            Debug.LogWarning($"unit.instanceId: {bbScript.instanceId}");
+        }
+
         private bool CheckActive()
         {
             return this.GetComponent<BBScript>().instanceId != 0;

@@ -1,4 +1,5 @@
 [Root]
 @Entry:
-GotoBehavior: Zako2_Death;
+LogWarning: HP_Cost;
+HPAdd: -100;
 return;

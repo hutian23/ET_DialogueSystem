@@ -244,5 +244,10 @@
             }
             return timeOutFrame >= curFrame;
         }
+
+        public static long GetBuffFrame(this InputComponent self, int buffFrame)
+        {
+            return BBTimerManager.Instance.SceneTimer().GetNow() + buffFrame;
+        }
     }
 }

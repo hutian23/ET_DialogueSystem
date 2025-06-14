@@ -10,7 +10,6 @@ using Color = Box2DSharp.Common.Color;
 using Transform = Box2DSharp.Common.Transform;
 using Vector2 = System.Numerics.Vector2;
 using ET.Event;
-using Sirenix.OdinInspector;
 
 namespace ET
 {

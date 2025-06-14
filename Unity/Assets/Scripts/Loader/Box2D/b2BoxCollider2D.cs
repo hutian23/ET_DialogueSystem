@@ -69,13 +69,6 @@ namespace ET
         Ground = 1 << 0,
         Unit = 1 << 1
     }
-
-    public enum FixtureType
-    {
-        None = 0,
-        Default = 1,
-        Hitbox = 2
-    }
     
     [Flags]
     public enum HitboxType
@@ -83,11 +76,14 @@ namespace ET
         None = 0,
         Hit = 1 << 0,
         Hurt = 1 << 1,
+        [Obsolete] 
         Throw = 1 << 2,
         Squash = 1 << 3,
+        [Obsolete] 
         Proximity = 1 << 4,
         Other = 1 << 5,
-        Gizmos = 1 << 6
+        [Obsolete] 
+        Gizmos = 1 << 6 
     }
     
     [Flags]

@@ -175,7 +175,8 @@ namespace ET.Client
         #region KeyControl
         private static void CheckKeyDown(this CameraManager _)
         {
-            var key = Keyboard.current;
+            Keyboard key = Keyboard.current;
+            
             //Reload
             if (key.f1Key.wasPressedThisFrame)
             {

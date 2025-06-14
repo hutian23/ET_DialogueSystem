@@ -6,7 +6,7 @@ namespace ET.Client
     {
         public static async ETTask SceneChangeTo(Scene clientScene, string sceneName)
         {
-            //1. 删除之前的currentScene.创建新的
+            //1. 删除之前的currentScene, 创建新的
             CurrentScenesComponent currentScenesComponent = clientScene.GetComponent<CurrentScenesComponent>();
             currentScenesComponent.Scene?.Dispose();
             SceneFactory.CreateCurrentScene(IdGenerater.Instance.GenerateId(), clientScene.Zone, sceneName, currentScenesComponent);

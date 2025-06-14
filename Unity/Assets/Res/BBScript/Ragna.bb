@@ -530,6 +530,7 @@ InAir: false;
 return;
 
 @Main:
+# 前摇
 SetVelocityX: 0;
 BBSprite: Start_1, 3;
 BBSprite: Start_2, 3;
@@ -540,6 +541,7 @@ BBSprite: Start_6, 3;
 BBSprite: Start_7, 3;
 BBSprite: Start_8, 3;
 BBSprite: Start_9, 3;
+# 冲刺取消
 EnableWhiffCancel: true;
 WhiffOption: Rg_GroundDash;
 BBSprite: Start_10, 3;
@@ -548,10 +550,12 @@ ScreenShake: 1200, 1200, 10000, 10, 0;
 CreateBullet: DeadSpike
   BulletLocalPosition: -20000, -7500;
 EndCreateBullet:
+# 收招
 BBSprite: Cast, 4;
 BBSprite: End_1, 3;
 BBSprite: End_2, 3;
 BBSprite: End_3, 3;
+# 后续为动画过渡，可随时取消
 EnableNandemoCancel: true;
 BBSprite: End_4, 3;
 BBSprite: End_5, 3;
@@ -668,6 +672,7 @@ AirDashAdd: -1;
 VFX: ADust
   VFX_LocalPosition: 25000, 0;
   VFX_Scale: 8000, 3000;
+  VFX_Rotation: 0;
 EndVFX:
 # 精准闪避
 EnableJustEvadeCheck: 8, 10000, 0, 50000, 40000;
@@ -683,6 +688,7 @@ WhiffOption: Rg_Jump;
 WhiffOption: Rg_PlungingAttack;
 EnableTargetComboCancel: true;
 TargetComboOption: Rg_AirDashAttack, 9;
+TargetComboOption: Rg_BloodScythe, 9;
 SetVelocityX: 200000;
 BBSprite: Active_1, 3;
 SetVelocityX: 100000;
@@ -828,7 +834,7 @@ return;
 
 @Main:
 EnableEnhanceInput: true;
-RegistEnhanceInput: 5MPPressed, 40;
+RegistEnhanceInput: 5MPPressed, 30;
 SetVelocityX: 80000;
 SkillVFX: HellsFang;
 BBSprite: Anticipate_3, 3;
@@ -836,7 +842,7 @@ BBSprite: Anticipate_4, 5;
 SetVelocityX: 250000;
 BBSprite: Anticipate_5, 3;
 BBSprite: Anticipate_6, 3;
-ScreenShake: 300, 1200, 10000, 15, 0;
+# ScreenShake: 300, 1200, 10000, 15, 0;
 BBSprite: Active_1, 5;
 SetVelocityX: 150000;
 BBSprite: Active_2, 3;
@@ -848,6 +854,7 @@ BBSprite: End_2, 3;
 SetVelocityX: 30000;
 BBSprite: End_3, 3;
 EnableTargetComboCancel: true;
+EnableEnhanceInput: false;
 TargetComboOption: Rg_GroundDashAttack_Derive, 3;
 BBSprite: End_4, 3;
 EnableNandemoCancel: true;
@@ -885,7 +892,7 @@ BBSprite: Start_8, 4;
 BBSprite: Start_9, 4;
 EnableWhiffCancel: true;
 WhiffOption: Rg_GroundDash;
-ScreenShake: 2000, 300, 10000, 20, 0;
+ScreenShake: 900, 300, 11000, 10, 1;
 CreateBullet: DeadSpike
   BulletLocalPosition: -20000, -7500;
 EndCreateBullet:
@@ -893,7 +900,7 @@ BBSprite: Active_1, 3;
 BBSprite: Active_2, 3;
 BBSprite: Active_3, 6;
 BBSprite: End_1, 3;
-EnableNandemoCancel: true;
+# EnableNandemoCancel: true;
 BBSprite: End_2, 3;
 BBSprite: End_3, 3;
 BBSprite: End_4, 3;
@@ -999,8 +1006,11 @@ Exit;
 
 
 [Rg_BloodScythe]
+@TargetComboTrigger:
+InputType: 5MPPressed;
+return;
+
 @Trigger:
-CanJump: true;
 InputType: 8MPPressed;
 return;
 

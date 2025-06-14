@@ -34,6 +34,30 @@ namespace ET.Client
             }
         }
 
+        public class BBTimerManagerFrameUpdateSystem : FrameUpdateSystem<BBTimerManager>
+        {
+            protected override void FrameUpdate(BBTimerManager self)
+            {
+                //1. SceneTimer推进1帧
+                BBTimerComponent sceneTimer = BBTimerManager.Instance.SceneTimer();
+                sceneTimer.Step();
+                Global.Settings.StepCount = sceneTimer.GetNow();
+                
+                //2. 按照UnitTimer注册顺序依次取出，更新其计时器
+                int count = self.instanceIds.Count;
+                while (count-- > 0)
+                {
+                    long instanceId = self.instanceIds.Dequeue();
+                    // 组件已销毁，出列
+                    if (Root.Instance.Get(instanceId) is not BBTimerComponent bbTimer || bbTimer.IsDisposed) continue;
+                    self.instanceIds.Enqueue(instanceId);
+                    
+                    //SceneTimer逻辑帧帧长是固定的， 永远是 1 / 60 s
+                    bbTimer.TimerUpdate(166666);
+                }
+            }
+        }
+        
         public class BBTimerManagerFrameLateUpdateSystem : FrameLateUpdateSystem<BBTimerManager>
         {
             protected override void FrameLateUpdate(BBTimerManager self)
@@ -70,28 +94,11 @@ namespace ET.Client
              
                 //1. FrameUpdate 生命周期事件
                 EventSystem.Instance.FrameUpdate();
-                
-                //2. sceneTimer更新逻辑帧
-                sceneTimer.Step();
-                Global.Settings.StepCount = sceneTimer.GetNow();
-                
-                //3. 取出unitTimer更新逻辑帧
-                int _Dt = self.instanceIds.Count;
-                while (_Dt-- > 0)
-                {
-                    long instanceId = self.instanceIds.Dequeue();
-                    // 组件已销毁，出列
-                    if (Root.Instance.Get(instanceId) is not BBTimerComponent bbTimer || bbTimer.IsDisposed) continue;
-                    self.instanceIds.Enqueue(instanceId);
-                    
-                    //SceneTimer逻辑帧帧长是固定的， 永远是 1 / 60 s
-                    bbTimer.TimerUpdate(166666);
-                }
 
-                //4. 物理层 PreStep PostStep生命周期事件
+                //2. 物理层 PreStep PostStep生命周期事件
                 b2WorldManager.Instance.Step();
                 
-                //5. FrameLateUpdate生命周期事件
+                //3. FrameLateUpdate生命周期事件
                 EventSystem.Instance.FrameLateUpdate();
             }
         }

@@ -280,7 +280,7 @@ BBSprite: GroundDash_Active_1, 5;
 SpawnGDust: 80000, -15000, 10000, 6000;
 SetVelocity: 700000, 0; # 地面冲刺初始速度
 BBSprite: GroundDash_Active_2, 5;
-AccelX: 700000, 15, -2800000; # 减速
+AccelX: 700000, -2800000, 15; # 减速
 BBSprite: GroundDash_Active_3, 5;
 BBSprite: GroundDash_Active_4, 5;
 BBSprite: GroundDash_Anticipate_1, 5;
@@ -604,7 +604,7 @@ EndIf:
 # 3. 向前方冲刺劈砍
 SetVelocity: 700000, 0;
 BBSprite: Slash_Active_1, 4;
-AccelX: 700000, 12, -3500000;
+AccelX: 700000, -3500000, 12;
 BBSprite: Slash_Active_2, 4;
 BBSprite: Slash_Active_3, 4;
 BBSprite: Slash_Active_4, 4;
@@ -817,7 +817,7 @@ BBSprite: Dash_Active_1, 4;
 SpawnGDust: 80000, -15000, 10000, 6000;
 SetVelocity: 750000, 0;
 BBSprite: Dash_Active_2, 5;
-AccelX: 750000, 12, -3800000;
+AccelX: 750000, -3800000, 12;
 BBSprite: Dash_Active_3, 4;
 BBSprite: Dash_Active_4, 4;
 BBSprite: End_1, 4;

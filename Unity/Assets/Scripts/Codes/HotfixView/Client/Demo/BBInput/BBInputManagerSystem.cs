@@ -5,7 +5,7 @@ namespace ET.Client
 {
     //开始重构
     [FriendOf(typeof (BBInputManager))]
-    public static class BBInputComponentSystem
+    public static class BBInputManagerSystem
     {
         public class BBInputAwakeSystem: AwakeSystem<BBInputManager>
         {
@@ -14,21 +14,16 @@ namespace ET.Client
                 BBInputManager.Instance = self;
             }
         }
-        
-        public static void Reload(this BBInputManager self)
-        {
-            self.WasPressedDict.Clear();
-            self.WasPressedDict.Add(BBOperaType.X, false);
-            self.WasPressedDict.Add(BBOperaType.A, false);
-            self.WasPressedDict.Add(BBOperaType.Y, false);
-            self.WasPressedDict.Add(BBOperaType.B, false);
-            self.WasPressedDict.Add(BBOperaType.RB, false);
-            self.WasPressedDict.Add(BBOperaType.RT, false);
-        }
 
         public static long CheckInput(this BBInputManager self)
         {
             Gamepad gamepad = Gamepad.current;
+            if (gamepad == null)
+            {
+                Log.Error($"please insert gamepad!!!");
+                return 0;
+            }
+            
             long ops = 0;
 
             //1. 方向键
@@ -129,16 +124,6 @@ namespace ET.Client
             }
 
             return ops;
-        }
-
-        public static bool ContainKey(this BBInputManager self, long op)
-        {
-            return (self.Ops & op) != 0;
-        }
-
-        public static bool WasPressedThisFrame(this BBInputManager self, int op)
-        {
-            return self.WasPressedDict[op];
         }
     }
 }

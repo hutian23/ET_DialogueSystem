@@ -299,7 +299,6 @@ namespace ET.Client
 
         public static void IsUnitTimer(this BBTimerComponent self)
         {
-            self.IsUnitTimer = true;
             BBTimerManager.Instance.RegistTimer(self.InstanceId);
         }
     }

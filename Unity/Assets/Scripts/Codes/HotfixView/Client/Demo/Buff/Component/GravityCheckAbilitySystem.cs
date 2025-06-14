@@ -38,7 +38,7 @@
                 if (self.gravity <= 0f) continue;
 
                 //2. y轴方向当前帧速度改变量
-                float dv = -(1 / 60f) * self.gravity;
+                float dv = -ScriptHelper.FrameLength * self.gravity;
 
                 //3. 约束最大下落速度
                 float curV = b2Body.GetVelocity().Y + dv;

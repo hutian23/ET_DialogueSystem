@@ -63,9 +63,5 @@ namespace ET.Client
         //标准更新频率60fps
         public int Hertz = 60;
         public long Accumulator;
-
-        //BBTimerManager组件管理，每帧都会更新
-        //一些特殊的Timer，比如SceneTimer, PostStepTimer, PreStepTimer,更新逻辑跟其父组件有关，不需要BBTimerManager管理
-        public bool IsUnitTimer;
     }
 }

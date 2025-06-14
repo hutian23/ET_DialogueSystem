@@ -300,7 +300,7 @@ namespace ET.Client
         {
             Unit unit = Root.Instance.Get(self.unitId) as Unit;
             UnityEngine.GameObject go = unit.GetComponent<GameObjectComponent>().GameObject;
-
+            
             Transform trans = self.body.GetTransform();
             go.transform.position = trans.Position.ToUnityVector3();
             go.transform.eulerAngles = new UnityEngine.Vector3(0, 0, trans.Rotation.Angle * UnityEngine.Mathf.Rad2Deg);

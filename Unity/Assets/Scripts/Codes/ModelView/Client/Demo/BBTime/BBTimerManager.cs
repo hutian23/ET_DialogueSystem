@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace ET.Client
 {
     [ComponentOf(typeof(Scene))]
-    public class BBTimerManager : Entity,IAwake,IDestroy, IUpdate, IFrameUpdate, ILoad, IFrameLateUpdate
+    public class BBTimerManager : Entity,IAwake, IUpdate, IFrameUpdate, ILoad, IFrameLateUpdate, IDestroy
     {
         [StaticField]
         public static BBTimerManager Instance;

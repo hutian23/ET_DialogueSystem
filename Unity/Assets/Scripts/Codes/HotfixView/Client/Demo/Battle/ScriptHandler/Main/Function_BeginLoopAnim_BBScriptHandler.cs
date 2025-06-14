@@ -54,8 +54,7 @@ namespace ET.Client
             //3. 动画播放协程，阻塞技能协程 
             await loopAnimComponent.LoopAnimCor();
             
-            await ETTask.CompletedTask;
-            return Status.Success;
+            return token.IsCancel() ? Status.Failed : Status.Success;
         }
     }
 }

@@ -11,6 +11,7 @@
             // 逻辑帧
             BBTimerComponent bbTimer = unit.GetComponent<BBTimerComponent>();
             bbTimer.SetHertz(args.hertz);
+            bbTimer.Accumulator = 0;
 
             // 物理帧
             if (b2WorldManager.Instance.ContainBody(unit.InstanceId))
