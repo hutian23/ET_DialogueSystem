@@ -9,7 +9,5 @@
                 UnityEngine.Object.Destroy(self.gameObject);
             }
         }
-        
-        
     }
 }

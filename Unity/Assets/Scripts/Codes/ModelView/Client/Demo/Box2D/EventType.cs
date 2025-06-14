@@ -51,9 +51,9 @@ namespace ET.Event
 
     public struct CollisionBuffer
     {
-        public long instanceIdA;
-        public long instanceIdB;
-        public Contact Contact;
+        public long instanceIdA; // 
+        public long instanceIdB; // 
+        public Contact Contact;  // 两个夹具的接触点
     }
     
     public static class CollisionEnterType

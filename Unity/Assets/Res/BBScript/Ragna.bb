@@ -855,7 +855,7 @@ SetVelocityX: 30000;
 BBSprite: End_3, 3;
 EnableTargetComboCancel: true;
 EnableEnhanceInput: false;
-TargetComboOption: Rg_GroundDashAttack_Derive, 3;
+TargetComboOption: Rg_GroundDashAttack_Derive, 5;
 BBSprite: End_4, 3;
 EnableNandemoCancel: true;
 SetTransition: NoPreSquat, true;

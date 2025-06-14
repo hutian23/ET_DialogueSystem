@@ -72,18 +72,21 @@ namespace ET
         public override void BeginContact(Contact contact)
         {
             base.BeginContact(contact);
+            // TriggerEnter | CollisionEnter
             EventSystem.Instance.Invoke(new BeginContactCallback(){Contact = contact});
         }
 
         public override void EndContact(Contact contact)
         {
             base.EndContact(contact);
+            // TriggerExit | CollisionExit
             EventSystem.Instance.Invoke(new EndContactCallback(){Contact = contact});
         }
 
         public override void PreSolve(Contact contact, in Manifold oldManifold)
         {
             base.PreSolve(contact, in oldManifold);
+            // TriggerStay | CollisionStay
             EventSystem.Instance.Invoke(new PreSolveCallback(){Contact = contact});
         }
         

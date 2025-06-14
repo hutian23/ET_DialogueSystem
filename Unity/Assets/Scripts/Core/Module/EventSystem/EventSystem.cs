@@ -111,7 +111,7 @@ namespace ET
             }
 
             this.typeSystems = new TypeSystems();
-
+            
             foreach (Type type in this.GetTypes(typeof (ObjectSystemAttribute)))
             {
                 object obj = Activator.CreateInstance(type);
