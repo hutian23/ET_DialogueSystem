@@ -43,6 +43,11 @@ namespace ET.Client
         {
             return self.MinHP;
         }
+
+        public static void HPAdd(this HPAbility self, int op)
+        {
+            self.SetHP(self.CurrentHP + op);
+        }
         
         public static void SetHP(this HPAbility self, int HP, bool IsEvent = true)
         {
@@ -55,7 +60,8 @@ namespace ET.Client
                 EventSystem.Instance.Invoke(new BBActionCallback(){instanceId = self.InstanceId});
             }
         }
-
+        
+        
         public static int GetHP(this HPAbility self)
         {
             return self.CurrentHP;

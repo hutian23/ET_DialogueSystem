@@ -33,8 +33,7 @@ namespace ET.Client
                 return Status.Failed;
             }
 
-            int curHP = ability.GetHP();
-            ability.SetHP(curHP + count);
+            ability.HPAdd(count);
             
             await ETTask.CompletedTask;
             return Status.Success;

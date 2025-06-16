@@ -377,6 +377,7 @@ Exit;
 @HitCallback:
 Shake: 200, 0, 10000, 10, 1;
 HitShake: 600, 0, 11000, 10, 1;
+Damage: 100000;
 return;
 
 

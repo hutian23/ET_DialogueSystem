@@ -17,7 +17,53 @@ namespace ET.Client
 
         public static long CheckInput(this BBInputManager self)
         {
-            Gamepad gamepad = Gamepad.current;
+            //GamePad优先级高于Keyboard
+            if (Gamepad.current != null)
+            {
+                return self.CheckInput_GamePad();
+            }
+            
+            return self.CheckInput_Keyboard();
+        }
+
+        private static long CheckInput_Keyboard(this BBInputManager _)
+        {
+            Keyboard keyboard = Keyboard.current;
+            if (keyboard == null)
+            {
+                Log.Error($"please insert keyboard!!!");
+                return 0;
+            }
+
+            long ops = 0;
+
+            // direction
+            ops |= (uint)(keyboard.wKey.isPressed? BBOperaType.UP : 0);
+            ops |= (uint)(keyboard.sKey.isPressed? BBOperaType.DOWN : 0);
+            ops |= (uint)(keyboard.aKey.isPressed? BBOperaType.LEFT : 0);
+            ops |= (uint)(keyboard.dKey.isPressed? BBOperaType.RIGHT : 0);
+            ops |= (uint)(keyboard.wKey.isPressed && keyboard.dKey.isPressed? BBOperaType.UPRIGHT : 0);
+            ops |= (uint)(keyboard.wKey.isPressed && keyboard.aKey.isPressed? BBOperaType.UPLEFT : 0);
+            ops |= (uint)(keyboard.sKey.isPressed && keyboard.dKey.isPressed? BBOperaType.DOWNRIGHT : 0);
+            ops |= (uint)(keyboard.sKey.isPressed && keyboard.aKey.isPressed? BBOperaType.DOWNLEFT : 0);
+            ops |= (uint)(ops == 0 ? BBOperaType.MIDDLE : 0);
+            
+            // attack
+            ops |= (uint)(keyboard.jKey.isPressed? BBOperaType.X : 0);
+            ops |= (uint)(keyboard.kKey.isPressed? BBOperaType.Y : 0);
+            ops |= (uint)(keyboard.lKey.isPressed? BBOperaType.A : 0);
+            ops |= (uint)(keyboard.uKey.isPressed? BBOperaType.B : 0);
+            ops |= (uint)(keyboard.iKey.isPressed? BBOperaType.RB : 0);
+            ops |= (uint)(keyboard.oKey.isPressed? BBOperaType.RT : 0);
+            ops |= (uint)(keyboard.nKey.isPressed? BBOperaType.LB : 0);
+            ops |= (uint)(keyboard.mKey.isPressed? BBOperaType.LT : 0);
+            
+            return ops;
+        }
+        
+        private static long CheckInput_GamePad(this BBInputManager _)
+        {
+             Gamepad gamepad = Gamepad.current;
             if (gamepad == null)
             {
                 Log.Error($"please insert gamepad!!!");

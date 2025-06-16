@@ -122,8 +122,10 @@ return;
 
 [Glin_Bow]
 @Main:
+HPLock: 3000;
 # 受攻击切换到二阶段
 HurtNotify: Once
+  HPLock: 1500;
   GotoBehavior: Glin_Roar;
 EndNotify:
 # Bow_1
@@ -139,6 +141,7 @@ BBSprite: Bow_4, 4;
 BBSprite: Bow_3, 4;
 BBSprite: Bow_2, 4;
 BBSprite: Bow_1, 10;
+HPLock: 1500;
 GotoBehavior: Glin_Teleport;
 
 [Glin_Slash]
@@ -945,16 +948,13 @@ BBSprite: Explode_1, 5;
 BBSprite: Explode_2, 5;
 BBSprite: Explode_3, 5;
 SetPos: 1000000, 100000;
-WaitFrame: 50;
-SetPos: 0, 0;
-Exit;
+return;
 
 [Glin_Exit]
 @Trigger:
 return;
 
 @Main:
-SetPos: 40000, -120000;
 SetVelocity: 0, 0;
 SetAngle: 0;
 BBSprite: In_1, 5;
@@ -997,26 +997,23 @@ EndCreateEffect:
 return;
 
 [Glin_Bow2]
-@Trigger:
-return;
-
 @Main:
 # Teleport
 SetVelocity: 0, 0;
 SetAngle: 0;
-BBSprite: Teleport_1, 4;
-BBSprite: Teleport_2, 4;
-BBSprite: Teleport_3, 4;
-BBSprite: Teleport_4, 4;
-BBSprite: Teleport_5, 4;
+BBSprite: Teleport_1, 5;
+BBSprite: Teleport_2, 5;
+BBSprite: Teleport_3, 5;
+BBSprite: Teleport_4, 5;
+BBSprite: Teleport_5, 5;
 SetPos: 1000000, 1000000;
 WaitFrame: 20;
-GlinPos: -140000, 140000, 60000, -95000;
-BBSprite: Teleport_4, 4;
-BBSprite: Teleport_3, 4;
-BBSprite: Teleport_2, 4;
+SetPos: 30000, -95000;
+BBSprite: Teleport_4, 5;
+BBSprite: Teleport_3, 5;
+BBSprite: Teleport_2, 5;
 # Idle
-RegistCounter: 60;
+RegistCounter: 150;
 BeginLoopAnim: (Counter: Value > 0)
   LoopSprite: Idle_1, 5;
   LoopSprite: Idle_2, 5;
