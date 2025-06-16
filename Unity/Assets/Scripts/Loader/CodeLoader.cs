@@ -74,7 +74,7 @@ namespace ET
 			}
 			else
 			{
-				// 傻屌Unity在这里搞了个傻逼优化，认为同一个路径的dll，返回的程序集就一样。所以这里每次编译都要随机名字
+				// 傻屌Unity在这里认为同一个路径的dll，返回的程序集就一样。所以这里每次编译都要随机名字
 				string[] logicFiles = Directory.GetFiles(Define.BuildOutputDir, "Hotfix_*.dll");
 				if (logicFiles.Length != 1)
 				{

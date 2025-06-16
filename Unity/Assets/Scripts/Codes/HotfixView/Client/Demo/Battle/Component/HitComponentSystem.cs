@@ -35,7 +35,8 @@ namespace ET.Client
                     //1. 获取碰撞双方的判定框信息
                     b2Box boxA = Root.Instance.Get(buffer.instanceIdA) as b2Box;
                     b2Box boxB = Root.Instance.Get(buffer.instanceIdB) as b2Box;
-                    if (boxA.GetBoxType() is not HitboxType.Hit || boxB.GetBoxType() is not HitboxType.Hurt) continue;
+                    if (boxA == null || boxB == null || boxA.IsDisposed || boxB.IsDisposed ||
+                        boxA.GetBoxType() is not HitboxType.Hit || boxB.GetBoxType() is not HitboxType.Hurt) continue;
 
                     //2. 组件查询
                     b2Body bodyA = boxA.GetParent<b2Body>();

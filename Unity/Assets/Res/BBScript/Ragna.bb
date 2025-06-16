@@ -4,7 +4,7 @@
 PlayerInit;
 #2. 相机跟随
 Camera_FollowPlayer;
-SetPos: 0, -70000;
+SetPos: -50000, -20000;
 #3. 初始化对象池
 PoolObject: DeadSpike, 2;
 PoolObject: CircleWave, 1;
@@ -672,7 +672,7 @@ AirDashAdd: -1;
 VFX: ADust
   VFX_LocalPosition: 25000, 0;
   VFX_Scale: 8000, 3000;
-  VFX_Rotation: 0;
+  VFX_LocalAngle: 0;
 EndVFX:
 # 精准闪避
 EnableJustEvadeCheck: 8, 10000, 0, 50000, 40000;

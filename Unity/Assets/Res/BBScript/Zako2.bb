@@ -38,8 +38,8 @@ EndMove:
 RegistMove: (Zako2_Death)
   MoveType: Death;
 EndMove:
-# GotoBehavior: Zako2_Spawn;
-GotoBehavior: Zako2_Idle;
+GotoBehavior: Zako2_Spawn;
+# GotoBehavior: Zako2_Idle;
 return;
 
 @HPWatcher:
@@ -61,17 +61,12 @@ GotoMarker: Loop;
 return;
 
 [Zako2_Spawn]
-@Trigger:
-return;
-
 @Main:
+SetPos: -30000, -120000;
 PlayTimeline: 0, 35;
 GotoBehavior: Zako2_Patrol;
 
 [Zako2_Patrol]
-@Trigger:
-return;
-
 @Main: 
 EnablePatrol: -193000, 193000;
 EnableTargetCheck: 0, 10000, 120000, 100000; 
@@ -102,9 +97,6 @@ GotoBehavior: Zako2_Startle;
 return;
 
 [Zako2_LoseTarget]
-@Trigger:
-return;
-
 @Main:
 SetVelocityX: 0;
 # 待机期间玩家回到攻击范围内
@@ -127,9 +119,6 @@ GotoBehavior: Zako2_Startle;
 return;
 
 [Zako2_Startle]
-@Trigger:
-return;
-
 @Main:
 EnemyUpdateFlip;
 SetVelocity: 0, 0;
@@ -146,9 +135,6 @@ BeginIf: (Random: ran1 >= 50), (Random: ran1 <= 100)
 EndIf:
 
 [Zako2_Chase]
-@Trigger:
-return;
-
 @Main:
 # 丢失目标，回到Patrol行为
 EnableTargetCheck: 0, 0, 400000, 100000;
@@ -189,9 +175,6 @@ EndIf:
 return;
 
 [Zako2_Charge]
-@Trigger:
-return;
-
 @Main:
 # 蓄力
 SetVelocityX: 0;
@@ -227,9 +210,6 @@ BBSprite: End_5, 5;
 GotoBehavior: Zako2_BattleIdle;
 
 [Zako2_Attack]
-@Trigger:
-return;
-
 @Main:
 SetVelocityX: 0;
 BBSprite: Anticipate_1, 4;
@@ -248,9 +228,6 @@ BBSprite: End_3, 4;
 GotoBehavior: Zako2_BattleIdle;
 
 [Zako2_JumpAttack]
-@Trigger:
-return;
-
 @Main:
 # PreJump
 SetVelocityX: 0;
@@ -294,9 +271,6 @@ BBSprite: Land_2, 15;
 GotoBehavior: Zako2_BattleIdle;
 
 [Zako2_BattleIdle]
-@Trigger:
-return;
-
 @Main:
 #1. 待机
 SetVelocityX: 0;
@@ -339,9 +313,6 @@ GotoBehavior: Zako2_LoseTarget;
 return;
 
 [Zako2_Death]
-@Trigger:
-return;
-
 @Main:
 # Hit
 Gravity: 0;

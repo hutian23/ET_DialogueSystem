@@ -6,7 +6,7 @@ PoolObject: Glin_Hand, 1;
 PoolObject: GlinBullet, 5;
 PoolObject: GlinSpike, 10;
 PoolObject: Goam, 4;
-PoolObject: GlinFireball, 30;
+PoolObject: GlinFireball, 40;
 PoolObject: ADust, 1;
 PoolObject: GDust, 1;
 # 数值初始化
@@ -74,7 +74,7 @@ EndMove:
 RegistMove: (Glin_Bow2)
   MoveType: None;
 EndMove:
-GotoBehavior: Glin_Roar;
+GotoBehavior: Glin_Idle;
 
 @HPWatcher:
 # 死亡逻辑
@@ -98,42 +98,29 @@ return;
 @Main:
 SetPos: 90000, -95000;
 EnableInRangeCheck: true, 80000, 0, 0;
-BeginLoopAnim: (InRange: false)
-  LoopSprite: Idle_1, 5;
-  LoopSprite: Idle_2, 5;
-  LoopSprite: Idle_3, 5;
-  LoopSprite: Idle_4, 5;
-  LoopSprite: Idle_5, 5;
-  LoopSprite: Idle_6, 5;
-  LoopSprite: Idle_7, 5;
-  LoopSprite: Idle_8, 5;
-  LoopSprite: Idle_9, 5;
-  LoopSprite: Idle_10, 5;
-  LoopSprite: Idle_11, 5;
-  LoopSprite: Idle_12, 5;
-EndLoopAnim:
-EnableInRangeCheck: false, 0, 0, 0;
-RegistCounter: 100;
-BeginLoopAnim: (Counter: Value > 0)
-  LoopSprite: Idle_1, 5;
-  LoopSprite: Idle_2, 5;
-  LoopSprite: Idle_3, 5;
-  LoopSprite: Idle_4, 5;
-  LoopSprite: Idle_5, 5;
-  LoopSprite: Idle_6, 5;
-  LoopSprite: Idle_7, 5;
-  LoopSprite: Idle_8, 5;
-  LoopSprite: Idle_9, 5;
-  LoopSprite: Idle_10, 5;
-  LoopSprite: Idle_11, 5;
-  LoopSprite: Idle_12, 5;
-EndLoopAnim:
-GotoBehavior: Glin_Bow;
-
-[Glin_Bow]
-@Trigger:
+RegistInRangeCallback: Glin_Idle, InRangeCallback;
+SetMarker: Loop;
+BBSprite: Idle_1, 5;
+BBSprite: Idle_2, 5;
+BBSprite: Idle_3, 5;
+BBSprite: Idle_4, 5;
+BBSprite: Idle_5, 5;
+BBSprite: Idle_6, 5;
+BBSprite: Idle_7, 5;
+BBSprite: Idle_8, 5;
+BBSprite: Idle_9, 5;
+BBSprite: Idle_10, 5;
+BBSprite: Idle_11, 5;
+BBSprite: Idle_12, 5;
+GotoMarker: Loop;
 return;
 
+@InRangeCallback:
+WaitFrame: 100;
+GotoBehavior: Glin_Bow;
+return;
+
+[Glin_Bow]
 @Main:
 # 受攻击切换到二阶段
 HurtNotify: Once
@@ -160,7 +147,7 @@ return;
 
 @Main:
 # Slash Start
-BBSprite: Slash_1, 10;
+BBSprite: Slash_1, 4;
 BBSprite: Slash_2, 4;
 BBSprite: Slash_3, 4;
 # 蓄力
@@ -215,9 +202,7 @@ BBSprite: Capespike_7, 5;
 ScreenShake: 850, 0, 12000, 15, 0;
 BBSprite: Capespike_8, 5;
 # Cast Spike
-CreateBullet: GlinSpikes
-  BulletAbsolutePosition: 0, -100000;
-EndCreateBullet:
+CallSubCoroutine: Glin_Capespike, CastSpikes;
 RegistCounter: 150;
 BeginLoopAnim: (Counter: Value > 0)
   LoopSprite: Capespike_9, 7;
@@ -232,10 +217,53 @@ BBSprite: Capespike_4, 5;
 BBSprite: Capespike_3, 5;
 GotoBehavior: Glin_Teleport;
 
-[Glin_AirDash]
-@Trigger:
+@CastSpikes:
+CreateBullet: GlinSpike
+  BulletAngle: 30000;
+  BulletAbsolutePosition: -200000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: 20000;
+  BulletAbsolutePosition: -160000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: -45000;
+  BulletAbsolutePosition: -120000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: 0;
+  BulletAbsolutePosition: -80000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: 12000;
+  BulletAbsolutePosition: -40000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: -22000;
+  BulletAbsolutePosition: 0, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: -12000;
+  BulletAbsolutePosition: 40000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: -18000;
+  BulletAbsolutePosition: 80000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: 12000;
+  BulletAbsolutePosition: 120000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAngle: 62000;
+  BulletAbsolutePosition: 160000, -120000;
+EndCreateBullet:
+CreateBullet: GlinSpike
+  BulletAbsolutePosition: 200000, -120000;
+EndCreateBullet:
 return;
 
+[Glin_AirDash]
 @Main:
 # 1. 悬停在空中
 BBSprite: AirDash_Anticipate_1, 5; # 播放对应的动画帧，包括Sprite、Hitbox，第二个参数表示动画帧的持续帧数
@@ -245,35 +273,36 @@ BBSprite: AirDash_Anticipate_4, 5;
 BBSprite: AirDash_Anticipate_5, 5;
 BBSprite: AirDash_Anticipate_6, 5;
 BBSprite: AirDash_Anticipate_7, 5;
-EnableGlinChase: true, -450000, 450000, 80000; # 悬停在空中，空箭始终朝向玩家(调整Rotate)
-Shake: 450, 450, 8000, 60, 1; # 空箭蓄力过程中 屏幕振动
-RegistCounter: 60; # 空箭蓄力60帧
-BeginLoopAnim: (Counter: Value > 0)
+EnableGlinChase: true, -450000, 450000, 80000; #添加GlinChase组件，组件作用为每帧检测玩家位置，调整Rotation(此处的参数为万分制)
+Shake: 450, 450, 8000, 60, 1; # 蓄力过程中 Boss振动
+# 2. 蓄力阶段，在空中悬停60帧
+RegistCounter: 60; 
+BeginLoopAnim: (Counter: Value > 0) # 循环播放下面三个动画帧
   LoopSprite: AirDash_Active_1, 5;
   LoopSprite: AirDash_Active_2, 5;
   LoopSprite: AirDash_Active_3, 5;
 EndLoopAnim:
-EnableGlinChase: false, 0, 0, 0;
-# 2. 下冲
+EnableGlinChase: false, 0, 0, 0; # 移除GlinChase组件
+# 3. 向下冲刺
 AirDashVelocity: -700000;
-SpawnADust: 0, 27000, 8000, 12000, 900000; # 冲刺起始，生成AirDust特效(根据unit当前Rotate调整对应的rotate)
-BeginLoopAnim: (InAir: true)
+SpawnADust: 0, 27000, 8000, 12000, 900000; # 冲刺起始，生成AirDust特效(根据Boss当前Rotate调整特效的rotate)
+BeginLoopAnim: (InAir: true) # 每帧检测地面，检测到地面切换到 4
   LoopSprite: AirDash_Active_1, 4;
   LoopSprite: AirDash_Active_2, 4;
   LoopSprite: AirDash_Active_3, 4;
 EndLoopAnim:
-# 3. 落地
-SetRotate: 0;    
-EnemyUpdateFlip; # 根据玩家当前位置调整地面冲刺朝向
+# 4. 落地
+SetAngle: 0; 
+EnemyUpdateFlip; # 根据玩家当前位置，调整水平冲刺的方向
 SpawnGDust: -65000, -20000, -8000, 4000; # 生成Ground Dust特效
 SpawnGDust: 65000, -20000, 8000, 4000;
 SetVelocity: 0, -50000;
-ScreenShake: 1550, 550, 10000, 20, 0; # 落地的振动效果
-# 4. 地面冲刺
+ScreenShake: 1550, 550, 10000, 20, 0; # 砸地，屏幕振动
+# 5. 水平冲刺
 # 地面冲刺起始期
-BBSprite: GroundDash_Anticipate_1, 15;
+BBSprite: GroundDash_Anticipate_1, 10;
 BBSprite: GroundDash_Anticipate_2, 5;
-BBSprite: GroundDash_Anticipate_3, 15;
+BBSprite: GroundDash_Anticipate_3, 10;
 BBSprite: GroundDash_Anticipate_4, 5;
 # 地面冲刺攻击判定持续期
 BBSprite: GroundDash_Active_1, 5;
@@ -284,11 +313,11 @@ AccelX: 700000, -2800000, 15; # 减速
 BBSprite: GroundDash_Active_3, 5;
 BBSprite: GroundDash_Active_4, 5;
 BBSprite: GroundDash_Anticipate_1, 5;
-SetVelocityX: 0;
+SetVelocityX: 0; # 水平速度归0
 BBSprite: GroundDash_Anticipate_2, 5;
 BBSprite: GroundDash_Anticipate_3, 5;
 BBSprite: GroundDash_Anticipate_4, 5;
-# 5. 隐身，然后切换到下一个动作
+# 6. 隐身，然后切换到下一个动作
 GotoBehavior: Glin_Teleport;
 
 [Glin_Cast]
@@ -353,27 +382,22 @@ return;
 # 发射飞弹时屏幕振动
 BBSprite: Anticipate_1, 5;
 BBSprite: Anticipate_2, 5;
-RegistCounter: 40;
-BeginLoopAnim: (Counter: Value > 0)
-  LoopSprite: Active_1, 5;
-  LoopSprite: Active_2, 5;
-  LoopSprite: Active_3, 5;
-EndLoopAnim:
-ScreenShake: 250, 250, 8000, 200, 1;
-# 纵向飞弹，y轴速度不变，x轴速度飞行过程中略微增大
-# 横向飞弹，x轴速度不变，y轴速度逐渐趋于0
-Enable_CastGlinFireball: true, 35, -85000, 20000, 160000;
+Shake: 300, 300, 10000, 100, 1;
+CallSubCoroutine: Glin_Ballon, CastFireBallCoroutine;
 RegistCounter: 200;
 BeginLoopAnim: (Counter: Value > 0)
   LoopSprite: Active_1, 5;
   LoopSprite: Active_2, 5;
   LoopSprite: Active_3, 5;
 EndLoopAnim:
-# Cast End
-Enable_CastGlinFireball: false, 0, 0, 0, 0;
 BBSprite: Anticipate_2, 7;
 BBSprite: Anticipate_1, 5;
 GotoBehavior: Glin_Teleport;
+
+@CastFireBallCoroutine:
+WaitFrame: 30;
+EnableCastGlinFireball: 160, 40, -85000, 20000, 160000;
+return;
 
 [Glin_Teleport]
 @Trigger:
@@ -444,11 +468,7 @@ BeginIf: (Random: ran1 >= 90), (Random: ran1 <= 100)
 EndIf:
 
 [Glin_Roar]
-@Trigger:
-return;
-
 @Main:
-SetPos: 0, -120000;
 BBSprite: Anticipate_1, 5;
 ScreenShake: 550, 550, 10000, 100, 1;
 RegistCounter: 100;
@@ -503,7 +523,7 @@ BeginIf: (Random: ran1 >= 50), (Random: ran1 < 65)
 EndIf:
 # 5. AirDash
 BeginIf: (Random: ran1 >= 65), (Random: ran1 < 85)
-  AirDashPos: 15000;
+  AirDashPos: 0;
   SetFlip: Left;
 EndIf:
 # 6. Ballon
@@ -771,60 +791,74 @@ BBSprite: Cast_End_3, 5;
 GotoBehavior: Glin_Step2_Teleport;
 
 [Glin_Step2_AirDash]
-@Trigger:
-return;
-
 @Main:
-# AirDash Anticipate
-BBSprite: AirDash_Anticipate_1, 4;
-BBSprite: AirDash_Anticipate_2, 4;
-BBSprite: AirDash_Anticipate_3, 4;
-BBSprite: AirDash_Anticipate_4, 4;
-BBSprite: AirDash_Anticipate_5, 4;
-BBSprite: AirDash_Anticipate_6, 4;
-# AirDash Charge
+# 1. 悬停在空中
+BBSprite: AirDash_Anticipate_1, 5; # 播放对应的动画帧，包括Sprite、Hitbox，第二个参数表示动画帧的持续帧数
+BBSprite: AirDash_Anticipate_2, 5;
+BBSprite: AirDash_Anticipate_3, 5;
+BBSprite: AirDash_Anticipate_4, 5;
+BBSprite: AirDash_Anticipate_5, 5;
+BBSprite: AirDash_Anticipate_6, 5;
 BBSprite: AirDash_Active_1, 4;
-EnableGlinChase: true, -450000, 450000, 80000;
-Shake: 850, 850, 12000, 60, 1; 
+EnableGlinChase: true, -450000, 450000, 80000;  #添加GlinChase组件，组件作用为每帧检测玩家位置，调整EulerAngle(此处的参数为万分制)
+Shake: 850, 850, 12000, 60, 1; # 蓄力过程中 Boss自身振动
+# 2. 蓄力阶段，在空中悬停60帧
 RegistCounter: 60;
-BeginLoopAnim: (Counter: Value > 0)
+BeginLoopAnim: (Counter: Value > 0) # 循环播放下面三个动画帧
   LoopSprite: AirDash_Active_2, 5;
   LoopSprite: AirDash_Active_3, 5;
   LoopSprite: AirDash_Active_4, 5;
 EndLoopAnim:
-# Down Dash
-EnableGlinChase: false, 0, 0, 0;
+EnableGlinChase: false, 0, 0, 0; # 移除GlinChase组件
+# 3. 向下冲刺
 AirDashVelocity: -700000;
-SpawnADust: 0, 27000, 8000, 12000, 900000;
-BeginLoopAnim: (InAir: true)
+VFX: ADust  # 冲刺起始，生成AirDust特效
+  VFX_LocalPosition: 0, 27000;
+  VFX_Scale: 8000, 12000;
+  VFX_LocalAngle: 900000;
+EndVFX:
+BeginLoopAnim: (InAir: true) # 每帧检测地面，OnGround退出循环
   LoopSprite: AirDash_Active_2, 4;
   LoopSprite: AirDash_Active_3, 4;
   LoopSprite: AirDash_Active_4, 4;
 EndLoopAnim:
-# Land 
-SetAngle: 0;  
-EnemyUpdateFlip;
-SpawnGDust: -65000, -20000, -8000, 4000;
-SpawnGDust: 65000, -20000, 8000, 4000;
+# 4. 落地
+SetAngle: 0; # 落地时，重置EulerAngle为0
+EnemyUpdateFlip; # 落地时，根据玩家当前位置，调整水平冲刺的朝向
+ScreenShake: 500, 1550, 10000, 25, 0; # 砸地，屏幕振动
 SetVelocity: 0, -50000;
-ScreenShake: 1550, 550, 10000, 20, 0;
-BBSprite: Land_1, 8;
+VFX: GDust # 落地灰尘特效，一左一右
+  VFX_LocalPosition: -65000, -25000;
+  VFX_Scale: -8000, 4000;
+  VFX_AbsoluteAngle: 0;
+EndVFX:
+VFX: GDust
+  VFX_LocalPosition: 65000, -25000;
+  VFX_Scale: 8000, 4000;
+  VFX_AbsoluteAngle: 0;
+EndVFX:
+BBSprite: Land_1, 10;
 BBSprite: Land_2, 4;
 BBSprite: Land_3, 8;
 BBSprite: Land_4, 4;
-# GroundDash
+# 5. 水平冲刺
 BBSprite: Dash_Active_1, 4;
-SpawnGDust: 80000, -15000, 10000, 6000;
-SetVelocity: 750000, 0;
+VFX: GDust
+  VFX_LocalPosition: 80000, -15000;
+  VFX_Scale: 10000, 6000;
+  VFX_AbsoluteAngle: 0;
+EndVFX:
+SetVelocity: 600000, 0; # 水平冲刺速度
 BBSprite: Dash_Active_2, 5;
-AccelX: 750000, -3800000, 12;
-BBSprite: Dash_Active_3, 4;
-BBSprite: Dash_Active_4, 4;
-BBSprite: End_1, 4;
+AccelX: 700000, -3000000, 15; # 逐渐减速
+BBSprite: Dash_Active_3, 5;
+BBSprite: Dash_Active_4, 5;
+BBSprite: End_1, 5;
 SetVelocityX: 0;
 BBSprite: End_2, 4;
 BBSprite: End_3, 4;
 BBSprite: End_4, 4;
+# 6. 隐身，然后切换到下一个动作
 GotoBehavior: Glin_Step2_Teleport;
 
 [Glin_Step2_Ballon]
