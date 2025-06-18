@@ -1,5 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <linker>
+  <assembly fullname="Cinemachine">
+    <type fullname="Cinemachine.CinemachineBrain" preserve="all" />
+    <type fullname="Cinemachine.CinemachineConfiner2D" preserve="all" />
+    <type fullname="Cinemachine.CinemachineFramingTransposer" preserve="all" />
+    <type fullname="Cinemachine.CinemachineTargetGroup" preserve="all" />
+    <type fullname="Cinemachine.CinemachineTargetGroup/PositionMode" preserve="all" />
+    <type fullname="Cinemachine.CinemachineVirtualCamera" preserve="all" />
+    <type fullname="Cinemachine.CinemachineVirtualCameraBase" preserve="all" />
+    <type fullname="Cinemachine.ICinemachineCamera" preserve="all" />
+    <type fullname="Cinemachine.LensSettings" preserve="all" />
+    <type fullname="CinemachineCameraOffset" preserve="all" />
+  </assembly>
   <assembly fullname="MongoDB.Bson">
     <type fullname="MongoDB.Bson.Serialization.Attributes.BsonDictionaryOptionsAttribute" preserve="all" />
     <type fullname="MongoDB.Bson.Serialization.Attributes.BsonElementAttribute" preserve="all" />
@@ -12,8 +24,6 @@
     <type fullname="System.Collections.Generic.SortedDictionary`2" preserve="all" />
     <type fullname="System.Collections.Generic.SortedDictionary`2/ValueCollection" preserve="all" />
     <type fullname="System.Collections.Generic.SortedDictionary`2/ValueCollection/Enumerator" preserve="all" />
-    <type fullname="System.Collections.Generic.SortedSet`1" preserve="all" />
-    <type fullname="System.Collections.Generic.SortedSet`1/Enumerator" preserve="all" />
     <type fullname="System.Collections.Generic.Stack`1" preserve="all" />
     <type fullname="System.ComponentModel.EditorBrowsableAttribute" preserve="all" />
     <type fullname="System.ComponentModel.EditorBrowsableState" preserve="all" />
@@ -57,6 +67,7 @@
     <type fullname="ET.AwakeSystem`1" preserve="all" />
     <type fullname="ET.AwakeSystem`2" preserve="all" />
     <type fullname="ET.AwakeSystem`3" preserve="all" />
+    <type fullname="ET.AwakeSystem`4" preserve="all" />
     <type fullname="ET.BaseAttribute" preserve="all" />
     <type fullname="ET.ByteHelper" preserve="all" />
     <type fullname="ET.ChildOfAttribute" preserve="all" />
@@ -81,10 +92,10 @@
     <type fullname="ET.FriendOfAttribute" preserve="all" />
     <type fullname="ET.Game" preserve="all" />
     <type fullname="ET.GizmosUpdateSystem`1" preserve="all" />
-    <type fullname="ET.HashSetComponent`1" preserve="all" />
     <type fullname="ET.IAwake" preserve="all" />
     <type fullname="ET.IAwake`1" preserve="all" />
     <type fullname="ET.IAwake`2" preserve="all" />
+    <type fullname="ET.IAwake`3" preserve="all" />
     <type fullname="ET.IConfig" preserve="all" />
     <type fullname="ET.IDestroy" preserve="all" />
     <type fullname="ET.IFixedUpdate" preserve="all" />
@@ -120,7 +131,6 @@
     <type fullname="ET.PreStepSystem`1" preserve="all" />
     <type fullname="ET.ProtoObject" preserve="all" />
     <type fullname="ET.ProtobufHelper" preserve="all" />
-    <type fullname="ET.QueueComponent`1" preserve="all" />
     <type fullname="ET.RandomGenerator" preserve="all" />
     <type fullname="ET.Root" preserve="all" />
     <type fullname="ET.RpcException" preserve="all" />
@@ -149,6 +159,7 @@
     <type fullname="UnityEngine.InputSystem.Keyboard" preserve="all" />
   </assembly>
   <assembly fullname="Unity.Loader">
+    <type fullname="Box2DSharp.Collision.Collider.WorldManifold" preserve="all" />
     <type fullname="Box2DSharp.Collision.Shapes.PolygonShape" preserve="all" />
     <type fullname="Box2DSharp.Collision.Shapes.Shape" preserve="all" />
     <type fullname="Box2DSharp.Common.Color" preserve="all" />
@@ -161,9 +172,10 @@
     <type fullname="Box2DSharp.Dynamics.Contacts.Contact" preserve="all" />
     <type fullname="Box2DSharp.Dynamics.Fixture" preserve="all" />
     <type fullname="Box2DSharp.Dynamics.FixtureDef" preserve="all" />
+    <type fullname="Box2DSharp.Dynamics.IRayCastCallback" preserve="all" />
     <type fullname="Box2DSharp.Dynamics.World" preserve="all" />
     <type fullname="ET.BBScript" preserve="all" />
-    <type fullname="ET.BeginContactCallback" preserve="all" />
+    <type fullname="ET.BoxInfo" preserve="all" />
     <type fullname="ET.Client.GameObjectPoolHelper" preserve="all" />
     <type fullname="ET.Client.PoolInflationType" preserve="all" />
     <type fullname="ET.Client.PoolObject" preserve="all" />
@@ -171,17 +183,27 @@
     <type fullname="ET.CodeMode" preserve="all" />
     <type fullname="ET.CoroutineHelper" preserve="all" />
     <type fullname="ET.Define" preserve="all" />
-    <type fullname="ET.EndContactCallback" preserve="all" />
+    <type fullname="ET.Event.BeginContactCallback" preserve="all" />
+    <type fullname="ET.Event.ContactFilterCallback" preserve="all" />
+    <type fullname="ET.Event.EndContactCallback" preserve="all" />
+    <type fullname="ET.Event.PostStepCallback" preserve="all" />
+    <type fullname="ET.Event.PreSolveCallback" preserve="all" />
+    <type fullname="ET.Event.PreStepCallback" preserve="all" />
+    <type fullname="ET.Event.UpdateFlipCallback" preserve="all" />
     <type fullname="ET.GlobalConfig" preserve="all" />
+    <type fullname="ET.HitboxType" preserve="all" />
+    <type fullname="ET.InjectFunctionCallback" preserve="all" />
+    <type fullname="ET.Injector" preserve="all" />
+    <type fullname="ET.LayerType" preserve="all" />
     <type fullname="ET.PathHelper" preserve="all" />
     <type fullname="ET.PausedCallback" preserve="all" />
-    <type fullname="ET.PostStepCallback" preserve="all" />
-    <type fullname="ET.PreSolveCallback" preserve="all" />
-    <type fullname="ET.PreStepCallback" preserve="all" />
+    <type fullname="ET.SceneObject" preserve="all" />
     <type fullname="ET.SharedVariable" preserve="all" />
+    <type fullname="ET.ShowGUICallback" preserve="all" />
     <type fullname="ET.SingleStepCallback" preserve="all" />
     <type fullname="ET.Status" preserve="all" />
-    <type fullname="ET.UnitProfile" preserve="all" />
+    <type fullname="ET.TagType" preserve="all" />
+    <type fullname="ET.UpdateHertzCallback" preserve="all" />
     <type fullname="ET.UpdateUnitProfileCallback" preserve="all" />
     <type fullname="ET.b2BoxCollider2D" preserve="all" />
     <type fullname="ET.b2Game" preserve="all" />
@@ -196,26 +218,17 @@
     <type fullname="Testbed.Abstractions.TestSettings" preserve="all" />
     <type fullname="Timeline.BBEventTrack" preserve="all" />
     <type fullname="Timeline.BBKeyframeBase" preserve="all" />
-    <type fullname="Timeline.BBTargetBindTrack" preserve="all" />
     <type fullname="Timeline.BBTimeline" preserve="all" />
     <type fullname="Timeline.BBTrack" preserve="all" />
-    <type fullname="Timeline.BoxInfo" preserve="all" />
-    <type fullname="Timeline.EditorHelper" preserve="all" />
     <type fullname="Timeline.EventInfo" preserve="all" />
-    <type fullname="Timeline.FixtureData" preserve="all" />
-    <type fullname="Timeline.FlipState" preserve="all" />
     <type fullname="Timeline.HitboxKeyframe" preserve="all" />
-    <type fullname="Timeline.HitboxType" preserve="all" />
     <type fullname="Timeline.RuntimePlayable" preserve="all" />
     <type fullname="Timeline.RuntimeTrack" preserve="all" />
-    <type fullname="Timeline.TargetBindKeyFrame" preserve="all" />
     <type fullname="Timeline.TimelinePlayer" preserve="all" />
     <type fullname="Timeline.UpdateEventTrackCallback" preserve="all" />
-    <type fullname="Timeline.UpdateHertzCallback" preserve="all" />
     <type fullname="Timeline.UpdateHitboxCallback" preserve="all" />
     <type fullname="Timeline.UpdateRootMotionCallback" preserve="all" />
-    <type fullname="Timeline.UpdateSubTimelineCallback" preserve="all" />
-    <type fullname="Timeline.UpdateTargetBindCallback" preserve="all" />
+    <type fullname="Timeline.UpdateRotationCallback" preserve="all" />
     <type fullname="UnityEngine.UI.LoopScrollRect" preserve="all" />
     <type fullname="UnityEngine.UI.LoopScrollRectBase" preserve="all" />
     <type fullname="UnityEngine.UI.LoopVerticalScrollRect" preserve="all" />
@@ -255,6 +268,7 @@
   <assembly fullname="UnityEngine.CoreModule">
     <type fullname="UnityEngine.Application" preserve="all" />
     <type fullname="UnityEngine.AsyncOperation" preserve="all" />
+    <type fullname="UnityEngine.Behaviour" preserve="all" />
     <type fullname="UnityEngine.Camera" preserve="all" />
     <type fullname="UnityEngine.Color" preserve="all" />
     <type fullname="UnityEngine.Component" preserve="all" />
@@ -268,15 +282,19 @@
     <type fullname="UnityEngine.GL" preserve="all" />
     <type fullname="UnityEngine.GameObject" preserve="all" />
     <type fullname="UnityEngine.LayerMask" preserve="all" />
+    <type fullname="UnityEngine.MaterialPropertyBlock" preserve="all" />
     <type fullname="UnityEngine.Mathf" preserve="all" />
     <type fullname="UnityEngine.Object" preserve="all" />
     <type fullname="UnityEngine.Quaternion" preserve="all" />
+    <type fullname="UnityEngine.Random" preserve="all" />
     <type fullname="UnityEngine.Rect" preserve="all" />
     <type fullname="UnityEngine.RectTransform" preserve="all" />
+    <type fullname="UnityEngine.Renderer" preserve="all" />
     <type fullname="UnityEngine.Resources" preserve="all" />
     <type fullname="UnityEngine.SceneManagement.SceneManager" preserve="all" />
     <type fullname="UnityEngine.Screen" preserve="all" />
     <type fullname="UnityEngine.Sprite" preserve="all" />
+    <type fullname="UnityEngine.SpriteRenderer" preserve="all" />
     <type fullname="UnityEngine.TextAsset" preserve="all" />
     <type fullname="UnityEngine.Transform" preserve="all" />
     <type fullname="UnityEngine.U2D.SpriteAtlas" preserve="all" />
@@ -313,19 +331,16 @@
     <type fullname="System.AttributeUsageAttribute" preserve="all" />
     <type fullname="System.BitConverter" preserve="all" />
     <type fullname="System.Byte" preserve="all" />
-    <type fullname="System.Collections.Generic.Comparer`1" preserve="all" />
     <type fullname="System.Collections.Generic.Dictionary`2" preserve="all" />
     <type fullname="System.Collections.Generic.Dictionary`2/Enumerator" preserve="all" />
     <type fullname="System.Collections.Generic.Dictionary`2/ValueCollection" preserve="all" />
     <type fullname="System.Collections.Generic.Dictionary`2/ValueCollection/Enumerator" preserve="all" />
-    <type fullname="System.Collections.Generic.IComparer`1" preserve="all" />
     <type fullname="System.Collections.Generic.IEnumerable`1" preserve="all" />
     <type fullname="System.Collections.Generic.IEnumerator`1" preserve="all" />
     <type fullname="System.Collections.Generic.KeyValuePair`2" preserve="all" />
     <type fullname="System.Collections.Generic.List`1" preserve="all" />
     <type fullname="System.Collections.Generic.List`1/Enumerator" preserve="all" />
     <type fullname="System.Collections.IEnumerator" preserve="all" />
-    <type fullname="System.Comparison`1" preserve="all" />
     <type fullname="System.Console" preserve="all" />
     <type fullname="System.Diagnostics.DebuggableAttribute" preserve="all" />
     <type fullname="System.Diagnostics.DebuggableAttribute/DebuggingModes" preserve="all" />
@@ -336,6 +351,7 @@
     <type fullname="System.Diagnostics.DebuggerStepThroughAttribute" preserve="all" />
     <type fullname="System.Enum" preserve="all" />
     <type fullname="System.Exception" preserve="all" />
+    <type fullname="System.FlagsAttribute" preserve="all" />
     <type fullname="System.Func`1" preserve="all" />
     <type fullname="System.Func`2" preserve="all" />
     <type fullname="System.Globalization.NumberStyles" preserve="all" />
@@ -351,6 +367,7 @@
     <type fullname="System.Int32" preserve="all" />
     <type fullname="System.Int64" preserve="all" />
     <type fullname="System.Math" preserve="all" />
+    <type fullname="System.MathF" preserve="all" />
     <type fullname="System.NotImplementedException" preserve="all" />
     <type fullname="System.Object" preserve="all" />
     <type fullname="System.Random" preserve="all" />

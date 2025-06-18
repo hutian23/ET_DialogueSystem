@@ -38,8 +38,8 @@ EndMove:
 RegistMove: (Zako2_Death)
   MoveType: Death;
 EndMove:
-GotoBehavior: Zako2_Spawn;
-# GotoBehavior: Zako2_Idle;
+# GotoBehavior: Zako2_Spawn;
+GotoBehavior: Zako2_Idle;
 return;
 
 @HPWatcher:

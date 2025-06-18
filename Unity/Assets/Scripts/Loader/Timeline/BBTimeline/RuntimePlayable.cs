@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
@@ -25,7 +24,7 @@ namespace Timeline
             runtimePlayable.timeline = _timeline;
             runtimePlayable.timelinePlayer = _timelinePlayer;
             runtimePlayable.playableGraph = PlayableGraph.Create(_timeline.timelineName);
-                
+            
             // 动画混合
             runtimePlayable.animationRootPlayable = AnimationLayerMixerPlayable.Create(runtimePlayable.playableGraph);
             Animator animator = runtimePlayable.timelinePlayer.GetComponent<Animator>();
@@ -53,15 +52,15 @@ namespace Timeline
             runtimeTracks.ForEach(runtimeTrack => runtimeTrack.UnBind());
             runtimeTracks.Clear();
             if (playableGraph.IsValid())
-            {
-                animationRootPlayable.Destroy();
+            { 
+                animationRootPlayable.Destroy(); 
                 playableGraph.Destroy();
             }
-            
+
             timeline = null;
             timelinePlayer = null;
-            currentFrame = -1;
-            instanceId = 0;
+            currentFrame = -1; 
+            instanceId = 0; 
         }
 
         public void Rebind()

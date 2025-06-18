@@ -75,6 +75,7 @@ RegistMove: (Glin_Bow2)
   MoveType: None;
 EndMove:
 GotoBehavior: Glin_Idle;
+# GotoBehavior: Glin_Step2_Ballon;
 
 @HPWatcher:
 # 死亡逻辑
@@ -936,6 +937,7 @@ GotoBehavior: Glin_Step2_Teleport;
 return;
 
 @Main:
+SetVelocity: 0, 0;
 Shake: 500, 500, 10000, 70, 1;
 RegistCounter: 100;
 BeginLoopAnim: (Counter: Value > 0)

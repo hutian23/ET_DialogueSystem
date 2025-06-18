@@ -35,6 +35,7 @@ RegistMove: (Boss_Wounded)
 RegistMove: (Boss_Dead)
   MoveType: None;
   EndMove:
+Test;
 return;
 
 [Boss_Idle]

@@ -24,6 +24,7 @@ namespace ET.Client
             enemy.AddComponent<BBParser>();
             go.GetComponent<BBScript>().instanceId = enemy.InstanceId;
             
+            // Log.Warning("1");
             
             await ETTask.CompletedTask;
             return Status.Success;

@@ -8,7 +8,8 @@
         "Unity.InputSystem",
         "RG.ImGui",
         "RG.ImGui.Unity",
-        "Cinemachine"
+        "Cinemachine",
+        "PimDeWitte.UnityMainThreadDispatcher"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

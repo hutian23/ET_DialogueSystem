@@ -17,7 +17,7 @@ namespace ET.Client
 
             //1. 读取textAsset
             TextAsset asset = unit.GetComponent<GameObjectComponent>().GameObject.GetComponent<Injector>().script;
-            string text = File.ReadAllText(asset.GetPath());
+            string text = File.ReadAllText(asset.text);
             if (string.IsNullOrEmpty(text))
             {
                 Log.Error($"cannot format bbScript!!");

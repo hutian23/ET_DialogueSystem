@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Timeline
 {
-    public sealed class TimelinePlayer: SerializedMonoBehaviour
+    public sealed class TimelinePlayer: MonoBehaviour
     {
         [HideInInspector]
         public long instanceId; // timelineComponent.InstanceId
@@ -15,12 +15,12 @@ namespace Timeline
         
         [ShowIf("HasNotBindUnit")]
         public BBPlayableGraph PlayableGraph;
-        
+
         public bool HasNotBindUnit
         {
             get => instanceId == 0;
         }
-        
+
         public void OnDisable()
         {
             Dispose();

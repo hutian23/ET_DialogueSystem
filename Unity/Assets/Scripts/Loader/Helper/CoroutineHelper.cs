@@ -1,4 +1,5 @@
 ﻿using System;
+using PimDeWitte.UnityMainThreadDispatcher;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -10,7 +11,13 @@ namespace ET
         public static async ETTask GetAwaiter(this AsyncOperation asyncOperation)
         {
             ETTask task = ETTask.Create(true);
-            asyncOperation.completed += _ => { task.SetResult(); };
+            asyncOperation.completed += _ =>
+            {
+                UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                {
+                    task.SetResult();
+                });
+            };
             await task;
         }
         

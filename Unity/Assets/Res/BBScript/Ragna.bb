@@ -341,10 +341,11 @@ InAir: false;
 return;
 
 @Main:
+HitNotify: Once, Rg_5B, HitCallback;
 SetVelocityX: 0;
 BBSprite: Anticipate_1, 2;
 BBSprite: Anticipate_2, 1;
-# 冲刺取消
+# 添加冲刺取消
 EnableGatlingCancel: true;
 EnableWhiffCancel: true;
 WhiffOption: Rg_GroundDash;
@@ -356,7 +357,6 @@ SetVelocityX: 50000;
 BBSprite: Anticipate_6, 2;
 SetVelocityX: 100000;
 BBSprite: Anticipate_7, 2;
-HitNotify: Once, Rg_5B, HitCallback;
 BBSprite: Active_1, 2;
 SetVelocityX: 50000;
 BBSprite: Active_1, 2;
@@ -364,7 +364,7 @@ SetVelocityX: 30000;
 BBSprite: Active_2, 3;
 BBSprite: End_1, 2;
 SetVelocityX: 0;
-# 启动TC窗口
+# 启动TC取消窗口
 EnableTargetComboCancel: true;
 TargetComboOption: Rg_5C, 18;
 EnableNandemoCancel: true;
@@ -377,7 +377,7 @@ Exit;
 @HitCallback:
 Shake: 200, 0, 10000, 10, 1;
 HitShake: 600, 0, 11000, 10, 1;
-Damage: 100000;
+# Damage: 100000;
 return;
 
 
@@ -525,6 +525,7 @@ Exit;
 
 
 [Rg_Charge]
+# 进入技能的前置条件
 @Trigger:
 InputType: 5LPHold;
 InAir: false;
@@ -542,7 +543,7 @@ BBSprite: Start_6, 3;
 BBSprite: Start_7, 3;
 BBSprite: Start_8, 3;
 BBSprite: Start_9, 3;
-# 冲刺取消
+# 添加冲刺取消
 EnableWhiffCancel: true;
 WhiffOption: Rg_GroundDash;
 BBSprite: Start_10, 3;
@@ -578,6 +579,8 @@ EnableJumpMoveX: 150000, true;
 BBSprite: Anticipate_1, 2;
 BBSprite: Anticipate_2, 2;
 BBSprite: Anticipate_3, 2;
+# 添加攻击回调
+HitNotify: Once, Rg_JC, HitCallback;
 BBSprite: Active_1, 2;
 BBSprite: Active_2, 2;
 EnableWhiffCancel: true;
@@ -601,6 +604,10 @@ SetVelocityX: 0;
 SetTransition: AirToLand, true;
 Exit;
 
+# 攻击回调
+@HitCallback:
+Damage: 10000;
+return;
 
 [Rg_PlungingAttack]
 @TargetComboTrigger:
@@ -917,17 +924,19 @@ InputType: 5MPPressed;
 return;
 
 @Main:
+# 技能前摇
 SetVelocityX: 0;
 BBSprite: Anticipate_1, 2;
 BBSprite: Anticipate_2, 2;
 BBSprite: Anticipate_3, 3;
 SetVelocityX: 350000;
-EnableAttackRangeCheck: true, -15000, 0, 45000, 40000;
-HitNotify: Once, Rg_CarnageScissors_Step1, Hit1;
+EnableAttackRangeCheck: true, -15000, 0, 45000, 40000; # 创建一个攻击范围检测判定框
+HitNotify: Once, Rg_CarnageScissors_Step1, Hit1; # 攻击事件
 BBSprite: Active_1, 4;
-CallSubCoroutine: Rg_CarnageScissors_Step1, VelCor;
+CallSubCoroutine: Rg_CarnageScissors_Step1, VelCor; # 减速协程
+# 冲刺
 RegistCounter: 12;
-BeginLoopAnim: (InAttackRange: false), (Counter: Value > 0)
+BeginLoopAnim: (InAttackRange: false), (Counter: Value > 0) # 每帧检测是否有敌人在攻击范围内
   LoopSprite: Active_2, 4;
   LoopSprite: Active_1, 4;
 EndLoopAnim:
@@ -941,15 +950,17 @@ BBSprite: Active_5, 2;
 SetVelocityX: 40000;
 BBSprite: Active_5, 2;
 SetVelocityX: 0;
+# 后摇
 BBSprite: End_1, 4;
 BBSprite: End_2, 3;
 EnableWhiffCancel: true;
 WhiffOption: Rg_GroundDash;
 BBSprite: End_2, 3;
 BBSprite: End_3, 4;
-BeginIf: (Flag: Hit, true)
+BeginIf: (Flag: Hit, true) # 
   GotoBehavior: Rg_CarnageScissors_Step2;
 EndIf:
+# 添加动画过渡取消，可以被比当前动作层级低的动作取消
 EnableNandemoCancel: true;
 BBSprite: End_4, 4;
 BBSprite: End_5, 4;

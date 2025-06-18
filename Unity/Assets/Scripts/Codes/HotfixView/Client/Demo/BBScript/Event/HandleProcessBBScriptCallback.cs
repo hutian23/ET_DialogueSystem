@@ -23,7 +23,9 @@ namespace ET.Client
             bbParser.Init();
 
             //3. 解析bbScript  TODO 这里还没想好打包后如何解析BBScript
-            string script = Define.IsEditor ? File.ReadAllText(bbScript.Script.GetPath()) : string.Empty;
+            // string script = Define.IsEditor ? File.ReadAllText(bbScript.Script.GetPath()) : string.Empty;
+            string script = bbScript.Script.text;
+            
             if (string.IsNullOrEmpty(script))
             {
                 Log.Error($"cannot format bbScript!!");
